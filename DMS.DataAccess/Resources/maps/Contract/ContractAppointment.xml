@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractAppointmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractAppointment" assembly="DMS.Model.dll" type="DMS.Model.ContractAppointment" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="ContractAppointmentResult" class="ContractAppointment">
+      <result property="CapId" column="CapId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CapCmId" column="CapCmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CapDmaId" column="CapDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CapDivision" column="CapDivision" type="string" dbType="nvarchar"/>
+      <result property="CapMarketType" column="CapMarketType" type="int" dbType="int"/>
+      <result property="CapRecommender" column="CapRecommender" type="string" dbType="nvarchar"/>
+      <result property="CapJobTitle" column="CapJobTitle" type="string" dbType="nvarchar"/>
+      <result property="CapCompanyName" column="CapCompanyName" type="string" dbType="nvarchar"/>
+      <result property="CapContactPerson" column="CapContactPerson" type="string" dbType="nvarchar"/>
+      <result property="CapEmailAddress" column="CapEmailAddress" type="string" dbType="nvarchar"/>
+      <result property="CapOfficeNumber" column="CapOfficeNumber" type="string" dbType="nvarchar"/>
+      <result property="CapMobilePhone" column="CapMobilePhone" type="string" dbType="nvarchar"/>
+      <result property="CapOfficeAddress" column="CapOfficeAddress" type="string" dbType="nvarchar"/>
+      <result property="CapCompanyType" column="CapCompanyType" type="string" dbType="nvarchar"/>
+      <result property="CapEstablishedTime" column="CapEstablishedTime" type="DateTime" dbType="datetime"/>
+      <result property="CapRegisteredCapital" column="CapRegisteredCapital" type="string" dbType="nvarchar"/>
+      <result property="CapWebsite" column="CapWebsite" type="string" dbType="nvarchar"/>
+      <result property="CapBusinessLicense" column="CapBusinessLicense" type="bool" dbType="bit"/>
+      <result property="CapMedicalLicense" column="CapMedicalLicense" type="bool" dbType="bit"/>
+      <result property="CapTaxRegistration" column="CapTaxRegistration" type="bool" dbType="bit"/>
+      <result property="CapHealthcareExperience" column="CapHealthcareExperience" type="string" dbType="nvarchar"/>
+      <result property="CapInterventionalExperience" column="CapInterventionalExperience" type="string" dbType="nvarchar"/>
+      <result property="CapKolRelationships" column="CapKolRelationships" type="string" dbType="nvarchar"/>
+      <result property="CapBusinessPartnerships" column="CapBusinessPartnerships" type="string" dbType="nvarchar"/>
+      <result property="CapCompetencyJustifications" column="CapCompetencyJustifications" type="string" dbType="nvarchar"/>
+      <result property="CapContractType" column="CapContractType" type="string" dbType="nvarchar"/>
+      <result property="CapBscEntity" column="CapBscEntity" type="string" dbType="nvarchar"/>
+      <result property="CapExclusiveness" column="CapExclusiveness" type="string" dbType="nvarchar"/>
+      <result property="CapEffectiveDate" column="CapEffectiveDate" type="DateTime" dbType="datetime"/>
+      <result property="CapExpirationDate" column="CapExpirationDate" type="DateTime" dbType="datetime"/>
+      <result property="CapProductLine" column="CapProductLine" type="string" dbType="nvarchar"/>
+      <result property="CapPricing" column="CapPricing" type="string" dbType="nvarchar"/>
+      <result property="CapPricingDiscount" column="CapPricingDiscount" type="string" dbType="nvarchar"/>
+      <result property="CapPricingDiscountRemark" column="CapPricingDiscountRemark" type="string" dbType="nvarchar"/>
+      <result property="CapPricingRebate" column="CapPricingRebate" type="string" dbType="nvarchar"/>
+      <result property="CapPricingRebateRemark" column="CapPricingRebateRemark" type="string" dbType="nvarchar"/>
+      <result property="CapTerritory" column="CapTerritory" type="string" dbType="nvarchar"/>
+      <result property="CapQuotas" column="CapQuotas" type="string" dbType="nvarchar"/>
+      <result property="CapPaymentTerm" column="CapPaymentTerm" type="string" dbType="nvarchar"/>
+      <result property="CapSpecialSales" column="CapSpecialSales" type="string" dbType="nvarchar"/>
+      <result property="CapCreditLimit" column="CapCreditLimit" type="string" dbType="nvarchar"/>
+      <result property="CapAccount" column="CapAccount" type="string" dbType="nvarchar"/>
+      <result property="CapGuarantee" column="CapGuarantee" type="string" dbType="nvarchar"/>
+      <result property="CapGuaranteeRemark" column="CapGuaranteeRemark" type="string" dbType="nvarchar"/>
+      <result property="CapSecurityDeposit" column="CapSecurityDeposit" type="string" dbType="nvarchar"/>
+      <result property="CapInterviewDate" column="CapInterviewDate" type="DateTime" dbType="datetime"/>
+      <result property="CapVenue" column="CapVenue" type="string" dbType="nvarchar"/>
+      <result property="CapInterview" column="CapInterview" type="string" dbType="nvarchar"/>
+      <result property="CapInterviewFindings" column="CapInterviewFindings" type="string" dbType="nvarchar"/>
+      <result property="CapCocTraningDate" column="CapCocTraningDate" type="DateTime" dbType="datetime"/>
+      <result property="CapNonCompete" column="CapNonCompete" type="bool" dbType="bit"/>
+      <result property="CapNonCompeteReason" column="CapNonCompeteReason" type="string" dbType="nvarchar"/>
+      <result property="CapSubDealers" column="CapSubDealers" type="bool" dbType="bit"/>
+      <result property="CapFcpaConcernsProperty1" column="CapFcpaConcernsProperty1" type="bool" dbType="bit"/>
+      <result property="CapFcpaConcernsProperty2" column="CapFcpaConcernsProperty2" type="bool" dbType="bit"/>
+      <result property="CapFcpaConcernsProperty3" column="CapFcpaConcernsProperty3" type="bool" dbType="bit"/>
+      <result property="CapFcpaConcernsOther" column="CapFcpaConcernsOther" type="string" dbType="nvarchar"/>
+      <result property="CapDealerConflict" column="CapDealerConflict" type="bool" dbType="bit"/>
+      <result property="CapDealerConflictReason" column="CapDealerConflictReason" type="string" dbType="nvarchar"/>
+      <result property="CapExclusiveConflict" column="CapExclusiveConflict" type="bool" dbType="bit"/>
+      <result property="CapExclusiveConflictReason" column="CapExclusiveConflictReason" type="string" dbType="nvarchar"/>
+      <result property="CapAttachment" column="CapAttachment" type="string" dbType="nvarchar"/>
+      <result property="CapRsmPrintName" column="CapRsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapRsmDate" column="CapRsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CapNcmPrintName" column="CapNcmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapNcmDate" column="CapNcmDate" type="DateTime" dbType="datetime"/>
+      <result property="CapNsmPrintName" column="CapNsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapNsmDate" column="CapNsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CapNcmForPart2PrintName" column="CapNcmForPart2PrintName" type="string" dbType="nvarchar"/>
+      <result property="CapNcmForPart2Date" column="CapNcmForPart2Date" type="DateTime" dbType="datetime"/>
+      <result property="CapDrmPrintName" column="CapDrmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapDrmDate" column="CapDrmDate" type="DateTime" dbType="datetime"/>
+      <result property="CapFcPrintName" column="CapFcPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapFcDate" column="CapFcDate" type="DateTime" dbType="datetime"/>
+      <result property="CapCdPrintName" column="CapCdPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapCdDate" column="CapCdDate" type="DateTime" dbType="datetime"/>
+      <result property="CapVpfPrintName" column="CapVpfPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapVpfDate" column="CapVpfDate" type="DateTime" dbType="datetime"/>
+      <result property="CapVpapPrintName" column="CapVpapPrintName" type="string" dbType="nvarchar"/>
+      <result property="CapVpapDate" column="CapVpapDate" type="DateTime" dbType="datetime"/>
+      <result property="CapStatus" column="CapStatus" type="string" dbType="nvarchar"/>
+      <result property="CapType" column="CapType" type="string" dbType="nvarchar"/>
+      <result property="CapCreateDate" column="CapCreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CapCreateUser" column="CapCreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CapUpdateUser" column="CapUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CapUpdateDate" column="CapUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="CapCoConfirm" column="CapCoConfirm" type="bool" dbType="bit"/>
+      <result property="CapSubdepId" column="CapSubdepId" type="string" dbType="nvarchar"/>
+      <result property="CapSubdepName" column="CapSubdepName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectContractAppointment" parameterClass="string" resultClass="ContractAppointment">
+      SELECT CAP_ID AS CapId,CAP_CM_ID AS CapCmId,CAP_DMA_ID AS CapDmaId,CAP_Division AS CapDivision,CAP_MarketType AS CapMarketType,CAP_Recommender AS CapRecommender,CAP_Job_Title AS CapJobTitle,CAP_Company_Name AS CapCompanyName,CAP_Contact_Person AS CapContactPerson,CAP_Email_Address AS CapEmailAddress,CAP_Office_Number AS CapOfficeNumber,CAP_Mobile_Phone AS CapMobilePhone,CAP_Office_Address AS CapOfficeAddress,CAP_Company_Type AS CapCompanyType,CAP_Established_Time AS CapEstablishedTime,CAP_Registered_Capital AS CapRegisteredCapital,CAP_Website AS CapWebsite,CAP_Business_License AS CapBusinessLicense,CAP_Medical_License AS CapMedicalLicense,CAP_Tax_Registration AS CapTaxRegistration,CAP_Healthcare_Experience AS CapHealthcareExperience,CAP_Interventional_Experience AS CapInterventionalExperience,CAP_KOL_Relationships AS CapKolRelationships,CAP_Business_Partnerships AS CapBusinessPartnerships,CAP_Competency_Justifications AS CapCompetencyJustifications,CAP_Contract_Type AS CapContractType,CAP_BSC_Entity AS CapBscEntity,CAP_Exclusiveness AS CapExclusiveness,CAP_EffectiveDate AS CapEffectiveDate,CAP_ExpirationDate AS CapExpirationDate,CAP_ProductLine AS CapProductLine,CAP_Pricing AS CapPricing,CAP_Pricing_Discount AS CapPricingDiscount,CAP_Pricing_Discount_Remark AS CapPricingDiscountRemark,CAP_Pricing_Rebate AS CapPricingRebate,CAP_Pricing_Rebate_Remark AS CapPricingRebateRemark,CAP_Territory AS CapTerritory,CAP_Quotas AS CapQuotas,CAP_Payment_Term AS CapPaymentTerm,CAP_Special_Sales AS CapSpecialSales,CAP_Credit_Limit AS CapCreditLimit,CAP_Account AS CapAccount,CAP_Guarantee AS CapGuarantee,CAP_Guarantee_Remark AS CapGuaranteeRemark,CAP_Security_Deposit AS CapSecurityDeposit,CAP_Interview_Date AS CapInterviewDate,CAP_Venue AS CapVenue,CAP_Interview AS CapInterview,CAP_Interview_Findings AS CapInterviewFindings,CAP_COC_Traning_Date AS CapCocTraningDate,CAP_Non_Compete AS CapNonCompete,CAP_Non_Compete_Reason AS CapNonCompeteReason,CAP_Sub_Dealers AS CapSubDealers,CAP_FCPA_Concerns_Property1 AS CapFcpaConcernsProperty1,CAP_FCPA_Concerns_Property2 AS CapFcpaConcernsProperty2,CAP_FCPA_Concerns_Property3 AS CapFcpaConcernsProperty3,CAP_FCPA_Concerns_Other AS CapFcpaConcernsOther,CAP_Dealer_Conflict AS CapDealerConflict,CAP_Dealer_Conflict_Reason AS CapDealerConflictReason,CAP_Exclusive_Conflict AS CapExclusiveConflict,CAP_Exclusive_Conflict_Reason AS CapExclusiveConflictReason,CAP_Attachment AS CapAttachment,CAP_RSM_PrintName AS CapRsmPrintName,CAP_RSM_Date AS CapRsmDate,CAP_NCM_PrintName AS CapNcmPrintName,CAP_NCM_Date AS CapNcmDate,CAP_NSM_PrintName AS CapNsmPrintName,CAP_NSM_Date AS CapNsmDate,CAP_NCMForPart2_PrintName AS CapNcmForPart2PrintName,CAP_NCMForPart2_Date AS CapNcmForPart2Date,CAP_DRM_PrintName AS CapDrmPrintName,CAP_DRM_Date AS CapDrmDate,CAP_FC_PrintName AS CapFcPrintName,CAP_FC_Date AS CapFcDate,CAP_CD_PrintName AS CapCdPrintName,CAP_CD_Date AS CapCdDate,CAP_VPF_PrintName AS CapVpfPrintName,CAP_VPF_Date AS CapVpfDate,CAP_VPAP_PrintName AS CapVpapPrintName,CAP_VPAP_Date AS CapVpapDate,CAP_Status AS CapStatus,CAP_Type AS CapType,CAP_Create_Date AS CapCreateDate,CAP_Create_User AS CapCreateUser,CAP_Update_User AS CapUpdateUser,CAP_Update_Date AS CapUpdateDate,CAP_COConfirm AS CapCoConfirm
+      ,CAP_SubDepID AS CapSubdepId ,B.CC_RV1 AS CapSubdepName
+      FROM ContractAppointment A
+      LEFT JOIN  INTERFACE.ClassificationContract  B ON A.CAP_SubDepID=B.CC_Code
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CAP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <update id="UpdateAppointmentCmidByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractAppointment
+      SET CAP_CM_ID=#CapCmId#
+      WHERE CAP_ID = #CapId#
+    </update>
+
+    <update id="UpdateAppointmentStatusByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractAppointment
+      SET CAP_Status=#Status#
+      WHERE CAP_ID = #CapId#
+    </update>
+
+    <update id="UpdateAppointmentCOConfirmByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractAppointment
+      SET CAP_COConfirm=#COConfirm#
+      WHERE CAP_ID = #CapId#
+    </update>
+    <!--admin Update-->
+    <select id="SelectAppointmentMain" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.ContractId,ContractNo,ContractStatus,E.VALUE1 AS ContractStatusName,DealerType,DepId,B.DivisionName AS DepName,SUBDEPID,C.CC_NameCN SUBDEPNAME,EId,EName,ApplicantDep,RequestDate,D.CompanyID,F.DMA_SAP_Code AS SAPCode,D.CompanyName AS DealerCnName,MarketType,
+      IsEquipment,Assessment	,AssessmentStart ,REASON,FORMERNAME,TypeRemark,A.IAF
+      FROM  Contract.AppointmentMain A(nolock)
+      INNER JOIN V_DivisionProductLineRelation B ON CONVERT(NVARCHAR(50),A.DepId)=B.DivisionCode AND B.IsEmerging='0'
+      INNER JOIN INTERFACE.ClassificationContract C(nolock) ON C.CC_Code=A.SUBDEPID
+      INNER JOIN Contract.AppointmentCandidate D(nolock) ON a.ContractId =d.ContractId
+      INNER JOIN  Lafite_DICT E(nolock) on E.DICT_TYPE='CONST_CONTRACT_ContractStatus' and A.ContractStatus=E.DICT_KEY
+      LEFT JOIN DealerMaster F(nolock) ON F.DMA_ID=D.CompanyID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.ContractId =#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractNo">A.ContractNo =#ContractNo#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectAppointmentDealer" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select A.ContractId,CompanyName,CompanyEName,Contact,EMail,IsEquipment,OfficeNumber,Mobile,DealerMark,OfficeAddress,CompanyType,EstablishedTime,Capital,Website,LPSAPCode,IsForeign,ForeignRemark,CompanyID,SAPCode ,C.DMA_ChineseShortName AS LPDealerName
+      FROM Contract.AppointmentCandidate A(nolock)
+      INNER JOIN Contract.AppointmentMain B(nolock) ON A.ContractId=B.ContractId
+      LEFT JOIN DealerMaster C(nolock) ON C.DMA_SAP_Code=A.LPSAPCode
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">B.ContractId =#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractNo">B.ContractNo =#ContractNo#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectAppointmentProposals" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT a.ContractId,AgreementBegin,AgreementEnd,Payment,CreditTerm,CreditLimit,PayTerm,IsDeposit,Deposit,Inform,InformOther,Comment,Attachment,IsCorssBu,CorssBuMemo
+      FROM Contract.AppointmentProposals A
+      INNER JOIN Contract.AppointmentMain B ON A.ContractId=B.ContractId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">b.ContractId =#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractNo">b.ContractNo =#ContractNo#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertAppointmentMainTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.AppointmentMainTemp(TempId,ContractId,ContractNo,REASON,FORMERNAME,TypeRemark,Assessment,AssessmentStart,IAF,UpdateUser,UpdateDate)
+      SELECT #TempId#,#ContractId#,#ContractNo#,#REASON#,
+      CASE WHEN #FORMERNAME#='' THEN NULL ELSE #FORMERNAME# END,
+      CASE WHEN #TypeRemark#='' THEN NULL ELSE #TypeRemark# END,
+      #Assessment#,
+      CASE WHEN #AssessmentStart#='' THEN NULL ELSE #AssessmentStart# END,#IAF#,#UpdateUser#,GETDATE()
+    </insert>
+    <insert id="InsertAppointmentDealerMainTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.AppointmentCandidateTemp
+      (TempId,ContractId,CompanyName,CompanyEName,Contact,EMail,IsEquipment,OfficeNumber,Mobile,OfficeAddress,CompanyType,EstablishedTime,Capital,Website,LPSAPCode,IsForeign,ForeignRemark,SAPCode)
+      SELECT
+      #TempId#,#ContractId#,#CompanyName#,#CompanyEName#,#Contact#,#EMail#,#IsEquipment#,#OfficeNumber#,#Mobile#,#OfficeAddress#,#CompanyType#,#EstablishedTime#,#Capital#,#Website#,#LPSAPCode#,NULL,NULL,#SAPCode#
+    </insert>
+    <insert id="InsertAppointmentProposalsTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.AppointmentProposalsTemp(TempId,ContractId,AgreementBegin,AgreementEnd,Payment,CreditTerm,CreditLimit,IsDeposit,Deposit,Inform)
+      SELECT #TempId#,#ContractId#,#AgreementBegin#,#AgreementEnd#,#Payment#,#CreditTerm#,#CreditLimit#,#IsDeposit#,#Deposit#,#Inform#
+    </insert>
+  </statements>
+</sqlMap>

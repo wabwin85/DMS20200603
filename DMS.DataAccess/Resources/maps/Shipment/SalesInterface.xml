@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SalesInterfaceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="SalesInterface" assembly="DMS.Model.dll" type="DMS.Model.SalesInterface" />
+    <typeAlias alias="LpConsignmentSalesData" assembly="DMS.Model.dll" type="DMS.Model.LpConsignmentSalesData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SalesInterfaceResult" class="SalesInterface">
+      <result property="Id" column="SI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BatchNbr" column="SI_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="RecordNbr" column="SI_RecordNbr" type="string" dbType="nvarchar"/>
+      <result property="SphId" column="SI_SPH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SphShipmentNbr" column="SI_SPH_ShipmentNbr" type="string" dbType="nvarchar"/>
+      <result property="Status" column="SI_Status" type="string" dbType="nvarchar"/>
+      <result property="ProcessType" column="SI_ProcessType" type="string" dbType="nvarchar"/>
+      <result property="FileName" column="SI_FileName" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="SI_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="SI_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="SI_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="SI_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="SI_ClientID" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="LPConsignmentSalesDataResult" class="LpConsignmentSalesData">
+      <resutl property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+      <resutl property="CustomerID" column="CustomerID" type="string" dbType="nvarchar"/>
+      <resutl property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <resutl property="SalesDate" column="SalesDate" type="DateTime" dbType="datetime"/>
+      <resutl property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+      <resutl property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+      <resutl property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+      <resutl property="UnitPrice" column="UnitPrice" type="decimal" dbType="decimal"/>
+      <resutl property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="LPConsignmentSalesMap" class="System.Collections.Hashtable" >
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Success" column="Success" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectSalesInterface" parameterClass="string" resultClass="SalesInterface">
+      SELECT SI_ID AS Id,SI_BatchNbr AS BatchNbr,SI_RecordNbr AS RecordNbr,SI_SPH_ID AS SphId,SI_SPH_ShipmentNbr AS SphShipmentNbr,SI_Status AS Status,SI_ProcessType AS ProcessType,SI_FileName AS FileName,SI_CreateUser AS CreateUser,SI_CreateDate AS CreateDate,SI_UpdateUser AS UpdateUser,SI_UpdateDate AS UpdateDate,SI_ClientID AS Clientid
+      FROM SalesInterface
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterSalesInterface" parameterClass="SalesInterface" resultClass="SalesInterface">
+      SELECT SI_ID AS Id,SI_BatchNbr AS BatchNbr,SI_RecordNbr AS RecordNbr,SI_SPH_ID AS SphId,SI_SPH_ShipmentNbr AS SphShipmentNbr,SI_Status AS Status,SI_ProcessType AS ProcessType,SI_FileName AS FileName,SI_CreateUser AS CreateUser,SI_CreateDate AS CreateDate,SI_UpdateUser AS UpdateUser,SI_UpdateDate AS UpdateDate,SI_ClientID AS Clientid
+      FROM SalesInterface
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">SI_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="RecordNbr">SI_RecordNbr=#RecordNbr#</isNotNull>
+        <isNotNull prepend="AND" property="SphId">SI_SPH_ID=#SphId#</isNotNull>
+        <isNotNull prepend="AND" property="SphShipmentNbr">SI_SPH_ShipmentNbr=#SphShipmentNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Status">SI_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ProcessType">SI_ProcessType=#ProcessType#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">SI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">SI_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">SI_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">SI_ClientID=#Clientid#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertSalesInterface" parameterClass="SalesInterface">
+      INSERT INTO SalesInterface
+      (SI_ID,SI_BatchNbr,SI_RecordNbr,SI_SPH_ID,SI_SPH_ShipmentNbr,SI_Status,SI_ProcessType,SI_FileName,SI_CreateUser,SI_CreateDate,SI_UpdateUser,SI_UpdateDate,SI_ClientID)
+      VALUES(#Id#,#BatchNbr#,#RecordNbr#,#SphId#,#SphShipmentNbr#,#Status#,#ProcessType#,#FileName#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#)
+    </insert>
+    <update id="UpdateSalesInterface" parameterClass="SalesInterface">
+      UPDATE SalesInterface
+      SET SI_ID=#Id#,SI_BatchNbr=#BatchNbr#,SI_RecordNbr=#RecordNbr#,SI_SPH_ID=#SphId#,SI_SPH_ShipmentNbr=#SphShipmentNbr#,SI_Status=#Status#,SI_ProcessType=#ProcessType#,SI_FileName=#FileName#,SI_UpdateUser=#UpdateUser#,SI_UpdateDate=#UpdateDate#,SI_ClientID=#Clientid#
+      WHERE SI_ID = #Id#
+    </update>
+    <delete id="DeleteSalesInterface" parameterClass="string">
+      DELETE FROM SalesInterface
+      WHERE SI_ID = #value#
+    </delete>
+    <!--根据批处理号得到寄售单数据-->
+    <select id="QueryLPConsignmentSalesInfoByBatchNbr" parameterClass="System.Collections.Hashtable" resultClass="LpConsignmentSalesData">
+      SELECT
+      isnull(dma.DMA_SAP_Code,'') as DistributorID,
+      sph.SPH_ShipmentDate as SalesDate,
+      isnull(Hospital.HOS_Key_Account,'') as CustomerID,
+      isnull(sph.SPH_NoteForPumpSerialNbr,'') as Remark,
+      isnull(pr.PMA_UPN,'') as UPN,
+      isnull(LotMaster.LTM_LotNumber,'') as Lot,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      CASE WHEN charindex('@@',LotMaster.LTM_LotNumber) > 0
+      THEN substring(LotMaster.LTM_LotNumber,1,charindex('@@',LotMaster.LTM_LotNumber)-1)
+      ELSE LotMaster.LTM_LotNumber
+      END AS Lot,
+      CASE WHEN charindex('@@',LotMaster.LTM_LotNumber) > 0
+      THEN substring(LotMaster.LTM_LotNumber,charindex('@@',LotMaster.LTM_LotNumber)+2,len(LotMaster.LTM_LotNumber))
+      ELSE ''
+      END AS QRCode,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      <!--slot.SLT_UnitPrice as UnitPrice,  不再使用销售到医院的价格，而是采用平台发货价格 Edit By Songweiming on 2016-05-19-->
+      (select max(isnull(dbo.fn_GetCfnPriceByDealer(CFNP.CFNP_Group_ID, CFNP.CFNP_CFN_ID, #SubCompanyId#, #BrandId#, 'DealerConsignment', 0),0))
+      from cfnprice CFNP where CFNP.CFNP_CFN_ID = pr.PMA_CFN_ID and CFNP.CFNP_Group_ID = dma.DMA_ID and CFNP.CFNP_PriceType='DealerConsignment' ) AS UnitPrice,
+      convert(decimal(18,6),slot.SLT_LotShippedQty) as Qty,
+      isnull(sph.SPH_ShipmentNbr,'') as SalesNo,
+      WHM_Code as WHID
+      from SalesInterface si(nolock)
+      inner join ShipmentHeader sph(nolock) on si.SI_SPH_ID=sph.SPH_ID
+      inner join DealerMaster dma(nolock) on sph.SPH_Dealer_DMA_ID=dma.DMA_ID
+      inner join ShipmentLine spl(nolock) on sph.SPH_ID=spl.SPL_SPH_ID
+      inner join Product pr(nolock) on spl.SPL_Shipment_PMA_ID=pr.PMA_ID
+      inner join ShipmentLot slot(nolock) on spl.SPL_ID=slot.SLT_SPL_ID
+      inner join Lot as l(nolock) on l.LOT_ID= isnull(slot.SLT_QRLOT_ID,slot.SLT_LOT_ID)
+      inner join LotMaster(nolock) on l.LOT_LTM_ID=LotMaster.LTM_ID
+      inner join Warehouse(nolock) on slot.SLT_WHM_ID=WHM_ID
+      inner join Hospital(nolock) on Hospital.HOS_ID = sph.SPH_Hospital_HOS_ID
+      where si.SI_BatchNbr= #BatchNbr#
+    </select>
+    <!--根据客户端ID初始化接口表-->
+    <update id="UpdateLpConsignmentInterfaceForInitByClientID" parameterClass="System.Collections.Hashtable">
+      WITH SI (SI_ID, RECORD_NBR) AS
+      (SELECT SI_ID,ROW_NUMBER() OVER (ORDER BY SI_SPH_ShipmentNbr ) AS RECORD_NBR from SalesInterface
+      WHERE SI_ClientID=#Clientid# AND SI_Status='Pending')
+      UPDATE SalesInterface SET
+      SI_BatchNbr=#BatchNbr#, SI_RecordNbr = SI.RECORD_NBR, SI_Status='Processing', SI_UpdateDate = #UpdateDate#
+      FROM SI WHERE SI.SI_ID = SalesInterface.SI_ID
+    </update>
+    <procedure id="GC_LPConsignmentSalesData_AfterDownload" parameterMap="LPConsignmentSalesMap">
+      dbo.GC_LPConsignmentSalesData_AfterDownload
+    </procedure>
+  </statements>
+</sqlMap>

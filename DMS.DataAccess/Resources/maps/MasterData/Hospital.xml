@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="HospitalMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Hospital" assembly="DMS.Model.dll" type="DMS.Model.Hospital" />
+    <typeAlias alias="LpHospitalData" assembly="DMS.Model.dll" type="DMS.Model.LpHospitalData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="LPHospitalDataResult" class="LpHospitalData">
+      <result property="HospitalID" column="HospitalID" type="string" dbType="nvarchar"/>
+      <result property="HospitalName" column="HospitalName" type="string" dbType="nvarchar"/>
+      <result property="CityName" column="CityName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectHospital" parameterClass="string" resultClass="Hospital">
+      SELECT HOS_HospitalName AS HosHospitalName,HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Key_BSAccount AS HosKeyBSAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      FROM Hospital
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          HOS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+      order by HOS_Province, HOS_City , HOS_District
+    </select>
+
+    <sql id="SelectHospitalFields_fragment">
+      SELECT *,row_number() OVER (ORDER BY HosProvince, HosCity , HosDistrict ASC) AS [row_number] FROM
+      (SELECT distinct HOS_HospitalName AS HosHospitalName,HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Key_BSAccount AS HosKeyBSAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate
+      ,(SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = HOS_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      FROM Hospital
+    </sql >
+    
+    <sql id="SelectHospitalFields_fragment2">
+      SELECT *,row_number() OVER (ORDER BY HOS_Province, HOS_City , HOS_District ASC) AS [row_number] FROM 
+      (SELECT distinct HOS_HospitalName,HOS_ID,HOS_Province,HOS_HospitalShortName,HOS_City,HOS_Grade,HOS_PostalCode,HOS_Key_Account,HOS_Address,HOS_PublicEmail,HOS_Town,HOS_Website,HOS_District,HOS_Phone,HOS_DailyOutpatient,HOS_ICU_BedNumber,HOS_BedsCount,HOS_Fax,HOS_ActiveFlag,HOS_CreatedDate,HOS_CreatedBy,HOS_ChiefEquipment,HOS_Director,HOS_ChiefEquipmentContact,HOS_DirectorContact,HOS_DeletedFlag,HOS_LastModifiedDate
+      ,(SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = HOS_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,HOS_LastModifiedBy_USR_UserID
+      FROM Hospital
+    </sql >
+
+    <select id="SelectHospitalList" parameterClass="Hospital" resultClass="Hospital">
+      <include refid="SelectHospitalFields_fragment"/>
+
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosDirector">HOS_Director like '%$HosDirector$%'</isNotEmpty>
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+      </dynamic>
+      AND HOS_ActiveFlag = 1 )a
+    </select>
+
+    <select id="SelectHospitalList_DataSet" parameterClass="Hospital" resultClass="Hospital">
+      <include refid="SelectHospitalFields_fragment2"/>
+
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosDirector">HOS_Director like '%$HosDirector$%'</isNotEmpty>
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+      </dynamic>
+      AND HOS_ActiveFlag = 1 )a
+    </select>
+
+    //查询Dealer已经获得授权的医院
+
+    <select id="SelectHospitalListOfDealerAuthorized" parameterClass="System.Collections.Hashtable" resultClass="Hospital">
+      <include refid="SelectHospitalFields_fragment"/>
+      INNER JOIN
+      HospitalList ON Hospital.HOS_ID = HospitalList.HLA_HOS_ID INNER JOIN
+      DealerAuthorizationTable ON HospitalList.HLA_DAT_ID = DealerAuthorizationTable.DAT_ID
+      <!--modified by bozhenfei on 20100712 @加入授权有效期限制-->
+      WHERE EXISTS (SELECT 1 FROM DealerContract
+      WHERE DealerContract.DCL_ID = DealerAuthorizationTable.DAT_DCL_ID
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DealerContract.DCL_StartDate, 112) AND CONVERT(varchar(100), DealerContract.DCL_StopDate, 112)-->)
+      <!--end-->
+      <isNotEmpty prepend="AND" property="DealerID">DealerAuthorizationTable.DAT_DMA_ID =#DealerID#</isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+      <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+      <isNotNull prepend="AND" property="HosDirector">HOS_Director like '%$HosDirector$%'</isNotNull>
+      <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+      and HOS_ActiveFlag = 1 )a
+
+    </select>
+
+
+    <select id="SelectHospitalListOfAuthorization" parameterClass="System.Collections.Hashtable" resultClass="Hospital">
+      <!--<include refid="SelectHospitalFields_fragment"/>-->
+      SELECT HOS_HospitalName AS HosHospitalName,HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate
+      ,(SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = HOS_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      ,row_number() OVER (ORDER BY HOS_Province, HOS_City , HOS_District ASC) AS [row_number]
+      ,dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID) as HosRemark
+      FROM Hospital
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+        <isNotNull prepend="AND" property="HosRemark">dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID)  = #HosRemark# </isNotNull>
+        <isNotNull prepend="AND"  property="AuthorizationId">
+          <isEqual prepend="" property="IsAuthorization" compareValue="1">
+            exists(select 1 from dbo.HospitalList b where b.HLA_HOS_ID = Hospital.HOS_ID and b.HLA_DAT_ID = #AuthorizationId# )
+          </isEqual>
+          <isEqual prepend="" property="IsAuthorization" compareValue="2">
+            not exists(select 1 from dbo.HospitalList a where b.HLA_HOS_ID = Hospital.HOS_ID and b.HLA_DAT_ID = #AuthorizationId# )
+          </isEqual>
+        </isNotNull>
+      </dynamic>
+      and HOS_ActiveFlag = 1
+    </select>
+
+    <!--<select id="SelectHospitalListOfAuthorizationTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      --><!--<include refid="SelectHospitalFields_fragment"/>--><!--
+      select newid() Id,HosId,HosHospitalShortName,HosHospitalName,HosGrade,HosKeyAccount,HosProvince,HosCity,HosDistrict,HosRemark,ISNULL(HosDepart,'') AS HosDepart,ISNULL(HosDepartType,'') AS HosDepartType,ISNULL(HosDepartTypeName,'') AS HosDepartTypeName ,ISNULL(HosDepartRemark,'') AS HosDepartRemark  ,TerritoryId,OperType,
+      TCount,
+      (case when TCount =0 then '' else TdisName.DealerName end) as RepeatDealer,
+      row_number() OVER (ORDER BY HosProvince, HosCity , HosDistrict ASC) AS [row_number] from (
+      select distinct HosId,HosHospitalShortName,HosHospitalName,HosGrade,HosKeyAccount,HosProvince,HosCity,HosDistrict,HosRemark,TerritoryId,OperType,HosDepart,HosDepartType,HosDepartTypeName,HosDepartRemark,
+      (case when bTotle.TCount IS null then 0 else bTotle.TCount end) as TCount,
+      aTotle.DAT_ProductLine_BUM_ID
+      from
+      (SELECT  dat.DAT_DMA_ID,
+      hos.HOS_ID AS HosId,
+      hos.HOS_HospitalShortName AS HosHospitalShortName,
+      hos.HOS_HospitalName AS HosHospitalName,
+      hos.HOS_Grade AS HosGrade,
+      hos.HOS_Key_Account AS HosKeyAccount,
+      hos.HOS_Province AS HosProvince,
+      hos.HOS_City AS HosCity,
+      hos.HOS_District AS HosDistrict,
+      dbo.fn_GetDeptRemarkForHositpalList(hos.HOS_ID) as HosRemark,
+      dat.DAT_ProductLine_BUM_ID,
+      cont.Contract_ID as DateId,
+      cont.Territory_Type as OperType,
+      cont.ID as TerritoryId,
+      cont.HOS_Depart as HosDepart,
+      cont.HOS_DepartType as HosDepartType,
+      dst.VALUE1 as HosDepartTypeName,
+      cont.HOS_DepartRemark  as HosDepartRemark
+      FROM Hospital hos
+      inner join dbo.ContractTerritory cont on hos.HOS_ID=cont.HOS_ID
+      inner join dbo.DealerAuthorizationTableTemp dat on dat.DAT_ID=cont.Contract_ID
+      left join Lafite_DICT dst on dst.DICT_TYPE='HospitalDepart'  and CONVERT(nvarchar(50),dat.DAT_ProductLine_BUM_ID) =dst.PID and cont.HOS_DepartType=dst.DICT_KEY
+      ) aTotle
+      left join (
+      select b.DAT_DMA_ID, b.DAT_ProductLine_BUM_ID,a.HLA_HOS_ID, count(a.HLA_HOS_ID) TCount
+      from HospitalList a
+      inner join DealerAuthorizationTable b on a.HLA_DAT_ID=b.DAT_ID
+      and b.DAT_PMA_ID  not in ('0a3b34da-43d6-4fed-b62b-a253010d7dd0','a2cf5034-52ca-4f7e-b6f7-a26700e82bd9','C3A82E41-8248-4B75-A58C-A348017D9901')
+      inner join V_DivisionProductLineRelation dp on dp.ProductLineID=b.DAT_ProductLine_BUM_ID and dp.IsEmerging='0'
+      inner join V_DealerContractMaster c on b.DAT_DMA_ID=c.DMA_ID
+      and CONVERT(nvarchar(20), c.Division)=dp.DivisionCode
+      and c.ActiveFlag=1
+      and CONVERT(nvarchar(20), isnull(c.MarketType,0))=#isEmerging#
+      inner join DealerMaster dm on dm.DMA_ID=b.DAT_DMA_ID and dm.DMA_DealerType  &lt;>'LP'
+      group by a.HLA_HOS_ID,b.DAT_ProductLine_BUM_ID,b.DAT_DMA_ID
+
+      ) bTotle
+
+      on  aTotle.DAT_ProductLine_BUM_ID=bTotle.DAT_ProductLine_BUM_ID
+      and aTotle.HosId=bTotle.HLA_HOS_ID
+      and aTotle.DAT_DMA_ID &lt;> bTotle.DAT_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="AuthorizationId">aTotle.DateId=#AuthorizationId# </isNotEmpty>
+      </dynamic>
+      ) dist
+      left join
+      (select t1.DAT_ProductLine_BUM_ID,t2.HLA_HOS_ID,[DealerName]=STUFF((  SELECT ','+tt1.[DMA_ChineseName]
+      FROM  DealerMaster tt1,DealerAuthorizationTable tt2,HospitalList tt3
+      WHERE  tt1.DMA_DealerType &lt;>'LP'
+      and tt1.Dma_ID =tt2.DAT_DMA_ID and tt3.HLA_DAT_ID=tt2.DAT_ID
+      and tt2.DAT_ProductLine_BUM_ID = t1.DAT_ProductLine_BUM_ID
+      and tt3.HLA_HOS_ID = t2.HLA_HOS_ID
+      and tt2.DAT_PMA_ID not in ('0a3b34da-43d6-4fed-b62b-a253010d7dd0','a2cf5034-52ca-4f7e-b6f7-a26700e82bd9','C3A82E41-8248-4B75-A58C-A348017D9901')
+      FOR XML PATH('')), 1, 1, '')
+      from DealerAuthorizationTable t1, HospitalList t2
+      where t2.HLA_DAT_ID=t1.DAT_ID
+      and t1.DAT_PMA_ID not in ('0a3b34da-43d6-4fed-b62b-a253010d7dd0','a2cf5034-52ca-4f7e-b6f7-a26700e82bd9','C3A82E41-8248-4B75-A58C-A348017D9901')
+      group by t1.DAT_ProductLine_BUM_ID,t2.HLA_HOS_ID) TdisName
+      on TdisName.DAT_ProductLine_BUM_ID=dist.DAT_ProductLine_BUM_ID and TdisName.HLA_HOS_ID=dist.HosId
+
+    </select>-->
+
+
+    <select id="SelectHospitalListOfAuthorizationTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <!--<include refid="SelectHospitalFields_fragment"/>-->
+      SELECT newid () Id,
+      HosId,
+      HosHospitalShortName,
+      HosHospitalName,
+      HosGrade,
+      HosKeyAccount,
+      HosProvince,
+      HosCity,
+      HosDistrict,
+      HosRemark,
+      ISNULL (HosDepart, '') AS HosDepart,
+      ISNULL (HosDepartType, '') AS HosDepartType,
+      ISNULL (HosDepartTypeName, '') AS HosDepartTypeName,
+      ISNULL (HosDepartRemark, '') AS HosDepartRemark,
+      TerritoryId,
+      OperType,
+      TCount,
+      (CASE WHEN TCount = 0 THEN '' ELSE TdisName.DealerName END)
+      AS RepeatDealer,
+      row_number () OVER (ORDER BY HosProvince, HosCity, HosDistrict ASC)
+      AS [row_number]
+      FROM    (SELECT DISTINCT
+      HosId,
+      HosHospitalShortName,
+      HosHospitalName,
+      HosGrade,
+      HosKeyAccount,
+      HosProvince,
+      HosCity,
+      HosDistrict,
+      HosRemark,
+      TerritoryId,
+      OperType,
+      HosDepart,
+      HosDepartType,
+      HosDepartTypeName,
+      HosDepartRemark,
+      aTotle.DAT_ProductLine_BUM_ID,
+      (CASE
+      WHEN bTotle.TCount IS NULL THEN 0
+      ELSE bTotle.TCount
+      END)
+      AS TCount
+
+      FROM    (SELECT dat.DAT_DMA_ID,
+      hos.HOS_ID AS HosId,
+      hos.HOS_HospitalShortName
+      AS HosHospitalShortName,
+      hos.HOS_HospitalName AS HosHospitalName,
+      hos.HOS_Grade AS HosGrade,
+      hos.HOS_Key_Account AS HosKeyAccount,
+      hos.HOS_Province AS HosProvince,
+      hos.HOS_City AS HosCity,
+      hos.HOS_District AS HosDistrict,
+      dbo.fn_GetDeptRemarkForHositpalList (hos.HOS_ID)
+      AS HosRemark,
+      dat.DAT_ProductLine_BUM_ID,
+      cont.Contract_ID AS DateId,
+      cont.Territory_Type AS OperType,
+      cont.ID AS TerritoryId,
+      cont.HOS_Depart AS HosDepart,
+      cont.HOS_DepartType AS HosDepartType,
+      dst.VALUE1 AS HosDepartTypeName,
+      cont.HOS_DepartRemark AS HosDepartRemark
+      FROM Hospital hos
+      INNER JOIN dbo.ContractTerritory cont
+      ON hos.HOS_ID = cont.HOS_ID
+      INNER JOIN dbo.DealerAuthorizationTableTemp dat
+      ON dat.DAT_ID = cont.Contract_ID
+      LEFT JOIN Lafite_DICT dst
+      ON     dst.DICT_TYPE = 'HospitalDepart'
+      AND CONVERT (NVARCHAR (50),
+      dat.DAT_ProductLine_BUM_ID) =
+      dst.PID
+      AND cont.HOS_DepartType = dst.DICT_KEY) aTotle
+      LEFT JOIN
+      (SELECT b.DAT_DMA_ID,
+      b.DAT_ProductLine_BUM_ID,
+      a.HLA_HOS_ID,
+      count (a.HLA_HOS_ID) TCount
+      FROM HospitalList a
+      INNER JOIN DealerAuthorizationTable b
+      ON     a.HLA_DAT_ID = b.DAT_ID
+      AND b.DAT_PMA_ID NOT IN
+      ('0a3b34da-43d6-4fed-b62b-a253010d7dd0',
+      'a2cf5034-52ca-4f7e-b6f7-a26700e82bd9',
+      'C3A82E41-8248-4B75-A58C-A348017D9901')
+      INNER JOIN V_DivisionProductLineRelation dp
+      ON     dp.ProductLineID =
+      b.DAT_ProductLine_BUM_ID
+      AND dp.IsEmerging = '0'
+      INNER JOIN V_DealerContractMaster c
+      ON     b.DAT_DMA_ID = c.DMA_ID
+      AND CONVERT (NVARCHAR (20), c.Division) =
+      dp.DivisionCode
+      AND c.ActiveFlag = 1
+      AND CONVERT (NVARCHAR (20),
+      isnull (c.MarketType, 0)) =
+      '0'
+      INNER JOIN DealerMaster dm(nolock)
+      ON     dm.DMA_ID = b.DAT_DMA_ID
+      AND dm.DMA_DealerType &lt;> 'LP'
+      GROUP BY a.HLA_HOS_ID,
+      b.DAT_ProductLine_BUM_ID,
+      b.DAT_DMA_ID) bTotle
+      ON     aTotle.DAT_ProductLine_BUM_ID =
+      bTotle.DAT_ProductLine_BUM_ID
+      AND aTotle.HosId = bTotle.HLA_HOS_ID
+      AND aTotle.DAT_DMA_ID &lt;> bTotle.DAT_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="AuthorizationId">aTotle.DateId=#AuthorizationId# </isNotEmpty>
+      </dynamic>
+
+      ) dist
+      LEFT JOIN
+      (SELECT t1.DAT_ProductLine_BUM_ID,
+      t2.HLA_HOS_ID,
+      [DealerName] =
+      STUFF (
+      (SELECT ',' + tt1.[DMA_ChineseName]
+      FROM DealerMaster tt1(nolock),
+      DealerAuthorizationTable tt2(nolock),
+      HospitalList tt3(nolock),
+      V_DealerContractMaster tt4,
+      V_AllHospitalMarketProperty tt5
+
+      WHERE     tt1.DMA_DealerType &lt;> 'LP'
+      AND tt4.ActiveFlag='1'
+      AND tt4.DMA_ID=tt1.DMA_ID
+      AND CONVERT(nvarchar(10), tt4.Division)=tt5.DivisionCode
+      AND tt2.DAT_ProductLine_BUM_ID=tt5.ProductLineID
+      AND ISNULL(tt4.MarketType,0)=tt5.MarketProperty
+      AND tt3.HLA_HOS_ID=tt5.Hos_Id
+
+
+      AND tt1.Dma_ID = tt2.DAT_DMA_ID
+      AND tt3.HLA_DAT_ID = tt2.DAT_ID
+      AND tt2.DAT_ProductLine_BUM_ID =
+      t1.DAT_ProductLine_BUM_ID
+      AND tt3.HLA_HOS_ID = t2.HLA_HOS_ID
+      AND tt2.DAT_PMA_ID NOT IN
+      ('0a3b34da-43d6-4fed-b62b-a253010d7dd0',
+      'a2cf5034-52ca-4f7e-b6f7-a26700e82bd9',
+      'C3A82E41-8248-4B75-A58C-A348017D9901')
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')
+      FROM DealerAuthorizationTable t1, HospitalList t2
+      WHERE     t2.HLA_DAT_ID = t1.DAT_ID
+      AND t1.DAT_PMA_ID NOT IN
+      ('0a3b34da-43d6-4fed-b62b-a253010d7dd0',
+      'a2cf5034-52ca-4f7e-b6f7-a26700e82bd9',
+      'C3A82E41-8248-4B75-A58C-A348017D9901')
+      GROUP BY t1.DAT_ProductLine_BUM_ID, t2.HLA_HOS_ID) TdisName
+      ON     TdisName.DAT_ProductLine_BUM_ID = dist.DAT_ProductLine_BUM_ID
+      AND TdisName.HLA_HOS_ID = dist.HosId
+
+    </select>
+
+    <select id="SelectHospitalListOfSales" parameterClass="System.Collections.Hashtable" resultClass="Hospital">
+      <include refid="SelectHospitalFields_fragment"/>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+
+        <isNotNull prepend="AND"  property="SaleId">
+          <isEqual prepend="" property="IsCheckSales" compareValue="1">
+            exists(select 1 from dbo.SalesRepHospital b where b.SRN_HOS_ID = Hospital.HOS_ID and b.SRH_USR_UserID = #SaleId#  and b.BUM_ID=#ProductLineId# )
+          </isEqual>
+          <isEqual prepend="" property="IsCheckSales" compareValue="2">
+            not exists(select 1 from dbo.SalesRepHospital a where b.SRN_HOS_ID = Hospital.HOS_ID and b.SRH_USR_UserID = #SaleId#  and b.BUM_ID=#ProductLineId# )
+          </isEqual>
+        </isNotNull>
+      </dynamic>
+      and HOS_ActiveFlag = 1 )a
+
+    </select>
+
+    <select id="SelectHospitalListOfProductLine" parameterClass="System.Collections.Hashtable" resultClass="Hospital">
+      <include refid="SelectHospitalFields_fragment"/>
+
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+
+        <!--<isNotNull prepend="AND"  property="ProductLineId">
+          <isEqual prepend="" property="IsCheckProductLine" compareValue="1">
+            exists(select 1 from dbo.ProductLineHospital a where a.PLH_HOS_ID = Hospital.HOS_ID and a.PLH_BUM_ID = #ProductLineId# )
+          </isEqual>
+          <isEqual prepend="" property="IsCheckProductLine" compareValue="2">
+            not exists(select 1 from dbo.ProductLineHospital a where a.PLH_HOS_ID = Hospital.HOS_ID and a.PLH_BUM_ID = #ProductLineId# )
+          </isEqual>
+        </isNotNull>-->
+      </dynamic>
+      and HOS_ActiveFlag = 1 )a
+
+    </select>
+
+    <select id="SelectHospitalListOfProductLine_DataSet" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <include refid="SelectHospitalFields_fragment2"/>
+
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+
+        <!--<isNotNull prepend="AND"  property="ProductLineId">
+          <isEqual prepend="" property="IsCheckProductLine" compareValue="1">
+            exists(select 1 from dbo.ProductLineHospital a where a.PLH_HOS_ID = Hospital.HOS_ID and a.PLH_BUM_ID = #ProductLineId# )
+          </isEqual>
+          <isEqual prepend="" property="IsCheckProductLine" compareValue="2">
+            not exists(select 1 from dbo.ProductLineHospital a where a.PLH_HOS_ID = Hospital.HOS_ID and a.PLH_BUM_ID = #ProductLineId# )
+          </isEqual>
+        </isNotNull>-->
+      </dynamic>
+      and HOS_ActiveFlag = 1 )a
+
+    </select>
+    
+    <select id="SelectByProductLineDCMS" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT HOS_HospitalName AS HosHospitalName,A.HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate
+      ,(SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = HOS_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      ,B.MarketProperty
+      ,row_number() OVER (ORDER BY B.MarketProperty, HOS_Province, HOS_City , HOS_District ASC) AS [row_number]
+      FROM Hospital A
+      INNER JOIN V_AllHospitalMarketProperty B ON A.HOS_ID=B.Hos_Id
+
+      <dynamic prepend="WHERE">
+
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">A.HOS_HospitalShortName like '%$HosHospitalShortName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">(A.HOS_HospitalName like '%$HosHospitalName$%' OR A.HOS_HospitalShortName like '%$HosHospitalName$%') </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">A.HOS_Grade = #HosGrade# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosProvince">A.HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">A.HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">A.HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">A.HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+        <isNotNull prepend="AND" property="HosDeletedFlag">A.HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+        <isNotNull prepend="AND" property="HosActiveFlag">A.HOS_ActiveFlag = #HosActiveFlag# </isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">B.ProductLineID= #ProductLineId# </isNotNull>
+        <isNotNull prepend="AND" property="IsEmerging">B.MarketProperty IN ( #IsEmerging#,'2') </isNotNull>
+
+      </dynamic>
+
+    </select>
+
+    <insert id="InsertHospital" parameterClass="Hospital">
+      INSERT INTO Hospital
+      (HOS_HospitalName,HOS_ID,HOS_Province,HOS_HospitalShortName,HOS_City,HOS_Grade,HOS_PostalCode,HOS_Key_Account,HOS_Key_BSAccount,HOS_Address,HOS_PublicEmail,HOS_Town,HOS_Website,HOS_District,HOS_Phone,HOS_DailyOutpatient,HOS_ICU_BedNumber,HOS_BedsCount,HOS_Fax,HOS_ActiveFlag,HOS_CreatedDate,HOS_CreatedBy,HOS_ChiefEquipment,HOS_Director,HOS_ChiefEquipmentContact,HOS_DirectorContact,HOS_DeletedFlag,HOS_LastModifiedDate,HOS_LastModifiedBy_USR_UserID)
+      VALUES(#HosHospitalName#,#HosId#,#HosProvince#,#HosHospitalShortName#,#HosCity#,#HosGrade#,#HosPostalCode#,#HosKeyAccount#,#HosKeyBSAccount#,#HosAddress#,#HosPublicEmail#,#HosTown#,#HosWebsite#,#HosDistrict#,#HosPhone#,#HosDailyOutpatient#,#HosIcuBedNumber#,#HosBedsCount#,#HosFax#,#HosActiveFlag#,#HosCreatedDate:DateTime:1/1/0001 12:00:00 AM#,#HosCreatedBy#,#HosChiefEquipment#,#HosDirector#,#HosChiefEquipmentContact#,#HosDirectorContact#,#HosDeletedFlag#,#HosLastModifiedDate:DateTime:1/1/0001 12:00:00 AM#,#HosLastModifiedByUsrUserid#)
+    </insert>
+    <update id="UpdateHospital" parameterClass="Hospital">
+      UPDATE Hospital
+      SET HOS_HospitalName=#HosHospitalName#,HOS_Province=#HosProvince#,HOS_HospitalShortName=#HosHospitalShortName#,HOS_City=#HosCity#,HOS_Grade=#HosGrade#,HOS_PostalCode=#HosPostalCode#,HOS_Key_Account=#HosKeyAccount#,HOS_Address=#HosAddress#,HOS_PublicEmail=#HosPublicEmail#,HOS_Town=#HosTown#,HOS_Website=#HosWebsite#,HOS_District=#HosDistrict#,HOS_Phone=#HosPhone#,HOS_DailyOutpatient=#HosDailyOutpatient#,HOS_ICU_BedNumber=#HosIcuBedNumber#,HOS_BedsCount=#HosBedsCount#,HOS_Fax=#HosFax#,HOS_ActiveFlag=#HosActiveFlag#,
+      HOS_ChiefEquipment=#HosChiefEquipment#,
+      HOS_Director=#HosDirector#,
+      HOS_ChiefEquipmentContact=#HosChiefEquipmentContact#,
+      HOS_DirectorContact=#HosDirectorContact#,
+      HOS_DeletedFlag=#HosDeletedFlag#,
+      HOS_LastModifiedDate=#HosLastModifiedDate#,
+      HOS_LastModifiedBy_USR_UserID=#HosLastModifiedByUsrUserid#,
+      HOS_Key_BSAccount=#HosKeyBSAccount#
+      WHERE HOS_ID = #HosId#
+    </update>
+    <delete id="DeleteHospital" parameterClass="string">
+      DELETE FROM Hospital
+      WHERE HOS_ID = #value#
+    </delete>
+
+
+    <delete id="FakeDeleteHospital" parameterClass="Hospital">
+      UPDATE Hospital SET
+      HOS_DeletedFlag=#HosDeletedFlag#,
+      HOS_LastModifiedDate=#HosLastModifiedDate#,
+      HOS_LastModifiedBy_USR_UserID=#HosLastModifiedByUsrUserid#
+      WHERE HOS_ID = #HosId#
+    </delete>
+
+
+    <insert id="AttachHospitalToProductLine" parameterClass="System.Collections.Hashtable">
+      IF (NOT EXISTS (SELECT 1 FROM  dbo.ProductLineHospital m WITH ( UPDLOCK, HOLDLOCK )
+      WHERE PLH_BUM_ID = #ProductLineId# AND PLH_HOS_ID = #HosId# ))
+      BEGIN
+      insert into dbo.ProductLineHospital(PLH_ID,PLH_BUM_ID,PLH_HOS_ID)
+      values(newid(),#ProductLineId#, #HosId#)
+      END
+    </insert>
+    <delete id="DetachHospitalFromProductLine" parameterClass="System.Collections.Hashtable">
+      DELETE FROM dbo.ProductLineHospital where PLH_BUM_ID = #ProductLineId# AND PLH_HOS_ID = #HosId#
+    </delete>
+
+    <insert id="AttachHospitalToSales" parameterClass="System.Collections.Hashtable">
+      IF (NOT EXISTS (SELECT 1 FROM  dbo.SalesRepHospital m WITH ( UPDLOCK, HOLDLOCK )
+      WHERE SRH_USR_UserID = #SaleId# AND SRN_HOS_ID = #HosId# AND BUM_ID = #ProductLineId# ))
+      BEGIN
+      insert into dbo.SalesRepHospital(SRH_ID,SRH_USR_UserID,SRN_HOS_ID,BUM_ID)
+      values(newid(),#SaleId#, #HosId#,#ProductLineId#)
+      END
+    </insert>
+    <!--added by bozhenfei on 20110914-->
+    <update id="AttachHospitalToSalesByParts" parameterClass="System.Collections.Hashtable">
+      insert into dbo.SalesRepHospital(SRH_ID,SRH_USR_UserID,SRN_HOS_ID,BUM_ID)
+      SELECT newid() , '$SaleId$', HOS_ID, '$ProductLineId$' FROM dbo.Hospital
+      <!--WHERE EXISTS ( SELECT 1 FROM dbo.ProductLineHospital b WHERE b.PLH_HOS_ID =Hospital.HOS_ID AND b.PLH_BUM_ID =#ProductLineId# )
+      AND-->
+      WHERE
+      NOT EXISTS ( SELECT 1 FROM dbo.SalesRepHospital a WHERE a.SRH_USR_UserID = #SaleId# and a.SRN_HOS_ID =Hospital.HOS_ID AND a.BUM_ID=#ProductLineId#)
+      <dynamic prepend="">
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City=#HosCity#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosProvince"> HOS_Province=#HosProvince#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District=#HosDistrict#</isNotEmpty>
+      </dynamic>
+    </update>
+
+    <delete id="DetachHospitalFromSales" parameterClass="System.Collections.Hashtable">
+      DELETE FROM dbo.SalesRepHospital where SRH_USR_UserID = #SaleId# AND SRN_HOS_ID = #HosId# AND BUM_ID = #ProductLineId#
+    </delete>
+    <!--平台下载医院信息-->
+    <select id="QueryLPHospitalInfo" parameterClass="string" resultClass="LpHospitalData">
+      SELECT DISTINCT ISNULL(HOS_Key_Account,'') as HospitalID,ISNULL(HOS_HospitalName,'') as HospitalName,ISNULL(HOS_City,'') as CityName
+      FROM DealerAuthorizationTable A
+      INNER JOIN HospitalList B ON A.DAT_ID=B.HLA_DAT_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HLA_HOS_ID
+      INNER JOIN Client D ON D.CLT_Corp_Id=A.DAT_DMA_ID
+      WHERE
+      GETDATE() BETWEEN B.HLA_StartDate AND B.HLA_EndDate
+      AND D.CLT_ID= #value#
+    </select>
+    <!--获取医院接口信息-->
+    <select id="GetAllHospitals" resultClass="System.Collections.Hashtable">
+      SELECT
+      Hospital.HOS_Key_Account as DMSCode,
+      Hospital.HOS_HospitalName as Name_CN,
+      '' as Name,
+      Province.TER_EName as Province,
+      City.TER_EName as City,
+      Hospital.HOS_Province as Province_CN,
+      Hospital.HOS_City as City_CN,
+      case when HOS_ActiveFlag = 1 then 1 else 0 end as status
+      from Hospital
+      LEFT OUTER JOIN (SELECT Territory.TER_Description, Territory.TER_EName
+      from Territory WHERE Territory.TER_Type = 'City') AS City ON City.TER_Description = Hospital.HOS_City
+      LEFT OUTER JOIN (SELECT Territory.TER_Description, Territory.TER_EName
+      from Territory WHERE Territory.TER_Type = 'Province') AS Province ON Province.TER_Description = Hospital.HOS_Province
+      order by Hospital.HOS_Key_Account
+    </select>
+    <select id="GetInHospitalSales" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      HospitalCode AS [DMS Code] ,
+      HospitalNameC AS Hospital ,
+      UPN ,
+      Level1 ,
+      Level2 ,
+      Level3 ,
+      Level4 ,
+      Level5 ,
+      LotNumber AS LOT ,
+      Qty ,
+      [Month] ,
+      [Year] ,
+      ProvinceNameE AS Province ,
+      Region AS Region
+      FROM dbo.GC_Fn_GetInHospitalSales(#Year#,#Month#,#DivisionID#)
+    </select>
+    <insert id="InsertProductLineHospital" parameterClass="Hospital">
+      INSERT INTO ProductLineHospital
+      (
+      PLH_BUM_ID,
+      PLH_HOS_ID,
+      PLH_ID
+      )
+      SELECT b.Id,a.HOS_ID,NEWID() FROM Hospital a, View_ProductLine b
+      WHERE NOT EXISTS (SELECT 1 FROM ProductLineHospital c
+      WHERE c.PLH_BUM_ID = b.Id AND c.PLH_HOS_ID = a.HOS_ID)
+    </insert>
+
+    <select id="SelectNotDeleteHospitalByCode" parameterClass="System.Collections.Hashtable"  resultClass="Hospital">
+      SELECT HOS_HospitalName AS HosHospitalName,HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      FROM Hospital
+      where HOS_DeletedFlag=0 and HOS_Key_Account = #KeyAccount# and HOS_ID &lt;&gt; #HosId#
+    </select>
+
+    <select id="SelectNotDeleteHospitalByName" parameterClass="System.Collections.Hashtable"  resultClass="Hospital">
+      SELECT HOS_HospitalName AS HosHospitalName,HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      FROM Hospital
+      where HOS_DeletedFlag=0 and HOS_HospitalName = #HosName# and HOS_ID &lt;&gt; #HosId#
+    </select>
+    <select id="SelectHospitalByAuthorization" parameterClass="System.Collections.Hashtable" resultClass="Hospital">
+      SELECT *,row_number () OVER (ORDER BY HosKeyAccount ASC) AS [row_number] FROM
+      (
+      SELECT DISTINCT HOS_ID AS Id,HOS_HospitalName AS HosHospitalName,HOS_Key_Account AS HosKeyAccount,HOS_Province AS HosProvince,HOS_City AS HosCity
+      FROM Hospital
+      INNER JOIN HospitalList ON Hospital.HOS_ID = HospitalList.HLA_HOS_ID
+      INNER JOIN DealerAuthorizationTable ON HospitalList.HLA_DAT_ID = DealerAuthorizationTable.DAT_ID
+      WHERE EXISTS (SELECT 1 FROM DealerContract
+      WHERE DealerContract.DCL_ID = DealerAuthorizationTable.DAT_DCL_ID)
+      AND DealerAuthorizationTable.DAT_DMA_ID = #DealerId#
+      AND (HOS_HospitalName LIKE '%' + #HospitalName# + '%' OR HOS_Key_Account LIKE '%' + #HospitalName# + '%' )
+      AND HOS_ActiveFlag = 1
+      ) T
+    </select>
+
+    <!--Added By Song Yuqi On 2016-05-31-->
+    <select id="QueryAuthorizationHospitalList" parameterClass="System.Collections.Hashtable" resultClass="Hospital">
+      SELECT HOS_HospitalName AS HosHospitalName,HOS_ID AS HosId,HOS_Province AS HosProvince,HOS_HospitalShortName AS HosHospitalShortName,HOS_City AS HosCity,HOS_Grade AS HosGrade,HOS_PostalCode AS HosPostalCode,HOS_Key_Account AS HosKeyAccount,HOS_Address AS HosAddress,HOS_PublicEmail AS HosPublicEmail,HOS_Town AS HosTown,HOS_Website AS HosWebsite,HOS_District AS HosDistrict,HOS_Phone AS HosPhone,HOS_DailyOutpatient AS HosDailyOutpatient,HOS_ICU_BedNumber AS HosIcuBedNumber,HOS_BedsCount AS HosBedsCount,HOS_Fax AS HosFax,HOS_ActiveFlag AS HosActiveFlag,HOS_CreatedDate AS HosCreatedDate,HOS_CreatedBy AS HosCreatedBy,HOS_ChiefEquipment AS HosChiefEquipment,HOS_Director AS HosDirector,HOS_ChiefEquipmentContact AS HosChiefEquipmentContact,HOS_DirectorContact AS HosDirectorContact,HOS_DeletedFlag AS HosDeletedFlag,HOS_LastModifiedDate AS HosLastModifiedDate
+      ,(SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = HOS_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,HOS_LastModifiedBy_USR_UserID AS HosLastModifiedByUsrUserid
+      ,row_number() OVER (ORDER BY HOS_Province, HOS_City , HOS_District ASC) AS [row_number]
+      ,dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID) as HosRemark
+      ,HLA_StartDate AS HosStartDate
+      ,HLA_EndDate AS HosEndDate
+      FROM Hospital
+      INNER JOIN HospitalList ON HLA_HOS_ID = HOS_ID AND HLA_DAT_ID = #AuthorizationId#
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="HosHospitalShortName">HOS_HospitalShortName like '%'+#HosHospitalShortName#+'%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%'+#HosHospitalName#+'%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosGrade">HOS_Grade = #HosGrade# </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="HosProvince">HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosKeyAccount">HOS_Key_Account = #HosKeyAccount# </isNotEmpty>
+
+        <isNotNull prepend="AND" property="HosDeletedFlag">HOS_DeletedFlag = #HosDeletedFlag# </isNotNull>
+        <isNotNull prepend="AND" property="HosRemark">dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID)  = #HosRemark# </isNotNull>
+        <isNotNull prepend="AND" property="HosNoAuthDate">(HLA_StartDate IS NULL OR HLA_EndDate IS NULL)</isNotNull>
+        <isNotNull prepend="AND" property="HosStartBeginDate">HLA_StartDate >= #HosStartBeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="HosStartEndDate">HLA_StartDate &lt; #HosStartEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="HosStopBeginDate">HLA_EndDate >= #HosStopBeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="HosStopEndDate">HLA_EndDate &lt; #HosStopEndDate#</isNotNull>
+      </dynamic>
+      AND HOS_ActiveFlag = 1
+    </select>
+
+    <select id="GetAuthorizationHospitalList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select b.*, row_number() OVER (ORDER BY HOS_Province, HOS_City , HOS_District ASC) AS [row_number] from
+      (select distinct e.HOS_ID,e.HOS_District, e.HOS_City,e.HOS_Province,e.HOS_Address,e.HOS_HospitalName,e.HOS_Key_Account
+      from DealerAuthorizationArea a
+      inner join TerritoryArea  b on a.DA_ID=b.TA_DA_ID
+      inner join Territory c on b.TA_Area=c.TER_ID
+      inner join Hospital e on e.HOS_Province=c.TER_Description
+      where not exists (select  1 from TerritoryAreaExc e where e.TAE_DA_ID=a.DA_ID and e.TAE_HOS_ID=e.TAE_HOS_ID )
+      <isNotEmpty prepend="AND" property="DealerID">a.DA_DMA_ID = #DealerID#</isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosHospitalName">HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosProvince">e.HOS_Province = #HosProvince# </isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosCity">e.HOS_City= #HosCity# </isNotEmpty>
+      <isNotEmpty prepend="AND" property="HosDistrict">e.HOS_District = #HosDistrict# </isNotEmpty>
+      <isNotEmpty prepend="AND" property="lineId">a.DA_ProductLine_BUM_ID = #lineId# </isNotEmpty>
+      )b
+    </select>
+
+    <select id="GetAuthorizationHospitalListT1" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select b.*, row_number() OVER (ORDER BY HOS_Province ASC) AS [row_number] from  (
+      select distinct e.HOS_ID,e.HOS_District, e.HOS_City,e.HOS_Province,e.HOS_Address,e.HOS_HospitalName,e.HOS_Key_Account from  DealerAuthorizationTable  d
+      inner join HospitalList h on d.DAT_ID=h.HLA_DAT_ID
+      inner join Hospital e on e.HOS_ID=h.HLA_HOS_ID
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="DealerID">d.DAT_DMA_ID = #DealerID#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosHospitalName">e.HOS_HospitalName like '%$HosHospitalName$%'</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosProvince">e.HOS_Province = #HosProvince# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosCity">e.HOS_City = #HosCity# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">e.HOS_District = #HosDistrict# </isNotEmpty>
+        <isNotEmpty prepend="AND" property="lineId">d.DAT_ProductLine_BUM_ID = #lineId# </isNotEmpty>
+      </dynamic>
+      )b
+    </select>
+
+    <select id="Hospital.SelectFilterListDealerAuth" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT Hospital.HOS_ID AS HospitalId,
+               Hospital.HOS_HospitalName AS HospitalName
+        FROM   Hospital(NOLOCK) Hospital
+               INNER JOIN HospitalList(NOLOCK) HospitalList
+                    ON  HospitalList.HLA_HOS_ID = Hospital.HOS_ID
+               INNER JOIN DealerAuthorizationTable(NOLOCK) Auth
+                    ON  Auth.DAT_ID = HospitalList.HLA_DAT_ID
+        WHERE  Hospital.HOS_ActiveFlag = 1
+      ]]>
+      <isNotEmpty prepend="AND" property="ProductLine">
+        Auth.DAT_ProductLine_BUM_ID = #ProductLine#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="DealerId">
+        Auth.DAT_DMA_ID = #DealerId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ShipmentDate">
+        #ShipmentDate# BETWEEN ISNULL(HospitalList.HLA_StartDate, '1900-01-01') AND ISNULL(HospitalList.HLA_EndDate, DATEADD(DAY, -1, #ShipmentDate#))
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Filter">
+        Hospital.HOS_HospitalName LIKE '%' + #Filter# + '%'
+      </isNotEmpty>
+      <![CDATA[
+        ORDER BY
+               Hospital.HOS_HospitalName
+      ]]>
+    </select>
+    
+    <!--医院库数据报表-->
+    <select id="SelectHospitalReport" parameterClass="System.Collections.Hashtable">
+      SELECT HOS_HospitalName,
+      HOS_ID,
+      HOS_Province,
+      HOS_HospitalShortName,
+      HOS_City,
+      HOS_Grade,
+      HOS_PostalCode,
+      HOS_Key_Account,
+      HOS_Address,
+      HOS_PublicEmail,
+      HOS_Town,
+      HOS_Website,
+      HOS_District,
+      HOS_Phone,
+      HOS_DailyOutpatient,
+      HOS_ICU_BedNumber,
+      HOS_BedsCount,
+      HOS_Fax,
+      HOS_ActiveFlag,
+      HOS_CreatedDate,
+      HOS_CreatedBy,
+      HOS_ChiefEquipment,
+      HOS_Director,
+      HOS_ChiefEquipmentContact,
+      HOS_DirectorContact,
+      HOS_DeletedFlag,
+      CONVERT(VARCHAR(10),HOS_LastModifiedDate,121) AS HOS_LastModifiedDate,
+      HOS_LastModifiedBy_USR_UserID,
+      li.IDENTITY_NAME
+      FROM Hospital(nolock)
+      left join Lafite_IDENTITY li(nolock) on Hospital.HOS_LastModifiedBy_USR_UserID=li.Id
+      WHERE HOSPITAL.HOS_DELETEDFLAG = '0'
+      ORDER BY hospital.HOS_Province,
+      hospital.HOS_City,
+      hospital.HOS_District,
+      hospital.HOS_HospitalName
+    </select>
+   
+    <select id="ExportHospitalReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT HOS_HospitalName AS '医院中文名称',
+      HOS_HospitalShortName AS '医院别名',
+      HOS_Key_Account AS '医院编号',
+      HOS_Grade AS '医院等级',
+      HOS_Province AS '省份',
+      HOS_City AS '地区',
+      HOS_District AS '县市（区）',
+      HOS_PublicEmail AS '邮编',
+      HOS_Address AS '地址',
+      HOS_Phone AS '医院电话',
+      HOS_Director AS '院长姓名',
+      HOS_DirectorContact AS '院长联系方式',
+      HOS_ChiefEquipment AS '设备科长姓名',
+      HOS_ChiefEquipmentContact AS '设备科长联系方式',
+      HOS_Website AS '医院网址',
+      li.IDENTITY_NAME AS '修改人',
+      CONVERT(VARCHAR(10),HOS_LastModifiedDate,121) AS '修改时间'
+      FROM Hospital(nolock)
+      left join Lafite_IDENTITY li(nolock) on Hospital.HOS_LastModifiedBy_USR_UserID=li.Id
+      WHERE HOSPITAL.HOS_DELETEDFLAG = '0'
+      ORDER BY hospital.HOS_Province,
+      hospital.HOS_City,
+      hospital.HOS_District,
+      hospital.HOS_HospitalName
+    </select>
+    <!--End 医院库数据报表-->
+    <select id="SelectHospitalKeyAccount" parameterClass="string" resultClass="int">
+      SELECT HOS_HospitalName FROM Hospital where HOS_Key_Account = #value# 
+    </select>
+  </statements>
+</sqlMap>

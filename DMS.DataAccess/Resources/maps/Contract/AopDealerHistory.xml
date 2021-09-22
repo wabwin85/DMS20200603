@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AopDealerHistoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AopDealerHistory" assembly="DMS.Model.dll" type="DMS.Model.AopDealerHistory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AopDealerHistoryResult" class="AopDealerHistory">
+      <result property="Id" column="ADH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ChangeToContractid" column="ADH_ChangeToContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CurrentContractid" column="ADH_CurrentContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ADH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="ADH_Year" type="string" dbType="nvarchar"/>
+      <result property="January" column="ADH_January" type="double" dbType="float"/>
+      <result property="February" column="ADH_February" type="double" dbType="float"/>
+      <result property="March" column="ADH_March" type="double" dbType="float"/>
+      <result property="April" column="ADH_April" type="double" dbType="float"/>
+      <result property="May" column="ADH_May" type="double" dbType="float"/>
+      <result property="June" column="ADH_June" type="double" dbType="float"/>
+      <result property="July" column="ADH_July" type="double" dbType="float"/>
+      <result property="August" column="ADH_August" type="double" dbType="float"/>
+      <result property="September" column="ADH_September" type="double" dbType="float"/>
+      <result property="October" column="ADH_October" type="double" dbType="float"/>
+      <result property="November" column="ADH_November" type="double" dbType="float"/>
+      <result property="December" column="ADH_December" type="double" dbType="float"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAopDealerHistory" parameterClass="string" resultClass="AopDealerHistory">
+      SELECT ADH_ID AS Id,ADH_ChangeToContractID AS ChangeToContractid,ADH_CurrentContractID AS CurrentContractid,ADH_DMA_ID AS DmaId,ADH_Year AS Year,ADH_January AS January,ADH_February AS February,ADH_March AS March,ADH_April AS April,ADH_May AS May,ADH_June AS June,ADH_July AS July,ADH_August AS August,ADH_September AS September,ADH_October AS October,ADH_November AS November,ADH_December AS December
+      FROM AOPDealerHistory
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ADH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAopDealerHistory" parameterClass="AopDealerHistory" resultClass="AopDealerHistory">
+      SELECT ADH_ID AS Id,ADH_ChangeToContractID AS ChangeToContractid,ADH_CurrentContractID AS CurrentContractid,ADH_DMA_ID AS DmaId,ADH_Year AS Year,ADH_January AS January,ADH_February AS February,ADH_March AS March,ADH_April AS April,ADH_May AS May,ADH_June AS June,ADH_July AS July,ADH_August AS August,ADH_September AS September,ADH_October AS October,ADH_November AS November,ADH_December AS December
+      FROM AOPDealerHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ADH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ChangeToContractid">ADH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">ADH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ADH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ADH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="January">ADH_January=#January#</isNotNull>
+        <isNotNull prepend="AND" property="February">ADH_February=#February#</isNotNull>
+        <isNotNull prepend="AND" property="March">ADH_March=#March#</isNotNull>
+        <isNotNull prepend="AND" property="April">ADH_April=#April#</isNotNull>
+        <isNotNull prepend="AND" property="May">ADH_May=#May#</isNotNull>
+        <isNotNull prepend="AND" property="June">ADH_June=#June#</isNotNull>
+        <isNotNull prepend="AND" property="July">ADH_July=#July#</isNotNull>
+        <isNotNull prepend="AND" property="August">ADH_August=#August#</isNotNull>
+        <isNotNull prepend="AND" property="September">ADH_September=#September#</isNotNull>
+        <isNotNull prepend="AND" property="October">ADH_October=#October#</isNotNull>
+        <isNotNull prepend="AND" property="November">ADH_November=#November#</isNotNull>
+        <isNotNull prepend="AND" property="December">ADH_December=#December#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAopDealerHistory" parameterClass="AopDealerHistory">
+      INSERT INTO AOPDealerHistory
+      (ADH_ID,ADH_ChangeToContractID,ADH_CurrentContractID,ADH_DMA_ID,ADH_Year,ADH_January,ADH_February,ADH_March,ADH_April,ADH_May,ADH_June,ADH_July,ADH_August,ADH_September,ADH_October,ADH_November,ADH_December)
+      VALUES(#Id#,#ChangeToContractid#,#CurrentContractid#,#DmaId#,#Year#,#January#,#February#,#March#,#April#,#May#,#June#,#July#,#August#,#September#,#October#,#November#,#December#)
+    </insert>
+    <update id="UpdateAopDealerHistory" parameterClass="AopDealerHistory">
+      UPDATE AOPDealerHistory
+      SET ADH_ID=#Id#,ADH_ChangeToContractID=#ChangeToContractid#,ADH_CurrentContractID=#CurrentContractid#,ADH_DMA_ID=#DmaId#,ADH_Year=#Year#,ADH_January=#January#,ADH_February=#February#,ADH_March=#March#,ADH_April=#April#,ADH_May=#May#,ADH_June=#June#,ADH_July=#July#,ADH_August=#August#,ADH_September=#September#,ADH_October=#October#,ADH_November=#November#,ADH_December=#December#
+      WHERE ADH_ID = #Id#
+    </update>
+    <delete id="DeleteAopDealerHistory" parameterClass="string">
+      DELETE FROM AOPDealerHistory
+      WHERE ADH_ID = #value#
+    </delete>
+
+    <select id="SelectHistoryAopDealer" parameterClass="AopDealerHistory" resultClass="System.Data.DataSet">
+      SELECT ADH_ID AS Id,
+      ADH_ChangeToContractID AS ChangeToContractid,
+      ADH_CurrentContractID AS CurrentContractid,
+      ADH_DMA_ID AS DmaId,
+      ADH_Year AS Year,
+      ADH_January AS January,
+      ADH_February AS February,
+      ADH_March AS March,
+      ADH_April AS April,
+      ADH_May AS May,
+      ADH_June AS June,
+      ADH_July AS July,
+      ADH_August AS August,
+      ADH_September AS September,
+      ADH_October AS October,
+      ADH_November AS November,
+      ADH_December AS December,
+
+      ADH_January AS Amount_1,
+      ADH_February AS Amount_2,
+      ADH_March AS Amount_3,
+      ADH_April AS Amount_4,
+      ADH_May AS Amount_5,
+      ADH_June AS Amount_6,
+      ADH_July AS Amount_7,
+      ADH_August AS Amount_8,
+      ADH_September AS Amount_9,
+      ADH_October AS Amount_10,
+      ADH_November AS Amount_11,
+      ADH_December AS Amount_12,
+
+      (ADH_January + ADH_February + ADH_March) AS Q1,
+      (ADH_April + ADH_May + ADH_June) AS Q2,
+      (ADH_July + ADH_August + ADH_September) AS Q3,
+      (ADH_October + ADH_November + ADH_December) Q4,
+      (  ADH_January
+      + ADH_February
+      + ADH_March
+      + ADH_April
+      + ADH_May
+      + ADH_June
+      + ADH_July
+      + ADH_August
+      + ADH_September
+      + ADH_October
+      + ADH_November
+      + ADH_December)
+      AS Amount_Y,
+      ROW_NUMBER () OVER (ORDER BY ADH_ChangeToContractID DESC)
+      AS [row_number]
+      FROM AOPDealerHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ChangeToContractid">ADH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">ADH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ADH_DMA_ID=#DmaId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectHistoryAopDealerByHas" parameterClass="AopDealerHistory" resultClass="System.Data.DataSet">
+      SELECT ADH_ID AS Id,
+      ADH_Year AS Year,
+      (select a.ProductLineName from V_DivisionProductLineRelation a where a.IsEmerging='0' and a.DivisionCode=#DivisionId#) AS ProductLine,
+      (select distinct b.CC_NameCN from interface.ClassificationContract b where b.CC_Code=#SubDepCode#  ) AS ProductClass,
+      ADH_January AS Amount_1,
+      ADH_February AS Amount_2,
+      ADH_March AS Amount_3,
+      ADH_April AS Amount_4,
+      ADH_May AS Amount_5,
+      ADH_June AS Amount_6,
+      ADH_July AS Amount_7,
+      ADH_August AS Amount_8,
+      ADH_September AS Amount_9,
+      ADH_October AS Amount_10,
+      ADH_November AS Amount_11,
+      ADH_December AS Amount_12,
+      (ADH_January + ADH_February + ADH_March) AS Q1,
+      (ADH_April + ADH_May + ADH_June) AS Q2,
+      (ADH_July + ADH_August + ADH_September) AS Q3,
+      (ADH_October + ADH_November + ADH_December) Q4,
+      (  ADH_January + ADH_February  + ADH_March+ ADH_April + ADH_May + ADH_June+ ADH_July
+      + ADH_August+ ADH_September + ADH_October + ADH_November + ADH_December)    AS Amount_Y,
+      ROW_NUMBER () OVER (ORDER BY ADH_ChangeToContractID DESC)
+      AS [row_number]
+      FROM AOPDealerHistory a
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ChangeToContractid">ADH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">ADH_CurrentContractID=#CurrentContractid#</isNotNull>
+      </dynamic>
+    </select>
+    
+  </statements>
+</sqlMap>

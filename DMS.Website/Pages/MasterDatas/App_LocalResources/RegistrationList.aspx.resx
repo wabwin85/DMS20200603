@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DetailWindow.FormLayout3.RegistrationNbrcn.FieldLabel" xml:space="preserve">
+    <value>注册证中文名称</value>
+  </data>
+  <data name="DetailWindow.FormLayout3.RegistrationNbren.FieldLabel" xml:space="preserve">
+    <value>注册证英文名称</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.ExpirationDate.FieldLabel" xml:space="preserve">
+    <value>注册证有效期</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.OpeningDate.FieldLabel" xml:space="preserve">
+    <value>注册证发证日期</value>
+  </data>
+  <data name="DetailWindow.Title" xml:space="preserve">
+    <value>注册证明细</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.CommandColumn.Header" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ExpirationDate.Header" xml:space="preserve">
+    <value>注册证有效期</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.OpeningDate.Header" xml:space="preserve">
+    <value>注册证发证日期</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.RegistrationNbrcn.Header" xml:space="preserve">
+    <value>注册证中文名</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.RegistrationNbren.Header" xml:space="preserve">
+    <value>注册证英文名</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ToolTip.Text" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="GridPanel1.LoadMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel1.PagingToolBar1.EmptyMsg" xml:space="preserve">
+    <value>无信息显示</value>
+  </data>
+  <data name="GridPanel1.Title" xml:space="preserve">
+    <value>查询结果</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Barcode1.Header" xml:space="preserve">
+    <value>条码1</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Barcode2.Header" xml:space="preserve">
+    <value>条码2</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Barcode3.Header" xml:space="preserve">
+    <value>条码3</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Barcode4.Header" xml:space="preserve">
+    <value>条码4</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ChineseName.Header" xml:space="preserve">
+    <value>产品中文名称</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.EnglishName.Header" xml:space="preserve">
+    <value>产品英文名称</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.GuaranteePeriod.Header" xml:space="preserve">
+    <value>保质期（按天）</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Implant.Header" xml:space="preserve">
+    <value>是否植入物</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Import.Header" xml:space="preserve">
+    <value>是否进口</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Lot.Header" xml:space="preserve">
+    <value>是否按批次（LOT号）</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ManufactoryAddress.Header" xml:space="preserve">
+    <value>生产场所地址</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ManufacturerAddress.Header" xml:space="preserve">
+    <value>生产者地址</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ManufacturerId.Header" xml:space="preserve">
+    <value>生产企业ID</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ManufacturerName.Header" xml:space="preserve">
+    <value>生产者名称</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.MinUnit.Header" xml:space="preserve">
+    <value>最小收费单位</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Pacemaker.Header" xml:space="preserve">
+    <value>是否起博器</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.RegisteredAgent.Header" xml:space="preserve">
+    <value>注册代理</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Scope.Header" xml:space="preserve">
+    <value>产品适用范围</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Service.Header" xml:space="preserve">
+    <value>售后服务机构</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Sn.Header" xml:space="preserve">
+    <value>是否按序列号（SN号）</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.Specification.Header" xml:space="preserve">
+    <value>规格型号</value>
+  </data>
+  <data name="GridPanel2.LoadMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel2.PagingToolBar2.EmptyMsg" xml:space="preserve">
+    <value>无信息显示</value>
+  </data>
+  <data name="GridPanel2.Title" xml:space="preserve">
+    <value>注册信息列表</value>
+  </data>
+  <data name="plSearch.btnImport.Text" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="plSearch.btnSearch.Text" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="plSearch.FormLayout1.txtExpirationDateStart.FieldLabel" xml:space="preserve">
+    <value>有效日期</value>
+  </data>
+  <data name="plSearch.FormLayout1.txtOpeningDateStart.FieldLabel" xml:space="preserve">
+    <value>发证日期</value>
+  </data>
+  <data name="plSearch.FormLayout2.txtRegistrationNbr.FieldLabel" xml:space="preserve">
+    <value>注册证名称</value>
+  </data>
+  <data name="plSearch.Title" xml:space="preserve">
+    <value>查询条件</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.RegistrationProductName.Header" xml:space="preserve">
+    <value>注册证产品名称</value>
+  </data>
+  <data name="btnImport.Tabname" xml:space="preserve">
+    <value>注册证导入</value>
+  </data>
+</root>

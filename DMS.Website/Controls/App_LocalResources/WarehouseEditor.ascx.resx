@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AjaxEvents_CheckIfEmptyWarehouse.emptyWarehouse.ErrorMessage" xml:space="preserve">
+    <value>该仓库中还有库存，仓库状态不能设置成失效</value>
+  </data>
+  <data name="AjaxEvents_CheckIfEmptyWarehouse.WarehouseName.ErrorMessage" xml:space="preserve">
+    <value>仓库名称已存在，不能重复</value>
+  </data>
+  <data name="CancelButton.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="createNewObjectDetails.setTitle1" xml:space="preserve">
+    <value>明细: {0}</value>
+  </data>
+  <data name="createNewObjectDetails.setTitle2" xml:space="preserve">
+    <value>新建经销商仓库</value>
+  </data>
+  <data name="DealerWarehousesStore_RefreshData.show.Message" xml:space="preserve">
+    <value>错误信息</value>
+  </data>
+  <data name="DealerWarehousesStore_RefreshData.show.Title" xml:space="preserve">
+    <value>出错信息</value>
+  </data>
+  <data name="invalidFields.false.alert.body" xml:space="preserve">
+    <value>仓库名称已存在，不能重复</value>
+  </data>
+  <data name="invalidFields.false.alert.title" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="invalidFields.true.alert.body" xml:space="preserve">
+    <value>该仓库中还有库存，仓库状态不能设置成失效</value>
+  </data>
+  <data name="invalidFields.true.alert.title" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="OnAfterSelectedRow.Name.Text" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="openDetails.setTitle" xml:space="preserve">
+    <value>明细: {0}</value>
+  </data>
+  <data name="PanelAddress.Address.FieldLabel" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="PanelAddress.City.FieldLabel" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="PanelAddress.District.FieldLabel" xml:space="preserve">
+    <value>区或乡</value>
+  </data>
+  <data name="PanelAddress.Fax.FieldLabel" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="PanelAddress.Phone.FieldLabel" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="PanelAddress.PostalCode.FieldLabel" xml:space="preserve">
+    <value>邮编</value>
+  </data>
+  <data name="PanelAddress.Province.FieldLabel" xml:space="preserve">
+    <value>省份</value>
+  </data>
+  <data name="SaveButton.EventMask.Msg" xml:space="preserve">
+    <value>检查该仓库库存中</value>
+  </data>
+  <data name="SaveButton.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="saveDetail.alert" xml:space="preserve">
+    <value>请完整填写仓库信息</value>
+  </data>
+  <data name="showHospistalSearchDlg.alert" xml:space="preserve">
+    <value>请先选中\'复制医院信息\'!</value>
+  </data>
+  <data name="WarehouseDetailsWindow.MultiField1.btnSearch.Text" xml:space="preserve">
+    <value>查找医院</value>
+  </data>
+  <data name="WarehouseDetailsWindow..FieldLabel" xml:space="preserve">
+    <value>复制医院信息</value>
+  </data>
+  <data name="WarehouseDetailsWindow.ActiveFlag.FieldLabel" xml:space="preserve">
+    <value>仓库状态</value>
+  </data>
+  <data name="WarehouseDetailsWindow.ConId.FieldLabel" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="WarehouseDetailsWindow.DmaId.FieldLabel" xml:space="preserve">
+    <value>经销商ID</value>
+  </data>
+  <data name="WarehouseDetailsWindow.HoldWarehouse.FieldLabel" xml:space="preserve">
+    <value>保留仓库标志</value>
+  </data>
+  <data name="WarehouseDetailsWindow.HospitalHosId.FieldLabel" xml:space="preserve">
+    <value>仓库所在医院ID</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Id1.FieldLabel" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="WarehouseDetailsWindow.MultiField1.EditorHospitalHosName.FieldLabel" xml:space="preserve">
+    <value>仓库所在医院</value>
+  </data>
+  <data name="WarehouseDetailsWindow.MultiField1.FieldLabel" xml:space="preserve">
+    <value>仓库所在医院</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Name.EmptyText" xml:space="preserve">
+    <value>请输入仓库名称</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Name.FieldLabel" xml:space="preserve">
+    <value>仓库名称</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Radio1.FieldLabel" xml:space="preserve">
+    <value>有效</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Radio2.FieldLabel" xml:space="preserve">
+    <value>失效</value>
+  </data>
+  <data name="WarehouseDetailsWindow.RadioFalse.FieldLabel" xml:space="preserve">
+    <value>失效</value>
+  </data>
+  <data name="WarehouseDetailsWindow.RadioTrue.FieldLabel" xml:space="preserve">
+    <value>有效</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Title" xml:space="preserve">
+    <value>仓库明细</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Type.EmptyText" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="WarehouseDetailsWindow.Type.FieldLabel" xml:space="preserve">
+    <value>仓库的类型</value>
+  </data>
+  <data name="warningMsg.alert" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="WarehouseType.ErrorMessage" xml:space="preserve">
+    <value>没有权限添加此类型的仓库</value>
+  </data>
+  <data name="AjaxEvents_CheckIfEmptyWarehouse.WarehouseCode.ErrorMessage" xml:space="preserve">
+    <value>仓库代码已存在，不能重复</value>
+  </data>
+</root>

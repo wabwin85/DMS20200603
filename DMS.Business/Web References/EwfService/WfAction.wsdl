@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ns.kayang.com.cn/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://ns.kayang.com.cn/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ns.kayang.com.cn/">
+      <s:element name="StartInstanceLocal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="hrid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="objName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pkeys" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="flowid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="applicantEid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartInstanceLocalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartInstanceLocalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HRID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="flowId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="applicantEid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sp" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="StartBatchResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ignoreAlarm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartInstanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartInstanceXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartInstanceXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartInstanceXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WithdrawInstance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="flowID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="instanceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userEid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WithdrawInstanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WithdrawInstanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ignoreAlarm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModifyDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModifyDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupFormData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="flowId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="instanceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userEid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupFormDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BackupFormDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="int" type="s:int" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="StartInstanceLocalSoapIn">
+    <wsdl:part name="parameters" element="tns:StartInstanceLocal" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceLocalSoapOut">
+    <wsdl:part name="parameters" element="tns:StartInstanceLocalResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartBatchSoapIn">
+    <wsdl:part name="parameters" element="tns:StartBatch" />
+  </wsdl:message>
+  <wsdl:message name="StartBatchSoapOut">
+    <wsdl:part name="parameters" element="tns:StartBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:StartInstance" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:StartInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:StartInstanceXml" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:StartInstanceXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="WithdrawInstanceSoapIn">
+    <wsdl:part name="parameters" element="tns:WithdrawInstance" />
+  </wsdl:message>
+  <wsdl:message name="WithdrawInstanceSoapOut">
+    <wsdl:part name="parameters" element="tns:WithdrawInstanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModifyDataSoapIn">
+    <wsdl:part name="parameters" element="tns:ModifyData" />
+  </wsdl:message>
+  <wsdl:message name="ModifyDataSoapOut">
+    <wsdl:part name="parameters" element="tns:ModifyDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="BackupFormDataSoapIn">
+    <wsdl:part name="parameters" element="tns:BackupFormData" />
+  </wsdl:message>
+  <wsdl:message name="BackupFormDataSoapOut">
+    <wsdl:part name="parameters" element="tns:BackupFormDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceLocalHttpGetIn">
+    <wsdl:part name="hrid" type="s:string" />
+    <wsdl:part name="objName" type="s:string" />
+    <wsdl:part name="pkeys" type="s:string" />
+    <wsdl:part name="flowid" type="s:string" />
+    <wsdl:part name="applicantEid" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceLocalHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="StartBatchHttpGetIn">
+    <wsdl:part name="HRID" type="s:string" />
+    <wsdl:part name="flowId" type="s:string" />
+    <wsdl:part name="applicantEid" type="s:string" />
+    <wsdl:part name="sp" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartBatchHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceHttpGetIn">
+    <wsdl:part name="dataXml" type="s:string" />
+    <wsdl:part name="ignoreAlarm" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceXmlHttpGetIn">
+    <wsdl:part name="dataXml" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceXmlHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WithdrawInstanceHttpGetIn">
+    <wsdl:part name="flowID" type="s:string" />
+    <wsdl:part name="instanceID" type="s:string" />
+    <wsdl:part name="userEid" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WithdrawInstanceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyDataHttpGetIn">
+    <wsdl:part name="dataXml" type="s:string" />
+    <wsdl:part name="ignoreAlarm" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="BackupFormDataHttpGetIn">
+    <wsdl:part name="flowId" type="s:string" />
+    <wsdl:part name="instanceID" type="s:string" />
+    <wsdl:part name="userEid" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BackupFormDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceLocalHttpPostIn">
+    <wsdl:part name="hrid" type="s:string" />
+    <wsdl:part name="objName" type="s:string" />
+    <wsdl:part name="pkeys" type="s:string" />
+    <wsdl:part name="flowid" type="s:string" />
+    <wsdl:part name="applicantEid" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceLocalHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="StartBatchHttpPostIn">
+    <wsdl:part name="HRID" type="s:string" />
+    <wsdl:part name="flowId" type="s:string" />
+    <wsdl:part name="applicantEid" type="s:string" />
+    <wsdl:part name="sp" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartBatchHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceHttpPostIn">
+    <wsdl:part name="dataXml" type="s:string" />
+    <wsdl:part name="ignoreAlarm" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceXmlHttpPostIn">
+    <wsdl:part name="dataXml" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="StartInstanceXmlHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WithdrawInstanceHttpPostIn">
+    <wsdl:part name="flowID" type="s:string" />
+    <wsdl:part name="instanceID" type="s:string" />
+    <wsdl:part name="userEid" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WithdrawInstanceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyDataHttpPostIn">
+    <wsdl:part name="dataXml" type="s:string" />
+    <wsdl:part name="ignoreAlarm" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ModifyDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="BackupFormDataHttpPostIn">
+    <wsdl:part name="flowId" type="s:string" />
+    <wsdl:part name="instanceID" type="s:string" />
+    <wsdl:part name="userEid" type="s:string" />
+    <wsdl:part name="pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BackupFormDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WfActionSoap">
+    <wsdl:operation name="StartInstanceLocal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;从本地数据库发起流程申请，以主键、字段名对应数据&lt;/b&gt;&lt;br&gt;。pkeys格式为：字段名1.字段值加密1.字段名2.字段值加密2</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceLocalSoapIn" />
+      <wsdl:output message="tns:StartInstanceLocalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">批量发起申请</wsdl:documentation>
+      <wsdl:input message="tns:StartBatchSoapIn" />
+      <wsdl:output message="tns:StartBatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">仅为兼容老版本。请改用&lt;a href=WfAction.asmx?op=StartInstanceXml&gt;StartInstanceXml&lt;/a&gt;。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceSoapIn" />
+      <wsdl:output message="tns:StartInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;发起流程申请&lt;/b&gt;&lt;br&gt;dataXml参数格式与流程相关，请参考&lt;a href=DataXml.aspx?type=startinstance target=_blank&gt;这里&lt;/a&gt;，其中FlowId和Initiotor必须提供。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceXmlSoapIn" />
+      <wsdl:output message="tns:StartInstanceXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;撤销流程&lt;/b&gt;&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:WithdrawInstanceSoapIn" />
+      <wsdl:output message="tns:WithdrawInstanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;修改数据&lt;/b&gt;&lt;br&gt;dataXml中InstanceId、LastApprover and CurNodeId必须提供，格式请参考&lt;a href=DataXml.aspx?type=modifydata&gt;这里&lt;/a&gt;。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:ModifyDataSoapIn" />
+      <wsdl:output message="tns:ModifyDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;同步当前表单数据到数据历史&lt;/b&gt;&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:BackupFormDataSoapIn" />
+      <wsdl:output message="tns:BackupFormDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WfActionHttpGet">
+    <wsdl:operation name="StartInstanceLocal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;从本地数据库发起流程申请，以主键、字段名对应数据&lt;/b&gt;&lt;br&gt;。pkeys格式为：字段名1.字段值加密1.字段名2.字段值加密2</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceLocalHttpGetIn" />
+      <wsdl:output message="tns:StartInstanceLocalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">批量发起申请</wsdl:documentation>
+      <wsdl:input message="tns:StartBatchHttpGetIn" />
+      <wsdl:output message="tns:StartBatchHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">仅为兼容老版本。请改用&lt;a href=WfAction.asmx?op=StartInstanceXml&gt;StartInstanceXml&lt;/a&gt;。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceHttpGetIn" />
+      <wsdl:output message="tns:StartInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;发起流程申请&lt;/b&gt;&lt;br&gt;dataXml参数格式与流程相关，请参考&lt;a href=DataXml.aspx?type=startinstance target=_blank&gt;这里&lt;/a&gt;，其中FlowId和Initiotor必须提供。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceXmlHttpGetIn" />
+      <wsdl:output message="tns:StartInstanceXmlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;撤销流程&lt;/b&gt;&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:WithdrawInstanceHttpGetIn" />
+      <wsdl:output message="tns:WithdrawInstanceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;修改数据&lt;/b&gt;&lt;br&gt;dataXml中InstanceId、LastApprover and CurNodeId必须提供，格式请参考&lt;a href=DataXml.aspx?type=modifydata&gt;这里&lt;/a&gt;。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:ModifyDataHttpGetIn" />
+      <wsdl:output message="tns:ModifyDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;同步当前表单数据到数据历史&lt;/b&gt;&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:BackupFormDataHttpGetIn" />
+      <wsdl:output message="tns:BackupFormDataHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WfActionHttpPost">
+    <wsdl:operation name="StartInstanceLocal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;从本地数据库发起流程申请，以主键、字段名对应数据&lt;/b&gt;&lt;br&gt;。pkeys格式为：字段名1.字段值加密1.字段名2.字段值加密2</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceLocalHttpPostIn" />
+      <wsdl:output message="tns:StartInstanceLocalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">批量发起申请</wsdl:documentation>
+      <wsdl:input message="tns:StartBatchHttpPostIn" />
+      <wsdl:output message="tns:StartBatchHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">仅为兼容老版本。请改用&lt;a href=WfAction.asmx?op=StartInstanceXml&gt;StartInstanceXml&lt;/a&gt;。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceHttpPostIn" />
+      <wsdl:output message="tns:StartInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;发起流程申请&lt;/b&gt;&lt;br&gt;dataXml参数格式与流程相关，请参考&lt;a href=DataXml.aspx?type=startinstance target=_blank&gt;这里&lt;/a&gt;，其中FlowId和Initiotor必须提供。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:StartInstanceXmlHttpPostIn" />
+      <wsdl:output message="tns:StartInstanceXmlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;撤销流程&lt;/b&gt;&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:WithdrawInstanceHttpPostIn" />
+      <wsdl:output message="tns:WithdrawInstanceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;修改数据&lt;/b&gt;&lt;br&gt;dataXml中InstanceId、LastApprover and CurNodeId必须提供，格式请参考&lt;a href=DataXml.aspx?type=modifydata&gt;这里&lt;/a&gt;。&lt;script&gt;window.onload=function(){var o=document.all('dataXml');if(o)o.outerHTML='&lt;textarea name=dataXml style=height:360px;width:560px&gt;&lt;/textarea&gt;';}&lt;/script&gt;</wsdl:documentation>
+      <wsdl:input message="tns:ModifyDataHttpPostIn" />
+      <wsdl:output message="tns:ModifyDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;b&gt;同步当前表单数据到数据历史&lt;/b&gt;&lt;br&gt;</wsdl:documentation>
+      <wsdl:input message="tns:BackupFormDataHttpPostIn" />
+      <wsdl:output message="tns:BackupFormDataHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WfActionSoap" type="tns:WfActionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartInstanceLocal">
+      <soap:operation soapAction="http://ns.kayang.com.cn/StartInstanceLocal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <soap:operation soapAction="http://ns.kayang.com.cn/StartBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <soap:operation soapAction="http://ns.kayang.com.cn/StartInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <soap:operation soapAction="http://ns.kayang.com.cn/StartInstanceXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <soap:operation soapAction="http://ns.kayang.com.cn/WithdrawInstance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <soap:operation soapAction="http://ns.kayang.com.cn/ModifyData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <soap:operation soapAction="http://ns.kayang.com.cn/BackupFormData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WfActionSoap12" type="tns:WfActionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartInstanceLocal">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/StartInstanceLocal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/StartBatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/StartInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/StartInstanceXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/WithdrawInstance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/ModifyData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <soap12:operation soapAction="http://ns.kayang.com.cn/BackupFormData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WfActionHttpGet" type="tns:WfActionHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="StartInstanceLocal">
+      <http:operation location="/StartInstanceLocal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <http:operation location="/StartBatch" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <http:operation location="/StartInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <http:operation location="/StartInstanceXml" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <http:operation location="/WithdrawInstance" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <http:operation location="/ModifyData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <http:operation location="/BackupFormData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WfActionHttpPost" type="tns:WfActionHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="StartInstanceLocal">
+      <http:operation location="/StartInstanceLocal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartBatch">
+      <http:operation location="/StartBatch" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstance">
+      <http:operation location="/StartInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartInstanceXml">
+      <http:operation location="/StartInstanceXml" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawInstance">
+      <http:operation location="/WithdrawInstance" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyData">
+      <http:operation location="/ModifyData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupFormData">
+      <http:operation location="/BackupFormData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WfAction">
+    <wsdl:port name="WfActionSoap" binding="tns:WfActionSoap">
+      <soap:address location="http://shaappten01/flow/Service/WfAction.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WfActionSoap12" binding="tns:WfActionSoap12">
+      <soap12:address location="http://shaappten01/flow/Service/WfAction.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WfActionHttpGet" binding="tns:WfActionHttpGet">
+      <http:address location="http://shaappten01/flow/Service/WfAction.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WfActionHttpPost" binding="tns:WfActionHttpPost">
+      <http:address location="http://shaappten01/flow/Service/WfAction.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="RvDealerKpiScoreDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="Interface.RvDealerKpiScoreDetailMap.SelectDealerDimension" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT SUM(
+                   CASE 
+                        WHEN Detail.ParentCode = 'C001' THEN Detail.FinalScore
+                        ELSE 0
+                   END
+               ) / COUNT(DISTINCT Detail.SubBUCode) CGWC,
+               SUM(
+                   CASE 
+                        WHEN Detail.ParentCode = 'C003' THEN Detail.FinalScore
+                        ELSE 0
+                   END
+               ) / COUNT(DISTINCT Detail.SubBUCode) YYZZJFG,
+               SUM(
+                   CASE 
+                        WHEN Detail.ParentCode = 'C002' THEN Detail.FinalScore
+                        ELSE 0
+                   END
+               ) / COUNT(DISTINCT Detail.SubBUCode) JXCGL,
+               SUM(
+                   CASE 
+                        WHEN Detail.ParentCode = 'C005' THEN Detail.FinalScore
+                        ELSE 0
+                   END
+               ) / COUNT(DISTINCT Detail.SubBUCode) BUDZZB,
+               SUM(
+                   CASE 
+                        WHEN Detail.ParentCode = 'C004' THEN Detail.FinalScore
+                        ELSE 0
+                   END
+               ) / COUNT(DISTINCT Detail.SubBUCode) YYXSWC
+        FROM   interface.RV_DealerKPI_Score_Detail Detail
+               INNER JOIN dbo.DealerMaster DealerMaster
+                    ON  DealerMaster.DMA_SAP_Code = Detail.SAPID
+        WHERE  DealerMaster.DMA_ID = #DealerId#
+               AND Detail.[Year] = SUBSTRING(#YearQuarter#, 1, 4)
+               AND Detail.[Quarter] = SUBSTRING(#YearQuarter#, 7, 1)
+               AND Detail.DivisionID = #Bu#
+      ]]>
+    </select>
+  </statements>
+</sqlMap>

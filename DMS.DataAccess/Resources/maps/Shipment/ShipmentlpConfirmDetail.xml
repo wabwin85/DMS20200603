@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentlpConfirmDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentlpConfirmDetail" assembly="DMS.Model.dll" type="DMS.Model.ShipmentlpConfirmDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentlpConfirmDetailResult" class="ShipmentlpConfirmDetail">
+      <result property="Id" column="SCD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SchId" column="SCD_SCH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Upn" column="SCD_UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="SCD_Lot" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="SCD_Qty" type="decimal" dbType="decimal"/>
+      <result property="UnitPrice" column="SCD_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="IsCalRebate" column="SCD_IsCalRebate" type="bool" dbType="bit"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectShipmentlpConfirmDetail" parameterClass="string" resultClass="ShipmentlpConfirmDetail">
+      SELECT SCD_ID AS Id,SCD_SCH_ID AS SchId,SCD_UPN AS Upn,SCD_Lot AS Lot,SCD_Qty AS Qty,SCD_UnitPrice AS UnitPrice,SCD_IsCalRebate AS IsCalRebate
+      FROM ShipmentLPConfirmDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SCD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentlpConfirmDetail" parameterClass="ShipmentlpConfirmDetail" resultClass="ShipmentlpConfirmDetail">
+      SELECT SCD_ID AS Id,SCD_SCH_ID AS SchId,SCD_UPN AS Upn,SCD_Lot AS Lot,SCD_Qty AS Qty,SCD_UnitPrice AS UnitPrice,SCD_IsCalRebate AS IsCalRebate
+      FROM ShipmentLPConfirmDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SCD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SchId">SCD_SCH_ID=#SchId#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">SCD_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">SCD_Lot=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">SCD_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">SCD_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="IsCalRebate">SCD_IsCalRebate=#IsCalRebate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentlpConfirmDetail" parameterClass="ShipmentlpConfirmDetail">
+      INSERT INTO ShipmentLPConfirmDetail
+      (SCD_ID,SCD_SCH_ID,SCD_UPN,SCD_Lot,SCD_Qty,SCD_UnitPrice)
+      VALUES(#Id#,#SchId#,#Upn#,#Lot#,#Qty#,#UnitPrice#)
+    </insert>
+    <update id="UpdateShipmentlpConfirmDetail" parameterClass="ShipmentlpConfirmDetail">
+      UPDATE ShipmentLPConfirmDetail
+      SET SCD_ID=#Id#,SCD_SCH_ID=#SchId#,SCD_UPN=#Upn#,SCD_Lot=#Lot#,SCD_Qty=#Qty#,SCD_UnitPrice=#UnitPrice#
+      WHERE SCD_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentlpConfirmDetail" parameterClass="string">
+      DELETE FROM ShipmentLPConfirmDetail
+      WHERE SCD_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

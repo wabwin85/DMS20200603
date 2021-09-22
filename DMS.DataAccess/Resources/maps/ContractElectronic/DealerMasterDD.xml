@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerMasterDD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerMasterDD" assembly="DMS.Model.dll" type="DMS.Model.DealerMasterDD" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerMasterDDResult" class="DealerMasterDD">
+      <result property="DMDD_ID" column="DMDD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DMDD_ContractID" column="DMDD_ContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DMDD_ReportName" column="DMDD_ReportName" type="string" dbType="nvarchar"/>
+      <result property="DMDD_StartDate" column="DMDD_StartDate" type="DateTime" dbType="datetime"/>
+      <result property="DMDD_EndDate" column="DMDD_EndDate" type="DateTime" dbType="datetime"/>
+      <result property="DMDD_DealerID" column="DMDD_DealerID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DMDD_CreateUser" column="DMDD_CreateUser" type="string" dbType="nvarchar"/>
+      <result property="DMDD_CreateDate" column="DMDD_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="DMDD_UpdateUser" column="DMDD_UpdateUser" type="string" dbType="nvarchar"/>
+      <result property="DMDD_UpdateDate" column="DMDD_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="DMDD_IsHaveRedFlag" column="DMDD_IsHaveRedFlag" type="string" dbType="bit"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDealerMasterDD" parameterClass="string" resultClass="DealerMasterDD">
+      SELECT DMDD_ID,DMDD_ContractID,DMDD_ReportName,DMDD_StartDate,DMDD_EndDate,DMDD_DealerID
+      ,DMDD_CreateUser,DMDD_CreateDate,DMDD_UpdateUser,DMDD_UpdateDate,DMDD_IsHaveRedFlag
+      FROM DealerMasterDD
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DMDD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectDealerMasterDDByContractID" parameterClass="string" resultClass="DealerMasterDD">
+      SELECT DMDD_ID,DMDD_ContractID,DMDD_ReportName,DMDD_StartDate,DMDD_EndDate,DMDD_DealerID
+      ,DMDD_CreateUser,DMDD_CreateDate,DMDD_UpdateUser,DMDD_UpdateDate,DMDD_IsHaveRedFlag
+      FROM DealerMasterDD
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DMDD_ContractID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectDealerMasterDDByDealerID" parameterClass="string" resultClass="DealerMasterDD">
+      SELECT TOP 1 DMDD_ID,DMDD_ContractID,DMDD_ReportName,DMDD_StartDate,DMDD_EndDate,DMDD_DealerID
+      ,DMDD_CreateUser,DMDD_CreateDate,DMDD_UpdateUser,DMDD_UpdateDate,DMDD_IsHaveRedFlag
+      FROM DealerMasterDD
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DMDD_DealerID = #value#
+        </isParameterPresent>
+      </dynamic>
+      ORDER BY DMDD_UpdateDate DESC
+    </select>
+    <insert id="InsertDealerMasterDD" parameterClass="DealerMasterDD">
+
+      INSERT INTO DealerMasterDD
+      (DMDD_ID,DMDD_ContractID,DMDD_ReportName,DMDD_StartDate,DMDD_EndDate,DMDD_DealerID
+      ,DMDD_CreateUser,DMDD_CreateDate,DMDD_UpdateUser,DMDD_UpdateDate,DMDD_DD,DMDD_IsHaveRedFlag)
+      VALUES(#DMDD_ID#,#DMDD_ContractID#,#DMDD_ReportName#,#DMDD_StartDate#,#DMDD_EndDate#,
+      #DMDD_DealerID#,#DMDD_CreateUser#,#DMDD_CreateDate#,#DMDD_UpdateUser#,#DMDD_UpdateDate#,#DMDD_DD#,#DMDD_IsHaveRedFlag#)
+    </insert>
+    <update id="UpdateDealerMasterDD" parameterClass="DealerMasterDD">
+      UPDATE DealerMasterDD
+      SET DMDD_ReportName=#DMDD_ReportName#,DMDD_StartDate=#DMDD_StartDate#,DMDD_EndDate=#DMDD_EndDate#,
+      DMDD_DealerID=#DMDD_DealerID#,DMDD_UpdateUser=#DMDD_UpdateUser#,DMDD_UpdateDate=#DMDD_UpdateDate#
+      WHERE DMDD_ID = #DMDD_ID#
+    </update>
+    <delete id="DeleteDealerMasterDD" parameterClass="string">
+      DELETE FROM DealerMasterDD
+      WHERE DMDD_ID = #value#
+    </delete>
+
+    
+  </statements>
+</sqlMap>

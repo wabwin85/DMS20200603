@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TransferMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Transfer" assembly="DMS.Model.dll" type="DMS.Model.Transfer" />
+    <typeAlias alias="LpRentData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.LpRentData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TransferResult" class="Transfer">
+      <result property="Id" column="TRN_ID" type="Guid" dbType="Guid"/>
+      <result property="TransferNumber" column="TRN_TransferNumber" type="string" dbType="varchar"/>
+      <result property="FromDealerDmaId" column="TRN_FromDealer_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Status" column="TRN_Status" type="string" dbType="varchar"/>
+      <result property="ToDealerDmaId" column="TRN_ToDealer_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Type" column="TRN_Type" type="string" dbType="varchar"/>
+      <result property="Description" column="TRN_Description" type="string" dbType="varchar"/>
+      <result property="ReverseTrnId" column="TRN_Reverse_TRN_ID" type="Guid" dbType="Guid"/>
+      <result property="TransferDate" column="TRN_TransferDate" type="DateTime" dbType="DateTime"/>
+      <result property="ProductLineBumId" column="TRN_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="TransferUsrUserID" column="TRN_Transfer_USR_UserID" type="Guid" dbType="Guid"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_LpRent_AfterDownload_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Success" column="Success" />
+    </parameterMap>
+    <parameterMap id="Proc_XieHe_GetExpressInfo_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="Id" column="Id" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectTransfer" parameterClass="string" resultClass="Transfer">
+      SELECT TRN_ID AS Id,TRN_TransferNumber AS TransferNumber,TRN_FromDealer_DMA_ID AS FromDealerDmaId,TRN_Status AS Status,TRN_ToDealer_DMA_ID AS ToDealerDmaId,TRN_Type AS Type,TRN_Description AS Description,TRN_Reverse_TRN_ID AS ReverseTrnId,TRN_TransferDate AS TransferDate,TRN_ProductLine_BUM_ID AS ProductLineBumId,TRN_Transfer_USR_UserID AS TransferUsrUserID
+      FROM Transfer
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TRN_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTransfer" parameterClass="Transfer" resultClass="Transfer">
+      SELECT TRN_ID AS Id,TRN_TransferNumber AS TransferNumber,TRN_FromDealer_DMA_ID AS FromDealerDmaId,TRN_Status AS Status,TRN_ToDealer_DMA_ID AS ToDealerDmaId,TRN_Type AS Type,TRN_Description AS Description,TRN_Reverse_TRN_ID AS ReverseTrnId,TRN_TransferDate AS TransferDate,TRN_ProductLine_BUM_ID AS ProductLineBumId,TRN_Transfer_USR_UserID AS TransferUsrUserID
+      FROM Transfer
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">TRN_TransferNumber=#TransferNumber#</isNotNull>
+        <isNotNull prepend="AND" property="FromDealerDmaId">TRN_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">TRN_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">TRN_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Description">TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDate">TRN_TransferDate=#TransferDate#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">TRN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTransfer" parameterClass="Transfer">
+      INSERT INTO Transfer
+      (TRN_ID,TRN_TransferNumber,TRN_FromDealer_DMA_ID,TRN_Status,TRN_ToDealer_DMA_ID,TRN_Type,TRN_Description,TRN_Reverse_TRN_ID,TRN_TransferDate,TRN_ProductLine_BUM_ID,TRN_Transfer_USR_UserID)
+      VALUES(#Id#,#TransferNumber#,#FromDealerDmaId#,#Status#,#ToDealerDmaId#,#Type#,#Description#,#ReverseTrnId#,#TransferDate:DateTime:1/1/0001 12:00:00 AM#,#ProductLineBumId#,#TransferUsrUserID#)
+    </insert>
+    <update id="UpdateTransfer" parameterClass="Transfer">
+      UPDATE Transfer
+      SET TRN_ID=#Id#,TRN_TransferNumber=#TransferNumber#,TRN_FromDealer_DMA_ID=#FromDealerDmaId#,TRN_Status=#Status#,TRN_ToDealer_DMA_ID=#ToDealerDmaId#,TRN_Type=#Type#,TRN_Description=#Description#,TRN_Reverse_TRN_ID=#ReverseTrnId#,TRN_TransferDate=#TransferDate#,TRN_ProductLine_BUM_ID=#ProductLineBumId#,TRN_Transfer_USR_UserID=#TransferUsrUserID#
+      WHERE TRN_ID = #Id#
+    </update>
+
+    <!--根据客户端ID初始化LP自己的投诉订单数据-->
+    <update id="UpdateTransferInterfaceForLpInitByClientID" parameterClass="System.Collections.Hashtable">
+      WITH LRI(LRI_ID, RECORD_NBR) AS
+      (SELECT LRI_ID,ROW_NUMBER() OVER (ORDER BY LRI_TransferNo) AS RECORD_NBR
+      from LPRentInterface
+      INNER JOIN (select TRN_ID from transfer where TRN_Type='Rent') AS Rent ON Rent.TRN_ID = LRI_TranferID
+      INNER JOIN Client ON CLT_ID = LRI_ClientID
+      WHERE LRI_ClientID=#Clientid# AND LRI_Status='Pending' )
+      UPDATE LPRentInterface SET LRI_BatchNbr=#BatchNbr#, LRI_TransferNo = LRI.RECORD_NBR, LRI_Status='Processing', LRI_UpdateDate = #UpdateDate#
+      FROM LRI WHERE LRI.LRI_ID = LPRentInterface.LRI_ID
+    </update>
+
+    <delete id="DeleteTransfer" parameterClass="string">
+      DELETE FROM Transfer
+      WHERE TRN_ID = #value#
+    </delete>
+    <select id="SelectByFilterTransferAll" parameterClass="System.Collections.Hashtable" resultClass="Transfer">
+      SELECT *
+      ,row_number() OVER (ORDER BY TAB.TRN_TransferDate DESC) AS row_number
+      FROM (
+      SELECT
+      Transfer.TRN_ID AS Id,
+      Transfer.TRN_TransferNumber AS TransferNumber,
+      Transfer.TRN_FromDealer_DMA_ID AS FromDealerDmaId,
+      Transfer.TRN_Status AS Status,
+      Transfer.TRN_ToDealer_DMA_ID AS ToDealerDmaId,
+      DealerMaster.DMA_ChineseName AS ToDealerDmaName,
+      Transfer.TRN_Type AS Type,
+      Transfer.TRN_Description AS Description,
+      Transfer.TRN_Reverse_TRN_ID AS ReverseTrnId,
+      Transfer.TRN_ProductLine_BUM_ID AS ProductLine,
+      CONVERT(nvarchar(11),Transfer.TRN_TransferDate,120)+CONVERT(nvarchar(8),Transfer.TRN_TransferDate,114) AS TransferDate,
+      Lafite_IDENTITY.IDENTITY_NAME AS TransferUserName,
+      SUM(ISNULL(CONVERT(decimal(18,1),TransferLot.TLT_TransferLotQty),0)) AS TotalQyt,
+      CASE WHEN CHARINDEX('平台借货单号：', TRN_Description, 0) > 0 THEN substring(TRN_Description, CHARINDEX('平台借货单号：', TRN_Description,0)+7 ,LEN(TRN_Description)) ELSE TRN_Description END as LPUploadNo
+      ,Transfer.TRN_TransferDate
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM Transfer(nolock)
+      LEFT JOIN TransferLine(nolock) ON TransferLine.TRL_TRN_ID = Transfer.TRN_ID
+      LEFT JOIN TransferLot(nolock) ON TRL_ID = TLT_TRL_ID
+      LEFT OUTER JOIN DealerMaster(nolock) ON DealerMaster.DMA_ID = Transfer.TRN_ToDealer_DMA_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = Transfer.TRN_Transfer_USR_UserID
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=Transfer.TRN_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Transfer.TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber like  N'%$TransferNumber$%'</isNotNull>
+
+        <isNotNull prepend="AND" property="FromDealerDmaId">Transfer.TRN_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Transfer.TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">Transfer.TRN_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LPUploadNo">Transfer.TRN_Description like N'%$LPUploadNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="Type">
+          Transfer.TRN_Type IN
+          <iterate  property="Type" open="(" close=")" conjunction=",">
+            #Type[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="Description">Transfer.TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">Transfer.TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateStart">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)>=#TransferDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateEnd">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)&lt;=#TransferDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">Transfer.TRN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          TransferLine.TRL_TransferPart_PMA_ID IN (SELECT Product.PMA_ID  FROM Product WHERE Product.PMA_UPN like N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          TransferLine.TRL_TransferPart_PMA_ID IN (SELECT Product.PMA_ID  FROM Product WHERE Product.PMA_UPN like N'%$Upn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (TransferLot.TLT_QRCode = #LotNumber#  OR TransferLot.TLT_Lot=#LotNumber#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        GROUP BY Transfer.TRN_ID ,Transfer.TRN_TransferNumber,Transfer.TRN_FromDealer_DMA_ID,Transfer.TRN_Status,Transfer.TRN_ToDealer_DMA_ID
+        ,DealerMaster.DMA_ChineseName,Transfer.TRN_Type,Transfer.TRN_Description,Transfer.TRN_Reverse_TRN_ID,Transfer.TRN_ProductLine_BUM_ID
+        ,CONVERT(nvarchar(11),Transfer.TRN_TransferDate,120)+CONVERT(nvarchar(8),Transfer.TRN_TransferDate,114)
+        ,Lafite_IDENTITY.IDENTITY_NAME
+        ,Transfer.TRN_TransferDate
+        ,CASE WHEN CHARINDEX('平台借货单号：', TRN_Description, 0) > 0 THEN substring(TRN_Description, CHARINDEX('平台借货单号：', TRN_Description,0)+7 ,LEN(TRN_Description)) ELSE TRN_Description END
+        ,View_ProductLine.SubCompanyName
+        ,View_ProductLine.BrandName
+        ) TAB
+      </dynamic>
+
+    </select>
+
+    <select id="SelectByFilterTransferExport" parameterClass="System.Collections.Hashtable" resultClass="Transfer">
+      SELECT DISTINCT
+      Transfer.TRN_TransferNumber AS '借货出库单号',
+      (select DMA_ChineseName from DealerMaster(nolock) where DealerMaster.DMA_ID =Transfer.TRN_FromDealer_DMA_ID) as '借出经销商',
+      DealerMaster.DMA_ChineseName AS '借入经销商',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='CONST_TransferOrder_Type' and DICT_KEY = Transfer.TRN_Type) AS '订单类型',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='CONST_DealerTransfer_Status' and DICT_KEY = Transfer.TRN_Status ) AS '订单状态',
+      Transfer.TRN_Description AS '描述',
+      (select ATTRIBUTE_NAME from Lafite_ATTRIBUTE(nolock) where ATTRIBUTE_TYPE='Product_Line' and [Id]=Transfer.TRN_ProductLine_BUM_ID ) AS '产品线',
+      Lafite_IDENTITY.IDENTITY_NAME AS '出库人',
+      <!--SUM(ISNULL(CONVERT(decimal(18,1),TransferLot.TLT_TransferLotQty),0)) AS '总数量',-->
+      CASE WHEN CHARINDEX('平台借货单号：', TRN_Description, 0) > 0 THEN substring(TRN_Description, CHARINDEX('平台借货单号：', TRN_Description,0)+7 ,LEN(TRN_Description)) ELSE TRN_Description END as '平台上传单号'
+      ,Transfer.TRN_TransferDate as '出库时间'
+      ,Warehouse.WHM_Name AS '仓库',
+      CFN.CFN_ChineseName AS '产品中文名',
+      CFN.CFN_EnglishName AS '产品英文名',
+      CFN.CFN_CustomerFaceNbr AS '产品型号',
+      TransferLot.TLT_Lot AS '序列号/批号',
+      TransferLot.TLT_QRCode AS '二维码',
+      Product.PMA_UnitOfMeasure AS '单位',
+      TransferLot.TLT_TransferLotQty AS '借出数量',
+      LOT_LTM_ExpiredDate AS '产品有效期'
+      ,View_ProductLine.SubCompanyName as '分子公司'
+      ,View_ProductLine.BrandName '品牌'
+      FROM Transfer(nolock)
+      LEFT JOIN TransferLine(nolock) ON TransferLine.TRL_TRN_ID = Transfer.TRN_ID
+      LEFT JOIN TransferLot(nolock) ON TRL_ID = TLT_TRL_ID
+      LEFT OUTER JOIN DealerMaster(nolock) ON DealerMaster.DMA_ID = Transfer.TRN_ToDealer_DMA_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = Transfer.TRN_Transfer_USR_UserID
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=Transfer.TRN_ProductLine_BUM_ID
+      LEFT JOIN Warehouse (nolock) ON Warehouse.WHM_ID=TransferLine.TRL_FromWarehouse_WHM_ID
+      LEFT JOIN dbo.Lot(NOLOCK) ON Lot.LOT_ID=TransferLot.TLT_LOT_ID
+      LEFT JOIN dbo.CFN (NOLOCK) ON Lot.LOT_CFN_ID=CFN.CFN_ID
+      LEFT JOIN dbo.Product (NOLOCK) ON Product.PMA_ID=TransferLine.TRL_TransferPart_PMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Transfer.TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber like  N'%$TransferNumber$%'</isNotNull>
+
+        <isNotNull prepend="AND" property="FromDealerDmaId">Transfer.TRN_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Transfer.TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">Transfer.TRN_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LPUploadNo">Transfer.TRN_Description like N'%$LPUploadNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="Type">
+          Transfer.TRN_Type IN
+          <iterate  property="Type" open="(" close=")" conjunction=",">
+            #Type[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="Description">Transfer.TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">Transfer.TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateStart">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)>=#TransferDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateEnd">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)&lt;=#TransferDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">Transfer.TRN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          TransferLine.TRL_TransferPart_PMA_ID IN (SELECT Product.PMA_ID  FROM Product WHERE Product.PMA_UPN like N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          TransferLine.TRL_TransferPart_PMA_ID IN (SELECT Product.PMA_ID  FROM Product WHERE Product.PMA_UPN like N'%$Upn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (TransferLot.TLT_QRCode = #LotNumber#  OR TransferLot.TLT_Lot=#LotNumber#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <!--GROUP BY Transfer.TRN_ID ,Transfer.TRN_TransferNumber,Transfer.TRN_FromDealer_DMA_ID,Transfer.TRN_Status,Transfer.TRN_ToDealer_DMA_ID
+        ,DealerMaster.DMA_ChineseName,Transfer.TRN_Type,Transfer.TRN_Description,Transfer.TRN_Reverse_TRN_ID,Transfer.TRN_ProductLine_BUM_ID
+        ,CONVERT(nvarchar(11),Transfer.TRN_TransferDate,120)+CONVERT(nvarchar(8),Transfer.TRN_TransferDate,114)
+        ,Lafite_IDENTITY.IDENTITY_NAME
+        ,Transfer.TRN_TransferDate
+        ,CASE WHEN CHARINDEX('平台借货单号：', TRN_Description, 0) > 0 THEN substring(TRN_Description, CHARINDEX('平台借货单号：', TRN_Description,0)+7 ,LEN(TRN_Description)) ELSE TRN_Description END
+        ,View_ProductLine.SubCompanyName
+        ,View_ProductLine.BrandName-->
+      </dynamic>
+
+    </select>
+
+    <select id="SelectTransferByTransferNumber" parameterClass="System.Collections.Hashtable" resultClass="Transfer">
+      SELECT TRN_ID AS Id,TRN_TransferNumber AS TransferNumber,TRN_FromDealer_DMA_ID AS FromDealerDmaId,TRN_Status AS Status,TRN_ToDealer_DMA_ID AS ToDealerDmaId,TRN_Type AS Type,TRN_Description AS Description,TRN_Reverse_TRN_ID AS ReverseTrnId,TRN_TransferDate AS TransferDate,TRN_ProductLine_BUM_ID AS ProductLineBumId,TRN_Transfer_USR_UserID AS TransferUsrUserID
+      FROM Transfer
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TransferNumber">TRN_TransferNumber=#TransferNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Type">TRN_Type=#Type#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--LP 移库查询-->
+    <select id="SelectByFilterTransferForAudit" parameterClass="System.Collections.Hashtable" resultClass="Transfer">
+      SELECT
+      Transfer.TRN_ID AS Id,
+      Transfer.TRN_TransferNumber AS TransferNumber,
+      Transfer.TRN_FromDealer_DMA_ID AS FromDealerDmaId,
+      Transfer.TRN_Status AS Status,
+      Transfer.TRN_ToDealer_DMA_ID AS ToDealerDmaId,
+      DealerMaster.DMA_ChineseName AS ToDealerDmaName,
+      Transfer.TRN_Type AS Type,
+      Transfer.TRN_Description AS Description,
+      Transfer.TRN_Reverse_TRN_ID AS ReverseTrnId,
+      Transfer.TRN_ProductLine_BUM_ID AS ProductLine,
+      CONVERT(varchar(100), Transfer.TRN_TransferDate, 112) AS TransferDate,
+      Lafite_IDENTITY.IDENTITY_NAME AS TransferUserName,
+      (SELECT ISNULL(SUM(convert(decimal(18,1),TransferLot.TLT_TransferLotQty)),0)
+      FROM TransferLine(nolock)
+      INNER JOIN TransferLot(nolock) ON TRL_ID = TLT_TRL_ID
+      WHERE TransferLine.TRL_TRN_ID = Transfer.TRN_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY Transfer.TRN_TransferDate DESC) AS row_number
+      FROM Transfer(nolock)
+      LEFT OUTER JOIN DealerMaster(nolock) ON DealerMaster.DMA_ID = Transfer.TRN_ToDealer_DMA_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = Transfer.TRN_Transfer_USR_UserID
+      WHERE Transfer.TRN_Type = 'TransferConsignment'
+      AND Transfer.TRN_Status in ('Complete','Submitted','Deny')
+      and exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+      and DMA_ID = TRN_FromDealer_DMA_ID )
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">Transfer.TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber like N'%$TransferNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="Status">Transfer.TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Transfer.TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">Transfer.TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateStart">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)>=#TransferDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateEnd">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)&lt;=#TransferDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">Transfer.TRN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID
+          FROM         LotMaster INNER JOIN
+          Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID INNER JOIN
+          TransferLot ON Lot.LOT_ID = ISNULL(TransferLot.IAL_QRLOT_ID,TLT_LOT_ID) INNER JOIN
+          TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+          WHERE     (LotMaster.LTM_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="FromDealerDmaId">
+          TRN_FromDealer_DMA_ID = #FromDealerDmaId#
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--LP HQ寄售库借货-->
+    <select id="SelectByFilterTransferCommit" parameterClass="System.Collections.Hashtable" resultClass="Transfer">
+      SELECT
+      Transfer.TRN_ID AS Id,
+      Transfer.TRN_TransferNumber AS TransferNumber,
+      Transfer.TRN_FromDealer_DMA_ID AS FromDealerDmaId,
+      Transfer.TRN_Status AS Status,
+      Transfer.TRN_ToDealer_DMA_ID AS ToDealerDmaId,
+      DealerMaster.DMA_ChineseName AS ToDealerDmaName,
+      Transfer.TRN_Type AS Type,
+      Transfer.TRN_Description AS Description,
+      Transfer.TRN_Reverse_TRN_ID AS ReverseTrnId,
+      Transfer.TRN_ProductLine_BUM_ID AS ProductLine,
+      CONVERT(varchar(100), Transfer.TRN_TransferDate, 112) AS TransferDate,
+      Lafite_IDENTITY.IDENTITY_NAME AS TransferUserName,
+      (SELECT ISNULL(SUM(convert(decimal(18,1),TransferLot.TLT_TransferLotQty)),0)
+      FROM TransferLine(nolock)
+      INNER JOIN TransferLot(nolock) ON TRL_ID = TLT_TRL_ID
+      WHERE TransferLine.TRL_TRN_ID = Transfer.TRN_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY Transfer.TRN_TransferDate DESC) AS row_number
+      FROM Transfer
+      LEFT OUTER JOIN DealerMaster(nolock) ON DealerMaster.DMA_ID = Transfer.TRN_ToDealer_DMA_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = Transfer.TRN_Transfer_USR_UserID
+      WHERE Transfer.TRN_Type = 'RentConsignment'
+      AND Transfer.TRN_Status IN ('Draft','Complete')
+      AND exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+      and (DMA_ID = TRN_FromDealer_DMA_ID or DMA_ID = TRN_ToDealer_DMA_ID))
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">Transfer.TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber like N'%$TransferNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="FromDealerDmaId">Transfer.TRN_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">Transfer.TRN_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Transfer.TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Transfer.TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">Transfer.TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateStart">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)>=#TransferDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateEnd">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)&lt;=#TransferDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">Transfer.TRN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID
+          FROM         LotMaster INNER JOIN
+          Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID INNER JOIN
+          TransferLot ON Lot.LOT_ID = ISNULL(TransferLot.IAL_QRLOT_ID,TLT_LOT_ID) INNER JOIN
+          TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+          WHERE     (LotMaster.LTM_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--平台间借货数据下载查询 Edit By SongWeiming on 2016-3-29-->
+    <select id="QueryRentInfoByBatchNbrForLp" parameterClass="string" resultClass="LpRentData">
+
+      SELECT SDM.DMA_SAP_Code AS TransferOutDealerCode,
+      TDM.DMA_SAP_Code AS TransferInDealerCode,
+      TRN.TRN_TransferDate AS TransferDate,
+      CASE WHEN charindex('平台借货单号：',TRN_Description) > 0
+      THEN substring(TRN_Description,charindex('平台借货单号：',TRN_Description)+7,len(TRN_Description))
+      ELSE ''
+      END AS ERPFormNo,
+      (select VPL.DivisionName from  V_DivisionProductLineRelation VPL where VPL.ProductLineID = TRN.TRN_ProductLine_BUM_ID ) AS ProductLine,
+      CASE WHEN charindex('平台借货单号：',TRN_Description) > 0
+      THEN substring(TRN_Description,1,charindex('平台借货单号：',TRN_Description)-1)
+      ELSE TRN_Description
+      END AS Remark,
+      P.PMA_UPN AS UPN,
+      lt.LOT_LTM_Lot AS Lot,
+      lt.LOT_LTM_QRCode AS QRCode,
+      lt.LOT_LTM_DOM AS ProductDOM,
+      Convert(nvarchar(10),lt.LOT_LTM_ExpiredDate,120) AS ExpDate,
+      Convert(decimal(18,6),TLT.TLT_TransferLotQty) AS Qty,
+      CASE WHEN TLT_UnitPrice IS NULL THEN '' ELSE CONVERT(NVARCHAR(18),TLT_UnitPrice) END AS UnitPrice
+      FROM LpRentInterface LRI(nolock)
+      INNER JOIN [Transfer] AS TRN(nolock) ON TRN.TRN_ID = LRI.LRI_TranferID
+      INNER JOIN DealerMaster SDM(nolock) ON SDM.DMA_ID = TRN.TRN_FromDealer_DMA_ID
+      INNER JOIN DealerMaster TDM(nolock) ON TDM.DMA_ID = TRN.TRN_ToDealer_DMA_ID
+      INNER JOIN TransferLine AS Line(nolock) ON Line.TRL_TRN_ID = TRN.TRN_ID
+      INNER JOIN TransferLot AS TLT(nolock) ON Line.TRL_ID = TLT.TLT_TRL_ID
+      INNER JOIN LOT AS LT (nolock) ON TLT.TLT_LOT_ID = LT.LOT_ID
+      INNER JOIN Product As P(nolock) ON Line.TRL_TransferPart_PMA_ID = P.PMA_ID
+      INNER JOIN Warehouse AS W(nolock) ON TRL_FromWarehouse_WHM_ID = WHM_ID
+      WHERE LRI.LRI_BatchNbr = #BatchNbr#
+      ORDER BY TRN.TRN_TransferNumber, P.PMA_UPN
+
+    </select>
+    <!--客户端下载完订单后更新数据-->
+    <procedure id="GC_LpRent_AfterDownload" parameterMap="GC_LpRent_AfterDownload_ParameterMap">
+      dbo.GC_LpRent_AfterDownload
+    </procedure>
+    <!--end-->
+
+    <select id="SelectByFilterTransferForExport" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      w2.WHM_Name as ToWhmName,w1.WHM_Name as FromWhmName,PMA_UPN as UPN,
+      V_LotMaster.LTM_LotNumber as LotNumber,V_LotMaster.LTM_QrCode as QrCode,TLT_TransferLotQty as Qty,VP.SubCompanyName,
+      VP.BrandName
+      FROM Transfer
+      INNER JOIN TransferLine ON TRL_TRN_ID = TRN_ID
+      INNER JOIN TransferLot ON TRL_ID = TLT_TRL_ID
+      INNER JOIN Warehouse W1 ON TRL_FromWarehouse_WHM_ID = W1.WHM_ID
+      INNER JOIN Warehouse W2 ON TRL_ToWarehouse_WHM_ID = W2.WHM_ID
+      INNER JOIN Product ON PMA_ID = TRL_TransferPart_PMA_ID
+      INNER JOIN Lot ON TLT_LOT_ID = LOT_ID
+      INNER JOIN V_LotMaster ON LOT_LTM_ID = LTM_ID
+      LEFT OUTER JOIN DealerMaster(nolock) ON DealerMaster.DMA_ID = Transfer.TRN_ToDealer_DMA_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = Transfer.TRN_Transfer_USR_UserID
+      LEFT JOIN View_ProductLine(nolock) VP on VP.Id=Transfer.TRN_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Transfer.TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber=#TransferNumber#</isNotNull>
+        <isNotNull prepend="AND" property="FromDealerDmaId">Transfer.TRN_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Transfer.TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">Transfer.TRN_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">
+          Transfer.TRN_Type IN
+          <iterate  property="Type" open="(" close=")" conjunction=",">
+            #Type[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (VP.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (VP.BrandId = #BrandId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="Description">Transfer.TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">Transfer.TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateStart">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)>=#TransferDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateEnd">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)&lt;=#TransferDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">Transfer.TRN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID
+          FROM         LotMaster INNER JOIN
+          Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID INNER JOIN
+          TransferLot ON Lot.LOT_ID = isnull(IAL_QRLOT_ID,TransferLot.TLT_LOT_ID) INNER JOIN
+          TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+          WHERE     (LotMaster.LTM_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+      </dynamic>
+      ORDER BY Transfer.TRN_TransferDate DESC
+    </select>
+    <select id="SelectLimitBUCount" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT Count(*) as cnt
+      FROM DealerAuthorizationTable
+      where DAT_DMA_ID = #value#
+      and exists (select 1 from BULimit where DAT_ProductLine_BUM_ID = ProductLine_BUM_ID and Limit_Type = 'Transfer')
+    </select>
+    <select id="SelectLimitReason" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT distinct Limit_Id,ProductLineName,Reason
+      FROM DealerAuthorizationTable,BULimit,V_DivisionProductLineRelation
+      where DAT_DMA_ID = #value#
+      and DAT_ProductLine_BUM_ID = ProductLine_BUM_ID
+      and DAT_ProductLine_BUM_ID = ProductLineID
+      and Limit_Type = 'Transfer'
+    </select>
+
+    <select id="SelectLimitWarehouse" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select WHM_Name from Warehouse where  WHM_Type in('Normal','DefaultWH')
+      and WHM_DMA_ID=#value#
+    </select>
+
+    <!--冻结库解冻查询-->
+    <select id="SelectByFilterTransferFrozen" parameterClass="System.Collections.Hashtable" resultClass="Transfer">
+      SELECT
+      Transfer.TRN_ID AS Id,
+      Transfer.TRN_TransferNumber AS TransferNumber,
+      Transfer.TRN_FromDealer_DMA_ID AS FromDealerDmaId,
+      Transfer.TRN_Status AS Status,
+      Transfer.TRN_ToDealer_DMA_ID AS ToDealerDmaId,
+      DealerMaster.DMA_ChineseName AS ToDealerDmaName,
+      Transfer.TRN_Type AS Type,
+      Transfer.TRN_Description AS Description,
+      Transfer.TRN_Reverse_TRN_ID AS ReverseTrnId,
+      Transfer.TRN_ProductLine_BUM_ID AS ProductLine,
+      VP.SubCompanyName,
+      VP.BrandName,
+      CONVERT(nvarchar(11),Transfer.TRN_TransferDate,120)+CONVERT(nvarchar(8),Transfer.TRN_TransferDate,114) AS TransferDate,
+      Lafite_IDENTITY.IDENTITY_NAME AS TransferUserName,
+      (SELECT ISNULL(SUM(convert(decimal(18,1),TransferLot.TLT_TransferLotQty)),0)
+      FROM TransferLine(nolock)
+      INNER JOIN TransferLot(nolock) ON TRL_ID = TLT_TRL_ID
+      WHERE TransferLine.TRL_TRN_ID = Transfer.TRN_ID) AS TotalQyt,
+      CASE WHEN CHARINDEX('平台借货单号：', TRN_Description, 0) > 0 THEN substring(TRN_Description, CHARINDEX('平台借货单号：', TRN_Description,0)+7 ,LEN(TRN_Description)) ELSE TRN_Description END as LPUploadNo,
+      row_number() OVER (ORDER BY Transfer.TRN_TransferDate DESC) AS row_number
+      FROM Transfer
+      LEFT OUTER JOIN DealerMaster(nolock) ON DealerMaster.DMA_ID = Transfer.TRN_ToDealer_DMA_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = Transfer.TRN_Transfer_USR_UserID
+      left join TransferLine t(nolock) on t.TRL_TRN_ID= Transfer.TRN_ID
+      left join warehouse w(nolock) on w.WHM_ID=t.TRL_FromWarehouse_WHM_ID and w.WHM_Type='Frozen'
+      LEFT JOIN View_ProductLine(nolock) VP on VP.Id=Transfer.TRN_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Transfer.TRN_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber like  N'%$TransferNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">Transfer.TRN_TransferNumber like  N'%$TransferNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="FromDealerDmaId">Transfer.TRN_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Transfer.TRN_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">Transfer.TRN_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LPUploadNo">Transfer.TRN_Description like N'%$LPUploadNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="Type">
+          Transfer.TRN_Type IN
+          <iterate  property="Type" open="(" close=")" conjunction=",">
+            #Type[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="Description">Transfer.TRN_Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseTrnId">Transfer.TRN_Reverse_TRN_ID=#ReverseTrnId#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateStart">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)>=#TransferDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDateEnd">CONVERT(varchar(100), Transfer.TRN_TransferDate, 112)&lt;=#TransferDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">Transfer.TRN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (Transfer.TRN_ID IN(
+          SELECT DISTINCT TransferLine.TRL_TRN_ID FROM TransferLine INNER JOIN
+          Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (Transfer.TRN_ID IN(
+          select DISTINCT TransferLine.TRL_TRN_ID  from TransferLine
+          INNER JOIN TransferLot ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+          where 	( TransferLot. TLT_QRCode =#LotNumber# OR TransferLot. TLT_Lot=#LotNumber#)))
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (VP.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (VP.BrandId = #BrandId#)
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = Transfer.TRN_FromDealer_DMA_ID AND SD.BUM_ID = Transfer.TRN_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+      </dynamic>
+
+    </select>
+
+    <!--是否是华西医院的平台商-->
+    <select id="IsHuaXiDealer" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select * from dbo.HuaXiDealerRelation where DMA_ID = #value#
+    </select>
+    <!--移入仓库是否是华西医院库-->
+    <select id="PushTransferLot" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select P.PMA_UPN,PMA_UPN_HuaXi,TLT_TransferLotQty,
+      substring(LM.LTM_LotNumber,1,CHARINDEX('@@',LM.LTM_LotNumber,0)-1) AS LotNumber,
+      substring(LM.LTM_LotNumber,CHARINDEX('@@',LM.LTM_LotNumber,0)+2,LEN(LM.LTM_LotNumber)-CHARINDEX('@@',LM.LTM_LotNumber,0)) as QRCode,
+      LTM_ExpiredDate
+      from Transfer inner join TransferLine on TRN_ID = TRL_TRN_ID
+      INNER JOIN TransferLot ON TRL_ID = TLT_TRL_ID
+      INNER JOIN Product P ON PMA_ID = TRL_TransferPart_PMA_ID
+      INNER JOIN Warehouse on TRL_ToWarehouse_WHM_ID = WHM_ID
+      INNER JOIN Hospital ON WHM_Hospital_HOS_ID = HOS_ID
+      INNER JOIN ProductRelation PR ON P.PMA_ID = PR.PMA_ID
+      INNER JOIN Lot ON TLT_LOT_ID = LOT_ID
+      INNER JOIN LotMaster LM on LOT_LTM_ID = LTM_ID
+      WHERE TRN_ID = #value#
+      AND HOS_Key_Account = 'H000036'
+    </select>
+    <select id="IsXieHeHospital" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select count(*) as CNT
+      from Transfer inner join TransferLine on TRN_ID = TRL_TRN_ID
+      INNER JOIN TransferLot ON TRL_ID = TLT_TRL_ID
+      INNER JOIN Warehouse on TRL_ToWarehouse_WHM_ID = WHM_ID
+      INNER JOIN Hospital ON WHM_Hospital_HOS_ID = HOS_ID
+      WHERE TRN_ID = #value#
+      AND HOS_Key_Account in ('H000035','H000467')
+    </select>
+    <procedure id="Proc_XieHe_GetExpressInfo" parameterMap="Proc_XieHe_GetExpressInfo_ParameterMap">
+      dbo.Proc_XieHe_GetExpressInfo
+    </procedure>
+    <select id="SelectDealerMarketType" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select ISNULL(D1.DMA_MarketType,'0') AS FromMarketType, ISNULL(D2.DMA_MarketType,'0') AS ToMarketType
+      from  DealerMaster D1(nolock) ,DealerMaster D2(nolock)
+      WHERE D1.DMA_ID = #FromDMAID#
+      AND D2.DMA_ID = #ToDMAID#
+    </select>
+
+    <!--经销商移库报表-->
+    <select id="SelectDealerTransferReport" parameterClass="System.Collections.Hashtable">
+      SELECT DMA_ChineseName,
+      DMA_EnglishName,
+      DMA_SAP_Code,
+      TRN_TransferNumber,
+      CONVERT (VARCHAR (10), TRN_TransferDate, 120) AS TRN_TransferDate,
+      FromWH.WHM_Name AS FromWHName,
+      ToWH.WHM_Name AS ToWHName,
+      View_ProductLine.Attribute_Name AS ProductLineName,
+      CFN_CustomerFaceNbr,
+      CFN_ChineseName,
+      CFN_EnglishName,
+      PMA_UPN AS UPN,
+      CASE WHEN charindex('@@',LTM_LotNumber) > 0
+      THEN substring(LTM_LotNumber,1,charindex('@@',LTM_LotNumber)-1)
+      ELSE LTM_LotNumber
+      END AS LTM_LotNumber,
+      CASE WHEN charindex('@@',LTM_LotNumber) > 0
+      THEN substring(LTM_LotNumber,charindex('@@',LTM_LotNumber)+2,len(LTM_LotNumber))
+      ELSE ''
+      END AS QRCode,
+      CASE WHEN cfn.CFN_Property6 = '1' THEN CONVERT (VARCHAR (10), LTM_ExpiredDate, 120)
+      WHEN cfn.CFN_Property6 = '0' THEN CONVERT (VARCHAR (7), LTM_ExpiredDate, 120) END AS LTM_ExpiredDate,
+      TLT_TransferLotQty,
+      CFN_Property1,
+      CFN_Property2,
+      CFN_Property3,
+      CFN_Property4,
+      CFN_Property5,
+      CFN_Property6,
+      CFN_Property7,
+      CFN_Property8,
+      CFN_Level1Code,
+      CFN_Level1Desc,
+      CFN_Level2Code,
+      CFN_Level2Desc,
+      CFN_Level3Code,
+      CFN_Level3Desc,
+      CFN_Level4Code,
+      CFN_Level4Desc,
+      CFN_Level5Code,
+      CFN_Level5Desc,
+      TRN_Transfer_USR_UserID,
+      LI.IDENTITY_NAME
+      FROM Transfer(nolock)
+      INNER JOIN TransferLine(nolock)
+      ON TransferLine.TRL_TRN_ID = Transfer.TRN_ID
+      INNER JOIN TransferLot(nolock)
+      ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+      INNER JOIN DealerMaster(nolock)
+      ON DealerMaster.DMA_ID = Transfer.TRN_FromDealer_DMA_ID
+      INNER JOIN Warehouse AS FromWH(nolock)
+      ON FromWH.WHM_ID = TransferLine.TRL_FromWarehouse_WHM_ID
+      INNER JOIN Warehouse AS ToWH(nolock)
+      ON ToWH.WHM_ID = TransferLine.TRL_ToWarehouse_WHM_ID
+      INNER JOIN Product(nolock)
+      ON Product.PMA_ID = TransferLine.TRL_TransferPart_PMA_ID
+      INNER JOIN CFN(nolock)
+      ON CFN.CFN_ID = Product.PMA_CFN_ID
+      INNER JOIN View_ProductLine(nolock)
+      ON View_ProductLine.Id = Transfer.TRN_ProductLine_BUM_ID
+      INNER JOIN Lot(nolock)
+      ON Lot.LOT_ID = TransferLot.TLT_LOT_ID
+      INNER JOIN LotMaster(nolock)
+      ON LotMaster.LTM_ID = Lot.LOT_LTM_ID
+      INNER JOIN PartsClassification AS PCF(nolock)
+      ON CFN.CFN_ProductCatagory_PCT_ID = PCF.PCT_ID
+      LEFT JOIN Lafite_IDENTITY LI(nolock)
+      ON LI.Id = TRN_Transfer_USR_UserID
+      WHERE     TRN_Type = 'Transfer'
+      AND TRN_Status = 'Complete'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="StartDate">TRN_TransferDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">TRN_TransferDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">View_ProductLine.ID = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId=#BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnNumber">CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LTM_LotNumber LIKE N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Transfer.TRN_FromDealer_DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">
+        (dbo.GC_FilterByDealer (#UserId#, Transfer.TRN_FromDealer_DMA_ID, Transfer.TRN_ProductLine_BUM_ID) = 1)
+      </isNotNull>-->
+      </dynamic>
+      ORDER BY DMA_ChineseName
+    </select>
+
+    <select id="ExportDealerTransferReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DMA_ChineseName AS '经销商名称',
+      DMA_EnglishName AS '经销商英文名称',
+      DMA_SAP_Code AS '经销商ERP Account',
+      TRN_TransferNumber AS '移库单号',
+      LI.IDENTITY_NAME AS '操作人',
+      CONVERT (VARCHAR (10), TRN_TransferDate, 120) AS '移库日期',
+      FromWH.WHM_Name AS '移出仓库',
+      ToWH.WHM_Name AS '移入仓库',
+      CFN_Property1 AS '产品级别',
+      View_ProductLine.Attribute_Name AS '产品线',
+      CFN_CustomerFaceNbr AS '产品编号',
+      CFN_ChineseName AS '产品中文名',
+      CFN_EnglishName AS '产品英文名',
+      CASE WHEN charindex('@@',LTM_LotNumber) > 0
+      THEN substring(LTM_LotNumber,1,charindex('@@',LTM_LotNumber)-1)
+      ELSE LTM_LotNumber
+      END AS '产品批号',
+      CASE WHEN charindex('@@',LTM_LotNumber) > 0
+      THEN substring(LTM_LotNumber,charindex('@@',LTM_LotNumber)+2,len(LTM_LotNumber))
+      ELSE ''
+      END AS '二维码',
+      CASE WHEN cfn.CFN_Property6 = '1' THEN CONVERT (VARCHAR (10), LTM_ExpiredDate, 120)
+      WHEN cfn.CFN_Property6 = '0' THEN CONVERT (VARCHAR (7), LTM_ExpiredDate, 120) END AS '产品有效期',
+      TLT_TransferLotQty AS '移动数量'
+      FROM Transfer(nolock)
+      INNER JOIN TransferLine(nolock)
+      ON TransferLine.TRL_TRN_ID = Transfer.TRN_ID
+      INNER JOIN TransferLot(nolock)
+      ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+      INNER JOIN DealerMaster(nolock)
+      ON DealerMaster.DMA_ID = Transfer.TRN_FromDealer_DMA_ID
+      INNER JOIN Warehouse AS FromWH(nolock)
+      ON FromWH.WHM_ID = TransferLine.TRL_FromWarehouse_WHM_ID
+      INNER JOIN Warehouse AS ToWH(nolock)
+      ON ToWH.WHM_ID = TransferLine.TRL_ToWarehouse_WHM_ID
+      INNER JOIN Product(nolock)
+      ON Product.PMA_ID = TransferLine.TRL_TransferPart_PMA_ID
+      INNER JOIN CFN(nolock)
+      ON CFN.CFN_ID = Product.PMA_CFN_ID
+      INNER JOIN View_ProductLine(nolock)
+      ON View_ProductLine.Id = Transfer.TRN_ProductLine_BUM_ID
+      INNER JOIN Lot(nolock)
+      ON Lot.LOT_ID = TransferLot.TLT_LOT_ID
+      INNER JOIN LotMaster(nolock)
+      ON LotMaster.LTM_ID = Lot.LOT_LTM_ID
+      INNER JOIN PartsClassification AS PCF(nolock)
+      ON CFN.CFN_ProductCatagory_PCT_ID = PCF.PCT_ID
+      LEFT JOIN Lafite_IDENTITY LI(nolock)
+      ON LI.Id = TRN_Transfer_USR_UserID
+      WHERE     TRN_Type = 'Transfer'
+      AND TRN_Status = 'Complete'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="StartDate">TRN_TransferDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">TRN_TransferDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">View_ProductLine.ID = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId=#BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnNumber">CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LTM_LotNumber LIKE N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Transfer.TRN_FromDealer_DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">
+          (dbo.GC_FilterByDealer (#UserId#, Transfer.TRN_FromDealer_DMA_ID, Transfer.TRN_ProductLine_BUM_ID) = 1)
+        </isNotNull>-->
+      </dynamic>
+      ORDER BY '经销商名称'
+    </select>
+    <!--End 经销商移库报表-->
+
+  </statements>
+</sqlMap>

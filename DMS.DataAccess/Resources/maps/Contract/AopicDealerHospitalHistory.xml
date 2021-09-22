@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AopicDealerHospitalHistoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AopicDealerHospitalHistory" assembly="DMS.Model.dll" type="DMS.Model.AopicDealerHospitalHistory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AopicDealerHospitalHistoryResult" class="AopicDealerHospitalHistory">
+      <result property="Id" column="ADHPH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ChangeToContractid" column="ADHPH_ChangeToContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CurrentContractid" column="ADHPH_CurrentContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ADHPH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PctId" column="ADHPH_PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Hospitalid" column="ADHPH_HospitalID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="ADHPH_Year" type="string" dbType="nvarchar"/>
+      <result property="January" column="ADHPH_January" type="double" dbType="float"/>
+      <result property="February" column="ADHPH_February" type="double" dbType="float"/>
+      <result property="March" column="ADHPH_March" type="double" dbType="float"/>
+      <result property="April" column="ADHPH_April" type="double" dbType="float"/>
+      <result property="May" column="ADHPH_May" type="double" dbType="float"/>
+      <result property="June" column="ADHPH_June" type="double" dbType="float"/>
+      <result property="July" column="ADHPH_July" type="double" dbType="float"/>
+      <result property="August" column="ADHPH_August" type="double" dbType="float"/>
+      <result property="September" column="ADHPH_September" type="double" dbType="float"/>
+      <result property="October" column="ADHPH_October" type="double" dbType="float"/>
+      <result property="November" column="ADHPH_November" type="double" dbType="float"/>
+      <result property="December" column="ADHPH_December" type="double" dbType="float"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAopicDealerHospitalHistory" parameterClass="string" resultClass="AopicDealerHospitalHistory">
+      SELECT ADHPH_ID AS Id,ADHPH_ChangeToContractID AS ChangeToContractid,ADHPH_CurrentContractID AS CurrentContractid,ADHPH_DMA_ID AS DmaId,ADHPH_PCT_ID AS PctId,ADHPH_HospitalID AS Hospitalid,ADHPH_Year AS Year,ADHPH_January AS January,ADHPH_February AS February,ADHPH_March AS March,ADHPH_April AS April,ADHPH_May AS May,ADHPH_June AS June,ADHPH_July AS July,ADHPH_August AS August,ADHPH_September AS September,ADHPH_October AS October,ADHPH_November AS November,ADHPH_December AS December
+      FROM AOPICDealerHospitalHistory
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ADHPH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAopicDealerHospitalHistory" parameterClass="AopicDealerHospitalHistory" resultClass="AopicDealerHospitalHistory">
+      SELECT ADHPH_ID AS Id,ADHPH_ChangeToContractID AS ChangeToContractid,ADHPH_CurrentContractID AS CurrentContractid,ADHPH_DMA_ID AS DmaId,ADHPH_PCT_ID AS PctId,ADHPH_HospitalID AS Hospitalid,ADHPH_Year AS Year,ADHPH_January AS January,ADHPH_February AS February,ADHPH_March AS March,ADHPH_April AS April,ADHPH_May AS May,ADHPH_June AS June,ADHPH_July AS July,ADHPH_August AS August,ADHPH_September AS September,ADHPH_October AS October,ADHPH_November AS November,ADHPH_December AS December
+      FROM AOPICDealerHospitalHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ADHPH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ChangeToContractid">ADHPH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">ADHPH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ADHPH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductClassification">ADHPH_ProductClassification=#ProductClassification#</isNotNull>
+        <isNotNull prepend="AND" property="Hospitalid">ADHPH_HospitalID=#Hospitalid#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ADHPH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="January">ADHPH_January=#January#</isNotNull>
+        <isNotNull prepend="AND" property="February">ADHPH_February=#February#</isNotNull>
+        <isNotNull prepend="AND" property="March">ADHPH_March=#March#</isNotNull>
+        <isNotNull prepend="AND" property="April">ADHPH_April=#April#</isNotNull>
+        <isNotNull prepend="AND" property="May">ADHPH_May=#May#</isNotNull>
+        <isNotNull prepend="AND" property="June">ADHPH_June=#June#</isNotNull>
+        <isNotNull prepend="AND" property="July">ADHPH_July=#July#</isNotNull>
+        <isNotNull prepend="AND" property="August">ADHPH_August=#August#</isNotNull>
+        <isNotNull prepend="AND" property="September">ADHPH_September=#September#</isNotNull>
+        <isNotNull prepend="AND" property="October">ADHPH_October=#October#</isNotNull>
+        <isNotNull prepend="AND" property="November">ADHPH_November=#November#</isNotNull>
+        <isNotNull prepend="AND" property="December">ADHPH_December=#December#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAopicDealerHospitalHistory" parameterClass="AopicDealerHospitalHistory">
+      INSERT INTO AOPICDealerHospitalHistory
+      (ADHPH_ID,ADHPH_ChangeToContractID,ADHPH_CurrentContractID,ADHPH_DMA_ID,ADHPH_PCT_ID,ADHPH_HospitalID,ADHPH_Year,ADHPH_January,ADHPH_February,ADHPH_March,ADHPH_April,ADHPH_May,ADHPH_June,ADHPH_July,ADHPH_August,ADHPH_September,ADHPH_October,ADHPH_November,ADHPH_December)
+      VALUES(#Id#,#ChangeToContractid#,#CurrentContractid#,#DmaId#,#PctId#,#Hospitalid#,#Year#,#January#,#February#,#March#,#April#,#May#,#June#,#July#,#August#,#September#,#October#,#November#,#December#)
+    </insert>
+    <update id="UpdateAopicDealerHospitalHistory" parameterClass="AopicDealerHospitalHistory">
+      UPDATE AOPICDealerHospitalHistory
+      SET ADHPH_ID=#Id#,ADHPH_ChangeToContractID=#ChangeToContractid#,ADHPH_CurrentContractID=#CurrentContractid#,ADHPH_DMA_ID=#DmaId#,ADHPH_PCT_ID=#PctId#,ADHPH_HospitalID=#Hospitalid#,ADHPH_Year=#Year#,ADHPH_January=#January#,ADHPH_February=#February#,ADHPH_March=#March#,ADHPH_April=#April#,ADHPH_May=#May#,ADHPH_June=#June#,ADHPH_July=#July#,ADHPH_August=#August#,ADHPH_September=#September#,ADHPH_October=#October#,ADHPH_November=#November#,ADHPH_December=#December#
+      WHERE ADHPH_ID = #Id#
+    </update>
+    <delete id="DeleteAopicDealerHospitalHistory" parameterClass="string">
+      DELETE FROM AOPICDealerHospitalHistory
+      WHERE ADHPH_ID = #value#
+    </delete>
+
+    <select id="SelectHistoryAopHospitalProduct" parameterClass="AopicDealerHospitalHistory" resultClass="System.Data.DataSet">
+      SELECT	ADHPH_ID AS Id,
+      ADHPH_ChangeToContractID AS ChangeToContractid,
+      ADHPH_CurrentContractID AS CurrentContractid,
+      ADHPH_DMA_ID AS DmaId,
+      ADHPH_HospitalID AS HospitalId,
+      T2.HOS_HospitalName AS HospitalName,
+      ADHPH_PCT_ID AS ProductClass,
+      T3.CQ_NameCN AS ProductClassName,
+      ADHPH_Year AS Year,
+      ADHPH_January AS January,
+      ADHPH_February AS February,
+      ADHPH_March AS March,
+      ADHPH_April AS April,
+      ADHPH_May AS May,
+      ADHPH_June AS June,
+      ADHPH_July AS July,
+      ADHPH_August AS August,
+      ADHPH_September AS September,
+      ADHPH_October AS October,
+      ADHPH_November AS November,
+      ADHPH_December AS December,
+      (ADHPH_January + ADHPH_February+ ADHPH_March + ADHPH_April + ADHPH_May + ADHPH_June+ ADHPH_July+ ADHPH_August
+      + ADHPH_September + ADHPH_October+ ADHPH_November+ ADHPH_December)   AS Unit_Y,
+      ROW_NUMBER () OVER (ORDER BY ADHPH_ChangeToContractID DESC) AS [row_number]
+      FROM AOPICDealerHospitalHistory T1
+      INNER JOIN Hospital T2
+      ON T1.ADHPH_HospitalID = T2.HOS_ID
+      INNER JOIN( select distinct CQ_ID,CQ_NameCN from V_ProductClassificationStructure ) T3
+      ON T3.CQ_ID = T1.ADHPH_PCT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ChangeToContractid">ADHPH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">ADHPH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ADHPH_DMA_ID=#DmaId#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Inventory" assembly="DMS.Model.dll" type="DMS.Model.Inventory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryResult" class="Inventory">
+      <result property="OnHandQuantity" column="INV_OnHandQuantity" type="double" dbType="Real"/>
+      <result property="Id" column="INV_ID" type="Guid" dbType="Guid"/>
+      <result property="WhmId" column="INV_WHM_ID" type="Guid" dbType="Guid"/>
+      <result property="PmaId" column="INV_PMA_ID" type="Guid" dbType="Guid"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    
+    //****************实现当前库存量的变化*****************
+    <update id="UpdateInventoryWithQty" parameterClass="System.Collections.Hashtable">
+      UPDATE Inventory
+      SET INV_OnHandQuantity=Convert(decimal(18,6),INV_OnHandQuantity)+Convert(decimal(18,6),#OnHandQuantity#)
+      WHERE INV_ID = #Id#
+    </update>
+    //*****************************************************
+
+
+    <select id="SelectInventory" parameterClass="string" resultClass="Inventory">
+      SELECT INV_OnHandQuantity AS OnHandQuantity,INV_ID AS Id,INV_WHM_ID AS WhmId,INV_PMA_ID AS PmaId
+      FROM Inventory
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          INV_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventory" parameterClass="string" resultClass="Inventory">
+      SELECT INV_OnHandQuantity AS OnHandQuantity,INV_ID AS Id,INV_WHM_ID AS WhmId,INV_PMA_ID AS PmaId
+      FROM Inventory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OnHandQuantity">INV_OnHandQuantity=#OnHandQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="Id">INV_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">INV_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">INV_PMA_ID=#PmaId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventory" parameterClass="Inventory">
+      INSERT INTO Inventory
+      (INV_OnHandQuantity,INV_ID,INV_WHM_ID,INV_PMA_ID)
+      VALUES(#OnHandQuantity#,#Id#,#WhmId#,#PmaId#)
+    </insert>
+    <update id="UpdateInventory" parameterClass="Inventory">
+      UPDATE Inventory
+      SET INV_OnHandQuantity=#OnHandQuantity#,INV_ID=#Id#,INV_WHM_ID=#WhmId#,INV_PMA_ID=#PmaId#
+      WHERE INV_ID = #Id#
+    </update>
+    <delete id="DeleteInventory" parameterClass="string">
+      DELETE FROM Inventory
+      WHERE INV_ID = #value#
+    </delete>
+  </statements>
+
+</sqlMap>

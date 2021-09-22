@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProBuPointRatioMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProBuPointRatio" assembly="DMS.Model.dll" type="DMS.Model.ProBuPointRatio" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProBuPointRatioResult" class="ProBuPointRatio">
+      <result property="Id" column="ID" type="int" dbType="int"/>
+      <result property="Bu" column="BU" type="string" dbType="nvarchar"/>
+      <result property="PlatFormId" column="PlatFormId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Ratio" column="Ratio" type="decimal" dbType="decimal"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectProBuPointRatio" parameterClass="string" resultClass="ProBuPointRatio">
+      SELECT ID AS Id,BU AS Bu,PlatFormId AS PlatFormId,Ratio AS Ratio,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1
+      FROM Promotion.Pro_BU_PointRatio
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProBuPointRatio" parameterClass="ProBuPointRatio" resultClass="ProBuPointRatio">
+      SELECT ID AS Id,BU AS Bu,PlatFormId AS PlatFormId,Ratio AS Ratio,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1
+      FROM Promotion.Pro_BU_PointRatio
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">BU=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="PlatFormId">PlatFormId=#PlatFormId#</isNotNull>
+        <isNotNull prepend="AND" property="Ratio">Ratio=#Ratio#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProBuPointRatio" parameterClass="ProBuPointRatio">
+      INSERT INTO Promotion.Pro_BU_PointRatio
+      (BU,PlatFormId,Ratio,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1)
+      VALUES(#Bu#,#PlatFormId#,#Ratio#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#)
+      <selectKey resultClass="int" type="post" property="Id">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+    <update id="UpdateProBuPointRatio" parameterClass="ProBuPointRatio">
+      UPDATE Promotion.Pro_BU_PointRatio
+      SET BU=#Bu#,PlatFormId=#PlatFormId#,Ratio=#Ratio#,CreateBy=#CreateBy#,CreateTime=#CreateTime#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,Remark1=#Remark1#
+      WHERE ID = #Id#
+    </update>
+    <delete id="DeleteProBuPointRatio" parameterClass="string">
+      DELETE FROM Promotion.Pro_BU_PointRatio
+      WHERE ID = #value#
+    </delete>
+    <select id="QueryPointRatioByBuDmaId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select Promotion.Pro_BU_PointRatio.*,V_DivisionProductLineRelation.ProductLineName,DealerMaster.DMA_ChineseName as 'ChineseName' ,ROW_NUMBER () OVER (ORDER BY CreateTime ) AS [row_number]
+      from Promotion.Pro_BU_PointRatio(nolock) inner join V_DivisionProductLineRelation
+      on Promotion.Pro_BU_PointRatio.BU=V_DivisionProductLineRelation.ProductLineID
+      inner join DealerMaster(nolock) on Promotion.Pro_BU_PointRatio.PlatFormId=DealerMaster.DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PlatFormId">PlatFormId=#PlatFormId#</isNotNull>
+        <isNotNull prepend="AND" property="BU">BU=#BU#</isNotNull>
+      </dynamic>
+
+    </select>
+    <select id="SelectDealerByproductline"  parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct DealerMaster.DMA_ID as Id,DealerMaster.DMA_ChineseName as ChineseName 
+      from V_DealerContractMaster inner join DealerMaster(nolock) on V_DealerContractMaster.DMA_ID=DealerMaster.DMA_ID
+      where DealerMaster.DMA_DealerType !='T1' and V_DealerContractMaster.Division=#value# and ActiveFlag=1
+    </select>
+    <select id="ExistsByBuDmaId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select * from Promotion.Pro_BU_PointRatio where BU=#BU# and  PlatFormId=#PlatFormId#
+    </select>
+    <select id="QueryPromotionQuotazp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT NEWID() AS Id, '赠品' AS PoinType, A.DLid,B.DMA_SAP_Code as Code,  B.DMA_ChineseName as DmaName,C.ProductLineName as BuName,null as PointType,A.LargessAmount as LargessAmount,A.OrderAmount as OrderAmount,A.OtherAmount as OtherAmount,(A.LargessAmount+A.OtherAmount-A.OrderAmount) AS Yue,[dbo].[fn_PromotionQuoUpn](a.DLid,'ZP') as CfnName,A.Remark1 as Remar,ISNULL(A.[ExpireDate],'2099-12-31') as ValidDate
+      ,a.DEALERID AS DealerId,pdll.Period
+      ,ROW_NUMBER () OVER (ORDER BY B.DMA_ChineseName) AS [row_number]
+      FROM Promotion.PRO_DEALER_LARGESS A
+      INNER JOIN DealerMaster B
+      ON A.DEALERID=B.DMA_ID INNER JOIN V_DivisionProductLineRelation C
+      ON A.BU=C.DivisionName AND C.IsEmerging='0'
+      INNER JOIN PROMOTION.PRO_DEALER_LARGESS_LOG pdll ON pdll.DLid = A.DLid AND pdll.DLFrom='政策奖励'
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="SubCompanyId">
+          C.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          C.BrandId=#BrandId#
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="Dma">B.DMA_ID=#Dma#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">C.ProductLineID=#Bu#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (B.DMA_Parent_DMA_ID=#OwnerCorpId# OR B.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="QueryPromotionQuotajf" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT NEWID() AS Id, '积分' AS PoinType,  b.id  AS DLid,C.DMA_SAP_Code as Code, C.DMA_ChineseName as DmaName,D.ProductLineName as BuName,A.PointType as PointType,B.ValidDate as ValidDate,B.PointAmount as LargessAmount,B.OrderAmount as OrderAmount,B.OtherAmount as OtherAmount,
+      (B.PointAmount+B.OtherAmount-B.OrderAmount) AS Yue,[dbo].[fn_PromotionQuoUpn](a.DLid,'JF') as CfnName,A.Remark1 as Remar
+      ,a.DEALERID AS DealerId,pdpl.Period
+      ,ROW_NUMBER () OVER (ORDER BY B.ValidDate desc) AS [row_number]
+      FROM Promotion.PRO_DEALER_POINT A INNER JOIN Promotion.PRO_DEALER_POINT_SUB B
+      ON A.DLid=B.DLid INNER JOIN DealerMaster C ON A.DEALERID=C.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation D ON A.BU=D.DivisionName AND D.IsEmerging='0'
+      INNER JOIN Promotion.PRO_DEALER_POINT_LOG pdpl ON pdpl.DLid = A.DLid AND pdpl.DLFrom='政策奖励'
+      where exists(select 1 from Promotion.PRO_DEALER_POINT_DETAIL e where e.ConditionId in('1','3') and a.DLid=e.DLid )
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+          D.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          D.BrandId=#BrandId#
+        </isNotEmpty>
+      <isNotNull prepend="AND" property="Dma">C.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">D.ProductLineID=#Bu#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (C.DMA_Parent_DMA_ID=#OwnerCorpId# OR C.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+    </select>
+    <select id="ExporPromotionQuotajf" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT '积分' as N'额度类型', TB.DMA_SAP_Code as N'经销商编号', DMA_ChineseName as N'经销商',ProductLineName as N'产品线' ,
+      CASE PointType WHEN 'Point' THEN '不算返利不算达成' ELSE   '算返利算达成' END as N'类型',
+      ValidDate as N'有效期', PointAmount as N'总额度'
+      ,OrderAmount as N'已使用额度',OtherAmount as N'其他额度',(PointAmount+OtherAmount-OrderAmount) AS N'剩余额度',[dbo].[fn_PromotionQuoUpn](DLid,'JF') as N'授权范围',Period AS N'账期',
+      Remark1 as N'备注'
+      FROM ( SELECT D.ProductLineID,C.DMA_ID, A.DLid, c.DMA_SAP_Code ,C.DMA_ChineseName ,D.ProductLineName ,A.PointType ,B.ValidDate ,B.PointAmount ,B.OrderAmount ,B.OtherAmount ,
+      A.Remark1,pdpl.Period   FROM Promotion.PRO_DEALER_POINT A INNER JOIN Promotion.PRO_DEALER_POINT_SUB B
+      ON A.DLid=B.DLid INNER JOIN DealerMaster C ON A.DEALERID=C.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation D ON A.BU=D.DivisionName  AND D.IsEmerging='0'
+      INNER JOIN Promotion.PRO_DEALER_POINT_LOG pdpl ON pdpl.DLid = A.DLid AND pdpl.DLFrom='政策奖励'
+      where exists(select 1 from Promotion.PRO_DEALER_POINT_DETAIL e where e.ConditionId in('1','3') and a.DLid=e.DLid )
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+          D.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          D.BrandId=#BrandId#
+        </isNotEmpty>
+      <isNotNull prepend="AND" property="Dma">C.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">D.ProductLineID=#Bu#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (C.DMA_Parent_DMA_ID=#OwnerCorpId# OR C.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      ) TB
+    </select>
+    <select id="ExporPromotionQuotazp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT '赠品' as N'额度类型', DMA_SAP_Code as N'经销商编号', DMA_ChineseName as N'经销商',ProductLineName as N'产品线',LargessAmount as N'总积分',
+      OrderAmount as N'已使用额度',OtherAmount as N'其他额度',(LargessAmount+OtherAmount-OrderAmount) AS N'剩余额度'
+      ,[dbo].[fn_PromotionQuoUpn](DLid,'ZP') as N'授权范围',Period AS N'账期',Remark1  as N'备注'
+      FROM ( SELECT A.DLid, B.DMA_ID,C.ProductLineID,B.DMA_SAP_Code, B.DMA_ChineseName ,C.ProductLineName ,A.LargessAmount ,A.OrderAmount ,A.OtherAmount ,A.Remark1,pdll.Period
+      FROM Promotion.PRO_DEALER_LARGESS A INNER JOIN DealerMaster B
+      ON A.DEALERID=B.DMA_ID INNER JOIN V_DivisionProductLineRelation C
+      ON A.BU=C.DivisionName AND C.IsEmerging='0'
+      INNER JOIN PROMOTION.PRO_DEALER_LARGESS_LOG pdll ON pdll.DLid = A.DLid AND pdll.DLFrom='政策奖励'
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="SubCompanyId">
+          C.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          C.BrandId=#BrandId#
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="Dma">B.DMA_ID=#Dma#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">C.ProductLineID=#Bu#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (B.DMA_Parent_DMA_ID=#OwnerCorpId# OR B.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+      ) TB
+    </select>
+    
+    <select id="SelectPromotionQuotajfById" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT '积分' AS PoinType
+      ,C.DMA_ChineseShortName AS DealerName
+      ,C.DMA_DealerType AS DealerType
+      ,B.PointAmount
+      ,B.OrderAmount
+      ,B.PointAmount+OtherAmount-B.OrderAmount AS  SurplusAmount
+      ,D.ProductLineName+'('+D.DivisionName+')' AS ProductLineName
+      ,B.id
+      ,B.DLid
+      FROM Promotion.PRO_DEALER_POINT A
+      INNER JOIN Promotion.PRO_DEALER_POINT_SUB B
+      ON A.DLid=B.DLid INNER JOIN DealerMaster C ON A.DEALERID=C.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation D ON A.BU=D.DivisionName AND D.IsEmerging='0'
+      WHERE B.id=#value#
+    </select>
+    <select id="SelectPromotionQuotazpById" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT'赠品' AS PoinType
+      ,A.DLid
+      ,B.DMA_ChineseShortName AS DealerName
+      ,B.DMA_DealerType AS DealerType
+      ,A.LargessAmount AS PointAmount
+      ,a.OrderAmount AS OrderAmount
+      ,A.LargessAmount+OtherAmount-A.OrderAmount AS  SurplusAmount
+      ,C.ProductLineName+'('+C.DivisionName+')' AS ProductLineName
+      FROM Promotion.PRO_DEALER_LARGESS A
+      INNER JOIN DealerMaster B ON A.DEALERID=B.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation C ON A.BU=C.DivisionName AND C.IsEmerging='0'
+      WHERE A.DLid=#value#
+    </select>
+    <select id="SelectAdjustmentLimitForJF" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      B.PointAmount+b.OtherAmount-B.OrderAmount-#number# AS  SurplusAmount
+      FROM  Promotion.PRO_DEALER_POINT_SUB B
+      WHERE B.id=#Id#
+    </select>
+    <select id="SelectAdjustmentLimitForZP" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      A.LargessAmount+OtherAmount-A.OrderAmount-#number#  AS  SurplusAmount
+      FROM Promotion.PRO_DEALER_LARGESS A
+      WHERE A.DLid=#Id#
+    </select>
+    <update id="SubmitAdjustmentLimitForJF" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_DEALER_POINT_SUB
+      SET OtherAmount=ISNULL(OtherAmount,0.0)-#number#
+      WHERE ID = #Id#
+    </update>
+    <update id="SubmitAdjustmentLimitForZP" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_DEALER_LARGESS
+      SET OtherAmount=ISNULL(OtherAmount,0.0)-#number#
+      WHERE DLid=#Id#
+    </update>
+    <insert id="InsertAdjustmentLimitLogForJF" parameterClass="System.Collections.Hashtable">
+      INSERT INTO PROMOTION.PRO_DEALER_POINT_LOG(DLid,DLFrom,DEALERID,Amount,LogDate,OtherMemo)
+      SELECT B.DLid,'其他',B.DEALERID,-#number#,GETDATE(),'平台用户调整：'+ #remark#
+      FROM Promotion.PRO_DEALER_POINT_SUB A
+      INNER JOIN Promotion.PRO_DEALER_POINT B ON A.DLid=B.DLid
+      WHERE A.id=#Id#
+    </insert>
+    <insert id="InsertAdjustmentLimitLogForZP" parameterClass="System.Collections.Hashtable">
+      INSERT INTO PROMOTION.PRO_DEALER_LARGESS_LOG(DLid,DLFrom,DEALERID,Amount,LogDate,OtherMemo)
+      SELECT B.DLid,'其他',B.DEALERID,-#number#,GETDATE(),'平台用户调整：'+ #remark#
+      FROM PROMOTION.PRO_DEALER_LARGESS B
+      WHERE B.DLid=#Id#
+    </insert>
+    
+  </statements>
+</sqlMap>

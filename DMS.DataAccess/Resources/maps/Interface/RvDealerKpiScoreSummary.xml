@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="RvDealerKpiScoreSummaryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="Interface.RvDealerKpiScoreSummaryMap.SelectDealerQuarterList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT CONVERT(NVARCHAR(4), Summary.[Year]) + '-Q' + CONVERT(NVARCHAR(1), Summary.[Quarter]) [Quarter]
+        FROM   interface.RV_DealerKPI_Score_Summary Summary
+               INNER JOIN dbo.DealerMaster DealerMaster
+                    ON  DealerMaster.DMA_SAP_Code = Summary.SAPID
+        WHERE  DealerMaster.DMA_ID = #DealerId#
+               AND CONVERT(NVARCHAR(4), Summary.[Year]) + '-Q' + CONVERT(NVARCHAR(1), Summary.[Quarter]) >= '2017-Q1'
+        ORDER BY
+               CONVERT(NVARCHAR(4), Summary.[Year]) + '-Q' + CONVERT(NVARCHAR(1), Summary.[Quarter]) DESC
+      ]]>
+    </select>
+    <select id="Interface.RvDealerKpiScoreSummaryMap.SelectDealerBuList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT Summary.DivisionID BuCode,
+               Summary.Division BuName
+        FROM   interface.RV_DealerKPI_Score_Summary Summary
+               INNER JOIN dbo.DealerMaster DealerMaster
+                    ON  DealerMaster.DMA_SAP_Code = Summary.SAPID
+        WHERE  DealerMaster.DMA_ID = #DealerId#
+               AND CONVERT(NVARCHAR(4), Summary.[Year]) + '-Q' + CONVERT(NVARCHAR(1), Summary.[Quarter]) >= '2017-Q1'
+               AND SUBSTRING(#Quarter#, 1, 4) = CONVERT(NVARCHAR(4), Summary.[Year])
+               AND SUBSTRING(#Quarter#, 7, 1) = CONVERT(NVARCHAR(1), Summary.[Quarter])
+        ORDER BY
+               Summary.Division
+      ]]>
+    </select>
+  </statements>
+</sqlMap>

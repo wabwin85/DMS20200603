@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TProRedInvoiceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TProRedInvoice" assembly="DMS.Model.dll" type="DMS.Model.TProRedInvoice" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TProRedInvoiceResult" class="TProRedInvoice">
+      <result property="FlowId" column="FlowId" type="int" dbType="int"/>
+      <result property="Tier2DealerCode" column="Tier2DealerCode" type="string" dbType="nvarchar"/>
+      <result property="Bscbu" column="BSCBU" type="string" dbType="nvarchar"/>
+      <result property="InvoiceNumber" column="InvoiceNumber" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDate" column="InvoiceDate" type="DateTime" dbType="datetime"/>
+      <result property="InvoiceAmount" column="InvoiceAmount" type="decimal" dbType="decimal"/>
+      <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <result property="Clientid" column="Clientid" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ErMassage" column="ERMassage" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_T_PRO_RedInvoiceMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectTProRedInvoice" parameterClass="string" resultClass="TProRedInvoice">
+      SELECT FlowId AS FlowId,Tier2DealerCode AS Tier2DealerCode,BSCBU AS Bscbu,InvoiceNumber AS InvoiceNumber,InvoiceDate AS InvoiceDate,InvoiceAmount AS InvoiceAmount,Remark AS Remark,Clientid AS Clientid,BatchNbr AS BatchNbr,ERMassage AS ErMassage
+      FROM interface.T_PRO_RedInvoice
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FlowId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTProRedInvoice" parameterClass="TProRedInvoice" resultClass="TProRedInvoice">
+      SELECT FlowId AS FlowId,Tier2DealerCode AS Tier2DealerCode,BSCBU AS Bscbu,InvoiceNumber AS InvoiceNumber,InvoiceDate AS InvoiceDate,InvoiceAmount AS InvoiceAmount,Remark AS Remark,Clientid AS Clientid,BatchNbr AS BatchNbr,ERMassage AS ErMassage
+      FROM interface.T_PRO_RedInvoice
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Tier2DealerCode">Tier2DealerCode=#Tier2DealerCode#</isNotNull>
+        <isNotNull prepend="AND" property="Bscbu">BSCBU=#Bscbu#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNumber">InvoiceNumber=#InvoiceNumber#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceDate">InvoiceDate=#InvoiceDate#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceAmount">InvoiceAmount=#InvoiceAmount#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">Clientid=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErMassage">ERMassage=#ErMassage#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTProRedInvoice" parameterClass="TProRedInvoice">
+      INSERT INTO interface.T_PRO_RedInvoice
+      (Tier2DealerCode,BSCBU,InvoiceNumber,InvoiceDate,InvoiceAmount,Remark,Clientid,BatchNbr,ERMassage)
+      VALUES(#Tier2DealerCode#,#Bscbu#,#InvoiceNumber#,#InvoiceDate:DateTime:1/1/0001 12:00:00 AM#,#InvoiceAmount#,#Remark#,#Clientid#,#BatchNbr#,#ErMassage#)
+      <selectKey resultClass="int" type="post" property="FlowId">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+    <update id="UpdateTProRedInvoice" parameterClass="TProRedInvoice">
+      UPDATE interface.T_PRO_RedInvoice
+      SET Tier2DealerCode=#Tier2DealerCode#,BSCBU=#Bscbu#,InvoiceNumber=#InvoiceNumber#,InvoiceDate=#InvoiceDate#,InvoiceAmount=#InvoiceAmount#,Remark=#Remark#,Clientid=#Clientid#,BatchNbr=#BatchNbr#,ERMassage=#ErMassage#
+      WHERE FlowId = #FlowId#
+    </update>
+    <delete id="DeleteTProRedInvoice" parameterClass="string">
+      DELETE FROM interface.T_PRO_RedInvoice
+      WHERE FlowId = #value#
+    </delete>
+    <procedure id="GC_Interface_T_PRO_RedInvoice" parameterMap="GC_Interface_T_PRO_RedInvoiceMap">
+      dbo.GC_Interface_T_PRO_RedInvoice
+    </procedure>
+    <select id="SelectInterfaceTProRedInvoiceByBatchNbrErrorOnly" parameterClass="string" resultClass="TProRedInvoice">
+      SELECT  A.FlowId AS FlowId,A.Tier2DealerCode AS Tier2DealerCode,
+      A.BSCBU AS Bscbu,A.InvoiceNumber AS InvoiceNumber,A.InvoiceDate AS InvoiceDate,
+      A.InvoiceAmount AS InvoiceAmount,A.Remark AS Remark,A.Clientid AS Clientid,A.BatchNbr AS BatchNbr,A.ErMassage AS ErMassage  FROM interface.T_PRO_RedInvoice A
+      WHERE A.BatchNbr=#value# AND A.ERMassage IS NOT NULL
+    </select>
+  </statements>
+</sqlMap>

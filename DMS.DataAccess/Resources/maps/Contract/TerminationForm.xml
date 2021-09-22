@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TerminationFormMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TerminationForm" assembly="DMS.Model.dll" type="DMS.Model.TerminationForm" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TerminationFormResult" class="TerminationForm">
+      <result property="TfId" column="TfId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TfCmId" column="TfCmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TfDmaId" column="TfDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TfHeadParm1" column="TfHeadParm1" type="bool" dbType="bit"/>
+      <result property="TfHeadParm2" column="TfHeadParm2" type="bool" dbType="bit"/>
+      <result property="TfHeadParm3" column="TfHeadParm3" type="bool" dbType="bit"/>
+      <result property="TfHeadParm4" column="TfHeadParm4" type="bool" dbType="bit"/>
+      <result property="TfHeadParm5" column="TfHeadParm5" type="bool" dbType="bit"/>
+      <result property="TfCompanyName" column="TfCompanyName" type="string" dbType="nvarchar"/>
+      <result property="TfCountry" column="TfCountry" type="string" dbType="nvarchar"/>
+      <result property="TfIsExclusive" column="TfIsExclusive" type="string" dbType="nvarchar"/>
+      <result property="TfExpirationDate" column="TfExpirationDate" type="DateTime" dbType="datetime"/>
+      <result property="TfTerminationEffectiveDate" column="TfTerminationEffectiveDate" type="DateTime" dbType="datetime"/>
+      <result property="TfReasonAccRec" column="TfReasonAccRec" type="bool" dbType="bit"/>
+      <result property="TfReasonNotQuota" column="TfReasonNotQuota" type="bool" dbType="bit"/>
+      <result property="TfReasonPlDis" column="TfReasonPlDis" type="bool" dbType="bit"/>
+      <result property="TfReasonOther" column="TfReasonOther" type="bool" dbType="bit"/>
+      <result property="TfReasonOtherReasons" column="TfReasonOtherReasons" type="string" dbType="nvarchar"/>
+      <result property="TfReasons" column="TfReasons" type="string" dbType="nvarchar"/>
+      <result property="TfOutstandingAmount" column="TfOutstandingAmount" type="decimal" dbType="decimal"/>
+      <result property="TfQuotaAmount" column="TfQuotaAmount" type="decimal" dbType="decimal"/>
+      <result property="TfActualSales" column="TfActualSales" type="decimal" dbType="decimal"/>
+      <result property="TfGoodsAmount" column="TfGoodsAmount" type="decimal" dbType="decimal"/>
+      <result property="TfHasrgaAttached" column="TfHasrgaAttached" type="bool" dbType="bit"/>
+      <result property="TfIsOutstandingTenders" column="TfIsOutstandingTenders" type="bool" dbType="bit"/>
+      <result property="TfPostTermination" column="TfPostTermination" type="string" dbType="nvarchar"/>
+      <result property="TfDuePayment" column="TfDuePayment" type="bool" dbType="bit"/>
+      <result property="TfCreditAmount" column="TfCreditAmount" type="decimal" dbType="decimal"/>
+      <result property="TfIsBankGuarantee" column="TfIsBankGuarantee" type="bool" dbType="bit"/>
+      <result property="TfGuaranteeAmount" column="TfGuaranteeAmount" type="decimal" dbType="decimal"/>
+      <result property="TfIsReserve" column="TfIsReserve" type="bool" dbType="bit"/>
+      <result property="TfReserveAmount" column="TfReserveAmount" type="decimal" dbType="decimal"/>
+      <result property="TfSettlement" column="TfSettlement" type="decimal" dbType="decimal"/>
+      <result property="TfWriteOff" column="TfWriteOff" type="decimal" dbType="decimal"/>
+      <result property="TfReserveType" column="TfReserveType" type="string" dbType="nvarchar"/>
+      <result property="TfRsmPrintName" column="TfRsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="TfRsmDate" column="TfRsmDate" type="DateTime" dbType="datetime"/>
+      <result property="TfFmPrintName" column="TfFmPrintName" type="string" dbType="nvarchar"/>
+      <result property="TfFmDate" column="TfFmDate" type="DateTime" dbType="datetime"/>
+      <result property="TfVpFinancePrintName" column="TfVpFinancePrintName" type="string" dbType="nvarchar"/>
+      <result property="TfVpFinanceDate" column="TfVpFinanceDate" type="DateTime" dbType="datetime"/>
+      <result property="TfVpPrintName" column="TfVpPrintName" type="string" dbType="nvarchar"/>
+      <result property="TfVpDate" column="TfVpDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectTerminationForm" parameterClass="Guid" resultClass="TerminationForm">
+      SELECT TF_ID AS TfId,TF_CM_ID AS TfCmId,TF_DMA_ID AS TfDmaId,TF_Head_Parm1 AS TfHeadParm1,TF_Head_Parm2 AS TfHeadParm2,TF_Head_Parm3 AS TfHeadParm3,TF_Head_Parm4 AS TfHeadParm4,TF_Head_Parm5 AS TfHeadParm5,TF_Company_Name AS TfCompanyName,TF_Country AS TfCountry,TF_IsExclusive AS TfIsExclusive,TF_ExpirationDate AS TfExpirationDate,TF_Termination_EffectiveDate AS TfTerminationEffectiveDate,TF_Reason_AccRec AS TfReasonAccRec,TF_Reason_NotQuota AS TfReasonNotQuota,TF_Reason_PlDis AS TfReasonPlDis,TF_Reason_Other AS TfReasonOther,TF_Reason_OtherReasons AS TfReasonOtherReasons,TF_Reasons AS TfReasons,TF_OutstandingAmount AS TfOutstandingAmount,TF_QuotaAmount AS TfQuotaAmount,TF_ActualSales AS TfActualSales,TF_GoodsAmount AS TfGoodsAmount,TF_HasRGAAttached AS TfHasrgaAttached,TF_IsOutstandingTenders AS TfIsOutstandingTenders,TF_PostTermination AS TfPostTermination,TF_DuePayment AS TfDuePayment,TF_CreditAmount AS TfCreditAmount,TF_IsBankGuarantee AS TfIsBankGuarantee,TF_GuaranteeAmount AS TfGuaranteeAmount,TF_IsReserve AS TfIsReserve,TF_ReserveAmount AS TfReserveAmount,TF_Settlement AS TfSettlement,TF_WriteOff AS TfWriteOff,TF_ReserveType AS TfReserveType,TF_RSM_PrintName AS TfRsmPrintName,TF_RSM_Date AS TfRsmDate,TF_FM_PrintName AS TfFmPrintName,TF_FM_Date AS TfFmDate,TF_VPFinance_PrintName AS TfVpFinancePrintName,TF_VPFinance_Date AS TfVpFinanceDate,TF_VP_PrintName AS TfVpPrintName,TF_VP_Date AS TfVpDate
+      FROM TerminationForm
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TF_DMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectTerminationFormById" parameterClass="System.Data.DataSet" resultClass="TerminationForm">
+      SELECT TF_ID AS TfId,TF_CM_ID AS TfCmId,TF_DMA_ID AS TfDmaId,TF_Head_Parm1 AS TfHeadParm1,TF_Head_Parm2 AS TfHeadParm2,TF_Head_Parm3 AS TfHeadParm3,TF_Head_Parm4 AS TfHeadParm4,TF_Head_Parm5 AS TfHeadParm5,TF_Company_Name AS TfCompanyName,TF_Country AS TfCountry,TF_IsExclusive AS TfIsExclusive,TF_ExpirationDate AS TfExpirationDate,TF_Termination_EffectiveDate AS TfTerminationEffectiveDate,TF_Reason_AccRec AS TfReasonAccRec,TF_Reason_NotQuota AS TfReasonNotQuota,TF_Reason_PlDis AS TfReasonPlDis,TF_Reason_Other AS TfReasonOther,TF_Reason_OtherReasons AS TfReasonOtherReasons,TF_Reasons AS TfReasons,TF_OutstandingAmount AS TfOutstandingAmount,TF_QuotaAmount AS TfQuotaAmount,TF_ActualSales AS TfActualSales,TF_GoodsAmount AS TfGoodsAmount,TF_HasRGAAttached AS TfHasrgaAttached,TF_IsOutstandingTenders AS TfIsOutstandingTenders,TF_PostTermination AS TfPostTermination,TF_DuePayment AS TfDuePayment,TF_CreditAmount AS TfCreditAmount,TF_IsBankGuarantee AS TfIsBankGuarantee,TF_GuaranteeAmount AS TfGuaranteeAmount,TF_IsReserve AS TfIsReserve,TF_ReserveAmount AS TfReserveAmount,TF_Settlement AS TfSettlement,TF_WriteOff AS TfWriteOff,TF_ReserveType AS TfReserveType,TF_RSM_PrintName AS TfRsmPrintName,TF_RSM_Date AS TfRsmDate,TF_FM_PrintName AS TfFmPrintName,TF_FM_Date AS TfFmDate,TF_VPFinance_PrintName AS TfVpFinancePrintName,TF_VPFinance_Date AS TfVpFinanceDate,TF_VP_PrintName AS TfVpPrintName,TF_VP_Date AS TfVpDate
+      FROM TerminationForm
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TF_ID = #Id#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

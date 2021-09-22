@@ -1,0 +1,7 @@
+cd E:\TFS\BSC\DMS\Code\Dev\DMS\DMS.Website\Revolution\Resources\FrameJs\Extention
+E:
+uglifyjs DmsApplyBasic.js DmsConsignContract.js DmsDealerFilter.js DmsEmployeeFilter.js DmsHospitalFilter.js DmsOperationLog.js DmsDataImport.js -o FrameJS.KendoExtention.min.js -c
+
+cd E:\TFS\BSC\DMS\Code\Dev\DMS\DMS.Website\Revolution\Resources\FrameJs\Extention
+E:
+uglifyjs DmsApplyBasic.js DmsConsignContract.js DmsDealerFilter.js DmsEmployeeFilter.js DmsHospitalFilter.js DmsOperationLog.js DmsDataImport.js -o FrameJS.KendoExtention.min.js -b

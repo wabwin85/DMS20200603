@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3CA1033F-AEFB-414A-AE2E-58FA4533F374}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.Business</RootNamespace>
+    <AssemblyName>DMS.Business</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <PublishUrl>http://localhost/DMS.Business/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Com.Zealan.Saml">
+      <HintPath>..\..\References\Com.Zealan.Saml.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\References\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net1213">
+      <HintPath>..\..\References\Common.Logging.Log4Net1213.dll</HintPath>
+    </Reference>
+    <Reference Include="Coolite.Ext.Web, Version=0.8.1.18557, Culture=neutral, PublicKeyToken=f58c952e9aa5b80a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Coolite.Ext.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Fulper.ExpressionParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Fulper.ExpressionParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.Exceptions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.Exceptions.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.Logging.CallHandlers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.Logging.CallHandlers.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.Logging.Database, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.Logging.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\..\References\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\References\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Lafite.RoleModel.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Lafite.RoleModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\References\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\References\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\References\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=9ad232b50c3e6444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode">
+      <HintPath>..\..\References\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionsDefine.cs" />
+    <Compile Include="AOP\AopDealerBLL.cs" />
+    <Compile Include="AOP\IAopDealerBLL.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Cache\ProductLineCacheHelper.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyDetailsBLL.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyHeaderBLL.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentAuthorizationBLL.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentDealerBLL.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentMasterBLL.cs" />
+    <Compile Include="ConsignmentApply\IConsignmentApplyDetailsBLL.cs" />
+    <Compile Include="ConsignmentApply\IConsignmentApplyHeaderBLL.cs" />
+    <Compile Include="ConsignmentApply\IConsignmentAuthorizationBLL.cs" />
+    <Compile Include="ConsignmentApply\IConsignmentDealerBLL.cs" />
+    <Compile Include="ConsignmentApply\IConsignmentMasterBLL.cs" />
+    <Compile Include="ContractElectronic\ContractService.cs" />
+    <Compile Include="ContractElectronic\DealerMasterDDBscService.cs" />
+    <Compile Include="ContractElectronic\SelectFunService.cs" />
+    <Compile Include="ContractElectronic\QueryService.cs" />
+    <Compile Include="Contract\ContractAmendmentService.cs" />
+    <Compile Include="Contract\ContractAppointmentService.cs" />
+    <Compile Include="Contract\ContractCommonBLL.cs" />
+    <Compile Include="Contract\ContractMaster.cs" />
+    <Compile Include="Contract\ContractMasterBLL.cs" />
+    <Compile Include="Contract\ContractRenewalService.cs" />
+    <Compile Include="Contract\ContractTerminationService.cs" />
+    <Compile Include="Contract\IContractAmendmentService.cs" />
+    <Compile Include="Contract\IContractAppointmentService.cs" />
+    <Compile Include="Contract\IContractCommonBLL.cs" />
+    <Compile Include="Contract\IContractMaster.cs" />
+    <Compile Include="Contract\IContractMasterBLL.cs" />
+    <Compile Include="Contract\IContractRenewalService.cs" />
+    <Compile Include="Contract\IContractTerminationService.cs" />
+    <Compile Include="Contract\ITenderAuthorizationList.cs" />
+    <Compile Include="Contract\IThirdPartyDisclosureService.cs" />
+    <Compile Include="Contract\ITrainingSignInService.cs" />
+    <Compile Include="Contract\TenderAuthorizationListBLL.cs" />
+    <Compile Include="Contract\ThirdPartyDisclosureService.cs" />
+    <Compile Include="Contract\TrainingSignInService.cs" />
+    <Compile Include="DataInterface\AdjustBLL.cs" />
+    <Compile Include="DataInterface\ConfirmationBLL.cs" />
+    <Compile Include="DataInterface\DeliveryBLL.cs" />
+    <Compile Include="DataInterface\InterfaceDataBLL.cs" />
+    <Compile Include="DataInterface\InterfaceLogBLL.cs" />
+    <Compile Include="DataInterface\SalesBLL.cs" />
+    <Compile Include="DataInterface\T2InformationBLL.cs" />
+    <Compile Include="DataInterface\TProOutLinePointsBLL.cs" />
+    <Compile Include="DataInterface\TProRedInvoiceBLL.cs" />
+    <Compile Include="DataInterface\TransferBLL.cs" />
+    <Compile Include="DCM\AttachmentBLL.cs" />
+    <Compile Include="DCM\BulletinManageBLL.cs" />
+    <Compile Include="DCM\BulletinSearchBLL.cs" />
+    <Compile Include="DCM\DealerQABLL.cs" />
+    <Compile Include="DCM\IAttachmentBLL.cs" />
+    <Compile Include="DCM\IBulletinManageBLL.cs" />
+    <Compile Include="DCM\IBulletinSearchBLL.cs" />
+    <Compile Include="DCM\IDealerQABLL.cs" />
+    <Compile Include="DCM\IIssuesListBLL.cs" />
+    <Compile Include="DCM\IssuesListBLL.cs" />
+    <Compile Include="DealerTrain\DealerTrainBLL.cs" />
+    <Compile Include="DealerTrain\TrainScoreTemplateExport.cs" />
+    <Compile Include="DealerTrain\IDealerTrainBLL.cs" />
+    <Compile Include="DealerTrain\CommandoUserBLL.cs" />
+    <Compile Include="DPInfo\DPImportBLL.cs" />
+    <Compile Include="DPInfo\DpScoreCardBLL.cs" />
+    <Compile Include="DPInfo\DPScoreCardExport.cs" />
+    <Compile Include="DPInfo\DpStatementBLL.cs" />
+    <Compile Include="DPInfo\DPStatementsExport.cs" />
+    <Compile Include="DPInfo\DPRatiosExport.cs" />
+    <Compile Include="DPInfo\DPCashflowExport.cs" />
+    <Compile Include="DP\DealerInfoService.cs" />
+    <Compile Include="DP\DPForecastImportService.cs" />
+    <Compile Include="DP\DpRightService.cs" />
+    <Compile Include="DP\IDealerInfoService.cs" />
+    <Compile Include="DP\IDPForecastImportService.cs" />
+    <Compile Include="DP\IDpRightService.cs" />
+    <Compile Include="EKPWorkflow\EkpHtmlBLL.cs" />
+    <Compile Include="EKPWorkflow\kmReviewExtendWeserviceBLL.cs" />
+    <Compile Include="EKPWorkflow\kmReviewWebserviceBLL.cs" />
+    <Compile Include="EKPWorkflow\EkpWorkflowBLL.cs" />
+    <Compile Include="EKPWorkflow\Encryption.cs" />
+    <Compile Include="ERPInterface\InterfaceWebUser.cs" />
+    <Compile Include="ERPInterface\OrderAndProduct.cs" />
+    <Compile Include="Excel\ExcelCellFormat.cs" />
+    <Compile Include="Excel\ExcelEdit.cs" />
+    <Compile Include="Excel\Objects\cellProperty.cs" />
+    <Compile Include="Excel\Objects\config.cs" />
+    <Compile Include="Excel\Objects\dDefault.cs" />
+    <Compile Include="Excel\Objects\iExcel.cs" />
+    <Compile Include="Excel\Objects\oExcel.cs" />
+    <Compile Include="Excel\Objects\property.cs" />
+    <Compile Include="Excel\Objects\sheet.cs" />
+    <Compile Include="Excel\Utility.cs" />
+    <Compile Include="Excel\XlsExport.cs" />
+    <Compile Include="Excel\XlsImport.cs" />
+    <Compile Include="Excel\Xml.cs" />
+    <Compile Include="HCPPassport\DealerAccountBLL.cs" />
+    <Compile Include="Interfaces\ICfns.cs" />
+    <Compile Include="Interfaces\ICOPs.cs" />
+    <Compile Include="Interfaces\IPositionHospital.cs" />
+    <Compile Include="Interfaces\IDealerContracts.cs" />
+    <Compile Include="Interfaces\IDealerMasters.cs" />
+    <Compile Include="Interfaces\IHospitals.cs" />
+    <Compile Include="Interfaces\IReport.cs" />
+    <Compile Include="Interfaces\IProductClassifications.cs" />
+    <Compile Include="Interfaces\ITerritorys.cs" />
+    <Compile Include="Interfaces\IVirtualDC.cs" />
+    <Compile Include="Interfaces\IWarehouses.cs" />
+    <Compile Include="Inventory\DealerComplainBLL.cs" />
+    <Compile Include="Inventory\IDealerComplainBLL.cs" />
+    <Compile Include="Inventory\IInventorySafetyBLL.cs" />
+    <Compile Include="Inventory\InventoryReturnBscService.cs" />
+    <Compile Include="Inventory\InventorySafetyBLL.cs" />
+    <Compile Include="Inventory\IReturnPositionSearchBLL.cs" />
+    <Compile Include="Inventory\IStocktakingBLL.cs" />
+    <Compile Include="Inventory\ITIWcDealerBarcodeqRcodeScanBLL.cs" />
+    <Compile Include="Inventory\ReturnPositionSearchBLL.cs" />
+    <Compile Include="Inventory\StocktakingBLL.cs" />
+    <Compile Include="Inventory\TIWcDealerBarcodeqRcodeScanBLL.cs" />
+    <Compile Include="Log\ILafite_LogBLL.cs" />
+    <Compile Include="Log\Lafite_LogBLL.cs" />
+    <Compile Include="MasterData\PositionHospitalBLL.cs" />
+    <Compile Include="MasterData\ProductLineBLL.cs" />
+    <Compile Include="MasterData\AutoNumberBLL.cs" />
+    <Compile Include="BaseBusiness.cs" />
+    <Compile Include="Cache\ClassificationCacheHelper.cs" />
+    <Compile Include="Cache\DealerCacheHelper.cs" />
+    <Compile Include="Cache\DictionaryCacheHelper.cs" />
+    <Compile Include="Cache\OrganizationCacheHelper.cs" />
+    <Compile Include="MasterData\CFNHospitalPriceBLL.cs" />
+    <Compile Include="MasterData\Cfns.cs" />
+    <Compile Include="MasterData\ClientBLL.cs" />
+    <Compile Include="MasterData\COPs.cs" />
+    <Compile Include="Data\DealerContractExtension.cs" />
+    <Compile Include="Data\DMSLogging.cs" />
+    <Compile Include="Data\LoginUserExtension.cs" />
+    <Compile Include="Data\ProductClassification.cs" />
+    <Compile Include="MasterData\DealerContracts.cs" />
+    <Compile Include="MasterData\DealerMasters.cs" />
+    <Compile Include="MasterData\DealerOperationLogDLL.cs" />
+    <Compile Include="MasterData\DealerRelationBLL.cs" />
+    <Compile Include="MasterData\Hospitals.cs" />
+    <Compile Include="Inventory\IInventoryInitBLL.cs" />
+    <Compile Include="Inventory\InventoryInitBLL.cs" />
+    <Compile Include="Inventory\QueryInventoryBiz.cs" />
+    <Compile Include="Inventory\CurrentInvBLL.cs" />
+    <Compile Include="Inventory\ICurrentInvBLL.cs" />
+    <Compile Include="Inventory\IInventoryAdjustBLL.cs" />
+    <Compile Include="Inventory\IInvTrans.cs" />
+    <Compile Include="Inventory\InventoryAdjustBLL.cs" />
+    <Compile Include="Inventory\InvTrans.cs" />
+    <Compile Include="Inventory\IQueryInventoryBiz.cs" />
+    <Compile Include="MasterData\CfnSetBLL.cs" />
+    <Compile Include="MasterData\ICFNHospitalPriceBLL.cs" />
+    <Compile Include="MasterData\ICfnSetBLL.cs" />
+    <Compile Include="MasterData\IClientBLL.cs" />
+    <Compile Include="MasterData\IDealerRelationBLL.cs" />
+    <Compile Include="MasterData\IOrderDiscountRule.cs" />
+    <Compile Include="MasterData\IPaymentBLL.cs" />
+    <Compile Include="MasterData\IProductLevelRelationship.cs" />
+    <Compile Include="MasterData\IRegistrationBll.cs" />
+    <Compile Include="MasterData\IRegistrationInitBLL.cs" />
+    <Compile Include="MasterData\ITerritoryBLL.cs" />
+    <Compile Include="MasterData\OrderDiscountRuleBLL.cs" />
+    <Compile Include="MasterData\PaymentBLL.cs" />
+    <Compile Include="MasterData\ProductLevelRelationship.cs" />
+    <Compile Include="MasterData\QRCodeBLL.cs" />
+    <Compile Include="MasterData\RegistrationBll.cs" />
+    <Compile Include="MasterData\RegistrationInitBLL.cs" />
+    <Compile Include="MasterData\ISpecialPriceBLL.cs" />
+    <Compile Include="MasterData\SpecialPriceBLL.cs" />
+    <Compile Include="MasterData\TerritoryBLL.cs" />
+    <Compile Include="MasterData\VirtualDC.cs" />
+    <Compile Include="Message\IMessageBLL.cs" />
+    <Compile Include="Message\MessageBLL.cs" />
+    <Compile Include="Order\BatchOrderInitBLL.cs" />
+    <Compile Include="Order\CfnPriceService.cs" />
+    <Compile Include="Order\DealerPriceBLL.cs" />
+    <Compile Include="Order\IBatchOrderInitBLL.cs" />
+    <Compile Include="Order\ICfnPriceService.cs" />
+    <Compile Include="Order\IDealerPriceBLL.cs" />
+    <Compile Include="Order\IPurchaseOrderBLL.cs" />
+    <Compile Include="Order\PurchaseOrderBLL.cs" />
+    <Compile Include="Order\PurchaseOrderUtil.cs" />
+    <Compile Include="HomeService.cs" />
+    <Compile Include="POReceipt\DeliveryNotes.cs" />
+    <Compile Include="POReceipt\IDeliveryNotes.cs" />
+    <Compile Include="POReceipt\IPOReceipts.cs" />
+    <Compile Include="POReceipt\POReceipts.cs" />
+    <Compile Include="MasterData\ProductClassifications.cs" />
+    <Compile Include="Promotion\IProLargessFort2BLL.cs" />
+    <Compile Include="Promotion\MaintainAppointedDealerService.cs" />
+    <Compile Include="Promotion\PolicyTemplateInitService.cs" />
+    <Compile Include="Promotion\PolicyTemplateService.cs" />
+    <Compile Include="Promotion\PolicyTemplateInfoService.cs" />
+    <Compile Include="Promotion\PolicyTemplateListService.cs" />
+    <Compile Include="Promotion\ProLargessFort2BLL.cs.cs" />
+    <Compile Include="Promotion\RuleInfoService.cs" />
+    <Compile Include="Promotion\GiftMaintainBLL.cs" />
+    <Compile Include="Promotion\IGiftMaintainBLL.cs" />
+    <Compile Include="Promotion\IPromotionPolicyBLL.cs" />
+    <Compile Include="Promotion\FactorInfoService.cs" />
+    <Compile Include="Promotion\PolicyInfoService.cs" />
+    <Compile Include="Promotion\PolicyListService.cs" />
+    <Compile Include="Promotion\PromotionPolicyBLL.cs" />
+    <Compile Include="Promotion\TermainationListService.cs" />
+    <Compile Include="Promotion\UploadService.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Report\IReportBLL.cs" />
+    <Compile Include="Report\ReportBLL.cs" />
+    <Compile Include="Sample\ISampleApplyBLL.cs" />
+    <Compile Include="Sample\SampleApplyBLL.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardBLL.cs" />
+    <Compile Include="ScoreCard\IEndoScoreCardBLL.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Shipment\IShipmentBLL.cs" />
+    <Compile Include="Shipment\ShipmentBLL.cs" />
+    <Compile Include="MasterData\Territorys.cs" />
+    <Compile Include="Shipment\ShipmentUtil.cs" />
+    <Compile Include="Transfer\ITransferBLL.cs" />
+    <Compile Include="Transfer\TransferBLL.cs" />
+    <Compile Include="MasterData\Warehouses.cs" />
+    <Compile Include="Web References\EkpWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\EwfService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\kmReviewNodeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\kmReviewWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WeChat\IReportSalesBLL.cs" />
+    <Compile Include="WeChat\IWeChatBaseBLL.cs" />
+    <Compile Include="WeChat\ProductCodeQueryBLL.cs" />
+    <Compile Include="WeChat\ReportSalesBLL.cs" />
+    <Compile Include="WeChat\WeChatBaseBLL.cs" />
+    <Compile Include="WeChat\ProductCodeReportBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.Common\DMS.Common.csproj">
+      <Project>{F752671C-1874-4C06-8192-00186E5D00DE}</Project>
+      <Name>DMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.DataAccess\DMS.DataAccess.csproj">
+      <Project>{03A4A80F-98B9-40C7-A3DD-804D7901F0DC}</Project>
+      <Name>DMS.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Model\DMS.Model.csproj">
+      <Project>{25EA2C8A-56FD-446F-B3F6-D9A7CFA11C77}</Project>
+      <Name>DMS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Signature\DMS.Signature.csproj">
+      <Project>{9623E5E2-D457-4B5B-954C-E4B113DAE22B}</Project>
+      <Name>DMS.Signature</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.ViewModel\DMS.ViewModel.csproj">
+      <Project>{3a217c2b-0108-4a0f-bf0b-463f259b255d}</Project>
+      <Name>DMS.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.91.22:8084/sys/webservice/flowWebService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\EkpWebService\</RelPath>
+      <UpdateFromURL>http://192.168.91.22:8084/sys/webservice/flowWebService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>DMS_Business_EkpWebService_IntegratedWebServiceService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://47.103.49.242:8080/sys/webservice/kmReviewNodeService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\kmReviewNodeService\</RelPath>
+      <UpdateFromURL>http://47.103.49.242:8080/sys/webservice/kmReviewNodeService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>DMS_Business_kmReviewNodeService_IKmReviewNodeServiceService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://47.103.49.242:8080/sys/webservice/kmReviewWebserviceService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\kmReviewWebservice\</RelPath>
+      <UpdateFromURL>http://47.103.49.242:8080/sys/webservice/kmReviewWebserviceService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>DMS_Business_kmReviewAddService_KmReviewAddServiceImpService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://shaappten01/flow/Service/WfAction.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\EwfService\</RelPath>
+      <UpdateFromURL>http://shaappten01/flow/Service/WfAction.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>DMS_Business_EwfService_WfAction</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\EkpWebService\IntegratedWebServiceService.wsdl" />
+    <None Include="Web References\EkpWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\EwfService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\EwfService\WfAction.disco" />
+    <None Include="Web References\EwfService\WfAction.wsdl" />
+    <None Include="Web References\kmReviewNodeService\IKmReviewNodeServiceService.wsdl" />
+    <None Include="Web References\kmReviewNodeService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\kmReviewWebservice\IKmReviewWebserviceServiceService.wsdl" />
+    <None Include="Web References\kmReviewWebservice\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

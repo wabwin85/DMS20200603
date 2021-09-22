@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://interfaces.lbpmdocking.sys.kmss.landray.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="IntegratedWebServiceService" targetNamespace="http://interfaces.lbpmdocking.sys.kmss.landray.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://interfaces.lbpmdocking.sys.kmss.landray.com/">
+      <xsd:element name="GetTasksInfo" type="tns:GetTasksInfo" />
+      <xsd:complexType name="GetTasksInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="handler" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetTasksInfoResponse" type="tns:GetTasksInfoResponse" />
+      <xsd:complexType name="GetTasksInfoResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetAuditOptionList" type="tns:GetAuditOptionList" />
+      <xsd:complexType name="GetAuditOptionList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageNo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageSize" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetAuditOptionListResponse" type="tns:GetAuditOptionListResponse" />
+      <xsd:complexType name="GetAuditOptionListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetApprovedList" type="tns:GetApprovedList" />
+      <xsd:complexType name="GetApprovedList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="docSubject" type="xsd:string" />
+          <xsd:element minOccurs="0" name="status" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageNo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageSize" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetApprovedListResponse" type="tns:GetApprovedListResponse" />
+      <xsd:complexType name="GetApprovedListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetUnApprovingList" type="tns:GetUnApprovingList" />
+      <xsd:complexType name="GetUnApprovingList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="docSubject" type="xsd:string" />
+          <xsd:element minOccurs="0" name="status" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageNo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageSize" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetUnApprovingListResponse" type="tns:GetUnApprovingListResponse" />
+      <xsd:complexType name="GetUnApprovingListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFlowTemplateList" type="tns:GetFlowTemplateList" />
+      <xsd:complexType name="GetFlowTemplateList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="categoryId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFlowTemplateListResponse" type="tns:GetFlowTemplateListResponse" />
+      <xsd:complexType name="GetFlowTemplateListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFormFieldList" type="tns:GetFormFieldList" />
+      <xsd:complexType name="GetFormFieldList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFormFieldListResponse" type="tns:GetFormFieldListResponse" />
+      <xsd:complexType name="GetFormFieldListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ApproveProcess" type="tns:ApproveProcess" />
+      <xsd:complexType name="ApproveProcess">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="handler" type="xsd:string" />
+          <xsd:element minOccurs="0" name="formData" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processParam" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ApproveProcessResponse" type="tns:ApproveProcessResponse" />
+      <xsd:complexType name="ApproveProcessResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetApprovedLists" type="tns:GetApprovedLists" />
+      <xsd:complexType name="GetApprovedLists">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="conditions" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageNo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageSize" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetApprovedListsResponse" type="tns:GetApprovedListsResponse" />
+      <xsd:complexType name="GetApprovedListsResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DeleteProcess" type="tns:DeleteProcess" />
+      <xsd:complexType name="DeleteProcess">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DeleteProcessResponse" type="tns:DeleteProcessResponse" />
+      <xsd:complexType name="DeleteProcessResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ValidateProcess" type="tns:ValidateProcess" />
+      <xsd:complexType name="ValidateProcess">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processParam" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ValidateProcessResponse" type="tns:ValidateProcessResponse" />
+      <xsd:complexType name="ValidateProcessResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CreateProcess" type="tns:CreateProcess" />
+      <xsd:complexType name="CreateProcess">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="flowTemplateId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="creator" type="xsd:string" />
+          <xsd:element minOccurs="0" name="exParam" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CreateProcessResponse" type="tns:CreateProcessResponse" />
+      <xsd:complexType name="CreateProcessResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFieldAuthInfo" type="tns:GetFieldAuthInfo" />
+      <xsd:complexType name="GetFieldAuthInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="nodeFactIds" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFieldAuthInfoResponse" type="tns:GetFieldAuthInfoResponse" />
+      <xsd:complexType name="GetFieldAuthInfoResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetOperationParam" type="tns:GetOperationParam" />
+      <xsd:complexType name="GetOperationParam">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="operationTypes" type="xsd:string" />
+          <xsd:element minOccurs="0" name="taskInfo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetOperationParamResponse" type="tns:GetOperationParamResponse" />
+      <xsd:complexType name="GetOperationParamResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetApproverList" type="tns:GetApproverList" />
+      <xsd:complexType name="GetApproverList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetApproverListResponse" type="tns:GetApproverListResponse" />
+      <xsd:complexType name="GetApproverListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFormFieldValueList" type="tns:GetFormFieldValueList" />
+      <xsd:complexType name="GetFormFieldValueList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="fieldIds" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFormFieldValueListResponse" type="tns:GetFormFieldValueListResponse" />
+      <xsd:complexType name="GetFormFieldValueListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetUnApprovingLists" type="tns:GetUnApprovingLists" />
+      <xsd:complexType name="GetUnApprovingLists">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="conditions" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageNo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageSize" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetUnApprovingListsResponse" type="tns:GetUnApprovingListsResponse" />
+      <xsd:complexType name="GetUnApprovingListsResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetOperationList" type="tns:GetOperationList" />
+      <xsd:complexType name="GetOperationList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetOperationListResponse" type="tns:GetOperationListResponse" />
+      <xsd:complexType name="GetOperationListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFlowLogList" type="tns:GetFlowLogList" />
+      <xsd:complexType name="GetFlowLogList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageNo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="pageSize" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetFlowLogListResponse" type="tns:GetFlowLogListResponse" />
+      <xsd:complexType name="GetFlowLogListResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="IsExistProcess" type="tns:IsExistProcess" />
+      <xsd:complexType name="IsExistProcess">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="IsExistProcessResponse" type="tns:IsExistProcessResponse" />
+      <xsd:complexType name="IsExistProcessResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCurrentNodesInfo" type="tns:GetCurrentNodesInfo" />
+      <xsd:complexType name="GetCurrentNodesInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="processId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCurrentNodesInfoResponse" type="tns:GetCurrentNodesInfoResponse" />
+      <xsd:complexType name="GetCurrentNodesInfoResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CanApprovalProcess" type="tns:CanApprovalProcess" />
+      <xsd:complexType name="CanApprovalProcess">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="formId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="actionUid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CanApprovalProcessResponse" type="tns:CanApprovalProcessResponse" />
+      <xsd:complexType name="CanApprovalProcessResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetFlowTemplateList">
+    <wsdl:part name="parameters" element="tns:GetFlowTemplateList" />
+  </wsdl:message>
+  <wsdl:message name="GetApprovedListResponse">
+    <wsdl:part name="parameters" element="tns:GetApprovedListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApprovedLists">
+    <wsdl:part name="parameters" element="tns:GetApprovedLists" />
+  </wsdl:message>
+  <wsdl:message name="GetCurrentNodesInfo">
+    <wsdl:part name="parameters" element="tns:GetCurrentNodesInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAuditOptionListResponse">
+    <wsdl:part name="parameters" element="tns:GetAuditOptionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApprovedListsResponse">
+    <wsdl:part name="parameters" element="tns:GetApprovedListsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProcess">
+    <wsdl:part name="parameters" element="tns:DeleteProcess" />
+  </wsdl:message>
+  <wsdl:message name="GetUnApprovingLists">
+    <wsdl:part name="parameters" element="tns:GetUnApprovingLists" />
+  </wsdl:message>
+  <wsdl:message name="GetFlowTemplateListResponse">
+    <wsdl:part name="parameters" element="tns:GetFlowTemplateListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApprovedList">
+    <wsdl:part name="parameters" element="tns:GetApprovedList" />
+  </wsdl:message>
+  <wsdl:message name="GetTasksInfo">
+    <wsdl:part name="parameters" element="tns:GetTasksInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAuditOptionList">
+    <wsdl:part name="parameters" element="tns:GetAuditOptionList" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProcessResponse">
+    <wsdl:part name="parameters" element="tns:DeleteProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOperationListResponse">
+    <wsdl:part name="parameters" element="tns:GetOperationListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApproverListResponse">
+    <wsdl:part name="parameters" element="tns:GetApproverListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOperationParamResponse">
+    <wsdl:part name="parameters" element="tns:GetOperationParamResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessResponse">
+    <wsdl:part name="parameters" element="tns:CreateProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateProcess">
+    <wsdl:part name="parameters" element="tns:ValidateProcess" />
+  </wsdl:message>
+  <wsdl:message name="IsExistProcessResponse">
+    <wsdl:part name="parameters" element="tns:IsExistProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormFieldValueListResponse">
+    <wsdl:part name="parameters" element="tns:GetFormFieldValueListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProcessResponse">
+    <wsdl:part name="parameters" element="tns:ApproveProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApproverList">
+    <wsdl:part name="parameters" element="tns:GetApproverList" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProcess">
+    <wsdl:part name="parameters" element="tns:ApproveProcess" />
+  </wsdl:message>
+  <wsdl:message name="GetFieldAuthInfoResponse">
+    <wsdl:part name="parameters" element="tns:GetFieldAuthInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUnApprovingList">
+    <wsdl:part name="parameters" element="tns:GetUnApprovingList" />
+  </wsdl:message>
+  <wsdl:message name="GetOperationList">
+    <wsdl:part name="parameters" element="tns:GetOperationList" />
+  </wsdl:message>
+  <wsdl:message name="GetUnApprovingListResponse">
+    <wsdl:part name="parameters" element="tns:GetUnApprovingListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlowLogList">
+    <wsdl:part name="parameters" element="tns:GetFlowLogList" />
+  </wsdl:message>
+  <wsdl:message name="GetOperationParam">
+    <wsdl:part name="parameters" element="tns:GetOperationParam" />
+  </wsdl:message>
+  <wsdl:message name="GetUnApprovingListsResponse">
+    <wsdl:part name="parameters" element="tns:GetUnApprovingListsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormFieldList">
+    <wsdl:part name="parameters" element="tns:GetFormFieldList" />
+  </wsdl:message>
+  <wsdl:message name="ValidateProcessResponse">
+    <wsdl:part name="parameters" element="tns:ValidateProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="CanApprovalProcess">
+    <wsdl:part name="parameters" element="tns:CanApprovalProcess" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcess">
+    <wsdl:part name="parameters" element="tns:CreateProcess" />
+  </wsdl:message>
+  <wsdl:message name="GetFormFieldListResponse">
+    <wsdl:part name="parameters" element="tns:GetFormFieldListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTasksInfoResponse">
+    <wsdl:part name="parameters" element="tns:GetTasksInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFieldAuthInfo">
+    <wsdl:part name="parameters" element="tns:GetFieldAuthInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetCurrentNodesInfoResponse">
+    <wsdl:part name="parameters" element="tns:GetCurrentNodesInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsExistProcess">
+    <wsdl:part name="parameters" element="tns:IsExistProcess" />
+  </wsdl:message>
+  <wsdl:message name="GetFormFieldValueList">
+    <wsdl:part name="parameters" element="tns:GetFormFieldValueList" />
+  </wsdl:message>
+  <wsdl:message name="CanApprovalProcessResponse">
+    <wsdl:part name="parameters" element="tns:CanApprovalProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlowLogListResponse">
+    <wsdl:part name="parameters" element="tns:GetFlowLogListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IntegratedWebService">
+    <wsdl:operation name="GetTasksInfo">
+      <wsdl:input name="GetTasksInfo" message="tns:GetTasksInfo" />
+      <wsdl:output name="GetTasksInfoResponse" message="tns:GetTasksInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuditOptionList">
+      <wsdl:input name="GetAuditOptionList" message="tns:GetAuditOptionList" />
+      <wsdl:output name="GetAuditOptionListResponse" message="tns:GetAuditOptionListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApprovedList">
+      <wsdl:input name="GetApprovedList" message="tns:GetApprovedList" />
+      <wsdl:output name="GetApprovedListResponse" message="tns:GetApprovedListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnApprovingList">
+      <wsdl:input name="GetUnApprovingList" message="tns:GetUnApprovingList" />
+      <wsdl:output name="GetUnApprovingListResponse" message="tns:GetUnApprovingListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlowTemplateList">
+      <wsdl:input name="GetFlowTemplateList" message="tns:GetFlowTemplateList" />
+      <wsdl:output name="GetFlowTemplateListResponse" message="tns:GetFlowTemplateListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormFieldList">
+      <wsdl:input name="GetFormFieldList" message="tns:GetFormFieldList" />
+      <wsdl:output name="GetFormFieldListResponse" message="tns:GetFormFieldListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProcess">
+      <wsdl:input name="ApproveProcess" message="tns:ApproveProcess" />
+      <wsdl:output name="ApproveProcessResponse" message="tns:ApproveProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApprovedLists">
+      <wsdl:input name="GetApprovedLists" message="tns:GetApprovedLists" />
+      <wsdl:output name="GetApprovedListsResponse" message="tns:GetApprovedListsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProcess">
+      <wsdl:input name="DeleteProcess" message="tns:DeleteProcess" />
+      <wsdl:output name="DeleteProcessResponse" message="tns:DeleteProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateProcess">
+      <wsdl:input name="ValidateProcess" message="tns:ValidateProcess" />
+      <wsdl:output name="ValidateProcessResponse" message="tns:ValidateProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcess">
+      <wsdl:input name="CreateProcess" message="tns:CreateProcess" />
+      <wsdl:output name="CreateProcessResponse" message="tns:CreateProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFieldAuthInfo">
+      <wsdl:input name="GetFieldAuthInfo" message="tns:GetFieldAuthInfo" />
+      <wsdl:output name="GetFieldAuthInfoResponse" message="tns:GetFieldAuthInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOperationParam">
+      <wsdl:input name="GetOperationParam" message="tns:GetOperationParam" />
+      <wsdl:output name="GetOperationParamResponse" message="tns:GetOperationParamResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApproverList">
+      <wsdl:input name="GetApproverList" message="tns:GetApproverList" />
+      <wsdl:output name="GetApproverListResponse" message="tns:GetApproverListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormFieldValueList">
+      <wsdl:input name="GetFormFieldValueList" message="tns:GetFormFieldValueList" />
+      <wsdl:output name="GetFormFieldValueListResponse" message="tns:GetFormFieldValueListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnApprovingLists">
+      <wsdl:input name="GetUnApprovingLists" message="tns:GetUnApprovingLists" />
+      <wsdl:output name="GetUnApprovingListsResponse" message="tns:GetUnApprovingListsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOperationList">
+      <wsdl:input name="GetOperationList" message="tns:GetOperationList" />
+      <wsdl:output name="GetOperationListResponse" message="tns:GetOperationListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlowLogList">
+      <wsdl:input name="GetFlowLogList" message="tns:GetFlowLogList" />
+      <wsdl:output name="GetFlowLogListResponse" message="tns:GetFlowLogListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="IsExistProcess">
+      <wsdl:input name="IsExistProcess" message="tns:IsExistProcess" />
+      <wsdl:output name="IsExistProcessResponse" message="tns:IsExistProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentNodesInfo">
+      <wsdl:input name="GetCurrentNodesInfo" message="tns:GetCurrentNodesInfo" />
+      <wsdl:output name="GetCurrentNodesInfoResponse" message="tns:GetCurrentNodesInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CanApprovalProcess">
+      <wsdl:input name="CanApprovalProcess" message="tns:CanApprovalProcess" />
+      <wsdl:output name="CanApprovalProcessResponse" message="tns:CanApprovalProcessResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntegratedWebServiceServiceSoapBinding" type="tns:IntegratedWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetApprovedList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetApprovedList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetApprovedListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuditOptionList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetAuditOptionList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAuditOptionListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasksInfo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetTasksInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetTasksInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnApprovingList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetUnApprovingList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetUnApprovingListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlowTemplateList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetFlowTemplateList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetFlowTemplateListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormFieldList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetFormFieldList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetFormFieldListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProcess">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="ApproveProcess">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ApproveProcessResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProcess">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="DeleteProcess">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteProcessResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApprovedLists">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetApprovedLists">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetApprovedListsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcess">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="CreateProcess">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateProcessResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateProcess">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="ValidateProcess">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ValidateProcessResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFieldAuthInfo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetFieldAuthInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetFieldAuthInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOperationParam">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetOperationParam">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetOperationParamResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApproverList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetApproverList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetApproverListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormFieldValueList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetFormFieldValueList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetFormFieldValueListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnApprovingLists">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetUnApprovingLists">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetUnApprovingListsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOperationList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetOperationList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetOperationListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlowLogList">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetFlowLogList">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetFlowLogListResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsExistProcess">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="IsExistProcess">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="IsExistProcessResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanApprovalProcess">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="CanApprovalProcess">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CanApprovalProcessResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentNodesInfo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="GetCurrentNodesInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCurrentNodesInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IntegratedWebServiceService">
+    <wsdl:port name="IntegratedWebServicePort" binding="tns:IntegratedWebServiceServiceSoapBinding">
+      <soap:address location="http://192.168.91.22:8084/sys/webservice/flowWebService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryReturnInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryReturnInit" assembly="DMS.Model.dll" type="DMS.Model.InventoryReturnInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryReturnInitResult" class="InventoryReturnInit">
+      <result property="Id" column="IRI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="IRI_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="IRI_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="IRI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IRI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="IRI_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="IRI_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="Warehouse" column="IRI_Warehouse" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="IRI_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="IRI_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ReturnQty" column="IRI_ReturnQty" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="IRI_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="IRI_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="IRI_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="IRI_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ArticleNumberErrMsg" column="IRI_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ReturnQtyErrMsg" column="IRI_ReturnQty_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseErrMsg" column="IRI_Warehouse_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="IRI_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="PurchaseOrderNbr" column="IRI_PurchaseOrderNbr" type="string" dbType="nvarchar"/>
+      <result property="PrhId" column="IRI_PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PurchaseOrderNbrErrMsg" column="IRI_PurchaseOrderNbr_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="IRI_QrCode" type="string" dbType="nvarchar"/>
+      <result property="QrCodeErrMsg" column="IRI_QrCode_ErrMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InventoryReturnInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInventoryReturnInit" parameterClass="string" resultClass="InventoryReturnInit">
+      SELECT IRI_ID AS Id,IRI_USER AS User,IRI_UploadDate AS UploadDate,IRI_LineNbr AS LineNbr,IRI_FileName AS FileName,IRI_ErrorFlag AS ErrorFlag,IRI_ErrorDescription AS ErrorDescription,IRI_Warehouse AS Warehouse,IRI_ArticleNumber AS ArticleNumber,IRI_LotNumber AS LotNumber,IRI_ReturnQty AS ReturnQty,IRI_DMA_ID AS DmaId,IRI_CFN_ID AS CfnId,IRI_BUM_ID AS BumId,IRI_WHM_ID AS WhmId,IRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IRI_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IRI_Warehouse_ErrMsg AS WarehouseErrMsg,IRI_LotNumber_ErrMsg AS LotNumberErrMsg,IRI_PurchaseOrderNbr AS PurchaseOrderNbr,IRI_PRH_ID AS PrhId,IRI_PurchaseOrderNbr_ErrMsg AS PurchaseOrderNbrErrMsg,IRI_QrCode AS QrCode,IRI_QrCode_ErrMsg AS QrCodeErrMsg
+      FROM InventoryReturnInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IRI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryReturnInit" parameterClass="InventoryReturnInit" resultClass="InventoryReturnInit">
+      SELECT IRI_ID AS Id,IRI_USER AS User,IRI_UploadDate AS UploadDate,IRI_LineNbr AS LineNbr,IRI_FileName AS FileName,IRI_ErrorFlag AS ErrorFlag,IRI_ErrorDescription AS ErrorDescription,IRI_Warehouse AS Warehouse,IRI_ArticleNumber AS ArticleNumber,IRI_LotNumber AS LotNumber,IRI_ReturnQty AS ReturnQty,IRI_DMA_ID AS DmaId,IRI_CFN_ID AS CfnId,IRI_BUM_ID AS BumId,IRI_WHM_ID AS WhmId,IRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IRI_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IRI_Warehouse_ErrMsg AS WarehouseErrMsg,IRI_LotNumber_ErrMsg AS LotNumberErrMsg,IRI_PurchaseOrderNbr AS PurchaseOrderNbr,IRI_PRH_ID AS PrhId,IRI_PurchaseOrderNbr_ErrMsg AS PurchaseOrderNbrErrMsg,IRI_QrCode AS QrCode,IRI_QrCode_ErrMsg AS QrCodeErrMsg
+      FROM InventoryReturnInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IRI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">IRI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">IRI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IRI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IRI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">IRI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">IRI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="Warehouse">IRI_Warehouse=#Warehouse#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IRI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IRI_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQty">IRI_ReturnQty=#ReturnQty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IRI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IRI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">IRI_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">IRI_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumberErrMsg">IRI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQtyErrMsg">IRI_ReturnQty_ErrMsg=#ReturnQtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseErrMsg">IRI_Warehouse_ErrMsg=#WarehouseErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">IRI_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbr">IRI_PurchaseOrderNbr=#PurchaseOrderNbr#</isNotNull>
+        <isNotNull prepend="AND" property="PrhId">IRI_PRH_ID=#PrhId#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbrErrMsg">IRI_PurchaseOrderNbr_ErrMsg=#PurchaseOrderNbrErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">IRI_QrCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="QrCodeErrMsg">IRI_QrCode_ErrMsg=#QrCodeErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryReturnInit" parameterClass="InventoryReturnInit">
+      INSERT INTO InventoryReturnInit
+      (IRI_ID,IRI_USER,IRI_UploadDate,IRI_LineNbr,IRI_FileName,IRI_ErrorFlag,IRI_ErrorDescription,IRI_Warehouse,IRI_ArticleNumber,IRI_LotNumber,IRI_ReturnQty,IRI_DMA_ID,IRI_CFN_ID,IRI_BUM_ID,IRI_WHM_ID,IRI_ArticleNumber_ErrMsg,IRI_ReturnQty_ErrMsg,IRI_Warehouse_ErrMsg,IRI_LotNumber_ErrMsg,IRI_PurchaseOrderNbr,IRI_PRH_ID,IRI_PurchaseOrderNbr_ErrMsg,IRI_QrCode,IRI_QrCode_ErrMsg)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#Warehouse#,#ArticleNumber#,#LotNumber#,#ReturnQty#,#DmaId#,#CfnId#,#BumId#,#WhmId#,#ArticleNumberErrMsg#,#ReturnQtyErrMsg#,#WarehouseErrMsg#,#LotNumberErrMsg#,#PurchaseOrderNbr#,#PrhId#,#PurchaseOrderNbrErrMsg#,#QrCode#,#QrCodeErrMsg#)
+    </insert>
+    <update id="UpdateInventoryReturnInit" parameterClass="InventoryReturnInit">
+      UPDATE InventoryReturnInit
+      SET IRI_ID=#Id#,IRI_USER=#User#,IRI_UploadDate=#UploadDate#,IRI_LineNbr=#LineNbr#,IRI_FileName=#FileName#,IRI_ErrorFlag=#ErrorFlag#,IRI_ErrorDescription=#ErrorDescription#,IRI_Warehouse=#Warehouse#,IRI_ArticleNumber=#ArticleNumber#,IRI_LotNumber=#LotNumber#,IRI_ReturnQty=#ReturnQty#,IRI_DMA_ID=#DmaId#,IRI_CFN_ID=#CfnId#,IRI_BUM_ID=#BumId#,IRI_WHM_ID=#WhmId#,IRI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,IRI_ReturnQty_ErrMsg=#ReturnQtyErrMsg#,IRI_Warehouse_ErrMsg=#WarehouseErrMsg#,IRI_LotNumber_ErrMsg=#LotNumberErrMsg#,IRI_PurchaseOrderNbr=#PurchaseOrderNbr#,IRI_PRH_ID=#PrhId#,IRI_PurchaseOrderNbr_ErrMsg=#PurchaseOrderNbrErrMsg#,IRI_QrCode=#QrCode#,IRI_QrCode_ErrMsg=#QrCodeErrMsg#
+      WHERE IRI_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryReturnInit" parameterClass="string">
+      DELETE FROM InventoryReturnInit
+      WHERE IRI_ID = #value#
+    </delete>
+
+        <delete id="DeleteInventoryReturnInitByUser" parameterClass="string">
+          DELETE FROM InventoryReturnInit
+          WHERE IRI_USER = #value#
+        </delete>
+        <select id="SelectInventoryReturnInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="InventoryReturnInit">
+          SELECT IRI_ID AS Id,IRI_USER AS [User],IRI_UploadDate AS UploadDate,IRI_LineNbr AS LineNbr,IRI_FileName AS FileName,IRI_ErrorFlag AS ErrorFlag,IRI_ErrorDescription AS ErrorDescription,IRI_Warehouse AS Warehouse,IRI_ArticleNumber AS ArticleNumber,
+          IRI_LotNumber as LotNumber,IRI_ReturnQty AS ReturnQty,IRI_DMA_ID AS DmaId,IRI_CFN_ID AS CfnId,IRI_BUM_ID AS BumId,IRI_WHM_ID AS WhmId,IRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IRI_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IRI_Warehouse_ErrMsg AS WarehouseErrMsg,IRI_LotNumber_ErrMsg AS LotNumberErrMsg,IRI_PurchaseOrderNbr AS PurchaseOrderNbr,IRI_PRH_ID AS PrhId,IRI_PurchaseOrderNbr_ErrMsg AS PurchaseOrderNbrErrMsg,IRI_QrCode as QrCode,IRI_QrCode_ErrMsg as QrCodeErrMsg,
+          ROW_NUMBER () OVER (ORDER BY IRI_ErrorFlag DESC,IRI_LineNbr ASC) AS row_number
+          FROM InventoryReturnInit
+          <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="Id">IRI_ID=#Id#</isNotNull>
+            <isNotNull prepend="AND" property="User">IRI_USER=#User#</isNotNull>
+            <isNotNull prepend="AND" property="UploadDate">IRI_UploadDate=#UploadDate#</isNotNull>
+            <isNotNull prepend="AND" property="LineNbr">IRI_LineNbr=#LineNbr#</isNotNull>
+            <isNotNull prepend="AND" property="FileName">IRI_FileName=#FileName#</isNotNull>
+            <isNotNull prepend="AND" property="ErrorFlag">IRI_ErrorFlag=#ErrorFlag#</isNotNull>
+            <isNotNull prepend="AND" property="ErrorDescription">IRI_ErrorDescription=#ErrorDescription#</isNotNull>
+            <isNotNull prepend="AND" property="ArticleNumber">IRI_ArticleNumber=#ArticleNumber#</isNotNull>
+            <isNotNull prepend="AND" property="ReturnQty">IRI_ReturnQty=#ReturnQty#</isNotNull>
+            <isNotNull prepend="AND" property="DmaId">IRI_DMA_ID=#DmaId#</isNotNull>
+            <isNotNull prepend="AND" property="CfnId">IRI_CFN_ID=#CfnId#</isNotNull>
+            <isNotNull prepend="AND" property="BumId">IRI_BUM_ID=#BumId#</isNotNull>
+            <isNotNull prepend="AND" property="PurchaseOrderNbr">IRI_PurchaseOrderNbr=#PurchaseOrderNbr#</isNotNull>
+            <isNotNull prepend="AND" property="PrhId">IRI_PRH_ID=#PrhId#</isNotNull>
+          </dynamic>
+        </select>
+        <update id="UpdateInventoryReturnInitForEdit" parameterClass="InventoryReturnInit">
+          UPDATE InventoryReturnInit
+          SET IRI_ArticleNumber=#ArticleNumber#,IRI_ReturnQty=#ReturnQty#,IRI_LotNumber=#LotNumber#,IRI_Warehouse=#Warehouse#,IRI_PurchaseOrderNbr=#PurchaseOrderNbr#,
+          IRI_CFN_ID = null,IRI_BUM_ID = null,IRI_ArticleNumber_ErrMsg=null,IRI_ReturnQty_ErrMsg=null,IRI_LotNumber_ErrMsg=null,IRI_Warehouse_ErrMsg=null,IRI_PRH_ID=null,IRI_QrCode_ErrMsg=null, IRI_QrCode = #QrCode#
+          WHERE IRI_ID = #Id#
+        </update>
+        <procedure id="GC_InventoryReturnInit" parameterMap="InventoryReturnInitParameterMap">
+          dbo.GC_InventoryReturnInit
+        </procedure>
+        <!--end-->
+      </statements>
+    </sqlMap>
+  

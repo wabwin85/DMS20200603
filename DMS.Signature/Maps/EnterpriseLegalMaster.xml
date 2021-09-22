@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterpriseLegalMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterpriseLegalMaster" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterpriseLegalMaster" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterpriseLegalMasterResult" class="EnterpriseLegalMaster">
+      <result property="Id" column="ELM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ELM_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentDmaId" column="ELM_Parent_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerName" column="ELM_DealerName" type="string" dbType="nvarchar"/>
+      <result property="AccountUid" column="ELM_AccountUid" type="string" dbType="nvarchar"/>
+      <result property="Name" column="ELM_Name" type="string" dbType="nvarchar"/>
+      <result property="IdNo" column="ELM_IdNo" type="string" dbType="nvarchar"/>
+      <result property="PersonArea" column="ELM_PersonArea" type="int" dbType="int"/>
+      <result property="Email" column="ELM_Email" type="string" dbType="nvarchar"/>
+      <result property="Mobile" column="ELM_Mobile" type="string" dbType="nvarchar"/>
+      <result property="Title" column="ELM_Title" type="string" dbType="nvarchar"/>
+      <result property="Address" column="ELM_Address" type="string" dbType="nvarchar"/>
+      <result property="Organ" column="ELM_Organ" type="string" dbType="nvarchar"/>
+      <result property="Status" column="ELM_Status" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="ELM_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="ELM_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="ELM_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="ELM_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="ELM_UpdateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="ELM_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterpriseLegalMaster" parameterClass="string" resultClass="EnterpriseLegalMaster">
+      SELECT ELM_ID AS Id,ELM_DMA_ID AS DmaId,ELM_Parent_DMA_ID AS ParentDmaId,ELM_DealerName AS DealerName,ELM_AccountUid AS AccountUid,ELM_Name AS Name,ELM_IdNo AS IdNo,ELM_PersonArea AS PersonArea,ELM_Email AS Email,ELM_Mobile AS Mobile,ELM_Title AS Title,ELM_Address AS Address,ELM_Organ AS Organ,ELM_Status AS Status,ELM_CreateUser AS CreateUser,ELM_CreateUserName AS CreateUserName,ELM_CreateDate AS CreateDate,ELM_UpdateUser AS UpdateUser,ELM_UpdateUserName AS UpdateUserName,ELM_UpdateDate AS UpdateDate
+      FROM ESign.EnterpriseLegalMaster
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ELM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterpriseLegalMaster" parameterClass="EnterpriseLegalMaster" resultClass="EnterpriseLegalMaster">
+      SELECT ELM_ID AS Id,ELM_DMA_ID AS DmaId,ELM_Parent_DMA_ID AS ParentDmaId,ELM_DealerName AS DealerName,ELM_AccountUid AS AccountUid,ELM_Name AS Name,ELM_IdNo AS IdNo,ELM_PersonArea AS PersonArea,ELM_Email AS Email,ELM_Mobile AS Mobile,ELM_Title AS Title,ELM_Address AS Address,ELM_Organ AS Organ,ELM_Status AS Status,ELM_CreateUser AS CreateUser,ELM_CreateUserName AS CreateUserName,ELM_CreateDate AS CreateDate,ELM_UpdateUser AS UpdateUser,ELM_UpdateUserName AS UpdateUserName,ELM_UpdateDate AS UpdateDate
+      FROM ESign.EnterpriseLegalMaster
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ELM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ELM_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ParentDmaId">ELM_Parent_DMA_ID=#ParentDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">ELM_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="AccountUid">ELM_AccountUid=#AccountUid#</isNotNull>
+        <isNotNull prepend="AND" property="Name">ELM_Name=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="IdNo">ELM_IdNo=#IdNo#</isNotNull>
+        <isNotNull prepend="AND" property="PersonArea">ELM_PersonArea=#PersonArea#</isNotNull>
+        <isNotNull prepend="AND" property="Email">ELM_Email=#Email#</isNotNull>
+        <isNotNull prepend="AND" property="Mobile">ELM_Mobile=#Mobile#</isNotNull>
+        <isNotNull prepend="AND" property="Title">ELM_Title=#Title#</isNotNull>
+        <isNotNull prepend="AND" property="Address">ELM_Address=#Address#</isNotNull>
+        <isNotNull prepend="AND" property="Organ">ELM_Organ=#Organ#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ELM_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">ELM_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">ELM_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">ELM_UpdateUserName=#UpdateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">ELM_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterpriseLegalMaster" parameterClass="EnterpriseLegalMaster">
+      IF (#Status# != 'ERROR')
+      BEGIN
+      IF (EXISTS (SELECT 1 FROM ESign.EnterpriseLegalMaster WITH ( UPDLOCK, HOLDLOCK )
+      WHERE ELM_DMA_ID = #DmaId# AND ELM_Status = 'NORMAL' ))
+      BEGIN
+      UPDATE ESign.EnterpriseLegalMaster SET ELM_Status='MODIFY',ELM_UpdateUser=#UpdateUser#,ELM_UpdateUserName=#UpdateUserName#,ELM_UpdateDate=#UpdateDate#
+      WHERE ELM_DMA_ID = #DmaId# AND ELM_Status = 'NORMAL'
+      END
+      END
+
+      INSERT INTO ESign.EnterpriseLegalMaster
+      (ELM_ID,ELM_DMA_ID,ELM_Parent_DMA_ID,ELM_DealerName,ELM_AccountUid,ELM_Name,ELM_IdNo,ELM_PersonArea,ELM_Email,ELM_Mobile,ELM_Title,ELM_Address,ELM_Organ,ELM_Status,ELM_CreateUser,ELM_CreateUserName,ELM_CreateDate,ELM_UpdateUser,ELM_UpdateUserName,ELM_UpdateDate)
+      VALUES(#Id#,#DmaId#,#ParentDmaId#,#DealerName#,#AccountUid#,#Name#,#IdNo#,#PersonArea#,#Email#,#Mobile#,#Title#,#Address#,#Organ#,#Status#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateEnterpriseLegalMaster" parameterClass="EnterpriseLegalMaster">
+      UPDATE ESign.EnterpriseLegalMaster
+      SET ELM_ID=#Id#,ELM_DMA_ID=#DmaId#,ELM_Parent_DMA_ID=#ParentDmaId#,ELM_DealerName=#DealerName#,ELM_AccountUid=#AccountUid#,ELM_Name=#Name#,ELM_IdNo=#IdNo#,ELM_PersonArea=#PersonArea#,ELM_Email=#Email#,ELM_Mobile=#Mobile#,ELM_Title=#Title#,ELM_Address=#Address#,ELM_Organ=#Organ#,ELM_Status=#Status#,ELM_CreateUserName=#CreateUserName#,ELM_UpdateUser=#UpdateUser#,ELM_UpdateUserName=#UpdateUserName#,ELM_UpdateDate=#UpdateDate#
+      WHERE ELM_ID = #Id#
+    </update>
+    <delete id="DeleteEnterpriseLegalMaster" parameterClass="string">
+      DELETE FROM ESign.EnterpriseLegalMaster
+      WHERE ELM_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

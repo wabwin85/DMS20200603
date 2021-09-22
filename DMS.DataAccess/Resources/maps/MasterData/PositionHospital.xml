@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PositionHospitalMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="PositionHospital.SelectOrgsForPositionHospital" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC USP_SelectOrgsForPositionHospital #attributeId#
+    </select>
+
+    <select id="PositionHospital.SelectHospitalPosition_Valid" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT * FROM  View_HospitalPosition_Valid
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PositionID">PositionID=#PositionID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="PositionHospital.InsertHospitalPosition" parameterClass="System.Collections.Hashtable">
+      INSERT INTO dbo.HospitalPositionMap
+      (HPM_ID,HPM_PositionID,HPM_HospitalID,HPM_ProductLineID,HPM_CreateDate)
+      VALUES(#HPM_ID#,#HPM_PositionID#,#HPM_HospitalID#,#HPM_ProductLineID#,#HPM_CreateDate#)
+    </insert>
+    <update id="PositionHospital.UpdateHospitalPosition" parameterClass="System.Collections.Hashtable">
+      UPDATE dbo.HospitalPositionMap
+      SET HPM_PositionID=#HPM_PositionID#,HPM_HospitalID=#HPM_HospitalID#,HPM_ProductLineID=#HPM_ProductLineID#,HPM_CreateDate=#HPM_CreateDate#
+      WHERE HPM_ID = #HPM_ID#
+    </update>
+    <delete id="PositionHospital.DeleteHospitalPosition" parameterClass="string">
+      DELETE FROM dbo.HospitalPositionMap
+      WHERE HPM_ID = #value#
+    </delete>
+    <select id="ExportHospitalPosition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      [HOS_Key_Account] as [医院编码]
+      ,[HOS_HospitalName] as [医院名称]
+      ,[HOS_Province] as [省份]
+      ,[HOS_City]as [城市]
+      ,[HOS_District]as [区/县]
+      FROM [View_HospitalPosition_Valid]
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PositionID">PositionID=#PositionID#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

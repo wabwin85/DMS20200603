@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AdjustConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AdjustConfirmation" assembly="DMS.Model.dll" type="DMS.Model.AdjustConfirmation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AdjustConfirmationResult" class="AdjustConfirmation">
+      <result property="Id" column="AC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AdjustNo" column="AC_AdjustNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="AC_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="IsConfirm" column="AC_IsConfirm" type="bool" dbType="bit"/>
+      <result property="Remark" column="AC_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="AC_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="AC_FileName" type="string" dbType="nvarchar"/>
+      <result property="IahId" column="AC_IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProblemDescription" column="AC_ProblemDescription" type="string" dbType="nvarchar"/>
+      <result property="HandleDate" column="AC_HandleDate" type="DateTime" dbType="datetime"/>
+      <result property="ImportDate" column="AC_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="AC_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="AC_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAdjustConfirmation" parameterClass="string" resultClass="AdjustConfirmation">
+      SELECT AC_ID AS Id,AC_AdjustNo AS AdjustNo,AC_ConfirmDate AS ConfirmDate,AC_IsConfirm AS IsConfirm,AC_Remark AS Remark,AC_LineNbr AS LineNbr,AC_FileName AS FileName,AC_IAH_ID AS IahId,AC_ProblemDescription AS ProblemDescription,AC_HandleDate AS HandleDate,AC_ImportDate AS ImportDate,AC_ClientID AS Clientid,AC_BatchNbr AS BatchNbr
+      FROM AdjustConfirmation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          AC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAdjustConfirmation" parameterClass="AdjustConfirmation" resultClass="AdjustConfirmation">
+      SELECT AC_ID AS Id,AC_AdjustNo AS AdjustNo,AC_ConfirmDate AS ConfirmDate,AC_IsConfirm AS IsConfirm,AC_Remark AS Remark,AC_LineNbr AS LineNbr,AC_FileName AS FileName,AC_IAH_ID AS IahId,AC_ProblemDescription AS ProblemDescription,AC_HandleDate AS HandleDate,AC_ImportDate AS ImportDate,AC_ClientID AS Clientid,AC_BatchNbr AS BatchNbr
+      FROM AdjustConfirmation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">AC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNo">AC_AdjustNo=#AdjustNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">AC_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsConfirm">AC_IsConfirm=#IsConfirm#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">AC_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">AC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">AC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="IahId">AC_IAH_ID=#IahId#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">AC_ProblemDescription=#ProblemDescription#</isNotNull>
+        <isNotNull prepend="AND" property="HandleDate">AC_HandleDate=#HandleDate#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">AC_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">AC_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">AC_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAdjustConfirmation" parameterClass="AdjustConfirmation">
+      INSERT INTO AdjustConfirmation
+      (AC_ID,AC_AdjustNo,AC_ConfirmDate,AC_IsConfirm,AC_Remark,AC_LineNbr,AC_FileName,AC_IAH_ID,AC_ProblemDescription,AC_HandleDate,AC_ImportDate,AC_ClientID,AC_BatchNbr)
+      VALUES(#Id#,#AdjustNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#Remark#,#LineNbr#,#FileName#,#IahId#,#ProblemDescription#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateAdjustConfirmation" parameterClass="AdjustConfirmation">
+      UPDATE AdjustConfirmation
+      SET AC_ID=#Id#,AC_AdjustNo=#AdjustNo#,AC_ConfirmDate=#ConfirmDate#,AC_IsConfirm=#IsConfirm#,AC_Remark=#Remark#,AC_LineNbr=#LineNbr#,AC_FileName=#FileName#,AC_IAH_ID=#IahId#,AC_ProblemDescription=#ProblemDescription#,AC_HandleDate=#HandleDate#,AC_ImportDate=#ImportDate#,AC_ClientID=#Clientid#,AC_BatchNbr=#BatchNbr#
+      WHERE AC_ID = #Id#
+    </update>
+    <delete id="DeleteAdjustConfirmation" parameterClass="string">
+      DELETE FROM AdjustConfirmation
+      WHERE AC_ID = #value#
+    </delete>
+    <select id="SelectAdjustConfirmationByBatchNbrErrorOnly" parameterClass="string" resultClass="AdjustConfirmation">
+      SELECT AC_ID AS Id,AC_AdjustNo AS AdjustNo,AC_ConfirmDate AS ConfirmDate,AC_IsConfirm AS IsConfirm,AC_Remark AS Remark,AC_LineNbr AS LineNbr,AC_FileName AS FileName,AC_IAH_ID AS IahId,AC_ProblemDescription AS ProblemDescription,AC_HandleDate AS HandleDate,AC_ImportDate AS ImportDate,AC_ClientID AS Clientid,AC_BatchNbr AS BatchNbr
+      FROM AdjustConfirmation
+      WHERE AC_BatchNbr = #value# AND AC_ProblemDescription IS NOT NULL
+      ORDER BY AC_LineNbr
+    </select>
+  </statements>
+</sqlMap>

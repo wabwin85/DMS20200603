@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="OBORESign.OBORESign" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <parameterMaps>
+    <parameterMap id="Consignment.ConsignCommon.ProcGetNextAutoNumberOBORMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerCode" column="DealerCode" />
+      <parameter property="TypeCode" column="TypeCode" />
+      <parameter property="ClientId" column="ClientId" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="NextNum" column="NextNum" direction="Output" />
+
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="OBORESign.OBORESign.SelectOBORESignList" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT
+      ES_ID,
+      ES_AgreementNo AS AgreementNo,A.DMA_ChineseName AS SignA,B.DMA_ChineseName AS SignB,
+      CONVERT(NVARCHAR(20),ES_Createdate,20) AS CreateDate,LA.IDENTITY_NAME AS CreateUser,
+      S.VALUE1 AS Status,
+      CC_NameCN=(STUFF((SELECT ',' + tb.CC_NameCN FROM
+      (SELECT B.CC_NameCN FROM GC_Fn_SplitStringToTable(ES.ES_SubBu,',') A
+      LEFT JOIN INTERFACE.ClassificationContract B ON A.VAL=B.CC_Code) as tb
+      FOR XML PATH ('')),1,1,''))
+      FROM OBORESign ES
+      LEFT JOIN DealerMaster A ON A.DMA_ID=ES.ES_SignA
+      LEFT JOIN DealerMaster B ON B.DMA_ID=ES.ES_SignB
+      LEFT JOIN Lafite_IDENTITY LA ON LA.Id=ES.ES_CreateUser
+      LEFT JOIN Lafite_DICT S ON S.DICT_KEY=ES.ES_Status AND S.DICT_TYPE='OBORESign_Status'
+      WHERE 1=1
+      <isEqual prepend="AND" property="T1OrT2" compareValue="true">
+        ES.ES_Status !='Draft'
+      </isEqual>
+      <isNotEmpty prepend="AND" property="ES_AgreementNo">
+        ES_AgreementNo Like '%'+#ES_AgreementNo#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ES_ProductLineID">
+        ES_ProductLineID=#ES_ProductLineID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ES_SubBu">
+        ES_SubBu Like '%'+#ES_SubBu#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ES_Status">
+        ES_Status=#ES_Status#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ES_AgreementType">
+        ES_AgreementType=#ES_AgreementType#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ES_SignA">
+        ES_SignA=#ES_SignA#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="ES_SignB">
+        ES_SignB=#ES_SignB#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="StartDate">
+        CONVERT(NVARCHAR(20),ES_CreateDate,23) >=#StartDate#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="EndDate">
+        CONVERT(NVARCHAR(20),ES_CreateDate,23) &lt;=#EndDate#
+      </isNotEmpty>
+      ORDER BY ES_CreateDate DESC
+    </select>
+
+    <select id="OBORESign.OBORESign.SelectOBORESignInfo" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT S.VALUE1 AS Status,T.VALUE1 AS AgreementType,ES_FileName,
+      CONVERT(NVARCHAR(20),ES_LPSignDate,20) as ES_LPSignDate,LPSign.IDENTITY_NAME AS LPSignUser,
+      CONVERT(NVARCHAR(20),ES_DealerSignDate,20) as ES_DealerSignDate,DealerSign.IDENTITY_NAME AS DealerSignUser,
+      ES.ES_ProductLineID,ES.ES_SubBu,ES.ES_SignB,ES.ES_CreateDate,ES.ES_Status,DEALER.DMA_ChineseName,CreateUser.IDENTITY_NAME,DEALERCODE.DMA_SAP_Code,
+      ES.ES_AgreementNo
+
+      FROM OBORESign ES
+      LEFT JOIN Lafite_DICT S ON S.DICT_KEY=ES.ES_Status AND S.DICT_TYPE='OBORESign_Status'
+      LEFT JOIN Lafite_DICT T ON T.DICT_KEY=ES.ES_AgreementType AND T.DICT_TYPE='OBORESign_Type'
+      LEFT JOIN Lafite_IDENTITY LPSign ON LPSign.Id=ES.ES_LPSignUser
+      LEFT JOIN Lafite_IDENTITY DealerSign ON DealerSign.Id=ES.ES_DealerSignUser
+      LEFT JOIN DEALERMASTER DEALER ON DEALER.DMA_ID=ES.ES_SignA
+      LEFT JOIN DEALERMASTER DEALERCODE ON DEALERCODE.DMA_ID=ES.ES_SignB
+      LEFT JOIN Lafite_IDENTITY CreateUser ON CreateUser.ID=ES.ES_CreateUser
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="ES_ID">
+        ES_ID=#ES_ID#
+      </isNotEmpty>
+    </select>
+
+
+
+    <select id="OBORESign.OBORESign.SelectSignA" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DMA_ID AS [Key],DMA_ChineseName AS Value FROM DealerMaster
+      WHERE DMA_DealerType IN ('LP','LS')
+    </select>
+
+    <select id="OBORESign.OBORESign.SelectSignB" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT DMA_ID AS [Key],DMA_ChineseShortName AS Value FROM DealerMaster
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="DMA_ID">
+        (DMA_Parent_DMA_ID=#DMA_ID# OR DMA_DealerType='T1') AND DMA_ID !=#DMA_ID#
+      </isNotEmpty>
+    </select>
+
+    <select id="OBORESign.OBORESign.DealerSelectSignB" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT DMA_ID AS [Key],DMA_ChineseShortName AS Value FROM DealerMaster
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="DMA_ID">
+        DMA_ID =#DMA_ID#
+      </isNotEmpty>
+    </select>
+
+    <select id="OBORESign.OBORESign.SelectDealerSapCode" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT DMA_SAP_Code FROM
+      DealerMaster
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="DMA_ID">
+        DMA_ID =#DMA_ID#
+      </isNotEmpty>
+    </select>
+
+
+
+    <select id="OBORESign.OBORESign.CheckOBORESignPDF" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT * FROM OBORESign
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="ES_ID">
+        ES_ID=#ES_ID#
+      </isNotEmpty>
+    </select>
+
+    <update id="OBORESign.OBORESign.Update" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       
+       UPDATE OBORESign SET ES_FileName=#ES_FileName#,ES_UploadFilePath=#ES_UploadFilePath#,ES_SignA=#ES_SignA#,ES_CreateUser=#ES_CreateUser#
+       WHERE ES_ID=#ES_ID#
+      ]]>
+    </update>
+
+    <insert id="OBORESign.OBORESign.Insert" parameterClass="string">
+      <![CDATA[
+       Insert into OBORESign (ES_ID,ES_Status,ES_AgreementType,ES_UploadFilePath,ES_FileName,ES_SignA,ES_CreateUser)
+       Values
+       (#ES_ID#,'Draft','New',#ES_UploadFilePath#,#ES_FileName#,#ES_SignA#,#ES_CreateUser#)
+      ]]>
+    </insert>
+
+
+    <select id="OBORESign.OBORESign.SelectOBORESignUrl" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT ES_UploadFilePath,ES_FileName,ES_Status,ES_AgreementNo
+      FROM OBORESign
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="ES_ID">
+        ES_ID=#ES_ID#
+      </isNotEmpty>
+    </select>
+
+    <update id="OBORESign.OBORESign.UpdateDealerSign" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       
+       UPDATE OBORESign SET ES_Status=#ES_Status#,ES_UploadFilePath=#ES_UploadFilePath#,ES_DealerSignDate=#ES_DealerSignDate#,ES_DealerSignUser=#ES_DealerSignUser#
+       WHERE ES_ID=#ES_ID#
+      ]]>
+    </update>
+    <update id="OBORESign.OBORESign.UpdateLPSign" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       
+       UPDATE OBORESign SET ES_Status=#ES_Status#,ES_UploadFilePath=#ES_UploadFilePath#,ES_LPSignDate=#ES_LPSignDate#,ES_LPSignUser=#ES_LPSignUser#
+       WHERE ES_ID=#ES_ID#
+      ]]>
+    </update>
+
+    <select id="OBORESign.OBORESign.BuChange" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+
+      SELECT CC_CODE AS [Key],CC_NameCN as Value FROM INTERFACE.ClassificationContract
+      WHERE 1=1 AND CC_Division=(SELECT DivisionCode FROM V_DivisionProductLineRelation WHERE ProductLineID=#Bu#)
+      AND GETDATE() BETWEEN CC_StartDate AND CC_EndDate  AND CC_NameCN NOT LIKE '%平台%'  AND CC_NameCN NOT LIKE '%LP%'
+      <!--<isNotEmpty prepend="AND" property="Bu">
+        ES_ID=#Bu#
+      </isNotEmpty>-->
+    </select>
+
+    <select id="OBORESign.OBORESign.QueryBuChange" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT CC_CODE AS [Key],CC_NameCN as Value FROM INTERFACE.ClassificationContract
+      WHERE 1=1 AND CC_Division=(SELECT DivisionCode FROM V_DivisionProductLineRelation WHERE ProductLineID=#Bu#)
+      AND GETDATE() BETWEEN CC_StartDate AND CC_EndDate  AND CC_NameCN NOT LIKE '%平台%'  AND CC_NameCN NOT LIKE '%LP%'
+      <!--<isNotEmpty prepend="AND" property="Bu">
+        ES_ID=#Bu#
+      </isNotEmpty>-->
+    </select>
+    
+
+    <update id="OBORESign.OBORESign.SaveOBORInfoUpdate" parameterClass="string" resultClass="System.Data.DataSet">
+
+      UPDATE OBORESign
+      SET ES_Status='Draft'
+      <isNotEmpty property="ES_ProductLineID">
+        ,ES_ProductLineID=#ES_ProductLineID#
+      </isNotEmpty>
+      <isNotEmpty property="ES_SubBu">
+       ,ES_SubBu=#ES_SubBu#
+      </isNotEmpty>
+      <isNotEmpty property="ES_SignA">
+      ,ES_SignA=#ES_SignA#
+      </isNotEmpty>
+      <isNotEmpty property="ES_SignB">
+      ,ES_SignB=#ES_SignB#
+      </isNotEmpty>
+      <isNotEmpty property="ES_CreateDate">
+      ,ES_CreateDate=#ES_CreateDate#
+      </isNotEmpty>
+      <isNotEmpty property="ES_CreateUser">
+      ,ES_CreateUser=#ES_CreateUser#
+      </isNotEmpty>
+      WHERE ES_ID=#ES_ID#
+
+    </update>
+
+    <insert id="OBORESign.OBORESign.SaveOBORInfoInsert" parameterClass="string">
+       Insert into OBORESign 
+       (ES_ID,ES_Status,ES_AgreementType
+       <isNotEmpty property="ES_ProductLineID">
+       ,ES_ProductLineID
+       </isNotEmpty>
+       <isNotEmpty property="ES_SubBu">
+       ,ES_SubBu
+       </isNotEmpty>
+      <isNotEmpty property="ES_SignA">
+       ,ES_SignA
+       </isNotEmpty>
+      <isNotEmpty property="ES_SignB">
+       ,ES_SignB
+       </isNotEmpty>
+       <isNotEmpty property="ES_CreateDate">
+       ,ES_CreateDate
+       </isNotEmpty>
+       <isNotEmpty property="ES_CreateUser">
+       ,ES_CreateUser
+       </isNotEmpty>
+       )
+       Values
+       (#ES_ID#,'Draft','New'
+       <isNotEmpty property="ES_ProductLineID">
+       ,#ES_ProductLineID#
+       </isNotEmpty>
+       <isNotEmpty property="ES_SubBu">
+       ,#ES_SubBu#
+       </isNotEmpty>
+      <isNotEmpty property="ES_SignA">
+       ,#ES_SignA#
+       </isNotEmpty>
+      <isNotEmpty property="ES_SignB">
+       ,#ES_SignB#
+       </isNotEmpty>
+       <isNotEmpty property="ES_CreateDate">
+       ,#ES_CreateDate#
+       </isNotEmpty>
+       <isNotEmpty property="ES_CreateUser">
+       ,#ES_CreateUser#
+       </isNotEmpty>
+       )
+    </insert>
+
+
+    <update id="OBORESign.OBORESign.SubmitOBORInfo" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       UPDATE OBORESign SET ES_ProductLineID=#ES_ProductLineID#,ES_SubBu=#ES_SubBu#,ES_SignA=#ES_SignA#,ES_SignB=#ES_SignB#,ES_CreateDate=#ES_CreateDate#,ES_CreateUser=#ES_CreateUser#,ES_Status='WaitDealerSign',ES_AgreementNo=#ES_AgreementNo#
+       WHERE ES_ID=#ES_ID#
+      ]]>
+    </update>
+
+
+    <delete id="OBORESign.OBORESign.Delete" parameterClass="string">
+      DELETE FROM OBORESign
+      WHERE ES_ID = #ES_ID#
+    </delete>
+
+    <update id="OBORESign.OBORESign.Revoke" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       UPDATE OBORESign SET ES_Status='SignRevoke'
+       WHERE ES_ID=#ES_ID#
+      ]]>
+    </update>
+
+    <procedure id="Consignment.ConsignCommonMap.ProcGetNextAutoNumberOBOR" parameterMap="Consignment.ConsignCommon.ProcGetNextAutoNumberOBORMap">
+      Consignment.Proc_GetNextAutoNumberOBOR
+    </procedure>
+
+     <select id="OBORESign.OBORESign.SelectClientID" parameterClass="string" resultClass="System.Data.DataSet">
+     SELECT CLT_ID FROM Client
+     WHERE EXISTS (SELECT 1 FROM OBORESign  WHERE ES_ID=#ES_ID# AND ES_SignA=CLT_Corp_Id)
+    </select>
+    
+  
+     <select id="OBORESign.OBORESign.SelectLPPhone" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT EM_Phone AS Phone
+      FROM DealerMaster
+      LEFT JOIN ESign.EnterpriseMaster ON DMA_ID = EM_DMA_ID AND EM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseLegalMaster ON DMA_ID = ELM_DMA_ID AND ELM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseSeal ON DMA_ID = ES_DMA_ID AND ES_IsActive = 1
+      LEFT JOIN ESign.EnterpriseLegalSeal ON DMA_ID = ELS_DMA_ID AND ELS_IsActive = 1
+      WHERE EXISTS (SELECT 1 FROM OBORESign  WHERE ES_ID=#ES_ID# AND ES_SignA=DMA_ID)
+     </select>
+    
+     <select id="OBORESign.OBORESign.SelectDealerPhone" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT EM_Phone AS Phone
+      FROM DealerMaster
+      LEFT JOIN ESign.EnterpriseMaster ON DMA_ID = EM_DMA_ID AND EM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseLegalMaster ON DMA_ID = ELM_DMA_ID AND ELM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseSeal ON DMA_ID = ES_DMA_ID AND ES_IsActive = 1
+      LEFT JOIN ESign.EnterpriseLegalSeal ON DMA_ID = ELS_DMA_ID AND ELS_IsActive = 1
+      WHERE EXISTS (SELECT 1 FROM OBORESign  WHERE ES_ID=#ES_ID# AND ES_SignB=DMA_ID)
+     </select>
+
+
+
+  </statements>
+</sqlMap>

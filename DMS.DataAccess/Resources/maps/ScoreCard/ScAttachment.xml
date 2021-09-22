@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ScAttachmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ScAttachment" assembly="DMS.Model.dll" type="DMS.Model.ScAttachment" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ScAttachmentResult" class="ScAttachment">
+      <result property="Id" column="SCAT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="MainId" column="SCAT_Main_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Name" column="SCAT_Name" type="string" dbType="nvarchar"/>
+      <result property="Url" column="SCAT_Url" type="string" dbType="nvarchar"/>
+      <result property="Type" column="SCAT_Type" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="SCAT_Remark" type="string" dbType="nvarchar"/>
+      <result property="UploadUser" column="SCAT_UploadUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="SCAT_UploadDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectScAttachment" parameterClass="string" resultClass="ScAttachment">
+      SELECT SCAT_ID AS Id,SCAT_Main_ID AS MainId,SCAT_Name AS Name,SCAT_Url AS Url,SCAT_Type AS Type,SCAT_Remark AS Remark,SCAT_UploadUser AS UploadUser,SCAT_UploadDate AS UploadDate
+      FROM SCAttachment
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SCAT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterScAttachment" parameterClass="ScAttachment" resultClass="ScAttachment">
+      SELECT SCAT_ID AS Id,SCAT_Main_ID AS MainId,SCAT_Name AS Name,SCAT_Url AS Url,SCAT_Type AS Type,SCAT_Remark AS Remark,SCAT_UploadUser AS UploadUser,SCAT_UploadDate AS UploadDate
+      FROM SCAttachment
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SCAT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="MainId">SCAT_Main_ID=#MainId#</isNotNull>
+        <isNotNull prepend="AND" property="Name">SCAT_Name=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="Url">SCAT_Url=#Url#</isNotNull>
+        <isNotNull prepend="AND" property="Type">SCAT_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">SCAT_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="UploadUser">SCAT_UploadUser=#UploadUser#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">SCAT_UploadDate=#UploadDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertScAttachment" parameterClass="ScAttachment">
+      INSERT INTO SCAttachment
+      (SCAT_ID,SCAT_Main_ID,SCAT_Name,SCAT_Url,SCAT_Type,SCAT_Remark,SCAT_UploadUser,SCAT_UploadDate)
+      VALUES(#Id#,#MainId#,#Name#,#Url#,#Type#,#Remark#,#UploadUser#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateScAttachment" parameterClass="ScAttachment">
+      UPDATE SCAttachment
+      SET SCAT_ID=#Id#,SCAT_Main_ID=#MainId#,SCAT_Name=#Name#,SCAT_Url=#Url#,SCAT_Type=#Type#,SCAT_Remark=#Remark#,SCAT_UploadUser=#UploadUser#,SCAT_UploadDate=#UploadDate#
+      WHERE SCAT_ID = #Id#
+    </update>
+    <delete id="DeleteScAttachment" parameterClass="string">
+      DELETE FROM SCAttachment
+      WHERE SCAT_ID = #value#
+    </delete>
+    <select id="QueryESCAttachment" parameterClass="string" resultClass="ScAttachment">
+      SELECT SCAT_ID AS Id,
+      SCAT_Main_ID AS MainId,
+      SCAT_Name AS Name,
+      SCAT_Url AS Url,
+      SCAT_Type AS Type,
+      SCAT_Remark AS Remark,
+      DIC.VALUE1 AS TypeName,
+      SCAT_UploadUser AS UploadUser,
+      SCAT_UploadDate AS UploadDate,
+      li.Identity_Name,
+      row_number () OVER (ORDER BY SCAT_UploadDate DESC) AS row_number
+      FROM SCAttachment a
+      INNER JOIN Lafite_Identity li
+      ON a.SCAT_UploadUser = li.Id
+      INNER JOIN dbo.Lafite_DICT DIC
+      ON DIC.DICT_KEY = a.SCAT_Type
+      and DIC.DICT_TYPE = 'CONST_ESC_UploadType'
+      INNER JOIN EndoScoreCardHeader esc
+      ON ESCH_ID = a.SCAT_Main_ID
+      WHERE esc.ESCH_ID= #VALUE#
+    </select>
+    <select id="QueryESCAttachmentByESCNo" parameterClass="string" resultClass="ScAttachment">
+      SELECT SCAT_ID AS Id,
+      SCAT_Main_ID AS MainId,
+      SCAT_Name AS Name,
+      SCAT_Url AS Url,
+      SCAT_Type AS Type,
+      SCAT_Remark AS Remark,
+      DIC.VALUE1 AS TypeName,
+      SCAT_UploadUser AS UploadUser,
+      SCAT_UploadDate AS UploadDate,
+      li.Identity_Name,
+      row_number () OVER (ORDER BY SCAT_UploadDate DESC) AS row_number
+      FROM SCAttachment a
+      INNER JOIN Lafite_Identity li
+      ON a.SCAT_UploadUser = li.Id
+      INNER JOIN dbo.Lafite_DICT DIC
+      ON DIC.DICT_KEY = a.SCAT_Type
+      and DIC.DICT_TYPE = 'CONST_ESC_UploadType'
+      INNER JOIN EndoScoreCardHeader esc
+      ON ESCH_ID = a.SCAT_Main_ID
+      WHERE esc.ESCH_No= #VALUE#
+    </select>
+    <select id ="GetFileCount" parameterClass="string">
+      select count(*) cnt from SCAttachment where SCAT_Main_ID = #value# and SCAT_Type = 'Administrator'
+    </select>
+  </statements>
+</sqlMap>

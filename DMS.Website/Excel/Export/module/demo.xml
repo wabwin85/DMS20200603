@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<oExcel fileName="销售出库单_yyyymmdd" moduleName="">
+  <oSheets>
+    <oSheet Name="销售出库单">
+      <oMains>
+        <oMain keyFont="" keyFontSize="" keyFontColor="" keyBackGroudColor="" keyHorizontalAlignment="" keyBond=""  valueFont="" valueFontSize="" valueFontColor="" valueHorizontalAlignment="" valueBond="">
+          <oItems>
+            <oItem key="Created by:" value="user" keyPos="1,A" valuePos="1,B" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="yes"  valueFont="宋体" valueFontSize="9" valueFontColor="#9999FF" valueHorizontalAlignment="right" valueBond=""></oItem>
+            <oItem key="Created time:" value="date" keyPos="1,E" valuePos="1,F" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="#9999FF" valueHorizontalAlignment="right" valueBond=""></oItem>
+          </oItems>
+        </oMain>
+      </oMains>
+      <oDetails>
+        <oDetail keyFont="" keyFontSize="" keyFontColor="" keyBackGroudColor="" keyHorizontalAlignment="" keyBond=""  valueFont="" valueFontSize="" valueFontColor="" valueHorizontalAlignment="" valueBond="">
+          <oRecords>
+            <oRecord key="分销商代码" value="COL1" keyPos="3,A" valuePos="4,A" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="分销商名称" value="COL2" keyPos="3,B" valuePos="4,B" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="部门" value="COL3" keyPos="3,C" valuePos="4,C" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="出货单号" value="COL4" keyPos="3,D" valuePos="4,D" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="出货日期" value="COL5" keyPos="3,E" valuePos="4,E" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="出货类型" value="COL6" keyPos="3,F" valuePos="4,F" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="客户代码" value="COL7" keyPos="3,G" valuePos="4,G" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="客户名称" value="COL8" keyPos="3,H" valuePos="4,H" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="发票年月" value="COL9" keyPos="3,I" valuePos="4,I" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="强生年月" value="COL10" keyPos="3,J" valuePos="4,J" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="发票日期" value="COL11" keyPos="3,K" valuePos="4,K" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="发票代码" value="COL12" keyPos="3,L" valuePos="4,L" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="产品代码" value="COL13" keyPos="3,M" valuePos="4,M" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="单位" value="COL14" keyPos="3,N" valuePos="4,N" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="分销商售价" value="COL15" keyPos="3,O" valuePos="4,O" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="数量" value="COL16" keyPos="3,P" valuePos="4,P" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="单价" value="COL17" keyPos="3,Q" valuePos="4,Q" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="金额" value="COL18" keyPos="3,R" valuePos="4,R" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="分销商售价总额" value="COL19" keyPos="3,S" valuePos="4,S" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="备注1" value="COL20" keyPos="3,T" valuePos="4,T" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="备注2" value="COL21" keyPos="3,U" valuePos="4,U" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+            <oRecord key="备注3" value="COL22" keyPos="3,V" valuePos="4,V" keyFont="宋体" keyFontSize="9" keyFontColor="" keyBackGroudColor="#808000" keyHorizontalAlignment="center" keyBond="no"  valueFont="宋体" valueFontSize="9" valueFontColor="" valueBond=""></oRecord>
+           
+          </oRecords>
+        </oDetail>
+      </oDetails>
+    </oSheet>
+  </oSheets>
+</oExcel>

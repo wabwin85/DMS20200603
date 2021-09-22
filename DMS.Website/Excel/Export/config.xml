@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config Version="excel2007" EachRow="5000">
+  <files>
+    <file Name="uDstrMaster" Value="uDstrMaster.xml"></file>
+    <file Name="UdstrPurchase" Value="UdstrPurchase.xml"></file>
+    <file Name="DistIDO" Value="DistIDO.xml"></file>
+    <file Name="DistDSO" Value="DistDSO.xml"></file>
+    <file Name="ChkdMain" value="ChkdMain.xml"></file>
+    <file Name="Surgery" value="Surgery.xml"></file>
+    <file Name="DstrMaster" value="DstrMaster.xml"></file>
+    <file Name="DistBP" value="DistBP.xml"></file>
+    <file Name="CustBP" value="CustBP.xml"></file>
+    <file Name="CustBPList" value="CustBPList.xml"></file>
+    <file Name="DistBPList" value="DistBPList.xml"></file>
+    <file Name="OrderList" value="OrderList.xml"></file>
+    <file Name="DistInvDetail" value="DistInvDetail.xml"></file>
+    <file Name="CustList" value="CustList.xml"></file>
+    <file Name="TAllHierList" value="TAllHierList.xml"></file>
+    <file Name="CustFranList" value="CustFranList.xml"></file>
+    <file Name="CustomizePrdGrpHier" value="CustomizePrdGrpHier.xml"></file>
+    <file Name="TCustSalesHierList" value="TCustSalesHierList.xml"></file>
+    <file Name="SkuRateList" value="SkuRateList.xml"></file>
+    <file Name="UdstrCust" value="UdstrCust.xml"></file>
+    <file Name="TerritoryCustList" value="TerritoryCustList.xml"></file>
+    <file Name="TDistSalesHierList" value="TDistSalesHierList.xml"></file>
+    <file Name="OrderSummary" value="OrderSummary.xml"></file>
+    <file Name="SalesUserList" value="SalesUserList.xml"></file>
+    <file Name="LastInventory" value="LastInventory.xml"></file>
+    <file Name="CustSalesHierImport" value="CustSalesHierImport.xml"></file>
+    <file Name="CustParentList" value="CustParentList.xml"></file>
+    <file Name="DstrList" value="DstrList.xml"></file>
+    <file Name="CustImportTmp" value="CustImportTmp.xml"></file>
+	<file Name="SurgeryDailyReport" value="SurgeryDailyReport.xml"></file>
+
+	<file Name="BpList" value="BpList.xml"></file>  
+    <file Name="BpMarkUp" value="BpMarkUp.xml"></file>
+	<file Name="DPImportErrorLog" value="DPImportErrorLog.xml"></file>
+	<file Name="DpBPReportA" value="DpBPReportA.xml"></file>
+	<file Name="DpBPReportB" value="DpBPReportB.xml"></file>
+
+	 <file Name="CKDSummary" value="CKDSummary.xml"></file>
+	  <file Name="OrderListCutOff" value="OrderListCutOff.xml"></file>
+
+	  <!--SIMS升级LS模块-->
+    <file Name="LsObjBpList" value="LsObjBpList.xml"></file>
+    <file Name="LSObjBpInfo" value="LSObjBpInfo.xml"></file>
+    <file Name="LsSkuPriceList" value="LsSkuPriceList.xml"></file>
+    <file Name="LsObjMatchList" value="LsObjMatchList.xml"></file>
+    <file Name="ImpLsObjMatchList" value="ImpLsObjMatchList.xml"></file>
+    <file Name="ImpLsOrderMnList" value="ImpLsOrderMnList.xml"></file>
+    <file Name="LsObjSalesList" value="LsObjSalesList.xml"></file>
+    <file Name="LsCustSalesList" value="LsCustSalesList.xml"></file>
+    <file Name="LsStoreSalesList" value="LsStoreSalesList.xml"></file>
+    <file Name="LsStoreAdviserList" value="LsStoreAdviserList.xml"></file>
+    <file Name="LsDstrList" value="LsDstrList.xml"></file>
+    <file Name="LsCustList" value="LsCustList.xml"></file>
+    <file Name="LsKhMatchList" value="LsKhMatchList.xml"></file>
+    <file Name="TLsDataPoolList" value="TLsDataPoolList.xml"></file>
+    <file Name="LsStoreImport" value="LsStoreImport.xml"></file>
+    <file Name="LsCustImport" value="LsCustImport.xml"></file>
+    <file Name="TLsDataPoolSubList" value="TLsDataPoolSubList.xml"></file>
+    <file Name="LsInventoryExport" value="LsInventoryExport.xml"></file>
+    <file Name="LsDataPoolSummary" value="LsDataPoolSummary.xml"></file>
+    <file Name="LsObjBpImport" value="LsObjBpImport.xml"></file>
+    <file Name="LsDstrImport" value="LsDstrImport.xml"></file>
+    <file Name="LsPreMatchObjList" value="LsPreMatchObjList.xml"></file>
+	<file Name="LsSalesReportAll" value="LsSalesReportAll.xml"></file>
+	<file Name="LsSalesReportPsr1" value="LsSalesReportPsr1.xml"></file>
+	<file Name="LsSalesReportPsr2" value="LsSalesReportPsr2.xml"></file>
+	<file Name="LsSalesReportPsr3" value="LsSalesReportPsr3.xml"></file>
+	<file Name="OrderListWithSurgery" value="OrderListWithSurgery.xml"></file>
+	  
+  </files>
+</config>

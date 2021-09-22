@@ -1,0 +1,12 @@
+DROP VIEW [Promotion].[V_PRO_FORECAST_DETAIL]
+GO
+
+
+CREATE VIEW [Promotion].[V_PRO_FORECAST_DETAIL]
+AS 
+SELECT B.DLid,OperTag,ConditionValue
+FROM Promotion.PRO_FORECAST A,Promotion.PRO_FORECAST_DETAIL B 
+WHERE A.DLID = B.DLID AND largessAmount <>0
+GO
+
+

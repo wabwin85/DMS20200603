@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentOperationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentOperation" assembly="DMS.Model.dll" type="DMS.Model.ShipmentOperation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentOperationResult" class="ShipmentOperation">
+      <result property="Id" column="SPO_ID" type="Guid" dbType="Guid"/>
+      <result property="SphId" column="SPO_SPH_ID" type="Guid" dbType="Guid"/>
+      <result property="OfficeName" column="SPO_OfficeName" type="string" dbType="varchar"/>
+      <result property="DoctorName" column="SPO_DoctorName" type="string" dbType="varchar"/>
+      <result property="PatientName" column="SPO_PatientName" type="string" dbType="varchar"/>
+      <result property="PatientGender" column="SPO_PatientGender" type="string" dbType="varchar"/>
+      <result property="Patientpin" column="SPO_PatientPIN" type="string" dbType="varchar"/>
+      <result property="HospitalNo" column="SPO_HospitalNo" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectShipmentOperation" parameterClass="string" resultClass="ShipmentOperation">
+      SELECT SPO_ID AS Id,SPO_SPH_ID AS SphId,SPO_OfficeName AS OfficeName,SPO_DoctorName AS DoctorName,SPO_PatientName AS PatientName,SPO_PatientGender AS PatientGender,SPO_PatientPIN AS Patientpin,SPO_HospitalNo AS HospitalNo
+      FROM ShipmentOperation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPO_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectShipmentOperationBySphId" parameterClass="string" resultClass="ShipmentOperation">
+      SELECT SPO_ID AS Id,SPO_SPH_ID AS SphId,SPO_OfficeName AS OfficeName,SPO_DoctorName AS DoctorName,SPO_PatientName AS PatientName,SPO_PatientGender AS PatientGender,SPO_PatientPIN AS Patientpin,SPO_HospitalNo AS HospitalNo
+      FROM ShipmentOperation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPO_SPH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentOperation" parameterClass="ShipmentOperation" resultClass="ShipmentOperation">
+      SELECT SPO_ID AS Id,SPO_SPH_ID AS SphId,SPO_OfficeName AS OfficeName,SPO_DoctorName AS DoctorName,SPO_PatientName AS PatientName,SPO_PatientGender AS PatientGender,SPO_PatientPIN AS Patientpin,SPO_HospitalNo AS HospitalNo
+      FROM ShipmentOperation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SPO_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SphId">SPO_SPH_ID=#SphId#</isNotNull>
+        <isNotNull prepend="AND" property="OfficeName">SPO_OfficeName=#OfficeName#</isNotNull>
+        <isNotNull prepend="AND" property="DoctorName">SPO_DoctorName=#DoctorName#</isNotNull>
+        <isNotNull prepend="AND" property="PatientName">SPO_PatientName=#PatientName#</isNotNull>
+        <isNotNull prepend="AND" property="PatientGender">SPO_PatientGender=#PatientGender#</isNotNull>
+        <isNotNull prepend="AND" property="Patientpin">SPO_PatientPIN=#Patientpin#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalNo">SPO_HospitalNo=#HospitalNo#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentOperation" parameterClass="ShipmentOperation">
+      INSERT INTO ShipmentOperation
+      (SPO_ID,SPO_SPH_ID,SPO_OfficeName,SPO_DoctorName,SPO_PatientName,SPO_PatientGender,SPO_PatientPIN,SPO_HospitalNo)
+      VALUES(#Id#,#SphId#,#OfficeName#,#DoctorName#,#PatientName#,#PatientGender#,#Patientpin#,#HospitalNo#)
+    </insert>
+    <update id="UpdateShipmentOperation" parameterClass="ShipmentOperation">
+      UPDATE ShipmentOperation
+      SET SPO_ID=#Id#,SPO_SPH_ID=#SphId#,SPO_OfficeName=#OfficeName#,SPO_DoctorName=#DoctorName#,SPO_PatientName=#PatientName#,SPO_PatientGender=#PatientGender#,SPO_PatientPIN=#Patientpin#,SPO_HospitalNo=#HospitalNo#
+      WHERE SPO_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentOperation" parameterClass="string">
+      DELETE FROM ShipmentOperation
+      WHERE SPO_ID = #value#
+    </delete>
+
+    //added by songweiming on 20100617
+    <delete id="DeleteShipmentOperationByHeaderId" parameterClass="string">
+      DELETE FROM ShipmentOperation
+      WHERE SPO_SPH_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

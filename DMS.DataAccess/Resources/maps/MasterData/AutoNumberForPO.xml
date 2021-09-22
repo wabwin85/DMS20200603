@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AutoNumberForPOMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<statements>
+		<procedure id="GetNextAutoNumberForPO" parameterMap="swap-params-po">
+			dbo.GC_GetNextAutoNumberForPO
+		</procedure>
+	</statements>
+	<parameterMaps>
+		<parameterMap id="swap-params-po" class="System.Collections.Hashtable" >
+			<parameter property="DealerId" column="DMA_RecID" />
+			<parameter property="Settings" column="Setting" />
+			<parameter property="ProdLine" column="ProdLine" />
+      <parameter property="OrderType" column="OrderType" />
+			<parameter property="NextAutoNbr" column="NextAutoNbr" direction="Output" />
+		</parameterMap>
+	</parameterMaps>
+  
+  	<statements>
+		<procedure id="GC_GetNextAutoNumberForPO_New" parameterMap="swap-params-po-new">
+      dbo.GC_GetNextAutoNumberForPO_New
+    </procedure>
+	</statements>
+	<parameterMaps>
+		<parameterMap id="swap-params-po-new" class="System.Collections.Hashtable" >
+			<parameter property="DealerId" column="DMA_RecID" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+			<parameter property="Settings" column="Setting" />
+			<parameter property="ProdLine" column="ProdLine" />
+      <parameter property="OrderType" column="OrderType" />
+			<parameter property="NextAutoNbr" column="NextAutoNbr" direction="Output" />
+		</parameterMap>
+	</parameterMaps>
+  
+</sqlMap>

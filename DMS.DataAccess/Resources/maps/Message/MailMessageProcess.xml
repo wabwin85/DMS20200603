@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MailMessageProcessMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="MailMessageProcess" assembly="DMS.Model.dll" type="DMS.Model.MailMessageProcess" />
+  </alias>
+  <resultMaps>
+    <resultMap id="MailMessageProcessResult" class="MailMessageProcess">
+      <result property="Id" column="MMP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Code" column="MMP_Code" type="string" dbType="nvarchar"/>
+      <result property="ProcessId" column="MMP_ProcessId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Status" column="MMP_Status" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="MMP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateDate" column="MMP_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="SelectMailMessageProcess" parameterClass="string" resultClass="MailMessageProcess">
+      SELECT MMP_ID AS Id,MMP_Code AS Code,MMP_ProcessId AS ProcessId,MMP_Status AS Status,MMP_CreateDate AS CreateDate,MMP_UpdateDate AS UpdateDate
+      FROM MailMessageProcess
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          MMP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterMailMessageProcess" parameterClass="MailMessageProcess" resultClass="MailMessageProcess">
+      SELECT MMP_ID AS Id,MMP_Code AS Code,MMP_ProcessId AS ProcessId,MMP_Status AS Status,MMP_CreateDate AS CreateDate,MMP_UpdateDate AS UpdateDate
+      FROM MailMessageProcess
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">MMP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">MMP_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="ProcessId">MMP_ProcessId=#ProcessId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">MMP_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">MMP_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertMailMessageProcess" parameterClass="MailMessageProcess">
+      INSERT INTO MailMessageProcess
+      (MMP_ID,MMP_Code,MMP_ProcessId,MMP_Status,MMP_CreateDate,MMP_UpdateDate)
+      VALUES(#Id#,#Code#,#ProcessId#,#Status#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateMailMessageProcess" parameterClass="MailMessageProcess">
+      UPDATE MailMessageProcess
+      SET MMP_ID=#Id#,MMP_Code=#Code#,MMP_ProcessId=#ProcessId#,MMP_Status=#Status#,MMP_UpdateDate=#UpdateDate#
+      WHERE MMP_ID = #Id#
+    </update>
+    <delete id="DeleteMailMessageProcess" parameterClass="string">
+      DELETE FROM MailMessageProcess
+      WHERE MMP_ID = #value#
+    </delete>
+    <!--added by bozhenfei on 20110401-->
+    <select id="GetMailMessageProcess" parameterClass="string" resultClass="MailMessageProcess">
+      SELECT MMP_ID AS Id,MMP_Code AS Code,MMP_ProcessId AS ProcessId,MMP_Status AS Status,MMP_CreateDate AS CreateDate,MMP_UpdateDate AS UpdateDate
+      FROM MailMessageProcess WHERE MMP_Status = 'Waiting' ORDER BY MMP_CreateDate,MMP_Code
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PurchaseOrderDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PurchaseOrderDetail" assembly="DMS.Model.dll" type="DMS.Model.PurchaseOrderDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PurchaseOrderDetailResult" class="PurchaseOrderDetail">
+      <result property="Id" column="POD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PohId" column="POD_POH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="POD_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnPrice" column="POD_CFN_Price" type="decimal" dbType="decimal"/>
+      <result property="Uom" column="POD_UOM" type="string" dbType="nvarchar"/>
+      <result property="RequiredQty" column="POD_RequiredQty" type="decimal" dbType="decimal"/>
+      <result property="Amount" column="POD_Amount" type="decimal" dbType="decimal"/>
+      <result property="Tax" column="POD_Tax" type="decimal" dbType="decimal"/>
+      <result property="ReceiptQty" column="POD_ReceiptQty" type="decimal" dbType="decimal"/>
+      <result property="Status" column="POD_Status" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="POD_LotNumber" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+
+  <alias>
+    <typeAlias alias="ShipeOrderDetail" assembly="DMS.Model.dll" type="DMS.Model.ShipeOrderDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipeOrderDetailResult" class="ShipeOrderDetail">
+      <result property="Id" column="PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SAPShipmentCode" column="PRH_SAPShipmentID" dbType="nvarchar"/>
+      <result property="SAPShipmentDate" column="PRH_SAPShipmentDate" dbType="nvarchar"/>
+      <result property="Carrier" column="PRH_Carrier" dbType="nvarchar"/>
+      <result property="TrackingNo" column="PRH_TrackingNo" dbType="nvarchar"/>
+      <result property="ShipType" column="PRH_ShipType" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="PRL_ExpiredDate" dbType="nvarchar"/>
+      <result property="UPN" column="PMA_UPN" type="string" dbType="nvarchar"/>
+      <result property="ReceiptQty" column="PRL_ReceiptQty" type="decimal" dbType="decimal"/>
+      <result property="LotNumber" column="LotNumber" type="string" dbType="nvarchar"/>
+      <result property="GenerateDate" column="GenerateDate" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+
+  <!--added by bozhenfei on 20110216-->
+  <parameterMaps>
+    <parameterMap id="GC_PurchaseOrder_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrderBSC_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsGetSpecialPrice" column="IsGetSpecialPrice" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="DealerType" column="DealerType" />
+      <parameter property="OrderType" column="OrderType" />
+      <parameter property="SpecialPriceId" column="SpecialPriceId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrderBSCPRO_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <!--<parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsGetSpecialPrice" column="IsGetSpecialPrice" />-->
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="CfnCheckString" column="CfnCheckString" />
+      <parameter property="DealerType" column="DealerType" />
+      <parameter property="OrderType" column="OrderType" />
+      <parameter property="SpecialPriceId" column="SpecialPriceId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_AddCfnSet_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrderBSC_AddCfnSet_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsGetSpecialPrice" column="IsGetSpecialPrice" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="PriceType" column="PriceType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_CheckSubmit_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+      <parameter property="RtnRegMsg" column="RtnRegMsg" direction="Output" />
+      <!--<parameter property="ErrorMsg" column="ErrorMsg" direction="Output" />-->
+    </parameterMap>
+    <!--added by bozhenfei on 20110802 @原来的方法不知何原因提示信息被IBatis截取-->
+    <parameterMap id="GC_PurchaseOrder_BeforeSubmit_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrderBSC_BeforeSubmit_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="PromotionPolicyID" column="PromotionPolicyID" />
+      <parameter property="PriceType" column="PriceType" />
+      <parameter property="OrderType" column="OrderType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrderBSC_BeforeSubmitSpecial_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SpecialPriceId" column="SpecialPriceId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_Copy_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="PriceType" column="PriceType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="GC_PurchaseOrder_CopyForTemporary_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="InstanceId" column="InstanceId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="GC_PurchaseOrder_Lock_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ListString" column="ListString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_Unlock_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ListString" column="ListString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_MakeManual_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ListString" column="ListString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+      <parameter property="BatchNbr" column="BatchNbr" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="GC_PRODealerLargess_Update_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="OrderSubType" column="OrderSubType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="GC_PointOrderSubmint_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="POH_ID" column="POH_ID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="GC_PointOrderRevoke_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="POH_ID" column="POH_ID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+  </parameterMaps>
+  <!--end-->
+  <statements>
+
+    <select id="SelectPurchaseOrderDetail" parameterClass="string" resultClass="PurchaseOrderDetail">
+      SELECT POD_ID AS Id,POD_POH_ID AS PohId,POD_CFN_ID AS CfnId,POD_CFN_Price AS CfnPrice,POD_UOM AS Uom,POD_RequiredQty AS RequiredQty,POD_Amount AS Amount,POD_Tax AS Tax,POD_ReceiptQty AS ReceiptQty,POD_Status AS Status
+      FROM PurchaseOrderDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          POD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterPurchaseOrderDetail" parameterClass="PurchaseOrderDetail" resultClass="PurchaseOrderDetail">
+      SELECT POD_ID AS Id,POD_POH_ID AS PohId,POD_CFN_ID AS CfnId,POD_CFN_Price AS CfnPrice,POD_UOM AS Uom,POD_RequiredQty AS RequiredQty,POD_Amount AS Amount,POD_Tax AS Tax,POD_ReceiptQty AS ReceiptQty,POD_Status AS Status
+      FROM PurchaseOrderDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POD_POH_ID=#PohId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">POD_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnPrice">POD_CFN_Price=#CfnPrice#</isNotNull>
+        <isNotNull prepend="AND" property="Uom">POD_UOM=#Uom#</isNotNull>
+        <isNotNull prepend="AND" property="RequiredQty">POD_RequiredQty=#RequiredQty#</isNotNull>
+        <isNotNull prepend="AND" property="Amount">POD_Amount=#Amount#</isNotNull>
+        <isNotNull prepend="AND" property="Tax">POD_Tax=#Tax#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptQty">POD_ReceiptQty=#ReceiptQty#</isNotNull>
+        <isNotNull prepend="AND" property="Status">POD_Status=#Status#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertPurchaseOrderDetail" parameterClass="PurchaseOrderDetail">
+      INSERT INTO PurchaseOrderDetail
+      (POD_ID,POD_POH_ID,POD_CFN_ID,POD_CFN_Price,POD_UOM,POD_RequiredQty,POD_Amount,POD_Tax,POD_ReceiptQty,POD_Status)
+      VALUES(#Id#,#PohId#,#CfnId#,#CfnPrice#,#Uom#,#RequiredQty#,#Amount#,#Tax#,#ReceiptQty#,#Status#)
+    </insert>
+    <update id="UpdatePurchaseOrderDetail" parameterClass="PurchaseOrderDetail">
+      UPDATE PurchaseOrderDetail
+      SET POD_ID=#Id#,POD_POH_ID=#PohId#,POD_CFN_ID=#CfnId#,POD_CFN_Price=#CfnPrice#,POD_UOM=#Uom#,POD_RequiredQty=#RequiredQty#,POD_Amount=#Amount#,POD_Tax=#Tax#,POD_ReceiptQty=#ReceiptQty#,POD_Status=#Status#,POD_LotNumber=#LotNumber#,POD_Field1=(select min(LM.LTM_ExpiredDate) from lotmaster AS LM, Product P where LM.LTM_Product_PMA_ID=P.PMA_ID and P.PMA_CFN_ID=#CfnId# and LM.LTM_LotNumber=#LotNumber#)
+      WHERE POD_ID = #Id#
+    </update>
+    <delete id="DeletePurchaseOrderDetail" parameterClass="string">
+      DELETE FROM PurchaseOrderDetail
+      WHERE POD_ID = #value#
+    </delete>
+    <!--added by bozhenfei on 20110214-->
+    <!--根据订单主键查询订购产品明细-->
+    <select id="QueryPurchaseOrderDetailByFilter" parameterClass="PurchaseOrderDetail" resultClass="PurchaseOrderDetail">
+      SELECT
+      PurchaseOrderDetail.POD_ID AS Id,
+      PurchaseOrderDetail.POD_POH_ID AS PohId,
+      PurchaseOrderDetail.POD_CFN_ID AS CfnId,
+      PurchaseOrderDetail.POD_CFN_Price AS CfnPrice,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_EnglishName AS CfnEnglishName,
+      PurchaseOrderDetail.POD_UOM AS Uom,
+      PurchaseOrderDetail.POD_RequiredQty AS RequiredQty,
+      PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax AS Amount,
+      PurchaseOrderDetail.POD_ReceiptQty AS ReceiptQty,
+      PurchaseOrderDetail.POD_LotNumber As LotNumber,
+      Product.PMA_ConvertFactor AS ConvertFactor,
+      ISNULL(Product.PMA_PackageFactor,1) AS PackageFactor,
+      ROW_NUMBER() OVER (ORDER BY PurchaseOrderDetail.POD_ID,B.RedInvoicesAmount DESC) AS row_number,
+      PurchaseOrderDetail.POD_CurRegNo AS CurRegNo,
+      PurchaseOrderDetail.POD_CurValidDateFrom AS CurValidDateFrom,
+      PurchaseOrderDetail.POD_CurValidDataTo AS CurValidDataTo,
+      PurchaseOrderDetail.POD_CurManuName AS CurManuName,
+      PurchaseOrderDetail.POD_LastRegNo AS LastRegNo,
+      PurchaseOrderDetail.POD_LastValidDateFrom AS LastValidDateFrom,
+      PurchaseOrderDetail.POD_LastValidDataTo AS LastValidDataTo,
+      PurchaseOrderDetail.POD_LastManuName AS LastManuName,
+      PurchaseOrderDetail.POD_CurGMKind AS CurGMKind,
+      PurchaseOrderDetail.POD_CurGMCatalog AS CurGMCatalog,
+      B.RedInvoicesAmount,
+      A.PointAmount
+      FROM    PurchaseOrderDetail
+      INNER JOIN CFN ON CFN.CFN_ID = PurchaseOrderDetail.POD_CFN_ID
+      INNER JOIN Product ON PMA_CFN_ID = CFN_ID
+      LEFT JOIN (SELECT B.POD_ID,SUM(B.Amount) PointAmount FROM Promotion.PurchaseOrderPoint B GROUP BY B.POD_ID) A  ON A.POD_ID=PurchaseOrderDetail.POD_ID
+      LEFT JOIN (SELECT B.POD_ID,SUM(B.Amount) RedInvoicesAmount FROM Promotion.PurchaseOrderRedInvoices B GROUP BY B.POD_ID) B  ON B.POD_ID=PurchaseOrderDetail.POD_ID
+      <!--left join MD.V_INF_UPN_REG AS REG ON (CFN.CFN_CustomerFaceNbr = REG.CurUPN)-->
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POD_POH_ID=#PohId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--二级经销商订单申请发货数据信息明细-->
+    <select id="QueryPoReceiptOrderDetailByFilter" parameterClass="System.Collections.Hashtable" resultClass="ShipeOrderDetail">
+      SELECT	h.PRH_ID AS Id,
+      h.PRH_SAPShipmentID AS SAPShipmentCode,
+      h.PRH_SAPShipmentDate AS SAPShipmentDate ,
+      h.PRH_Carrier AS Carrier,
+      h.PRH_TrackingNo AS TrackingNo ,
+      h.PRH_ShipType AS ShipType ,
+      CONVERT(VARCHAR(100), s.PRL_ExpiredDate, 112) AS ExpiredDate,
+      s.PRL_ReceiptQty AS ReceiptQty,
+      Product.PMA_UPN AS UPN,
+      CASE	WHEN CHARINDEX('@@', s.PRL_LotNumber, 0) > 0
+      THEN SUBSTRING(s.PRL_LotNumber, 1,
+      CHARINDEX('@@', s.PRL_LotNumber, 0) - 1)
+      ELSE s.PRL_LotNumber
+      END LotNumber ,
+      ( SELECT	LTM_Type
+      FROM	LotMaster lm
+      WHERE	lm.LTM_LotNumber = s.PRL_LotNumber
+      AND lm.LTM_Product_PMA_ID = l.POR_SAP_PMA_ID
+      ) GenerateDate,
+      ROW_NUMBER() OVER (ORDER BY h.PRH_SAPShipmentDate DESC) AS row_number
+      FROM	dbo.POReceiptHeader(nolock) h
+      JOIN dbo.PurchaseOrderHeader(nolock) p ON h.PRH_PurchaseOrderNbr = p.POH_OrderNo
+      LEFT JOIN dbo.POReceipt(nolock) l ON h.PRH_ID = l.POR_PRH_ID
+      LEFT JOIN dbo.POReceiptLot(nolock)s ON s.PRL_POR_ID = l.POR_ID
+      LEFT JOIN Product(NOLOCK) ON l.POR_SAP_PMA_ID = Product.PMA_ID
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">p.POH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POD_POH_ID=#PohId#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <select id="QueryLPPurchaseOrderDetailByFilter" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderDetail">
+      SELECT PurchaseOrderDetail.POD_ID AS Id,
+      PurchaseOrderDetail.POD_POH_ID AS PohId,
+      PurchaseOrderDetail.POD_CFN_ID AS CfnId,
+      PurchaseOrderDetail.POD_CFN_Price AS CfnPrice,
+      PurchaseOrderDetail.POD_CFN_Price/dbo.Func_GetTaxRate(null,POH_CreateDate) AS CfnPriceNoTax,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_EnglishName AS CfnEnglishName,
+      PurchaseOrderDetail.POD_UOM AS Uom,
+      PurchaseOrderDetail.POD_RequiredQty AS RequiredQty,
+      PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax AS Amount,
+      ISNULL(A.PointAmount,0) AS PointAmount,
+      PurchaseOrderDetail.POD_ReceiptQty AS ReceiptQty,
+      PurchaseOrderDetail.POD_LotNumber AS LotNumber,
+      CASE WHEN CFN.CFN_Property6 = '1' THEN CONVERT (VARCHAR (10), convert(datetime,PurchaseOrderDetail.POD_Field1), 120)
+      WHEN CFN.CFN_Property6 = '0' THEN CONVERT (VARCHAR (7), convert(datetime,PurchaseOrderDetail.POD_Field1), 120) END AS ExpDate,
+      #VirtualDCCode# AS VirtualDCCode,
+      (SELECT CASE WHEN Header.POH_SpecialPriceID IS NULL THEN '否' ELSE '是' END
+      FROM PurchaseOrderHeader AS Header(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = Header.POH_ID) AS IsSpecial,
+      isnull (
+      (SELECT sum (isnull (Detail.SPD_AvailableQty, 0))
+      FROM SpecialPriceMaster AS Master(nolock),
+      SpecialPriceDetail AS Detail(nolock),
+      PurchaseOrderHeader AS Header(nolock)
+      WHERE     Master.SPM_ID = Detail.SPD_SPM_ID
+      AND Header.POH_SpecialPriceID = Master.SPM_ID
+      AND Master.SPM_IsActive = 1
+      AND Header.POH_ID = PurchaseOrderDetail.POD_POH_ID
+      AND Detail.SPD_CFN_ID = PurchaseOrderDetail.POD_CFN_ID),
+      0) AS CanOrderNumber,
+      ROW_NUMBER () OVER (ORDER BY PurchaseOrderDetail.POD_ID DESC) AS row_number,
+      PurchaseOrderDetail.POD_CurRegNo AS CurRegNo,
+      PurchaseOrderDetail.POD_CurValidDateFrom AS CurValidDateFrom,
+      PurchaseOrderDetail.POD_CurValidDataTo AS CurValidDataTo,
+      PurchaseOrderDetail.POD_CurManuName AS CurManuName,
+      PurchaseOrderDetail.POD_LastRegNo AS LastRegNo,
+      PurchaseOrderDetail.POD_LastValidDateFrom AS LastValidDateFrom,
+      PurchaseOrderDetail.POD_LastValidDataTo AS LastValidDataTo,
+      PurchaseOrderDetail.POD_LastManuName AS LastManuName,
+      PurchaseOrderDetail.POD_CurGMKind AS CurGMKind,
+      PurchaseOrderDetail.POD_CurGMCatalog AS CurGMCatalog,
+      PurchaseOrderDetail.POD_Field2 AS DiscountRate
+      FROM PurchaseOrderDetail(nolock)
+      INNER JOIN PurchaseOrderHeader(nolock) ON PurchaseOrderHeader.POH_ID=PurchaseOrderDetail.POD_POH_ID
+      INNER JOIN CFN(nolock) ON CFN.CFN_ID = PurchaseOrderDetail.POD_CFN_ID
+      LEFT JOIN (SELECT B.POD_ID,SUM(B.Amount) PointAmount FROM Promotion.PurchaseOrderPoint B(nolock) GROUP BY B.POD_ID) A  ON A.POD_ID=PurchaseOrderDetail.POD_ID
+      <!--LEFT join MD.V_INF_UPN_REG AS REG ON (CFN.CFN_CustomerFaceNbr = REG.CurUPN)-->
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">PurchaseOrderDetail.POD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POD_POH_ID=#PohId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryLotNumberCount" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderDetail">
+      SELECT count (*) AS num
+      FROM PurchaseOrderDetail
+      WHERE     POD_POH_ID = (SELECT POD_POH_ID
+      FROM PurchaseOrderDetail
+      WHERE POD_ID =#DetailId#)
+      AND POD_LotNumber = #Lot#
+      AND POD_CFN_ID = (SELECT POD_CFN_ID
+      FROM PurchaseOrderDetail
+      WHERE POD_ID = #DetailId#)
+      AND POD_ID != #DetailId#
+    </select>
+    <select id="QueryLotPriceCount" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderDetail">
+      SELECT count (*) AS num
+      FROM PurchaseOrderDetail pod ,PurchaseOrderHeader poh,CFN
+      WHERE pod.POD_POH_ID = POH_ID
+      and  POD_POH_ID = (SELECT POD_POH_ID
+      FROM PurchaseOrderDetail
+      WHERE POD_ID =#DetailId#)
+      and pod.POD_CFN_ID = CFN_ID
+      AND isnull(POD_LotNumber,'') = #Lot#
+      AND POD_CFN_Price = #Price#
+      and CFN_CustomerFaceNbr = #UPN#
+      AND POD_ID != #DetailId#
+    </select>
+
+    <!--根据订单主键删除订单明细-->
+    <delete id="DeletePurchaseOrderDetailByHeaderId" parameterClass="string">
+      DELETE FROM PurchaseOrderDetail WHERE POD_POH_ID = #value#
+    </delete>
+    <!--根据订单主键得到订单明细-->
+    <select id="SelectPurchaseOrderDetailByHeaderId" parameterClass="string" resultClass="PurchaseOrderDetail">
+      SELECT POD_ID AS Id,POD_POH_ID AS PohId,POD_CFN_ID AS CfnId,POD_CFN_Price AS CfnPrice,POD_UOM AS Uom,POD_RequiredQty AS RequiredQty,POD_Amount AS Amount,POD_Tax AS Tax,POD_ReceiptQty AS ReceiptQty,POD_Status AS Status
+      FROM PurchaseOrderDetail WHERE POD_POH_ID=#value#
+    </select>
+    <!--添加产品-->
+    <procedure id="GC_PurchaseOrder_AddCfn" parameterMap="GC_PurchaseOrder_AddCfn_ParameterMap">
+      dbo.GC_PurchaseOrder_AddCfn
+    </procedure>
+    <!--添加产品 For BSC-->
+    <procedure id="GC_PurchaseOrderBSC_AddCfn" parameterMap="GC_PurchaseOrderBSC_AddCfn_ParameterMap">
+      dbo.GC_PurchaseOrderBSC_AddCfn
+    </procedure>
+
+    <!--添加产品 For BSC Promotion-->
+    <procedure id="GC_PurchaseOrderBSCPRO_AddCfn" parameterMap="GC_PurchaseOrderBSCPRO_AddCfn_ParameterMap">
+      dbo.GC_PurchaseOrderBSCPRO_AddCfn
+    </procedure>
+
+    <!--添加成套产品-->
+    <procedure id="GC_PurchaseOrder_AddCfnSet" parameterMap="GC_PurchaseOrder_AddCfnSet_ParameterMap">
+      dbo.GC_PurchaseOrder_AddCfnSet
+    </procedure>
+
+    <!--添加成套产品(BSC)-->
+    <procedure id="GC_PurchaseOrderBSC_AddCfnSet" parameterMap="GC_PurchaseOrderBSC_AddCfnSet_ParameterMap">
+      dbo.GC_PurchaseOrderBSC_AddCfnSet
+    </procedure>
+    <!--提交前检查明细行-->
+    <procedure id="GC_PurchaseOrder_CheckSubmit" parameterMap="GC_PurchaseOrder_CheckSubmit_ParameterMap">
+      dbo.GC_PurchaseOrder_CheckSubmit
+    </procedure>
+    <!--added by bozhenfei on 20110802 @原先的方法不知原因提示信息被IBatis截取-->
+    <procedure id="GC_PurchaseOrder_BeforeSubmit" parameterMap="GC_PurchaseOrder_BeforeSubmit_ParameterMap">
+      dbo.GC_PurchaseOrder_BeforeSubmit
+    </procedure>
+    <procedure id="GC_PurchaseOrderBSC_BeforeSubmit" parameterMap="GC_PurchaseOrderBSC_BeforeSubmit_ParameterMap">
+      dbo.GC_PurchaseOrderBSC_BeforeSubmit
+    </procedure>
+    <procedure id="GC_PurchaseOrderBSC_BeforeSubmitSpecial" parameterMap="GC_PurchaseOrderBSC_BeforeSubmitSpecial_ParameterMap">
+      dbo.GC_PurchaseOrderBSC_BeforeSubmitSpecial
+    </procedure>
+    <!--复制订单-->
+    <procedure id="GC_PurchaseOrder_Copy" parameterMap="GC_PurchaseOrder_Copy_ParameterMap">
+      dbo.GC_PurchaseOrder_Copy
+    </procedure>
+    <!--因修改订单而复制临时类型订单-->
+    <procedure id="GC_PurchaseOrder_CopyForTemporary" parameterMap="GC_PurchaseOrder_CopyForTemporary_ParameterMap">
+      dbo.GC_PurchaseOrder_CopyForTemporary
+    </procedure>
+    <!--锁定订单-->
+    <procedure id="GC_PurchaseOrder_Lock" parameterMap="GC_PurchaseOrder_Lock_ParameterMap">
+      dbo.GC_PurchaseOrder_Lock
+    </procedure>
+    <!--解锁订单-->
+    <procedure id="GC_PurchaseOrder_Unlock" parameterMap="GC_PurchaseOrder_Lock_ParameterMap">
+      dbo.GC_PurchaseOrder_Unlock
+    </procedure>
+    <!--手工生成订单接口-->
+    <procedure id="GC_PurchaseOrder_MakeManual" parameterMap="GC_PurchaseOrder_MakeManual_ParameterMap">
+      dbo.GC_PurchaseOrder_MakeManual
+    </procedure>
+    <!--end-->
+    <!--得到邮件需要的汇总信息-->
+    <select id="SelectPurchaseOrderDetailByHeaderIdForMail" parameterClass="string" resultClass="PurchaseOrderDetail">
+      select
+      div.ATTRIBUTE_NAME as Division,
+      CFN.CFN_Level2Desc as Level2,
+      sum(detail.POD_RequiredQty) as Qty,
+      sum(detail.POD_Amount) as Amount from PurchaseOrderDetail detail
+      inner join CFN on CFN.CFN_ID = detail.POD_CFN_ID
+      inner join (select b.ATTRIBUTE_NAME, c.AttributeID from View_BU b
+      inner join Cache_OrganizationUnits c on c.RootID = b.Id and c.AttributeType = 'Product_Line') as div
+      on div.AttributeID = CFN.CFN_ProductLine_BUM_ID
+      where detail.POD_POH_ID = #value#
+      group by div.ATTRIBUTE_NAME,CFN.CFN_Level2Desc
+      order by Level2
+    </select>
+    <!--根据订单主键得到订单关闭备注描述的明细-->
+    <select id="SelectPurchaseOrderDetailByHeaderIdForOrderComplete" parameterClass="string" resultClass="PurchaseOrderDetail">
+      SELECT POD_ID AS Id,
+      POD_POH_ID AS PohId,POD_CFN_ID AS CfnId,POD_CFN_Price AS CfnPrice,
+      POD_UOM AS Uom,ISNULL(POD_RequiredQty,0) AS RequiredQty,POD_Amount AS Amount,
+      POD_Tax AS Tax,ISNULL(POD_ReceiptQty,0) AS ReceiptQty,POD_Status AS Status,
+      (select CFN_CustomerFaceNbr from cfn where PurchaseOrderDetail.POD_CFN_ID = cfn.cfn_id ) AS UPN
+      FROM PurchaseOrderDetail WHERE POD_POH_ID=#value#
+    </select>
+
+    <!--订单关闭时，根据发货数量更新订单的数量及金额-->
+    <update id="UpdatePurchaseOrderDetailForOrderComplete" parameterClass="string">
+      update PurchaseOrderDetail set POD_RequiredQty= POD_ReceiptQty, POD_Amount = POD_ReceiptQty * POD_CFN_Price
+      where ISNULL(POD_ReceiptQty,0) &lt;POD_RequiredQty and POD_POH_ID = #Id#
+    </update>
+
+    <select id="CheckUpdatePrice" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select count(*) as cnt
+      from (
+      select 1 as cnt from (
+      select sum(t1.POD_CFN_Price) as Price1, sum(t2.POD_CFN_Price) as Price2 from PurchaseOrderDetail t1,PurchaseOrderDetail_AutoGenLog t2
+      where t1.POD_ID = t2.POD_ID
+      and t1.POD_POH_ID = #value#
+      ) tab
+      where Price1 &lt;> Price2
+      union
+      select 1 from (
+      select sum(t1.POD_CFN_Price) as Price1, sum(t2.POD_CFN_Price) as Price2,T3.CFN_ProductLine_BUM_ID as BUM1,t4.CFN_ProductLine_BUM_ID as BUM2 from PurchaseOrderDetail t1,PurchaseOrderDetail_AutoGenLog t2,
+      CFN t3,CFN t4
+      where t1.POD_POH_ID = t2.POD_POH_ID
+      and t1.POD_CFN_ID = T3.CFN_ID
+      AND T2.POD_CFN_ID = T4.CFN_ID
+      and t1.POD_POH_ID = #value#
+      group by T3.CFN_ProductLine_BUM_ID,t4.CFN_ProductLine_BUM_ID
+      ) tab
+      where (Price1 &lt;> Price2 or BUM1 &lt;> BUM2)
+      union
+      select 1 from (
+      select t2.POD_CFN_Price as Price1, dbo.fn_GetCfnPriceByDealer(t3.CFNP_Group_ID, t3.CFNP_CFN_ID, #SubCompanyId#, #BrandId#, 'Dealer', 0) as Price2 from PurchaseOrderHeader t1,PurchaseOrderDetail t2,CFNPrice t3
+      where t1.POH_ID = t2.POD_POH_ID
+      and t1.POH_DMA_ID = t3.CFNP_Group_ID
+      and t2.POD_CFN_ID = t3.CFNP_CFN_ID
+      and t3.CFNP_PriceType = 'Dealer'
+      and t1.POH_ID = #value#
+      ) tab
+      where (Price1 &lt;> Price2)
+      ) tab2
+    </select>
+
+    <procedure id="GC_PRODealerLargess_Update" parameterMap="GC_PRODealerLargess_Update_ParameterMap">
+      Promotion.GC_PRODealerLargess_Update
+    </procedure>
+
+    <procedure id="GC_PointOrderSubmint" parameterMap="GC_PointOrderSubmint_ParameterMap">
+      PROMOTION.Proc_Interface_PointOrderSubmint
+    </procedure>
+
+    <procedure id="GC_PointOrderRevoke" parameterMap="GC_PointOrderRevoke_ParameterMap">
+      PROMOTION.Proc_Interface_PointOrderRevoke
+    </procedure>
+
+    <select id="GetNoticeCfnListByStringForEmail" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select CFN_CustomerFaceNbr,CFN_ChineseName,CFN_EnglishName,Col2 as Qty FROM dbo.GC_Fn_SplitStringToMultiColsTable (
+      #value#,
+      ',',
+      '@') a,CFN
+      where a.Col1 = CFN_ID
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SpecialPriceDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="SpecialPriceDetail" assembly="DMS.Model.dll" type="DMS.Model.SpecialPriceDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SpecialPriceDetailResult" class="SpecialPriceDetail">
+      <result property="Id" column="SPD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SpmId" column="SPD_SPM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="SPD_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Price" column="SPD_Price" type="decimal" dbType="decimal"/>
+      <result property="TotalQty" column="SPD_TotalQty" type="decimal" dbType="decimal"/>
+      <result property="Uom" column="SPD_UOM" type="string" dbType="nvarchar"/>
+      <result property="AvailableQty" column="SPD_AvailableQty" type="decimal" dbType="decimal"/>
+      <result property="IsRebate" column="SPD_IsRebate" type="bool" dbType="bit"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectSpecialPriceDetail" parameterClass="string" resultClass="SpecialPriceDetail">
+      SELECT SPD_ID AS Id,SPD_SPM_ID AS SpmId,SPD_CFN_ID AS CfnId,SPD_Price AS Price,SPD_TotalQty AS TotalQty,SPD_UOM AS Uom,SPD_AvailableQty AS AvailableQty,SPD_IsRebate AS IsRebate
+      FROM SpecialPriceDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterSpecialPriceDetail" parameterClass="SpecialPriceDetail" resultClass="SpecialPriceDetail">
+      SELECT SPD_ID AS Id,SPD_SPM_ID AS SpmId,SPD_CFN_ID AS CfnId,SPD_Price AS Price,SPD_TotalQty AS TotalQty,SPD_UOM AS Uom,SPD_AvailableQty AS AvailableQty,SPD_IsRebate AS IsRebate
+      FROM SpecialPriceDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SPD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SpmId">SPD_SPM_ID=#SpmId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">SPD_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="Price">SPD_Price=#Price#</isNotNull>
+        <isNotNull prepend="AND" property="TotalQty">SPD_TotalQty=#TotalQty#</isNotNull>
+        <isNotNull prepend="AND" property="Uom">SPD_UOM=#Uom#</isNotNull>
+        <isNotNull prepend="AND" property="AvailableQty">SPD_AvailableQty=#AvailableQty#</isNotNull>
+        <isNotNull prepend="AND" property="IsRebate">SPD_IsRebate=#IsRebate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertSpecialPriceDetail" parameterClass="SpecialPriceDetail">
+      INSERT INTO SpecialPriceDetail
+      (SPD_ID,SPD_SPM_ID,SPD_CFN_ID,SPD_Price,SPD_TotalQty,SPD_UOM,SPD_AvailableQty,SPD_IsRebate)
+      VALUES(#Id#,#SpmId#,#CfnId#,#Price#,#TotalQty#,#Uom#,#AvailableQty#,#IsRebate#)
+    </insert>
+    <update id="UpdateSpecialPriceDetail" parameterClass="SpecialPriceDetail">
+      UPDATE SpecialPriceDetail
+      SET SPD_ID=#Id#,SPD_SPM_ID=#SpmId#,SPD_CFN_ID=#CfnId#,SPD_Price=#Price#,SPD_TotalQty=#TotalQty#,SPD_UOM=#Uom#,SPD_AvailableQty=#AvailableQty#,SPD_IsRebate=#IsRebate#
+      WHERE SPD_ID = #Id#
+    </update>
+    <delete id="DeleteSpecialPriceDetail" parameterClass="string">
+      DELETE FROM SpecialPriceDetail
+      WHERE SPD_ID = #value#
+    </delete>
+    <update id="UpdateAvailableQtyByOrderId" parameterClass="System.Collections.Hashtable">
+      UPDATE SPD
+      SET SPD.SPD_AvailableQty = SPD.SPD_AvailableQty - POD.POD_RequiredQty
+      FROM SpecialPriceDetail AS SPD, PurchaseOrderDetail POD
+      WHERE     SPD.SPD_CFN_ID = POD.POD_CFN_ID
+      AND POD.POD_POH_ID = #PohId#
+      AND SPD.SPD_SPM_ID = #SpecialPriceId#
+    </update>
+    <update id="AddAvailableQtyByOrderIdForTemporaryOrder" parameterClass="System.Collections.Hashtable">
+      UPDATE SPD
+      SET SPD.SPD_AvailableQty = SPD.SPD_AvailableQty + POD.POD_RequiredQty
+      FROM SpecialPriceDetail AS SPD,
+      (SELECT POD_CFN_ID, POD_RequiredQty
+      FROM PurchaseOrderDetail
+      WHERE POD_POH_ID IN (SELECT POH_POH_ID
+      FROM PurchaseOrderHeader
+      WHERE POH_ID = #PohId#)) AS POD
+      WHERE SPD.SPD_CFN_ID = POD.POD_CFN_ID AND SPD.SPD_SPM_ID = #SpecialPriceId#
+    </update>
+    <update id="AddAvailableQtyByOrderId" parameterClass="System.Collections.Hashtable">
+      UPDATE SPD
+      SET SPD.SPD_AvailableQty = SPD.SPD_AvailableQty + POD.POD_RequiredQty
+      FROM SpecialPriceDetail AS SPD,
+      (SELECT POD_CFN_ID, POD_RequiredQty
+      FROM PurchaseOrderDetail
+      WHERE POD_POH_ID IN (SELECT POH_ID
+      FROM PurchaseOrderHeader
+      WHERE POH_ID = #PohId#)) AS POD
+      WHERE SPD.SPD_CFN_ID = POD.POD_CFN_ID AND SPD.SPD_SPM_ID = #SpecialPriceId#
+    </update>
+  </statements>
+</sqlMap>

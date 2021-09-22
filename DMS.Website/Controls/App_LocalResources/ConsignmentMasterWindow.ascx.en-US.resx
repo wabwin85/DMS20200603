@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnAddCfn.Text" xml:space="preserve">
+    <value>Add Cfn</value>
+  </data>
+  <data name="btnAddCfnSet.Text" xml:space="preserve">
+    <value>Add Cfn Set</value>
+  </data>
+  <data name="btnDeleteDraft.Text" xml:space="preserve">
+    <value>Delete Draft</value>
+  </data>
+  <data name="btnRevoke.Text" xml:space="preserve">
+    <value>Revoke</value>
+  </data>
+  <data name="btnSaveDraft.Text" xml:space="preserve">
+    <value>Save Draft</value>
+  </data>
+  <data name="btnSubmit.Text" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="cbOrderType.BlankText" xml:space="preserve">
+    <value>select order type...</value>
+  </data>
+  <data name="cbOrderType.EmptyText" xml:space="preserve">
+    <value>please choose Order Type</value>
+  </data>
+  <data name="cbOrderType.FieldTrigger.Qtip" xml:space="preserve">
+    <value>Delete Item</value>
+  </data>
+  <data name="cbProductLine.BlankText" xml:space="preserve">
+    <value>Please select product line</value>
+  </data>
+  <data name="cbProductLine.EmptyText" xml:space="preserve">
+    <value>Select Product Line</value>
+  </data>
+  <data name="cbProductLine.FieldLabel" xml:space="preserve">
+    <value>&lt;font color='red'&gt;&lt;b&gt;Product Line&lt;/b&gt;&lt;/font&gt;</value>
+  </data>
+  <data name="ChangeProductLine.confirm.Body" xml:space="preserve">
+    <value>Change product line will delete all items.</value>
+  </data>
+  <data name="CheckMod.new.Alert.Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="CheckQty.Alert.Body" xml:space="preserve">
+    <value>The Min Uom Is：</value>
+  </data>
+  <data name="DetailWindow.Title" xml:space="preserve">
+    <value>Order Detail</value>
+  </data>
+  <data name="gpDetail.Amount" xml:space="preserve">
+    <value>Subtotal AMT</value>
+  </data>
+  <data name="gpDetail.CfnChineseName" xml:space="preserve">
+    <value>Product Chinese Name</value>
+  </data>
+  <data name="gpDetail.CfnEnglishName" xml:space="preserve">
+    <value>Product English Name</value>
+  </data>
+  <data name="gpDetail.CfnPrice" xml:space="preserve">
+    <value>Product Unit Price</value>
+  </data>
+  <data name="gpDetail.CommandColumn.Header" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="gpDetail.LotNumber" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="gpDetail.Property" xml:space="preserve">
+    <value>Product Short Number</value>
+  </data>
+  <data name="gpDetail.ReceiptQty" xml:space="preserve">
+    <value>Delivery Qty</value>
+  </data>
+  <data name="gpDetail.RequiredQty" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="gpDetail.Title" xml:space="preserve">
+    <value>Order Detail</value>
+  </data>
+  <data name="gpDetail.Uom" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="gpLog.OperDate" xml:space="preserve">
+    <value>Operation Time</value>
+  </data>
+  <data name="gpLog.OperNote" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="gpLog.OperTypeName" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="gpLog.OperUserId" xml:space="preserve">
+    <value>Operation Acc</value>
+  </data>
+  <data name="gpLog.OperUserName" xml:space="preserve">
+    <value>Operator Name</value>
+  </data>
+  <data name="gpLog.Title" xml:space="preserve">
+    <value>Operation Detail</value>
+  </data>
+  <data name="NeedSave.confirm.Body" xml:space="preserve">
+    <value>Data Changed, Save?</value>
+  </data>
+  <data name="NeedSave.confirm.Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Panel10.Title" xml:space="preserve">
+    <value>Goods Receiving Info.</value>
+  </data>
+  <data name="Panel4.Title" xml:space="preserve">
+    <value>Rule Info.</value>
+  </data>
+  <data name="Panel5.Title" xml:space="preserve">
+    <value>Order Info.</value>
+  </data>
+  <data name="Revoke.Alert.ErrorBody" xml:space="preserve">
+    <value>Orders can not be revoked &lt;BR/&gt; order status has changed, please refresh!</value>
+  </data>
+  <data name="Revoke.Alert.Title" xml:space="preserve">
+    <value>Order Revoked</value>
+  </data>
+  <data name="ShowEditingMask.mask" xml:space="preserve">
+    <value>Submiting</value>
+  </data>
+  <data name="TabDetail.Title" xml:space="preserve">
+    <value>Product Detail</value>
+  </data>
+  <data name="TabHeader.Title" xml:space="preserve">
+    <value>Form Head Info.</value>
+  </data>
+  <data name="TabLog.Title" xml:space="preserve">
+    <value>Operation Log</value>
+  </data>
+  <data name="txtConsignmentDay.FieldLabel" xml:space="preserve">
+    <value>Consignment Day</value>
+  </data>
+  <data name="txtConsignmentName.FieldLabel" xml:space="preserve">
+    <value>Consignment Name</value>
+  </data>
+  <data name="txtDelayTime.BlankText" xml:space="preserve">
+    <value>Please key in Delay Time</value>
+  </data>
+  <data name="txtDelayTime.FieldLabel" xml:space="preserve">
+    <value>Delay Time</value>
+  </data>
+  <data name="txtEndDate.BlankText" xml:space="preserve">
+    <value>Please Select End Date</value>
+  </data>
+  <data name="txtEndDate.FieldLabel" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="txtOrderNo.FieldLabel" xml:space="preserve">
+    <value>Order No</value>
+  </data>
+  <data name="txtOrderStatus.FieldLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="txtOrderType.FieldLabel" xml:space="preserve">
+    <value>Order Type</value>
+  </data>
+  <data name="txtStartDate.BlankText" xml:space="preserve">
+    <value>Please Select Start Date</value>
+  </data>
+  <data name="txtStartDate.FieldLabel" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="txtSubmitDate.FieldLabel" xml:space="preserve">
+    <value>Submit Date</value>
+  </data>
+  <data name="ValidateForm.alert.Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ValidateForm.alert.Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="ValidateForm.alert.Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="ValidateForm.confirm.Body" xml:space="preserve">
+    <value>Confirm?</value>
+  </data>
+  <data name="ValidateForm.confirm.Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="ValidateForm.errMsgConst" xml:space="preserve">
+    <value>Remark infor can not exceed to 200 characters</value>
+  </data>
+  <data name="ValidateForm.errMsgForm" xml:space="preserve">
+    <value>Form head not completed</value>
+  </data>
+  <data name="ValidateForm.Submit.alert.Body" xml:space="preserve">
+    <value>Submit Successfully</value>
+  </data>
+  <data name="gpDetail.Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="txtRemark.FieldLabel" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="ValidateForm.errMsgDate" xml:space="preserve">
+    <value>EndDate must larger than StartDate</value>
+  </data>
+</root>

@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.ContractHeader" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="Consignment.ContractHeaderPO" assembly="DMS.Model.dll" type="DMS.Model.Consignment.ContractHeaderPO" />
+  </alias>
+  <parameterMaps>
+    <parameterMap id="NextAutoNumberForPromotionMap" class="System.Collections.Hashtable" >
+      <parameter property="DeptCode" column="DeptCode" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="nextnbr" column="nextnbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <!--<select id="Consignment.ContractHeader.SelectConsignContractType" parameterClass="string" resultClass="System.Data.DataSet">
+      select DICT_KEY as [Key],VALUE1 as Value from Lafite_DICT
+      where DICT_TYPE=#ConsignContractType#
+    </select>-->
+
+
+    <select id="Consignment.ContractHeader.SelectConsignContractList" parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct Consignment.ContractHeader.CCH_ID,PL.ATTRIBUTE_NAME as BU,D.DMA_ChineseName as DMA_ChineseName,CCH_No as No,VALUE1 as [Status],
+      (case when CCH_IsKB=1 then '是' else '否' end) as IsKB,
+      (case when CCH_IsUseDiscount=1 then '是' else '否' end) as IsUseDiscount,
+      convert(varchar(10),CCH_BeginDate,121) as BeginDate,
+      convert(varchar(10),CCH_EndDate,121) as EndDate,CCH_EndDate as EndDate,cch_createdate,PL.SubCompanyName,PL.BrandName
+      from Consignment.ContractHeader
+      left join DealerMaster D on D.DMA_ID=Consignment.ContractHeader.CCH_DMA_ID
+      left join Consignment.ContractDetail Dt on Dt.CCD_CCH_ID=Consignment.ContractHeader.CCH_ID
+      left join CFN on CFN.CFN_CustomerFaceNbr=Dt.CCD_CfnShortNumber
+      left join View_ProductLine PL(nolock) on PL.Id=Consignment.ContractHeader.CCH_ProductLine_BUM_ID
+      left join Lafite_DICT on Lafite_DICT.DICT_KEY=Consignment.ContractHeader.CCH_Status and DICT_TYPE='Consignment_ContractHeader_Status'
+      where 1=1
+      <isNotEmpty prepend="AND" property="QryStatus">
+        CCH_Status = #QryStatus#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryDiscountRule">
+        CCH_IsUseDiscount = #QryDiscountRule#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryIsAuto">
+        CCH_IsKB = #QryIsAuto#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryContractNo">
+        CCH_No like '%'+#QryContractNo#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryBu">
+        CCH_ProductLine_BUM_ID = #QryBu#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+        PL.SubCompanyId=#SubCompanyId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="BrandId">
+        PL.BrandId=#BrandId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryDealer">
+        D.DMA_ChineseName like '%'+#QryDealer#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryHasUpn">
+        (CFN.CFN_CustomerFaceNbr like '%'+#QryHasUpn#+'%' or Dt.CCD_CfnShortNumber like '%'+#QryHasUpn#+'%')
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="StartDate">
+        CONVERT (VARCHAR(10), CCH_BeginDate, 121) >= #StartDate#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="EndDate">
+        CONVERT (VARCHAR(10), CCH_EndDate, 121) &lt;= #EndDate#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="DealerID">
+        CCH_DMA_ID = #DealerID#
+      </isNotEmpty>
+      order by cch_createdate desc
+    </select>
+
+    <!--<select id="Consignment.ContractHeader.SelectBu" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT ProductLineID Id
+      ,ProductLineName Name
+      FROM dbo.V_DivisionProductLineRelation WHERE IsEmerging='0'
+    </select>-->
+
+    <select id="Consignment.ContractHeader.SelectDealer" parameterClass="string" resultClass="System.Data.DataSet">
+      select DMA_ID as Id,DMA_ChineseShortName as Name from DealerMaster
+      where (isnull(#OwnerCorpId#,'')='' or (DMA_ID=#OwnerCorpId# or DMA_Parent_DMA_ID=#OwnerCorpId#))
+    </select>
+
+    <select id="Consignment.ContractHeader.SelectUPN" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT distinct CFN.CFN_Property1,CFN_Property3,Product.PMA_ConvertFactor,'UPN' as Type
+      FROM CFN(NOLOCK)
+      INNER JOIN CfnClassification CC(NOLOCK) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      inner join Product on CFN.CFN_ID=Product.PMA_CFN_ID
+      WHERE
+      (EXISTS(
+      SELECT 1 FROM DealerAuthorizationTable DAT
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+      WHERE DAT.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DAT.DAT_PMA_ID = DAT.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ProductLine_BUM_ID = DAT.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR ((DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )))
+      OR exists (SELECT 1 FROM DealerAuthorizationTable DAT
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+      WHERE DAT.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR  (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )
+      ))
+      AND CFN.CFN_DeletedFlag = 0
+
+      <isNotEmpty prepend="AND" property="Filter">
+
+        (CFN.CFN_CustomerFaceNbr in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')) or CFN.CFN_Property1 in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')) or CFN.CFN_ChineseName in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')))
+
+
+      </isNotEmpty>
+    </select>
+
+
+    <select id="Consignment.ContractHeader.SelectSet" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT distinct '组套' as Type,CFNSet.CFNS_ID,CFNS_ChineseName,CFNS_EnglishName
+      FROM CFN(NOLOCK)
+      INNER JOIN CfnClassification CC(NOLOCK) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      INNER JOIN  CFNSet on CFNSet.CFNS_ProductLine_BUM_ID=CFN.CFN_ProductLine_BUM_ID
+      inner join Product on CFN.CFN_ID=Product.PMA_CFN_ID
+      WHERE
+      (EXISTS(
+      SELECT 1 FROM DealerAuthorizationTable DAT
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+      WHERE DAT.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DAT.DAT_PMA_ID = DAT.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ProductLine_BUM_ID = DAT.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR ((DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )))
+      OR exists (SELECT 1 FROM DealerAuthorizationTable DAT
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+      WHERE DAT.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR  (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )
+      ))
+      AND CFN.CFN_DeletedFlag = 0
+
+      <isNotEmpty prepend="AND" property="Filter">
+        (CFN.CFN_CustomerFaceNbr like '%'+#Filter#+'%' or CFN.CFN_Property1 like '%'+#Filter#+'%' or CFN.CFN_ChineseName like '%'+#Filter#+'%')
+      </isNotEmpty>
+    </select>
+
+    <insert id="Consignment.ContractHeader.Insert" parameterClass="Consignment.ContractHeaderPO">
+      <![CDATA[
+       Insert into Consignment.ContractHeader (CCH_ID,CCH_DMA_ID,CCH_ProductLine_BUM_ID,CCH_ConsignmentDay,CCH_DelayNumber,CCH_BeginDate,CCH_EndDate,CCH_IsFixedMoney,CCH_IsFixedQty,CCH_IsKB,CCH_IsUseDiscount,CCH_Remark,CCH_CreateUser,CCH_CreateDate,CCH_Status,CCH_No,CCH_Name)
+       Values
+       (#CCH_ID#,#CCH_DMA_ID#,#CCH_ProductLine_BUM_ID#,#CCH_ConsignmentDay#,#CCH_DelayNumber#,#CCH_BeginDate#,#CCH_EndDate#,#CCH_IsFixedMoney#,#CCH_IsFixedQty#,#CCH_IsKB#,#CCH_IsUseDiscount#,#CCH_Remark#,#CCH_CreateUser#,GETDATE(),#CCH_Status#,#CCH_No#,#CCH_Name#)
+      ]]>
+    </insert>
+
+
+    <select id="Consignment.ContractHeader.GetBuDivisionName" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DivisionName
+      FROM dbo.V_DivisionProductLineRelation WHERE IsEmerging='0' and ProductLineID=#ProductLineID#
+    </select>
+
+    <select id="Consignment.ContractHeader.SelectContractHeader" parameterClass="string" resultClass="System.Data.DataSet">
+      select CCH_ID as Id,CCH_No as Name,CONVERT(varchar(50),CCH_BeginDate,111) as CCH_BeginDate,CONVERT(varchar(50),CCH_EndDate,111) as CCH_EndDate,
+      CCH_Name
+      from  Consignment.ContractHeader
+      where CCH_Status='InApproval' and CCH_ID not in ( select CST_CCH_ID from Consignment.ConsignmentTermination
+      where CST_Status !='Draft')
+      <isNotEmpty prepend="AND" property="ContractId">
+        CCH_ID=#ContractId#
+      </isNotEmpty>
+    </select>
+
+    <select id="Consignment.ContractHeader.SelectContractHeaderAll" parameterClass="string" resultClass="System.Data.DataSet">
+      select CCH_ID as Id,CCH_No as Name,CONVERT(varchar(50),CCH_BeginDate,111) as CCH_BeginDate,CONVERT(varchar(50),CCH_EndDate,111) as CCH_EndDate,
+      CCH_Name
+      from  Consignment.ContractHeader
+      where CCH_Status='InApproval'
+      <isNotEmpty prepend="AND" property="ContractId">
+        CCH_ID=#ContractId#
+      </isNotEmpty>
+    </select>
+
+    <procedure id="Consignment.ContractHeader.SelectNextAutoNumberForPromotion" parameterMap="NextAutoNumberForPromotionMap">
+      [Promotion].[GC_GetNextAutoNumberForPromotion]
+    </procedure>
+
+    <select id="Consignment.ContractHeader.SelectContractInfo" parameterClass="string" resultClass="System.Data.DataSet">
+      select CCH_No,L.IDENTITY_NAME,CCH_CreateDate,CCH_CreateUser,
+      Lafite_DICT.VALUE1 as CCH_Status,
+      CCH_ProductLine_BUM_ID,D.ProductLineName as ProductLineName,CCH_DMA_ID,M.DMA_ChineseShortName,CCH_Name,CCH_ConsignmentDay,CCH_DelayNumber,
+      CCH_IsFixedMoney,CCH_IsFixedQty,CCH_IsKB,CCH_IsUseDiscount,CCH_Remark,CCH_BeginDate,CCH_EndDate
+      from Consignment.ContractHeader C
+      left join Lafite_IDENTITY L on L.Id=C.CCH_CreateUser
+      left join V_DivisionProductLineRelation D on D.ProductLineID=C.CCH_ProductLine_BUM_ID
+      left join DealerMaster M on M.DMA_ID=C.CCH_DMA_ID
+      left join Lafite_DICT on Lafite_DICT.DICT_KEY=C.CCH_Status and DICT_TYPE='Consignment_ContractHeader_Status'
+      where CCH_ID=#CCH_ID#
+    </select>
+    <update id="Consignment.ContractHeader.Update" parameterClass="Consignment.ContractHeaderPO">
+      <![CDATA[
+       Update Consignment.ContractHeader 
+       set CCH_DMA_ID=#CCH_DMA_ID#,CCH_ProductLine_BUM_ID=#CCH_ProductLine_BUM_ID#,CCH_ConsignmentDay=#CCH_ConsignmentDay#,CCH_DelayNumber=#CCH_DelayNumber#,CCH_BeginDate=#CCH_BeginDate#,CCH_EndDate=#CCH_EndDate#,CCH_IsFixedMoney=#CCH_IsFixedMoney#,
+       CCH_IsFixedQty=#CCH_IsFixedQty#,CCH_IsKB=#CCH_IsKB#,CCH_IsUseDiscount=#CCH_IsUseDiscount#,CCH_Remark=#CCH_Remark#,CCH_CreateUser=#CCH_CreateUser#,CCH_CreateDate=#CCH_CreateDate#,CCH_Status=#CCH_Status#,CCH_Name=#CCH_Name#
+       where CCH_ID=#CCH_ID#
+      ]]>
+    </update>
+
+
+    <select id="Consignment.ContractHeader.SelectById" parameterClass="Guid" resultClass="Consignment.ContractHeaderPO">
+      <![CDATA[
+        SELECT *
+        FROM   Consignment.ContractHeader
+        WHERE  CCH_ID = #value#
+      ]]>
+    </select>
+    <select id="Consignment.ContractHeader.SelectActiveList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT ContractHead.CCH_ID ContractId,
+               ContractHead.CCH_No + '(' + ContractHead.CCH_Name + ')' ContractName
+        FROM   Consignment.ContractHeader ContractHead
+        WHERE  ContractHead.CCH_Status = 'Completed'
+               AND ContractHead.CCH_ProductLine_BUM_ID = #Bu#
+               AND ContractHead.CCH_DMA_ID = #DealerId#
+        ORDER BY
+               ContractHead.CCH_No
+      ]]>
+    </select>
+
+    <delete id="Consignment.ContractHeader.Delete" parameterClass="string">
+      DELETE FROM Consignment.ContractHeader
+      WHERE CCH_ID = #value#
+    </delete>
+
+    <select id="Consignment.ContractHeader.GetNumber" parameterClass="string" resultClass="System.Data.DataSet">
+      select CCH_No from Consignment.ContractHeader
+      where CCH_ID=#ID#
+    </select>
+
+    <select id="Consignment.ContractHeader.UPNCheck" parameterClass="string" resultClass="System.Data.DataSet">
+      select Consignment.Func_CheckUPN(#Dealer#,#BeginDate#,#EndDate#,#IptCFN_Property#)
+    </select>
+  </statements>
+</sqlMap>

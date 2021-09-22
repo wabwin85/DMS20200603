@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceHospitalTransactionWithqrMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceHospitalTransactionWithqr" assembly="DMS.Model.dll" type="DMS.Model.InterfaceHospitalTransactionWithqr" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceHospitalTransactionWithqrResult" class="InterfaceHospitalTransactionWithqr">
+      <result property="Id" column="IHT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApplicationType" column="IHT_ApplicationType" type="string" dbType="nvarchar"/>
+      <result property="DealerSapCode" column="IHT_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="ApplicationDate" column="IHT_ApplicationDate" type="DateTime" dbType="datetime"/>
+      <result property="ApplicationNbr" column="IHT_ApplicationNbr" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="IHT_Remark" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="IHT_QRCode" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="IHT_Qty" type="decimal" dbType="decimal"/>
+      <result property="UnitPrice" column="IHT_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="Upn" column="IHT_UPN" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="IHT_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="IHT_LineNbr" type="int" dbType="int"/>
+      <result property="ImportDate" column="IHT_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IHT_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IHT_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ErrorMsg" column="IHT_ErrorMsg" type="string" dbType="nvarchar"/>
+      <result property="WhmId" column="IHT_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmType" column="IHT_WHM_Type" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InterfaceHospitalTransactionParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID"/>
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceHospitalTransactionWithqr" parameterClass="string" resultClass="InterfaceHospitalTransactionWithqr">
+      SELECT IHT_ID AS Id,IHT_ApplicationType AS ApplicationType,IHT_Dealer_SapCode AS DealerSapCode,IHT_ApplicationDate AS ApplicationDate,IHT_ApplicationNbr AS ApplicationNbr,IHT_Remark AS Remark,IHT_QRCode AS QrCode,IHT_Qty AS Qty,IHT_UnitPrice AS UnitPrice,IHT_UPN AS Upn,IHT_LotNumber AS LotNumber,IHT_LineNbr AS LineNbr,IHT_ImportDate AS ImportDate,IHT_ClientID AS Clientid,IHT_BatchNbr AS BatchNbr,IHT_ErrorMsg AS ErrorMsg,IHT_WHM_ID AS WhmId,IHT_WHM_Type AS WhmType
+      FROM InterfaceHospitalTransactionWithQR
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IHT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceHospitalTransactionWithqr" parameterClass="InterfaceHospitalTransactionWithqr" resultClass="InterfaceHospitalTransactionWithqr">
+      SELECT IHT_ID AS Id,IHT_ApplicationType AS ApplicationType,IHT_Dealer_SapCode AS DealerSapCode,IHT_ApplicationDate AS ApplicationDate,IHT_ApplicationNbr AS ApplicationNbr,IHT_Remark AS Remark,IHT_QRCode AS QrCode,IHT_Qty AS Qty,IHT_UnitPrice AS UnitPrice,IHT_UPN AS Upn,IHT_LotNumber AS LotNumber,IHT_LineNbr AS LineNbr,IHT_ImportDate AS ImportDate,IHT_ClientID AS Clientid,IHT_BatchNbr AS BatchNbr,IHT_ErrorMsg AS ErrorMsg,IHT_WHM_ID AS WhmId,IHT_WHM_Type AS WhmType
+      FROM InterfaceHospitalTransactionWithQR
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IHT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ApplicationType">IHT_ApplicationType=#ApplicationType#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">IHT_Dealer_SapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="ApplicationDate">IHT_ApplicationDate=#ApplicationDate#</isNotNull>
+        <isNotNull prepend="AND" property="ApplicationNbr">IHT_ApplicationNbr=#ApplicationNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IHT_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">IHT_QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">IHT_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">IHT_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">IHT_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IHT_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IHT_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IHT_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IHT_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IHT_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorMsg">IHT_ErrorMsg=#ErrorMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceHospitalTransactionWithqr" parameterClass="InterfaceHospitalTransactionWithqr">
+      INSERT INTO InterfaceHospitalTransactionWithQR
+      (IHT_ID,IHT_ApplicationType,IHT_Dealer_SapCode,IHT_ApplicationDate,IHT_ApplicationNbr,IHT_Remark,IHT_QRCode,IHT_Qty,IHT_UnitPrice,IHT_UPN,IHT_LotNumber,IHT_LineNbr,IHT_ImportDate,IHT_ClientID,IHT_BatchNbr,IHT_ErrorMsg,IHT_WHM_ID,IHT_WHM_Type)
+      VALUES(#Id#,#ApplicationType#,#DealerSapCode#,#ApplicationDate:DateTime:1/1/0001 12:00:00 AM#,#ApplicationNbr#,#Remark#,#QrCode#,#Qty#,#UnitPrice#,#Upn#,#LotNumber#,#LineNbr#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ErrorMsg#,#WhmId#,#WhmType#)
+    </insert>
+    <update id="UpdateInterfaceHospitalTransactionWithqr" parameterClass="InterfaceHospitalTransactionWithqr">
+      UPDATE InterfaceHospitalTransactionWithQR
+      SET IHT_ID=#Id#,IHT_ApplicationType=#ApplicationType#,IHT_Dealer_SapCode=#DealerSapCode#,IHT_ApplicationDate=#ApplicationDate#,IHT_ApplicationNbr=#ApplicationNbr#,IHT_Remark=#Remark#,IHT_QRCode=#QrCode#,IHT_Qty=#Qty#,IHT_UnitPrice=#UnitPrice#,IHT_UPN=#Upn#,IHT_LotNumber=#LotNumber#,IHT_LineNbr=#LineNbr#,IHT_ImportDate=#ImportDate#,IHT_ClientID=#Clientid#,IHT_BatchNbr=#BatchNbr#,IHT_ErrorMsg=#ErrorMsg#,IHT_WHM_ID=#WhmId#,IHT_WHM_Type=#WhmType#
+      WHERE IHT_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceHospitalTransactionWithqr" parameterClass="string">
+      DELETE FROM InterfaceHospitalTransactionWithQR
+      WHERE IHT_ID = #value#
+    </delete>
+
+    <procedure id="GC_Interface_HospitalTransactionWithQR" parameterMap="InterfaceHospitalTransactionParameterMap">
+      dbo.GC_Interface_HospitalTransactionWithQR
+    </procedure>
+    <select id="SelectHospitalTransactionByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceHospitalTransactionWithqr">
+      SELECT IHT_ID AS Id,IHT_ApplicationType AS ApplicationType,IHT_Dealer_SapCode AS DealerSapCode,IHT_ApplicationDate AS ApplicationDate,IHT_ApplicationNbr AS ApplicationNbr,IHT_Remark AS Remark,IHT_QRCode AS QrCode,IHT_Qty AS Qty,IHT_UnitPrice AS UnitPrice,IHT_UPN AS Upn,IHT_LotNumber AS LotNumber,IHT_LineNbr AS LineNbr,IHT_ImportDate AS ImportDate,IHT_ClientID AS Clientid,IHT_BatchNbr AS BatchNbr,IHT_ErrorMsg AS ErrorMsg,IHT_WHM_ID AS WhmId,IHT_WHM_Type AS WhmType
+      FROM InterfaceHospitalTransactionWithQR
+      WHERE IHT_BatchNbr = #value# AND IHT_ErrorMsg &lt;> ''
+      ORDER BY IHT_LineNbr
+    </select>
+  </statements>
+</sqlMap>

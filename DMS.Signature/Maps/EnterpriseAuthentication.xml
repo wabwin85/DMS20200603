@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterpriseAuthenticationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterpriseAuthentication" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterpriseAuthentication" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterpriseAuthenticationResult" class="EnterpriseAuthentication">
+      <result property="Id" column="EA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="EA_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentDmaId" column="EA_Parent_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerName" column="EA_DealerName" type="string" dbType="nvarchar"/>
+      <result property="AccountUid" column="EA_AccountUid" type="string" dbType="nvarchar"/>
+      <result property="Name" column="EA_Name" type="string" dbType="nvarchar"/>
+      <result property="OrgCode" column="EA_ORGCode" type="string" dbType="nvarchar"/>
+      <result property="UscCode" column="EA_USCCode" type="string" dbType="nvarchar"/>
+      <result property="RegCode" column="EA_REGCode" type="string" dbType="nvarchar"/>
+      <result property="LegalName" column="EA_LegalName" type="string" dbType="nvarchar"/>
+      <result property="LegalIdNo" column="EA_LegalIdNo" type="string" dbType="nvarchar"/>
+      <result property="IsActive" column="EA_IsActive" type="int" dbType="int"/>
+      <result property="Status" column="EA_Status" type="string" dbType="nvarchar"/>
+      <result property="ServiceId" column="EA_ServiceId" type="string" dbType="nvarchar"/>
+      <result property="ToPayCount" column="EA_ToPayCount" type="int" dbType="int"/>
+      <result property="CardNo" column="EA_CardNo" type="string" dbType="nvarchar"/>
+      <result property="Bank" column="EA_Bank" type="string" dbType="nvarchar"/>
+      <result property="SubBank" column="EA_SubBank" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="EA_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="EA_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="EA_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="EA_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="EA_UpdateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="EA_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="EA_Remark1" type="string" dbType="nvarchar"/>
+      <result property="Remark2" column="EA_Remark2" type="string" dbType="nvarchar"/>
+      <result property="Remark3" column="EA_Remark3" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterpriseAuthentication" parameterClass="string" resultClass="EnterpriseAuthentication">
+      SELECT EA_ID AS Id,EA_DMA_ID AS DmaId,EA_Parent_DMA_ID AS ParentDmaId,EA_DealerName AS DealerName,EA_AccountUid AS AccountUid,EA_Name AS Name,EA_ORGCode AS OrgCode,EA_USCCode AS UscCode,EA_REGCode AS RegCode,EA_LegalName AS LegalName,EA_LegalIdNo AS LegalIdNo,EA_IsActive AS IsActive,EA_Status AS Status,EA_ServiceId AS ServiceId,EA_ToPayCount AS ToPayCount,EA_CardNo AS CardNo,EA_Bank AS Bank,EA_SubBank AS SubBank,EA_CreateUser AS CreateUser,EA_CreateUserName AS CreateUserName,EA_CreateDate AS CreateDate,EA_UpdateUser AS UpdateUser,EA_UpdateUserName AS UpdateUserName,EA_UpdateDate AS UpdateDate,EA_Remark1 AS Remark1,EA_Remark2 AS Remark2,EA_Remark3 AS Remark3
+      FROM ESign.EnterpriseAuthentication
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          EA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterpriseAuthentication" parameterClass="EnterpriseAuthentication" resultClass="EnterpriseAuthentication">
+      SELECT EA_ID AS Id,EA_DMA_ID AS DmaId,EA_Parent_DMA_ID AS ParentDmaId,EA_DealerName AS DealerName,EA_AccountUid AS AccountUid,EA_Name AS Name,EA_ORGCode AS OrgCode,EA_USCCode AS UscCode,EA_REGCode AS RegCode,EA_LegalName AS LegalName,EA_LegalIdNo AS LegalIdNo,EA_IsActive AS IsActive,EA_Status AS Status,EA_ServiceId AS ServiceId,EA_ToPayCount AS ToPayCount,EA_CardNo AS CardNo,EA_Bank AS Bank,EA_SubBank AS SubBank,EA_CreateUser AS CreateUser,EA_CreateUserName AS CreateUserName,EA_CreateDate AS CreateDate,EA_UpdateUser AS UpdateUser,EA_UpdateUserName AS UpdateUserName,EA_UpdateDate AS UpdateDate,EA_Remark1 AS Remark1,EA_Remark2 AS Remark2,EA_Remark3 AS Remark3
+      FROM ESign.EnterpriseAuthentication
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">EA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">EA_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ParentDmaId">EA_Parent_DMA_ID=#ParentDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">EA_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="AccountUid">EA_AccountUid=#AccountUid#</isNotNull>
+        <isNotNull prepend="AND" property="Name">EA_Name=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="OrgCode">EA_ORGCode=#OrgCode#</isNotNull>
+        <isNotNull prepend="AND" property="UscCode">EA_USCCode=#UscCode#</isNotNull>
+        <isNotNull prepend="AND" property="RegCode">EA_REGCode=#RegCode#</isNotNull>
+        <isNotNull prepend="AND" property="LegalName">EA_LegalName=#LegalName#</isNotNull>
+        <isNotNull prepend="AND" property="LegalIdNo">EA_LegalIdNo=#LegalIdNo#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">EA_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="Status">EA_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ServiceId">EA_ServiceId=#ServiceId#</isNotNull>
+        <isNotNull prepend="AND" property="ToPayCount">EA_ToPayCount=#ToPayCount#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">EA_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">EA_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">EA_UpdateUserName=#UpdateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">EA_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">EA_Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="Remark2">EA_Remark2=#Remark2#</isNotNull>
+        <isNotNull prepend="AND" property="Remark3">EA_Remark3=#Remark3#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterpriseAuthentication" parameterClass="EnterpriseAuthentication">
+
+      IF (EXISTS (SELECT 1 FROM ESign.EnterpriseAuthentication WITH ( UPDLOCK, HOLDLOCK )
+      WHERE EA_DMA_ID = #DmaId# AND EA_IsActive = 1 ))
+      BEGIN
+      UPDATE ESign.EnterpriseAuthentication SET EA_IsActive = 0,EA_UpdateUser=#UpdateUser#,EA_UpdateUserName=#UpdateUserName#,EA_UpdateDate=#UpdateDate#
+      WHERE EA_DMA_ID = #DmaId# AND EA_IsActive = 1
+      END
+
+      INSERT INTO ESign.EnterpriseAuthentication
+      (EA_ID,EA_DMA_ID,EA_Parent_DMA_ID,EA_DealerName,EA_AccountUid,EA_Name,EA_ORGCode,EA_USCCode,EA_REGCode,EA_LegalName,EA_LegalIdNo,EA_IsActive,EA_Status,EA_ServiceId,EA_ToPayCount,EA_CardNo,EA_Bank,EA_SubBank,EA_CreateUser,EA_CreateUserName,EA_CreateDate,EA_UpdateUser,EA_UpdateUserName,EA_UpdateDate,EA_Remark1,EA_Remark2,EA_Remark3)
+      VALUES(#Id#,#DmaId#,#ParentDmaId#,#DealerName#,#AccountUid#,#Name#,#OrgCode#,#UscCode#,#RegCode#,#LegalName#,#LegalIdNo#,#IsActive#,#Status#,#ServiceId#,#ToPayCount#,#CardNo#,#Bank#,#SubBank#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#Remark2#,#Remark3#)
+    </insert>
+    <update id="UpdateEnterpriseAuthentication" parameterClass="EnterpriseAuthentication">
+      UPDATE ESign.EnterpriseAuthentication
+      SET EA_ID=#Id#,EA_DMA_ID=#DmaId#,EA_Parent_DMA_ID=#ParentDmaId#,EA_DealerName=#DealerName#,EA_AccountUid=#AccountUid#,EA_Name=#Name#,EA_ORGCode=#OrgCode#,EA_USCCode=#UscCode#,EA_REGCode=#RegCode#,EA_LegalName=#LegalName#,EA_LegalIdNo=#LegalIdNo#,EA_IsActive=#IsActive#,EA_Status=#Status#,EA_ServiceId=#ServiceId#,EA_ToPayCount=#ToPayCount#,EA_CardNo=#CardNo#,EA_Bank=#Bank#,EA_SubBank=#SubBank#,EA_CreateUserName=#CreateUserName#,EA_UpdateUser=#UpdateUser#,EA_UpdateUserName=#UpdateUserName#,EA_UpdateDate=#UpdateDate#,EA_Remark1=#Remark1#,EA_Remark2=#Remark2#,EA_Remark3=#Remark3#
+      WHERE EA_ID = #Id#
+    </update>
+    <delete id="DeleteEnterpriseAuthentication" parameterClass="string">
+      DELETE FROM ESign.EnterpriseAuthentication
+      WHERE EA_ID = #value#
+    </delete>
+
+    <select id="QuerySubBranchByKeyWord" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT BM_ID AS Id,BM_Provice AS Provice,BM_City AS City,BM_BankName AS BankName,BM_BankNbr AS BankNbr,BM_SubBranch AS SubBranch
+      ,row_number() OVER (ORDER BY BM_Provice,BM_City ,BM_BankName,BM_SubBranch) AS [row_number]
+      FROM ESign.BankMaster
+      WHERE BM_IsActive = 1
+      <isNotNull prepend="AND" property="BankName">BM_BankName LIKE '%'+#BankName#+'%'</isNotNull>
+      <isNotNull prepend="AND" property="SubBranch">BM_SubBranch LIKE '%'+#SubBranch#+'%'</isNotNull>
+    </select>
+
+    <select id="QueryEnterpriseAuthenticationByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+        SELECT EA_ID AS Id,DMA_ID AS DmaId,#ParentDealerId# AS ParentDmaId,DMA_ChineseShortName AS DealerName,EA_AccountUid AS AccountUid,EA_Name AS Name,EA_ORGCode AS OrgCode,EA_USCCode AS UscCode,EA_REGCode AS RegCode,EA_LegalName AS LegalName,EA_LegalIdNo AS LegalIdNo,ISNULL(EA_Status,'Wait') AS Status,EA_ServiceId AS ServiceId,EA_ToPayCount AS ToPayCount,EA_CreateUser AS CreateUser,EA_CreateUserName AS CreateUserName,CONVERT(NVARCHAR(100),EA_CreateDate,126) AS CreateDate,EA_UpdateUser AS UpdateUser,EA_UpdateUserName AS UpdateUserName,EA_UpdateDate AS UpdateDate,EA_Remark1 AS Remark1,EA_Remark2 AS Remark2,EA_Remark3 AS Remark3
+        ,EP_Name AS EnterpriseName,EP_CardNo AS CardNo,EP_SubBranch AS SubBranch,EP_Bank AS Bank,EP_Provice AS Provice,EP_City AS City,EP_Notify AS Notify,EP_ServiceId AS ServiceId,EP_Prcptcd AS Prcptcd,EP_PizId AS PizId,EP_Status AS PayStatus,EP_PayAuthCount AS PayAuthCount,EP_PayResult AS PayResult,EP_PayDate AS PayDate,EP_PayMoney AS PayMoney,EP_Remark1 AS PayRemark1,EP_Remark2 AS PayRemark2,EP_Remark3 AS PayRemark3
+        FROM DealerMaster
+        LEFT JOIN ESign.EnterpriseAuthentication ON DMA_ID = EA_DMA_ID AND EA_IsActive = 1
+        LEFT JOIN ESign.EnterprisePayAuth ON EA_ID = EP_EA_ID AND EP_IsActive = 1
+        WHERE DMA_ID=#DealerId#
+    </select>
+    
+    <select id="QueryEnterpriseRegisterByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <!--SELECT EA_ID AS Id,DMA_ID AS DmaId,#ParentDealerId# AS ParentDmaId,DMA_ChineseShortName AS DealerName,EA_AccountUid AS AccountUid,EA_Name AS Name,EA_ORGCode AS OrgCode,EA_USCCode AS UscCode,EA_REGCode AS RegCode,EA_LegalName AS LegalName,EA_LegalIdNo AS LegalIdNo,ISNULL(EA_Status,'Wait') AS Status,EA_ServiceId AS ServiceId,EA_ToPayCount AS ToPayCount,EA_CreateUser AS CreateUser,EA_CreateUserName AS CreateUserName,CONVERT(NVARCHAR(100),EA_CreateDate,126) AS CreateDate,EA_UpdateUser AS UpdateUser,EA_UpdateUserName AS UpdateUserName,EA_UpdateDate AS UpdateDate,EA_Remark1 AS Remark1,EA_Remark2 AS Remark2,EA_Remark3 AS Remark3
+      ,EP_Name AS EnterpriseName,EP_CardNo AS CardNo,EP_SubBranch AS SubBranch,EP_Bank AS Bank,EP_Provice AS Provice,EP_City AS City,EP_Notify AS Notify,EP_ServiceId AS ServiceId,EP_Prcptcd AS Prcptcd,EP_PizId AS PizId,EP_Status AS PayStatus,EP_PayAuthCount AS PayAuthCount,EP_PayResult AS PayResult,EP_PayDate AS PayDate,EP_PayMoney AS PayMoney,EP_Remark1 AS PayRemark1,EP_Remark2 AS PayRemark2,EP_Remark3 AS PayRemark3
+      FROM DealerMaster
+      LEFT JOIN ESign.EnterpriseAuthentication ON DMA_ID = EA_DMA_ID AND EA_IsActive = 1
+      LEFT JOIN ESign.EnterprisePayAuth ON EA_ID = EP_EA_ID AND EP_IsActive = 1
+      WHERE DMA_ID=#DealerId#-->
+      SELECT EA_ID AS Id,DMA_ID AS DmaId,#ParentDealerId# AS ParentDmaId,DMA_ChineseShortName AS DealerName,ISNULL(EA_Name,DMA_ChineseName) AS Name,EA_ORGCode AS OrgCode,EA_USCCode AS UscCode,EA_REGCode AS RegCode,ISNULL(EA_Status,'Wait') AS Status,EA_ServiceId AS ServiceId,EA_ToPayCount AS ToPayCount,EA_CreateUser AS CreateUser,EA_CreateUserName AS CreateUserName,CONVERT(NVARCHAR(100),EA_CreateDate,126) AS CreateDate,EA_UpdateUser AS UpdateUser,EA_UpdateUserName AS UpdateUserName,EA_UpdateDate AS UpdateDate,EA_Remark1 AS Remark1,EA_Remark2 AS Remark2,EA_Remark3 AS Remark3
+      ,EM_AgentName AS AgentName,EM_AgentIdNo AS AgentIdNo,EA_CardNo AS CardNo,EA_Bank AS Bank,EA_SubBank AS SubBank
+      ,EM_AccountUid AS EnterpriseAccounUid,EM_Phone AS Phone,EM_Email AS Email,EM_OrganType AS OrganType,EM_UserType AS UserType
+      ,ES_Seal AS EnterpriseSeal,ELS_Seal AS LegalSeal
+      ,ELM_AccountUid AS LegalAccounUid,ELM_PersonArea AS PersonArea,EA_LegalName AS LegalName,EA_LegalIdNo AS LegalIdNo
+      FROM DealerMaster
+      LEFT JOIN ESign.EnterpriseAuthentication ON DMA_ID = EA_DMA_ID AND EA_IsActive = 1
+      LEFT JOIN ESign.EnterpriseMaster ON DMA_ID = EM_DMA_ID AND EM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseSeal ON DMA_ID = ES_DMA_ID AND ES_IsActive = 1
+      LEFT JOIN ESign.EnterpriseLegalMaster ON DMA_ID = ELM_DMA_ID AND ELM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseLegalSeal ON DMA_ID = ELS_DMA_ID AND ELS_IsActive = 1
+      WHERE DMA_ID=#DealerId#
+    </select>
+
+    <select id="QueryEnterpriseAuthenticationByDealerId" parameterClass="System.Collections.Hashtable" resultClass="EnterpriseAuthentication">
+      SELECT EA_ID AS Id,EA_DMA_ID AS DmaId,EA_Parent_DMA_ID AS ParentDmaId,DMA_ChineseShortName AS DealerName,EA_AccountUid AS AccountUid,EA_Name AS Name,EA_ORGCode AS OrgCode,EA_USCCode AS UscCode,EA_REGCode AS RegCode,EA_LegalName AS LegalName,EA_LegalIdNo AS LegalIdNo,EA_IsActive AS IsActive,EA_Status AS Status,EA_ServiceId AS ServiceId,EA_ToPayCount AS ToPayCount,EA_CreateUser AS CreateUser,EA_CreateUserName AS CreateUserName,EA_CreateDate AS CreateDate,EA_UpdateUser AS UpdateUser,EA_UpdateUserName AS UpdateUserName,EA_UpdateDate AS UpdateDate,EA_Remark1 AS Remark1,EA_Remark2 AS Remark2,EA_Remark3 AS Remark3
+      FROM ESign.EnterpriseAuthentication
+      INNER JOIN DealerMaster ON DMA_ID = EA_DMA_ID
+      WHERE EA_DMA_ID=#DealerId#
+      AND EA_IsActive = 1
+    </select>
+  </statements>
+</sqlMap>

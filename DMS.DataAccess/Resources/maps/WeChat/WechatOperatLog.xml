@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WechatOperatLogMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="WechatOperatLog" assembly="DMS.Model.dll" type="DMS.Model.WechatOperatLog" />
+    </alias>
+    <resultMaps>
+        <resultMap id="WechatOperatLogResult" class="WechatOperatLog">
+            <result property="Id" column="WOL_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="BwuId" column="WOL_BWU_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="OperatTime" column="WOL_OperatTime" type="DateTime" dbType="datetime"/>
+            <result property="OperatMenu" column="WOL_OperatMenu" type="string" dbType="nvarchar"/>
+            <result property="Rv1" column="WOL_RV1" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectWechatOperatLog" parameterClass="string" resultClass="WechatOperatLog">
+            SELECT WOL_ID AS Id,WOL_BWU_ID AS BwuId,WOL_OperatTime AS OperatTime,WOL_OperatMenu AS OperatMenu,WOL_RV1 AS Rv1
+            FROM WechatOperatLog
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    WOL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterWechatOperatLog" parameterClass="WechatOperatLog" resultClass="WechatOperatLog">
+            SELECT WOL_ID AS Id,WOL_BWU_ID AS BwuId,WOL_OperatTime AS OperatTime,WOL_OperatMenu AS OperatMenu,WOL_RV1 AS Rv1
+            FROM WechatOperatLog
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">WOL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="BwuId">WOL_BWU_ID=#BwuId#</isNotNull>
+                <isNotNull prepend="AND" property="OperatTime">WOL_OperatTime=#OperatTime#</isNotNull>
+                <isNotNull prepend="AND" property="OperatMenu">WOL_OperatMenu=#OperatMenu#</isNotNull>
+                <isNotNull prepend="AND" property="Rv1">WOL_RV1=#Rv1#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertWechatOperatLog" parameterClass="WechatOperatLog">
+            INSERT INTO WechatOperatLog
+            (WOL_ID,WOL_BWU_ID,WOL_OperatTime,WOL_OperatMenu,WOL_RV1)
+            VALUES(#Id#,#BwuId#,#OperatTime:DateTime:1/1/0001 12:00:00 AM#,#OperatMenu#,#Rv1#)
+        </insert>
+        <update id="UpdateWechatOperatLog" parameterClass="WechatOperatLog">
+            UPDATE WechatOperatLog
+            SET WOL_ID=#Id#,WOL_BWU_ID=#BwuId#,WOL_OperatTime=#OperatTime#,WOL_OperatMenu=#OperatMenu#,WOL_RV1=#Rv1#
+            WHERE WOL_ID = #Id#
+        </update>
+        <delete id="DeleteWechatOperatLog" parameterClass="string">
+            DELETE FROM WechatOperatLog
+            WHERE WOL_ID = #value#
+        </delete>
+        <delete id="DeleteWechatOperatLogTable" parameterClass="string">
+            DELETE FROM WechatOperatLog
+        </delete>
+        <select id="ExportUsageInfo" parameterClass="System.Collections.Hashtable" resultClass="WechatOperatLog">
+            select * from [interface].[V_I_Wechat_GetUsageInfo](nolock)
+            <dynamic prepend="where">
+                <isNotNull prepend="AND" property="startDate">CONVERT(varchar(100), 操作时间, 112)>=#startDate#</isNotNull>
+                <isNotNull prepend="AND" property="endDate">CONVERT(varchar(100), 操作时间, 112)&lt;=#endDate#</isNotNull>
+            </dynamic>
+        </select>
+        <select id="ExportRegisterInfo">
+          SELECT BWU_DealerName '经销商名称',
+          CASE WHEN EXISTS (SELECT 1 FROM V_DealerContractMaster C WHERE A.BWU_DealerId = C.DMA_ID AND C.ActiveFlag = '1') THEN '有效' ELSE '无效' END '合同状态',
+          BWU_UserName '用户名', BWU_Phone '联系方式',BWU_NickName '微信昵称',
+          CASE WHEN ISNULL(BWU_WeChat, '') = '' THEN '未注册' ELSE '已注册' END '注册情况',
+          BWU_Post '职位', B.DMA_SAP_Code 'SAP 代码', BWU_DealerType '经销商类型', BWU_BindDate '注册时间'
+          FROM BusinessWechatUser A(nolock)
+          LEFT JOIN DealerMaster B(nolock) ON A.BWU_DealerId=B.DMA_ID
+          ORDER BY BWU_DealerName, BWU_UserName
+        </select>
+        <insert id="InsertWechatLog" parameterClass="System.Collections.Hashtable">
+            INSERT INTO WechatOperatLog
+            (WOL_ID,WOL_BWU_ID,WOL_OperatTime,WOL_OperatMenu,WOL_RV1)
+            VALUES(#Id#,#BwuId#,#OperatTime#,#OperatMenu#,#Rv1#)
+        </insert>
+    </statements>
+</sqlMap>

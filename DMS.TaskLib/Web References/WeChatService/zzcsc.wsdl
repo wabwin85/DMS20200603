@@ -1,0 +1,1615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAllHospitals">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllHospitalsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllHospitalsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetCRMDealer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetCRMDealerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="P_GetCRMDealerResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetDealerProductionPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetDealerProductionPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="P_GetDealerProductionPriceResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetCRMDealerHospital">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetCRMDealerHospitalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="P_GetCRMDealerHospitalResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetAllCRMProduction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="P_GetAllCRMProductionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="P_GetAllCRMProductionResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInHospitalSales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DivisionID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInHospitalSalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInHospitalSalesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadHospitalSales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Upn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Lot" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HosId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SubUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rv1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rv2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rv3" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadHospitalSalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadHospitalSalesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCFNList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCFNListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCFNListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLotMaster">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLotMasterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLotMasterResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDealerAchievingRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DealerName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDealerAchievingRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDealerAchievingRateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUploadTimely">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DealerId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUploadTimelyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUploadTimelyResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductInfor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UPN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductInforResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductInforResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLPInventory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DealerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UPN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLPInventoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLPInventoryResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInformation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInformationResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateWechatUserOpenId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OpenId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BindDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NickName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateWechatUserOpenIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateWechatUserOpenIdResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserProductResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserPermissions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserPermissionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserPermissionsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFQAList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFQAListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFQAListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFQAAnnexList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFQAAnnexListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFQAAnnexListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQuestionList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQuestionListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetQuestionListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllIntegralExchange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllIntegralExchangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllIntegralExchangeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllApprovedIntegralExchange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllApprovedIntegralExchangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllApprovedIntegralExchangeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertIntegralExchangeToDms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtUserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtGiftId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtExchangenumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtDocumentnumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtDeliverNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtReturnIntegral" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtTypes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="txtGiftName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertIntegralExchangeToDmsResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateQuestionDmsToWc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateQuestionDmsToWcResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertQuestionWcToDms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WdtId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WupId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertQuestionWcToDmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertQuestionWcToDmsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDealerNews">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDealerNewsResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteDealerNewsAnnex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDealerNewsAnnexResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertDealerNews">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProductLineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tital" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertDealerNewsResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertDealerNewsAnnex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MainId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertDealerNewsAnnexResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertFunctionSuggest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Sny_Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertFunctionSuggestResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteAllWechatOperatLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAllWechatOperatLogResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertWechatLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BwuId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatMenu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rv1" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertWechatLogResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAllHospitalsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllHospitals" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHospitalsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllHospitalsResponse" />
+  </wsdl:message>
+  <wsdl:message name="P_GetCRMDealerSoapIn">
+    <wsdl:part name="parameters" element="tns:P_GetCRMDealer" />
+  </wsdl:message>
+  <wsdl:message name="P_GetCRMDealerSoapOut">
+    <wsdl:part name="parameters" element="tns:P_GetCRMDealerResponse" />
+  </wsdl:message>
+  <wsdl:message name="P_GetDealerProductionPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:P_GetDealerProductionPrice" />
+  </wsdl:message>
+  <wsdl:message name="P_GetDealerProductionPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:P_GetDealerProductionPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="P_GetCRMDealerHospitalSoapIn">
+    <wsdl:part name="parameters" element="tns:P_GetCRMDealerHospital" />
+  </wsdl:message>
+  <wsdl:message name="P_GetCRMDealerHospitalSoapOut">
+    <wsdl:part name="parameters" element="tns:P_GetCRMDealerHospitalResponse" />
+  </wsdl:message>
+  <wsdl:message name="P_GetAllCRMProductionSoapIn">
+    <wsdl:part name="parameters" element="tns:P_GetAllCRMProduction" />
+  </wsdl:message>
+  <wsdl:message name="P_GetAllCRMProductionSoapOut">
+    <wsdl:part name="parameters" element="tns:P_GetAllCRMProductionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInHospitalSalesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInHospitalSales" />
+  </wsdl:message>
+  <wsdl:message name="GetInHospitalSalesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInHospitalSalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadHospitalSalesSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadHospitalSales" />
+  </wsdl:message>
+  <wsdl:message name="UploadHospitalSalesSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadHospitalSalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCFNListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCFNList" />
+  </wsdl:message>
+  <wsdl:message name="GetCFNListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCFNListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductList" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLotMasterSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLotMaster" />
+  </wsdl:message>
+  <wsdl:message name="GetLotMasterSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLotMasterResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDealerAchievingRateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDealerAchievingRate" />
+  </wsdl:message>
+  <wsdl:message name="GetDealerAchievingRateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDealerAchievingRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUploadTimelySoapIn">
+    <wsdl:part name="parameters" element="tns:GetUploadTimely" />
+  </wsdl:message>
+  <wsdl:message name="GetUploadTimelySoapOut">
+    <wsdl:part name="parameters" element="tns:GetUploadTimelyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductInforSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductInfor" />
+  </wsdl:message>
+  <wsdl:message name="GetProductInforSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductInforResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLPInventorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetLPInventory" />
+  </wsdl:message>
+  <wsdl:message name="GetLPInventorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetLPInventoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInformation" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWechatUserOpenIdSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateWechatUserOpenId" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWechatUserOpenIdSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateWechatUserOpenIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetUserProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPermissionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserPermissions" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPermissionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserPermissionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFQAListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFQAList" />
+  </wsdl:message>
+  <wsdl:message name="GetFQAListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFQAListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFQAAnnexListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFQAAnnexList" />
+  </wsdl:message>
+  <wsdl:message name="GetFQAAnnexListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFQAAnnexListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetQuestionListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetQuestionList" />
+  </wsdl:message>
+  <wsdl:message name="GetQuestionListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetQuestionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIntegralExchangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllIntegralExchange" />
+  </wsdl:message>
+  <wsdl:message name="GetAllIntegralExchangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllIntegralExchangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllApprovedIntegralExchangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllApprovedIntegralExchange" />
+  </wsdl:message>
+  <wsdl:message name="GetAllApprovedIntegralExchangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllApprovedIntegralExchangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertIntegralExchangeToDmsSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertIntegralExchangeToDms" />
+  </wsdl:message>
+  <wsdl:message name="InsertIntegralExchangeToDmsSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertIntegralExchangeToDmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateQuestionDmsToWcSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateQuestionDmsToWc" />
+  </wsdl:message>
+  <wsdl:message name="UpdateQuestionDmsToWcSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateQuestionDmsToWcResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertQuestionWcToDmsSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertQuestionWcToDms" />
+  </wsdl:message>
+  <wsdl:message name="InsertQuestionWcToDmsSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertQuestionWcToDmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDealerNewsSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDealerNews" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDealerNewsSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDealerNewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDealerNewsAnnexSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDealerNewsAnnex" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDealerNewsAnnexSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDealerNewsAnnexResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertDealerNewsSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertDealerNews" />
+  </wsdl:message>
+  <wsdl:message name="InsertDealerNewsSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertDealerNewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertDealerNewsAnnexSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertDealerNewsAnnex" />
+  </wsdl:message>
+  <wsdl:message name="InsertDealerNewsAnnexSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertDealerNewsAnnexResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertFunctionSuggestSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertFunctionSuggest" />
+  </wsdl:message>
+  <wsdl:message name="InsertFunctionSuggestSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertFunctionSuggestResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAllWechatOperatLogSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAllWechatOperatLog" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAllWechatOperatLogSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAllWechatOperatLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertWechatLogSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertWechatLog" />
+  </wsdl:message>
+  <wsdl:message name="InsertWechatLogSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertWechatLogResponse" />
+  </wsdl:message>
+  <wsdl:portType name="zzcscSoap">
+    <wsdl:operation name="GetAllHospitals">
+      <wsdl:input message="tns:GetAllHospitalsSoapIn" />
+      <wsdl:output message="tns:GetAllHospitalsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="P_GetCRMDealer">
+      <wsdl:input message="tns:P_GetCRMDealerSoapIn" />
+      <wsdl:output message="tns:P_GetCRMDealerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="P_GetDealerProductionPrice">
+      <wsdl:input message="tns:P_GetDealerProductionPriceSoapIn" />
+      <wsdl:output message="tns:P_GetDealerProductionPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="P_GetCRMDealerHospital">
+      <wsdl:input message="tns:P_GetCRMDealerHospitalSoapIn" />
+      <wsdl:output message="tns:P_GetCRMDealerHospitalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="P_GetAllCRMProduction">
+      <wsdl:input message="tns:P_GetAllCRMProductionSoapIn" />
+      <wsdl:output message="tns:P_GetAllCRMProductionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInHospitalSales">
+      <wsdl:input message="tns:GetInHospitalSalesSoapIn" />
+      <wsdl:output message="tns:GetInHospitalSalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadHospitalSales">
+      <wsdl:input message="tns:UploadHospitalSalesSoapIn" />
+      <wsdl:output message="tns:UploadHospitalSalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCFNList">
+      <wsdl:input message="tns:GetCFNListSoapIn" />
+      <wsdl:output message="tns:GetCFNListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <wsdl:input message="tns:GetProductListSoapIn" />
+      <wsdl:output message="tns:GetProductListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLotMaster">
+      <wsdl:input message="tns:GetLotMasterSoapIn" />
+      <wsdl:output message="tns:GetLotMasterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerAchievingRate">
+      <wsdl:input message="tns:GetDealerAchievingRateSoapIn" />
+      <wsdl:output message="tns:GetDealerAchievingRateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUploadTimely">
+      <wsdl:input message="tns:GetUploadTimelySoapIn" />
+      <wsdl:output message="tns:GetUploadTimelySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductInfor">
+      <wsdl:input message="tns:GetProductInforSoapIn" />
+      <wsdl:output message="tns:GetProductInforSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLPInventory">
+      <wsdl:input message="tns:GetLPInventorySoapIn" />
+      <wsdl:output message="tns:GetLPInventorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInformation">
+      <wsdl:input message="tns:GetUserInformationSoapIn" />
+      <wsdl:output message="tns:GetUserInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWechatUserOpenId">
+      <wsdl:input message="tns:UpdateWechatUserOpenIdSoapIn" />
+      <wsdl:output message="tns:UpdateWechatUserOpenIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserProduct">
+      <wsdl:input message="tns:GetUserProductSoapIn" />
+      <wsdl:output message="tns:GetUserProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPermissions">
+      <wsdl:input message="tns:GetUserPermissionsSoapIn" />
+      <wsdl:output message="tns:GetUserPermissionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFQAList">
+      <wsdl:input message="tns:GetFQAListSoapIn" />
+      <wsdl:output message="tns:GetFQAListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFQAAnnexList">
+      <wsdl:input message="tns:GetFQAAnnexListSoapIn" />
+      <wsdl:output message="tns:GetFQAAnnexListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuestionList">
+      <wsdl:input message="tns:GetQuestionListSoapIn" />
+      <wsdl:output message="tns:GetQuestionListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIntegralExchange">
+      <wsdl:input message="tns:GetAllIntegralExchangeSoapIn" />
+      <wsdl:output message="tns:GetAllIntegralExchangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllApprovedIntegralExchange">
+      <wsdl:input message="tns:GetAllApprovedIntegralExchangeSoapIn" />
+      <wsdl:output message="tns:GetAllApprovedIntegralExchangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertIntegralExchangeToDms">
+      <wsdl:input message="tns:InsertIntegralExchangeToDmsSoapIn" />
+      <wsdl:output message="tns:InsertIntegralExchangeToDmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQuestionDmsToWc">
+      <wsdl:input message="tns:UpdateQuestionDmsToWcSoapIn" />
+      <wsdl:output message="tns:UpdateQuestionDmsToWcSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertQuestionWcToDms">
+      <wsdl:input message="tns:InsertQuestionWcToDmsSoapIn" />
+      <wsdl:output message="tns:InsertQuestionWcToDmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDealerNews">
+      <wsdl:input message="tns:DeleteDealerNewsSoapIn" />
+      <wsdl:output message="tns:DeleteDealerNewsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDealerNewsAnnex">
+      <wsdl:input message="tns:DeleteDealerNewsAnnexSoapIn" />
+      <wsdl:output message="tns:DeleteDealerNewsAnnexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertDealerNews">
+      <wsdl:input message="tns:InsertDealerNewsSoapIn" />
+      <wsdl:output message="tns:InsertDealerNewsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertDealerNewsAnnex">
+      <wsdl:input message="tns:InsertDealerNewsAnnexSoapIn" />
+      <wsdl:output message="tns:InsertDealerNewsAnnexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertFunctionSuggest">
+      <wsdl:input message="tns:InsertFunctionSuggestSoapIn" />
+      <wsdl:output message="tns:InsertFunctionSuggestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllWechatOperatLog">
+      <wsdl:input message="tns:DeleteAllWechatOperatLogSoapIn" />
+      <wsdl:output message="tns:DeleteAllWechatOperatLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertWechatLog">
+      <wsdl:input message="tns:InsertWechatLogSoapIn" />
+      <wsdl:output message="tns:InsertWechatLogSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="zzcscSoap" type="tns:zzcscSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllHospitals">
+      <soap:operation soapAction="http://tempuri.org/GetAllHospitals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetCRMDealer">
+      <soap:operation soapAction="http://tempuri.org/P_GetCRMDealer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetDealerProductionPrice">
+      <soap:operation soapAction="http://tempuri.org/P_GetDealerProductionPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetCRMDealerHospital">
+      <soap:operation soapAction="http://tempuri.org/P_GetCRMDealerHospital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetAllCRMProduction">
+      <soap:operation soapAction="http://tempuri.org/P_GetAllCRMProduction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInHospitalSales">
+      <soap:operation soapAction="http://tempuri.org/GetInHospitalSales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHospitalSales">
+      <soap:operation soapAction="http://tempuri.org/UploadHospitalSales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCFNList">
+      <soap:operation soapAction="http://tempuri.org/GetCFNList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <soap:operation soapAction="http://tempuri.org/GetProductList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLotMaster">
+      <soap:operation soapAction="http://tempuri.org/GetLotMaster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerAchievingRate">
+      <soap:operation soapAction="http://tempuri.org/GetDealerAchievingRate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUploadTimely">
+      <soap:operation soapAction="http://tempuri.org/GetUploadTimely" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductInfor">
+      <soap:operation soapAction="http://tempuri.org/GetProductInfor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLPInventory">
+      <soap:operation soapAction="http://tempuri.org/GetLPInventory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInformation">
+      <soap:operation soapAction="http://tempuri.org/GetUserInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWechatUserOpenId">
+      <soap:operation soapAction="http://tempuri.org/UpdateWechatUserOpenId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserProduct">
+      <soap:operation soapAction="http://tempuri.org/GetUserProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPermissions">
+      <soap:operation soapAction="http://tempuri.org/GetUserPermissions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFQAList">
+      <soap:operation soapAction="http://tempuri.org/GetFQAList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFQAAnnexList">
+      <soap:operation soapAction="http://tempuri.org/GetFQAAnnexList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQuestionList">
+      <soap:operation soapAction="http://tempuri.org/GetQuestionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIntegralExchange">
+      <soap:operation soapAction="http://tempuri.org/GetAllIntegralExchange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllApprovedIntegralExchange">
+      <soap:operation soapAction="http://tempuri.org/GetAllApprovedIntegralExchange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertIntegralExchangeToDms">
+      <soap:operation soapAction="http://tempuri.org/InsertIntegralExchangeToDms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQuestionDmsToWc">
+      <soap:operation soapAction="http://tempuri.org/UpdateQuestionDmsToWc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertQuestionWcToDms">
+      <soap:operation soapAction="http://tempuri.org/InsertQuestionWcToDms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDealerNews">
+      <soap:operation soapAction="http://tempuri.org/DeleteDealerNews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDealerNewsAnnex">
+      <soap:operation soapAction="http://tempuri.org/DeleteDealerNewsAnnex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertDealerNews">
+      <soap:operation soapAction="http://tempuri.org/InsertDealerNews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertDealerNewsAnnex">
+      <soap:operation soapAction="http://tempuri.org/InsertDealerNewsAnnex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertFunctionSuggest">
+      <soap:operation soapAction="http://tempuri.org/InsertFunctionSuggest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllWechatOperatLog">
+      <soap:operation soapAction="http://tempuri.org/DeleteAllWechatOperatLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertWechatLog">
+      <soap:operation soapAction="http://tempuri.org/InsertWechatLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="zzcscSoap12" type="tns:zzcscSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllHospitals">
+      <soap12:operation soapAction="http://tempuri.org/GetAllHospitals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetCRMDealer">
+      <soap12:operation soapAction="http://tempuri.org/P_GetCRMDealer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetDealerProductionPrice">
+      <soap12:operation soapAction="http://tempuri.org/P_GetDealerProductionPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetCRMDealerHospital">
+      <soap12:operation soapAction="http://tempuri.org/P_GetCRMDealerHospital" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="P_GetAllCRMProduction">
+      <soap12:operation soapAction="http://tempuri.org/P_GetAllCRMProduction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInHospitalSales">
+      <soap12:operation soapAction="http://tempuri.org/GetInHospitalSales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHospitalSales">
+      <soap12:operation soapAction="http://tempuri.org/UploadHospitalSales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCFNList">
+      <soap12:operation soapAction="http://tempuri.org/GetCFNList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <soap12:operation soapAction="http://tempuri.org/GetProductList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLotMaster">
+      <soap12:operation soapAction="http://tempuri.org/GetLotMaster" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerAchievingRate">
+      <soap12:operation soapAction="http://tempuri.org/GetDealerAchievingRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUploadTimely">
+      <soap12:operation soapAction="http://tempuri.org/GetUploadTimely" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductInfor">
+      <soap12:operation soapAction="http://tempuri.org/GetProductInfor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLPInventory">
+      <soap12:operation soapAction="http://tempuri.org/GetLPInventory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInformation">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWechatUserOpenId">
+      <soap12:operation soapAction="http://tempuri.org/UpdateWechatUserOpenId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetUserProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPermissions">
+      <soap12:operation soapAction="http://tempuri.org/GetUserPermissions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFQAList">
+      <soap12:operation soapAction="http://tempuri.org/GetFQAList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFQAAnnexList">
+      <soap12:operation soapAction="http://tempuri.org/GetFQAAnnexList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQuestionList">
+      <soap12:operation soapAction="http://tempuri.org/GetQuestionList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIntegralExchange">
+      <soap12:operation soapAction="http://tempuri.org/GetAllIntegralExchange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllApprovedIntegralExchange">
+      <soap12:operation soapAction="http://tempuri.org/GetAllApprovedIntegralExchange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertIntegralExchangeToDms">
+      <soap12:operation soapAction="http://tempuri.org/InsertIntegralExchangeToDms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQuestionDmsToWc">
+      <soap12:operation soapAction="http://tempuri.org/UpdateQuestionDmsToWc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertQuestionWcToDms">
+      <soap12:operation soapAction="http://tempuri.org/InsertQuestionWcToDms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDealerNews">
+      <soap12:operation soapAction="http://tempuri.org/DeleteDealerNews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDealerNewsAnnex">
+      <soap12:operation soapAction="http://tempuri.org/DeleteDealerNewsAnnex" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertDealerNews">
+      <soap12:operation soapAction="http://tempuri.org/InsertDealerNews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertDealerNewsAnnex">
+      <soap12:operation soapAction="http://tempuri.org/InsertDealerNewsAnnex" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertFunctionSuggest">
+      <soap12:operation soapAction="http://tempuri.org/InsertFunctionSuggest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllWechatOperatLog">
+      <soap12:operation soapAction="http://tempuri.org/DeleteAllWechatOperatLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertWechatLog">
+      <soap12:operation soapAction="http://tempuri.org/InsertWechatLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="zzcsc">
+    <wsdl:port name="zzcscSoap" binding="tns:zzcscSoap">
+      <soap:address location="https://bscdealer.cn/services/zzcsc.asmx" />
+    </wsdl:port>
+    <wsdl:port name="zzcscSoap12" binding="tns:zzcscSoap12">
+      <soap12:address location="https://bscdealer.cn/services/zzcsc.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

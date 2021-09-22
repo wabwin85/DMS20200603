@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentAdjustLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="ShipmentAdjustLot" assembly="DMS.Model.dll" type="DMS.Model.ShipmentAdjustLot" />
+    </alias>
+    <resultMaps>
+        <resultMap id="ShipmentAdjustLotResult" class="ShipmentAdjustLot">
+            <result property="Id" column="SAL_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SphId" column="SAL_SPH_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Type" column="SAL_Type" type="string" dbType="nvarchar"/>
+            <result property="PmaId" column="SAL_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CfnId" column="SAL_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="LtmId" column="SAL_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SltId" column="SAL_SLT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="LotId" column="SAL_LOT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ShipmentQty" column="SAL_ShipmentQty" type="decimal" dbType="decimal"/>
+            <result property="ShipmentPrice" column="SAL_ShipmentPrice" type="decimal" dbType="decimal"/>
+            <result property="NewSltId" column="SAL_New_SLT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ShipmentDate" column="SAL_ShipmentDate" type="DateTime" dbType="datetime"/>
+            <result property="ConfirmPrice" column="SAL_ConfirmPrice" type="decimal" dbType="decimal"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="GC_ShipmentAdjust_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="SphId" column="SphId" />
+            <parameter property="DealerId" column="DealerId" />
+            <parameter property="HosId" column="HosId" />
+            <parameter property="LotIdString" column="LotIdString" />
+            <parameter property="AddType" column="AddType" />
+            <parameter property="RtnVal" column="RtnVal" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+        <parameterMap id="GC_ShipmentAdjust_AddShipmentLot_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="SphId" column="SphId" />
+            <parameter property="DealerId" column="DealerId" />
+            <parameter property="HosId" column="HosId" />
+            <parameter property="ShipmentDate" column="ShipmentDate" />
+            <parameter property="Reason" column="Reason" />
+            <parameter property="OpsUser" column="OpsUser" />
+            <parameter property="RtnVal" column="RtnVal" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectShipmentAdjustLot" parameterClass="string" resultClass="ShipmentAdjustLot">
+            SELECT SAL_ID AS Id,SAL_SPH_ID AS SphId,SAL_Type AS Type,SAL_PMA_ID AS PmaId,SAL_CFN_ID AS CfnId,SAL_LTM_ID AS LtmId,SAL_SLT_ID AS SltId,SAL_LOT_ID AS LotId,SAL_ShipmentQty AS ShipmentQty,SAL_ShipmentPrice AS ShipmentPrice,SAL_New_SLT_ID AS NewSltId,SAL_ShipmentDate AS ShipmentDate,SAL_ConfirmPrice AS ConfirmPrice
+            FROM ShipmentAdjustLot
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    SAL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterShipmentAdjustLot" parameterClass="ShipmentAdjustLot" resultClass="ShipmentAdjustLot">
+            SELECT SAL_ID AS Id,SAL_SPH_ID AS SphId,SAL_Type AS Type,SAL_PMA_ID AS PmaId,SAL_CFN_ID AS CfnId,SAL_LTM_ID AS LtmId,SAL_SLT_ID AS SltId,SAL_LOT_ID AS LotId,SAL_ShipmentQty AS ShipmentQty,SAL_ShipmentPrice AS ShipmentPrice,SAL_New_SLT_ID AS NewSltId,SAL_ShipmentDate AS ShipmentDate,SAL_ConfirmPrice AS ConfirmPrice
+            FROM ShipmentAdjustLot
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">SAL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="SphId">SAL_SPH_ID=#SphId#</isNotNull>
+                <isNotNull prepend="AND" property="Type">SAL_Type=#Type#</isNotNull>
+                <isNotNull prepend="AND" property="PmaId">SAL_PMA_ID=#PmaId#</isNotNull>
+                <isNotNull prepend="AND" property="CfnId">SAL_CFN_ID=#CfnId#</isNotNull>
+                <isNotNull prepend="AND" property="LtmId">SAL_LTM_ID=#LtmId#</isNotNull>
+                <isNotNull prepend="AND" property="SltId">SAL_SLT_ID=#SltId#</isNotNull>
+                <isNotNull prepend="AND" property="LotId">SAL_LOT_ID=#LotId#</isNotNull>
+                <isNotNull prepend="AND" property="ShipmentQty">SAL_ShipmentQty=#ShipmentQty#</isNotNull>
+                <isNotNull prepend="AND" property="ShipmentPrice">SAL_ShipmentPrice=#ShipmentPrice#</isNotNull>
+                <isNotNull prepend="AND" property="NewSltId">SAL_New_SLT_ID=#NewSltId#</isNotNull>
+                <isNotNull prepend="AND" property="ShipmentDate">SAL_ShipmentDate=#ShipmentDate#</isNotNull>
+                <isNotNull prepend="AND" property="ConfirmPrice">SAL_ConfirmPrice=#ConfirmPrice#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertShipmentAdjustLot" parameterClass="ShipmentAdjustLot">
+            INSERT INTO ShipmentAdjustLot
+            (SAL_ID,SAL_SPH_ID,SAL_Type,SAL_PMA_ID,SAL_CFN_ID,SAL_LTM_ID,SAL_SLT_ID,SAL_LOT_ID,SAL_ShipmentQty,SAL_ShipmentPrice,SAL_New_SLT_ID,SAL_ShipmentDate,SAL_ConfirmPrice)
+            VALUES(#Id#,#SphId#,#Type#,#PmaId#,#CfnId#,#LtmId#,#SltId#,#LotId#,#ShipmentQty#,#ShipmentPrice#,#NewSltId#,#ShipmentDate:DateTime:1/1/0001 12:00:00 AM#,#ConfirmPrice#)
+        </insert>
+        <update id="UpdateShipmentAdjustLot" parameterClass="ShipmentAdjustLot">
+            UPDATE ShipmentAdjustLot
+            SET SAL_ID=#Id#,SAL_SPH_ID=#SphId#,SAL_Type=#Type#,SAL_PMA_ID=#PmaId#,SAL_CFN_ID=#CfnId#,SAL_LTM_ID=#LtmId#,SAL_SLT_ID=#SltId#,SAL_LOT_ID=#LotId#,SAL_ShipmentQty=#ShipmentQty#,SAL_ShipmentPrice=#ShipmentPrice#,SAL_New_SLT_ID=#NewSltId#,SAL_ShipmentDate=#ShipmentDate#,SAL_ConfirmPrice=#ConfirmPrice#
+            WHERE SAL_ID = #Id#
+        </update>
+        <delete id="DeleteShipmentAdjustLot" parameterClass="string">
+            DELETE FROM ShipmentAdjustLot
+            WHERE SAL_ID = #value#
+        </delete>
+
+        <select id="QueryShipmentLotByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+          SELECT SLT_ID AS Id,DMA_ID AS DealerId,DMA_ChineseName AS DealerName,DMA_SAP_Code AS DealerCode,WHM_Name AS WarehouseName,WHM_Code AS WarehouseCode,HOS_HospitalName AS HospitalName,SPH_ShipmentNbr AS ShipmentNbr,SPH_SubmitDate AS SubmitDate,SPH_ShipmentDate AS ShipmentDate,CFN_CustomerFaceNbr AS UPN,CFN_Property1 AS UPN2
+          ,ShipmentLot.SLT_Lot+'@@'+ShipmentLot.SLT_QRCode AS LTM_LotNumber
+          ,ShipmentLot.SLT_Lot AS LotNumber
+          ,ShipmentLot.SLT_QRCode AS QRCode
+          ,CFN_Property3 AS UOM,SLT_LotShippedQty AS ShipmentQty,SLT_UnitPrice AS ShipmentPrice
+          FROM ShipmentHeader(nolock)
+          INNER JOIN ShipmentLine(nolock) ON SPH_ID = SPL_SPH_ID
+          INNER JOIN ShipmentLot(nolock) ON SPL_ID = SLT_SPL_ID
+          INNER JOIN Warehouse(nolock) ON WHM_ID = ShipmentLot.SLT_WHM_ID
+          INNER JOIN DealerMaster(nolock) ON DMA_ID = WHM_DMA_ID
+          INNER JOIN Product(nolock) ON PMA_ID = SPL_Shipment_PMA_ID
+          INNER JOIN CFN(nolock) ON CFN_ID = PMA_CFN_ID
+          INNER JOIN Hospital(nolock) ON HOS_ID = SPH_Hospital_HOS_ID
+          WHERE SPH_Status = 'Complete'
+          <dynamic prepend="">
+                <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="WarehouseId">WHM_ID=#WarehouseId#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalId">SPH_Hospital_HOS_ID=#HospitalId#</isNotNull>
+                <isNotNull prepend="AND" property="ProductLineId">SPH_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+                <isNotNull prepend="AND" property="ShipmentQtyMinQty">SLT_LotShippedQty > #ShipmentQtyMinQty#</isNotNull>
+                <isNotNull prepend="AND" property="OnlyShowQR">
+                  ShipmentLot.SLT_QRCode NOT IN ('','NoQR')
+                </isNotNull>
+                <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN1">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN1#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN2">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN2#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN3">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN3#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN4">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN4#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN5">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN5#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN6">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN6#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN7">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN7#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN8">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN8#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN9">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN9#+'%''</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN10">CFN_CustomerFaceNbr LIKE N'%'+#ProductCFN10#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+                <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+                <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+                <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber1">ShipmentLot.SLT_Lot = #ProductLotNumber1#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber2">ShipmentLot.SLT_Lot = #ProductLotNumber2#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber3">ShipmentLot.SLT_Lot = #ProductLotNumber3#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber4">ShipmentLot.SLT_Lot = #ProductLotNumber4#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber5">ShipmentLot.SLT_Lot = #ProductLotNumber5#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber6">ShipmentLot.SLT_Lot = #ProductLotNumber6#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber7">ShipmentLot.SLT_Lot = #ProductLotNumber7#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber8">ShipmentLot.SLT_Lot = #ProductLotNumber8#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber9">ShipmentLot.SLT_Lot = #ProductLotNumber9#</isNotNull>
+                <isNotNull prepend="OR" property="ProductLotNumber10">ShipmentLot.SLT_Lot = #ProductLotNumber10#</isNotNull>
+                <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+                <isNotNull prepend="AND" property="ProductQrCode"> ( 1=2 </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode1">ShipmentLot.SLT_QRCode = #ProductQrCode1# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode2">ShipmentLot.SLT_QRCode = #ProductQrCode2# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode3">ShipmentLot.SLT_QRCode = #ProductQrCode3# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode4">ShipmentLot.SLT_QRCode = #ProductQrCode4# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode5">ShipmentLot.SLT_QRCode = #ProductQrCode5# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode6">ShipmentLot.SLT_QRCode = #ProductQrCode6# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode7">ShipmentLot.SLT_QRCode = #ProductQrCode7# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode8">ShipmentLot.SLT_QRCode = #ProductQrCode8# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode9">ShipmentLot.SLT_QRCode = #ProductQrCode9# </isNotNull>
+                <isNotNull prepend="OR" property="ProductQrCode10">ShipmentLot.SLT_QRCode = #ProductQrCode10# </isNotNull>
+                <isNotNull prepend="" property="ProductQrCode">) </isNotNull>
+                <isNotNull prepend="AND" property="ShipmentNbr"> ( 1=2 </isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr1">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr1#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr2">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr2#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr3">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr3#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr4">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr4#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr5">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr5#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr6">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr6#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr7">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr7#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr8">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr8#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr9">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr9#+'%'</isNotNull>
+                <isNotNull prepend="OR" property="ShipmentNbr10">SPH_ShipmentNbr LIKE N'%'+#ShipmentNbr10#+'%'</isNotNull>
+                <isNotNull prepend="" property="ShipmentNbr">) </isNotNull>
+            </dynamic>
+          ORDER BY CFN_CustomerFaceNbr,ShipmentLot.SLT_Lot,ShipmentLot.SLT_QRCode
+        </select>
+        
+        <select id="QueryShipmentAdjustLotForShipmentBySphId" parameterClass="string" resultClass="System.Data.DataSet">
+          SELECT SAL_ID AS Id,DMA_ID AS DealerId,DMA_ChineseName AS DealerName,DMA_SAP_Code AS DealerCode,WHM_Name AS WarehouseName,WHM_Code AS WarehouseCode,HOS_HospitalName AS HospitalName,SPH_ShipmentNbr AS ShipmentNbr,SPH_SubmitDate AS SubmitDate,SPH_ShipmentDate AS ShipmentDate,CFN_CustomerFaceNbr AS UPN,CFN_Property1 AS UPN2,LTM_LotNumber
+          ,CASE WHEN CHARINDEX('@@', LTM_LotNumber, 0) > 0 THEN SUBSTRING(LTM_LotNumber, 1, CHARINDEX('@@', LTM_LotNumber,0) - 1) ELSE LTM_LotNumber END AS LotNumber
+          ,CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN SUBSTRING(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber) - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END AS QRCode
+          ,CFN_Property3 AS UOM,SAL_ShipmentQty AS ShipmentQty,SAL_ShipmentPrice AS ShipmentPrice,PMA_ConvertFactor AS ConvertFactor,CFN_ChineseName AS ProductCnName,CFN_EnglishName AS ProductEnName,LTM_ExpiredDate AS ExpiredDate,SLT_LOT_ID AS LotId
+          ,SAL_ShipmentDate AS ActualShipmentDate,SAL_New_SLT_ID AS NewSltId,SAL_ConfirmPrice AS ConfirmPrice
+          FROM ShipmentAdjustLot(nolock)
+          INNER JOIN ShipmentLot(nolock) ON SLT_ID = SAL_SLT_ID
+          INNER JOIN ShipmentLine(nolock) ON SPL_ID = SLT_SPL_ID
+          INNER JOIN ShipmentHeader(nolock) ON SPH_ID = SPL_SPH_ID
+          INNER JOIN Lot(nolock) ON LOT_ID = ISNULL(SLT_QRLOT_ID,SLT_LOT_ID)
+          INNER JOIN LotMaster(nolock) ON LTM_ID = LOT_LTM_ID
+          INNER JOIN Inventory(nolock) ON INV_ID = LOT_INV_ID
+          INNER JOIN Warehouse(nolock) ON WHM_ID = INV_WHM_ID
+          INNER JOIN DealerMaster(nolock) ON DMA_ID = WHM_DMA_ID
+          INNER JOIN Product(nolock) ON PMA_ID = SPL_Shipment_PMA_ID
+          INNER JOIN CFN(nolock) ON CFN_ID = PMA_CFN_ID
+          INNER JOIN Hospital(nolock) ON HOS_ID = SPH_Hospital_HOS_ID
+          WHERE SAL_Type = 'Shipment' AND SAL_SPH_ID=#value#
+          ORDER BY CFN_CustomerFaceNbr,LTM_LotNumber
+        </select>
+
+        <select id="QueryShipmentAdjustLotForInventoryBySphId" parameterClass="string" resultClass="System.Data.DataSet">
+          SELECT SAL_ID AS Id,DMA_ID AS DealerId,DMA_ChineseName AS DealerName,DMA_SAP_Code AS DealerCode,WHM_Name AS WarehouseName,WHM_Code AS WarehouseCode,CFN_CustomerFaceNbr AS UPN,CFN_Property1 AS UPN2
+          ,Lot.LOT_LTM_Lot+'@@'+Lot.LOT_LTM_QRCode AS LTM_LotNumber
+          ,Lot.LOT_LTM_Lot AS LotNumber
+          ,Lot.LOT_LTM_QRCode AS QRCode
+          ,CFN_Property3 AS UOM,SAL_ShipmentQty AS ShipmentQty,SAL_ShipmentPrice AS ShipmentPrice,PMA_ConvertFactor AS ConvertFactor,CFN_ChineseName AS ProductCnName,CFN_EnglishName AS ProductEnName,Lot.LOT_LTM_ExpiredDate AS ExpiredDate,LOT_OnHandQty AS TotalQty
+          ,SAL_ShipmentDate AS ActualShipmentDate,SAL_New_SLT_ID AS NewSltId,SAL_ConfirmPrice AS ConfirmPrice,LOT_ID AS LotId
+          FROM ShipmentAdjustLot(nolock)
+          INNER JOIN Lot(nolock) ON LOT_ID = SAL_LOT_ID
+          INNER JOIN Inventory(nolock) ON INV_ID = LOT_INV_ID
+          INNER JOIN Warehouse(nolock) ON WHM_ID = INV_WHM_ID
+          INNER JOIN DealerMaster(nolock) ON DMA_ID = WHM_DMA_ID
+          INNER JOIN Product(nolock) ON PMA_ID = INV_PMA_ID
+          INNER JOIN CFN(nolock) ON CFN_ID = PMA_CFN_ID
+          WHERE SAL_Type = 'Inventory' AND SAL_SPH_ID=#value#
+          ORDER BY CFN_CustomerFaceNbr,Lot.LOT_LTM_Lot,Lot.LOT_LTM_QRCode
+        </select>
+
+        <procedure id="GC_ShipmentAdjust_AddCfn" parameterMap="GC_ShipmentAdjust_AddCfn_ParameterMap">
+            dbo.GC_ShipmentAdjust_AddCfn
+        </procedure>
+
+        <delete id="DeleteShipmentAdjustLotBySphId" parameterClass="string">
+            DELETE FROM ShipmentAdjustLot
+            WHERE SAL_SPH_ID = #value#
+        </delete>
+
+        <procedure id="GC_ShipmentAdjust_AddShipmentLot" parameterMap="GC_ShipmentAdjust_AddShipmentLot_ParameterMap">
+            dbo.GC_ShipmentAdjust_AddShipmentLot
+        </procedure>
+
+        <delete id="DeleteShipmentLotByFilter" parameterClass="System.Collections.Hashtable">
+            DELETE FROM ShipmentLot
+            WHERE SLT_LOT_ID = #LotId#
+            AND EXISTS(SELECT 1 FROM ShipmentLine WHERE SLT_SPL_ID = SPL_ID AND SPL_SPH_ID = #SphId#)
+        </delete>
+        
+    </statements>
+</sqlMap>

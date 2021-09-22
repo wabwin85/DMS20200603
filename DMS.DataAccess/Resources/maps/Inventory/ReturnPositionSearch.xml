@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ReturnPositionSearchMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <statements>
+    <select id="SelectReturnPositionSearch" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DM.DMA_SAP_Code AS SAPCode,dm.DMA_ChineseName  AS DealerName,tab.DRP_DMA_ID AS DealerId,r.ProductLineID,r.ProductLineName,tab.DRP_Year AS [Year],SUM(DRP_DetailAmount) AS Amount
+      ,tab.SubCompanyName,tab.BrandName
+      ,ROW_NUMBER () OVER (ORDER BY tab.DRP_Year DESC)AS row_number
+      FROM (
+      SELECT DRP_DMA_ID,DRP_BUM_ID,DRP_Year,DRP_SubmitBeginDate,DRP_SubmitEndDate,DRP_ExpBeginDate,DRP_ExpEndDate,DRP_DetailAmount,VP.SubCompanyName,VP.BrandName
+      FROM  DealerReturnPosition a
+      LEFT JOIN View_ProductLine(nolock) VP on VP.Id=a.DRP_BUM_ID
+      where DRP_Type in ('调整数据','初始数据')
+      <isNotNull prepend="AND" property="ProductLine">a.DRP_BUM_ID=#ProductLine#</isNotNull>
+      <isNotNull prepend="AND" property="DealerID">a.DRP_DMA_ID=#DealerID#</isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">VP.BrandId=#BrandId#</isNotNull>
+      AND a.DRP_IsActived=1
+      UNION ALL
+      SELECT DRP_DMA_ID,DRP_BUM_ID,(CASE WHEN datepart(quarter,B.IAH_CreatedDate )>1 THEN YEAR(B.IAH_CreatedDate) ELSE YEAR(B.IAH_CreatedDate)-1 END),DRP_SubmitBeginDate,DRP_SubmitEndDate,DRP_ExpBeginDate,DRP_ExpEndDate,DRP_DetailAmount,VP.SubCompanyName,VP.BrandName
+      FROM  DealerReturnPosition A
+      INNER JOIN InventoryAdjustHeader B ON A.DRP_ReturnId=B.IAH_ID
+      LEFT JOIN View_ProductLine(nolock) VP on VP.Id=a.DRP_BUM_ID
+      WHERE  DRP_Type in ('退货退回','退货提交')
+      <isNotNull prepend="AND" property="ProductLine">a.DRP_BUM_ID=#ProductLine#</isNotNull>
+      <isNotNull prepend="AND" property="DealerID">a.DRP_DMA_ID=#DealerID#</isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">VP.BrandId=#BrandId#</isNotNull>
+      AND a.DRP_IsActived=1) TAB
+      INNER JOIN DealerMaster DM(nolock) ON TAB.DRP_DMA_ID=DM.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation R ON R.ProductLineID=TAB.DRP_BUM_ID
+      GROUP BY r.ProductLineID,DM.DMA_SAP_Code,dm.DMA_ChineseName,tab.DRP_DMA_ID ,r.ProductLineName,tab.DRP_Year,tab.SubCompanyName,tab.BrandName
+    </select>
+
+    <select id="ExcelReturnPositionSearch" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select d.DRP_CreateUserName as N'操作人', convert(nvarchar(20),DRP_CreateDate,23) as N'操作日期',a.DMA_SAP_Code as N'经销商SAPCode',a.DMA_ChineseName as N'经销商名称', i.IAH_Inv_Adj_Nbr as N'退货单号',
+      v.ProductLineName as N'产品线',
+      vp.SubCompanyName as N'分子公司',
+      vp.BrandName as N'品牌',
+      CASE WHEN DRP_Type  IN ('退货提交','退货退回')
+      THEN (CASE WHEN datepart(quarter,i.IAH_CreatedDate )>1 THEN YEAR(i.IAH_CreatedDate) ELSE YEAR(i.IAH_CreatedDate)-1 END)
+      ELSE d.DRP_Year  END AS N'年份',
+      CASE WHEN DRP_Type  IN ('退货提交','退货退回')
+      THEN CONVERT(NVARCHAR(10),(CASE WHEN datepart(quarter,i.IAH_CreatedDate )>1 THEN datepart(quarter,i.IAH_CreatedDate )-1 ELSE 4 END))
+      ELSE d.DRP_Quarter  END AS N'账期',
+      d.DRP_DetailAmount as N'金额明细',d.DRP_Type as N'操作类型',d.DRP_Desc as N'操作备注',
+      convert(nvarchar(20),DRP_SubmitBeginDate,23)as N'额度开始使用时间',convert(nvarchar(20),DRP_SubmitEndDate,23) as N'额度终止使用时间',
+      convert(nvarchar(20),DRP_ExpBeginDate,23) as N'产品效期开始时间',convert(nvarchar(20),DRP_ExpEndDate,23) as N'产品效期终止时间'
+      FROM DealerReturnPosition d(nolock)
+      INNER JOIN DealerMaster a(nolock) on a.DMA_ID= d.DRP_DMA_ID
+      INNER JOIN V_DivisionProductLineRelation v on v.ProductLineID=d.DRP_BUM_ID  AND ISEMERGING=0
+      left join InventoryAdjustHeader i(nolock) on i.IAH_ID=d.DRP_ReturnId
+      LEFT JOIN View_ProductLine(nolock) vp on vp.Id=d.DRP_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLine">d.DRP_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerID">d.DRP_DMA_ID=#DealerID#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">vp.BrandId=#BrandId#</isNotNull>
+      </dynamic>
+      ORDER BY DRP_CreateDate  DESC
+    </select>
+
+    <select id="SelectReturnPositionSearchDetaile" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select a.DMA_ChineseName as ChineseName, i.IAH_Inv_Adj_Nbr as ReturnNbr, convert(nvarchar(20),DRP_CreateDate,23) as CreateDate,
+      v.ProductLineName as ProductLineName,
+      CASE WHEN DRP_Type  IN ('退货提交','退货退回')
+      THEN (CASE WHEN datepart(quarter,i.IAH_CreatedDate )>1 THEN YEAR(i.IAH_CreatedDate) ELSE YEAR(i.IAH_CreatedDate)-1 END)
+      ELSE d.DRP_Year  END AS Years,
+      CASE WHEN DRP_Type  IN ('退货提交','退货退回')
+      THEN CONVERT(NVARCHAR(10),(CASE WHEN datepart(quarter,i.IAH_CreatedDate )>1 THEN datepart(quarter,i.IAH_CreatedDate )-1 ELSE 4 END))
+      ELSE d.DRP_Quarter  END AS DRP_Quarter,
+      d.DRP_DetailAmount as DetailAmount,d.DRP_Type as DRP_Type,
+      d.DRP_Desc as DRP_Desc,d.DRP_CreateUserName as CreateUserName,
+      convert(nvarchar(20),d.DRP_SubmitBeginDate,23) as SubmitBeginDate,  convert(nvarchar(20),d.DRP_SubmitEndDate,23) as DRP_SubmitEndDate,
+      convert(nvarchar(20),d.DRP_ExpBeginDate,23) as DRP_ExpBeginDate, convert(nvarchar(20),d.DRP_ExpEndDate,23) as ExpEndDate,ROW_NUMBER () OVER (ORDER BY DRP_CreateDate DESC)AS row_number
+      From DealerReturnPosition d(nolock)
+      INNER JOIN DealerMaster a(nolock) on a.DMA_ID= d.DRP_DMA_ID
+      INNER JOIN V_DivisionProductLineRelation v on v.ProductLineID=d.DRP_BUM_ID  AND ISEMERGING=0
+      left join InventoryAdjustHeader i(nolock) on i.IAH_ID=d.DRP_ReturnId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SAP_Code"> a.DMA_SAP_Code=#SAP_Code#</isNotNull>
+        <isNotNull prepend="AND" property="pid">v.ProductLineID=#pid#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertReturnPositionSearch" parameterClass="System.Collections.Hashtable">
+      insert into DealerReturnPosition (DRP_ID,DRP_DMA_ID,DRP_BUM_ID,DRP_Year,DRP_Quarter,
+      DRP_DetailAmount,DRP_IsInit,DRP_Type,DRP_Desc,DRP_CreateDate,DRP_CreateUser,
+      DRP_SubmitBeginDate,DRP_SubmitEndDate,DRP_ExpBeginDate,DRP_ExpEndDate,DRP_IsActived,DRP_CreateUserName)
+      values(#ID#,#DealerID#,#ProductLine#,#Years#,#Quarter#,#Quota#,#Isinit#,#Type#,#Desc#,#CreateDate#,#CreateUser#,#SubmitBeginDate#,#SubmitEndDate#,#ExpBeginDate#,#ExpEndDate#,#IsActived#,#CreateUserName#)
+    </insert>
+
+    <select id="SelectReturnPositionSearchType" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select d.DMA_DealerType from DealerMaster d(nolock)
+      WHERE d.DMA_ID=#value#
+    </select>
+  </statements>
+</sqlMap>

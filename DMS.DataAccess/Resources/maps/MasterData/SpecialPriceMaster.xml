@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SpecialPriceMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SpecialPriceMaster" assembly="DMS.Model.dll" type="DMS.Model.SpecialPriceMaster" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SpecialPriceMasterResult" class="SpecialPriceMaster">
+            <result property="Id" column="SPM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DmaId" column="SPM_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Code" column="SPM_Code" type="string" dbType="nvarchar"/>
+            <result property="Name" column="SPM_Name" type="string" dbType="nvarchar"/>
+            <result property="Description" column="SPM_Description" type="string" dbType="nvarchar"/>
+            <result property="IsActive" column="SPM_IsActive" type="bool" dbType="bit"/>
+            <result property="CreateDate" column="SPM_CreateDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+      <parameterMap id="PolicyFitMap" class="System.Collections.Hashtable" >
+        <parameter property="POH_ID" column="POH_ID" />
+        <parameter property="PolicyId" column="PolicyId" />
+        <parameter property="Result" column="Result" direction="Output" />
+        <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+      </parameterMap>
+    </parameterMaps>
+    <statements>
+        <select id="SelectSpecialPriceMaster" parameterClass="string" resultClass="SpecialPriceMaster">
+            SELECT SPM_ID AS Id,SPM_DMA_ID AS DmaId,SPM_Code AS Code,SPM_Name AS Name,SPM_Description AS Description,SPM_IsActive AS IsActive,SPM_CreateDate AS CreateDate
+            FROM SpecialPriceMaster
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    SPM_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterSpecialPriceMaster" parameterClass="SpecialPriceMaster" resultClass="SpecialPriceMaster">
+            SELECT SPM_ID AS Id,SPM_DMA_ID AS DmaId,SPM_Code AS Code,SPM_Name AS Name,SPM_Description AS Description,SPM_IsActive AS IsActive,SPM_CreateDate AS CreateDate
+            FROM SpecialPriceMaster
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">SPM_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="DmaId">SPM_DMA_ID=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="Code">SPM_Code=#Code#</isNotNull>
+                <isNotNull prepend="AND" property="Name">SPM_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Description">SPM_Description=#Description#</isNotNull>
+                <isNotNull prepend="AND" property="IsActive">SPM_IsActive=#IsActive#</isNotNull>
+            </dynamic>
+        </select>
+
+        <select id="GetSpecialPriceMasterByDealer" parameterClass="System.Collections.Hashtable" resultClass="SpecialPriceMaster">
+            SELECT Distinct SPM_ID AS Id,
+            SPM_DMA_ID AS DmaId,
+            SPM_Code AS Code,
+            SPM_Name AS Name,
+            SPM_Description AS Description,
+            SPM_IsActive AS IsActive,
+            SPM_CreateDate AS CreateDate
+            FROM SpecialPriceMaster AS Master, SpecialPriceDetail AS Detail, CFN
+            WHERE     Master.SPM_ID = Detail.SPD_SPM_ID
+            AND Detail.SPD_CFN_ID = CFN.CFN_ID
+            AND Master.SPM_IsActive = 1
+            <isNotNull prepend="AND" property="BumId">CFN.CFN_ProductLine_BUM_ID=#BumId#</isNotNull>
+            <isNotNull prepend="AND" property="DmaId">Master.SPM_DMA_ID=#DmaId#</isNotNull>
+
+        </select>
+        <select id="GetBOMOrderManHeaderDisc" parameterClass="string" resultClass="SpecialPriceMaster">
+          select top 1
+          CASE
+          WHEN H.POH_OrderType = 'BOM' THEN D.POD_Field2
+          ELSE
+          CASE WHEN charindex('(EWF:', D.POD_Field2) > 0
+          THEN Convert(nvarchar(20),Convert(decimal(18,2),( Convert(decimal(18,4),isnull(substring(D.POD_Field2, 1, charindex('(EWF:', D.POD_Field2) - 1),0))-1)*100)) +  substring(D.POD_Field2, charindex('(EWF:', D.POD_Field2) , len(D.POD_Field2))
+          ELSE Convert(nvarchar(20),Convert(decimal(18,2),( Convert(decimal(18,4),isnull(D.POD_Field2,0))-1)*100))
+          END
+          END AS Rate
+          from PurchaseOrderHeader H
+          ,PurchaseOrderDetail D
+          where H.POH_OrderType IN ('BOM','SpecialPrice')
+          and H.POH_ID=D.POD_POH_ID
+          and H.POH_ID=#Value#
+        </select>
+
+        <select id="GetPromotionPolicyByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+            <!--select PRId AS Id,PRName AS Name,PRCode AS Code,PRContent AS Content,PRType AS Type,SortNo
+            from (
+            select '00000000-0000-0000-0000-000000000000' AS PRId,'一次性特殊价格' AS PRName,'SP0000001' AS PRCode,
+            '<![CDATA[<font size="2" style="font-weight:bold;" color="blue">]]>' +'政策描述：'+ '<![CDATA[</br></font>]]>' + '一次性特殊价格（无有效期）' AS PRContent,'一次性特殊价格' AS PRType, 1 AS SortNo
+            union
+            select distinct PP.PMP_ID, PP.PRName,PP.PMP_Code,
+            '<![CDATA[<font size="2" style="font-weight:bold;" color="blue">]]>' +'促销政策描述：'+ '<![CDATA[</br></font>]]>' + PP.[Content] + '<![CDATA[</br><font size="2" style="font-weight:bold;" color="blue">]]>' +'政策有效期：'+ '<![CDATA[</br></font>]]>' +'从' + Convert(nvarchar(10),PP.BeginDate,120) + '至' + Convert(nvarchar(10),PP.EndDate,120) ,
+            PP.PromotionType, 3 As SortNo
+            from PromotionPolicy PP,(select PMP_Code, DMAID, ProductLine, PromotionType,max(CreateTime) AS CreateTime from PromotionPolicy group by PMP_Code, DMAID, ProductLine, PromotionType) AS MaxRow
+            where PP.PMP_Code = MaxRow.PMP_Code and PP.ProductLine = MaxRow.ProductLine and PP.PromotionType = MaxRow.PromotionType and PP.DMAID = MaxRow.DMAID and PP.CreateTime = MaxRow.CreateTime
+            and PP.DMAID = #DealerId#
+            and PP.ProductLineId = #ProductLineId#
+            and PP.AvaliableQty>0
+            and PP.PromotionType='额度使用' and PP.IsApproved = 'Approved'
+            and PP.IsDeleted = 0
+            AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), PP.BeginDate, 112) AND CONVERT(varchar(100),PP.EndDate, 112)
+            union
+            select distinct PP.PMP_ID, PP.PRName,PP.PMP_Code,
+            '<![CDATA[<font size="2" style="font-weight:bold;" color="blue">]]>' +'促销政策描述：'+ '<![CDATA[</br></font>]]>' + PP.[Content] + '<![CDATA[</br><font size="2" style="font-weight:bold;" color="blue">]]>' +'政策有效期：'+ '<![CDATA[</br></font>]]>' +'从' + Convert(nvarchar(10),PP.BeginDate,120) + '至' + Convert(nvarchar(10),PP.EndDate,120) ,
+            PromotionType, 2 As SortNo
+            from PromotionPolicy PP
+            where PP.DMAID = #DealerId#
+            and PP.ProductLineId = #ProductLineId#
+            and PP.PromotionType='即买即赠'
+            and PP.IsDeleted = 0
+            AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), PP.BeginDate, 112) AND CONVERT(varchar(100),PP.EndDate, 112)
+            ) tab
+            order by SortNo,PRCode-->
+          select * from [Promotion].[func_Interface_Imm_PolicyList](#DealerId#,#ProductLineId#)
+        </select>
+
+        <select id="GetPromotionPolicyById" parameterClass="string" resultClass="System.Collections.Hashtable">
+            <!--select PRId AS Id,PRName AS Name,PRCode AS Code,PRContent AS Content,PRType AS Type,SortNo
+            from (
+            select '00000000-0000-0000-0000-000000000000' AS PRId,'一次性特殊价格' AS PRName,'SP0000001' AS PRCode,
+            '<![CDATA[<font size="2" style="font-weight:bold;" color="blue">]]>' +'政策描述：'+ '<![CDATA[</br></font>]]>' + '一次性特殊价格' AS PRContent,
+            '一次性特殊价格' AS PRType, 1 AS SortNo
+            union
+            select PP.PMP_ID, PP.PRName,PP.PMP_Code,
+            '<![CDATA[<font size="2" style="font-weight:bold;" color="blue">]]>' +'促销政策描述：'+ '<![CDATA[</br></font>]]>' + PP.[Content] + '<![CDATA[</br><font size="2" style="font-weight:bold;" color="blue">]]>' +'政策有效期：'+ '<![CDATA[</br></font>]]>' +'从' + Convert(nvarchar(10),PP.BeginDate,120) + '至' + Convert(nvarchar(10),PP.EndDate,120) ,
+            PP.PromotionType, 2 As SortNo
+            from PromotionPolicy PP
+            ) tab, PurchaseOrderHeader POH
+            where tab.PRId = POH.POH_SpecialPriceID
+            and POH.POH_ID = #Value#-->
+          select  PolicyId,PolicyNo,PolicyName,PolicySubStyle from Promotion.PRO_POLICY,PurchaseOrderHeader where Convert(nvarchar(10),PolicyId) = POH_PointType and POH_ID = #value#
+          UNION
+          select  0,'SP0000001','一次性特殊价格','一次性特殊价格' from PurchaseOrderHeader where POH_PointType = '0' and POH_ID =#value#
+        </select>
+
+        <select id="GetPromotionPolicyNameById" parameterClass="string" resultClass="SpecialPriceMaster">
+            select distinct PRName from PromotionPolicy where  PMP_ID= #Value#
+        </select>
+        
+        <insert id="InsertSpecialPriceMaster" parameterClass="SpecialPriceMaster">
+            INSERT INTO SpecialPriceMaster
+            (SPM_ID,SPM_DMA_ID,SPM_Code,SPM_Name,SPM_Description,SPM_IsActive,SPM_CreateDate)
+            VALUES(#Id#,#DmaId#,#Code#,#Name#,#Description#,#IsActive#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateSpecialPriceMaster" parameterClass="SpecialPriceMaster">
+            UPDATE SpecialPriceMaster
+            SET SPM_ID=#Id#,SPM_DMA_ID=#DmaId#,SPM_Code=#Code#,SPM_Name=#Name#,SPM_Description=#Description#,SPM_IsActive=#IsActive#
+            WHERE SPM_ID = #Id#
+        </update>
+        <delete id="DeleteSpecialPriceMaster" parameterClass="string">
+            DELETE FROM SpecialPriceMaster
+            WHERE SPM_ID = #value#
+        </delete>
+
+
+      <procedure id="GC_Proc_Interface_Imm_PolicyFit" parameterMap="PolicyFitMap">
+        PROMOTION.Proc_Interface_Imm_PolicyFit
+      </procedure>
+    </statements>
+</sqlMap>

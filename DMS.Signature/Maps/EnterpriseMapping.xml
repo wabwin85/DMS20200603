@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterpriseMappingMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterpriseMapping" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterpriseMapping" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterpriseMappingResult" class="EnterpriseMapping">
+      <result property="Id" column="EP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="EP_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaName" column="EP_DMA_Name" type="string" dbType="nvarchar"/>
+      <result property="ParentId" column="EP_Parent_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentName" column="EP_Parent_Name" type="string" dbType="nvarchar"/>
+      <result property="IsActive" column="EP_IsActive" type="int" dbType="int"/>
+      <result property="Remark1" column="EP_Remark1" type="string" dbType="nvarchar"/>
+      <result property="Remark2" column="EP_Remark2" type="string" dbType="nvarchar"/>
+      <result property="Remark3" column="EP_Remark3" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="EP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="EP_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="EP_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="EP_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="EP_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="EP_UpdateUserName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterpriseMapping" parameterClass="string" resultClass="EnterpriseMapping">
+      SELECT EP_ID AS Id,EP_DMA_ID AS DmaId,EP_DMA_Name AS DmaName,EP_Parent_ID AS ParentId,EP_Parent_Name AS ParentName,EP_IsActive AS IsActive,EP_Remark1 AS Remark1,EP_Remark2 AS Remark2,EP_Remark3 AS Remark3,EP_CreateDate AS CreateDate,EP_CreateUser AS CreateUser,EP_CreateUserName AS CreateUserName,EP_UpdateDate AS UpdateDate,EP_UpdateUser AS UpdateUser,EP_UpdateUserName AS UpdateUserName
+      FROM ESign.EnterpriseMapping
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          EP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterpriseMapping" parameterClass="EnterpriseMapping" resultClass="EnterpriseMapping">
+      SELECT EP_ID AS Id,EP_DMA_ID AS DmaId,EP_DMA_Name AS DmaName,EP_Parent_ID AS ParentId,EP_Parent_Name AS ParentName,EP_IsActive AS IsActive,EP_Remark1 AS Remark1,EP_Remark2 AS Remark2,EP_Remark3 AS Remark3,EP_CreateDate AS CreateDate,EP_CreateUser AS CreateUser,EP_CreateUserName AS CreateUserName,EP_UpdateDate AS UpdateDate,EP_UpdateUser AS UpdateUser,EP_UpdateUserName AS UpdateUserName
+      FROM ESign.EnterpriseMapping
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">EP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">EP_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaName">EP_DMA_Name=#DmaName#</isNotNull>
+        <isNotNull prepend="AND" property="ParentId">EP_Parent_ID=#ParentId#</isNotNull>
+        <isNotNull prepend="AND" property="ParentName">EP_Parent_Name=#ParentName#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">EP_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">EP_Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="Remark2">EP_Remark2=#Remark2#</isNotNull>
+        <isNotNull prepend="AND" property="Remark3">EP_Remark3=#Remark3#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">EP_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">EP_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">EP_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">EP_UpdateUserName=#UpdateUserName#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterpriseMapping" parameterClass="EnterpriseMapping">
+      INSERT INTO ESign.EnterpriseMapping
+      (EP_ID,EP_DMA_ID,EP_DMA_Name,EP_Parent_ID,EP_Parent_Name,EP_IsActive,EP_Remark1,EP_Remark2,EP_Remark3,EP_CreateDate,EP_CreateUser,EP_CreateUserName,EP_UpdateDate,EP_UpdateUser,EP_UpdateUserName)
+      VALUES(#Id#,#DmaId#,#DmaName#,#ParentId#,#ParentName#,#IsActive#,#Remark1#,#Remark2#,#Remark3#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#)
+    </insert>
+    <update id="UpdateEnterpriseMapping" parameterClass="EnterpriseMapping">
+      UPDATE ESign.EnterpriseMapping
+      SET EP_ID=#Id#,EP_DMA_ID=#DmaId#,EP_DMA_Name=#DmaName#,EP_Parent_ID=#ParentId#,EP_Parent_Name=#ParentName#,EP_IsActive=#IsActive#,EP_Remark1=#Remark1#,EP_Remark2=#Remark2#,EP_Remark3=#Remark3#,EP_CreateUserName=#CreateUserName#,EP_UpdateDate=#UpdateDate#,EP_UpdateUser=#UpdateUser#,EP_UpdateUserName=#UpdateUserName#
+      WHERE EP_ID = #Id#
+    </update>
+    <delete id="DeleteEnterpriseMapping" parameterClass="string">
+      DELETE FROM ESign.EnterpriseMapping
+      WHERE EP_ID = #value#
+    </delete>
+
+    <select id="QueryEnterpriseMappingByFilter" parameterClass="string" resultClass="EnterpriseMapping">
+      SELECT EP_ID AS Id,EP_DMA_ID AS DmaId,EP_DMA_Name AS DmaName,EP_Parent_ID AS ParentId,EP_Parent_Name AS ParentName,EP_IsActive AS IsActive,EP_Remark1 AS Remark1,EP_Remark2 AS Remark2,EP_Remark3 AS Remark3,EP_CreateDate AS CreateDate,EP_CreateUser AS CreateUser,EP_CreateUserName AS CreateUserName,EP_UpdateDate AS UpdateDate,EP_UpdateUser AS UpdateUser,EP_UpdateUserName AS UpdateUserName
+      FROM ESign.EnterpriseMapping
+      WHERE EP_DMA_ID = #DealerId#
+      AND EP_IsActive = 1
+    </select>
+  </statements>
+</sqlMap>

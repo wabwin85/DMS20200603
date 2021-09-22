@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceConfirmation" assembly="DMS.Model.dll" type="DMS.Model.InterfaceConfirmation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceConfirmationResult" class="InterfaceConfirmation">
+      <result property="Id" column="ICO_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SapOrderNo" column="ICO_SAP_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="OrderNo" column="ICO_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="DealerSapCode" column="ICO_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="SapCreateDate" column="ICO_SAP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="ArticleNumber" column="ICO_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="OrderNum" column="ICO_OrderNum" type="decimal" dbType="decimal"/>
+      <result property="Amount" column="ICO_Amount" type="decimal" dbType="decimal"/>
+      <result property="Tax" column="ICO_Tax" type="decimal" dbType="decimal"/>
+      <result property="FirstAvailableDate" column="ICO_FirstAvailableDate" type="DateTime" dbType="datetime"/>
+      <result property="Flag" column="ICO_Flag" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="ICO_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ICO_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="ICO_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="UnitPrice" column="ICO_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="Clientid" column="ICO_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="ICO_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_ConfirmationLP_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceConfirmation" parameterClass="string" resultClass="InterfaceConfirmation">
+      SELECT ICO_ID AS Id,ICO_SAP_OrderNo AS SapOrderNo,ICO_OrderNo AS OrderNo,ICO_Dealer_SapCode AS DealerSapCode,ICO_SAP_CreateDate AS SapCreateDate,ICO_ArticleNumber AS ArticleNumber,ICO_OrderNum AS OrderNum,ICO_Amount AS Amount,ICO_Tax AS Tax,ICO_FirstAvailableDate AS FirstAvailableDate,ICO_Flag AS Flag,ICO_LineNbr AS LineNbr,ICO_FileName AS FileName,ICO_ImportDate AS ImportDate,ICO_UnitPrice AS UnitPrice,ICO_ClientID AS Clientid,ICO_BatchNbr AS BatchNbr
+      FROM InterfaceConfirmation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ICO_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceConfirmation" parameterClass="InterfaceConfirmation" resultClass="InterfaceConfirmation">
+      SELECT ICO_ID AS Id,ICO_SAP_OrderNo AS SapOrderNo,ICO_OrderNo AS OrderNo,ICO_Dealer_SapCode AS DealerSapCode,ICO_SAP_CreateDate AS SapCreateDate,ICO_ArticleNumber AS ArticleNumber,ICO_OrderNum AS OrderNum,ICO_Amount AS Amount,ICO_Tax AS Tax,ICO_FirstAvailableDate AS FirstAvailableDate,ICO_Flag AS Flag,ICO_LineNbr AS LineNbr,ICO_FileName AS FileName,ICO_ImportDate AS ImportDate,ICO_UnitPrice AS UnitPrice,ICO_ClientID AS Clientid,ICO_BatchNbr AS BatchNbr
+      FROM InterfaceConfirmation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ICO_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SapOrderNo">ICO_SAP_OrderNo=#SapOrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">ICO_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">ICO_Dealer_SapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="SapCreateDate">ICO_SAP_CreateDate=#SapCreateDate#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">ICO_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNum">ICO_OrderNum=#OrderNum#</isNotNull>
+        <isNotNull prepend="AND" property="Amount">ICO_Amount=#Amount#</isNotNull>
+        <isNotNull prepend="AND" property="Tax">ICO_Tax=#Tax#</isNotNull>
+        <isNotNull prepend="AND" property="FirstAvailableDate">ICO_FirstAvailableDate=#FirstAvailableDate#</isNotNull>
+        <isNotNull prepend="AND" property="Flag">ICO_Flag=#Flag#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ICO_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ICO_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">ICO_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">ICO_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">ICO_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">ICO_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceConfirmation" parameterClass="InterfaceConfirmation">
+      INSERT INTO InterfaceConfirmation
+      (ICO_ID,ICO_SAP_OrderNo,ICO_OrderNo,ICO_Dealer_SapCode,ICO_SAP_CreateDate,ICO_ArticleNumber,ICO_OrderNum,ICO_Amount,ICO_Tax,ICO_FirstAvailableDate,ICO_Flag,ICO_LineNbr,ICO_FileName,ICO_ImportDate,ICO_UnitPrice,ICO_ClientID,ICO_BatchNbr)
+      VALUES(#Id#,#SapOrderNo#,#OrderNo#,#DealerSapCode#,#SapCreateDate:DateTime:1/1/0001 12:00:00 AM#,#ArticleNumber#,#OrderNum#,#Amount#,#Tax#,#FirstAvailableDate:DateTime:1/1/0001 12:00:00 AM#,#Flag#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#UnitPrice#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceConfirmation" parameterClass="InterfaceConfirmation">
+      UPDATE InterfaceConfirmation
+      SET ICO_ID=#Id#,ICO_SAP_OrderNo=#SapOrderNo#,ICO_OrderNo=#OrderNo#,ICO_Dealer_SapCode=#DealerSapCode#,ICO_SAP_CreateDate=#SapCreateDate#,ICO_ArticleNumber=#ArticleNumber#,ICO_OrderNum=#OrderNum#,ICO_Amount=#Amount#,ICO_Tax=#Tax#,ICO_FirstAvailableDate=#FirstAvailableDate#,ICO_Flag=#Flag#,ICO_LineNbr=#LineNbr#,ICO_FileName=#FileName#,ICO_ImportDate=#ImportDate#,ICO_UnitPrice=#UnitPrice#,ICO_ClientID=#Clientid#,ICO_BatchNbr=#BatchNbr#
+      WHERE ICO_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceConfirmation" parameterClass="string">
+      DELETE FROM InterfaceConfirmation
+      WHERE ICO_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_ConfirmationLP" parameterMap="GC_Interface_ConfirmationLP_ParameterMap">
+      dbo.GC_Interface_ConfirmationLP
+    </procedure>
+  </statements>
+</sqlMap>

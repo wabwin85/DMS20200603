@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractTerritoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractTerritory" assembly="DMS.Model.dll" type="DMS.Model.ContractTerritory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ContractTerritoryResult" class="ContractTerritory">
+      <result property="Id" column="Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractId" column="ContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractType" column="ContractType" type="string" dbType="nvarchar"/>
+      <result property="PlId" column="PlId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="HosId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TerritoryType" column="TerritoryType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ContractPropertyLastParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="ContractId" column="ContractId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="SubBU" column="SubBU" />
+      <parameter property="BeginDate" column="BeginDate" />
+      <parameter property="EndDate" column="EndDate" />
+      <parameter property="PropertyType" column="PropertyType" />
+      <parameter property="ContractType" column="ContractType" />
+      <parameter property="retMassage" column="retMassage" direction="Output" />
+    </parameterMap>
+    <parameterMap id="DCMS_HospitalInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="DatId" column="DatId" />
+      <parameter property="MarketType" column="MarketType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectTerritoryByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+
+      select distinct ProductLineId,ProductLine,HosId,HospitalENName,HospitalName,TerritoryType ,[DepartRemark]=( select DepartRemark +' ' from ( select distinct
+      vi.Id AS ProductLineId,
+      vi.ATTRIBUTE_NAME AS ProductLine,
+      ter.HOS_ID AS HosId,
+      hos.HOS_HospitalNameEN AS HospitalENName,
+      hos.HOS_HospitalName AS HospitalName,
+      '' AS TerritoryType,
+      ter.HOS_DepartRemark AS DepartRemark
+
+      from ContractTerritory ter
+      inner join DealerAuthorizationTableTemp aut on ter.Contract_ID=aut.DAT_ID
+      left join dbo.Hospital hos ON hos.HOS_ID=ter.HOS_ID
+      left join View_ProductLine vi on vi.Id=aut.DAT_ProductLine_BUM_ID
+      where 1=1
+      <dynamic>
+        <isParameterPresent prepend="AND" property="ContractId">
+          aut.DAT_DCL_ID = #ContractId#
+        </isParameterPresent>
+        <isNotEmpty prepend="AND" property="SubCompanyId">
+          vi.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          vi.BrandId=#BrandId#
+        </isNotEmpty>
+      </dynamic>) as b where b.HosId=a.HosId  for xml path('')) from ( select distinct
+      vi.Id AS ProductLineId,
+      vi.ATTRIBUTE_NAME AS ProductLine,
+      ter.HOS_ID AS HosId,
+      hos.HOS_HospitalNameEN AS HospitalENName,
+      hos.HOS_HospitalName AS HospitalName,
+      '' AS TerritoryType,
+      ter.HOS_DepartRemark AS DepartRemark
+
+      from ContractTerritory ter
+      inner join DealerAuthorizationTableTemp aut on ter.Contract_ID=aut.DAT_ID
+      left join dbo.Hospital hos ON hos.HOS_ID=ter.HOS_ID
+      left join View_ProductLine vi on vi.Id=aut.DAT_ProductLine_BUM_ID
+      where 1=1
+      <dynamic>
+        <isParameterPresent  prepend="AND" property="ContractId">
+          aut.DAT_DCL_ID = #ContractId#
+        </isParameterPresent>
+        <isNotEmpty prepend="AND" property="SubCompanyId">
+          vi.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          vi.BrandId=#BrandId#
+        </isNotEmpty>
+      </dynamic>) as a
+    </select>
+
+    <select id="SelectDistinctTerritoryByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select distinct
+      vi.Id AS ProductLineId,
+      vi.ATTRIBUTE_NAME AS ProductLine,
+      ter.HOS_ID AS HosId,
+      hos.HOS_HospitalNameEN AS HospitalENName,
+      hos.HOS_HospitalName AS HospitalName,
+      ISNULL(HOS_Depart,'')+ISNULL(ter.HOS_DepartRemark,'') AS DepartRemark
+      from ContractTerritory ter
+      inner join DealerAuthorizationTableTemp aut on ter.Contract_ID=aut.DAT_ID
+      left join dbo.Hospital hos ON hos.HOS_ID=ter.HOS_ID
+      left join View_ProductLine vi on vi.Id=aut.DAT_ProductLine_BUM_ID
+      where 1=1
+      <dynamic>
+        <isParameterPresent prepend="AND" property="ContractId">
+          aut.DAT_DCL_ID = #ContractId#
+        </isParameterPresent>
+        <isNotEmpty prepend="AND" property="SubCompanyId">
+          vi.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          vi.BrandId=#BrandId#
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="ExcelTerritoryByContractId" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      select distinct
+      hos.HOS_HospitalNameEN AS N'英文名称',
+      hos.HOS_HospitalName AS N'中文名称',
+      ter.HOS_Depart AS N'部门',
+      ter.HOS_DepartRemark AS N'备注',
+      case when ter.Territory_Type='New' then '新增' when ter.Territory_Type='Old' then ''  else '' end AS N'类型'
+      from ContractTerritory ter
+      inner join DealerAuthorizationTableTemp aut on ter.Contract_ID=aut.DAT_ID
+      left join dbo.Hospital hos ON hos.HOS_ID=ter.HOS_ID
+      left join View_ProductLine vi on vi.Id=aut.DAT_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          aut.DAT_DCL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+
+    <delete id="DetachHospitalFromAuthorizationTemp" parameterClass="System.Collections.Hashtable">
+      DELETE FROM dbo.ContractTerritory where Contract_ID = #DatId# AND HOS_ID = #HosId#
+    </delete>
+
+    <insert id="AttachHospitalToAuthorizationTemp" parameterClass="System.Collections.Hashtable">
+      IF (NOT EXISTS (SELECT 1 FROM  dbo.ContractTerritory m WITH ( UPDLOCK, HOLDLOCK )
+      WHERE Contract_ID = #DatId# AND HOS_ID = #HosId# ))
+      BEGIN
+      insert into dbo.ContractTerritory(ID,Contract_ID,HOS_ID,Territory_Type)
+      values(newid(),#DatId#, #HosId#,'New')
+      END
+    </insert>
+
+    <update id="AttachHospitalToAuthorizationByPartsTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO ContractTerritory(ID,Contract_ID,HOS_ID,Territory_Type)
+      SELECT newid() , '$DatId$', HOS_ID,'New' FROM dbo.Hospital
+      <!--WHERE EXISTS ( SELECT * FROM dbo.ProductLineHospital b WHERE b.PLH_HOS_ID =Hospital.HOS_ID AND b.PLH_BUM_ID =#ProductLineId# )
+      AND-->
+      WHERE
+      NOT EXISTS ( SELECT HLA_HOS_ID FROM dbo.ContractTerritory a WHERE a.HOS_ID =Hospital.HOS_ID AND a.Contract_ID=#DatId#)
+      <dynamic prepend="">
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City=#HosCity#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosProvince"> HOS_Province=#HosProvince#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District=#HosDistrict#</isNotEmpty>
+        <!--<isNotEmpty prepend="AND" property="HosRemark">dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID)=#Remark#</isNotEmpty>-->
+      </dynamic>
+    </update>
+
+    <update id="UpdateContractTerritory" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractTerritory SET HOS_Depart=#HlaDep#,HOS_DepartType=#HlaDepType#,HOS_DepartRemark=#HlaDepRemark# WHERE ID=#HlaId#
+    </update>
+
+    <select id="SelectFormalAuthorizedHospital" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT * ,row_number ()  OVER (ORDER BY  HospitalName ASC) AS [row_number] FROM(
+      SELECT DISTINCT  TAB.ProductLine,TAB.HospitalID,TAB.HospitalName,TAB.Grade,TAB.HospitalShortName,TAB.HospitalNameEN,TAB.Account,TAB.Province,TAB.City,TAB.District,TAB.HosRemark
+      FROM (
+      SELECT DISTINCT  pl_div.ProductLineName AS ProductLine,
+      Hospital.HOS_ID AS HospitalID,
+      Hospital.HOS_HospitalName AS HospitalName,
+      Hospital.HOS_Grade AS  Grade,
+      Hospital.HOS_HospitalShortName AS HospitalShortName,
+      Hospital.HOS_HospitalNameEN AS HospitalNameEN,
+      Hospital.HOS_Key_Account AS Account,
+      Hospital.HOS_Province AS Province,
+      Hospital.HOS_City AS City,
+      Hospital.HOS_District AS District,
+      dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID) as HosRemark,
+      HLA_HOS_Depart AS Depart,
+      dst.VALUE1 as HosDepartTypeName,
+      HLA_HOS_DepartRemark AS DepartRemark,
+      pl_div.DivisionCode,
+      aut.DAT_DMA_ID,
+      HMP.MarketProperty
+      FROM HospitalList hos
+      INNER JOIN DealerAuthorizationTable aut
+      ON hos.HLA_DAT_ID = aut.DAT_ID AND aut.DAT_Type='Normal'
+      INNER JOIN V_DivisionProductLineRelation AS pl_div
+      ON pl_div.ProductLineID = aut.DAT_ProductLine_BUM_ID AND pl_div.IsEmerging='0'
+      INNER JOIN Hospital
+      ON Hospital.HOS_ID = hos.HLA_HOS_ID
+      INNER JOIN V_AllHospitalMarketProperty  HMP ON HMP.HOS_ID=hos.HLA_HOS_ID AND aut.DAT_ProductLine_BUM_ID=HMP.ProductLineID
+      left join Lafite_DICT dst on dst.DICT_TYPE='HospitalDepart'  and CONVERT(nvarchar(50),aut.DAT_ProductLine_BUM_ID) =dst.PID and hos.HLA_HOS_DepartType=dst.DICT_KEY
+      WHERE 1=1
+      <isNotNull prepend="AND" property="DivisionId">pl_div.DivisionCode = #DivisionId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">aut.DAT_DMA_ID = #DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="IsEmerging">HMP.MarketProperty = #IsEmerging#</isNotNull>
+      <isNotNull prepend="AND" property="SubDepCode">aut.DAT_PMA_ID in (SELECT distinct CA_ID FROM interface.ClassificationAuthorization where CA_ParentCode =CONVERT(nvarchar(100),#SubDepCode#))</isNotNull>
+      ) TAB)TAB2
+
+    </select>
+
+    <select id="SelectHospitalGrade" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select DICT_KEY ,VALUE1 AS Value from Lafite_DICT
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Type">Lafite_DICT.DICT_TYPE=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="KeyType">Lafite_DICT.REV1=#KeyType#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectHospitalDepartment" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DICT_KEY as Id ,VALUE1 AS Value FROM Lafite_DICT  a
+      LEFT JOIN V_DivisionProductLineRelation b on a.PID=CONVERT(nvarchar(50),b.ProductLineID) and b.IsEmerging='0'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Type">DICT_TYPE=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="DivisionCode">b.DivisionCode=#DivisionCode#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <select id="DeleteAuthorizationAOP" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      exec GC_DeleteAuthorizationAOP #ContractId#,#PartsContractCode#,#HospitalString#,#BeginDate#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <insert id="SynchronousHospitalListTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO ContractTerritory(ID, Contract_ID, HOS_ID,Territory_Type)
+      SELECT NEWID(),#Dat_Id#,HOS.HLA_HOS_ID,'Old'
+      FROM HospitalList HOS
+      INNER JOIN DealerAuthorizationTable AUTH ON HOS.HLA_DAT_ID=AUTH.DAT_ID
+      INNER JOIN Hospital ON Hospital.HOS_ID=HOS.HLA_HOS_ID
+      INNER JOIN V_AllHospitalMarketProperty AHM ON AHM.HOS_ID=Hospital.HOS_ID AND AHM.ProductLineID=AUTH.DAT_ProductLine_BUM_ID
+      WHERE AUTH.DAT_DMA_ID=#Dma_Id# AND AUTH.DAT_ProductLine_BUM_ID=#Plb_Id#
+      <isNotNull prepend="AND" property="IsEmerging">AHM.MarketProperty=#IsEmerging#</isNotNull>
+    </insert>
+
+
+    <!--DCMS 整体搬移项目修改 201606-->
+    <procedure id="GC_GetContractPropertyLast" parameterMap="ContractPropertyLastParameterMap">
+      dbo.Pro_DCMS_GetContractProperty_Last
+    </procedure>
+
+    <select id="SelectAuthorizationProductAll" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT CA_ID AS Id,CC_Code AS SubBuCode,CC_NameCN AS SubBuName,CA_Code AS CaCode,CA_NameCN CaName,CA_NameEN AS CaNameEn
+      ,row_number ()  OVER (ORDER BY  CA_Code ASC) AS [row_number]
+      FROM V_ProductClassificationStructure A
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubBU">A.CC_Code=#SubBU#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate"> #BeginDate# between A.StartDate and A.EndDate </isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertContractProduct" parameterClass="System.Collections.Hashtable">
+      INSERT INTO  DealerAuthorizationTableTemp (DAT_PMA_ID,DAT_ID,DAT_DCL_ID,DAT_DMA_ID,DAT_DMA_ID_Actual,DAT_ProductLine_BUM_ID,DAT_AuthorizationType,DAT_HospitalListDesc,DAT_ProductDescription)
+      SELECT B.VAL,NEWID(),#ContractId#,#DealerId#,NULL,#ProductLineId#,CASE  WHEN B.VAL=#ProductLineId# THEN 0 ELSE 1 END,NULL,NULL
+      FROM dbo.GC_Fn_SplitStringToTable(#ProductString#,',') B
+      WHERE NOT EXISTS(SELECT 1 FROM DealerAuthorizationTableTemp A WHERE A.DAT_DCL_ID=#ContractId# AND CONVERT(NVARCHAR(36),A.DAT_PMA_ID)=B.VAL)
+    </insert>
+
+    <select id="SelectAuthorizationProductSelected" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      B.CC_Code AS ProductLineSub,
+      B.CC_NameCN AS ProductLineSubDesc,
+      DAT_PMA_ID PmaId,DAT_ID Id,DAT_DCL_ID DclId,DAT_DMA_ID DmaId,DAT_DMA_ID_Actual DmaIdActual,DAT_ProductLine_BUM_ID ProductLineBumId,
+      DAT_AuthorizationType AuthorizationType,DAT_HospitalListDesc HospitalListDesc,DAT_ProductDescription  ProductDescription,B.CA_NameCN AS PmaDesc
+      ,row_number ()  OVER (ORDER BY  CA_Code ASC) AS [row_number]
+      FROM DealerAuthorizationTableTemp A
+      LEFT JOIN (SELECT DISTINCT CC_Code,CC_ID,CC_NameCN,CA_ID,CA_Code,CA_NameCN
+      FROM V_ProductClassificationStructure
+      where #BeginDate# between StartDate and EndDate) B ON B.CA_ID=A.DAT_PMA_ID and B.CC_Code=#SubBU#
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <delete id="DeleteProductSelected" parameterClass="string">
+      DELETE DealerAuthorizationTableTemp WHERE DAT_ID=#value#
+    </delete>
+
+    <select id="SelectDCMSHospitalTempSelected" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      exec dbo.Pro_DCMS_GetHospitalSelected #ContractId#,#DealerId# ,#DctId#,#BeginDate#,#EndDate#,#start#,#limit#
+    </select>
+
+    <delete id="DeleteAuthorizationHospitalTemp" parameterClass="System.Collections.Hashtable">
+      DELETE A  FROM dbo.ContractTerritory A  where A.ID = #Id#
+    </delete>
+
+    <select id="SelectDCMSCopyProductCan" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.DAT_PMA_ID AS PmaId,B.CA_NameCN AS PmaDesc,A.DAT_ID AS Id,A.DAT_ProductLine_BUM_ID AS ProductLineBumId
+      ,A.DAT_DMA_ID AS DmaId,A.DAT_ProductDescription AS ProductDescription,A.DAT_HospitalListDesc AS HospitalListDesc,A.DAT_AuthorizationType AS AuthorizationType
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN (SELECT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization
+      WHERE #BeginDate# between CA_StartDate and CA_EndDate ) B ON A.DAT_PMA_ID=B.CA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">A.DAT_ID &lt;> #Id#</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="CopyHospitalTempFromOtherAuth" parameterClass="System.Collections.Hashtable">
+      INSERT INTO ContractTerritory(ID,Contract_ID,HOS_ID,Territory_Type,HOS_Depart,HOS_DepartType,HOS_DepartRemark)
+      SELECT newid() , '$DatId$',HOS_ID,
+      CASE WHEN ISNULL('$LastContractId$','')='' THEN 'New'
+      WHEN ISNULL('$LastContractId$','')&lt;>''
+      AND EXISTS(SELECT 1 FROM DealerAuthorizationTableTemp C
+      INNER JOIN ContractTerritory D ON C.DAT_ID=D.Contract_ID AND C.DAT_PMA_ID=DT.DAT_PMA_ID AND D.HOS_ID=TT.HOS_ID
+      WHERE C.DAT_DCL_ID='$LastContractId$')
+      THEN 'Old' ELSE 'New' END,
+      HOS_Depart,HOS_DepartType,HOS_DepartRemark
+      FROM dbo.ContractTerritory tt
+      INNER JOIN DealerAuthorizationTableTemp DT ON DT.DAT_ID=TT.Contract_ID
+      WHERE tt.Contract_ID =#FromDatID#
+      AND NOT EXISTS ( SELECT 1 FROM dbo.ContractTerritory a WHERE a.HOS_ID =tt.HOS_ID AND a.Contract_ID=#DatId#)
+    </update>
+
+    <select id="SelectDepartProductTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.DAT_PMA_ID AS PmaId,B.CA_NameCN AS ProductName
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_Code,CA_NameCN FROM INTERFACE.ClassificationAuthorization WHERE #BeginDate# between CA_StartDate and CA_EndDate ) B ON A.DAT_PMA_ID=B.CA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectHospitalProductTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.DAT_PMA_ID AS PmaId,B.CA_NameCN AS ProductName,C.ID AS Id,D.HOS_Key_Account AS HospitalCode,D.HOS_ID AS HospitalId ,D.HOS_HospitalName AS HospitalName, C.HOS_Depart AS Depart,
+      dst.VALUE1 as HosDepartTypeName,
+      C.HOS_DepartRemark AS DepartRemark,
+      CASE(select Count(_E.HOS_ID)  FROM ContractTerritory _E
+      INNER JOIN DealerAuthorizationTableTemp _D ON _D.DAT_ID=_E.Contract_ID
+      INNER JOIN [Contract].AppointmentMain am ON am.ContractId =_D.DAT_DCL_ID
+      INNER JOIN [Contract].AppointmentProposals ap ON ap.ContractId = _D.DAT_DCL_ID
+      where am.ContractStatus &lt;>'Draft' and am.ContractStatus &lt;>'Delete'
+      <!--AND _E.Contract_ID &lt;>C.Contract_ID-->
+      AND NOT EXISTS(
+      SELECT 1 FROM dbo.DealerAuthorizationTableTemp s
+      WHERE _D.DAT_ID=_E.Contract_ID AND s.DAT_ProductLine_BUM_ID=A.DAT_ProductLine_BUM_ID
+      )
+      AND _E.HOS_ID=C.Hos_ID
+      AND not (ap.AgreementBegin>#EndDate#
+      OR ap.AgreementEnd &lt;#BeginDate#)
+      AND EXISTS ( SELECT	1
+      FROM
+      dbo.T_DivisionProductLineRelation
+      WHERE
+      DivisionCode = am.DepId
+      AND _D.DAT_ProductLine_BUM_ID = A.DAT_ProductLine_BUM_ID )
+      ) when 0 then '否' else '是'end IsMustFill,
+      row_number ()  OVER (ORDER BY  B.CA_NameCN,D.HOS_Key_Account  ASC) AS [row_number]
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_Code,CA_NameCN FROM INTERFACE.ClassificationAuthorization WHERE #BeginDate# between CA_StartDate and CA_EndDate) B ON A.DAT_PMA_ID=B.CA_ID
+      INNER JOIN ContractTerritory  C ON C.Contract_ID=A.DAT_ID
+      INNER JOIN Hospital D ON D.HOS_ID=C.HOS_ID
+      LEFT JOIN Lafite_DICT dst on dst.DICT_TYPE='HospitalDepart'  and CONVERT(nvarchar(50),A.DAT_ProductLine_BUM_ID) =dst.PID and C.HOS_DepartType=dst.DICT_KEY
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="PctId">A.DAT_PMA_ID=#PctId#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName"> D.HOS_HospitalName LIKE  N'%$HospitalName$%'</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="HospitalDepartTempClear" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractTerritory SET HOS_Depart=NULL,HOS_DepartType=NULL,HOS_DepartRemark=NULL
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+      </dynamic>
+    </update>
+
+    <update id="UpdateHospitalDepartmentTemp" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractTerritory SET HOS_Depart=#HlaDep#,HOS_DepartType=#HlaDepType#,HOS_DepartRemark=#HlaDepRemark#
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+      </dynamic>
+    </update>
+
+    <select id="ExcelHospitalProductTemp" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      SELECT row_number ()  OVER (ORDER BY  B.CA_NameCN,D.HOS_Key_Account  ASC) AS '序号',
+      B.CA_NameCN AS N'产品',D.HOS_Key_Account AS N'医院编码',D.HOS_HospitalName AS N'医院名称', C.HOS_Depart AS N'科室',
+      dst.VALUE1 as N'科室类型',
+      C.HOS_DepartRemark AS N'科室备注',
+      case when C.Territory_Type='New' then '新增' when C.Territory_Type='Old' then ''  else '' end AS N'类型'
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_Code,CA_NameCN FROM INTERFACE.ClassificationAuthorization) B ON A.DAT_PMA_ID=B.CA_ID
+      INNER JOIN ContractTerritory  C ON C.Contract_ID=A.DAT_ID
+      INNER JOIN Hospital D ON D.HOS_ID=C.HOS_ID
+      LEFT JOIN Lafite_DICT dst on dst.DICT_TYPE='HospitalDepart'  and CONVERT(nvarchar(50),A.DAT_ProductLine_BUM_ID) =dst.PID and C.HOS_DepartType=dst.DICT_KEY
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          A.DAT_DCL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <!--授权医院批量上传-->
+    <delete id="DeleteTempUploadHospitalByDatId" parameterClass="System.Collections.Hashtable">
+      DELETE ContractTerritoryInsetTemp WHERE DatId=#value#
+    </delete>
+
+    <select id="SelectDCMSHospitalUpload" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DatId,HospitalCode,HospitalName,Depart,DepartRemark,ErrMsg
+      , CASE  WHEN ISNULL(ErrMsg,'')='' THEN 0 ELSE 1 END AS ISErr
+      ,row_number ()  OVER (ORDER BY  ErrMsg DESC) AS [row_number]
+      FROM ContractTerritoryInsetTemp
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DatId">DatId=#DatId#</isNotNull>
+        <isEqual prepend="AND" property="ISError" compareValue="1">
+          ISNULL(ErrMsg,'') &lt;>''
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <procedure id="GC_DCMS_HospitalInit" parameterMap="DCMS_HospitalInitParameterMap">
+      dbo.Proc_DCMS_HospitalInit
+    </procedure>
+
+    <insert id="SaveHospitalTempInit" parameterClass="System.Collections.Hashtable">
+      IF #InputType#='Part'
+      BEGIN
+      INSERT INTO ContractTerritory (ID,Contract_ID,HOS_ID,Territory_Type,HOS_Depart,HOS_DepartType,HOS_DepartRemark)
+      SELECT NEWID(),A.DatId,B.HOS_ID,
+      CASE WHEN EXISTS(SELECT 1 FROM DealerAuthorizationTableTemp T1
+      INNER JOIN DealerAuthorizationTable T2 ON T1.DAT_DMA_ID=T2.DAT_DMA_ID AND T1.DAT_ProductLine_BUM_ID=T2.DAT_ProductLine_BUM_ID AND T1.DAT_PMA_ID=T2.DAT_PMA_ID
+      INNER JOIN  HospitalList T3 ON T3.HLA_DAT_ID=T2.DAT_ID AND T3.HLA_HOS_ID=B.HOS_ID
+      WHERE T1.DAT_ID=#DatId#
+      ) THEN 'Old' ELSE 'New' END
+      ,A.Depart,NULL,A.DepartRemark FROM ContractTerritoryInsetTemp A
+      INNER JOIN Hospital B ON A.HospitalCode=B.HOS_Key_Account
+      WHERE DatId=#DatId#
+      AND NOT EXISTS(SELECT 1 FROM ContractTerritory C WHERE C.Contract_ID=#DatId# AND C.HOS_ID=B.HOS_ID )
+      END
+      ELSE IF #InputType#='All'
+      BEGIN
+      INSERT INTO ContractTerritory (ID,Contract_ID,HOS_ID,Territory_Type,HOS_Depart,HOS_DepartType,HOS_DepartRemark)
+      SELECT NEWID(),D.DAT_ID,B.HOS_ID,
+      CASE WHEN EXISTS(SELECT 1 FROM  DealerAuthorizationTable T2
+      INNER JOIN  HospitalList T3 ON T3.HLA_DAT_ID=T2.DAT_ID AND T3.HLA_HOS_ID=B.HOS_ID
+      WHERE D.DAT_DMA_ID=T2.DAT_DMA_ID AND D.DAT_ProductLine_BUM_ID=T2.DAT_ProductLine_BUM_ID AND D.DAT_PMA_ID=T2.DAT_PMA_ID
+      ) THEN 'Old' ELSE 'New' END
+      ,A.Depart,NULL,A.DepartRemark
+      FROM ContractTerritoryInsetTemp A
+      INNER JOIN DealerAuthorizationTableTemp D ON D.DAT_DCL_ID=A.DatId
+      INNER JOIN Hospital B ON A.HospitalCode=B.HOS_Key_Account
+      WHERE D.DAT_DCL_ID=#DatId#
+      AND NOT EXISTS(SELECT 1 FROM ContractTerritory C WHERE C.Contract_ID=d.DAT_ID  AND C.HOS_ID=B.HOS_ID )
+      END
+    </insert>
+    <select id="SelectAuthorizationAreaProductSelected" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      B.CC_Code AS ProductLineSub,
+      B.CC_NameCN AS ProductLineSubDesc,
+      DA_PMA_ID PmaId,DA_ID Id,DA_DCL_ID DclId,DA_DMA_ID DmaId,DA_DMA_ID_Actual DmaIdActual,DA_ProductLine_BUM_ID ProductLineBumId,
+      DA_AuthorizationType AuthorizationType,B.CA_NameCN AS PmaDesc
+      ,row_number ()  OVER (ORDER BY  CA_Code ASC) AS [row_number]
+      FROM DealerAuthorizationAreaTemp A
+      LEFT JOIN (SELECT DISTINCT CC_Code,CC_ID,CC_NameCN,CA_ID,CA_Code,CA_NameCN
+      FROM V_ProductClassificationStructure
+      where #BeginDate#  between StartDate and EndDate)  B ON B.CA_ID=A.DA_PMA_ID and B.CC_Code=#SubBU#
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DA_DCL_ID=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertContractAreaProduct" parameterClass="System.Collections.Hashtable">
+      INSERT INTO DealerAuthorizationAreaTemp(DA_PMA_ID,DA_ID,DA_DCL_ID,DA_DMA_ID,DA_DMA_ID_Actual,DA_ProductLine_BUM_ID,DA_AuthorizationType)
+      SELECT B.VAL,NEWID(),#ContractId#,#DealerId#,NULL,#ProductLineId#,CASE  WHEN B.VAL=#ProductLineId# THEN 0 ELSE 1 END
+      FROM dbo.GC_Fn_SplitStringToTable(#ProductString#,',') B
+      WHERE NOT EXISTS(SELECT 1 FROM DealerAuthorizationAreaTemp A WHERE A.DA_DCL_ID=#ContractId# AND CONVERT(NVARCHAR(36),A.DA_PMA_ID)=B.VAL)
+    </insert>
+    <delete id="DeleteAreaProductSelected" parameterClass="string">
+      DELETE DealerAuthorizationAreaTemp WHERE DA_ID=#value#
+    </delete>
+    <select id="GetAuthorizatonArea" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.TA_ID AS Id,C.TER_Code AS Code,C.TER_Description AS Description, row_number () OVER (ORDER BY TER_Description ASC) AS [row_number] FROM TerritoryAreaTemp A INNER JOIN DealerAuthorizationAreaTemp B
+      ON A.TA_DA_ID=B.DA_ID INNER JOIN Territory C ON A.TA_Area=C.TER_ID
+      where TER_ParentID is null AND B.DA_DCL_ID=#ContractId# AND B.DA_ID=#DA_ID#
+    </select>
+    <select id="GetnArea" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select TER_Description as Description , TER_ID as Id,TER_Code as Code from Territory  where TER_ParentID is null and TER_Type=#Type#
+    </select>
+    <insert id="AddContractArea" parameterClass="System.Collections.Hashtable">
+      INSERT INTO TerritoryAreaTemp(TA_DA_ID,TA_ID,TA_Area,TA_Remark)
+      SELECT #DA_ID#,NEWID(),b.VAL,NULL FROM  dbo.GC_Fn_SplitStringToTable(#AreaString#,',') B
+      WHERE NOT EXISTS(SELECT 1 FROM TerritoryAreaTemp A WHERE A.TA_DA_ID=#DA_ID# AND A.TA_Area=b.VAL)
+    </insert>
+    <delete id="DeleteAreaAreaSelected" parameterClass="string">
+      DELETE TerritoryAreaTemp WHERE TA_ID=#value#
+    </delete>
+    <select id="GetAreaAreaCopHospit" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.DA_PMA_ID AS PmaId,B.CA_NameCN AS PmaDesc,A.DA_ID AS Id,A.DA_ProductLine_BUM_ID AS ProductLineBumId
+      ,A.DA_DMA_ID AS DmaId,A.DA_AuthorizationType AS AuthorizationType
+      FROM DealerAuthorizationAreaTemp A
+      INNER JOIN (SELECT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization WHERE #BeginDate#  between CA_StartDate and CA_EndDate) B ON A.DA_PMA_ID=B.CA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DA_DCL_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">A.DA_ID &lt;> #Id#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="CopeAuthorizatonAreaHospit" parameterClass="System.Collections.Hashtable">
+      INSERT INTO TerritoryAreaExcTemp(TAE_DA_ID,TAE_ID,TAE_HOS_ID,TAE_Remark)
+      SELECT #DatId#,NEWID(),TAE_HOS_ID ,NULL FROM TerritoryAreaExcTemp WHERE EXISTS(SELECT 1 FROM DealerAuthorizationAreaTemp A
+      INNER JOIN TerritoryAreaExcTemp B ON A.DA_ID=B.TAE_DA_ID
+      WHERE A.DA_ID=#FromDatID# AND TerritoryAreaExcTemp.TAE_ID=B.TAE_ID)
+      AND NOT EXISTS(SELECT 1 FROM TerritoryAreaExcTemp C INNER JOIN  DealerAuthorizationAreaTemp D
+      ON C.TAE_DA_ID=D.DA_ID WHERE  D.DA_ID=#DatId#  and C.TAE_HOS_ID=TerritoryAreaExcTemp.TAE_HOS_ID)
+    </insert>
+    <insert id="CopeAuthorizatonAreaArea" parameterClass="System.Collections.Hashtable">
+      INSERT INTO TerritoryAreaTemp(TA_DA_ID,TA_ID,TA_Area,TA_Remark)
+      SELECT #DatId#,NEWID(),TA_Area ,NULL FROM TerritoryAreaTemp WHERE EXISTS(SELECT 1 FROM DealerAuthorizationAreaTemp A
+      INNER JOIN TerritoryAreaTemp B ON A.DA_ID=B.TA_DA_ID
+      WHERE A.DA_ID=#FromDatID# AND TerritoryAreaTemp.TA_ID=B.TA_ID)
+      AND NOT EXISTS(SELECT 1 FROM TerritoryAreaTemp C INNER JOIN  DealerAuthorizationAreaTemp D
+      ON C.TA_DA_ID=D.DA_ID WHERE  D.DA_ID=#DatId#  and TerritoryAreaTemp.TA_Area=C.TA_Area )
+    </insert>
+    <delete id="DeleteTerritoryAreaExcTempByDaId" parameterClass="string">
+      DELETE TerritoryAreaExcTemp WHERE TAE_DA_ID=#value#
+    </delete>
+    <select id="QueryDeletedProductTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT B.CA_ID PmaId,B.CA_Code PmaCode,B.CA_NameCN PmaDesc ,
+      row_number ()  OVER (ORDER BY  B.CA_NameCN) as row_number
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_Code,CA_NameCN FROM INTERFACE.ClassificationAuthorization WHERE #BeginDate#  between CA_StartDate and CA_EndDate) B ON A.DAT_PMA_ID=B.CA_ID
+      WHERE A.DAT_DCL_ID=#LastContractId#
+      AND NOT EXISTS(SELECT 1 FROM DealerAuthorizationTableTemp C WHERE C.DAT_PMA_ID=A.DAT_PMA_ID AND C.DAT_DCL_ID=#ContractId#)
+    </select>
+    <select id="QueryDeleteHospitalTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT C.HOS_Key_Account HosKeyAccount,C.HOS_HospitalName HosHospitalName
+      ,row_number ()  OVER (ORDER BY  C.HOS_HospitalName) as row_number
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN ContractTerritory B ON A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON B.HOS_ID=C.HOS_ID
+      WHERE A.DAT_DCL_ID=#LastContractId#
+      AND A.DAT_PMA_ID IN (SELECT DAT_PMA_ID FROM DealerAuthorizationTableTemp WHERE DAT_ID=#DctId#)
+      AND NOT EXISTS(SELECT 1 FROM DealerAuthorizationTableTemp D
+      INNER JOIN ContractTerritory E ON D.DAT_ID=E.Contract_ID
+      WHERE D.DAT_DCL_ID=#ContractId# AND D.DAT_ID=#DctId# AND D.DAT_PMA_ID=A.DAT_PMA_ID AND B.HOS_ID=E.HOS_ID)
+    </select>
+
+    <select id="CheckAuthorizationType" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT [dbo].[GC_Fn_DCMS_GetAuthorizationType](#contractId#) RESOULT
+    </select>
+
+    <select id="SelectTerritoryProductByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT 	t1.HOS_HospitalName AS HospitalName,t1.DepartRemark,[ProductName] =STUFF (
+      (SELECT ',' + tt1.CA_NameCN FROM
+      (SELECT C.HOS_HospitalName,b.HOS_Depart+':'+b.HOS_DepartRemark AS DepartRemark,d.CA_NameCN FROM DealerAuthorizationTableTemp A
+      INNER JOIN ContractTerritory B ON A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HOS_ID
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization where CA_ParentCode=#subu#) D ON D.CA_ID=A.DAT_PMA_ID
+      WHERE A.DAT_DCL_ID=#contractId#) tt1
+      WHERE t1.HOS_HospitalName =tt1.HOS_HospitalName
+      FOR XML PATH ( '' )),1,1,'')
+      FROM	(SELECT C.HOS_HospitalName,b.HOS_Depart+':'+b.HOS_DepartRemark AS DepartRemark,d.CA_NameCN FROM DealerAuthorizationTableTemp A
+      INNER JOIN ContractTerritory B ON A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HOS_ID
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization where CA_ParentCode=#subu#) D ON D.CA_ID=A.DAT_PMA_ID
+      WHERE A.DAT_DCL_ID=#contractId#) t1
+      WHERE #subu# not in ('Frankman','Ritchey')
+      GROUP BY t1.HOS_HospitalName ,t1.DepartRemark
+      UNION ALL
+      SELECT 	t1.HOS_HospitalName AS HospitalName,t1.DepartRemark,[ProductName] =STUFF (
+      (SELECT ',' + tt1.REGName FROM
+      (SELECT DISTINCT C.HOS_HospitalName,F.REGName FROM DealerAuthorizationTableTemp A
+      INNER JOIN ContractTerritory B ON A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HOS_ID
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization where CA_ParentCode=#subu#) D ON D.CA_ID=A.DAT_PMA_ID
+      INNER JOIN cfnClassification E ON D.CA_ID=E.ClassificationId
+      INNER JOIN CFN F ON F.CFN_CustomerFaceNbr = E.cfnCustomerFaceNbr
+      WHERE A.DAT_DCL_ID=#contractId#) tt1
+      WHERE t1.HOS_HospitalName =tt1.HOS_HospitalName
+      FOR XML PATH ( '' )),1,1,'')
+      FROM	(SELECT C.HOS_HospitalName,b.HOS_Depart+':'+b.HOS_DepartRemark AS DepartRemark,d.CA_NameCN FROM DealerAuthorizationTableTemp A
+      INNER JOIN ContractTerritory B ON A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HOS_ID
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization where CA_ParentCode=#subu#) D ON D.CA_ID=A.DAT_PMA_ID
+      WHERE A.DAT_DCL_ID=#contractId#) t1
+      WHERE #subu# in ('Frankman','Ritchey')
+      GROUP BY t1.HOS_HospitalName ,t1.DepartRemark
+    </select>
+
+  </statements>
+</sqlMap>

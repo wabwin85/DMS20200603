@@ -1,0 +1,1723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="DownloadLpOrder">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadLpOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadLpOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthHeader" type="tns:AuthHeader" />
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="DownloadDealerOrder">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadDealerOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDealerOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadLpShipment">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadLpShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadLpShipmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerShipment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerShipmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpShipmentConfirm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpShipmentConfirmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadLpShipmentConfirmResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpSales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpSalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadLpSalesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpReturnConfirm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpReturnConfirmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadLpReturnConfirmResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpBorrow">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpBorrowResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadLpBorrowResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpAdjust">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpAdjustResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadLpAdjustResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerConsignment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerConsignmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerConsignmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerOrderConfirmation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerOrderConfirmationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerOrderConfirmationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDealerSales">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadDealerSalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDealerSalesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadLpHospital">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadLpHospitalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadLpHospitalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadLpDistributor">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadLpDistributorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadLpDistributorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadLpReturn">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadLpReturnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadLpReturnResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDealerReturn">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadDealerReturnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDealerReturnResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadConsignmentWarehouse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadConsignmentWarehouseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadConsignmentWarehouseResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadBSCInvoiceData">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadBSCInvoiceDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadBSCInvoiceDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadProductData">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadProductDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadProductDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerSalesWritebackData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerSalesWritebackDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerSalesWritebackDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerReturnConfirmData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerReturnConfirmDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerReturnConfirmDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerConsignmentSalesPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerConsignmentSalesPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerConsignmentSalesPriceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDMSFiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileBt" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="XML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDMSFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDMSFilesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileBt" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="XML" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="index" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFilesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownLoadLPComplain">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownLoadLPComplainResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownLoadLPComplainResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadT2DealerConsignmentToSelling">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadT2DealerConsignmentToSellingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadT2DealerConsignmentToSellingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadBSCDelivery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadBSCDeliveryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadBSCDeliveryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadJYQRCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadJYQRCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadJYQRCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDealerTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadDealerTransactionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadLPRent">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadLPRentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadLPRentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadT2PointsAdjustment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadT2PointsAdjustmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadT2PointsAdjustmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadT2CreditMemo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadT2CreditMemoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadT2CreditMemoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDMSCalculatedPoints">
+        <s:complexType />
+      </s:element>
+      <s:element name="DownloadDMSCalculatedPointsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDMSCalculatedPointsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadT2Authorization">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadT2AuthorizationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadT2AuthorizationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadT2CommercialIndex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadT2CommercialIndexResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadT2CommercialIndexResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadT2ContactInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadT2ContactInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadT2ContactInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadLpTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadLpTransferResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DownloadLpOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadLpOrder" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadLpOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpOrderAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDealerOrder" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDealerOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerOrderAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadLpShipment" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadLpShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpShipmentAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerShipment" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerShipmentAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpShipmentConfirmSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadLpShipmentConfirm" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpShipmentConfirmSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadLpShipmentConfirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpShipmentConfirmAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpSalesSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadLpSales" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpSalesSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadLpSalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpSalesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpReturnConfirmSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadLpReturnConfirm" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpReturnConfirmSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadLpReturnConfirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpReturnConfirmAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpBorrowSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadLpBorrow" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpBorrowSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadLpBorrowResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpBorrowAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpAdjustSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadLpAdjust" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpAdjustSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadLpAdjustResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpAdjustAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerConsignmentSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerConsignment" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerConsignmentSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerConsignmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerConsignmentAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerOrderConfirmationSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerOrderConfirmation" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerOrderConfirmationSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerOrderConfirmationResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerOrderConfirmationAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerSalesSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDealerSales" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerSalesSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDealerSalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerSalesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpHospitalSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadLpHospital" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpHospitalSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadLpHospitalResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpHospitalAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpDistributorSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadLpDistributor" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpDistributorSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadLpDistributorResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpDistributorAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpReturnSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadLpReturn" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpReturnSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadLpReturnResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLpReturnAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerReturnSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDealerReturn" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerReturnSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDealerReturnResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerReturnAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadConsignmentWarehouseSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadConsignmentWarehouse" />
+  </wsdl:message>
+  <wsdl:message name="UploadConsignmentWarehouseSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadConsignmentWarehouseResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadConsignmentWarehouseAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadBSCInvoiceDataSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadBSCInvoiceData" />
+  </wsdl:message>
+  <wsdl:message name="DownloadBSCInvoiceDataSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadBSCInvoiceDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadBSCInvoiceDataAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProductDataSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadProductData" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProductDataSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadProductDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProductDataAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerSalesWritebackDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerSalesWritebackData" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerSalesWritebackDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerSalesWritebackDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerSalesWritebackDataAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerReturnConfirmDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerReturnConfirmData" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerReturnConfirmDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerReturnConfirmDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerReturnConfirmDataAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerConsignmentSalesPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerConsignmentSalesPrice" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerConsignmentSalesPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerConsignmentSalesPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerConsignmentSalesPriceAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDMSFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDMSFiles" />
+  </wsdl:message>
+  <wsdl:message name="UploadDMSFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDMSFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDMSFilesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFiles" />
+  </wsdl:message>
+  <wsdl:message name="UploadFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFilesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadLPComplainSoapIn">
+    <wsdl:part name="parameters" element="tns:DownLoadLPComplain" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadLPComplainSoapOut">
+    <wsdl:part name="parameters" element="tns:DownLoadLPComplainResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadLPComplainAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2DealerConsignmentToSellingSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadT2DealerConsignmentToSelling" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2DealerConsignmentToSellingSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadT2DealerConsignmentToSellingResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2DealerConsignmentToSellingAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadBSCDeliverySoapIn">
+    <wsdl:part name="parameters" element="tns:UploadBSCDelivery" />
+  </wsdl:message>
+  <wsdl:message name="UploadBSCDeliverySoapOut">
+    <wsdl:part name="parameters" element="tns:UploadBSCDeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadBSCDeliveryAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadJYQRCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadJYQRCode" />
+  </wsdl:message>
+  <wsdl:message name="UploadJYQRCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadJYQRCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadJYQRCodeAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDealerTransaction" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDealerTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDealerTransactionAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLPRentSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadLPRent" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLPRentSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadLPRentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadLPRentAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2PointsAdjustmentSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadT2PointsAdjustment" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2PointsAdjustmentSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadT2PointsAdjustmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2PointsAdjustmentAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2CreditMemoSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadT2CreditMemo" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2CreditMemoSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadT2CreditMemoResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2CreditMemoAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDMSCalculatedPointsSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDMSCalculatedPoints" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDMSCalculatedPointsSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDMSCalculatedPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDMSCalculatedPointsAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2AuthorizationSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadT2Authorization" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2AuthorizationSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadT2AuthorizationResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2AuthorizationAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2CommercialIndexSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadT2CommercialIndex" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2CommercialIndexSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadT2CommercialIndexResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadT2CommercialIndexAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2ContactInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadT2ContactInfo" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2ContactInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadT2ContactInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadT2ContactInfoAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadLpTransfer" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadLpTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadLpTransferAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:portType name="PlatformSoap">
+    <wsdl:operation name="DownloadLpOrder">
+      <wsdl:input message="tns:DownloadLpOrderSoapIn" />
+      <wsdl:output message="tns:DownloadLpOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerOrder">
+      <wsdl:input message="tns:DownloadDealerOrderSoapIn" />
+      <wsdl:output message="tns:DownloadDealerOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpShipment">
+      <wsdl:input message="tns:DownloadLpShipmentSoapIn" />
+      <wsdl:output message="tns:DownloadLpShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerShipment">
+      <wsdl:input message="tns:UploadDealerShipmentSoapIn" />
+      <wsdl:output message="tns:UploadDealerShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpShipmentConfirm">
+      <wsdl:input message="tns:UploadLpShipmentConfirmSoapIn" />
+      <wsdl:output message="tns:UploadLpShipmentConfirmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpSales">
+      <wsdl:input message="tns:UploadLpSalesSoapIn" />
+      <wsdl:output message="tns:UploadLpSalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpReturnConfirm">
+      <wsdl:input message="tns:UploadLpReturnConfirmSoapIn" />
+      <wsdl:output message="tns:UploadLpReturnConfirmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpBorrow">
+      <wsdl:input message="tns:UploadLpBorrowSoapIn" />
+      <wsdl:output message="tns:UploadLpBorrowSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpAdjust">
+      <wsdl:input message="tns:UploadLpAdjustSoapIn" />
+      <wsdl:output message="tns:UploadLpAdjustSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerConsignment">
+      <wsdl:input message="tns:UploadDealerConsignmentSoapIn" />
+      <wsdl:output message="tns:UploadDealerConsignmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerOrderConfirmation">
+      <wsdl:input message="tns:UploadDealerOrderConfirmationSoapIn" />
+      <wsdl:output message="tns:UploadDealerOrderConfirmationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerSales">
+      <wsdl:input message="tns:DownloadDealerSalesSoapIn" />
+      <wsdl:output message="tns:DownloadDealerSalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpHospital">
+      <wsdl:input message="tns:DownloadLpHospitalSoapIn" />
+      <wsdl:output message="tns:DownloadLpHospitalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpDistributor">
+      <wsdl:input message="tns:DownloadLpDistributorSoapIn" />
+      <wsdl:output message="tns:DownloadLpDistributorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpReturn">
+      <wsdl:input message="tns:DownloadLpReturnSoapIn" />
+      <wsdl:output message="tns:DownloadLpReturnSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerReturn">
+      <wsdl:input message="tns:DownloadDealerReturnSoapIn" />
+      <wsdl:output message="tns:DownloadDealerReturnSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadConsignmentWarehouse">
+      <wsdl:input message="tns:UploadConsignmentWarehouseSoapIn" />
+      <wsdl:output message="tns:UploadConsignmentWarehouseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadBSCInvoiceData">
+      <wsdl:input message="tns:DownloadBSCInvoiceDataSoapIn" />
+      <wsdl:output message="tns:DownloadBSCInvoiceDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProductData">
+      <wsdl:input message="tns:DownloadProductDataSoapIn" />
+      <wsdl:output message="tns:DownloadProductDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerSalesWritebackData">
+      <wsdl:input message="tns:UploadDealerSalesWritebackDataSoapIn" />
+      <wsdl:output message="tns:UploadDealerSalesWritebackDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerReturnConfirmData">
+      <wsdl:input message="tns:UploadDealerReturnConfirmDataSoapIn" />
+      <wsdl:output message="tns:UploadDealerReturnConfirmDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerConsignmentSalesPrice">
+      <wsdl:input message="tns:UploadDealerConsignmentSalesPriceSoapIn" />
+      <wsdl:output message="tns:UploadDealerConsignmentSalesPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDMSFiles">
+      <wsdl:input message="tns:UploadDMSFilesSoapIn" />
+      <wsdl:output message="tns:UploadDMSFilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFiles">
+      <wsdl:input message="tns:UploadFilesSoapIn" />
+      <wsdl:output message="tns:UploadFilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadLPComplain">
+      <wsdl:input message="tns:DownLoadLPComplainSoapIn" />
+      <wsdl:output message="tns:DownLoadLPComplainSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2DealerConsignmentToSelling">
+      <wsdl:input message="tns:DownloadT2DealerConsignmentToSellingSoapIn" />
+      <wsdl:output message="tns:DownloadT2DealerConsignmentToSellingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadBSCDelivery">
+      <wsdl:input message="tns:UploadBSCDeliverySoapIn" />
+      <wsdl:output message="tns:UploadBSCDeliverySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadJYQRCode">
+      <wsdl:input message="tns:UploadJYQRCodeSoapIn" />
+      <wsdl:output message="tns:UploadJYQRCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerTransaction">
+      <wsdl:input message="tns:UploadDealerTransactionSoapIn" />
+      <wsdl:output message="tns:UploadDealerTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLPRent">
+      <wsdl:input message="tns:DownloadLPRentSoapIn" />
+      <wsdl:output message="tns:DownloadLPRentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2PointsAdjustment">
+      <wsdl:input message="tns:UploadT2PointsAdjustmentSoapIn" />
+      <wsdl:output message="tns:UploadT2PointsAdjustmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2CreditMemo">
+      <wsdl:input message="tns:UploadT2CreditMemoSoapIn" />
+      <wsdl:output message="tns:UploadT2CreditMemoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDMSCalculatedPoints">
+      <wsdl:input message="tns:DownloadDMSCalculatedPointsSoapIn" />
+      <wsdl:output message="tns:DownloadDMSCalculatedPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2Authorization">
+      <wsdl:input message="tns:DownloadT2AuthorizationSoapIn" />
+      <wsdl:output message="tns:DownloadT2AuthorizationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2CommercialIndex">
+      <wsdl:input message="tns:DownloadT2CommercialIndexSoapIn" />
+      <wsdl:output message="tns:DownloadT2CommercialIndexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2ContactInfo">
+      <wsdl:input message="tns:UploadT2ContactInfoSoapIn" />
+      <wsdl:output message="tns:UploadT2ContactInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpTransfer">
+      <wsdl:input message="tns:UploadLpTransferSoapIn" />
+      <wsdl:output message="tns:UploadLpTransferSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PlatformSoap" type="tns:PlatformSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DownloadLpOrder">
+      <soap:operation soapAction="http://tempuri.org/DownloadLpOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadLpOrderAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerOrder">
+      <soap:operation soapAction="http://tempuri.org/DownloadDealerOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadDealerOrderAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpShipment">
+      <soap:operation soapAction="http://tempuri.org/DownloadLpShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadLpShipmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerShipment">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerShipmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpShipmentConfirm">
+      <soap:operation soapAction="http://tempuri.org/UploadLpShipmentConfirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadLpShipmentConfirmAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpSales">
+      <soap:operation soapAction="http://tempuri.org/UploadLpSales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadLpSalesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpReturnConfirm">
+      <soap:operation soapAction="http://tempuri.org/UploadLpReturnConfirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadLpReturnConfirmAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpBorrow">
+      <soap:operation soapAction="http://tempuri.org/UploadLpBorrow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadLpBorrowAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpAdjust">
+      <soap:operation soapAction="http://tempuri.org/UploadLpAdjust" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadLpAdjustAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerConsignment">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerConsignment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerConsignmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerOrderConfirmation">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerOrderConfirmation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerOrderConfirmationAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerSales">
+      <soap:operation soapAction="http://tempuri.org/DownloadDealerSales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadDealerSalesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpHospital">
+      <soap:operation soapAction="http://tempuri.org/DownloadLpHospital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadLpHospitalAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpDistributor">
+      <soap:operation soapAction="http://tempuri.org/DownloadLpDistributor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadLpDistributorAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpReturn">
+      <soap:operation soapAction="http://tempuri.org/DownloadLpReturn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadLpReturnAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerReturn">
+      <soap:operation soapAction="http://tempuri.org/DownloadDealerReturn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadDealerReturnAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadConsignmentWarehouse">
+      <soap:operation soapAction="http://tempuri.org/UploadConsignmentWarehouse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadConsignmentWarehouseAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadBSCInvoiceData">
+      <soap:operation soapAction="http://tempuri.org/DownloadBSCInvoiceData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadBSCInvoiceDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProductData">
+      <soap:operation soapAction="http://tempuri.org/DownloadProductData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadProductDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerSalesWritebackData">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerSalesWritebackData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerSalesWritebackDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerReturnConfirmData">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerReturnConfirmData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerReturnConfirmDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerConsignmentSalesPrice">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerConsignmentSalesPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerConsignmentSalesPriceAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDMSFiles">
+      <soap:operation soapAction="http://tempuri.org/UploadDMSFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDMSFilesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFiles">
+      <soap:operation soapAction="http://tempuri.org/UploadFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadFilesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadLPComplain">
+      <soap:operation soapAction="http://tempuri.org/DownLoadLPComplain" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownLoadLPComplainAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2DealerConsignmentToSelling">
+      <soap:operation soapAction="http://tempuri.org/DownloadT2DealerConsignmentToSelling" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadT2DealerConsignmentToSellingAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadBSCDelivery">
+      <soap:operation soapAction="http://tempuri.org/UploadBSCDelivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadBSCDeliveryAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadJYQRCode">
+      <soap:operation soapAction="http://tempuri.org/UploadJYQRCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadJYQRCodeAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerTransaction">
+      <soap:operation soapAction="http://tempuri.org/UploadDealerTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadDealerTransactionAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLPRent">
+      <soap:operation soapAction="http://tempuri.org/DownloadLPRent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadLPRentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2PointsAdjustment">
+      <soap:operation soapAction="http://tempuri.org/UploadT2PointsAdjustment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadT2PointsAdjustmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2CreditMemo">
+      <soap:operation soapAction="http://tempuri.org/UploadT2CreditMemo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadT2CreditMemoAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDMSCalculatedPoints">
+      <soap:operation soapAction="http://tempuri.org/DownloadDMSCalculatedPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadDMSCalculatedPointsAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2Authorization">
+      <soap:operation soapAction="http://tempuri.org/DownloadT2Authorization" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadT2AuthorizationAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2CommercialIndex">
+      <soap:operation soapAction="http://tempuri.org/DownloadT2CommercialIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadT2CommercialIndexAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2ContactInfo">
+      <soap:operation soapAction="http://tempuri.org/UploadT2ContactInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadT2ContactInfoAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpTransfer">
+      <soap:operation soapAction="http://tempuri.org/UploadLpTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadLpTransferAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PlatformSoap12" type="tns:PlatformSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DownloadLpOrder">
+      <soap12:operation soapAction="http://tempuri.org/DownloadLpOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadLpOrderAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerOrder">
+      <soap12:operation soapAction="http://tempuri.org/DownloadDealerOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadDealerOrderAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpShipment">
+      <soap12:operation soapAction="http://tempuri.org/DownloadLpShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadLpShipmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerShipment">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerShipmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpShipmentConfirm">
+      <soap12:operation soapAction="http://tempuri.org/UploadLpShipmentConfirm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadLpShipmentConfirmAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpSales">
+      <soap12:operation soapAction="http://tempuri.org/UploadLpSales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadLpSalesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpReturnConfirm">
+      <soap12:operation soapAction="http://tempuri.org/UploadLpReturnConfirm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadLpReturnConfirmAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpBorrow">
+      <soap12:operation soapAction="http://tempuri.org/UploadLpBorrow" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadLpBorrowAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpAdjust">
+      <soap12:operation soapAction="http://tempuri.org/UploadLpAdjust" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadLpAdjustAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerConsignment">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerConsignment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerConsignmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerOrderConfirmation">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerOrderConfirmation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerOrderConfirmationAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerSales">
+      <soap12:operation soapAction="http://tempuri.org/DownloadDealerSales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadDealerSalesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpHospital">
+      <soap12:operation soapAction="http://tempuri.org/DownloadLpHospital" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadLpHospitalAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpDistributor">
+      <soap12:operation soapAction="http://tempuri.org/DownloadLpDistributor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadLpDistributorAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLpReturn">
+      <soap12:operation soapAction="http://tempuri.org/DownloadLpReturn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadLpReturnAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerReturn">
+      <soap12:operation soapAction="http://tempuri.org/DownloadDealerReturn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadDealerReturnAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadConsignmentWarehouse">
+      <soap12:operation soapAction="http://tempuri.org/UploadConsignmentWarehouse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadConsignmentWarehouseAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadBSCInvoiceData">
+      <soap12:operation soapAction="http://tempuri.org/DownloadBSCInvoiceData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadBSCInvoiceDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProductData">
+      <soap12:operation soapAction="http://tempuri.org/DownloadProductData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadProductDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerSalesWritebackData">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerSalesWritebackData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerSalesWritebackDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerReturnConfirmData">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerReturnConfirmData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerReturnConfirmDataAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerConsignmentSalesPrice">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerConsignmentSalesPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerConsignmentSalesPriceAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDMSFiles">
+      <soap12:operation soapAction="http://tempuri.org/UploadDMSFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDMSFilesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFiles">
+      <soap12:operation soapAction="http://tempuri.org/UploadFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadFilesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadLPComplain">
+      <soap12:operation soapAction="http://tempuri.org/DownLoadLPComplain" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownLoadLPComplainAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2DealerConsignmentToSelling">
+      <soap12:operation soapAction="http://tempuri.org/DownloadT2DealerConsignmentToSelling" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadT2DealerConsignmentToSellingAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadBSCDelivery">
+      <soap12:operation soapAction="http://tempuri.org/UploadBSCDelivery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadBSCDeliveryAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadJYQRCode">
+      <soap12:operation soapAction="http://tempuri.org/UploadJYQRCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadJYQRCodeAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDealerTransaction">
+      <soap12:operation soapAction="http://tempuri.org/UploadDealerTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadDealerTransactionAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadLPRent">
+      <soap12:operation soapAction="http://tempuri.org/DownloadLPRent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadLPRentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2PointsAdjustment">
+      <soap12:operation soapAction="http://tempuri.org/UploadT2PointsAdjustment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadT2PointsAdjustmentAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2CreditMemo">
+      <soap12:operation soapAction="http://tempuri.org/UploadT2CreditMemo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadT2CreditMemoAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDMSCalculatedPoints">
+      <soap12:operation soapAction="http://tempuri.org/DownloadDMSCalculatedPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadDMSCalculatedPointsAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2Authorization">
+      <soap12:operation soapAction="http://tempuri.org/DownloadT2Authorization" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadT2AuthorizationAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadT2CommercialIndex">
+      <soap12:operation soapAction="http://tempuri.org/DownloadT2CommercialIndex" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadT2CommercialIndexAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadT2ContactInfo">
+      <soap12:operation soapAction="http://tempuri.org/UploadT2ContactInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadT2ContactInfoAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadLpTransfer">
+      <soap12:operation soapAction="http://tempuri.org/UploadLpTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadLpTransferAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Platform">
+    <wsdl:port name="PlatformSoap" binding="tns:PlatformSoap">
+      <soap:address location="https://dmstest.bpmedtech.com/services/platform.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PlatformSoap12" binding="tns:PlatformSoap12">
+      <soap12:address location="https://dmstest.bpmedtech.com/services/platform.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

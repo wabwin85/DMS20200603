@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="BulletinMainMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="BulletinMain" assembly="DMS.Model.dll" type="DMS.Model.BulletinMain" />
+  </alias>
+  <resultMaps>
+    <resultMap id="BulletinMainResult" class="BulletinMain">
+      <result property="Id" column="BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="Title" column="BUM_Title" type="string" dbType="varchar"/>
+      <result property="Body" column="BUM_Body" type="string" dbType="varchar"/>
+      <result property="UrgentDegree" column="BUM_UrgentDegree" type="string" dbType="varchar"/>
+      <result property="ReadFlag" column="BUM_ReadFlag" type="bool" dbType="bool"/>
+      <result property="Status" column="BUM_Status" type="string" dbType="varchar"/>
+      <result property="ExpirationDate" column="BUM_ExpirationDate" type="DateTime" dbType="DateTime"/>
+      <result property="PublishedUser" column="BUM_PublishedUser" type="Guid" dbType="Guid"/>
+      <result property="PublishedDate" column="BUM_PublishedDate" type="DateTime" dbType="DateTime"/>
+      <result property="CreateUser" column="BUM_CreateUser" type="Guid" dbType="Guid"/>
+      <result property="CreateDate" column="BUM_CreateDate" type="DateTime" dbType="DateTime"/>
+      <result property="UpdateUser" column="BUM_UpdateUser" type="Guid" dbType="Guid"/>
+      <result property="UpdateDate" column="BUM_UpdateDate" type="DateTime" dbType="DateTime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectBulletinMain" parameterClass="string" resultClass="BulletinMain">
+      SELECT BUM_ID AS Id,BUM_Title AS Title,BUM_Body AS Body,BUM_UrgentDegree AS UrgentDegree,BUM_ReadFlag AS ReadFlag,BUM_Status AS Status,BUM_ExpirationDate AS ExpirationDate,BUM_PublishedUser AS PublishedUser,BUM_PublishedDate AS PublishedDate,BUM_CreateUser AS CreateUser,BUM_CreateDate AS CreateDate,BUM_UpdateUser AS UpdateUser,BUM_UpdateDate AS UpdateDate
+      FROM BulletinMain
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          BUM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterBulletinMain" parameterClass="BulletinMain" resultClass="BulletinMain">
+      SELECT BUM_ID AS Id,BUM_Title AS Title,BUM_Body AS Body,BUM_UrgentDegree AS UrgentDegree,BUM_ReadFlag AS ReadFlag,BUM_Status AS Status,BUM_ExpirationDate AS ExpirationDate,BUM_PublishedUser AS PublishedUser,BUM_PublishedDate AS PublishedDate,BUM_CreateUser AS CreateUser,BUM_CreateDate AS CreateDate,BUM_UpdateUser AS UpdateUser,BUM_UpdateDate AS UpdateDate
+      FROM BulletinMain
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">BUM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Title">BUM_Title=#Title#</isNotNull>
+        <isNotNull prepend="AND" property="Body">BUM_Body=#Body#</isNotNull>
+        <isNotNull prepend="AND" property="UrgentDegree">BUM_UrgentDegree=#UrgentDegree#</isNotNull>
+        <isNotNull prepend="AND" property="ReadFlag">BUM_ReadFlag=#ReadFlag#</isNotNull>
+        <isNotNull prepend="AND" property="Status">BUM_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ExpirationDate">BUM_ExpirationDate=#ExpirationDate#</isNotNull>
+        <isNotNull prepend="AND" property="PublishedUser">BUM_PublishedUser=#PublishedUser#</isNotNull>
+        <isNotNull prepend="AND" property="PublishedDate">BUM_PublishedDate=#PublishedDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">BUM_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">BUM_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertBulletinMain" parameterClass="BulletinMain">
+      INSERT INTO BulletinMain
+      (BUM_ID,BUM_Title,BUM_Body,BUM_UrgentDegree,BUM_ReadFlag,BUM_Status,BUM_ExpirationDate,BUM_PublishedUser,BUM_PublishedDate,BUM_CreateUser,BUM_CreateDate,BUM_UpdateUser,BUM_UpdateDate)
+      VALUES(#Id#,#Title#,#Body#,#UrgentDegree#,#ReadFlag#,#Status#,#ExpirationDate:DateTime:1/1/0001 12:00:00 AM#,#PublishedUser#,#PublishedDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateBulletinMain" parameterClass="BulletinMain">
+      UPDATE BulletinMain
+      SET BUM_ID=#Id#,BUM_Title=#Title#,BUM_Body=#Body#,BUM_UrgentDegree=#UrgentDegree#,BUM_ReadFlag=#ReadFlag#,BUM_Status=#Status#,BUM_ExpirationDate=#ExpirationDate#,BUM_PublishedUser=#PublishedUser#,BUM_PublishedDate=#PublishedDate#,BUM_UpdateUser=#UpdateUser#,BUM_UpdateDate=#UpdateDate#
+      WHERE BUM_ID = #Id#
+    </update>
+    <delete id="DeleteBulletinMain" parameterClass="string">
+      DELETE FROM BulletinMain
+      WHERE BUM_ID = #value#
+    </delete>
+
+    <!--added by songyuqi on 20100601-->
+    <select id="QuerySelectByFilterBulletinMain" parameterClass="System.Collections.Hashtable" resultClass="BulletinMain">
+      SELECT BUM_ID AS Id,BUM_Title AS Title,BUM_Body AS Body,BUM_UrgentDegree AS UrgentDegree,BUM_ReadFlag AS ReadFlag,BUM_Status AS Status,CONVERT(varchar(10), BUM_ExpirationDate, 120) AS ExpirationDate,BUM_PublishedUser AS PublishedUser,li.IDENTITY_NAME As IdentityName,CONVERT(varchar(10), BUM_PublishedDate, 120) AS PublishedDate,BUM_CreateUser AS CreateUser,BUM_CreateDate AS CreateDate,BUM_UpdateUser AS UpdateUser,BUM_UpdateDate AS UpdateDate
+      ,row_number() OVER (ORDER BY BUM_PublishedDate DESC) AS row_number FROM BulletinMain bm INNER JOIN Lafite_IDENTITY li on bm.BUM_PublishedUser = li.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Title">BUM_Title like '%$Title$%'</isNotNull>
+        <isNotNull prepend="AND" property="UrgentDegree">BUM_UrgentDegree=#UrgentDegree#</isNotNull>
+        <isNotNull prepend="AND" property="Status">BUM_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ExpirationBeginDate">CONVERT(varchar(100), BUM_ExpirationDate, 112) >= #ExpirationBeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="ExpirationEndDate">CONVERT(varchar(100), BUM_ExpirationDate, 112) &lt;= #ExpirationEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="PublishedUser">li.IDENTITY_NAME LIKE '%$PublishedUser$%'</isNotNull>
+        <isNotNull prepend="AND" property="PublishedBeginDate">CONVERT(varchar(100), BUM_PublishedDate, 112) >= #PublishedBeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="PublishedEndDate">CONVERT(varchar(100), BUM_PublishedDate, 112) &lt;= #PublishedEndDate#</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="UpdateBulletinMainStatus" parameterClass="BulletinMain">
+      UPDATE BulletinMain
+      SET BUM_Status=#Status#
+      WHERE BUM_ID = #Id#
+    </update>
+
+    <select id="QuerySelectByFilterBulletinMainOfSearch" parameterClass="System.Collections.Hashtable" resultClass="BulletinMain">
+      SELECT BUM_ID AS Id,BUM_Title AS Title,BUM_Body AS Body,BUM_UrgentDegree AS UrgentDegree,BUM_ReadFlag AS ReadFlag,BUM_Status AS Status,CONVERT(varchar(10), BUM_ExpirationDate, 120) AS ExpirationDate,BUM_PublishedUser AS PublishedUser,li.IDENTITY_NAME As IdentityName,CONVERT(varchar(10), BUM_PublishedDate, 120) AS PublishedDate,BUM_CreateUser AS CreateUser,BUM_CreateDate AS CreateDate,BUM_UpdateUser AS UpdateUser,BUM_UpdateDate AS UpdateDate,
+      bd.BUD_IsRead AS IsRead,bd.BUD_IsConfirm AS IsConfirm,row_number() OVER (ORDER BY BUM_PublishedDate DESC) AS row_number FROM BulletinMain bm INNER JOIN Lafite_IDENTITY li on bm.BUM_PublishedUser = li.Id INNER JOIN BulletinDetail bd on bd.BUD_BUM_ID = bm.BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Title">BUM_Title like '%$Title$%'</isNotNull>
+        <isNotNull prepend="AND" property="UrgentDegree">BUM_UrgentDegree=#UrgentDegree#</isNotNull>
+        <isNotNull prepend="AND" property="Status">BUM_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="PublishedUser">li.IDENTITY_NAME LIKE '%$PublishedUser$%'</isNotNull>
+        <isNotNull prepend="AND" property="PublishedBeginDate">CONVERT(varchar(100), BUM_PublishedDate, 112) >= #PublishedBeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="PublishedEndDate">CONVERT(varchar(100), BUM_PublishedDate, 112) &lt;= #PublishedEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="ExpirationDate">CONVERT(varchar(100), BUM_ExpirationDate, 112) >= #ExpirationDate#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">bd.BUD_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ReadFlag">BUM_ReadFlag=#ReadFlag#</isNotNull>
+        <isNotNull prepend="AND" property="IsRead">bd.BUD_IsRead=#IsRead#</isNotNull>
+        <isNotNull prepend="AND" property="IsConfirm">bd.BUD_IsConfirm=#IsConfirm#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="QueryTopTenBulletinMainOnLogin" parameterClass="System.Collections.Hashtable" resultClass="BulletinMain">
+      SELECT Top 10
+      BUM_ID AS Id,
+      BUM_Title AS Title,
+      BUM_Body AS Body,
+      BUM_UrgentDegree AS UrgentDegree,
+      BUM_ReadFlag AS ReadFlag,
+      BUM_Status AS Status,
+      CONVERT(varchar(10),
+      BUM_ExpirationDate, 120) AS ExpirationDate,
+      BUM_PublishedUser AS PublishedUser,
+      li.IDENTITY_NAME As IdentityName,
+      CONVERT(varchar(10), BUM_PublishedDate, 120) AS PublishedDate,
+      BUM_CreateUser AS CreateUser,
+      BUM_CreateDate AS CreateDate,
+      BUM_UpdateUser AS UpdateUser,
+      BUM_UpdateDate AS UpdateDate
+      FROM BulletinMain bm INNER JOIN Lafite_IDENTITY li on bm.BUM_PublishedUser = li.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Status">BUM_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ExpirationDate">CONVERT(varchar(100), BUM_ExpirationDate, 112) >= #ExpirationDate#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">
+          exists (select 1 from BulletinDetail bd where bd.BUD_BUM_ID = bm.BUM_ID
+          and bd.BUD_Dealer_DMA_ID = #DealerId#)
+        </isNotNull>
+      </dynamic>
+      ORDER BY bm.BUM_UpdateDate DESC
+    </select>
+    <select id="QuerySelectBulletinMain" parameterClass="System.Collections.Hashtable" resultClass="BulletinMain">
+      SELECT BUM_ID AS Id,BUM_Title AS Title,BUM_Body AS Body,BUM_UrgentDegree AS UrgentDegree,BUM_ReadFlag AS ReadFlag,BUM_Status AS Status,BUM_ExpirationDate AS ExpirationDate,BUM_PublishedUser AS PublishedUser,li.IDENTITY_NAME As IdentityName,BUM_PublishedDate AS PublishedDate,bd.BUD_IsRead AS IsRead,bd.BUD_IsConfirm AS IsConfirm,BUM_CreateUser AS CreateUser,BUM_CreateDate AS CreateDate,BUM_UpdateUser AS UpdateUser,BUM_UpdateDate AS UpdateDate
+      FROM BulletinMain bm INNER JOIN Lafite_IDENTITY li on bm.BUM_PublishedUser = li.Id INNER JOIN BulletinDetail bd on bd.BUD_BUM_ID = bm.BUM_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          bd.BUD_BUM_ID=#BumId# and bd.BUD_Dealer_DMA_ID=#DealerDmaId#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="QuerySelectBulletinMainUsedBySynthesHome" parameterClass="System.Collections.Hashtable" resultClass="BulletinMain">
+      SELECT BUM_ID AS Id,
+      BUM_Title AS Title,
+      BUM_Body AS Body,
+      BUM_UrgentDegree AS UrgentDegree,
+      BUM_ReadFlag AS ReadFlag,
+      BUM_Status AS Status,
+      BUM_ExpirationDate AS ExpirationDate,
+      BUM_PublishedUser AS PublishedUser,
+      li.IDENTITY_NAME AS IdentityName,
+      BUM_PublishedDate AS PublishedDate,
+      BUM_CreateUser AS CreateUser,
+      BUM_CreateDate AS CreateDate,
+      BUM_UpdateUser AS UpdateUser,
+      BUM_UpdateDate AS UpdateDate
+      FROM BulletinMain bm INNER JOIN Lafite_IDENTITY li ON bm.BUM_PublishedUser = li.Id
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          bm.BUM_ID=#BumId#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <!--end-->
+    <insert id="InsertMain" parameterClass="System.Collections.Hashtable">
+      INSERT INTO BulletinMain
+      (BUM_ID,BUM_Title,BUM_Body,BUM_UrgentDegree,BUM_ReadFlag,BUM_Status,BUM_ExpirationDate,BUM_PublishedUser,BUM_PublishedDate,BUM_CreateUser,BUM_CreateDate,BUM_UpdateUser,BUM_UpdateDate)
+      VALUES(#Id#,#Title#,#Body#,#UrgentDegree#,#ReadFlag#,#Status#,#ExpirationDate:DateTime:1/1/0001 12:00:00 AM#,#PublishedUser#,#PublishedDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <select id="DCM.BulletinMainMap.SelectListForDashboard" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT TOP 10 
+               Main.BUM_ID AS Id,
+               Main.BUM_Title AS Title,
+               Main.BUM_Body AS Body,
+               CONVERT(VARCHAR(19), Main.BUM_PublishedDate, 121) AS PublishedDate,
+               CASE 
+                    WHEN 'False' = #IsDealer# THEN 0
+                    WHEN Main.BUM_ReadFlag = 1 AND EXISTS (
+                             SELECT 1
+                             FROM   BulletinDetail Detail
+                             WHERE  Detail.BUD_BUM_ID = Main.BUM_ID
+                                    AND Detail.BUD_Dealer_DMA_ID = #DealerId#
+                                    AND Detail.BUD_IsConfirm = 0
+                         ) THEN 1
+                    ELSE 0
+               END AS ConfirmFlag
+        FROM   BulletinMain Main
+        WHERE  Main.BUM_ExpirationDate >= GETDATE()
+               AND Main.BUM_Status = 'Published'
+      ]]>
+      <isEqual property="IsDealer" compareValue="True">
+      <![CDATA[
+               AND EXISTS (
+                       SELECT 1
+                       FROM   BulletinDetail Detail
+                       WHERE  Detail.BUD_BUM_ID = Main.BUM_ID
+                              AND Detail.BUD_Dealer_DMA_ID = #DealerId#
+                   )
+      ]]>
+      </isEqual>
+      <![CDATA[
+        ORDER BY
+               CASE 
+                    WHEN 'False' = #IsDealer# THEN 0
+                    WHEN Main.BUM_ReadFlag = 1 AND EXISTS (
+                             SELECT 1
+                             FROM   BulletinDetail Detail
+                             WHERE  Detail.BUD_BUM_ID = Main.BUM_ID
+                                    AND Detail.BUD_Dealer_DMA_ID = #DealerId#
+                                    AND Detail.BUD_IsConfirm = 0
+                         ) THEN 1
+                    ELSE 0
+               END DESC,
+               Main.BUM_UpdateDate DESC
+      ]]>
+    </select>
+    <select id="DCM.BulletinMainMap.SelectInfoForDashboard" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT Main.BUM_ID AS Id,
+               Main.BUM_Title AS Title,
+               Main.BUM_Body AS Body,
+               CONVERT(VARCHAR(19), Main.BUM_PublishedDate, 121) AS PublishedDate,
+               CASE 
+                    WHEN 'False' = #IsDealer# THEN 0
+                    WHEN Main.BUM_ReadFlag = 1 AND EXISTS (
+                             SELECT 1
+                             FROM   BulletinDetail Detail
+                             WHERE  Detail.BUD_BUM_ID = Main.BUM_ID
+                                    AND Detail.BUD_Dealer_DMA_ID = #DealerId#
+                                    AND Detail.BUD_IsConfirm = 0
+                         ) THEN 1
+                    ELSE 0
+               END AS ConfirmFlag
+        FROM   BulletinMain Main
+        WHERE  Main.BUM_ID = #Id#
+      ]]>
+    </select>
+  </statements>
+</sqlMap>

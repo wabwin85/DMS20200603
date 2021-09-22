@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DeliveryNoteMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DeliveryNote" assembly="DMS.Model.dll" type="DMS.Model.DeliveryNote" />
+    <typeAlias alias="InterfaceOrderStatus" assembly="DMS.Model.dll" type="DMS.Model.OrderStatusData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DeliveryNoteResult" class="DeliveryNote">
+      <result property="Id" column="DNL_ID" type="Guid" dbType="Guid"/>
+      <result property="LineNbrInFile" column="DNL_LineNbrInFile" type="int" dbType="Int"/>
+      <result property="ShipToDealerCode" column="DNL_ShipToDealerCode" type="string" dbType="varchar"/>
+      <result property="SapCode" column="DNL_SAPCode" type="string" dbType="varchar"/>
+      <result property="PoNbr" column="DNL_PONbr" type="string" dbType="varchar"/>
+      <result property="DeliveryNoteNbr" column="DNL_DeliveryNoteNbr" type="string" dbType="varchar"/>
+      <result property="Cfn" column="DNL_CFN" type="string" dbType="varchar"/>
+      <result property="Upn" column="DNL_UPN" type="string" dbType="varchar"/>
+      <result property="LotNumber" column="DNL_LotNumber" type="string" dbType="varchar"/>
+      <result property="ExpiredDate" column="DNL_ExpiredDate" type="DateTime" dbType="DateTime"/>
+      <result property="DnUnitOfMeasure" column="DNL_DN_UnitOfMeasure" type="string" dbType="varchar"/>
+      <result property="ReceiveUnitOfMeasure" column="DNL_ReceiveUnitOfMeasure" type="string" dbType="varchar"/>
+      <result property="ShipQty" column="DNL_ShipQty" type="double" dbType="Real"/>
+      <result property="ReceiveQty" column="DNL_ReceiveQty" type="double" dbType="Real"/>
+      <result property="ShipmentDate" column="DNL_ShipmentDate" type="DateTime" dbType="DateTime"/>
+      <result property="ImportFileName" column="DNL_ImportFileName" type="string" dbType="varchar"/>
+      <result property="OrderType" column="DNL_OrderType" type="string" dbType="varchar"/>
+      <result property="UnitPrice" column="DNL_UnitPrice" type="double" dbType="Real"/>
+      <result property="SubTotal" column="DNL_SubTotal" type="double" dbType="Real"/>
+      <result property="CreateDate" column="DNL_CreatedDate" type="DateTime" dbType="DateTime"/>
+      <result property="ProblemDescription" column="DNL_ProblemDescription" type="string" dbType="varchar"/>
+      <result property="ProductDescription" column="DNL_ProductDescription" type="string" dbType="varchar"/>
+      <result property="SapsoLine" column="DNL_SAPSOLine" type="string" dbType="varchar"/>
+      <result property="SapSalesOrderid" column="DNL_SAPSalesOrderID" type="string" dbType="varchar"/>
+      <result property="PoReceiptLotPrlId" column="DNL_POReceiptLot_PRL_ID" type="Guid" dbType="Guid"/>
+      <result property="HandleDate" column="DNL_HandleDate" type="DateTime" dbType="DateTime"/>
+      <result property="DealeridDmaId" column="DNL_DealerID_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="CfnId" column="DNL_CFN_ID" type="Guid" dbType="Guid"/>
+      <result property="BuName" column="DNL_BUName" type="string" dbType="varchar"/>
+      <result property="ProductPmaId" column="DNL_Product_PMA_ID" type="Guid" dbType="Guid"/>
+      <result property="ProductLineBumId" column="DNL_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="Authorized" column="DNL_Authorized" type="bool" dbType="bool"/>
+      <!--added by bozhenfei on 20100612-->
+      <result property="ShipmentType" column="DNL_ShipmentType" type="string" dbType="varchar"/>
+      <result property="CreateUser" column="DNL_CreateUser" type="Guid" dbType="Guid"/>
+      <result property="Carrier" column="DNL_Carrier" type="string" dbType="varchar"/>
+      <result property="TrackingNo" column="DNL_TrackingNo" type="string" dbType="varchar"/>
+      <result property="ShipType" column="DNL_ShipType" type="string" dbType="varchar"/>
+      <result property="Note" column="DNL_Note" type="string" dbType="varchar"/>
+      <result property="ProductCatagoryPctId" column="DNL_ProductCatagory_PCT_ID" type="Guid" dbType="Guid"/>
+      <result property="SapDeliveryDate" column="DNL_SapDeliveryDate" type="DateTime" dbType="datetime"/>
+      <!--end-->
+      <!--added by bozhenfei on 20130902-->
+      <result property="LtmId" column="DNL_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ToWhmCode" column="DNL_ToWhmCode" type="string" dbType="nvarchar"/>
+      <result property="ToWhmId" column="DNL_ToWhmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Clientid" column="DNL_ClientID" type="string" dbType="nvarchar"/>
+      <result property="SapDeliveryLineNbr" column="DNL_SapDeliveryLineNbr" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="DNL_BatchNbr" type="string" dbType="nvarchar"/>
+      <!--end-->
+    </resultMap>
+    <resultMap id="InterfaceOrderStatusRes" class="InterfaceOrderStatus">
+      <result property="Id" column="Id" type="Guid" dbType="Guid"/>
+      <result property="LineNbr" column="LineNbr" type="int" dbType="Int"/>
+      <result property="OrderNo" column="OrderNo" type="string" dbType="varchar"/>
+      <result property="OrderStatus" column="OrderStatus" type="string" dbType="varchar"/>
+      <result property="ImportDate" column="ImportDate" type="DateTime" dbType="DateTime"/>
+      <result property="ProcessDate" column="ProcessDate" type="DateTime" dbType="datetime"/>
+      <result property="ClientId" column="ClientId" type="string" dbType="nvarchar"/>
+      <result property="ProblemDescription" column="ProblemDescription" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="DNL_BatchNbr" type="string" dbType="nvarchar"/>
+      <!--end-->
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDeliveryNote" parameterClass="string" resultClass="DeliveryNote">
+      SELECT DNL_ID AS Id,DNL_LineNbrInFile AS LineNbrInFile,DNL_ShipToDealerCode AS ShipToDealerCode,DNL_SAPCode AS SapCode,DNL_PONbr AS PoNbr,DNL_DeliveryNoteNbr AS DeliveryNoteNbr,DNL_CFN AS Cfn,DNL_UPN AS Upn,DNL_LotNumber AS LotNumber,DNL_ExpiredDate AS ExpiredDate,DNL_DN_UnitOfMeasure AS DnUnitOfMeasure,DNL_ReceiveUnitOfMeasure AS ReceiveUnitOfMeasure,DNL_ShipQty AS ShipQty,DNL_ReceiveQty AS ReceiveQty,DNL_ShipmentDate AS ShipmentDate,DNL_ImportFileName AS ImportFileName,DNL_OrderType AS OrderType,DNL_UnitPrice AS UnitPrice,DNL_SubTotal AS SubTotal,DNL_CreatedDate AS CreateDate,DNL_ProblemDescription AS ProblemDescription,DNL_ProductDescription AS ProductDescription,DNL_SAPSOLine AS SapsoLine,DNL_SAPSalesOrderID AS SapSalesOrderid,DNL_POReceiptLot_PRL_ID AS PoReceiptLotPrlId,DNL_HandleDate AS HandleDate,DNL_DealerID_DMA_ID AS DealeridDmaId,DNL_CFN_ID AS CfnId,DNL_BUName AS BuName,DNL_Product_PMA_ID AS ProductPmaId,DNL_ProductLine_BUM_ID AS ProductLineBumId,DNL_Authorized AS Authorized,DNL_ShipmentType AS ShipmentType,DNL_CreateUser AS CreateUser,DNL_Carrier AS Carrier,DNL_TrackingNo AS TrackingNo,DNL_ShipType AS ShipType,DNL_Note AS Note,DNL_ProductCatagory_PCT_ID AS ProductCatagoryPctId,DNL_SapDeliveryDate AS SapDeliveryDate,DNL_LTM_ID AS LtmId,DNL_ToWhmCode AS ToWhmCode,DNL_ToWhmId AS ToWhmId,DNL_ClientID AS Clientid,DNL_SapDeliveryLineNbr AS SapDeliveryLineNbr,DNL_BatchNbr AS BatchNbr
+      FROM DeliveryNote
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DNL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDeliveryNote" parameterClass="DeliveryNote" resultClass="DeliveryNote">
+      SELECT DNL_ID AS Id,DNL_LineNbrInFile AS LineNbrInFile,DNL_ShipToDealerCode AS ShipToDealerCode,DNL_SAPCode AS SapCode,DNL_PONbr AS PoNbr,DNL_DeliveryNoteNbr AS DeliveryNoteNbr,DNL_CFN AS Cfn,DNL_UPN AS Upn,DNL_LotNumber AS LotNumber,DNL_ExpiredDate AS ExpiredDate,DNL_DN_UnitOfMeasure AS DnUnitOfMeasure,DNL_ReceiveUnitOfMeasure AS ReceiveUnitOfMeasure,DNL_ShipQty AS ShipQty,DNL_ReceiveQty AS ReceiveQty,DNL_ShipmentDate AS ShipmentDate,DNL_ImportFileName AS ImportFileName,DNL_OrderType AS OrderType,DNL_UnitPrice AS UnitPrice,DNL_SubTotal AS SubTotal,DNL_CreatedDate AS CreateDate,DNL_ProblemDescription AS ProblemDescription,DNL_ProductDescription AS ProductDescription,DNL_SAPSOLine AS SapsoLine,DNL_SAPSalesOrderID AS SapSalesOrderid,DNL_POReceiptLot_PRL_ID AS PoReceiptLotPrlId,DNL_HandleDate AS HandleDate,DNL_DealerID_DMA_ID AS DealeridDmaId,DNL_CFN_ID AS CfnId,DNL_BUName AS BuName,DNL_Product_PMA_ID AS ProductPmaId,DNL_ProductLine_BUM_ID AS ProductLineBumId,DNL_Authorized AS Authorized,DNL_ShipmentType AS ShipmentType,DNL_CreateUser AS CreateUser,DNL_Carrier AS Carrier,DNL_TrackingNo AS TrackingNo,DNL_ShipType AS ShipType,DNL_Note AS Note,DNL_ProductCatagory_PCT_ID AS ProductCatagoryPctId,DNL_SapDeliveryDate AS SapDeliveryDate,DNL_LTM_ID AS LtmId,DNL_ToWhmCode AS ToWhmCode,DNL_ToWhmId AS ToWhmId,DNL_ClientID AS Clientid,DNL_SapDeliveryLineNbr AS SapDeliveryLineNbr,DNL_BatchNbr AS BatchNbr
+      FROM DeliveryNote
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">DNL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbrInFile">DNL_LineNbrInFile=#LineNbrInFile#</isNotNull>
+        <isNotNull prepend="AND" property="ShipToDealerCode">DNL_ShipToDealerCode=#ShipToDealerCode#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DNL_SAPCode=#SapCode#</isNotNull>
+        <isNotNull prepend="AND" property="PoNbr">DNL_PONbr=#PoNbr#</isNotNull>
+        <isNotNull prepend="AND" property="DeliveryNoteNbr">DNL_DeliveryNoteNbr=#DeliveryNoteNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">DNL_CFN=#Cfn#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">DNL_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">DNL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">DNL_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="DnUnitOfMeasure">DNL_DN_UnitOfMeasure=#DnUnitOfMeasure#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiveUnitOfMeasure">DNL_ReceiveUnitOfMeasure=#ReceiveUnitOfMeasure#</isNotNull>
+        <isNotNull prepend="AND" property="ShipQty">DNL_ShipQty=#ShipQty#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiveQty">DNL_ReceiveQty=#ReceiveQty#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">DNL_ShipmentDate=#ShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="ImportFileName">DNL_ImportFileName=#ImportFileName#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">DNL_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">DNL_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="SubTotal">DNL_SubTotal=#SubTotal#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">DNL_ProblemDescription=#ProblemDescription#</isNotNull>
+        <isNotNull prepend="AND" property="ProductDescription">DNL_ProductDescription=#ProductDescription#</isNotNull>
+        <isNotNull prepend="AND" property="SapsoLine">DNL_SAPSOLine=#SapsoLine#</isNotNull>
+        <isNotNull prepend="AND" property="SapSalesOrderid">DNL_SAPSalesOrderID=#SapSalesOrderid#</isNotNull>
+        <isNotNull prepend="AND" property="PoReceiptLotPrlId">DNL_POReceiptLot_PRL_ID=#PoReceiptLotPrlId#</isNotNull>
+        <isNotNull prepend="AND" property="HandleDate">DNL_HandleDate=#HandleDate#</isNotNull>
+        <isNotNull prepend="AND" property="DealeridDmaId">DNL_DealerID_DMA_ID=#DealeridDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">DNL_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BuName">DNL_BUName=#BuName#</isNotNull>
+        <isNotNull prepend="AND" property="ProductPmaId">DNL_Product_PMA_ID=#ProductPmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">DNL_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Authorized">DNL_Authorized=#Authorized#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentType">DNL_ShipmentType=#ShipmentType#</isNotNull>
+        <isNotNull prepend="AND" property="Carrier">DNL_Carrier=#Carrier#</isNotNull>
+        <isNotNull prepend="AND" property="TrackingNo">DNL_TrackingNo=#TrackingNo#</isNotNull>
+        <isNotNull prepend="AND" property="ShipType">DNL_ShipType=#ShipType#</isNotNull>
+        <isNotNull prepend="AND" property="Note">DNL_Note=#Note#</isNotNull>
+        <isNotNull prepend="AND" property="ProductCatagoryPctId">DNL_ProductCatagory_PCT_ID=#ProductCatagoryPctId#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryDate">DNL_SapDeliveryDate=#SapDeliveryDate#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">DNL_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="ToWhmCode">DNL_ToWhmCode=#ToWhmCode#</isNotNull>
+        <isNotNull prepend="AND" property="ToWhmId">DNL_ToWhmId=#ToWhmId#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">DNL_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryLineNbr">DNL_SapDeliveryLineNbr=#SapDeliveryLineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">DNL_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDeliveryNote" parameterClass="DeliveryNote">
+      INSERT INTO DeliveryNote
+      (DNL_ID,DNL_LineNbrInFile,DNL_ShipToDealerCode,DNL_SAPCode,DNL_PONbr,DNL_DeliveryNoteNbr,DNL_CFN,DNL_UPN,DNL_LotNumber,DNL_ExpiredDate,DNL_DN_UnitOfMeasure,DNL_ReceiveUnitOfMeasure,DNL_ShipQty,DNL_ReceiveQty,DNL_ShipmentDate,DNL_ImportFileName,DNL_OrderType,DNL_UnitPrice,DNL_SubTotal,DNL_CreatedDate,DNL_ProblemDescription,DNL_ProductDescription,DNL_SAPSOLine,DNL_SAPSalesOrderID,DNL_POReceiptLot_PRL_ID,DNL_HandleDate,DNL_DealerID_DMA_ID,DNL_CFN_ID,DNL_BUName,DNL_Product_PMA_ID,DNL_ProductLine_BUM_ID,DNL_Authorized,DNL_ShipmentType,DNL_CreateUser,DNL_Carrier,DNL_TrackingNo,DNL_ShipType,DNL_Note,DNL_ProductCatagory_PCT_ID,DNL_SapDeliveryDate,DNL_LTM_ID,DNL_ToWhmCode,DNL_ToWhmId,DNL_ClientID,DNL_SapDeliveryLineNbr,DNL_BatchNbr)
+      VALUES(#Id#,#LineNbrInFile#,#ShipToDealerCode#,#SapCode#,#PoNbr#,#DeliveryNoteNbr#,#Cfn#,#Upn#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#DnUnitOfMeasure#,#ReceiveUnitOfMeasure#,#ShipQty#,#ReceiveQty#,#ShipmentDate:DateTime:1/1/0001 12:00:00 AM#,#ImportFileName#,#OrderType#,#UnitPrice#,#SubTotal#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#ProblemDescription#,#ProductDescription#,#SapsoLine#,#SapSalesOrderid#,#PoReceiptLotPrlId#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#,#DealeridDmaId#,#CfnId#,#BuName#,#ProductPmaId#,#ProductLineBumId#,#Authorized#,#ShipmentType#,#CreateUser#,#Carrier#,#TrackingNo#,#ShipType#,#Note#,#ProductCatagoryPctId#,#SapDeliveryDate:DateTime:1/1/0001 12:00:00 AM#,#LtmId#,#ToWhmCode#,#ToWhmId#,#Clientid#,#SapDeliveryLineNbr#,#BatchNbr#)
+    </insert>
+    <update id="UpdateDeliveryNote" parameterClass="DeliveryNote">
+      UPDATE DeliveryNote
+      SET DNL_ID=#Id#,DNL_LineNbrInFile=#LineNbrInFile#,DNL_ShipToDealerCode=#ShipToDealerCode#,DNL_SAPCode=#SapCode#,DNL_PONbr=#PoNbr#,DNL_DeliveryNoteNbr=#DeliveryNoteNbr#,DNL_CFN=#Cfn#,DNL_UPN=#Upn#,DNL_LotNumber=#LotNumber#,DNL_ExpiredDate=#ExpiredDate#,DNL_DN_UnitOfMeasure=#DnUnitOfMeasure#,DNL_ReceiveUnitOfMeasure=#ReceiveUnitOfMeasure#,DNL_ShipQty=#ShipQty#,DNL_ReceiveQty=#ReceiveQty#,DNL_ShipmentDate=#ShipmentDate#,DNL_ImportFileName=#ImportFileName#,DNL_OrderType=#OrderType#,DNL_UnitPrice=#UnitPrice#,DNL_SubTotal=#SubTotal#,DNL_ProblemDescription=#ProblemDescription#,DNL_ProductDescription=#ProductDescription#,DNL_SAPSOLine=#SapsoLine#,DNL_SAPSalesOrderID=#SapSalesOrderid#,DNL_POReceiptLot_PRL_ID=#PoReceiptLotPrlId#,DNL_HandleDate=#HandleDate#,DNL_DealerID_DMA_ID=#DealeridDmaId#,DNL_CFN_ID=#CfnId#,DNL_BUName=#BuName#,DNL_Product_PMA_ID=#ProductPmaId#,DNL_ProductLine_BUM_ID=#ProductLineBumId#,DNL_Authorized=#Authorized#,DNL_ShipmentType=#ShipmentType#,DNL_Carrier=#Carrier#,DNL_TrackingNo=#TrackingNo#,DNL_ShipType=#ShipType#,DNL_Note=#Note#,DNL_ProductCatagory_PCT_ID=#ProductCatagoryPctId#,DNL_SapDeliveryDate=#SapDeliveryDate#,DNL_LTM_ID=#LtmId#,DNL_ToWhmCode=#ToWhmCode#,DNL_ToWhmId=#ToWhmId#,DNL_ClientID=#Clientid#,DNL_SapDeliveryLineNbr=#SapDeliveryLineNbr#,DNL_BatchNbr=#BatchNbr#
+      WHERE DNL_ID = #Id#
+    </update>
+    <delete id="DeleteDeliveryNote" parameterClass="string">
+      DELETE FROM DeliveryNote
+      WHERE DNL_ID = #value#
+    </delete>
+
+    <!--added by bozhenfei on 20090825-->
+    <select id="SelectDeliveryNoteByHashtable" parameterClass="System.Collections.Hashtable" resultClass="DeliveryNote">
+      SELECT
+      <isNotNull prepend="" property="TopCount">TOP $TopCount$</isNotNull>
+      DNL_ID AS Id,
+      DNL_LineNbrInFile AS LineNbrInFile,
+      DNL_ShipToDealerCode AS ShipToDealerCode,
+      DNL_SAPCode AS SapCode,
+      DNL_PONbr AS PoNbr,
+      DNL_DeliveryNoteNbr AS DeliveryNoteNbr,
+      DNL_CFN AS Cfn,
+      DNL_UPN AS Upn,
+      DNL_LotNumber AS LotNumber,
+      CONVERT(varchar(100), DNL_ExpiredDate, 112) AS ExpiredDate,
+      DNL_DN_UnitOfMeasure AS DnUnitOfMeasure,
+      DNL_ReceiveUnitOfMeasure AS ReceiveUnitOfMeasure,
+      DNL_ShipQty AS ShipQty,
+      DNL_ReceiveQty AS ReceiveQty,
+      CONVERT(varchar(100), DNL_ShipmentDate, 112) AS ShipmentDate,
+      DNL_ImportFileName AS ImportFileName,
+      DNL_OrderType AS OrderType,
+      DNL_UnitPrice AS UnitPrice,
+      DNL_SubTotal AS SubTotal,
+      CONVERT(varchar(100), DNL_CreatedDate, 112) AS CreateDate,
+      DNL_ProblemDescription AS ProblemDescription,
+      DNL_ProductDescription AS ProductDescription,
+      DNL_SAPSOLine AS SapsoLine,
+      DNL_SAPSalesOrderID AS SapSalesOrderid,
+      DNL_POReceiptLot_PRL_ID AS PoReceiptLotPrlId,
+      DNL_HandleDate AS HandleDate,
+      DNL_DealerID_DMA_ID AS DealeridDmaId,
+      <!--add by songyuqi on 20100831-->
+      (SELECT DMA_ChineseName FROM DealerMaster(nolock) WHERE DMA_ID = DNL_DealerID_DMA_ID )AS DealeridDmaName,
+      <!--end-->
+      DNL_CFN_ID AS CfnId,DNL_BUName AS BuName,
+      DNL_Product_PMA_ID AS ProductPmaId,
+      DNL_ProductLine_BUM_ID AS ProductLineBumId,
+      DNL_Authorized AS Authorized,
+      DNL_Carrier AS Carrier,
+      DNL_TrackingNo AS TrackingNo,
+      DNL_ShipType AS ShipType,
+      DNL_Note AS Note,
+      row_number() OVER (ORDER BY DNL_ID ASC) AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM DeliveryNote(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=DeliveryNote.DNL_ProductLine_BUM_ID
+      WHERE DNL_POReceiptLot_PRL_ID IS NULL
+      AND DNL_ProblemDescription IS NOT NULL
+      <isNotNull prepend="AND" property="Type">DNL_ProblemDescription LIKE N'%$Type$%'</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        DNL_POReceiptLot_PRL_ID IS NULL OR (DNL_DealerID_DMA_ID IS NOT NULL AND DNL_CFN_ID IS NOT NULL AND DNL_ProductLine_BUM_ID IS NOT NULL AND ISNULL(DNL_Authorized,0) = 0)
+        OR
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = DeliveryNote.DNL_DealerID_DMA_ID AND SD.BUM_ID = DeliveryNote.DNL_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = DeliveryNote.DNL_DealerID_DMA_ID AND SD.BUM_ID = DeliveryNote.DNL_ProductLine_BUM_ID)
+        )
+        )
+      </isEqual>
+      <isNotNull prepend="AND" property="DealerId">DNL_DealerID_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="SapCode">DNL_SAPCode like '%$SapCode$%'</isNotNull>
+      <isNotNull prepend="AND" property="PoNbr">DNL_PONbr like '%$PoNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="DeliveryNoteNbr">DNL_DeliveryNoteNbr like '%$DeliveryNoteNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ShipmentDateStart">CONVERT(varchar(100), DNL_ShipmentDate, 112)>=#ShipmentDateStart#</isNotNull>
+      <isNotNull prepend="AND" property="ShipmentDateEnd">CONVERT(varchar(100), DNL_ShipmentDate, 112)&lt;=#ShipmentDateEnd#</isNotNull>
+      <isNotNull prepend="AND" property="IsDealerActive">
+        EXISTS (SELECT 1 FROM DealerMaster(nolock) WHERE DeliveryNote.DNL_DealerID_DMA_ID IS NULL
+        OR (DeliveryNote.DNL_DealerID_DMA_ID = DealerMaster.DMA_ID AND DealerMaster.DMA_ActiveFlag = #IsDealerActive#))
+      </isNotNull>
+    </select>
+    <select id="SelectDeliveryNoteByBatchNbrErrorOnly" parameterClass="string" resultClass="DeliveryNote">
+      SELECT DNL_ID AS Id,DNL_LineNbrInFile AS LineNbrInFile,DNL_ShipToDealerCode AS ShipToDealerCode,DNL_SAPCode AS SapCode,DNL_PONbr AS PoNbr,DNL_DeliveryNoteNbr AS DeliveryNoteNbr,DNL_CFN AS Cfn,DNL_UPN AS Upn,DNL_LotNumber AS LotNumber,DNL_ExpiredDate AS ExpiredDate,DNL_DN_UnitOfMeasure AS DnUnitOfMeasure,DNL_ReceiveUnitOfMeasure AS ReceiveUnitOfMeasure,DNL_ShipQty AS ShipQty,DNL_ReceiveQty AS ReceiveQty,DNL_ShipmentDate AS ShipmentDate,DNL_ImportFileName AS ImportFileName,DNL_OrderType AS OrderType,DNL_UnitPrice AS UnitPrice,DNL_SubTotal AS SubTotal,DNL_CreatedDate AS CreateDate,DNL_ProblemDescription AS ProblemDescription,DNL_ProductDescription AS ProductDescription,DNL_SAPSOLine AS SapsoLine,DNL_SAPSalesOrderID AS SapSalesOrderid,DNL_POReceiptLot_PRL_ID AS PoReceiptLotPrlId,DNL_HandleDate AS HandleDate,DNL_DealerID_DMA_ID AS DealeridDmaId,DNL_CFN_ID AS CfnId,DNL_BUName AS BuName,DNL_Product_PMA_ID AS ProductPmaId,DNL_ProductLine_BUM_ID AS ProductLineBumId,DNL_Authorized AS Authorized,DNL_ShipmentType AS ShipmentType,DNL_CreateUser AS CreateUser,DNL_Carrier AS Carrier,DNL_TrackingNo AS TrackingNo,DNL_ShipType AS ShipType,DNL_Note AS Note,DNL_ProductCatagory_PCT_ID AS ProductCatagoryPctId,DNL_SapDeliveryDate AS SapDeliveryDate,DNL_LTM_ID AS LtmId,DNL_ToWhmCode AS ToWhmCode,DNL_ToWhmId AS ToWhmId,DNL_ClientID AS Clientid,DNL_SapDeliveryLineNbr AS SapDeliveryLineNbr,DNL_BatchNbr AS BatchNbr
+      FROM DeliveryNote
+      WHERE DNL_BatchNbr = #value# AND DNL_ProblemDescription IS NOT NULL
+      ORDER BY SapDeliveryLineNbr
+    </select>
+    <select id="SelectDeliveryNoteByBatchNbr" parameterClass="System.Collections.Hashtable" >
+      SELECT DNL_ID AS Id,DNL_LineNbrInFile AS LineNbrInFile,DNL_ShipToDealerCode AS ShipToDealerCode,DNL_SAPCode AS SapCode,DNL_PONbr AS PoNbr,DNL_DeliveryNoteNbr AS DeliveryNoteNbr,DNL_CFN AS Cfn,DNL_UPN AS Upn,DNL_LotNumber AS LotNumber,DNL_ExpiredDate AS ExpiredDate,DNL_DN_UnitOfMeasure AS DnUnitOfMeasure,DNL_ReceiveUnitOfMeasure AS ReceiveUnitOfMeasure,DNL_ShipQty AS ShipQty,DNL_ReceiveQty AS ReceiveQty,DNL_ShipmentDate AS ShipmentDate,DNL_ImportFileName AS ImportFileName,DNL_OrderType AS OrderType,DNL_UnitPrice AS UnitPrice,DNL_SubTotal AS SubTotal,DNL_CreatedDate AS CreateDate,DNL_ProblemDescription AS ProblemDescription,DNL_ProductDescription AS ProductDescription,DNL_SAPSOLine AS SapsoLine,DNL_SAPSalesOrderID AS SapSalesOrderid,DNL_POReceiptLot_PRL_ID AS PoReceiptLotPrlId,DNL_HandleDate AS HandleDate,DNL_DealerID_DMA_ID AS DealeridDmaId,DNL_CFN_ID AS CfnId,DNL_BUName AS BuName,DNL_Product_PMA_ID AS ProductPmaId,DNL_ProductLine_BUM_ID AS ProductLineBumId,DNL_Authorized AS Authorized,DNL_ShipmentType AS ShipmentType,DNL_CreateUser AS CreateUser,DNL_Carrier AS Carrier,DNL_TrackingNo AS TrackingNo,DNL_ShipType AS ShipType,DNL_Note AS Note,DNL_ProductCatagory_PCT_ID AS ProductCatagoryPctId,DNL_SapDeliveryDate AS SapDeliveryDate,DNL_LTM_ID AS LtmId,DNL_ToWhmCode AS ToWhmCode,DNL_ToWhmId AS ToWhmId,DNL_ClientID AS Clientid,DNL_SapDeliveryLineNbr AS SapDeliveryLineNbr,DNL_BatchNbr AS BatchNbr
+      ,row_number() OVER (ORDER BY DNL_ID ASC) AS row_number
+      FROM DeliveryNote
+      WHERE DNL_BatchNbr = #AutoNbr# AND DNL_ProblemDescription IS NOT NULL
+    </select>
+    <select id="SelectOrderStatusNoteByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceOrderStatus">
+      SELECT [Id],[ImportDate],[ProcessDate],[OrderNo],[OrderStatus],[LineNbr],[ClientId],[BatchNbr],[ProblemDescription]
+      FROM [InterfaceOrderStatus]
+      WHERE ISNULL(ProblemDescription,'') &lt;>''
+      AND BatchNbr = #value#
+      Order By [OrderNo]
+    </select>
+    <select id="SelectOrderStatusNoteByBatchNbrToCompleted" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT T_PurchaseOrderHeader.POH_ID,
+      T_InterfaceOrderStatus.OrderStatus
+      FROM [InterfaceOrderStatus] T_InterfaceOrderStatus(NOLOCK)
+      INNER JOIN dbo.PurchaseOrderHeader T_PurchaseOrderHeader (NOLOCK) ON T_InterfaceOrderStatus.OrderNo=T_PurchaseOrderHeader.POH_OrderNo
+      WHERE ISNULL(ProblemDescription, '')=''
+      AND T_InterfaceOrderStatus.OrderStatus='Completed'
+      AND BatchNbr = #value#
+      ORDER BY [OrderNo]
+    </select>
+  </statements>
+</sqlMap>

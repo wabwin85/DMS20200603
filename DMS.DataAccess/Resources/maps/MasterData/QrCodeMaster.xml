@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="QrCodeMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="QrCodeMaster" assembly="DMS.Model.dll" type="DMS.Model.QrCodeMaster" />
+    <typeAlias alias="ChannelLogisticInfoWithQRData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.ChannelLogisticInfoWithQRData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="QrCodeMasterResult" class="QrCodeMaster">
+      <result property="Id" column="QRM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrCode" column="QRM_QRCode" type="string" dbType="nvarchar"/>
+      <result property="Status" column="QRM_Status" type="int" dbType="int"/>
+      <result property="CreateDate" column="QRM_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UserCode" column="QRM_UserCode" type="string" dbType="nvarchar"/>
+      <result property="Channel" column="QRM_Channel" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="QRM_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateDate" column="QRM_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+    <resultMap id="ChannelLogisticInfoWithQRDataResult" class="ChannelLogisticInfoWithQRData">
+      <result property="DeliverytCustomer" column="DeliverytCustomer" type="string" dbType="nvarchar"/>
+      <result property="DeliverytCustomerCode" column="DeliverytCustomerCode" type="string" dbType="nvarchar"/>
+      <result property="ReceiveCustomer" column="ReceiveCustomer" type="string" dbType="nvarchar"/>
+      <result property="ReceiveCustomerCode" column="ReceiveCustomerCode" type="string" dbType="nvarchar"/>
+      <result property="DeliveryDate" column="DeliveryDate" type="string" dbType="nvarchar"/>
+      <result property="LogisticType" column="LogisticType" type="string" dbType="nvarchar"/>
+      <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+      <result property="LOT" column="LOT" type="string" dbType="nvarchar"/>
+      <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectQrCodeMaster" parameterClass="string" resultClass="QrCodeMaster">
+      SELECT QRM_ID AS Id,QRM_QRCode AS QrCode,QRM_Status AS Status,QRM_CreateDate AS CreateDate,QRM_UserCode AS UserCode,QRM_Channel AS Channel,QRM_ImportDate AS ImportDate,QRM_UpdateDate AS UpdateDate
+      FROM QRCodeMaster
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          QRM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterQrCodeMaster" parameterClass="QrCodeMaster" resultClass="QrCodeMaster">
+      SELECT QRM_ID AS Id,QRM_QRCode AS QrCode,QRM_Status AS Status,QRM_CreateDate AS CreateDate,QRM_UserCode AS UserCode,QRM_Channel AS Channel,QRM_ImportDate AS ImportDate,QRM_UpdateDate AS UpdateDate
+      FROM QRCodeMaster
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">QRM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">QRM_QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="Status">QRM_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="UserCode">QRM_UserCode=#UserCode#</isNotNull>
+        <isNotNull prepend="AND" property="Channel">QRM_Channel=#Channel#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">QRM_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">QRM_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertQrCodeMaster" parameterClass="QrCodeMaster">
+      INSERT INTO QRCodeMaster
+      (QRM_ID,QRM_QRCode,QRM_Status,QRM_CreateDate,QRM_UserCode,QRM_Channel,QRM_ImportDate,QRM_UpdateDate)
+      VALUES(#Id#,#QrCode#,#Status#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UserCode#,#Channel#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateQrCodeMaster" parameterClass="QrCodeMaster">
+      UPDATE QRCodeMaster
+      SET QRM_ID=#Id#,QRM_QRCode=#QrCode#,QRM_Status=#Status#,QRM_UserCode=#UserCode#,QRM_Channel=#Channel#,QRM_ImportDate=#ImportDate#,QRM_UpdateDate=#UpdateDate#
+      WHERE QRM_ID = #Id#
+    </update>
+    <delete id="DeleteQrCodeMaster" parameterClass="string">
+      DELETE FROM QRCodeMaster
+      WHERE QRM_ID = #value#
+    </delete>
+    <select id="SelectIsExistByQrCode" parameterClass="string" resultClass="string">
+      select count(*) as CNT from QRCodeMaster where QRM_Status = 1 and QRM_QRCode = #value#
+    </select>
+    
+    <!--渠道物流信息查询接口-->
+    <select id="SelectChannelLogisticInfoWithQR" paremeterClass="string" resultClass="ChannelLogisticInfoWithQRData">
+      SELECT QRL_SourecDealerName AS DeliverytCustomer,QRL_SourceSAPCode AS DeliverytCustomerCode,QRL_TargetDealerName AS ReceiveCustomer,QRL_TargetSAPCode AS ReceiveCustomerCode,QRL_TransDate AS DeliveryDate,
+      QRL_TansType as LogisticType,QRL_UPN as UPN,QRL_LOT as LOT,QRL_QRCode as QRCode
+      FROM
+
+      (
+
+      select QRL_SourecDealerName,QRL_SourceSAPCode,QRL_TargetDealerName,QRL_TargetSAPCode,Convert(nvarchar(20),QRL_TransDate,120) as QRL_TransDate,QRL_TansType,QRL_UPN,QRL_LOT,QRL_QRCode
+
+      from QRCodeDealerLogisticInfo
+
+      WHERE QRL_QRCode in (select * from dbo.GC_Fn_SplitStringToTable(#value#,','))
+
+      ) Tab
+      order by QRL_QRCode,QRL_TransDate
+    </select>
+  </statements>
+</sqlMap>

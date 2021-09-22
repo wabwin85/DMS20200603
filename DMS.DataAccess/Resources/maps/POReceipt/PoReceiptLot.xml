@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PoReceiptLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="PoReceiptLot" assembly="DMS.Model.dll" type="DMS.Model.PoReceiptLot" />
+    </alias>
+    <resultMaps>
+        <resultMap id="PoReceiptLotResult" class="PoReceiptLot">
+            <result property="PorId" column="PRL_POR_ID" type="Guid" dbType="Guid"/>
+            <result property="Id" column="PRL_ID" type="Guid" dbType="Guid"/>
+            <result property="LotNumber" column="PRL_LotNumber" type="string" dbType="varchar"/>
+            <result property="ReceiptQty" column="PRL_ReceiptQty" type="double" dbType="Real"/>
+            <result property="ExpiredDate" column="PRL_ExpiredDate" type="DateTime" dbType="DateTime"/>
+            <result property="WhmId" column="PRL_WHM_ID" type="Guid" dbType="Guid"/>
+            <result property="UnitPrice" column="PRL_UnitPrice" type="decimal" dbType="decimal"/>
+            <result property="IsCalRebate" column="PRL_IsCalRebate" type="bool" dbType="bit"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectPoReceiptLot" parameterClass="string" resultClass="PoReceiptLot">
+          SELECT PRL_POR_ID AS PorId,PRL_ID AS Id,PRL_LotNumber AS LotNumber,PRL_ReceiptQty AS ReceiptQty,PRL_ExpiredDate AS ExpiredDate,PRL_WHM_ID AS WhmId,PRL_UnitPrice AS UnitPrice,PRL_IsCalRebate AS IsCalRebate
+          FROM POReceiptLot
+          <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    PRL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterPoReceiptLot" parameterClass="PoReceiptLot" resultClass="PoReceiptLot">
+          SELECT PRL_POR_ID AS PorId,PRL_ID AS Id,PRL_LotNumber AS LotNumber,PRL_ReceiptQty AS ReceiptQty,PRL_ExpiredDate AS ExpiredDate,PRL_WHM_ID AS WhmId,PRL_UnitPrice AS UnitPrice,PRL_IsCalRebate AS IsCalRebate
+          FROM POReceiptLot
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="PorId">PRL_POR_ID=#PorId#</isNotNull>
+                <isNotNull prepend="AND" property="Id">PRL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="LotNumber">PRL_LotNumber=#LotNumber#</isNotNull>
+                <isNotNull prepend="AND" property="ReceiptQty">PRL_ReceiptQty=#ReceiptQty#</isNotNull>
+                <isNotNull prepend="AND" property="ExpiredDate">PRL_ExpiredDate=#ExpiredDate#</isNotNull>
+                <isNotNull prepend="AND" property="WhmId">PRL_WHM_ID=#WhmId#</isNotNull>
+                <isNotNull prepend="AND" property="UnitPrice">PRL_UnitPrice=#UnitPrice#</isNotNull>
+                <isNotNull prepend="AND" property="IsCalRebate">PRL_IsCalRebate=#IsCalRebate#</isNotNull>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterPorId" parameterClass="string" resultClass="PoReceiptLot">
+          SELECT PRL_POR_ID AS PorId,PRL_ID AS Id,PRL_LotNumber AS LotNumber,PRL_ReceiptQty AS ReceiptQty,PRL_ExpiredDate AS ExpiredDate,PRL_WHM_ID AS WhmId,PRL_UnitPrice AS UnitPrice,PRL_IsCalRebate AS IsCalRebate
+          FROM POReceiptLot
+          <dynamic prepend="WHERE">
+                <isParameterPresent>PRL_POR_ID=#PorId#</isParameterPresent>            
+        </dynamic>
+        </select>
+        <insert id="InsertPoReceiptLot" parameterClass="PoReceiptLot">
+          INSERT INTO POReceiptLot
+          (PRL_POR_ID,PRL_ID,PRL_LotNumber,PRL_ReceiptQty,PRL_ExpiredDate,PRL_WHM_ID,PRL_UnitPrice,PRL_IsCalRebate)
+          VALUES(#PorId#,#Id#,#LotNumber#,#ReceiptQty#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#WhmId#,#UnitPrice#,#IsCalRebate#)
+        </insert>
+        <update id="UpdatePoReceiptLot" parameterClass="PoReceiptLot">
+          UPDATE POReceiptLot
+          SET PRL_POR_ID=#PorId#,PRL_ID=#Id#,PRL_LotNumber=#LotNumber#,PRL_ReceiptQty=#ReceiptQty#,PRL_ExpiredDate=#ExpiredDate#,PRL_WHM_ID=#WhmId#,PRL_UnitPrice=#UnitPrice#,PRL_IsCalRebate=#IsCalRebate#
+          WHERE PRL_ID = #Id#
+        </update>
+        <delete id="DeletePoReceiptLot" parameterClass="string">
+            DELETE FROM POReceiptLot
+            WHERE PRL_ID = #value#
+        </delete>
+        <select id="SelectByFilterPoReceiptLotAll" parameterClass="System.Collections.Hashtable" resultClass="PoReceiptLot">
+          SELECT POReceiptLot.PRL_ID AS Id,
+          CFN.CFN_ChineseName as CFNChineseName,
+          CFN.CFN_EnglishName as CFNEnglishName,
+          CFN.CFN_Property5 as RegName,
+          CFN.CFN_CustomerFaceNbr AS CFN,
+          CFN.CFN_Property1 as Property1,
+          Product.PMA_UPN AS UPN,
+          CASE WHEN CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0) > 0 THEN substring(POReceiptLot.PRL_LotNumber,1,CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0)-1) ELSE POReceiptLot.PRL_LotNumber END AS LotNumber,
+          CASE WHEN CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0) > 0 THEN substring(POReceiptLot.PRL_LotNumber,CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0)+2,LEN(POReceiptLot.PRL_LotNumber)-CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0)) ELSE 'NoQR' END AS QRCode,
+          case CFN_Property6
+          when '0' then CONVERT(nvarchar(8), POReceiptLot.PRL_ExpiredDate, 112)
+          when '1' then CONVERT(nvarchar(8), POReceiptLot.PRL_ExpiredDate, 112)
+          else
+          CONVERT(varchar(100), POReceiptLot.PRL_ExpiredDate, 112) end AS ExpiredDate,
+          Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+          POReceiptLot.PRL_ReceiptQty AS ReceiptQty,
+          POReceiptLot.PRL_ERPNbr AS ERPNbr,
+          POReceiptLot.PRL_ERPLineNbr AS ERPLineNbr,
+          POReceiptLot.PRL_ERPAmount AS ERPAmount,
+          POReceiptLot.PRL_ERPTaxRate AS ERPTaxRate,
+          <!--CFNPrice.CFNP_Price AS UnitPrice,-->
+          dbo.fn_GetCfnPriceByDealer(Product.PMA_ID, CFN.CFN_ID, #SubCompanyId#, #BrandId#, (CASE WHEN WHM_Type in ('Consignment','LP_Consignment') then 'DealerConsignment' else 'Dealer' end), 0) AS UnitPrice,
+          isnull(DCM_Qty,0) as DCMQty,
+          row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr,Product.PMA_UPN,POReceiptLot.PRL_LotNumber ) AS row_number,
+          (select LTM_Type from lotmaster lm(nolock) where lm.LTM_LotNumber = POReceiptLot.PRL_LotNumber and lm.LTM_Product_PMA_ID =POReceipt.POR_SAP_PMA_ID ) AS N'LotDOM'
+          FROM POReceiptLot(nolock)
+          INNER JOIN POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          INNER JOIN POReceiptHeader(nolock) ON POR_PRH_ID = PRH_ID
+          INNER JOIN Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+          INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+          INNER JOIN Warehouse(nolock) ON PRH_WHM_ID = WHM_ID
+          <!--LEFT JOIN CFNPrice(nolock) ON CFN_ID = CFNP_CFN_ID
+          AND CFNP_Group_ID = PRH_Dealer_DMA_ID
+          AND CFNP_PriceType = (CASE WHEN WHM_Type in ('Consignment','LP_Consignment') then 'DealerConsignment' else 'Dealer' end)-->
+          left join DeliveryConfirmationMid dcm(nolock) on PRH_ID = dcm_prh_id
+          and PMA_UPN = DCM_UPN and PRL_LotNumber =  DCM_Lot
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="hid">POReceipt.POR_PRH_ID=#hid#</isNotNull>
+            </dynamic>
+        </select>
+      <select id="SelectByFilterPoReceiptLotAllPrint" parameterClass="System.Collections.Hashtable" resultClass="PoReceiptLot">
+        SELECT
+        CFN.CFN_ChineseName as CFNChineseName,
+        CFN.CFN_EnglishName as CFNEnglishName,
+        CFN.CFN_Property5 as RegName,
+        CFN.CFN_CustomerFaceNbr AS CFN,
+        Product.PMA_UPN AS UPN,
+        LTM_LotNumber AS LotNumber,
+        case CFN_Property6
+        when '0' then CONVERT(nvarchar(8), POReceiptLot.PRL_ExpiredDate, 112)
+        when '1' then CONVERT(nvarchar(8), POReceiptLot.PRL_ExpiredDate, 112)
+        else
+        CONVERT(varchar(100), POReceiptLot.PRL_ExpiredDate, 112) end AS ExpiredDate,
+        Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+        sum(POReceiptLot.PRL_ReceiptQty) AS ReceiptQty,
+        <!--CFNPrice.CFNP_Price AS UnitPrice,-->
+        sum(POReceiptLot.PRL_UnitPrice) / sum(POReceiptLot.PRL_ReceiptQty) AS UnitPrice,
+        isnull(DCM_Qty,0) as DCMQty,
+        row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr,Product.PMA_UPN ) AS row_number,
+        LTM_Type AS N'LotDOM'
+        FROM POReceiptLot(nolock)
+        INNER JOIN POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+        INNER JOIN POReceiptHeader(nolock) ON POR_PRH_ID = PRH_ID
+        INNER JOIN Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+        INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+        INNER JOIN Warehouse(nolock) ON PRH_WHM_ID = WHM_ID
+        INNER JOIN V_LotMaster ON PRL_LotNumber = LTM_LotNumber + '@@' + LTM_QrCode and LTM_Product_PMA_ID = PMA_ID
+        <!--LEFT JOIN CFNPrice ON CFN_ID = CFNP_CFN_ID AND CFNP_Group_ID = PRH_Dealer_DMA_ID AND CFNP_PriceType = (CASE WHEN WHM_Type in ('Consignment','LP_Consignment') then 'DealerConsignment' else 'Dealer' end)-->
+        left join DeliveryConfirmationMid dcm(nolock) on PRH_ID = dcm_prh_id
+        and PMA_UPN = DCM_UPN and PRL_LotNumber =  DCM_Lot
+        <dynamic prepend="WHERE">
+          <isNotNull prepend="AND" property="hid">POReceipt.POR_PRH_ID=#hid#</isNotNull>
+        </dynamic>
+        group by CFN.CFN_ChineseName ,
+        CFN.CFN_EnglishName,
+        CFN.CFN_Property5 ,
+        CFN.CFN_CustomerFaceNbr,
+        Product.PMA_UPN ,
+        LTM_LotNumber,
+        LTM_Type,
+        POReceiptLot.PRL_ExpiredDate,
+        Product.PMA_UnitOfMeasure ,
+        <!--CFNPrice.CFNP_Price ,-->
+        DCM_Qty,
+        CFN_Property6,
+        POR_SAP_PMA_ID
+      </select>
+        <select id="GetReceiptTotalAmountByHeaderId" parameterClass="System.Collections.Hashtable" resultClass="PoReceiptLot">
+          SELECT ISNULL(SUM(dbo.fn_GetCfnPriceByDealer(PRH_Dealer_DMA_ID, CFN.CFN_ID, #SubCompanyId#, #BrandId#, (CASE WHEN WHM_Type in ('Consignment','LP_Consignment') then 'DealerConsignment' else 'Dealer' end), 0)),0) AS TotalAmount
+          FROM POReceiptLot(nolock)
+          INNER JOIN POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          INNER JOIN POReceiptHeader(nolock) ON POR_PRH_ID = PRH_ID
+          INNER JOIN Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+          INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+          INNER JOIN Warehouse(nolock) ON PRH_WHM_ID = WHM_ID
+          LEFT JOIN CFNPrice(nolock) ON CFN_ID = CFNP_CFN_ID
+          AND CFNP_Group_ID = PRH_Dealer_DMA_ID
+          AND CFNP_PriceType = (CASE WHEN WHM_Type in ('Consignment','LP_Consignment') then 'DealerConsignment' else 'Dealer' end)
+          WHERE POReceipt.POR_PRH_ID=#value#
+        </select>
+        <select id="GetReceiptTotalQtyByHeaderId" parameterClass="string" resultClass="PoReceiptLot">
+          SELECT ISNULL(SUM(POReceiptLot.PRL_ReceiptQty),0) AS TotalQty
+          FROM POReceiptLot(nolock)
+          INNER JOIN POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          INNER JOIN POReceiptHeader(nolock) ON POR_PRH_ID = PRH_ID
+          INNER JOIN Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+          INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+          INNER JOIN Warehouse(nolock) ON PRH_WHM_ID = WHM_ID
+          WHERE POReceipt.POR_PRH_ID=#value#
+        </select>
+    </statements>
+</sqlMap>

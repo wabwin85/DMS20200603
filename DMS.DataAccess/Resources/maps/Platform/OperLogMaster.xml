@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Platform.OperLogMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Platform.OperLogMaster" assembly="DMS.Model.dll" type="DMS.Model.Platform.OperLogMasterPO" />
+  </alias>
+  <parameterMaps>
+  </parameterMaps>
+  <statements>
+    <!-- Start Select -->
+    <select id="Platform.OperLogMasterMap.SelectListByForeignTable" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT OperRole,
+               OperUser,
+               OperType,
+               OperNote,
+               CONVERT(NVARCHAR(20),OperDate,20) AS OperDate
+        FROM   Platform_OperLogMaster
+        WHERE  DataSource = #DataSource#
+               AND MainId = #InstanceId#
+        ORDER BY OperDate
+      ]]>
+    </select>
+    <!-- End   Select -->
+
+    <!-- Start Insert -->
+    <insert id="Platform.OperLogMasterMap.Insert" parameterClass="Platform.OperLogMaster">
+      <![CDATA[
+        INSERT INTO dbo.Platform_OperLogMaster
+          (LogId, MainId, OperUser, OperUserEN, OperDate, OperType, OperNote, OperRole, DataSource, UserAccount, DataContent)
+        VALUES
+          (#LogId#, #MainId#, #OperUser#, #OperUserEN#, #OperDate#, #OperType#, #OperNote#, #OperRole#, #DataSource#, #UserAccount#, #DataContent#)
+      ]]>
+    </insert>
+    <!-- End   Insert -->
+
+    <!-- Start Update -->
+    <!-- End   Update -->
+
+    <!-- Start Delete -->
+    <!-- End   Delete -->
+
+    <!-- Start Procdure -->
+    <!-- End   Procdure -->
+  </statements>
+</sqlMap>

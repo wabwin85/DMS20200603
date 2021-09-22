@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AttachmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="Attachment" assembly="DMS.Model.dll" type="DMS.Model.Attachment" />
+    </alias>
+    <resultMaps>
+        <resultMap id="AttachmentResult" class="Attachment">
+            <result property="Id" column="AT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="MainId" column="AT_Main_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Name" column="AT_Name" type="string" dbType="varchar"/>
+            <result property="Url" column="AT_Url" type="string" dbType="varchar"/>
+            <result property="Type" column="AT_Type" type="string" dbType="varchar"/>
+            <result property="UploadUser" column="AT_UploadUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UploadDate" column="AT_UploadDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectAttachment" parameterClass="string" resultClass="Attachment">
+            SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,AT_UploadUser AS UploadUser,AT_UploadDate AS UploadDate
+            FROM Attachment
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    AT_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterAttachment" parameterClass="Dealerqa" resultClass="Attachment">
+            SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,AT_UploadUser AS UploadUser,AT_UploadDate AS UploadDate
+            FROM Attachment
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">AT_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="MainId">AT_Main_ID=#MainId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">AT_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Url">AT_Url=#Url#</isNotNull>
+                <isNotNull prepend="AND" property="Type">AT_Type=#Type#</isNotNull>
+                <isNotNull prepend="AND" property="UploadUser">AT_UploadUser=#UploadUser#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">AT_UploadDate=#UploadDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertAttachment" parameterClass="Attachment">
+            INSERT INTO Attachment
+            (AT_ID,AT_Main_ID,AT_Name,AT_Url,AT_Type,AT_UploadUser,AT_UploadDate)
+            VALUES(#Id#,#MainId#,#Name#,#Url#,#Type#,#UploadUser#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+      <insert id="InsertContractAttachment" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+        <![CDATA[
+            EXEC [Contract].Proc_SaveAttachment #FileName#, #FileUrl#, #UserId#
+            ]]>
+      </insert>
+        <update id="UpdateAttachment" parameterClass="Attachment">
+            UPDATE Attachment
+            SET AT_ID=#Id#,AT_Main_ID=#MainId#,AT_Name=#Name#,AT_Url=#Url#,AT_Type=#Type#,AT_UploadUser=#UploadUser#,AT_UploadDate=#UploadDate#
+            WHERE AT_ID = #Id#
+        </update>
+        <delete id="DeleteAttachment" parameterClass="string">
+            DELETE FROM Attachment
+            WHERE AT_ID = #value#
+        </delete>
+
+        <select id="QueryAttachmentByMainId" parameterClass="System.Collections.Hashtable" resultClass="Attachment">
+          SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,AT_UploadUser AS UploadUser,Convert(NVARCHAR(10),AT_UploadDate,120) AS UploadDate
+          ,li.Identity_Name,row_number() OVER (ORDER BY AT_UploadDate DESC) AS row_number,
+          case when CONVERT(nvarchar(10),AT_UploadDate,120) = CONVERT(nvarchar(10),getdate(),120) then '1' else '0' end as IsCurrent
+          FROM Attachment a INNER JOIN Lafite_Identity li ON a.AT_UploadUser = li.Id
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="MainId">AT_Main_ID=#MainId#</isNotNull>
+                <isNotNull prepend="AND" property="Type">AT_Type=#Type#</isNotNull>
+            </dynamic>
+        </select>
+        <select id="QueryContractAttachmentByMainId" parameterClass="System.Collections.Hashtable" resultClass="Attachment">
+            SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,DIC.VALUE1 AS  TypeName ,AT_UploadUser AS UploadUser,Convert(NVARCHAR(10),AT_UploadDate,120) AS UploadDate
+            ,li.Identity_Name,row_number() OVER (ORDER BY AT_UploadDate DESC) AS row_number
+            FROM Attachment a
+            INNER JOIN Lafite_Identity li ON a.AT_UploadUser = li.Id
+            LEFT JOIN dbo.Lafite_DICT DIC ON DIC.DICT_TYPE='CONST_ContractAnnex_Type' AND DIC.DICT_KEY=a.AT_Type
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="MainId">AT_Main_ID=#MainId#</isNotNull>
+                <isNotNull prepend="AND" property="Type">AT_Type=#Type#</isNotNull>
+            </dynamic>
+        </select>
+
+        <select id="QueryAttachment" parameterClass="System.Collections.Hashtable" resultClass="Attachment">
+            SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,DIC.VALUE1 AS  TypeName ,AT_UploadUser AS UploadUser,Convert(NVARCHAR(20),AT_UploadDate,120) AS UploadDate
+            ,li.Identity_Name,row_number() OVER (ORDER BY AT_UploadDate DESC) AS row_number
+            FROM Attachment a
+            INNER JOIN Lafite_Identity li ON a.AT_UploadUser = li.Id
+            LEFT JOIN dbo.Lafite_DICT DIC ON DIC.DICT_KEY=a.AT_Type
+            WHERE AT_Main_ID=#MainId#
+            <dynamic prepend="">
+                <isNotNull prepend="AND" property="ParType">DIC.DICT_TYPE=#ParType#</isNotNull>
+            </dynamic>
+        </select>
+
+        <select id="SendMailByDCMSAnnexNotice" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+            exec DCMSAnnexNoticeMailSend #Type#, #ContractId#,'',''
+        </select>
+
+        <select id="QueryAttachmentContract" parameterClass="System.Collections.Hashtable" resultClass="Attachment">
+            SELECT Id,MainId,Name,Url,Type,TypeName,UploadUser,UploadDate,Identity_Name,
+            row_number () OVER (ORDER BY UploadDate DESC) AS row_number
+            FROM (
+            SELECT AT_ID AS Id,
+            AT_Main_ID AS MainId,
+            AT_Name AS Name,
+            AT_Url AS Url,
+            AT_Type AS Type,
+            DIC.VALUE1 AS TypeName,
+            AT_UploadUser AS UploadUser,
+            CONVERT (NVARCHAR (10), AT_UploadDate, 120) AS UploadDate,
+            li.Identity_Name
+            FROM Attachment a
+            INNER JOIN Lafite_Identity li
+            ON a.AT_UploadUser = li.Id
+            INNER JOIN dbo.Lafite_DICT DIC
+            ON DIC.DICT_KEY = a.AT_Type
+            INNER JOIN (SELECT CAP_ID AS ContractID, CAP_DMA_ID AS DMA_ID
+            FROM ContractAppointment
+            UNION
+            SELECT CAM_ID, CAM_DMA_ID FROM ContractAmendment
+            UNION
+            SELECT CRE_ID, CRE_DMA_ID FROM ContractRenewal
+            UNION
+            SELECT CTE_ID, CTE_DMA_ID FROM ContractTermination) comTb
+            ON comTb.ContractID = a.AT_Main_ID
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DealerID">comTb.DMA_ID=#DealerID#</isNotNull>
+                <isNotNull prepend="AND" property="ParType">DIC.DICT_TYPE=#ParType#</isNotNull>
+                <isNotNull prepend="AND" property="AnnexName">AT_Name  like N'%$AnnexName$%'</isNotNull>
+                <isNotNull prepend="AND" property="AttachmentType">AT_Type=#AttachmentType#</isNotNull>
+            </dynamic>
+          UNION
+          SELECT  AT_ID AS Id,AT_Main_ID AS MainId, AT_Name AS Name,AT_Url AS Url,AT_Type AS Type, DIC.VALUE1 AS TypeName, AT_UploadUser AS UploadUser,  CONVERT (NVARCHAR (10), AT_UploadDate, 120) AS UploadDate, li.Identity_Name
+          FROM Attachment a(nolock)
+          INNER JOIN Lafite_Identity li(nolock) ON a.AT_UploadUser = li.Id
+          INNER JOIN dbo.Lafite_DICT DIC(nolock) ON DIC.DICT_KEY = a.AT_Type
+          INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID=A.AT_Main_ID
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DealerID">DM.DMA_ID=#DealerID#</isNotNull>
+                <isNotNull prepend="AND" property="ParType">DIC.DICT_TYPE=#ParType#</isNotNull>
+                <isNotNull prepend="AND" property="AnnexName">AT_Name  like N'%$AnnexName$%'</isNotNull>
+                <isNotNull prepend="AND" property="AttachmentType">AT_Type=#AttachmentType#</isNotNull>
+            </dynamic>
+            )TB
+        </select>
+        <select id="QueryAttachmentContractForDD" parameterClass="System.Collections.Hashtable" resultClass="Attachment">
+          SELECT ATID,Id,MainId,Name,Url,Type,TypeName,UploadUser,UploadDate,Identity_Name,ReportName,
+          DDStartDate,DDEndDate,IsHaveRedFlag,
+          row_number () OVER (ORDER BY UploadDate DESC) AS row_number
+          FROM (
+          SELECT dmdd_id AS Id,
+          AT_ID AS ATID,
+          AT_Main_ID AS MainId,
+          AT_Name AS Name,
+          dmdd.DMDD_ReportName AS ReportName,
+          CONVERT (NVARCHAR (10), dmdd.DMDD_StartDate, 120) AS DDStartDate,
+          CONVERT (NVARCHAR (10), dmdd.DMDD_EndDate, 120) AS DDEndDate,
+          CASE DMDD_IsHaveRedFlag WHEN 1 THEN '是' WHEN 0 THEN '否' ELSE ''END AS IsHaveRedFlag,
+          AT_Url AS Url,
+          AT_Type AS Type,
+          DIC.VALUE1 AS TypeName,
+          li.Identity_Name AS UploadUser,
+          CONVERT (NVARCHAR (10), dmdd.DMDD_CreateDate, 120) AS UploadDate,
+          li.Identity_Name
+          FROM DealerMasterDD dmdd
+          Left JOIN Attachment a on a.AT_ID=dmdd.dmdd_id
+          LEFT JOIN Lafite_Identity li
+          ON dmdd.DMDD_CreateUser = li.Identity_Code
+          LEFT JOIN dbo.Lafite_DICT DIC
+          ON DIC.DICT_KEY = a.AT_Type
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DealerID">dmdd.DMDD_DealerID=#DealerID#</isNotNull>
+                <isNotNull prepend="AND" property="ParType">DIC.DICT_TYPE=#ParType#</isNotNull>
+                <isNotNull prepend="AND" property="AnnexName">AT_Name  like N'%$AnnexName$%'</isNotNull>
+                <isNotNull prepend="AND" property="AttachmentType">AT_Type=#AttachmentType#</isNotNull>
+                <isNotNull prepend="AND" property="DDReportName">dmdd.DMDD_ReportName like N'%$DDReportName$%'</isNotNull>
+                <isNotNull prepend="AND" property="DDStartDateS">dmdd.DMDD_StartDate >= #DDStartDateS#</isNotNull>
+                <isNotNull prepend="AND" property="DDStartDateE">dmdd.DMDD_StartDate &lt; #DDStartDateE#</isNotNull>
+                <isNotNull prepend="AND" property="DDEndDateS">dmdd.DMDD_EndDate >= #DDEndDateS#</isNotNull>
+                <isNotNull prepend="AND" property="DDEndDateE">dmdd.DMDD_EndDate &lt; #DDEndDateE#</isNotNull>
+            </dynamic>
+          )TB
+        </select>
+        <update id="UpdateAttachmentName" parameterClass="Attachment">
+            UPDATE Attachment
+            SET AT_ID=#Id#,AT_Name=#Name#,AT_Type=#Type#
+            WHERE AT_ID = #Id#
+        </update>
+
+        <update id="UpdateAttachmentMainID" parameterClass="System.Collections.Hashtable">
+            UPDATE Attachment
+            SET AT_Main_ID = #NewMainId#
+            WHERE AT_Main_ID = #CurMainId# and AT_Type=#Type#
+        </update>
+
+        <update id="UpdateAttachmentTempMainIDToDealerID" parameterClass="System.Collections.Hashtable">
+          update A SET A.AT_Main_ID=DML.DML_DMA_ID
+          from Attachment A(nolock), DealerMasterLicense DML(nolock)
+          where A.AT_Main_ID = DML.DML_NewApplyID
+          and A.AT_Type = #Type#
+          and DML.DML_DMA_ID = #DealerId#
+        </update>
+
+
+        <select id="QueryAttachmentOther" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+            SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,AT_UploadUser AS UploadUser,AT_UploadDate AS UploadDate,
+            row_number () OVER (ORDER BY AT_UploadDate DESC) AS row_number
+            FROM Attachment
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">AT_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="MainId">AT_Main_ID=#MainId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">AT_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Url">AT_Url=#Url#</isNotNull>
+                <isNotNull prepend="AND" property="Type">AT_Type=#Type#</isNotNull>
+                <isNotNull prepend="AND" property="UploadUser">AT_UploadUser=#UploadUser#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">AT_UploadDate=#UploadDate#</isNotNull>
+            </dynamic>
+        </select>
+
+      <select id="QueryAttachmentForShipmentAttachment" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+        SELECT TOP 100 AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,AT_UploadUser AS UploadUser,AT_UploadDate AS UploadDate,
+        A.DMA_ID AS DealerId,A.DMA_ChineseShortName AS DealerShortName,HOS_HospitalName+' - '+HOS_Key_Account AS HospitalShortName,SPH_ShipmentNbr AS ShipmentNbr,
+        CONVERT(NVARCHAR(6),SPH_ShipmentDate,112) AS ShipmentDate,DivisionName,B.DMA_ChineseShortName AS ParentName
+        FROM Attachment(NOLOCK)
+        INNER JOIN ShipmentHeader(NOLOCK) ON SPH_ID = AT_Main_ID
+        INNER JOIN DealerMaster(NOLOCK) A ON A.DMA_ID = SPH_Dealer_DMA_ID
+        INNER JOIN DealerMaster(NOLOCK) B ON B.DMA_ID = A.DMA_Parent_DMA_ID
+        INNER JOIN Hospital(NOLOCK) ON HOS_ID = SPH_Hospital_HOS_ID
+        INNER JOIN V_DivisionProductLineRelation(NOLOCK) ON ProductLineID = SPH_ProductLine_BUM_ID
+        WHERE AT_Type = #Type#
+        AND SPH_ShipmentDate >= '2017-01-01'
+        AND NOT EXISTS(SELECT 1 FROM UploadLog(NOLOCK) WHERE ULL_Type = '销售单发票归档' AND ULL_AT_Id = AT_ID)
+        ORDER BY SPH_ShipmentDate DESC
+      </select>
+    </statements>
+</sqlMap>

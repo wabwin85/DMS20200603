@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PurchaseOrderConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PurchaseOrderConfirmation" assembly="DMS.Model.dll" type="DMS.Model.PurchaseOrderConfirmation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PurchaseOrderConfirmationResult" class="PurchaseOrderConfirmation">
+      <result property="Id" column="POC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="OrderNo" column="POC_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="SapOrderNo" column="POC_SAP_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="DealerSapCode" column="POC_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="SapCreateDate" column="POC_SAP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="ArticleNumber" column="POC_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="OrderNum" column="POC_OrderNum" type="decimal" dbType="decimal"/>
+      <result property="Price" column="POC_Price" type="decimal" dbType="decimal"/>
+      <result property="Amount" column="POC_Amount" type="decimal" dbType="decimal"/>
+      <result property="Tax" column="POC_Tax" type="decimal" dbType="decimal"/>
+      <result property="FirstAvailableDate" column="POC_FirstAvailableDate" type="DateTime" dbType="datetime"/>
+      <result property="Flag" column="POC_Flag" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="POC_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="POC_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="POC_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PctId" column="POC_PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PohId" column="POC_POH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PodId" column="POC_POD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Authorized" column="POC_Authorized" type="bool" dbType="bit"/>
+      <result property="ProblemDescription" column="POC_ProblemDescription" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="POC_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="POC_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="POC_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="POC_ClientID" type="string" dbType="nvarchar"/>
+      <result property="HandleDate" column="POC_HandleDate" type="DateTime" dbType="datetime"/>
+      <result property="BatchNbr" column="POC_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectPurchaseOrderConfirmation" parameterClass="string" resultClass="PurchaseOrderConfirmation">
+      SELECT POC_ID AS Id,POC_OrderNo AS OrderNo,POC_SAP_OrderNo AS SapOrderNo,POC_Dealer_SapCode AS DealerSapCode,POC_SAP_CreateDate AS SapCreateDate,POC_ArticleNumber AS ArticleNumber,POC_OrderNum AS OrderNum,POC_Price AS Price,POC_Amount AS Amount,POC_Tax AS Tax,POC_FirstAvailableDate AS FirstAvailableDate,POC_Flag AS Flag,POC_DMA_ID AS DmaId,POC_CFN_ID AS CfnId,POC_BUM_ID AS BumId,POC_PCT_ID AS PctId,POC_POH_ID AS PohId,POC_POD_ID AS PodId,POC_Authorized AS Authorized,POC_ProblemDescription AS ProblemDescription,POC_LineNbr AS LineNbr,POC_FileName AS FileName,POC_ImportDate AS ImportDate,POC_ClientID AS Clientid,POC_HandleDate AS HandleDate,POC_BatchNbr AS BatchNbr
+      FROM PurchaseOrderConfirmation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          POC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterPurchaseOrderConfirmation" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderConfirmation">
+      SELECT POC_ID AS Id,POC_OrderNo AS OrderNo,POC_SAP_OrderNo AS SapOrderNo,POC_Dealer_SapCode AS DealerSapCode,POC_SAP_CreateDate AS SapCreateDate,POC_ArticleNumber AS ArticleNumber,POC_OrderNum AS OrderNum,POC_Price AS Price,POC_Amount AS Amount,POC_Tax AS Tax,POC_FirstAvailableDate AS FirstAvailableDate,POC_Flag AS Flag,POC_DMA_ID AS DmaId,POC_CFN_ID AS CfnId,POC_BUM_ID AS BumId,POC_PCT_ID AS PctId,POC_POH_ID AS PohId,POC_POD_ID AS PodId,POC_Authorized AS Authorized,POC_ProblemDescription AS ProblemDescription,POC_LineNbr AS LineNbr,POC_FileName AS FileName,POC_ImportDate AS ImportDate,POC_ClientID AS Clientid,POC_HandleDate AS HandleDate,POC_BatchNbr AS BatchNbr,
+      ROW_NUMBER () OVER (ORDER BY POC_ID ASC)
+      AS row_number
+      FROM PurchaseOrderConfirmation
+      WHERE POC_ProblemDescription IS NOT NULL
+      <dynamic>
+        <isNotNull prepend="AND" property="Id">POC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">POC_OrderNo like N'%$OrderNo$%'</isNotNull>
+
+        <isNotNull prepend="AND" property="DealerSapCode">POC_Dealer_SapCode like N'%$DealerSapCode$%'</isNotNull>
+        <isNotNull prepend="AND" property="SapCreateDate">POC_SAP_CreateDate=#SapCreateDate#</isNotNull>
+
+        <isNotNull prepend="AND" property="SapCreateDateStart">CONVERT(varchar(100),POC_SAP_CreateDate, 112)>=#SapCreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SapCreateDateEnd">CONVERT(varchar(100), POC_SAP_CreateDate, 112)&lt;=#SapCreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="SapOrderNo">POC_SAP_OrderNo like N'%$SapOrderNo$%'</isNotNull>
+
+        <isNotNull prepend="AND" property="ArticleNumber">POC_ArticleNumber like N'%$ArticleNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="OrderNum">POC_OrderNum=#OrderNum#</isNotNull>
+        <isNotNull prepend="AND" property="Price">POC_Price=#Price#</isNotNull>
+        <isNotNull prepend="AND" property="Amount">POC_Amount=#Amount#</isNotNull>
+        <isNotNull prepend="AND" property="Tax">POC_Tax=#Tax#</isNotNull>
+        <isNotNull prepend="AND" property="FirstAvailableDate">POC_FirstAvailableDate=#FirstAvailableDate#</isNotNull>
+        <isNotNull prepend="AND" property="Flag">POC_Flag=#Flag#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">POC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">POC_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">POC_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="PctId">POC_PCT_ID=#PctId#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POC_POH_ID=#PohId#</isNotNull>
+        <isNotNull prepend="AND" property="PodId">POC_POD_ID=#PodId#</isNotNull>
+        <isNotNull prepend="AND" property="Authorized">POC_Authorized=#Authorized#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">POC_ProblemDescription like N'%$ProblemDescription$%'</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">POC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">POC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">POC_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">POC_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="HandleDate">POC_HandleDate=#HandleDate#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">POC_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertPurchaseOrderConfirmation" parameterClass="PurchaseOrderConfirmation">
+      INSERT INTO PurchaseOrderConfirmation
+      (POC_ID,POC_OrderNo,POC_SAP_OrderNo,POC_Dealer_SapCode,POC_SAP_CreateDate,POC_ArticleNumber,POC_OrderNum,POC_Price,POC_Amount,POC_Tax,POC_FirstAvailableDate,POC_Flag,POC_DMA_ID,POC_CFN_ID,POC_BUM_ID,POC_PCT_ID,POC_POH_ID,POC_POD_ID,POC_Authorized,POC_ProblemDescription,POC_LineNbr,POC_FileName,POC_ImportDate,POC_ClientID,POC_HandleDate,POC_BatchNbr)
+      VALUES(#Id#,#OrderNo#,#SapOrderNo#,#DealerSapCode#,#SapCreateDate:DateTime:1/1/0001 12:00:00 AM#,#ArticleNumber#,#OrderNum#,#Price#,#Amount#,#Tax#,#FirstAvailableDate:DateTime:1/1/0001 12:00:00 AM#,#Flag#,#DmaId#,#CfnId#,#BumId#,#PctId#,#PohId#,#PodId#,#Authorized#,#ProblemDescription#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#,#BatchNbr#)
+    </insert>
+    <update id="UpdatePurchaseOrderConfirmation" parameterClass="PurchaseOrderConfirmation">
+      UPDATE PurchaseOrderConfirmation
+      SET POC_ID=#Id#,POC_OrderNo=#OrderNo#,POC_SAP_OrderNo=#SapOrderNo#,POC_Dealer_SapCode=#DealerSapCode#,POC_SAP_CreateDate=#SapCreateDate#,POC_ArticleNumber=#ArticleNumber#,POC_OrderNum=#OrderNum#,POC_Price=#Price#,POC_Amount=#Amount#,POC_Tax=#Tax#,POC_FirstAvailableDate=#FirstAvailableDate#,POC_Flag=#Flag#,POC_DMA_ID=#DmaId#,POC_CFN_ID=#CfnId#,POC_BUM_ID=#BumId#,POC_PCT_ID=#PctId#,POC_POH_ID=#PohId#,POC_POD_ID=#PodId#,POC_Authorized=#Authorized#,POC_ProblemDescription=#ProblemDescription#,POC_LineNbr=#LineNbr#,POC_FileName=#FileName#,POC_ImportDate=#ImportDate#,POC_ClientID=#Clientid#,POC_HandleDate=#HandleDate#,POC_BatchNbr=#BatchNbr#
+      WHERE POC_ID = #Id#
+    </update>
+    <delete id="DeletePurchaseOrderConfirmation" parameterClass="string">
+      DELETE FROM PurchaseOrderConfirmation
+      WHERE POC_ID = #value#
+    </delete>
+    <select id="SelectPurchaseOrderConfirmationByBatchNbrErrorOnly" parameterClass="string" resultClass="PurchaseOrderConfirmation">
+      SELECT POC_ID AS Id,POC_OrderNo AS OrderNo,POC_SAP_OrderNo AS SapOrderNo,POC_Dealer_SapCode AS DealerSapCode,POC_SAP_CreateDate AS SapCreateDate,POC_ArticleNumber AS ArticleNumber,POC_OrderNum AS OrderNum,POC_Price AS Price,POC_Amount AS Amount,POC_Tax AS Tax,POC_FirstAvailableDate AS FirstAvailableDate,POC_Flag AS Flag,POC_DMA_ID AS DmaId,POC_CFN_ID AS CfnId,POC_BUM_ID AS BumId,POC_PCT_ID AS PctId,POC_POH_ID AS PohId,POC_POD_ID AS PodId,POC_Authorized AS Authorized,POC_ProblemDescription AS ProblemDescription,POC_LineNbr AS LineNbr,POC_FileName AS FileName,POC_ImportDate AS ImportDate,POC_ClientID AS Clientid,POC_HandleDate AS HandleDate,POC_BatchNbr AS BatchNbr
+      FROM PurchaseOrderConfirmation
+      WHERE POC_BatchNbr = #value# AND POC_ProblemDescription IS NOT NULL
+      ORDER BY POC_LineNbr
+    </select>
+  </statements>
+</sqlMap>

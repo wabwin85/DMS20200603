@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<oExcel fileName="医院库数据报表 _yyyymmdd" moduleName="">
+  <oSheets>
+    <oSheet Name="医院库数据报表 ">
+      <oMains>
+        <oMain>
+          <oItems>
+          </oItems>
+        </oMain>
+      </oMains>
+      <oDetails>
+        <oDetail keyPos="1,A" valuePos="2,A">
+          <oRecords>
+          </oRecords>
+        </oDetail>
+      </oDetails>
+    </oSheet>
+  </oSheets>
+</oExcel>

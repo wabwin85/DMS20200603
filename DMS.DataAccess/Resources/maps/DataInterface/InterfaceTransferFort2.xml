@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceTransferFort2Map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceTransferFort2" assembly="DMS.Model.dll" type="DMS.Model.InterfaceTransferFort2" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceTransferFort2Result" class="InterfaceTransferFort2">
+      <result property="Id" column="ITR_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerSapCode" column="ITR_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="ITR_Remark" type="string" dbType="nvarchar"/>
+      <result property="TransferFrom" column="ITR_TransferFrom" type="string" dbType="nvarchar"/>
+      <result property="TransferTo" column="ITR_TransferTo" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="ITR_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="ITR_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="LotTransferQty" column="ITR_LotTransferQty" type="decimal" dbType="decimal"/>
+      <result property="QrCode" column="ITR_QrCode" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="ITR_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ITR_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="ITR_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="ITR_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="ITR_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectInterfaceTransferFort2" parameterClass="string" resultClass="InterfaceTransferFort2">
+      SELECT ITR_ID AS Id,ITR_Dealer_SapCode AS DealerSapCode,ITR_Remark AS Remark,ITR_TransferFrom AS TransferFrom,ITR_TransferTo AS TransferTo,ITR_ArticleNumber AS ArticleNumber,ITR_LotNumber AS LotNumber,ITR_LotTransferQty AS LotTransferQty,ITR_QrCode AS QrCode,ITR_LineNbr AS LineNbr,ITR_FileName AS FileName,ITR_ImportDate AS ImportDate,ITR_ClientID AS Clientid,ITR_BatchNbr AS BatchNbr
+      FROM InterfaceTransferForT2
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ITR_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceTransferFort2" parameterClass="InterfaceTransferFort2" resultClass="InterfaceTransferFort2">
+      SELECT ITR_ID AS Id,ITR_Dealer_SapCode AS DealerSapCode,ITR_Remark AS Remark,ITR_TransferFrom AS TransferFrom,ITR_TransferTo AS TransferTo,ITR_ArticleNumber AS ArticleNumber,ITR_LotNumber AS LotNumber,ITR_LotTransferQty AS LotTransferQty,ITR_QrCode AS QrCode,ITR_LineNbr AS LineNbr,ITR_FileName AS FileName,ITR_ImportDate AS ImportDate,ITR_ClientID AS Clientid,ITR_BatchNbr AS BatchNbr
+      FROM InterfaceTransferForT2
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ITR_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">ITR_Dealer_SapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">ITR_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="TransferFrom">ITR_TransferFrom=#TransferFrom#</isNotNull>
+        <isNotNull prepend="AND" property="TransferTo">ITR_TransferTo=#TransferTo#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">ITR_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">ITR_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotTransferQty">ITR_LotTransferQty=#LotTransferQty#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">ITR_QrCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ITR_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ITR_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">ITR_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">ITR_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">ITR_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceTransferFort2" parameterClass="InterfaceTransferFort2">
+      INSERT INTO InterfaceTransferForT2
+      (ITR_ID,ITR_Dealer_SapCode,ITR_Remark,ITR_TransferFrom,ITR_TransferTo,ITR_ArticleNumber,ITR_LotNumber,ITR_LotTransferQty,ITR_QrCode,ITR_LineNbr,ITR_FileName,ITR_ImportDate,ITR_ClientID,ITR_BatchNbr)
+      VALUES(#Id#,#DealerSapCode#,#Remark#,#TransferFrom#,#TransferTo#,#ArticleNumber#,#LotNumber#,#LotTransferQty#,#QrCode#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceTransferFort2" parameterClass="InterfaceTransferFort2">
+      UPDATE InterfaceTransferForT2
+      SET ITR_ID=#Id#,ITR_Dealer_SapCode=#DealerSapCode#,ITR_Remark=#Remark#,ITR_TransferFrom=#TransferFrom#,ITR_TransferTo=#TransferTo#,ITR_ArticleNumber=#ArticleNumber#,ITR_LotNumber=#LotNumber#,ITR_LotTransferQty=#LotTransferQty#,ITR_QrCode=#QrCode#,ITR_LineNbr=#LineNbr#,ITR_FileName=#FileName#,ITR_ImportDate=#ImportDate#,ITR_ClientID=#Clientid#,ITR_BatchNbr=#BatchNbr#
+      WHERE ITR_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceTransferFort2" parameterClass="string">
+      DELETE FROM InterfaceTransferForT2
+      WHERE ITR_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

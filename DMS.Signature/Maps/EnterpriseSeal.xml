@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterpriseSealMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterpriseSeal" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterpriseSeal" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterpriseSealResult" class="EnterpriseSeal">
+      <result property="Id" column="ES_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="EmId" column="ES_EM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ES_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentDmaId" column="ES_Parent_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerName" column="ES_DealerName" type="string" dbType="nvarchar"/>
+      <result property="OrganName" column="ES_OrganName" type="string" dbType="nvarchar"/>
+      <result property="AccountUid" column="ES_AccountUid" type="string" dbType="nvarchar"/>
+      <result property="TemplateType" column="ES_TemplateType" type="string" dbType="nvarchar"/>
+      <result property="Color" column="ES_Color" type="string" dbType="nvarchar"/>
+      <result property="Htext" column="ES_HText" type="string" dbType="nvarchar"/>
+      <result property="Qtext" column="ES_QText" type="string" dbType="nvarchar"/>
+      <result property="Seal" column="ES_Seal" type="string" dbType="nvarchar"/>
+      <result property="ImageUrl" column="ES_ImageUrl" type="string" dbType="nvarchar"/>
+      <result property="IsActive" column="ES_IsActive" type="int" dbType="int"/>
+      <result property="CreateUser" column="ES_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="ES_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="ES_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="ES_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="ES_UpdateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="ES_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterpriseSeal" parameterClass="string" resultClass="EnterpriseSeal">
+      SELECT ES_ID AS Id,ES_EM_ID AS EmId,ES_DMA_ID AS DmaId,ES_Parent_DMA_ID AS ParentDmaId,ES_DealerName AS DealerName,ES_OrganName AS OrganName,ES_AccountUid AS AccountUid,ES_TemplateType AS TemplateType,ES_Color AS Color,ES_HText AS Htext,ES_QText AS Qtext,ES_Seal AS Seal,ES_ImageUrl AS ImageUrl,ES_IsActive AS IsActive,ES_CreateUser AS CreateUser,ES_CreateUserName AS CreateUserName,ES_CreateDate AS CreateDate,ES_UpdateUser AS UpdateUser,ES_UpdateUserName AS UpdateUserName,ES_UpdateDate AS UpdateDate
+      FROM ESign.EnterpriseSeal
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ES_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterpriseSeal" parameterClass="EnterpriseSeal" resultClass="EnterpriseSeal">
+      SELECT ES_ID AS Id,ES_EM_ID AS EmId,ES_DMA_ID AS DmaId,ES_Parent_DMA_ID AS ParentDmaId,ES_DealerName AS DealerName,ES_OrganName AS OrganName,ES_AccountUid AS AccountUid,ES_TemplateType AS TemplateType,ES_Color AS Color,ES_HText AS Htext,ES_QText AS Qtext,ES_Seal AS Seal,ES_ImageUrl AS ImageUrl,ES_IsActive AS IsActive,ES_CreateUser AS CreateUser,ES_CreateUserName AS CreateUserName,ES_CreateDate AS CreateDate,ES_UpdateUser AS UpdateUser,ES_UpdateUserName AS UpdateUserName,ES_UpdateDate AS UpdateDate
+      FROM ESign.EnterpriseSeal
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ES_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="EmId">ES_EM_ID=#EmId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ES_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="AccountUid">ES_AccountUid=#AccountUid#</isNotNull>
+        <isNotNull prepend="AND" property="TemplateType">ES_TemplateType=#TemplateType#</isNotNull>
+        <isNotNull prepend="AND" property="Color">ES_Color=#Color#</isNotNull>
+        <isNotNull prepend="AND" property="Htext">ES_HText=#Htext#</isNotNull>
+        <isNotNull prepend="AND" property="Qtext">ES_QText=#Qtext#</isNotNull>
+        <isNotNull prepend="AND" property="Seal">ES_Seal=#Seal#</isNotNull>
+        <isNotNull prepend="AND" property="ImageUrl">ES_ImageUrl=#ImageUrl#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">ES_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">ES_CreateUserName=#CreateUserName#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterpriseSeal" parameterClass="EnterpriseSeal">
+      IF (#IsActive# != '2')
+      BEGIN
+      IF (EXISTS (SELECT 1 FROM ESign.EnterpriseSeal WITH ( UPDLOCK, HOLDLOCK )
+      WHERE ES_DMA_ID = #DmaId# AND ES_IsActive = '1' ))
+      BEGIN
+      UPDATE ESign.EnterpriseSeal SET ES_IsActive='0',ES_UpdateUser=#UpdateUser#,ES_UpdateUserName=#UpdateUserName#,ES_UpdateDate=#UpdateDate#
+      WHERE ES_DMA_ID = #DmaId# AND ES_IsActive = '1'
+      END
+      END
+
+      INSERT INTO ESign.EnterpriseSeal
+      (ES_ID,ES_EM_ID,ES_DMA_ID,ES_Parent_DMA_ID,ES_DealerName,ES_OrganName,ES_AccountUid,ES_TemplateType,ES_Color,ES_HText,ES_QText,ES_Seal,ES_ImageUrl,ES_IsActive,ES_CreateUser,ES_CreateUserName,ES_CreateDate,ES_UpdateUser,ES_UpdateUserName,ES_UpdateDate)
+      VALUES(#Id#,#EmId#,#DmaId#,#ParentDmaId#,#DealerName#,#OrganName#,#AccountUid#,#TemplateType#,#Color#,#Htext#,#Qtext#,#Seal#,#ImageUrl#,#IsActive#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateEnterpriseSeal" parameterClass="EnterpriseSeal">
+      UPDATE ESign.EnterpriseSeal
+      SET ES_ID=#Id#,ES_EM_ID=#EmId#,ES_DMA_ID=#DmaId#,ES_AccountUid=#AccountUid#,ES_TemplateType=#TemplateType#,ES_Color=#Color#,ES_HText=#Htext#,ES_QText=#Qtext#,ES_Seal=#Seal#,ES_ImageUrl=#ImageUrl#,ES_IsActive=#IsActive#,ES_UpdateUser=#UpdateUser#,ES_UpdateUserName=#UpdateUserName#,ES_UpdateDate=#UpdateDate#
+      WHERE ES_ID = #Id#
+    </update>
+    <delete id="DeleteEnterpriseSeal" parameterClass="string">
+      DELETE FROM ESign.EnterpriseSeal
+      WHERE ES_ID = #value#
+    </delete>
+
+    <select id="QueryEnterpriseSealByDealerId" parameterClass="string" resultClass="EnterpriseSeal">
+      SELECT ES_ID AS Id,ES_EM_ID AS EmId,DMA_ID AS DmaId,#ParentDealerId# AS ParentDmaId,ISNULL(ES_AccountUid,EM_AccountUid) AS AccountUid,ES_TemplateType AS TemplateType,ES_Color AS Color,ES_HText AS Htext,ES_QText AS Qtext,ES_Seal AS Seal,ES_ImageUrl AS ImageUrl,ES_IsActive AS IsActive,ES_CreateUser AS CreateUser,ES_CreateUserName AS CreateUserName,ES_CreateDate AS CreateDate,ES_UpdateUser AS UpdateUser,ES_UpdateUserName AS UpdateUserName,ES_UpdateDate AS UpdateDate
+      ,ISNULL(EM_Name,DMA_ChineseName) AS OrganName,ISNULL(EM_DealerName,DMA_ChineseShortName) AS DealerName,DMA_SAP_Code AS SapCode
+      FROM DealerMaster
+      LEFT JOIN ESign.EnterpriseMaster ON DMA_ID = EM_DMA_ID AND EM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseSeal ON DMA_ID = ES_DMA_ID AND ES_IsActive = '1' AND EM_AccountUid = ES_AccountUid
+      WHERE DMA_ID = #DealerId#
+
+      SELECT ES_ID AS Id,ES_EM_ID AS EmId,DMA_ID AS DmaId,ES_AccountUid AS AccountUid,ES_TemplateType AS TemplateType,ES_Color AS Color,ES_HText AS Htext,ES_QText AS Qtext,ES_Seal AS Seal,ES_ImageUrl AS ImageUrl,CASE WHEN ES_IsActive = '1' THEN '有效' WHEN ES_IsActive = '0' THEN '无效' ELSE '异常' END AS IsActive,ES_CreateUser AS CreateUser,ES_CreateUserName AS CreateUserName,ES_CreateDate AS CreateDate,ES_UpdateUser AS UpdateUser,ES_UpdateUserName AS UpdateUserName,ES_UpdateDate AS UpdateDate
+      ,ES_OrganName AS OrganName,ISNULL(EM_DealerName,DMA_ChineseShortName) AS DealerName,DMA_SAP_Code AS SapCode
+      FROM DealerMaster
+      INNER JOIN ESign.EnterpriseMaster ON DMA_ID = EM_DMA_ID AND EM_Status = 'NORMAL'
+      INNER JOIN ESign.EnterpriseSeal ON DMA_ID = ES_DMA_ID AND ES_IsActive != '2' AND EM_AccountUid = ES_AccountUid
+      WHERE DMA_ID = #DealerId#
+      ORDER BY CASE WHEN ES_IsActive = '1' THEN '1' ELSE '0' END DESC,ES_CreateDate DESC
+    </select>
+
+    <select id="QueryEnterpriseSealByAccountUid" parameterClass="string" resultClass="EnterpriseSeal">
+      SELECT ES_ID AS Id,ES_EM_ID AS EmId,ES_DMA_ID AS DmaId,ES_Parent_DMA_ID AS ParentDmaId,ES_DealerName AS DealerName,ES_OrganName AS OrganName,ES_AccountUid AS AccountUid,ES_TemplateType AS TemplateType,ES_Color AS Color,ES_HText AS Htext,ES_QText AS Qtext,ES_Seal AS Seal,ES_ImageUrl AS ImageUrl,ES_IsActive AS IsActive,ES_CreateUser AS CreateUser,ES_CreateUserName AS CreateUserName,ES_CreateDate AS CreateDate,ES_UpdateUser AS UpdateUser,ES_UpdateUserName AS UpdateUserName,ES_UpdateDate AS UpdateDate
+      FROM DealerMaster
+      LEFT JOIN ESign.EnterpriseMaster ON DMA_ID = EM_DMA_ID AND EM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseSeal ON DMA_ID = ES_DMA_ID AND ES_IsActive = '1' AND EM_AccountUid = ES_AccountUid
+      LEFT JOIN ESign.EnterpriseLegalMaster ON DMA_ID = ELM_DMA_ID AND ELM_Status = 'NORMAL'
+      LEFT JOIN ESign.EnterpriseLegalSeal ON DMA_ID = ELS_DMA_ID AND ELS_IsActive = '1' AND ELM_AccountUid = ELS_AccountUid
+      WHERE DMA_ID = #DealerId#
+    </select>
+  </statements>
+</sqlMap>

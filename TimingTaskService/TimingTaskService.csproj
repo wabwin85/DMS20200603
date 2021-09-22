@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8097E59-0C97-4BA6-97EE-74DC9BD855CB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TimingTaskService</RootNamespace>
+    <AssemblyName>TimingTaskService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IBatisNet.Common, Version=1.6.2.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.Common.Logging.Log4Net">
+      <HintPath>..\..\References\IBatisNet.Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper, Version=1.6.2.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MailHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.BusinessService\DMS.BusinessService.csproj">
+      <Project>{3a8add6e-7210-41fa-84db-9afab7a55f97}</Project>
+      <Name>DMS.BusinessService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Business\DMS.Business.csproj">
+      <Project>{3ca1033f-aefb-414a-ae2e-58fa4533f374}</Project>
+      <Name>DMS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Common\DMS.Common.csproj">
+      <Project>{f752671c-1874-4c06-8192-00186e5d00de}</Project>
+      <Name>DMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.DataAccess\DMS.DataAccess.csproj">
+      <Project>{03a4a80f-98b9-40c7-a3dd-804d7901f0dc}</Project>
+      <Name>DMS.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.DataService\DMS.DataService.csproj">
+      <Project>{5efa666a-adf8-4cf7-adb7-8fe64a2d2cca}</Project>
+      <Name>DMS.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Logging\DMS.Logging.csproj">
+      <Project>{42457bf7-dfd9-4134-8c68-d4c8dfba320c}</Project>
+      <Name>DMS.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Model\DMS.Model.csproj">
+      <Project>{25ea2c8a-56fd-446f-b3f6-d9a7cfa11c77}</Project>
+      <Name>DMS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Script\DMS.Script.csproj">
+      <Project>{8e88daac-c6fa-48d1-9599-eb9547e6b690}</Project>
+      <Name>DMS.Script</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.ServiceTest\DMS.ServiceTest.csproj">
+      <Project>{3dfe6344-b85a-402f-9017-b1eda1da3f0b}</Project>
+      <Name>DMS.ServiceTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Signature\DMS.Signature.csproj">
+      <Project>{9623e5e2-d457-4b5b-954c-e4b113dae22b}</Project>
+      <Name>DMS.Signature</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.TaskLib\DMS.TaskLib.csproj">
+      <Project>{6935667c-d59c-4427-baac-324b48b89d78}</Project>
+      <Name>DMS.TaskLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.ViewModel\DMS.ViewModel.csproj">
+      <Project>{3a217c2b-0108-4a0f-bf0b-463f259b255d}</Project>
+      <Name>DMS.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Website\DMS.Website.csproj">
+      <Project>{3a59e2a7-06da-4903-8b8d-c2266625bc07}</Project>
+      <Name>DMS.Website</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

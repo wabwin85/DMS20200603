@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryqrOperationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryqrOperation" assembly="DMS.Model.dll" type="DMS.Model.InventoryqrOperation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryqrOperationResult" class="InventoryqrOperation">
+      <result property="Id" column="IO_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrcId" column="IO_QRC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="IO_DMA_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="IO_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="IO_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Upn" column="IO_UPN" type="string" dbType="nvarchar"/>
+      <result property="LotId" column="IO_Lot_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotNumber" column="IO_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="BarCode" column="IO_BarCode" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="IO_Qty" type="decimal" dbType="decimal"/>
+      <result property="ShipmentPrice" column="IO_ShipmentPrice" type="decimal" dbType="decimal"/>
+      <result property="ToWarehouseId" column="IO_ToWarehouseId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUser" column="IO_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="IO_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="OperationType" column="IO_OperationType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_InventoryQr_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="LotString" column="LotString" />
+      <parameter property="InventoryType" column="InventoryType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_InventoryQr_Submit_Shipment_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="HospitalId" column="HospitalId" />
+      <parameter property="ShipmentDate" column="ShipmentDate" />
+      <parameter property="HeadXmlString" column="HeadXmlString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_InventoryQr_Submit_Transfer_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="TransferType" column="TransferType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <select id="SelectInventoryqrOperation" parameterClass="string" resultClass="InventoryqrOperation">
+      SELECT IO_Id AS Id,IO_QRC_ID AS QrcId,IO_DMA_Id AS DmaId,IO_CFN_ID AS CfnId,IO_PMA_ID AS PmaId,IO_UPN AS Upn,IO_Lot_Id AS LotId,IO_LotNumber AS LotNumber,IO_BarCode AS BarCode,IO_Qty AS Qty,IO_ShipmentPrice AS ShipmentPrice,IO_ToWarehouseId AS ToWarehouseId,IO_CreateUser AS CreateUser,IO_CreateDate AS CreateDate,IO_OperationType AS OperationType
+      FROM InventoryQROperation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IO_Id = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryqrOperation" parameterClass="InventoryqrOperation" resultClass="InventoryqrOperation">
+      SELECT IO_Id AS Id,IO_QRC_ID AS QrcId,IO_DMA_Id AS DmaId,IO_CFN_ID AS CfnId,IO_PMA_ID AS PmaId,IO_UPN AS Upn,IO_Lot_Id AS LotId,IO_LotNumber AS LotNumber,IO_BarCode AS BarCode,IO_Qty AS Qty,IO_ShipmentPrice AS ShipmentPrice,IO_ToWarehouseId AS ToWarehouseId,IO_CreateUser AS CreateUser,IO_CreateDate AS CreateDate,IO_OperationType AS OperationType
+      FROM InventoryQROperation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IO_Id=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="QrcId">IO_QRC_ID=#QrcId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IO_DMA_Id=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IO_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">IO_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">IO_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">IO_Lot_Id=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IO_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode">IO_BarCode=#BarCode#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">IO_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentPrice">IO_ShipmentPrice=#ShipmentPrice#</isNotNull>
+        <isNotNull prepend="AND" property="ToWarehouseId">IO_ToWarehouseId=#ToWarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="OperationType">IO_OperationType=#OperationType#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryqrOperation" parameterClass="InventoryqrOperation">
+      INSERT INTO InventoryQROperation
+      (IO_Id,IO_QRC_ID,IO_DMA_Id,IO_CFN_ID,IO_PMA_ID,IO_UPN,IO_Lot_Id,IO_LotNumber,IO_BarCode,IO_Qty,IO_ShipmentPrice,IO_ToWarehouseId,IO_CreateUser,IO_CreateDate,IO_OperationType)
+      VALUES(#Id#,#QrcId#,#DmaId#,#CfnId#,#PmaId#,#Upn#,#LotId#,#LotNumber#,#BarCode#,#Qty#,#ShipmentPrice#,#ToWarehouseId#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#OperationType#)
+    </insert>
+    <update id="UpdateInventoryqrOperation" parameterClass="InventoryqrOperation">
+      UPDATE InventoryQROperation
+      SET IO_Id=#Id#,IO_QRC_ID=#QrcId#,IO_DMA_Id=#DmaId#,IO_CFN_ID=#CfnId#,IO_PMA_ID=#PmaId#,IO_UPN=#Upn#,IO_Lot_Id=#LotId#,IO_LotNumber=#LotNumber#,IO_BarCode=#BarCode#,IO_Qty=#Qty#,IO_ShipmentPrice=#ShipmentPrice#,IO_ToWarehouseId=#ToWarehouseId#,IO_OperationType=#OperationType#
+      WHERE IO_Id = #Id#
+    </update>
+    <delete id="DeleteInventoryqrOperation" parameterClass="string">
+      DELETE FROM InventoryQROperation
+      WHERE IO_Id = #value#
+    </delete>
+
+    <select id="QueryInventoryqrOperationByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT IO_Id AS Id,IO_QRC_ID AS QrcId,IO_DMA_Id AS DmaId,IO_CFN_ID AS CfnId,IO_PMA_ID AS PmaId,IO_UPN AS Upn,IO_Lot_Id AS LotId,IO_LotNumber AS LotNumber,IO_BarCode AS BarCode,IO_Qty AS Qty,IO_ShipmentPrice AS ShipmentPrice,IO_ToWarehouseId AS ToWarehouseId,IO_CreateUser AS CreateUser,IO_CreateDate AS CreateDate,IO_OperationType AS OperationType
+      ,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_Property1 AS SKU2,CFN_ChineseName AS CfnCnName,CFN_EnglishName AS CfnEnName,CFN_Property3 AS UOM,WHM_ID AS WarehouseId,WHM_Name AS WarehouseName,WHM_Type AS WarehouseType,QRC_Remark AS QrcRemark
+      ,CFN_ProductLine_BUM_ID AS ProductLineId,LTM_ExpiredDate AS ExpiredDate,LOT_OnHandQty AS LotQty,DMA_ChineseName AS DealerName,DMA_SAP_Code AS DealerCode,DMA_DealerType AS DealerType,PMA_ConvertFactor AS ConvertFactor
+      ,(SELECT WHM_Name FROM Warehouse A WHERE A.WHM_ID = IO_ToWarehouseId) AS ToWarehouseName
+      ,(SELECT WHM_Type FROM Warehouse A WHERE A.WHM_ID = IO_ToWarehouseId) AS ToWarehouseType
+      ,ROW_NUMBER () OVER (ORDER BY IO_CreateDate DESC,CFN_CustomerFaceNbr) AS row_number
+      ,VP.SubCompanyName,VP.BrandName
+      FROM InventoryQROperation(nolock)
+      INNER JOIN interface.T_I_WC_DealerBarcodeQRcodeScan(nolock) ON QRC_ID = IO_QRC_ID
+      INNER JOIN DealerMaster(nolock) ON DMA_ID = IO_DMA_Id
+      INNER JOIN CFN(nolock) ON CFN_ID = IO_CFN_ID
+      INNER JOIN Product(nolock) ON PMA_CFN_ID = CFN_ID
+      INNER JOIN Lot(nolock) ON LOT_ID = IO_Lot_Id
+      INNER JOIN LotMaster(nolock) ON LTM_ID = LOT_LTM_ID
+      INNER JOIN Inventory(nolock) ON INV_ID = LOT_INV_ID
+      INNER JOIN Warehouse(nolock) ON WHM_ID = INV_WHM_ID
+      LEFT JOIN View_ProductLine VP(nolock) on CFN.CFN_ProductLine_BUM_ID = VP.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IO_Id=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="QrcId">IO_QRC_ID=#QrcId#</isNotNull>
+        <isNotNull prepend="AND" property="DmdId">IO_DMD_Id=#DmdId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IO_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">IO_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">IO_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">IO_Lot_Id=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IO_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode">IO_BarCode=#BarCode#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">IO_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="OperationType">IO_OperationType=#OperationType#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUser">IO_CreateUser=#CreateUser#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (VP.SubCompanyId=#SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (VP.BrandId=#BrandId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseType">
+          <iterate prepend="" property="WarehouseType"
+                    open="(" close=")" conjunction="OR">
+            WHM_Type = #WarehouseType[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="UpdateInventoryqrOperationForShipmentEdit" parameterClass="System.Collections.Hashtable">
+      UPDATE InventoryQROperation
+      SET IO_Qty=#Qty#,IO_ShipmentPrice=#ShipmentPrice#
+      WHERE IO_Id = #Id#
+    </update>
+
+    <update id="UpdateInventoryqrOperationForTransferEdit" parameterClass="System.Collections.Hashtable">
+      UPDATE InventoryQROperation
+      SET IO_Qty=#Qty#,IO_ToWarehouseId=#ToWarehouseId#
+      WHERE IO_Id = #Id#
+    </update>
+
+    <update id="UpdateInventoryqrOfToWarahouseIdByFilter" parameterClass="System.Collections.Hashtable">
+      UPDATE InventoryQROperation
+      SET IO_ToWarehouseId = #ToWarehouseId#
+      WHERE IO_CreateUser = #CreateUser#
+      AND IO_OperationType = #OperationType#
+      <isNotNull prepend="AND" property="ProductLine">
+        EXISTS (SELECT 1 FROM CFN WHERE CFN_ID = IO_CFN_ID AND CFN_ProductLine_BUM_ID = #ProductLine#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="WarehouseType">
+        EXISTS (SELECT 1 FROM Lot INNER JOIN Inventory ON Lot_INV_ID = INV_ID
+        INNER JOIN Warehouse ON WHM_ID = INV_WHM_ID
+        WHERE Lot_Id = IO_Lot_Id
+        <iterate prepend="AND" property="WarehouseType"
+                  open="(" close=")" conjunction="OR">
+          WHM_Type = #WarehouseType[]#
+        </iterate>
+        )
+      </isNotNull>
+    </update>
+
+    <delete id="DeleteInventoryqrOperationByFilter" parameterClass="string">
+      DELETE FROM InventoryQROperation
+      WHERE IO_DMA_ID = #DealerId#
+      AND IO_OperationType = #OperationType#
+    </delete>
+
+    <procedure id="GC_InventoryQr_AddCfn" parameterMap="GC_InventoryQr_AddCfn_ParameterMap">
+      dbo.GC_InventoryQr_AddCfn
+    </procedure>
+
+    <procedure id="GC_InventoryQr_Submit_Shipment" parameterMap="GC_InventoryQr_Submit_Shipment_ParameterMap">
+      dbo.GC_InventoryQr_Submit_Shipment
+    </procedure>
+
+    <procedure id="GC_InventoryQr_Submit_Transfer" parameterMap="GC_InventoryQr_Submit_Transfer_ParameterMap">
+      dbo.GC_InventoryQr_Submit_Transfer
+    </procedure>
+  </statements>
+</sqlMap>

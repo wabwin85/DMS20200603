@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceqrDealerTransactionMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="InterfaceqrDealerTransaction" assembly="DMS.Model.dll" type="DMS.Model.InterfaceqrDealerTransaction" />
+    </alias>
+    <resultMaps>
+        <resultMap id="InterfaceqrDealerTransactionResult" class="InterfaceqrDealerTransaction">
+            <result property="Id" column="IDT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DealerCode" column="IDT_DealerCode" type="string" dbType="nvarchar"/>
+            <result property="UserName" column="IDT_UserName" type="string" dbType="nvarchar"/>
+            <result property="UploadDate" column="IDT_UploadDate" type="DateTime" dbType="datetime"/>
+            <result property="DataType" column="IDT_DataType" type="string" dbType="nvarchar"/>
+            <result property="Remark" column="IDT_Remark" type="string" dbType="nvarchar"/>
+            <result property="RowNo" column="IDT_RowNo" type="int" dbType="int"/>
+            <result property="QrCode" column="IDT_QRCode" type="string" dbType="nvarchar"/>
+            <result property="Upn" column="IDT_UPN" type="string" dbType="nvarchar"/>
+            <result property="Lot" column="IDT_Lot" type="string" dbType="nvarchar"/>
+            <result property="PmaId" column="IDT_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DmaId" column="IDT_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="FileName" column="IDT_FileName" type="string" dbType="nvarchar"/>
+            <result property="ImportDate" column="IDT_ImportDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="IDT_ClientID" type="string" dbType="nvarchar"/>
+            <result property="BatchNbr" column="IDT_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="ErrorMsg" column="IDT_ErrorMsg" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="GC_Interface_QRDealerTransaction_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="BatchNbr" column="BatchNbr" />
+            <parameter property="ClientID" column="ClientID" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectInterfaceqrDealerTransaction" parameterClass="string" resultClass="InterfaceqrDealerTransaction">
+            SELECT IDT_ID AS Id,IDT_DealerCode AS DealerCode,IDT_UserName AS UserName,IDT_UploadDate AS UploadDate,IDT_DataType AS DataType,IDT_Remark AS Remark,IDT_RowNo AS RowNo,IDT_QRCode AS QrCode,IDT_UPN AS Upn,IDT_Lot AS Lot,IDT_PMA_ID AS PmaId,IDT_DMA_ID AS DmaId,IDT_FileName AS FileName,IDT_ImportDate AS ImportDate,IDT_ClientID AS Clientid,IDT_BatchNbr AS BatchNbr,IDT_ErrorMsg AS ErrorMsg
+            FROM InterfaceQRDealerTransaction
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    IDT_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterInterfaceqrDealerTransaction" parameterClass="InterfaceqrDealerTransaction" resultClass="InterfaceqrDealerTransaction">
+            SELECT IDT_ID AS Id,IDT_DealerCode AS DealerCode,IDT_UserName AS UserName,IDT_UploadDate AS UploadDate,IDT_DataType AS DataType,IDT_Remark AS Remark,IDT_RowNo AS RowNo,IDT_QRCode AS QrCode,IDT_UPN AS Upn,IDT_Lot AS Lot,IDT_PMA_ID AS PmaId,IDT_DMA_ID AS DmaId,IDT_FileName AS FileName,IDT_ImportDate AS ImportDate,IDT_ClientID AS Clientid,IDT_BatchNbr AS BatchNbr,IDT_ErrorMsg AS ErrorMsg
+            FROM InterfaceQRDealerTransaction
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">IDT_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="DealerCode">IDT_DealerCode=#DealerCode#</isNotNull>
+                <isNotNull prepend="AND" property="UserName">IDT_UserName=#UserName#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">IDT_UploadDate=#UploadDate#</isNotNull>
+                <isNotNull prepend="AND" property="DataType">IDT_DataType=#DataType#</isNotNull>
+                <isNotNull prepend="AND" property="Remark">IDT_Remark=#Remark#</isNotNull>
+                <isNotNull prepend="AND" property="RowNo">IDT_RowNo=#RowNo#</isNotNull>
+                <isNotNull prepend="AND" property="QrCode">IDT_QRCode=#QrCode#</isNotNull>
+                <isNotNull prepend="AND" property="Upn">IDT_UPN=#Upn#</isNotNull>
+                <isNotNull prepend="AND" property="Lot">IDT_Lot=#Lot#</isNotNull>
+                <isNotNull prepend="AND" property="PmaId">IDT_PMA_ID=#PmaId#</isNotNull>
+                <isNotNull prepend="AND" property="DmaId">IDT_DMA_ID=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">IDT_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ImportDate">IDT_ImportDate=#ImportDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">IDT_ClientID=#Clientid#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">IDT_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorMsg">IDT_ErrorMsg=#ErrorMsg#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertInterfaceqrDealerTransaction" parameterClass="InterfaceqrDealerTransaction">
+            INSERT INTO InterfaceQRDealerTransaction
+            (IDT_ID,IDT_DealerCode,IDT_UserName,IDT_UploadDate,IDT_DataType,IDT_Remark,IDT_RowNo,IDT_QRCode,IDT_UPN,IDT_Lot,IDT_PMA_ID,IDT_DMA_ID,IDT_FileName,IDT_ImportDate,IDT_ClientID,IDT_BatchNbr,IDT_ErrorMsg)
+            VALUES(#Id#,#DealerCode#,#UserName#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#DataType#,#Remark#,#RowNo#,#QrCode#,#Upn#,#Lot#,#PmaId#,#DmaId#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ErrorMsg#)
+        </insert>
+        <update id="UpdateInterfaceqrDealerTransaction" parameterClass="InterfaceqrDealerTransaction">
+            UPDATE InterfaceQRDealerTransaction
+            SET IDT_ID=#Id#,IDT_DealerCode=#DealerCode#,IDT_UserName=#UserName#,IDT_UploadDate=#UploadDate#,IDT_DataType=#DataType#,IDT_Remark=#Remark#,IDT_RowNo=#RowNo#,IDT_QRCode=#QrCode#,IDT_UPN=#Upn#,IDT_Lot=#Lot#,IDT_PMA_ID=#PmaId#,IDT_DMA_ID=#DmaId#,IDT_FileName=#FileName#,IDT_ImportDate=#ImportDate#,IDT_ClientID=#Clientid#,IDT_BatchNbr=#BatchNbr#,IDT_ErrorMsg=#ErrorMsg#
+            WHERE IDT_ID = #Id#
+        </update>
+        <delete id="DeleteInterfaceqrDealerTransaction" parameterClass="string">
+            DELETE FROM InterfaceQRDealerTransaction
+            WHERE IDT_ID = #value#
+        </delete>
+        <procedure id="GC_Interface_QRDealerTransaction" parameterMap="GC_Interface_QRDealerTransaction_ParameterMap">
+            dbo.GC_Interface_QRDealerTransaction
+        </procedure>
+        <select id="SelectInterfaceQRDealerTransactionByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceqrDealerTransaction">
+            SELECT IDT_ID AS Id,IDT_DealerCode AS DealerCode,IDT_UserName AS UserName,IDT_UploadDate AS UploadDate,IDT_DataType AS DataType,IDT_Remark AS Remark,IDT_RowNo AS RowNo,IDT_QRCode AS QrCode,IDT_UPN AS Upn,IDT_Lot AS Lot,IDT_PMA_ID AS PmaId,IDT_DMA_ID AS DmaId,IDT_FileName AS FileName,IDT_ImportDate AS ImportDate,IDT_ClientID AS Clientid,IDT_BatchNbr AS BatchNbr,IDT_ErrorMsg AS ErrorMsg
+            FROM InterfaceQRDealerTransaction
+            WHERE IDT_BatchNbr = #value# AND IDT_ErrorMsg IS NOT NULL
+            ORDER BY IDT_QRCode
+        </select>
+    </statements>
+</sqlMap>

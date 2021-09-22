@@ -1,0 +1,633 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">退货申请单信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width: 100%; border-width: 0px;">
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品批号：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.Lot}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">型号(Model#)：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.Model}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">二维码：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.QrCode}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">注册证：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.Registration}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品有效期：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.UPNExpDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">仓库：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.WarehouseName}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">销售日期：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.SalesDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">退货单状态：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.DCStatus}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">快递单号：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.CarrierNumber}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">快递公司：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.CourierCompany}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品类型：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.ProductType}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">物权类型：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.PropertyRights}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品退货或换货：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.ReturnType}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">税率：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.TaxRate}</td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 5px; border-bottom: 1px solid #eee; font-weight: 600;">备注：</td>
+                    <td style="padding-top: 5px; border-bottom: 1px solid #eee;"> #{Header.REMARK}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">客户服务部填写信息：</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">投诉号码(PI)：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PI}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">退换货码（IAN）：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.IAN}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">收到返回产品登记号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.RN}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">波科确认产品换货或退款：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.ConfirmReturnOrRefund}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">RGA：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.RGA}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">Invoice：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.Invoice}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">DN：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DN}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">投诉申请单信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+        <table style="width: 100%; border-width: 0px;">
+            <tr>
+                <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">经销商：</td>
+                <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DealerName}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品型号(UPN)：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.Serial}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品批号：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.Lot}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">产品描述：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.ProductDescription}</td>
+            </tr>
+            <tr>
+                <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">单据号：</td>
+                <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.ComplainNbr}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; width: 230px; font-weight: 600;">投诉号码(PI)：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.PI}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">退换货码(IAN)：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.IAN}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">收到返回产品登记号：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.RN}</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">投诉单审批备注：</td>
+                <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.ComplainApprovelRemark}</td>
+            </tr>
+        </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">1、报告信息</div>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">BSC销售联系人</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">姓名：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CompletedName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">职位：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CompletedTitle}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">如果非波科人员上报</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">姓名：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.NonBostonName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">联系电话：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CompletedPhone}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">联系邮箱：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CompletedEmail}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">公司：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.NonBostonCompany}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">地址：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.NonBostonAddress}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">城市：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.NonBostonCity}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">国家：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.NonBostonCountry}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">事件信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">事件发生日期：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DateEvent}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">表单提交日期：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DateBSC}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">波科人员接报日期：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DateReceipt}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">代理商接报日期：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DateDealer}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">事件发生国家：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.EventCountry}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">其他国家：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.OtherCountry}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600;">是否需要技术支持：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.NeedSupport}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; width: 230px; font-weight: 600;">是否有跟台：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.HasFollowOperation}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; width: 230px; font-weight: 600;">跟台日期：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.FollowOperationDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee; width: 230px; font-weight: 600;">跟台人员：</td>
+                    <td style="padding: 5px 0; border-bottom: 1px solid #eee;"> #{Header.FollowOperationStaff}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">销售信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">是否是平台：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.IsPlatform}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">一级经销商名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.BSCSoldToName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">一级经销商账号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.BSCSoldToAccount}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">一级经销商所在城市：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.BSCSoldToCity}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">二级经销商名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.SubSoldToName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">二级经销商所在城市：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.SubSoldToCity}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">医院名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DistributorCustomer}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">医院所在城市：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DistributorCity}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">2、病人信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">患者姓名或者字母：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PatientName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">患者编号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PatientNum}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">性别：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PatientSex}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">患者出身年月日：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PatientBirth}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">患者体重事件当时,单位KG：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PatientWeight}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">3、病人信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">医生姓名信息来源者姓名：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">事件发生医院：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianHospital}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">职位：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianTitle}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">地址：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianAddress}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">城市：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianCity}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">邮编：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianZipcode}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">国家：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PhysicianCountry}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">4、患者信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">患者状态：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.PatientStatus_01} />患者无任何不良反应<br />
+                        <input type="checkbox" disabled #{Header.PatientStatus_02} />患者出院在家，正常随访<br />
+                        <input type="checkbox" disabled #{Header.PatientStatus_03} />起搏器依赖者<br />
+                        <input type="checkbox" disabled #{Header.PatientStatus_04} />患者有不良反应(请在第九项解释)<br />
+                        <input type="checkbox" disabled #{Header.PatientStatus_05} />患者入院<br />
+                        <input type="checkbox" disabled #{Header.PatientStatus_06} />医学原因（病人自身情况有关/与产品无关）<br />
+                        <input type="checkbox" disabled #{Header.PatientStatus_07} />死亡<br /> 
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">死亡日期：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DeathDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">死亡时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DeathTime}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">原因：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DeathCause}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">上报人员是否在场：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.Witnessed}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">是否怀疑该死亡与波科产品故障有关：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.RelatedBSC}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">5、上报产品体验报告的原因</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">是否与波科产品有关：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.IsForBSCProduct}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">上报原因：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_01} />发生在植入前测试中<br />
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_02} />发生在植入中创口缝合前<br />
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_03} />发生在囊袋闭合后<br />
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_04} />发生在取出时/取出后<br />
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_05} />发生在随访中<br />
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_06} />发布声明/召回（只是为了预防而建议取出产品）<br />
+                        <input type="checkbox" disabled #{Header.ReasonsForProduct_07} />其他（请在第九部分解释）<br />
+                    </td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">6、返回信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">产品是否可返回：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.Returned_01} />是
+                        <input type="checkbox" disabled #{Header.Returned_02} />无法返回
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">如果是，需要多少天返回：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.ReturnedDay}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">是否要求提供分析报告：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.AnalysisReport_01} />是
+                        <input type="checkbox" disabled #{Header.AnalysisReport_02} />否
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">要求提供报告的医生姓名：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.RequestPhysicianName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">是否有保修单：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.Warranty_01} />是
+                        <input type="checkbox" disabled #{Header.Warranty_02} />否
+                    </td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">7、临床观察</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">脉冲发生器/控制器：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.Pulse_01} />Fault codes/error messages 故障码/错误信息（将故障码/错误信息写在第九部分）<br />
+                        <input type="checkbox" disabled #{Header.Pulse_02} />Beeping tones 蜂鸣声<br />
+                        <input type="checkbox" disabled #{Header.Pulse_03} />Telemetry Problem 遥测技术问题<br />
+                        <input type="checkbox" disabled #{Header.Pulse_04} />Unable to establish telemetry 不能建立遥测技术<br />
+                        <input type="checkbox" disabled #{Header.Pulse_05} />Normal ERI, no allegation ERI ERI正常，未宣称<br />
+                        <input type="checkbox" disabled #{Header.Pulse_06} />Allegation of premature battery depletion 宣称电池提前耗竭<br />
+                        <input type="checkbox" disabled #{Header.Pulse_07} />Undersensing 感知不良<br />
+                        <input type="checkbox" disabled #{Header.Pulse_08} />Oversensing 过度感知<br />
+                        <input type="checkbox" disabled #{Header.Pulse_09} />Pacing inhibition(Number of beats inhibited) 起搏抑制（抑制起搏的跳数）<br />
+                        备注：#{Header.Pulsebeats}<br />
+                        <input type="checkbox" disabled #{Header.Pulse_10} />Unable to interrogate无法询问<br />
+                        <input type="checkbox" disabled #{Header.Pulse_11} />Safety Mode 安全模式<br />
+                        <input type="checkbox" disabled #{Header.Pulse_12} />High defibrillation thresholds 高除颤阈值<br />
+                        <input type="checkbox" disabled #{Header.Pulse_13} />Brady pacing not delivered 未发起心动过缓起搏<br />
+                        <input type="checkbox" disabled #{Header.Pulse_14} />Tachy pacing not delivered 未发起心动过速起搏<br />
+                        <input type="checkbox" disabled #{Header.Pulse_15} />Other (Please explain in section 9) 其他（请在第九部分解释）
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">电极/传送系统：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.Leads_01} />Lead conductor fracture 电极导体断裂<br />
+                        备注：#{Header.LeadsFracture}<br />
+                        <input type="checkbox" disabled #{Header.Leads_02} />Insulation issue 绝缘层问题<br />
+                        备注：#{Header.LeadsIssue}<br />
+                        <input type="checkbox" disabled #{Header.Leads_03} />Lead dislodgement 电极脱位<br />
+                        备注：#{Header.LeadsDislodgement}<br />
+                        <input type="checkbox" disabled #{Header.Leads_04} />Abnormal impedance measurements 阻抗测量值异常(Ohms)<br />
+                        备注：#{Header.LeadsMeasurements}<br />
+                        <input type="checkbox" disabled #{Header.Leads_05} />Inappropriate shock 不恰当电击<br />
+                        <input type="checkbox" disabled #{Header.Leads_06} />High pacing thresholds 起搏阈值过高<br />
+                        备注：#{Header.LeadsThresholds}<br />
+                        <input type="checkbox" disabled #{Header.Leads_07} />Pacing inhibition seconds of asystole 起搏抑制心搏停止数秒<br />
+                        备注：#{Header.LeadsBeats}<br />
+                        <input type="checkbox" disabled #{Header.Leads_08} />Noise 噪声<br />
+                        备注：#{Header.LeadsNoise}<br />
+                        <input type="checkbox" disabled #{Header.Leads_09} />Loss of capture 失夺获<br />
+                        备注：#{Header.LeadsLoss}<br />
+                        <input type="checkbox" disabled #{Header.Leads_10} />Non-conversion of ventricular tachycardia or ventricular fibrillation 未转复为室速或室颤<br />
+                        <input type="checkbox" disabled #{Header.Leads_11} />Other (Please explain in section 9) 其他（请在第九部分解释）
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">临床：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">
+                        <input type="checkbox" disabled #{Header.Leads_01} />Perforation 穿孔<br />
+                        备注：#{Header.ClinicalPerforation}<br />
+                        <input type="checkbox" disabled #{Header.Leads_02} />Dissection 夹层<br />
+                        <input type="checkbox" disabled #{Header.Leads_03} />Abnormal impedance measurements 阻抗测量值异常（Ohms）<br />
+                        备注：#{Header.ClinicalBeats}<br />
+                        <input type="checkbox" disabled #{Header.Clinical_04} />Diaphragmatic stimulation 隔肌刺激<br />
+                        <input type="checkbox" disabled #{Header.Clinical_05} />Resolved with reprogramming 再程控<br />
+                        <input type="checkbox" disabled #{Header.Clinical_06} />Muscle/pocket stimulation 肌肉/囊袋刺激<br />
+                        <input type="checkbox" disabled #{Header.Clinical_07} />Infection 感染<br />
+                        <input type="checkbox" disabled #{Header.Clinical_08} />Syncope, loss of consciousness 晕厥，意识丧失（请在第九部分解释）<br />
+                        <input type="checkbox" disabled #{Header.Clinical_09} />Migration 设备移位<br />
+                        <input type="checkbox" disabled #{Header.Clinical_10} />Erosion 糜烂<br />
+                        <input type="checkbox" disabled #{Header.Clinical_11} />Rhythm acceleration 心律加速<br />
+                        <input type="checkbox" disabled #{Header.Clinical_12} />Other (Please explain in section 9) 其他（请在第九部分解释）
+                    </td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size: 14px;padding:10px 0;">8. 设备/电极状态</div>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">脉冲发生器</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:230px;"></td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:20%;">Model</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:20%;">Serial #</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:20%;">植入时间</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:20%;">电极位置</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">电极1</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads1Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads1Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads1Implant}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads1Position}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">电极2</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads2Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads2Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads2Implant}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads2Position}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">电极3</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads3Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads3Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads3Implant}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Leads3Position}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">配件</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.AccessoryModel}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.AccessorySerial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.AccessoryImplant}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">批号(如有)：#{Header.AccessoryLot}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">移除信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">移除时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.ExplantDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">仍在服务中：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.RemainsService}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 230px;font-weight: 600;">产品已移除体内：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.RemovedService}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">更换的产品信息</div>
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:25%;"></td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:25%;">型号</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:25%;">序列号</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width:25%;">植入时间</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品信息1</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace1Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace1Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace1Implant}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品信息2</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace2Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace2Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace2Implant}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品信息3</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace3Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace3Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace3Implant}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品信息4</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace4Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace4Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace4Implant}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品信息5</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace5Model}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace5Serial}</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.Replace5Implant}</td>
+                </tr>
+            </table>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">9. 产品体验详细的事件描述或临床观察（事件描述尽量详细，包括上报的临床观察，发生事件的时间和地点，故障排除的结果，设备或者电极的参数，病人的影响以及最后的手术结果）</div>
+            #{Header.ProductExpDetail}
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;">10. 客户意见/扩展需求</div>
+            #{Header.CustomerComment}
+        </div>
+    </div>
+    <div>
+        <div style="height:10px;width:100%;border-top-style: solid;border-top-color: #eee;border-top-width: 1px;margin-top: 10px;"></div>
+        <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">附件：</span>
+        <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;">
+            <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+                <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                    <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                        <thead>
+                            <tr>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">行号</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">附件名称</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">附件类型</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">上传人</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">上传时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #{foreach(Attachment)}
+                            <tr>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{row_number}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    <a href="https://bscdealer.cn/Pages/Download.aspx?downloadname=#{Name}&filename=#{Url}&downtype=TenderFile" target="_blank">#{Name}</a>
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{TypeName}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{Identity_Name}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{UploadDate}
+                                </td>
+                            </tr>
+                            #{end}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

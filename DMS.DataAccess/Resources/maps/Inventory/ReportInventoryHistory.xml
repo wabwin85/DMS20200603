@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ReportInventoryHistoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ReportInventoryHistory" assembly="DMS.Model.dll" type="DMS.Model.ReportInventoryHistory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ReportInventoryHistoryResult" class="ReportInventoryHistory">
+      <result property="Id" column="RIH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Period" column="RIH_Period" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="RIH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="RIH_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="RIH_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="RIH_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Qty" column="RIH_Qty" type="decimal" dbType="decimal"/>
+      <result property="Amount" column="RIH_Amount" type="decimal" dbType="decimal"/>
+      <result property="CreateUser" column="RIH_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="RIH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="RIH_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="RIH_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectReportInventoryHistory" parameterClass="string" resultClass="ReportInventoryHistory">
+      SELECT RIH_ID AS Id,RIH_Period AS Period,RIH_DMA_ID AS DmaId,RIH_PMA_ID AS PmaId,RIH_WHM_ID AS WhmId,RIH_LTM_ID AS LtmId,RIH_Qty AS Qty,RIH_Amount AS Amount,RIH_CreateUser AS CreateUser,RIH_CreateDate AS CreateDate,RIH_UpdateUser AS UpdateUser,RIH_UpdateDate AS UpdateDate
+      FROM ReportInventoryHistory
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          RIH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterReportInventoryHistory" parameterClass="ReportInventoryHistory" resultClass="ReportInventoryHistory">
+      SELECT RIH_ID AS Id,RIH_Period AS Period,RIH_DMA_ID AS DmaId,RIH_PMA_ID AS PmaId,RIH_WHM_ID AS WhmId,RIH_LTM_ID AS LtmId,RIH_Qty AS Qty,RIH_Amount AS Amount,RIH_CreateUser AS CreateUser,RIH_CreateDate AS CreateDate,RIH_UpdateUser AS UpdateUser,RIH_UpdateDate AS UpdateDate
+      FROM ReportInventoryHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">RIH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Period">RIH_Period=#Period#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">RIH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">RIH_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">RIH_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">RIH_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">RIH_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="Amount">RIH_Amount=#Amount#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">RIH_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">RIH_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertReportInventoryHistory" parameterClass="ReportInventoryHistory">
+      INSERT INTO ReportInventoryHistory
+      (RIH_ID,RIH_Period,RIH_DMA_ID,RIH_PMA_ID,RIH_WHM_ID,RIH_LTM_ID,RIH_Qty,RIH_Amount,RIH_CreateUser,RIH_CreateDate,RIH_UpdateUser,RIH_UpdateDate)
+      VALUES(#Id#,#Period#,#DmaId#,#PmaId#,#WhmId#,#LtmId#,#Qty#,#Amount#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateReportInventoryHistory" parameterClass="ReportInventoryHistory">
+      UPDATE ReportInventoryHistory
+      SET RIH_ID=#Id#,RIH_Period=#Period#,RIH_DMA_ID=#DmaId#,RIH_PMA_ID=#PmaId#,RIH_WHM_ID=#WhmId#,RIH_LTM_ID=#LtmId#,RIH_Qty=#Qty#,RIH_Amount=#Amount#,RIH_UpdateUser=#UpdateUser#,RIH_UpdateDate=#UpdateDate#
+      WHERE RIH_ID = #Id#
+    </update>
+    <delete id="DeleteReportInventoryHistory" parameterClass="string">
+      DELETE FROM ReportInventoryHistory
+      WHERE RIH_ID = #value#
+    </delete>
+    <update id="UpdateReportInventoryHistoryForUpload" parameterClass="ReportInventoryHistory">
+      update ReportInventoryHistory set ReportInventoryHistory.RIH_Qty =ReportInventoryHistory.RIH_Qty - A.QTY
+      from (select SPI_WHM_ID as WhmId,SPI_PMA_ID as PmaId,SPI_LTM_ID as LtmId,SPI_Qty AS QTY
+      ,CONVERT(nvarchar(10),SPI_ShipmentDate,121) as ShipmentDate from ShipmentInit) AS A
+      WHERE WhmId=RIH_WHM_ID and PmaId=RIH_PMA_ID and LtmId=RIH_LTM_ID
+      and RIH_Period=dbo.fn_GetPeriod(ShipmentDate)
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="WhmId">WhmId=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="QTY">QTY=#QTY#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">ShipmentDate=#ShipmentDate#</isNotNull>
+      </dynamic>
+    </update>
+    <update id="UpdateReportInventoryHistoryForShipment" parameterClass="System.Collections.Hashtable">
+      update ReportInventoryHistory set ReportInventoryHistory.RIH_Qty =ReportInventoryHistory.RIH_Qty - A.QTY
+      from (
+      select SLT_WHM_ID as WhmId,SPL_Shipment_PMA_ID as PmaId,LOT_LTM_ID as LtmId,
+      SLT_LotShippedQty as QTY,SPH_ShipmentDate as ShipmentDate,SLT_LOT_ID as LotId from ShipmentLot
+      inner join ShipmentLine on SLT_SPL_ID=SPL_ID
+      inner join Lot on SLT_LOT_ID=LOT_ID
+      inner join ShipmentHeader on SPL_SPH_ID=SPH_ID
+      ) AS A
+      WHERE WhmId=RIH_WHM_ID and PmaId=RIH_PMA_ID and LtmId=RIH_LTM_ID
+      and RIH_Period=dbo.fn_GetPeriod(ShipmentDate) 
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="WhmId">WhmId=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">LotId=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="QTY">QTY=#QTY#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">ShipmentDate=#ShipmentDate#</isNotNull>
+      </dynamic>
+    </update>
+  </statements>
+</sqlMap>

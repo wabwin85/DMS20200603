@@ -1,0 +1,807 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <div style="width:100%;font-size:20px;text-align:center;border:2px solid #eee;padding:5px 0;margin:10px 0;">经销商投诉退换货申请</div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">退货申请单信息:</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <ul style="width: 100%; padding-left: 0; overflow: hidden; margin: 0; list-style: none;">
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品批号:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.LOT}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品有效期:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.UPNExpDate}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">二维码:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.QrCode}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">注册证:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.Registration}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">仓库:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.WarehouseName}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">销售日期:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.SalesDate}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">退货单状态:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.DCStatus}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">快递单号:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.CarrierNumber}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">快递公司:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.CourierCompany}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品类型:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.PRODUCTTYPE}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">物权类型:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.PropertyRights}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品退货或换货:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.RETURNTYPE}
+                    </div>
+                </li>
+                <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">税率:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.TaxRate}
+                    </div>
+                </li>
+                <li style="width: 100%; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">备注:</label>
+                    <div style="width: 80%; float: left;">
+                        #{Header.Remark}
+                    </div>
+                </li>
+            </ul>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">客户服务部填写信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">投诉号码:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.COMPLAINTID}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">TW:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.TWNbr}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">收到返回产品登记号:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.REFERBOX}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">返回原厂运单号:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ReturnFactoryTrackingNo}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">是否收到实物退货:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ReceiveReturnedGoods}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">收到日期:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ReceiveReturnedGoodsDate}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">波科确认产品换货或退款:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ConfirmReturnOrRefund}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">RGA:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.RGA}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">Invoice:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.Invoice}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">DN:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.DN}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">投诉申请单信息</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+        <ul style="width: 100%; padding-left: 0; overflow: hidden; margin: 0; list-style: none;">
+            <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">经销商:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.DealerName}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品批号:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.LOT}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品型号(UPN):</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.UPN}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">首次手术日期:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.INITIALPDATE}
+                </div>
+            </li>
+            <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">事件发生日期:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.EDATE}
+                </div>
+            </li>
+            <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">波科人员接报日期:</label>
+                <div style="width: 240px;float: left;">
+                    #{Header.DateReceipt}
+                </div>
+            </li>
+            <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">投诉号码(PI):</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.COMPLAINTID}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">收到返回产品登记号:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.REFERBOX}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">TW#编号:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.TWNbr}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">产品有效期:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.UPNExpDate}
+                </div>
+            </li>
+            <li style="width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">单据号:</label>
+                <div style="width: 240px; float: left;">
+                    #{Header.ComplainNbr}
+                </div>
+            </li>
+            <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">表单提交日期:</label>
+                <div style="width: 240px;float: left;">
+                    #{Header.DateBSC}
+                </div>
+            </li>
+        </ul>
+            <!--<div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">1、报告信息</div>-->
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">1、联系人信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">申请人:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.EID}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">申请日期:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.REQUESTDATE}
+                    </div>
+                </li>
+                 <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">BSC销售人姓名:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.BSCSALESNAME}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">BSC销售人电话:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.BSCSalesPhone}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">原报告人姓名:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.INITIALNAME}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">原报告人职业:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.INITIALJOB}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">原报告人电话:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.INITIALPHONE}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">原报告人Email:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.INITIALEMAIL}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">医生姓名:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.PHYSICIAN}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">医生电话:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.PHYSICIANPHONE}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">投诉通知日期:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.NOTIFYDATE}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">是否要求提供分析报告:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.NeedOfferAnalyzeReport}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">是否有跟台:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.HasFollowOperation}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">跟台日期:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.FollowOperationDate}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">跟台人员:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.FollowOperationStaff}
+                    </div>
+                </li>
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">联系方式:</label>
+                    <div style="width: 100%; float: left;">
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_1}/>CNF<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_2}/>电子 CNF<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_3}/>电子邮件<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_4}/>传真<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_5}/>现场服务代表<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_6}/>邮件<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_7}/>电话<br/>
+                        <input type="checkbox" disabled #{Header.CONTACTMETHOD_8}/>语音邮件<br/>
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">投诉来源:</label>
+                    <div style="width: 100%;float: left;">
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_1} />公司代表<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_2} />消费者<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_3} />经销商<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_4} />外部<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_5} />医疗专家<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_6} />文献资料<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_7} />研究<br />
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_8}/>用户设备<br/>
+                        <input type="checkbox" disabled #{Header.COMPLAINTSOURCE_9} />其他 － 请说明<br />
+                    </div>
+                </li>
+            </ul>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">2、销售信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">是否是平台:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ISPLATFORM}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">一级经销商名称:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.BSCSOLDTONAME}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">一级经销商账号:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.BSCSOLDTOACCOUNT}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">一级经销商所在城市:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.BSCSOLDTOCITY}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">二级经销商名称:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.SUBSOLDTONAME}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">二级经销商所在城市:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.SUBSOLDTOCITY}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">医院名称:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.DISTRIBUTORCUSTOMER}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">医院所在城市:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.DISTRIBUTORCITY}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">医院中文名称:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.HospitalCn}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">医院英文城市:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.HospitalEn}
+                    </div>
+                </li>
+            </ul>
+
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">3、产品/批次信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">UPN描述:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.DESCRIPTION}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">包装数:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ConvertFactor}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">是否为一次性器械:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.SINGLEUSE}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">UPN所属业务部门:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.BU}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">产品数量:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.ReturnNum}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">能否重复消毒:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.USEDEXPIRY}
+                    </div>
+                </li>
+
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">产品能否退回:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.UPNEXPECTED}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">退回的数量:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.UPNQUANTITY}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">如果该器械经过再次处理后用户患者<br />请填写进行再处理的单位的名称和地址：</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PREPROCESSOR}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">不能寄回厂家的原因:</label>
+                    <div style="width: 100%;float: left;">
+                        <input type="checkbox" disabled #{Header.NORETURN_10} />已污染<br />
+                        <input type="checkbox" disabled #{Header.NORETURN_20} />已丢弃<br />
+                        <input type="checkbox" disabled #{Header.NORETURN_30} />已植入<br />
+                        <input type="checkbox" disabled #{Header.NORETURN_40} />保留在医院<br />
+                        <input type="checkbox" disabled #{Header.NORETURN_50} />不适用<br />
+                        <input type="checkbox" disabled #{Header.NORETURN_99} />其他 - 请说明<br />
+                        备注：#{Header.NORETURNREASON}<br />
+                    </div>
+                </li>
+           
+            </ul>
+
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">4、患者信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">患者标识（ID）:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientName}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">事件发生时患者的年龄:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientAge}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">患者是否未满18岁:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientIs18}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">年龄单位:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientSexUom}
+                    </div>
+                </li>
+
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">患者出生日期</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientBirth}
+                    </div>
+                </li>
+
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">患者性别</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientSex}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">患者体重:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientWeight}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">体重单位:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PatientSexUom}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">解剖部位/病变部位:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.AnatomicSite}
+                    </div>
+                </li>
+
+            </ul>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">5、手术信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">手术名称:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PNAME}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">手术指征:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.INDICATION}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">植入日期（若有）:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.IMPLANTEDDATE}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">移出日期（若有）:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.EXPLANTEDDATE}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">是否使用了IVUS:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.IVUS}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">是否使用了电刀<br />与波科产品故障有关:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.GENERATOR}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">电刀类型说明<br />与波科产品故障有关:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.GENERATORTYPE}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">电刀设置<br />与波科产品故障有关:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.GENERATORSET}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">患者术后状况如何:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PCONDITION}
+                    </div>
+                </li>
+                <li style="width: 100%;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">手术结果:</label>
+                    <div style="width: 100%;float: left;">
+                        <input type="checkbox" disabled #{Header.POUTCOME_1} />使用此器械完成<br />
+                        <input type="checkbox" disabled #{Header.POUTCOME_2} />使用另一件相同器械完成<br />
+                        <input type="checkbox" disabled #{Header.POUTCOME_3} />使用其他器械完成<br />
+                        <input type="checkbox" disabled #{Header.POUTCOME_4} />由于此事件而未能完成<br />
+                        <input type="checkbox" disabled #{Header.POUTCOME_5} />由于缺乏相同器械而未能完成<br />
+                        <input type="checkbox" disabled #{Header.POUTCOME_6} />由于其他原因而未能完成<br />
+                        <input type="checkbox" disabled #{Header.POUTCOME_99} />不清楚<br />
+                    </div>
+                </li>
+            </ul>
+
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">6、事件信息</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item; width: 370px; text-align: left; float: left; line-height: auto; min-height: 24px; margin: 3px; padding: 0; font-weight: normal; vertical-align: middle; height: auto; min-height: 24px;">
+                    <label style="display: list-item; float: left; width: 120px; font-weight: 600; display: inline-block;">事件描述:</label>
+                    <div style="width: 240px; float: left;">
+                        #{Header.EDESCRIPTION}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 150px;font-weight: 600;display: inline-block;">请判断支架是否仅无法通<br />过病变,不存在其他问题：</label>
+                    <div style="width: 200px;float: left;">
+                        #{Header.NoProblemButLesionNotPass}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 150px;font-weight: 600;display: inline-block;">是在按标示使用器械的<br />情况下发生该问题的吗:</label>
+                    <div style="width: 200px;float: left;">
+                        #{Header.WITHLABELEDUSE}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">如果不是，请解释:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.NOLABELEDUSE}
+                    </div>
+                </li>
+                <li style="width: 570px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">事情是否已解决<br />与波科产品故障有关:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.EVENTRESOLVED}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">发现问题的时间:</label>
+                    <div style="float: left;width: 240px;">
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_1} />打开包装时<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_2} />准备手术时<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_3} />插入时<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_4} />手术过程中<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_5} />退出时<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_6} />手术结束时<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_7} />术后<br />
+                        <input type="checkbox" disabled #{Header.WHENNOTICED_99} />不清楚<br />
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">问题发生在什么位置:</label>
+                    <div style="width: 240px;float: left;">
+                        <input type="checkbox" disabled #{Header.WHEREOCCUR_1} />患者体内<br />
+                        <input type="checkbox" disabled #{Header.WHEREOCCUR_2} />患者体外<br />
+                        <input type="checkbox" disabled #{Header.WHEREOCCUR_80} />不适用<br />
+                        <input type="checkbox" disabled #{Header.WHEREOCCUR_99} />不清楚<br />
+                    </div>
+                </li>
+                
+            </ul>
+
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">7、医生尝试处理事件的行动</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+
+                    <div style="width: 100%;float: left;">
+                        <input type="checkbox" disabled #{Header.Pulse_1} />观察<br />
+                        <input type="checkbox" disabled #{Header.Pulse_2} />手术治疗（请说明）<br />
+                        备注：#{Header.SurgeryRemark}<br />
+                        <input type="checkbox" disabled #{Header.Pulse_3} />住院或延长住院时间（请说明）<br />
+                        备注：#{Header.HospitalizationRemark}<br />
+                        <input type="checkbox" disabled #{Header.Pulse_4} />药物治疗 （请说明）<br />
+                        备注：#{Header.MedicineRemark}<br />
+                        <input type="checkbox" disabled #{Header.Pulse_5} />取出器材<br />
+                        <input type="checkbox" disabled #{Header.Pulse_6} />输血/血液制品（请说明）<br />
+                        备注：#{Header.BloodTransfusionRemark}<br />
+                        <input type="checkbox" disabled #{Header.Pulse_7} />其他介入治疗（请说明）<br />
+                        备注：#{Header.OtherInterventionalRemark}<br />
+                        <input type="checkbox" disabled #{Header.Pulse_8} />无<br />
+                    </div>
+                </li>
+
+            </ul>
+            <div style="color:#1f4e81;font-weight:700;font-size:12px;padding:10px 0;border-top:solid 1px #ccc;">9、该事件对患者造成的后果</div>
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">对患者造成的后果:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.Consequence}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">死亡日期:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.DeathDate}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;"> 如果是死亡请提供尸检报告/尸检证明::</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.DeathRemark}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">未严重受伤:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.NotSeriousRemark}
+                    </div>
+                </li>
+                <li style="display: list-item;width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">严重受伤:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.SeriousRemark}
+                    </div>
+                </li>
+                <li style="width: 370px;text-align: left;float: left;line-height: auto;min-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;min-height: 24px;">
+                    <label style="display: list-item;float: left;width: 120px;font-weight: 600;display: inline-block;">某项身体机能永久受损:</label>
+                    <div style="width: 240px;float: left;">
+                        #{Header.PermanentDamageRemark}
+                    </div>
+                </li>
+              
+            </ul>
+        </div>
+    </div>
+    <div>
+        <div style="height:1px;width:100%;border-top-style: solid;border-top-color: #eee;border-top-width: 0px;margin-top: 10px;"></div>
+        <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">8、附件:</span>
+        <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 1px;color: #2e2e2e;line-height: normal;outline: 0;">
+            <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+                <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                    <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                        <thead>
+                            <tr>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">行号</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">附件名称</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">附件类型</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">上传人</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">上传时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #{foreach(Attachment)}
+                            <tr>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{row_number}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    <a href="https://bscdealer.cn/Pages/Download.aspx?downloadname=#{Name}&filename=#{Url}&downtype=TenderFile" target="_blank">#{Name}</a>
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{TypeName}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{Identity_Name}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{UploadDate}
+                                </td>
+                            </tr>
+                            #{end}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

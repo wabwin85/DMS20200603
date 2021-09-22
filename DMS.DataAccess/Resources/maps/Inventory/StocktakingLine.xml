@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="StocktakingLineMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="StocktakingLine" assembly="DMS.Model.dll" type="DMS.Model.StocktakingLine" />
+  </alias>
+  <resultMaps>
+    <resultMap id="StocktakingLineResult" class="StocktakingLine">
+      <result property="Id" column="STL_ID" type="Guid" dbType="Guid"/>
+      <result property="SthId" column="STL_STH_ID" type="Guid" dbType="Guid"/>
+      <result property="PmaId" column="STL_PMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Quantity" column="STL_Quantity" type="double" dbType="Real"/>
+      <result property="LineNbr" column="STL_LineNbr" type="int" dbType="Int"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectStocktakingLine" parameterClass="string" resultClass="StocktakingLine">
+      SELECT STL_ID AS Id,STL_STH_ID AS SthId,STL_PMA_ID AS PmaId,STL_Quantity AS Quantity,STL_LineNbr AS LineNbr
+      FROM StocktakingLine
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterStocktakingLine" parameterClass="StocktakingLine" resultClass="StocktakingLine">
+      SELECT STL_ID AS Id,STL_STH_ID AS SthId,STL_PMA_ID AS PmaId,STL_Quantity AS Quantity,STL_LineNbr AS LineNbr
+      FROM StocktakingLine
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SthId">STL_STH_ID=#SthId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">STL_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Quantity">STL_Quantity=#Quantity#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">STL_LineNbr=#LineNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterStocktakingLineBySthId" parameterClass="string" resultClass="StocktakingLine">
+      SELECT STL_ID AS Id,STL_STH_ID AS SthId,STL_PMA_ID AS PmaId,STL_Quantity AS Quantity,STL_LineNbr AS LineNbr
+      FROM StocktakingLine
+      <dynamic prepend="WHERE">
+        <isParameterPresent>STL_STH_ID=#value#</isParameterPresent>
+      </dynamic>
+    </select>
+    <insert id="InsertStocktakingLine" parameterClass="StocktakingLine">
+      INSERT INTO StocktakingLine
+      (STL_ID,STL_STH_ID,STL_PMA_ID,STL_Quantity,STL_LineNbr)
+      VALUES(#Id#,#SthId#,#PmaId#,#Quantity#,#LineNbr#)
+    </insert>
+    <update id="UpdateStocktakingLine" parameterClass="StocktakingLine">
+      UPDATE StocktakingLine
+      SET STL_ID=#Id#,STL_STH_ID=#SthId#,STL_PMA_ID=#PmaId#,STL_Quantity=#Quantity#,STL_LineNbr=#LineNbr#
+      WHERE STL_ID = #Id#
+    </update>
+    <delete id="DeleteStocktakingLine" parameterClass="string">
+      DELETE FROM StocktakingLine
+      WHERE STL_ID = #value#
+    </delete>
+
+    <insert id="InsertAddLineInfoByActualInv" parameterClass="System.Collections.Hashtable">
+      INSERT INTO StocktakingLine
+      SELECT DISTINCT newid () AS STL_ID,
+      <dynamic>
+        <isParameterPresent property="STH_ID">
+          #STH_ID#,
+        </isParameterPresent>
+      </dynamic>
+      INV_PMA_ID,
+      0 AS STL_Quantity,
+      row_number () OVER (ORDER BY INV_PMA_ID ASC) AS row_number
+      FROM Inventory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="WHM_ID">INV_WHM_ID=#WHM_ID#</isNotNull>
+      </dynamic>
+    </insert>
+    <update id="UpdateLineQuantityBySltId" parameterClass="System.Collections.Hashtable">
+      UPDATE STLine
+      SET STLine.STL_Quantity = STLotSum.LineQty
+      FROM    StocktakingLine AS STLine
+      INNER JOIN
+      (  SELECT SLT_STL_ID, sum (SLT_CheckQty) + sum (SLT_LotQty) AS LineQty
+      FROM StocktakingLot
+      WHERE SLT_STL_ID IN (SELECT SKLot.SLT_STL_ID
+      FROM StocktakingLot SKLot
+      <dynamic>
+        <isParameterPresent property="SLT_ID">
+          WHERE SKLot.SLT_ID = #SLT_ID#)
+        </isParameterPresent>
+      </dynamic>
+      GROUP BY SLT_STL_ID) AS STLotSum
+      ON (STLine.STL_ID = STLotSum.SLT_STL_ID)
+    </update>
+    <select id="SelectStocktakingLineByPmaId" parameterClass="System.Collections.Hashtable" resultClass="StocktakingLine">
+      SELECT STL_ID AS Id,STL_STH_ID AS SthId,STL_PMA_ID AS PmaId,STL_Quantity AS Quantity,STL_LineNbr AS LineNbr
+      FROM StocktakingLine
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PmaId">STL_PMA_ID = #PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="SthId">STL_STH_ID = #SthId#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateLineQuantityByStlId" parameterClass="System.Collections.Hashtable">
+      UPDATE STLine
+      SET STLine.STL_Quantity = STLotSum.LineQty
+      FROM    StocktakingLine AS STLine
+      INNER JOIN
+      (  SELECT SLT_STL_ID, sum (SLT_CheckQty) + sum (SLT_LotQty) AS LineQty
+      FROM StocktakingLot
+      WHERE SLT_STL_ID IN (SELECT SKLot.SLT_STL_ID
+      FROM StocktakingLot SKLot
+      <dynamic>
+        <isParameterPresent property="STL_ID">
+          WHERE SKLot.SLT_STL_ID = #STL_ID#)
+        </isParameterPresent>
+      </dynamic>
+      GROUP BY SLT_STL_ID) AS STLotSum
+      ON (STLine.STL_ID = STLotSum.SLT_STL_ID)
+    </update>
+    <update id="UpdateLineQuantityBySthId" parameterClass="System.Collections.Hashtable">
+      UPDATE STLine
+      SET STLine.STL_Quantity = STLotSum.LineQty
+      FROM    StocktakingLine AS STLine
+      INNER JOIN
+      (  SELECT SLT_STL_ID, sum (SLT_CheckQty) + sum (SLT_LotQty) AS LineQty
+      FROM StocktakingLot
+      WHERE SLT_STL_ID IN (SELECT Line.STL_ID
+      FROM StocktakingLine Line
+      <dynamic>
+        <isParameterPresent property="STH_ID">
+          WHERE Line.STL_STH_ID = #STH_ID#)
+        </isParameterPresent>
+      </dynamic>
+      GROUP BY SLT_STL_ID) AS STLotSum
+      ON (STLine.STL_ID = STLotSum.SLT_STL_ID)
+    </update>
+  </statements>
+</sqlMap>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProductCodeReportMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="ProductCodeReport" assembly="DMS.Model.dll" type="DMS.Model.ProductCodeReport" />
+    </alias>
+    <resultMaps>
+        <resultMap id="ProductCodeReportResult" class="ProductCodeReport">
+            <result property="ReportId" column="ReportId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ReportContact" column="ReportContact" type="string" dbType="nvarchar"/>
+            <result property="ReportContent" column="ReportContent" type="string" dbType="nvarchar"/>
+            <result property="ScanResult" column="ScanResult" type="string" dbType="nvarchar"/>
+            <result property="ScanResultUrl" column="ScanResultUrl" type="string" dbType="nvarchar"/>
+            <result property="ProductImage" column="ProductImage" type="string" dbType="nvarchar"/>
+            <result property="ProductImageUrl" column="ProductImageUrl" type="string" dbType="nvarchar"/>
+            <result property="AddressImage" column="AddressImage" type="string" dbType="nvarchar"/>
+            <result property="AddressImageUrl" column="AddressImageUrl" type="string" dbType="nvarchar"/>
+            <result property="ReportTime" column="ReportTime" type="string" dbType="nvarchar"/>
+            <result property="ReportUser" column="ReportUser" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <select id="SelectProductCodeReportList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT ReportId,
+                   ReportContact,
+                   ReportContent,
+                   ScanResult,
+                   ScanResultUrl,
+                   ProductImage,
+                   ProductImageUrl,
+                   AddressImage,
+                   AddressImageUrl,
+                   CONVERT(NVARCHAR(19), ReportTime, 121) ReportTime,
+                   ReportUser,
+                   ROW_NUMBER() OVER(ORDER BY ReportTime DESC) AS [row_number]
+            FROM   DrmWechat.ProductCodeReport
+            WHERE  (
+                       ISNULL(#ReportContact#, '') = ''
+                       OR ReportContact LIKE '%' + #ReportContact# + '%'
+                   )
+                   AND (
+                           ISNULL(#ReportContent#, '') = ''
+                           OR ReportContent LIKE '%' + #ReportContent# + '%'
+                       )
+            ]]>
+        </select>
+        <select id="SelectProductCodeReportById" parameterClass="string" resultClass="ProductCodeReport">
+            <![CDATA[
+            SELECT ReportId,
+                   ReportContact,
+                   ReportContent,
+                   ScanResult,
+                   ScanResultUrl,
+                   ProductImage,
+                   ProductImageUrl,
+                   AddressImage,
+                   AddressImageUrl,
+                   CONVERT(NVARCHAR(19), ReportTime, 121) ReportTime,
+                   ReportUser
+            FROM   DrmWechat.ProductCodeReport
+            WHERE  ReportId = #value#
+            ]]>
+        </select>
+        <select id="ProductCodeReportMap.SelectQrCodeByCode" parameterClass="string">
+            SELECT * FROM QRCodeMaster WHERE QRM_QRCode = #value#
+        </select>
+        <!--lijieadd-->
+        <select id="ProductCodeQuery" parameterClass="string" resultClass="System.Data.DataSet" >
+          select top 1 t3.CFN_CustomerFaceNbr AS UPN,t3.CFN_ChineseName AS productname, t1.LTM_QrCode AS qrcode,
+          t1.LTM_LotNumber AS LOT,Convert(nvarchar(10),t1.LTM_ExpiredDate,120) AS expiretime,
+          t2.PMA_UnitOfMeasure AS uom, '' as saleType
+          from V_LotMaster t1, Product t2, cfn t3
+          where t1.LTM_Product_PMA_ID = t2.PMA_ID
+          and t2.PMA_CFN_ID = t3.CFN_ID
+          and t1.LTM_QrCode=#value#
+        </select>
+        <select id="ProductDelareQuery" parameterClass="string" resultClass="System.Data.DataSet" >
+            <![CDATA[
+          SELECT QRL_TransDate AS dealdate,QRL_SourecDealerName AS [from],QRL_TargetDealerName AS [to],QRL_TansType AS [TransType],QRL_MarketType AS [MktType] FROM
+          (
+          
+          select QRL_TransDate,QRL_SourecDealerName,QRL_TargetDealerName,QRL_TansType,QRL_MarketType
+          from QRCodeDealerLogisticInfo
+          WHERE QRL_QRCode = #value#
+          ) Tab
+          ORDER BY QRL_TransDate DESC
+          ]]>
+            <!--select DMS.DMA_ChineseName + '(' + DMS.DMA_SAP_Code +')' as [from] ,
+        DMT.DMA_ChineseName + '(' + DMT.DMA_SAP_Code +')' as [to] ,
+        H.PRH_SAPShipmentDate as dealdate
+        from POReceiptHeader H, POReceipt L, POReceiptLot T, DealerMaster DMS, DealerMaster DMT
+        where H.PRH_ID = L.POR_PRH_ID and L.POR_ID =T.PRL_POR_ID
+        and H.PRH_Dealer_DMA_ID = DMT.DMA_ID and H.PRH_Vendor_DMA_ID = DMS.DMA_ID
+        and CASE WHEN charindex('@@',T.PRL_LotNumber) > 0
+        THEN substring(T.PRL_LotNumber,charindex('@@',T.PRL_LotNumber)+2,len(T.PRL_LotNumber))
+        ELSE ''
+        END like '%$value$%'
+        ORDER BY H.PRH_SAPShipmentDate-->
+        </select>
+    </statements>
+</sqlMap>

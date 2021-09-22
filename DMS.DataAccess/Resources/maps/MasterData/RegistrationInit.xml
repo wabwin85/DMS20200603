@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="RegistrationInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="RegistrationInit" assembly="DMS.Model.dll" type="DMS.Model.RegistrationInit" />
+    </alias>
+    <resultMaps>
+        <resultMap id="RegistrationInitResult" class="RegistrationInit">
+            <result property="Id" column="RI_ID" type="Guid" dbType="Guid"/>
+            <result property="RegistrationNbrcn" column="RI_RegistrationNbrCN" type="string" dbType="varchar"/>
+            <result property="RegistrationNbren" column="RI_RegistrationNbrEN" type="string" dbType="varchar"/>
+            <result property="RegistrationProductName" column="RI_RegistrationProductName" type="string" dbType="varchar"/>
+            <result property="OpeningDate" column="RI_OpeningDate" type="DateTime" dbType="DateTime"/>
+            <result property="ExpirationDate" column="RI_ExpirationDate" type="DateTime" dbType="DateTime"/>
+            <result property="ArticleNumber" column="RI_ArticleNumber" type="string" dbType="varchar"/>
+            <result property="ChineseName" column="RI_ChineseName" type="string" dbType="varchar"/>
+            <result property="EnglishName" column="RI_EnglishName" type="string" dbType="varchar"/>
+            <result property="Specification" column="RI_Specification" type="string" dbType="varchar"/>
+            <result property="ManufacturerId" column="RI_Manufacturer_ID" type="string" dbType="varchar"/>
+            <result property="ManufacturerName" column="RI_Manufacturer_Name" type="string" dbType="varchar"/>
+            <result property="ManufacturerAddress" column="RI_Manufacturer_Address" type="string" dbType="varchar"/>
+            <result property="ManufactoryAddress" column="RI_Manufactory_Address" type="string" dbType="varchar"/>
+            <result property="Scope" column="RI_Scope" type="string" dbType="varchar"/>
+            <result property="RegisteredAgent" column="RI_RegisteredAgent" type="string" dbType="varchar"/>
+            <result property="Service" column="RI_Service" type="string" dbType="varchar"/>
+            <result property="Import" column="RI_Import" type="string" dbType="varchar"/>
+            <result property="Implant" column="RI_Implant" type="string" dbType="varchar"/>
+            <result property="Lot" column="RI_Lot" type="string" dbType="varchar"/>
+            <result property="Sn" column="RI_SN" type="string" dbType="varchar"/>
+            <result property="Pacemaker" column="RI_Pacemaker" type="string" dbType="varchar"/>
+            <result property="GuaranteePeriod" column="RI_GuaranteePeriod" type="string" dbType="varchar"/>
+            <result property="MinUnit" column="RI_MinUnit" type="string" dbType="varchar"/>
+            <result property="Barcode1" column="RI_Barcode1" type="string" dbType="varchar"/>
+            <result property="Barcode2" column="RI_Barcode2" type="string" dbType="varchar"/>
+            <result property="Barcode3" column="RI_Barcode3" type="string" dbType="varchar"/>
+            <result property="Barcode4" column="RI_Barcode4" type="string" dbType="varchar"/>
+            <result property="User" column="RI_USER" type="Guid" dbType="Guid"/>
+            <result property="LineNbr" column="RI_LineNbr" type="int" dbType="Int"/>
+            <result property="Error" column="RI_ERROR" type="bool" dbType="bool"/>
+            <result property="ErrorDesc" column="RI_ERROR_DESC" type="string" dbType="varchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="RegistrationInitParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectRegistrationInit" parameterClass="string" resultClass="RegistrationInit">
+            SELECT RI_ID AS Id,RI_RegistrationNbrCN AS RegistrationNbrcn,RI_RegistrationNbrEN AS RegistrationNbren,RI_RegistrationProductName AS RegistrationProductName,RI_OpeningDate AS OpeningDate,RI_ExpirationDate AS ExpirationDate,RI_ArticleNumber AS ArticleNumber,RI_ChineseName AS ChineseName,RI_EnglishName AS EnglishName,RI_Specification AS Specification,RI_Manufacturer_ID AS ManufacturerId,RI_Manufacturer_Name AS ManufacturerName,RI_Manufacturer_Address AS ManufacturerAddress,RI_Manufactory_Address AS ManufactoryAddress,RI_Scope AS Scope,RI_RegisteredAgent AS RegisteredAgent,RI_Service AS Service,RI_Import AS Import,RI_Implant AS Implant,RI_Lot AS Lot,RI_SN AS Sn,RI_Pacemaker AS Pacemaker,RI_GuaranteePeriod AS GuaranteePeriod,RI_MinUnit AS MinUnit,RI_Barcode1 AS Barcode1,RI_Barcode2 AS Barcode2,RI_Barcode3 AS Barcode3,RI_Barcode4 AS Barcode4,RI_USER AS [User],RI_LineNbr AS LineNbr,RI_ERROR AS Error,RI_ERROR_DESC AS ErrorDesc
+            FROM RegistrationInit
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    RI_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterRegistrationInit" parameterClass="RegistrationInit" resultClass="RegistrationInit">
+            SELECT RI_ID AS Id,RI_RegistrationNbrCN AS RegistrationNbrcn,RI_RegistrationNbrEN AS RegistrationNbren,RI_RegistrationProductName AS RegistrationProductName,RI_OpeningDate AS OpeningDate,RI_ExpirationDate AS ExpirationDate,RI_ArticleNumber AS ArticleNumber,RI_ChineseName AS ChineseName,RI_EnglishName AS EnglishName,RI_Specification AS Specification,RI_Manufacturer_ID AS ManufacturerId,RI_Manufacturer_Name AS ManufacturerName,RI_Manufacturer_Address AS ManufacturerAddress,RI_Manufactory_Address AS ManufactoryAddress,RI_Scope AS Scope,RI_RegisteredAgent AS RegisteredAgent,RI_Service AS Service,RI_Import AS Import,RI_Implant AS Implant,RI_Lot AS Lot,RI_SN AS Sn,RI_Pacemaker AS Pacemaker,RI_GuaranteePeriod AS GuaranteePeriod,RI_MinUnit AS MinUnit,RI_Barcode1 AS Barcode1,RI_Barcode2 AS Barcode2,RI_Barcode3 AS Barcode3,RI_Barcode4 AS Barcode4,RI_USER AS [User],RI_LineNbr AS LineNbr,RI_ERROR AS Error,RI_ERROR_DESC AS ErrorDesc
+            ,row_number() OVER (ORDER BY RI_LineNbr ASC) AS [row_number]
+            FROM RegistrationInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">RI_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="RegistrationNbrcn">RI_RegistrationNbrCN=#RegistrationNbrcn#</isNotNull>
+                <isNotNull prepend="AND" property="RegistrationNbren">RI_RegistrationNbrEN=#RegistrationNbren#</isNotNull>
+                <isNotNull prepend="AND" property="RegistrationProductName">RI_RegistrationProductName=#RegistrationProductName#</isNotNull>
+                <isNotNull prepend="AND" property="OpeningDate">RI_OpeningDate=#OpeningDate#</isNotNull>
+                <isNotNull prepend="AND" property="ExpirationDate">RI_ExpirationDate=#ExpirationDate#</isNotNull>
+                <isNotNull prepend="AND" property="ArticleNumber">RI_ArticleNumber=#ArticleNumber#</isNotNull>
+                <isNotNull prepend="AND" property="ChineseName">RI_ChineseName=#ChineseName#</isNotNull>
+                <isNotNull prepend="AND" property="EnglishName">RI_EnglishName=#EnglishName#</isNotNull>
+                <isNotNull prepend="AND" property="Specification">RI_Specification=#Specification#</isNotNull>
+                <isNotNull prepend="AND" property="ManufacturerId">RI_Manufacturer_ID=#ManufacturerId#</isNotNull>
+                <isNotNull prepend="AND" property="ManufacturerName">RI_Manufacturer_Name=#ManufacturerName#</isNotNull>
+                <isNotNull prepend="AND" property="ManufacturerAddress">RI_Manufacturer_Address=#ManufacturerAddress#</isNotNull>
+                <isNotNull prepend="AND" property="ManufactoryAddress">RI_Manufactory_Address=#ManufactoryAddress#</isNotNull>
+                <isNotNull prepend="AND" property="Scope">RI_Scope=#Scope#</isNotNull>
+                <isNotNull prepend="AND" property="RegisteredAgent">RI_RegisteredAgent=#RegisteredAgent#</isNotNull>
+                <isNotNull prepend="AND" property="Service">RI_Service=#Service#</isNotNull>
+                <isNotNull prepend="AND" property="Import">RI_Import=#Import#</isNotNull>
+                <isNotNull prepend="AND" property="Implant">RI_Implant=#Implant#</isNotNull>
+                <isNotNull prepend="AND" property="Lot">RI_Lot=#Lot#</isNotNull>
+                <isNotNull prepend="AND" property="Sn">RI_SN=#Sn#</isNotNull>
+                <isNotNull prepend="AND" property="Pacemaker">RI_Pacemaker=#Pacemaker#</isNotNull>
+                <isNotNull prepend="AND" property="GuaranteePeriod">RI_GuaranteePeriod=#GuaranteePeriod#</isNotNull>
+                <isNotNull prepend="AND" property="MinUnit">RI_MinUnit=#MinUnit#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode1">RI_Barcode1=#Barcode1#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode2">RI_Barcode2=#Barcode2#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode3">RI_Barcode3=#Barcode3#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode4">RI_Barcode4=#Barcode4#</isNotNull>
+                <isNotNull prepend="AND" property="User">RI_USER=#User#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">RI_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="Error">RI_ERROR=#Error#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorDesc">RI_ERROR_DESC=#ErrorDesc#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertRegistrationInit" parameterClass="RegistrationInit">
+            INSERT INTO RegistrationInit
+            (RI_ID,RI_RegistrationNbrCN,RI_RegistrationNbrEN,RI_RegistrationProductName,RI_OpeningDate,RI_ExpirationDate,RI_ArticleNumber,RI_ChineseName,RI_EnglishName,RI_Specification,RI_Manufacturer_ID,RI_Manufacturer_Name,RI_Manufacturer_Address,RI_Manufactory_Address,RI_Scope,RI_RegisteredAgent,RI_Service,RI_Import,RI_Implant,RI_Lot,RI_SN,RI_Pacemaker,RI_GuaranteePeriod,RI_MinUnit,RI_Barcode1,RI_Barcode2,RI_Barcode3,RI_Barcode4,RI_USER,RI_LineNbr,RI_ERROR,RI_ERROR_DESC)
+            VALUES(#Id#,#RegistrationNbrcn#,#RegistrationNbren#,#RegistrationProductName#,#OpeningDate:DateTime:1/1/0001 12:00:00 AM#,#ExpirationDate:DateTime:1/1/0001 12:00:00 AM#,#ArticleNumber#,#ChineseName#,#EnglishName#,#Specification#,#ManufacturerId#,#ManufacturerName#,#ManufacturerAddress#,#ManufactoryAddress#,#Scope#,#RegisteredAgent#,#Service#,#Import#,#Implant#,#Lot#,#Sn#,#Pacemaker#,#GuaranteePeriod#,#MinUnit#,#Barcode1#,#Barcode2#,#Barcode3#,#Barcode4#,#User#,#LineNbr#,#Error#,#ErrorDesc#)
+        </insert>
+        <update id="UpdateRegistrationInit" parameterClass="RegistrationInit">
+            UPDATE RegistrationInit
+            SET RI_ID=#Id#,RI_RegistrationNbrCN=#RegistrationNbrcn#,RI_RegistrationNbrEN=#RegistrationNbren#,RI_RegistrationProductName=#RegistrationProductName#,RI_OpeningDate=#OpeningDate#,RI_ExpirationDate=#ExpirationDate#,RI_ArticleNumber=#ArticleNumber#,RI_ChineseName=#ChineseName#,RI_EnglishName=#EnglishName#,RI_Specification=#Specification#,RI_Manufacturer_ID=#ManufacturerId#,RI_Manufacturer_Name=#ManufacturerName#,RI_Manufacturer_Address=#ManufacturerAddress#,RI_Manufactory_Address=#ManufactoryAddress#,RI_Scope=#Scope#,RI_RegisteredAgent=#RegisteredAgent#,RI_Service=#Service#,RI_Import=#Import#,RI_Implant=#Implant#,RI_Lot=#Lot#,RI_SN=#Sn#,RI_Pacemaker=#Pacemaker#,RI_GuaranteePeriod=#GuaranteePeriod#,RI_MinUnit=#MinUnit#,RI_Barcode1=#Barcode1#,RI_Barcode2=#Barcode2#,RI_Barcode3=#Barcode3#,RI_Barcode4=#Barcode4#,RI_USER=#User#,RI_LineNbr=#LineNbr#,RI_ERROR=#Error#,RI_ERROR_DESC=#ErrorDesc#
+            WHERE RI_ID = #Id#
+        </update>
+        <delete id="DeleteRegistrationInit" parameterClass="string">
+            DELETE FROM RegistrationInit
+            WHERE RI_ID = #value#
+        </delete>
+        <delete id="DeleteRegistrationInitByUser" parameterClass="string">
+            DELETE FROM RegistrationInit
+            WHERE RI_USER = #value#
+        </delete>
+        
+        <procedure id="GC_RegistrationInit" parameterMap="RegistrationInitParameterMap">
+            dbo.GC_RegistrationInit
+        </procedure>
+
+    </statements>
+</sqlMap>

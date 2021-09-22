@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="IntegralExchangeMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="IntegralExchange" assembly="DMS.Model.dll" type="DMS.Model.IntegralExchange" />
+  </alias>
+  <resultMaps>
+    <resultMap id="IntegralExchangeResult" class="IntegralExchange">
+      <result property="Id" column="ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UserId" column="UserId" type="string" dbType="nvarchar"/>
+      <result property="GiftId" column="GiftId" type="string" dbType="nvarchar"/>
+      <result property="Exchangenumber" column="Exchangenumber" type="int" dbType="int"/>
+      <result property="Documentnumber" column="Documentnumber" type="string" dbType="nvarchar"/>
+      <result property="Status" column="Status" type="string" dbType="nvarchar"/>
+      <result property="DeliverNumber" column="DeliverNumber" type="int" dbType="int"/>
+      <result property="ReturnIntegral" column="ReturnIntegral" type="string" dbType="nvarchar"/>
+      <result property="Types" column="Types" type="string" dbType="nvarchar"/>
+      <result property="Data" column="data" type="DateTime" dbType="datetime"/>
+      <result property="GiftName" column="GiftName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectIntegralExchange" parameterClass="string" resultClass="IntegralExchange">
+      SELECT ID AS Id,UserId AS UserId,GiftId AS GiftId,Exchangenumber AS Exchangenumber,Documentnumber AS Documentnumber,Status AS Status,DeliverNumber AS DeliverNumber,ReturnIntegral AS ReturnIntegral,Types AS Types,data AS Data,GiftName AS GiftName
+      FROM IntegralExchange
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterIntegralExchange" parameterClass="IntegralExchange" resultClass="IntegralExchange">
+      SELECT ID AS Id,UserId AS UserId,GiftId AS GiftId,Exchangenumber AS Exchangenumber,Documentnumber AS Documentnumber,Status AS Status,DeliverNumber AS DeliverNumber,ReturnIntegral AS ReturnIntegral,Types AS Types,data AS Data,GiftName AS GiftName
+      FROM IntegralExchange
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="UserId">UserId=#UserId#</isNotNull>
+        <isNotNull prepend="AND" property="GiftId">GiftId=#GiftId#</isNotNull>
+        <isNotNull prepend="AND" property="Exchangenumber">Exchangenumber=#Exchangenumber#</isNotNull>
+        <isNotNull prepend="AND" property="Documentnumber">Documentnumber=#Documentnumber#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="DeliverNumber">DeliverNumber=#DeliverNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnIntegral">ReturnIntegral=#ReturnIntegral#</isNotNull>
+        <isNotNull prepend="AND" property="Types">Types=#Types#</isNotNull>
+        <isNotNull prepend="AND" property="Data">data=#Data#</isNotNull>
+        <isNotNull prepend="AND" property="GiftName">GiftName=#GiftName#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="QuerySelectGiftsByFilter" parameterClass="System.Collections.Hashtable" resultClass="IntegralExchange">
+      select *, row_number() OVER (ORDER BY UserName) AS row_number from(
+      SELECT  distinct Documentnumber AS Documentnumber,
+      Status=case Status when 'Submitted' then N'待批' when 'Reject' then N'拒绝' when 'Completed' then N'通过'
+      else '' end,
+      BWU_UserName as UserName
+      ,BWU_DealerName as DealerName
+      FROM IntegralExchange
+      join BusinessWechatUser on UserId=BWU_ID ) as Redeem
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerName">DealerName Like N'%$DealerName$%'</isNotNull>
+        <isNotNull prepend="AND" property="UserName">UserName like N'%$UserName$%'</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status like N'%$Status$%'</isNotNull>
+      </dynamic>
+    </select>
+    <select id="GetGiftByMainId" parameterClass="System.Collections.Hashtable" resultClass="IntegralExchange">
+      SELECT ID AS Id,UserId AS UserId,GiftId AS GiftId,Exchangenumber AS Exchangenumber,
+      Documentnumber AS Documentnumber,Status AS Status,DeliverNumber AS DeliverNumber,ReturnIntegral AS ReturnIntegral,
+      Types AS Types,convert(varchar(100),data,112) AS Data,GiftName AS GiftName
+      , row_number() OVER (ORDER BY data,UserId) AS row_number
+      FROM IntegralExchange
+      where Documentnumber=#number#
+    </select>
+    <insert id="InsertIntegralExchange" parameterClass="IntegralExchange">
+      INSERT INTO IntegralExchange
+      (ID,UserId,GiftId,Exchangenumber,Documentnumber,Status,DeliverNumber,ReturnIntegral,Types,data,GiftName)
+      VALUES(#Id#,#UserId#,#GiftId#,#Exchangenumber#,#Documentnumber#,#Status#,#DeliverNumber#,#ReturnIntegral#,#Types#,#Data:DateTime:1/1/0001 12:00:00 AM#,#GiftName#)
+    </insert>
+    <update id="UpdateIntegralExchange" parameterClass="IntegralExchange">
+      UPDATE IntegralExchange
+      SET ID=#Id#,UserId=#UserId#,GiftId=#GiftId#,Exchangenumber=#Exchangenumber#,Documentnumber=#Documentnumber#,Status=#Status#,DeliverNumber=#DeliverNumber#,ReturnIntegral=#ReturnIntegral#,Types=#Types#,data=#Data#,GiftName=#GiftName#
+      WHERE ID = #Id#
+    </update>
+    <delete id="DeleteIntegralExchange" parameterClass="string">
+      DELETE FROM IntegralExchange
+      WHERE ID = #value#
+    </delete>
+    <update id="UpdateRedeemGiftStatus" parameterClass="IntegralExchange">
+      UPDATE IntegralExchange
+      set Status='Completed'where Status='Submitted'
+      <dynamic prepend="">
+        <isNotNull prepend="and" property="Documentnumber">
+          Documentnumber in
+          <iterate  property="Documentnumber" open="(" close=")" conjunction=",">
+            #Documentnumber[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </update>
+    <update id="UpdateRejectStatus" parameterClass="IntegralExchange">
+      UPDATE IntegralExchange
+      set Status='Reject'where Status='Submitted'
+      <dynamic prepend="">
+        <isNotNull prepend="and" property="Documentnumber">
+          Documentnumber in
+          <iterate  property="Documentnumber" open="(" close=")" conjunction=",">
+            #Documentnumber[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </update>
+    <select id="SelectallIntegralExchange" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT ID AS Id,UserId AS UserId,GiftId AS GiftId,Exchangenumber AS Exchangenumber,Documentnumber AS Documentnumber,Status AS Status,DeliverNumber AS DeliverNumber,ReturnIntegral AS ReturnIntegral,Types AS Types,data AS Data,GiftName AS GiftName
+      FROM IntegralExchange
+    </select>
+    <select id="selectAllApprovedIntegralExchange" resultClass="System.Collections.Hashtable">
+      SELECT ID,UserId,GiftId ,Exchangenumber ,Documentnumber,Status ,DeliverNumber ,ReturnIntegral ,Types ,data ,GiftName 
+      FROM IntegralExchange where status!='Submitted'
+    </select>
+    <insert id="InsertIntegralExchangeToDms" parameterClass="System.Collections.Hashtable">
+      INSERT INTO IntegralExchange
+      (ID,UserId,GiftId,Exchangenumber,Documentnumber,Status,DeliverNumber,ReturnIntegral,Types,data,GiftName)
+      VALUES(#Id#,#UserId#,#GiftId#,#Exchangenumber#,#Documentnumber#,#Status#,#DeliverNumber#,#ReturnIntegral#,#Types#,#Data#,#GiftName#)
+    </insert>
+  </statements>
+</sqlMap>

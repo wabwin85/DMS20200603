@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="LotMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="LotMaster" assembly="DMS.Model.dll" type="DMS.Model.LotMaster" />
+    <typeAlias alias="QrCodeInventoryData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.QrCodeInventoryData" />
+    <typeAlias alias="QrCodeInventoryForRedCrossData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.QrCodeInventoryForRedCrossData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="LotMasterResult" class="LotMaster">
+      <result property="InitialQty" column="LTM_InitialQty" type="double" dbType="Real"/>
+      <result property="ExpiredDate" column="LTM_ExpiredDate" type="DateTime" dbType="DateTime"/>
+      <result property="LotNumber" column="LTM_LotNumber" type="string" dbType="varchar"/>
+      <result property="Id" column="LTM_ID" type="Guid" dbType="Guid"/>
+      <result property="CreateDate" column="LTM_CreatedDate" type="DateTime" dbType="DateTime"/>
+      <result property="PrlId" column="LTM_PRL_ID" type="Guid" dbType="Guid"/>
+      <result property="ProductPmaId" column="LTM_Product_PMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Type" column="LTM_Type" type="string" dbType="varchar"/>
+      <result property="Relationid" column="LTM_RelationID" type="Guid" dbType="Guid"/>
+    </resultMap>
+    <resultMap id="QrCodeInventoryDataResult" class="QrCodeInventoryData">
+      <result property="DealerCode" column="DealerCode" type="string" dbType="varchar"/>
+      <result property="UPN" column="UPN" type="string" dbType="varchar"/>
+      <result property="LOT" column="LOT" type="string" dbType="varchar"/>
+      <result property="QRCode" column="QRCode" type="string" dbType="varchar"/>
+      <result property="GTIN" column="GTIN" type="string" dbType="varchar"/>
+      <result property="ExpDate" column="ExpDate" type="DateTime" dbType="DateTime"/>
+      <result property="DOM" column="DOM" type="DateTime" dbType="DateTime"/>
+      <result property="IsQRUsable" column="IsQRUsable" type="string" dbType="varchar"/>
+      <result property="Remark" column="Remark" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectLotMaster" parameterClass="string" resultClass="LotMaster">
+      SELECT LTM_InitialQty AS InitialQty,LTM_ExpiredDate AS ExpiredDate,LTM_LotNumber AS LotNumber,LTM_ID AS Id,LTM_CreatedDate AS CreateDate,LTM_PRL_ID AS PrlId,LTM_Product_PMA_ID AS ProductPmaId,LTM_Type AS Type,LTM_RelationID AS Relationid
+      FROM LotMaster
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          LTM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterLotMaster" parameterClass="LotMaster" resultClass="LotMaster">
+      SELECT LTM_InitialQty AS InitialQty,LTM_ExpiredDate AS ExpiredDate,LTM_LotNumber AS LotNumber,LTM_ID AS Id,LTM_CreatedDate AS CreateDate,LTM_PRL_ID AS PrlId,LTM_Product_PMA_ID AS ProductPmaId,LTM_Type AS Type,LTM_RelationID AS Relationid
+      FROM LotMaster
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="InitialQty">LTM_InitialQty=#InitialQty#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">LTM_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LTM_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Id">LTM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PrlId">LTM_PRL_ID=#PrlId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductPmaId">LTM_Product_PMA_ID=#ProductPmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">LTM_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Relationid">LTM_RelationID=#Relationid#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertLotMaster" parameterClass="LotMaster">
+      INSERT INTO LotMaster
+      (LTM_InitialQty,LTM_ExpiredDate,LTM_LotNumber,LTM_ID,LTM_CreatedDate,LTM_PRL_ID,LTM_Product_PMA_ID,LTM_Type,LTM_RelationID,LTM_Lot,LTM_QRCode)
+      VALUES(#InitialQty#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#LotNumber#,#Id#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#PrlId#,#ProductPmaId#,#Type#,#Relationid#,#Lot#,#QRCode#)
+    </insert>
+    <update id="UpdateLotMaster" parameterClass="LotMaster">
+      UPDATE LotMaster
+      SET LTM_InitialQty=#InitialQty#,LTM_ExpiredDate=#ExpiredDate#,LTM_LotNumber=#LotNumber#,LTM_ID=#Id#,LTM_PRL_ID=#PrlId#,LTM_Product_PMA_ID=#ProductPmaId#,LTM_Type=#Type#,LTM_RelationID=#Relationid#
+      WHERE LTM_ID = #Id#
+    </update>
+    <delete id="DeleteLotMaster" parameterClass="string">
+      DELETE FROM LotMaster
+      WHERE LTM_ID = #value#
+    </delete>
+    <!--根据批次号和物料主键查询-->
+    <select id="SelectLotMasterByLotNumber" parameterClass="System.Collections.Hashtable" resultClass="LotMaster">
+      SELECT LTM_InitialQty AS InitialQty,LTM_ExpiredDate AS ExpiredDate,LTM_LotNumber AS LotNumber,LTM_ID AS Id,LTM_CreatedDate AS CreateDate,LTM_PRL_ID AS PrlId,LTM_Product_PMA_ID AS ProductPmaId,LTM_Type AS Type,LTM_RelationID AS Relationid
+      FROM LotMaster WHERE LTM_LotNumber = #LotNumber# and LTM_Product_PMA_ID = #PmaId#
+    </select>
+    <!--根据批次号和产品型号查询-->
+    <select id="SelectLotMasterByLotNumberCFN" parameterClass="System.Collections.Hashtable" resultClass="LotMaster">
+      SELECT LTM_InitialQty AS InitialQty,LTM_ExpiredDate AS ExpiredDate,LTM_LotNumber AS LotNumber,LTM_ID AS Id,LTM_CreatedDate AS CreateDate,LTM_PRL_ID AS PrlId,LTM_Product_PMA_ID AS ProductPmaId,LTM_Type AS Type,LTM_RelationID AS Relationid
+      FROM LotMaster,product,cfn
+      WHERE LTM_Product_PMA_ID = PMA_ID
+      and PMA_CFN_ID = CFN_ID
+      and LTM_LotNumber = #LotNumber# and CFN_CustomerFaceNbr = #CFN#
+    </select>
+    <!--获取当天更新的批次号-->
+    <select id="P_GetLotMaster" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT LTM_InitialQty,LTM_ExpiredDate,LTM_LotNumber,LTM_ID,LTM_CreatedDate,LTM_PRL_ID,LTM_Product_PMA_ID,LTM_Type,LTM_RelationID
+      FROM LotMaster
+      WHERE Convert(nvarchar(8),LTM_CreatedDate,112) > DATEADD(day,-3,#value#)
+    </select>
+    <!--根据批次号和产品型号查询，批次号@@分开-->
+    <select id="SelectLotMasterByLotNumberCFNQuCode" parameterClass="System.Collections.Hashtable" resultClass="LotMaster">
+      SELECT LTM_InitialQty AS InitialQty,LTM_ExpiredDate AS ExpiredDate,LTM_LotNumber AS LotNumber,LTM_ID AS Id,LTM_CreatedDate AS CreateDate,LTM_PRL_ID AS PrlId,LTM_Product_PMA_ID AS ProductPmaId,LTM_Type AS Type,LTM_RelationID AS Relationid
+      FROM LotMaster,product,cfn
+      WHERE LTM_Product_PMA_ID = PMA_ID
+      and PMA_CFN_ID = CFN_ID
+      and CASE WHEN CHARINDEX('@@', LTM_LotNumber, 0) > 0 THEN substring(LTM_LotNumber, 1, CHARINDEX('@@', LTM_LotNumber,
+      0) - 1) ELSE LTM_LotNumber END= #LotNumber#
+      and CFN_CustomerFaceNbr = #CFN#
+    </select>
+    <!--根据批次号和PMAID查询，批次号@@分开-->
+    <select id="SelectLotMasterByLotNumberPMAId" parameterClass="System.Collections.Hashtable" resultClass="LotMaster">
+      SELECT LTM_InitialQty AS InitialQty,LTM_ExpiredDate AS ExpiredDate,LTM_LotNumber AS LotNumber,LTM_ID AS Id,LTM_CreatedDate AS CreateDate,LTM_PRL_ID AS PrlId,LTM_Product_PMA_ID AS ProductPmaId,LTM_Type AS Type,LTM_RelationID AS Relationid
+      from LotMaster where
+      CASE WHEN CHARINDEX('@@', LTM_LotNumber, 0) > 0 THEN substring(LTM_LotNumber, 1, CHARINDEX('@@', LTM_LotNumber,
+      0) - 1) ELSE LTM_LotNumber END= #LotNumber#
+      and LTM_Product_PMA_ID=#PmaId#
+      order by LTM_CreatedDate desc
+    </select>
+    
+    <!--301医院查询经销商库存-->
+    <select id="SelectDealerInventoryForHospital" parameterClass="System.Collections.Hashtable" resultClass="QrCodeInventoryData">
+      EXEC dbo.GC_Interface_DealerInventoryQuery #DealerCode#,#QrCode#
+    </select>
+
+    <!--红会医院查询经销商库存-->
+    <select id="SelectDealerInventoryForRedCross" parameterClass="System.Collections.Hashtable" resultClass="QrCodeInventoryForRedCrossData">
+      EXEC dbo.GC_Interface_DealerInventoryForRedCrossQuery #DealerCode#,#QrCode#,#UPN#
+    </select>
+  </statements>
+</sqlMap>

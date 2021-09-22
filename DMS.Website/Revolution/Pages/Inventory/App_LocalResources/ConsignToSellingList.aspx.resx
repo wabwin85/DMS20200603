@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CFNChineseName" xml:space="preserve">
+    <value>产品中文名</value>
+  </data>
+  <data name="CFNEnglishName" xml:space="preserve">
+    <value>产品英文名</value>
+  </data>
+  <data name="ChangeAdjustType.Alert.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ChangeAdjustType.confirm.Body" xml:space="preserve">
+    <value>改变调整类型将删除已添加的产品</value>
+  </data>
+  <data name="ChangeAdjustType.confirm.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ChangeProductLine.Alert.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ChangeProductLine.confirm.Body" xml:space="preserve">
+    <value>改变产品线将删除已添加的产品！</value>
+  </data>
+  <data name="ChangeProductLine.confirm.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="CheckAdjustReason" xml:space="preserve">
+    <value>备注说明的内容不能超过2000字!</value>
+  </data>
+  <data name="CheckLotQty.Alert.Body" xml:space="preserve">
+    <value>数量不能为0！</value>
+  </data>
+  <data name="CheckLotQty.Alert.Body1" xml:space="preserve">
+    <value>批号/序列号不能为空！</value>
+  </data>
+  <data name="CheckLotQty.Alert.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="CheckLotQty.Alert.Title1" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="CheckMod.new.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="CheckMod.newchanged.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="CheckMod.newchanged.Confirm.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="CheckMod.newchanged.Confirm.Title1" xml:space="preserve">
+    <value>数据已被修改，是否保存？</value>
+  </data>
+  <data name="CheckMod.oldchanged.Confirm.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="CheckMod.oldchanged.Confirm.Title2" xml:space="preserve">
+    <value>数据已被修改，是否保存？</value>
+  </data>
+  <data name="CheckQty.Alert.Body" xml:space="preserve">
+    <value>数量不能大于库存量！</value>
+  </data>
+  <data name="CheckQty.Alert.Body1" xml:space="preserve">
+    <value>最小单位是</value>
+  </data>
+  <data name="CheckQty.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="CheckSubmit.alert.Body" xml:space="preserve">
+    <value>操作未完成，请稍后点击！</value>
+  </data>
+  <data name="CheckSubmit.Alert.Body1" xml:space="preserve">
+    <value>请填写完整后再提交！</value>
+  </data>
+  <data name="CheckSubmit.alert.Title" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="CheckSubmit.Alert.Title1" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="CheckSubmit.failure.Alert.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="DeleteDraft.False.Alert.Body" xml:space="preserve">
+    <value>删除草稿失败</value>
+  </data>
+  <data name="DeleteDraft.False.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DeleteDraft.True.Alert.Body" xml:space="preserve">
+    <value>删除草稿成功</value>
+  </data>
+  <data name="DeleteDraft.True.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DeleteItem.Alert.Body" xml:space="preserve">
+    <value>删除出错</value>
+  </data>
+  <data name="DeleteItem.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DetailWindow.DeleteButton.Listeners.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="DetailWindow.DeleteButton.Text" xml:space="preserve">
+    <value>删除草稿</value>
+  </data>
+  <data name="DetailWindow.DraftButton.Listeners.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="DetailWindow.DraftButton.Text" xml:space="preserve">
+    <value>保存草稿</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.cbDealerWin.BlankText" xml:space="preserve">
+    <value>请选择经销商</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.cbDealerWin.EmptyText" xml:space="preserve">
+    <value>选择经销商...</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.cbDealerWin.FieldLabel" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.cbProductLineWin.BlankText" xml:space="preserve">
+    <value>请选择产品线</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.cbProductLineWin.EmptyText" xml:space="preserve">
+    <value>选择产品线...</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.cbProductLineWin.FieldLabel" xml:space="preserve">
+    <value>&lt;font color='red'&gt;&lt;b&gt;产品线&lt;/b&gt;&lt;/font&gt;</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.FieldTrigger.Qtip" xml:space="preserve">
+    <value>删除所选条目</value>
+  </data>
+  <data name="DetailWindow.FormLayout5.cbAdjustTypeWin.BlankText" xml:space="preserve">
+    <value>请选择类型</value>
+  </data>
+  <data name="DetailWindow.FormLayout5.cbAdjustTypeWin.EmptyText" xml:space="preserve">
+    <value>选择类型...</value>
+  </data>
+  <data name="DetailWindow.FormLayout5.cbAdjustTypeWin.FieldLabel" xml:space="preserve">
+    <value>&lt;font color='red'&gt;&lt;b&gt;类型&lt;/b&gt;&lt;/font&gt;</value>
+  </data>
+  <data name="DetailWindow.FormLayout5.FieldTrigger.Qtip" xml:space="preserve">
+    <value>删除所选条目</value>
+  </data>
+  <data name="DetailWindow.FormLayout5.txtAdjustNumberWin.FieldLabel" xml:space="preserve">
+    <value>申请单号</value>
+  </data>
+  <data name="DetailWindow.FormLayout6.txtAdjustDateWin.FieldLabel" xml:space="preserve">
+    <value>提交日期</value>
+  </data>
+  <data name="DetailWindow.FormLayout6.txtAdjustStatusWin.FieldLabel" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="DetailWindow.FormLayout8.txtAdjustReasonWin.FieldLabel" xml:space="preserve">
+    <value>&lt;font color='red'&gt;&lt;b&gt;备注说明&lt;/b&gt;&lt;/font&gt;</value>
+  </data>
+  <data name="DetailWindow.FormLayout9.txtAduitNoteWin.FieldLabel" xml:space="preserve">
+    <value>审批意见</value>
+  </data>
+  <data name="DetailWindow.RevokeButton.Listeners.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="DetailWindow.RevokeButton.Text" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="DetailWindow.SubmitButton.Text" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="DetailWindow.Title" xml:space="preserve">
+    <value>库存调整明细</value>
+  </data>
+  <data name="DoRevoke.False.Alert.Body" xml:space="preserve">
+    <value>撤销失败</value>
+  </data>
+  <data name="DoRevoke.False.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DoRevoke.True.Alert.Body" xml:space="preserve">
+    <value>撤销成功</value>
+  </data>
+  <data name="DoRevoke.True.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DoSubmit.False.Alert.Body" xml:space="preserve">
+    <value>提交失败</value>
+  </data>
+  <data name="DoSubmit.False.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DoSubmit.True.Alert.Body" xml:space="preserve">
+    <value>提交成功</value>
+  </data>
+  <data name="DoSubmit.True.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="gpLog.OperDate" xml:space="preserve">
+    <value>操作时间</value>
+  </data>
+  <data name="gpLog.OperNote" xml:space="preserve">
+    <value>备注信息</value>
+  </data>
+  <data name="gpLog.OperTypeName" xml:space="preserve">
+    <value>操作内容</value>
+  </data>
+  <data name="gpLog.OperUserId" xml:space="preserve">
+    <value>操作人帐号</value>
+  </data>
+  <data name="gpLog.OperUserName" xml:space="preserve">
+    <value>操作人姓名</value>
+  </data>
+  <data name="gpLog.Title" xml:space="preserve">
+    <value>操作记录明细</value>
+  </data>
+  <data name="GridPanel1.AjaxEvents.Alert.Body" xml:space="preserve">
+    <value>ajax事件过程有问题!</value>
+  </data>
+  <data name="GridPanel1.AjaxEvents.Alert.Title" xml:space="preserve">
+    <value>数据处理过程</value>
+  </data>
+  <data name="GridPanel1.AjaxEvents.EventMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.AdjustNumber.Header" xml:space="preserve">
+    <value>申请单号</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.AdjustReason.Header" xml:space="preserve">
+    <value>备注说明</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.CommandColumn.Header" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.CreateDate.Header" xml:space="preserve">
+    <value>提交日期</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.CreateUserName.Header" xml:space="preserve">
+    <value>提交人</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.DealerId.Header" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.Status.Header" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ToolTip.Text" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.TotalQyt.Header" xml:space="preserve">
+    <value>总数量</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.Type.Header" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="GridPanel1.LoadMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel1.Title" xml:space="preserve">
+    <value>查询结果</value>
+  </data>
+  <data name="GridPanel2.AddItemsButton.AjaxEvents.Alert.Body" xml:space="preserve">
+    <value>ajax事件过程有问题!</value>
+  </data>
+  <data name="GridPanel2.AddItemsButton.AjaxEvents.Alert.Title" xml:space="preserve">
+    <value>数据处理过程</value>
+  </data>
+  <data name="GridPanel2.AddItemsButton.AjaxEvents.EventMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel2.AddItemsButton.Text" xml:space="preserve">
+    <value>添加产品</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.AdjustQty.Header" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.CommandColumn.GridCommand.ToolTip-Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.CommandColumn.Header" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.CreatedDate.Header" xml:space="preserve">
+    <value>入库时间</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ExpiredDate.Header" xml:space="preserve">
+    <value>有效期</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.LotNumber.Header" xml:space="preserve">
+    <value>序列号/批号</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.PurchaseOrderNbr.Header" xml:space="preserve">
+    <value>关联订单</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.TotalQty.Header" xml:space="preserve">
+    <value>库存量</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.UnitOfMeasure.Header" xml:space="preserve">
+    <value>单位</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.UPN.Header" xml:space="preserve">
+    <value>条形码</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.WarehouseName.Header" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="GridPanel2.LoadMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel2.Title" xml:space="preserve">
+    <value>查询结果</value>
+  </data>
+  <data name="LotNumber.Alert.Body" xml:space="preserve">
+    <value>产品批号不存在</value>
+  </data>
+  <data name="LotNumber.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="Panel1.btnInsert.Alert.Body" xml:space="preserve">
+    <value>ajax事件过程有问题!</value>
+  </data>
+  <data name="Panel1.btnInsert.Alert.Title" xml:space="preserve">
+    <value>数据处理过程</value>
+  </data>
+  <data name="Panel1.btnInsert.Text" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="Panel1.btnSearch.Text" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="Panel1.FormLayout1.cbProductLine.EmptyText" xml:space="preserve">
+    <value>选择产品线...</value>
+  </data>
+  <data name="Panel1.FormLayout1.cbProductLine.FieldLabel" xml:space="preserve">
+    <value>产品线</value>
+  </data>
+  <data name="Panel1.FormLayout1.FieldTrigger.Qtip" xml:space="preserve">
+    <value>删除所选条目</value>
+  </data>
+  <data name="Panel1.FormLayout1.txtAdjustNumber.FieldLabel" xml:space="preserve">
+    <value>申请单号</value>
+  </data>
+  <data name="Panel1.FormLayout1.txtStartDate.FieldLabel" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="Panel1.FormLayout2.cbDealer.EmptyText" xml:space="preserve">
+    <value>选择经销商...</value>
+  </data>
+  <data name="Panel1.FormLayout2.cbDealer.FieldLabel" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="Panel1.FormLayout2.FieldTrigger.Qtip" xml:space="preserve">
+    <value>删除所选条目</value>
+  </data>
+  <data name="Panel1.FormLayout2.txtEndDate.FieldLabel" xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="Panel1.FormLayout2.txtUPN.FieldLabel" xml:space="preserve">
+    <value>条形码</value>
+  </data>
+  <data name="Panel1.FormLayout3.cbAdjustStatus.EmptyText" xml:space="preserve">
+    <value>选择状态...</value>
+  </data>
+  <data name="Panel1.FormLayout3.cbAdjustStatus.FieldLabel" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Panel1.FormLayout3.FieldTrigger.Qtip" xml:space="preserve">
+    <value>删除所选条目</value>
+  </data>
+  <data name="Panel1.FormLayout3.txtLotNumber2.FieldLabel" xml:space="preserve">
+    <value>序列号/批号</value>
+  </data>
+  <data name="Panel1.Title" xml:space="preserve">
+    <value>查询条件</value>
+  </data>
+  <data name="SaveDraft.False.Alert.Body" xml:space="preserve">
+    <value>保存草稿失败</value>
+  </data>
+  <data name="SaveDraft.False.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="SaveDraft.True.Alert.Body" xml:space="preserve">
+    <value>保存草稿成功</value>
+  </data>
+  <data name="SaveDraft.True.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="SaveInvAdjDetailLine.Alert.Body" xml:space="preserve">
+    <value>保存出错</value>
+  </data>
+  <data name="SaveInvAdjDetailLine.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="SaveItem.Alert.Body" xml:space="preserve">
+    <value>保存出错</value>
+  </data>
+  <data name="SaveItem.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="ShowDialog.Alert.Body" xml:space="preserve">
+    <value>请选择产品线和调整类型后再添加产品！</value>
+  </data>
+  <data name="ShowDialog.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="TabDetail.Title" xml:space="preserve">
+    <value>产品明细</value>
+  </data>
+  <data name="TabHeader.Title" xml:space="preserve">
+    <value>表头信息</value>
+  </data>
+  <data name="TabLog.Title" xml:space="preserve">
+    <value>操作记录</value>
+  </data>
+</root>

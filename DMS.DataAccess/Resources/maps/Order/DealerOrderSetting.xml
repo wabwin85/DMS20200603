@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerOrderSettingMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DealerOrderSetting" assembly="DMS.Model.dll" type="DMS.Model.DealerOrderSetting" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerOrderSettingResult" class="DealerOrderSetting">
+            <result property="Id" column="DOS_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DmaId" column="DOS_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="IsOpen" column="DOS_IsOpen" type="bool" dbType="bit"/>
+            <result property="MaxAmount" column="DOS_MaxAmount" type="decimal" dbType="decimal"/>
+            <result property="ExecuteDay" column="DOS_ExecuteDay" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectDealerOrderSetting" parameterClass="string" resultClass="DealerOrderSetting">
+            SELECT DOS_ID AS Id,DOS_DMA_ID AS DmaId,DOS_IsOpen AS IsOpen,DOS_MaxAmount AS MaxAmount,DOS_ExecuteDay AS ExecuteDay
+            FROM DealerOrderSetting
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DOS_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByDmaIdDealerOrderSetting" parameterClass="string" resultClass="DealerOrderSetting">
+          SELECT DOS_ID AS Id,DOS_DMA_ID AS DmaId,DOS_IsOpen AS IsOpen,DOS_MaxAmount AS MaxAmount,DOS_ExecuteDay AS ExecuteDay
+          FROM DealerOrderSetting
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              DOS_DMA_ID = #value#
+            </isParameterPresent>
+          </dynamic>
+        </select>
+        <select id="SelectByFilterDealerOrderSetting" parameterClass="DealerOrderSetting" resultClass="DealerOrderSetting">
+            SELECT DOS_ID AS Id,DOS_DMA_ID AS DmaId,DOS_IsOpen AS IsOpen,DOS_MaxAmount AS MaxAmount,DOS_ExecuteDay AS ExecuteDay
+            FROM DealerOrderSetting
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">DOS_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="DmaId">DOS_DMA_ID=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="IsOpen">DOS_IsOpen=#IsOpen#</isNotNull>
+                <isNotNull prepend="AND" property="MaxAmount">DOS_MaxAmount=#MaxAmount#</isNotNull>
+                <isNotNull prepend="AND" property="ExecuteDay">DOS_ExecuteDay=#ExecuteDay#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertDealerOrderSetting" parameterClass="DealerOrderSetting">
+            INSERT INTO DealerOrderSetting
+            (DOS_ID,DOS_DMA_ID,DOS_IsOpen,DOS_MaxAmount,DOS_ExecuteDay)
+            VALUES(#Id#,#DmaId#,#IsOpen#,#MaxAmount#,#ExecuteDay#)
+        </insert>
+        <update id="UpdateDealerOrderSetting" parameterClass="DealerOrderSetting">
+            UPDATE DealerOrderSetting
+            SET DOS_ID=#Id#,DOS_DMA_ID=#DmaId#,DOS_IsOpen=#IsOpen#,DOS_MaxAmount=#MaxAmount#,DOS_ExecuteDay=#ExecuteDay#
+            WHERE DOS_ID = #Id#
+        </update>
+        <delete id="DeleteDealerOrderSetting" parameterClass="string">
+            DELETE FROM DealerOrderSetting
+            WHERE DOS_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

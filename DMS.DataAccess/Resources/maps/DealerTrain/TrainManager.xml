@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TrainManagerMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="TrainManager" assembly="DMS.Model.dll" type="DMS.Model.TrainManager" />
+    </alias>
+    <resultMaps>
+        <resultMap id="TrainManagerResult" class="TrainManager">
+            <result property="TrainId" column="TrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ManagerId" column="ManagerId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertTrainManager" parameterClass="TrainManager">
+            INSERT INTO Commando.TrainManager
+            (TrainId,ManagerId,CreateUser,CreateTime)
+            SELECT #TrainId#,#ManagerId#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#
+            WHERE NOT EXISTS (SELECT 1 FROM Commando.TrainManager WHERE TrainId=#TrainId# AND ManagerId=#ManagerId#)
+        </insert>
+        <delete id="DeleteTrainManager" parameterClass="TrainManager">
+            DELETE FROM Commando.TrainManager
+            WHERE TrainId=#TrainId# AND ManagerId=#ManagerId#
+        </delete>
+        <select id="SelectTrainManagerList" parameterClass="string" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT A.TrainId,
+                   A.ManagerId,
+                   C.BWU_UserName UserName,
+                   C.BWU_Phone UserPhone,
+                   C.BWU_Email UserEmail,
+                   ROW_NUMBER() OVER(ORDER BY C.BWU_UserName) AS [row_number]
+            FROM   Commando.TrainManager A,
+                   Commando.BscUser B,
+                   BusinessWechatUser C
+            WHERE  A.ManagerId = B.BscUserId
+                   AND B.BscUserId = C.BWU_ID
+                   AND B.UserType LIKE '%Manager%'
+                   AND A.TrainId = #value#
+            ]]>
+        </select>
+        <select id="SelectRemainManagerList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT B.BscUserId ManagerId,
+                   C.BWU_UserName UserName,
+                   C.BWU_Phone UserPhone,
+                   C.BWU_Email UserEmail,
+                   ROW_NUMBER() OVER(ORDER BY C.BWU_UserName) AS [row_number]
+            FROM   Commando.BscUser B,
+                   BusinessWechatUser C
+            WHERE  B.BscUserId = C.BWU_ID
+                   AND B.UserType LIKE '%Manager%'
+                   AND NOT EXISTS (
+                           SELECT 1
+                           FROM   Commando.TrainManager A
+                           WHERE  B.BscUserId = A.ManagerId
+                                  AND A.TrainId = #TrainId#
+                       )
+                   AND (
+                           ISNULL(#ManagerName#, '') = ''
+                           OR C.BWU_UserName LIKE '%' + #ManagerName# + '%'
+                       )
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

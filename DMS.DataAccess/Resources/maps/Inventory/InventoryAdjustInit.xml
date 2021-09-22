@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryAdjustInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryAdjustInit" assembly="DMS.Model.dll" type="DMS.Model.InventoryAdjustInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryAdjustInitResult" class="InventoryAdjustInit">
+      <result property="Id" column="IAI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="IAI_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="IAI_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="IAI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IAI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="IAI_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="IAI_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="ChineseName" column="IAI_ChineseName" type="string" dbType="nvarchar"/>
+      <result property="Warehouse" column="IAI_Warehouse" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="IAI_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="IAI_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ReturnQty" column="IAI_ReturnQty" type="string" dbType="nvarchar"/>
+      <result property="AdjustType" column="IAI_AdjustType" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="IAI_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="IAI_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="IAI_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="IAI_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ChineseNameErrMsg" column="IAI_ChineseName_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumberErrMsg" column="IAI_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ReturnQtyErrMsg" column="IAI_ReturnQty_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseErrMsg" column="IAI_Warehouse_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="IAI_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="PrhId" column="IAI_PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AdjustTypeErrMsg" column="IAI_AdjustType_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="IAI_QRCode" type="string" dbType="nvarchar"/>
+      <result property="QrCodeErrMsg" column="IAI_QRCodeErrMsg" type="string" dbType="nvarchar"/>
+      <result property="SAPCode" column="IAI_SAPCode" type="string" dbType="nvarchar"/> 
+      <result property="SAPCodeErrMsg" column="IAI_SAPCodeErrMsg" type="string" dbType="nvarchar"/>    
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InventoryAdjustInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInventoryAdjustInit" parameterClass="string" resultClass="InventoryAdjustInit">
+      SELECT IAI_ID AS Id,IAI_USER AS User,IAI_UploadDate AS UploadDate,IAI_LineNbr AS LineNbr,IAI_FileName AS FileName,IAI_ErrorFlag AS ErrorFlag,IAI_ErrorDescription AS ErrorDescription,IAI_ChineseName AS ChineseName,IAI_Warehouse AS Warehouse,IAI_ArticleNumber AS ArticleNumber,IAI_LotNumber AS LotNumber,IAI_ReturnQty AS ReturnQty,IAI_AdjustType AS AdjustType,IAI_DMA_ID AS DmaId,IAI_CFN_ID AS CfnId,IAI_BUM_ID AS BumId,IAI_WHM_ID AS WhmId,IAI_ChineseName_ErrMsg AS ChineseNameErrMsg,IAI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IAI_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IAI_Warehouse_ErrMsg AS WarehouseErrMsg,IAI_LotNumber_ErrMsg AS LotNumberErrMsg,IAI_PRH_ID AS PrhId,IAI_AdjustType_ErrMsg AS AdjustTypeErrMsg,IAI_QRCode as QrCode
+      FROM InventoryAdjustInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IAI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustInit" parameterClass="InventoryAdjustInit" resultClass="InventoryAdjustInit">
+      SELECT IAI_ID AS Id,IAI_USER AS User,IAI_UploadDate AS UploadDate,IAI_LineNbr AS LineNbr,IAI_FileName AS FileName,IAI_ErrorFlag AS ErrorFlag,IAI_ErrorDescription AS ErrorDescription,IAI_ChineseName AS ChineseName,IAI_Warehouse AS Warehouse,IAI_ArticleNumber AS ArticleNumber,IAI_LotNumber AS LotNumber,IAI_ReturnQty AS ReturnQty,IAI_AdjustType AS AdjustType,IAI_DMA_ID AS DmaId,IAI_CFN_ID AS CfnId,IAI_BUM_ID AS BumId,IAI_WHM_ID AS WhmId,IAI_ChineseName_ErrMsg AS ChineseNameErrMsg,IAI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IAI_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IAI_Warehouse_ErrMsg AS WarehouseErrMsg,IAI_LotNumber_ErrMsg AS LotNumberErrMsg,IAI_PRH_ID AS PrhId,IAI_AdjustType_ErrMsg AS AdjustTypeErrMsg,IAI_QRCode as QrCode
+      FROM InventoryAdjustInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IAI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">IAI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">IAI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IAI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IAI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">IAI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">IAI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">IAI_ChineseName=#ChineseName#</isNotNull>
+        <isNotNull prepend="AND" property="Warehouse">IAI_Warehouse=#Warehouse#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IAI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IAI_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQty">IAI_ReturnQty=#ReturnQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustType">IAI_AdjustType=#AdjustType#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IAI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IAI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">IAI_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">IAI_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseNameErrMsg">IAI_ChineseName_ErrMsg=#ChineseNameErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumberErrMsg">IAI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQtyErrMsg">IAI_ReturnQty_ErrMsg=#ReturnQtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseErrMsg">IAI_Warehouse_ErrMsg=#WarehouseErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">IAI_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="PrhId">IAI_PRH_ID=#PrhId#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustTypeErrMsg">IAI_AdjustType_ErrMsg=#AdjustTypeErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryAdjustInit" parameterClass="InventoryAdjustInit">
+      INSERT INTO InventoryAdjustInit
+      (IAI_ID,IAI_USER,IAI_UploadDate,IAI_LineNbr,IAI_FileName,IAI_ErrorFlag,IAI_ErrorDescription,IAI_ChineseName,IAI_Warehouse,IAI_ArticleNumber,IAI_LotNumber,IAI_ReturnQty,IAI_AdjustType,IAI_DMA_ID,IAI_CFN_ID,IAI_BUM_ID,IAI_WHM_ID,IAI_ChineseName_ErrMsg,IAI_ArticleNumber_ErrMsg,IAI_ReturnQty_ErrMsg,IAI_Warehouse_ErrMsg,IAI_LotNumber_ErrMsg,IAI_PRH_ID,IAI_AdjustType_ErrMsg,IAI_QRCode)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#ChineseName#,#Warehouse#,#ArticleNumber#,#LotNumber#,#ReturnQty#,#AdjustType#,#DmaId#,#CfnId#,#BumId#,#WhmId#,#ChineseNameErrMsg#,#ArticleNumberErrMsg#,#ReturnQtyErrMsg#,#WarehouseErrMsg#,#LotNumberErrMsg#,#PrhId#,#AdjustTypeErrMsg#,#QrCode#)
+    </insert>
+    <update id="UpdateInventoryAdjustInit" parameterClass="InventoryAdjustInit">
+      UPDATE InventoryAdjustInit
+      SET IAI_ID=#Id#,IAI_USER=#User#,IAI_UploadDate=#UploadDate#,IAI_LineNbr=#LineNbr#,IAI_FileName=#FileName#,IAI_ErrorFlag=#ErrorFlag#,IAI_ErrorDescription=#ErrorDescription#,IAI_ChineseName=#ChineseName#,IAI_Warehouse=#Warehouse#,IAI_ArticleNumber=#ArticleNumber#,IAI_LotNumber=#LotNumber#,IAI_ReturnQty=#ReturnQty#,IAI_AdjustType=#AdjustType#,IAI_DMA_ID=#DmaId#,IAI_CFN_ID=#CfnId#,IAI_BUM_ID=#BumId#,IAI_WHM_ID=#WhmId#,IAI_ChineseName_ErrMsg=#ChineseNameErrMsg#,IAI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,IAI_ReturnQty_ErrMsg=#ReturnQtyErrMsg#,IAI_Warehouse_ErrMsg=#WarehouseErrMsg#,IAI_LotNumber_ErrMsg=#LotNumberErrMsg#,IAI_PRH_ID=#PrhId#,IAI_AdjustType_ErrMsg=#AdjustTypeErrMsg#,IAI_QRCode=#QrCode#
+      WHERE IAI_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryAdjustInit" parameterClass="string">
+      DELETE FROM InventoryAdjustInit
+      WHERE IAI_ID = #value#
+    </delete>
+
+    <delete id="DeleteInventoryAdjustInitByUser" parameterClass="string">
+      DELETE FROM InventoryAdjustInit
+      WHERE IAI_USER = #value#
+    </delete>
+    <select id="SelectInventoryAdjustInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustInit">
+      SELECT IAI_ID AS Id,IAI_USER AS [User],IAI_UploadDate AS UploadDate,IAI_LineNbr AS LineNbr,IAI_FileName AS FileName,IAI_ErrorFlag AS ErrorFlag,IAI_ErrorDescription AS ErrorDescription,IAI_ChineseName AS ChineseName,IAI_Warehouse AS Warehouse,IAI_ArticleNumber AS ArticleNumber,IAI_LotNumber AS LotNumber,IAI_ReturnQty AS ReturnQty,IAI_AdjustType AS AdjustType,IAI_DMA_ID AS DmaId,IAI_CFN_ID AS CfnId,IAI_BUM_ID AS BumId,IAI_WHM_ID AS WhmId,IAI_ChineseName_ErrMsg AS ChineseNameErrMsg,IAI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IAI_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IAI_Warehouse_ErrMsg AS WarehouseErrMsg,IAI_LotNumber_ErrMsg AS LotNumberErrMsg,IAI_PRH_ID AS PrhId,IAI_AdjustType_ErrMsg AS AdjustTypeErrMsg,
+      IAI_SAPCode as SAPCode,IAI_SAPCodeErrMsg as SAPCodeErrMsg,
+      IAI_QRCode as QrCode,IAI_QRCodeErrMsg as QrCodeErrMsg,
+      ROW_NUMBER () OVER (ORDER BY IAI_ErrorFlag DESC,IAI_LineNbr ASC) AS row_number
+      FROM InventoryAdjustInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IAI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">IAI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">IAI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IAI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IAI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">IAI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">IAI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IAI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQty">IAI_ReturnQty=#ReturnQty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IAI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IAI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">IAI_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustType">IAI_AdjustType=#AdjustType#</isNotNull>
+        <isNotNull prepend="AND" property="PrhId">IAI_PRH_ID=#PrhId#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateInventoryAdjustInitForEdit" parameterClass="InventoryAdjustInit">
+      UPDATE InventoryAdjustInit
+      SET IAI_SAPCode=#SAPCode#,IAI_QRCode=#QrCode#,IAI_ArticleNumber=#ArticleNumber#,IAI_ReturnQty=#ReturnQty#,IAI_LotNumber=#LotNumber#,IAI_Warehouse=#Warehouse#,IAI_AdjustType=#AdjustType#,IAI_ChineseName=#ChineseName#,
+      IAI_CFN_ID = null,IAI_BUM_ID = null,IAI_ArticleNumber_ErrMsg=null,IAI_ReturnQty_ErrMsg=null,IAI_LotNumber_ErrMsg=null,IAI_Warehouse_ErrMsg=null,IAI_PRH_ID=null,IAI_ChineseName_ErrMsg = null,IAI_QRCodeErrMsg=NULL,IAI_SAPCodeErrMsg=null
+      WHERE IAI_ID = #Id#
+    </update>
+    <procedure id="GC_InventoryAdjustInit" parameterMap="InventoryAdjustInitParameterMap">
+      dbo.GC_InventoryAdjustInit
+    </procedure>
+  </statements>
+</sqlMap>

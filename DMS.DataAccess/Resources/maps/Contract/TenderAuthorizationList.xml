@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TenderAuthorizationListMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AuthorizationTenderMain" assembly="DMS.Model.dll" type="DMS.Model.AuthorizationTenderMain" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AuthorizationTenderMainResult" class="AuthorizationTenderMain">
+      <result property="Id" column="DTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="No" column="DTM_NO" type="string" dbType="nvarchar"/>
+      <result property="DealerName" column="DTM_DealerName" type="string" dbType="nvarchar"/>
+      <result property="ProductLineId" column="DTM_ProductLine_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BeginDate" column="DTM_BeginDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="DTM_EndDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="DTM_CreateUser" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="DTM_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="States" column="DTM_States" type="string" dbType="nvarchar"/>
+      <result property="DealerAddress" column="DTM_DealerAddress" type="string" dbType="nvarchar"/>
+      <result property="LicenceType" column="DTM_LicenceType" type="bool" dbType="bit"/>
+      <result property="DealerType" column="DTM_DealerType" type="string" dbType="nvarchar"/>
+      <result property="Remark1" column="DTM_Remark1" type="string" dbType="nvarchar"/>
+      <result property="Remark2" column="DTM_Remark2" type="string" dbType="nvarchar"/>
+      <result property="Remark3" column="DTM_Remark3" type="string" dbType="nvarchar"/>
+      <result property="ApplicType" column="DTM_ApplicType" type="string" dbType="nvarchar"/>
+      <result property="SubBU" column="DTM_SubBU" type="string" dbType="nvarchar"/>
+      <result property="SupDealer" column="DTM_SupDealer" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="dms-params-tender" class="System.Collections.Hashtable" >
+      <parameter property="DeptCode" column="DeptCode" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="nextnbr" column="nextnbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <select id="SelectTenderAuthorizationList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      Select DTM_ID,DTM_NO,DTM_DealerName,la.VALUE1 as DTM_ApplicType ,
+      convert(nvarchar(20),DTM_BeginDate,23) as DTM_BeginDate ,
+      convert(nvarchar(20),DTM_EndDate,23) as DTM_EndDate,l.VALUE1 as States ,
+      a.DTM_CreateUser UserCode,
+      us.IDENTITY_NAME  UserName,
+      CASE WHEN A.DTM_States='Draft' THEN '' ELSE CONVERT(NVARCHAR(10),a.DTM_CreateDate,120) END CreateDate,
+      CASE WHEN A.DTM_States='Draft' THEN '' ELSE CONVERT(NVARCHAR(10),a.ApprovedDate,120) END ApprovedDate,
+      ROW_NUMBER () OVER (ORDER BY DTM_CreateDate DESC)AS row_number
+      from AuthorizationTenderMain a
+      INNER JOIN Lafite_DICT l on l.DICT_KEY=a.DTM_States and l.DICT_TYPE='CONST_TenderType'
+      LEFT join Lafite_DICT  la on la.DICT_KEY=DTM_ApplicType and la.DICT_TYPE='Provisional_Authorization'
+      INNER JOIN Lafite_IDENTITY US ON US.IDENTITY_CODE=a.DTM_CreateUser
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AuthorizationNo">a.DTM_NO=#AuthorizationNo#</isNotNull>
+        <isNotNull prepend="AND" property="StartBeginsDate">CONVERT(varchar(10),a.DTM_BeginDate,120)>=#StartBeginsDate#</isNotNull>
+        <isNotNull prepend="AND" property="StopBeginsDate">CONVERT(varchar(10),a.DTM_BeginDate,120)&lt;=#StopBeginsDate#</isNotNull>
+        <isNotNull prepend="AND" property="StartEndDate">CONVERT(varchar(10),a.DTM_EndDate,120)>=#StartEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="StopEndDate">CONVERT(varchar(10),a.DTM_EndDate,120)&lt;=#StopEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="BeginApprovedDate">CONVERT(varchar(10),a.ApprovedDate,120)>=#BeginApprovedDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndApprovedDate">CONVERT(varchar(10),a.ApprovedDate,120)&lt;=#EndApprovedDate#</isNotNull>
+        <isNotNull prepend="AND" property="dealer">a.DTM_DealerName like N'%$dealer$%'</isNotNull>
+        <isNotNull prepend="AND" property="cbStatesType">l.DICT_KEY=#cbStatesType#</isNotNull>
+         <isNotNull prepend="AND" property="PmaDealerId"> a.DTM_SupDealer=#PmaDealerId#</isNotNull>
+        <!--授权类型-->
+        <isNotNull prepend="AND" property="Authorization">la.DICT_KEY=#Authorization#</isNotNull>
+        <isNotNull prepend="AND" property="Hospital">
+          EXISTS(select 1 from AuthorizationTenderHospital b
+          inner join Hospital c on b.DTH_HospitalId=c.HOS_ID
+          where b.DTH_DTM_ID=a.DTM_ID and c.HOS_HospitalName like N'%$Hospital$%'
+          )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          <isEqual property="UserType" compareValue="TenderUser">
+            US.Id=#OwnerId#
+          </isEqual>
+        </isEqual>
+      </dynamic>
+    </select>
+    <!--书签替换-->
+    <select id="SelectTenderWork" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select DTM_ID ,DTM_NO,DTM_DealerName,Convert(varchar(10),
+      DTM_BeginDate,120)as DTM_BeginDate,Convert(varchar(10),
+      DTM_EndDate,120)as DTM_EndDate,Convert(varchar(10),
+      DTM_CreateDate,120)as DTM_CreateDate,de.DMA_ChineseName as DTM_SupDealer
+      from AuthorizationTenderMain
+      left join DealerMaster de ON de.DMA_ID =DTM_SupDealer
+      where DTM_NO=#value#
+    </select>
+    <!--正式合同-->
+    <select id="SelectContract" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT B.DMA_ChineseName,B.DMA_DealerType,B.DMA_Parent_DMA_ID,C.ProductLineID,A.CC_ID FROM V_DealerContractMaster A
+      INNER JOIN DealerMaster B ON A.DMA_ID=B.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.IsEmerging='0' AND C.DivisionCode=CONVERT(NVARCHAR(10),A.Division)
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AtuDealerName">B.DMA_ChineseName=#AtuDealerName#</isNotNull>
+        <isNotNull prepend="AND" property="cbDealerType">B.DMA_DealerType=#cbDealerType#</isNotNull>
+        <isNotNull prepend="AND" property="cbProductLine">C.ProductLineID=#cbProductLine#</isNotNull>
+        <!--<isNotNull prepend="AND" property="cbWdSubBU">=#StartEndDate#</isNotNull>-->
+      </dynamic>
+    </select>
+    <!--导出Excel-->
+    <select id="ExcelTenderAuthorization" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DTM_NO AS N'申请编号'
+      ,DTM_DealerName AS N'经销商名称'
+      ,la.VALUE1 as N'授权类型'
+      ,convert(nvarchar(20),DTM_BeginDate,23) AS N'授权开始时间'
+      ,convert(nvarchar(20),DTM_EndDate,23) AS N'授权终止'
+      ,l.VALUE1 AS N'审批状态'
+      ,D.HOS_Key_Account AS N'医院编号'
+      ,D.HOS_HospitalName  AS N'医院名称'
+      ,E.CA_Code AS N'授权分类编号'
+      ,E.CA_NameCN AS N'授权分类名称'
+      ,us.IDENTITY_NAME  N'申请人'
+      ,CASE WHEN A.DTM_States='Draft' THEN '' ELSE CONVERT(NVARCHAR(10),a.DTM_CreateDate,120) END N'创建时间'
+      ,CASE WHEN A.DTM_States='Draft' THEN '' ELSE CONVERT(NVARCHAR(10),a.ApprovedDate,120) END N'审批完成时间'
+      FROM AuthorizationTenderMain a
+      INNER JOIN AuthorizationTenderHospital B ON A.DTM_ID=B.DTH_DTM_ID
+      INNER JOIN HOSPITAL D ON D.HOS_ID=B.DTH_HospitalId
+      inner join Lafite_DICT  la on la.DICT_KEY=DTM_ApplicType and la.DICT_TYPE='Provisional_Authorization'
+      INNER JOIN AuthorizationTenderProduct P ON P.DTP_DTH_ID=B.DTH_ID
+      INNER JOIN  (SELECT DISTINCT CA_ID,CA_Code,CA_NameCN FROM INTERFACE.ClassificationAuthorization) E ON E.CA_ID= P.DTP_PMA_ID
+      INNER JOIN Lafite_DICT l on l.DICT_KEY=a.DTM_States and l.DICT_TYPE='CONST_TenderType'
+      INNER JOIN Lafite_IDENTITY US ON US.IDENTITY_CODE=a.DTM_CreateUser
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AuthorizationNo">a.DTM_NO=#AuthorizationNo#</isNotNull>
+        <isNotNull prepend="AND" property="StartBeginsDate">CONVERT(varchar(10),a.DTM_BeginDate,120)>=#StartBeginsDate#</isNotNull>
+        <isNotNull prepend="AND" property="StopBeginsDate">CONVERT(varchar(10),a.DTM_BeginDate,120)&lt;=#StopBeginsDate#</isNotNull>
+        <isNotNull prepend="AND" property="StartEndDate">CONVERT(varchar(10),a.DTM_EndDate,120)>=#StartEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="StopEndDate">CONVERT(varchar(10),a.DTM_EndDate,120)&lt;=#StopEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="BeginApprovedDate">CONVERT(varchar(10),a.ApprovedDate,120)>=#BeginApprovedDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndApprovedDate">CONVERT(varchar(10),a.ApprovedDate,120)&lt;=#EndApprovedDate#</isNotNull>
+        <isNotNull prepend="AND" property="dealer">a.DTM_DealerName like N'%$dealer$%'</isNotNull>
+        <isNotNull prepend="AND" property="cbStatesType">l.DICT_KEY=#cbStatesType#</isNotNull>
+        <isNotNull prepend="AND" property="Hospital">
+          EXISTS(select 1 from AuthorizationTenderHospital b
+          inner join Hospital c on b.DTH_HospitalId=c.HOS_ID
+          where b.DTH_DTM_ID=a.DTM_ID and c.HOS_HospitalName like N'%$Hospital$%'
+          )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          <isEqual property="UserType" compareValue="TenderUser">
+            US.Id=#OwnerId#
+          </isEqual>
+        </isEqual>
+      </dynamic>
+      ORDER BY DTM_CreateDate DESC
+    </select>
+
+    <select id="ExportTenderAuthorizationList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select DTM_NO,DTM_DealerName,convert(nvarchar(20),DTM_BeginDate,23) as DTM_BeginDate, convert(nvarchar(20),DTM_EndDate,23) as DTM_EndDate ,h.HOS_HospitalName
+      from AuthorizationTenderMain a
+      left join  V_DivisionProductLineRelation v on v.ProductLineID=a.DTM_ProductLine_ID
+      inner join AuthorizationTenderHospital b  on b.DTH_DTM_ID=a.DTM_ID
+      inner join Hospital h on h.HOS_ID=b.DTH_HospitalId
+      WHERE DTH_ID=#value#
+    </select>
+
+    <select id="ExportTenderAuthorization" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT top 1 t1.HOS_HospitalName,t1.DTH_HospitalDept,[ProductName] =STUFF (
+      (SELECT ',' + tt1.CA_NameCN FROM (SELECT C.HOS_HospitalName ,A.DTH_HospitalDept,D.CA_NameCN FROM AuthorizationTenderHospital A
+      INNER JOIN AuthorizationTenderProduct B ON A.DTH_ID=B.DTP_DTH_ID
+      INNER JOIN Hospital C ON C.HOS_ID=A.DTH_HospitalId
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization) D ON D.CA_ID=B.DTP_PMA_ID
+      ) tt1 WHERE t1.HOS_HospitalName =tt1.HOS_HospitalName   AND isnull(t1.DTH_HospitalDept,'') = isnull(tt1.DTH_HospitalDept,'')
+      FOR XML PATH ( '' )),1,1,'')
+      FROM   (SELECT C.HOS_HospitalName ,A.DTH_HospitalDept,D.CA_NameCN FROM AuthorizationTenderHospital A
+      INNER JOIN AuthorizationTenderProduct B ON A.DTH_ID=B.DTP_DTH_ID
+      INNER JOIN Hospital C ON C.HOS_ID=A.DTH_HospitalId
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization) D ON D.CA_ID=B.DTP_PMA_ID
+      where A.DTH_DTM_ID=#value#
+      ) t1
+      GROUP BY t1.HOS_HospitalName,t1.DTH_HospitalDept
+    </select>
+    <!--上级平台-->
+    <select id="SelectSuperiorDealerInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+    select DMA_ChineseShortName as DMA_ChineseName ,DMA_ID from DealerMaster a where a.DMA_DealerType ='LP' AND A.DMA_ActiveFlag=1 AND A.DMA_DeletedFlag=0
+    </select>
+    <!--授权合同类型-->
+    <select id="SelectExpApplicType" parameterClass="string" resultClass="System.Collections.Hashtable">
+      Select DTM_ID,la.VALUE1 as DTM_ApplicType,DTM_NO,DTM_DealerType
+      from AuthorizationTenderMain a
+      LEFT join Lafite_DICT  la on la.DICT_KEY=DTM_ApplicType and la.DICT_TYPE='Provisional_Authorization'
+      where DTM_ID=#value#
+    </select>
+    <!--授权医院-->
+    <select id="SelectExpHospital" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT A.DTH_ID Id,A.DTH_DTM_ID DtmId,A.DTH_HospitalId HospitalId,A.DTH_Remark1 Remark1,A.DTH_Remark2 Remark2,A.DTH_Remark3 Remark3,B.HOS_HospitalName HospitalName,B.HOS_Key_Account HospitalCode,DTH_HospitalDept HospitalDept
+      ,B.HOS_HospitalShortName HospitalShortName,B.HOS_Grade HospitalGrade,B.HOS_Province HospitalProvince,B.HOS_City HospitalCity,B.HOS_District HospitalDistrict
+      ,ROW_NUMBER () OVER (ORDER BY B.HOS_Key_Account DESC)AS row_number
+      FROM AuthorizationTenderHospital A
+      INNER JOIN Hospital B ON A.DTH_HospitalId=B.HOS_ID
+      where  DTH_DTM_ID=#value#
+    </select>
+
+    <!--Begin add by Hua kaichun in 20170504-->
+    <!--获取指定授权授权医院信息-->
+    <select id="SelectTenderHospitalByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.DTH_ID Id,A.DTH_DTM_ID DtmId,A.DTH_HospitalId HospitalId,A.DTH_Remark1 Remark1,A.DTH_Remark2 Remark2,A.DTH_Remark3 Remark3,B.HOS_HospitalName HospitalName,B.HOS_Key_Account HospitalCode,DTH_HospitalDept HospitalDept
+      ,B.HOS_HospitalShortName HospitalShortName,B.HOS_Grade HospitalGrade,B.HOS_Province HospitalProvince,B.HOS_City HospitalCity,B.HOS_District HospitalDistrict
+      ,ROW_NUMBER () OVER (ORDER BY B.HOS_Key_Account DESC)AS row_number
+      FROM AuthorizationTenderHospital A
+      INNER JOIN Hospital B ON A.DTH_HospitalId=B.HOS_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DtmId">A.DTH_DTM_ID=#DtmId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取指定授权医院对应授权产品信息-->
+    <select id="SelectTenderHospitalProductByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DTP_ID Id,DTP_DTH_ID DthId,DTP_PMA_ID ProductId,DTP_Remark1 Remark1,DTP_Remark2 Remark2,DTP_Remark3 Remark3,B.CA_NameCN ProductName,D.HOS_Key_Account HospitalCode ,d.HOS_HospitalName HospitalName
+      ,ROW_NUMBER () OVER (ORDER BY B.CA_NameCN DESC)AS row_number
+      FROM AuthorizationTenderProduct A
+      INNER JOIN AuthorizationTenderHospital C ON A.DTP_DTH_ID=C.DTH_ID
+      INNER JOIN Hospital D ON D.HOS_ID=C.DTH_HospitalId
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_NameCN,CA_Code FROM INTERFACE.ClassificationAuthorization) B ON A.DTP_PMA_ID=B.CA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DthId">A.DTP_DTH_ID=#DthId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectTenderProductSelected" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      exec dbo.Pro_GetTenderProductSelected #DtmId#,#DthId#,#BeginDate#,#EndDate#,#OperType#,#start#,#limit#
+    </select>
+
+    <!--获取主表信息-->
+    <select id="SelectAuthorizationTenderMain" parameterClass="string" resultClass="AuthorizationTenderMain">
+      SELECT DTM_ID AS Id,DTM_NO AS No,DTM_DealerName AS DealerName,DTM_ProductLine_ID as ProductLineId ,v.ProductLineName AS ProductLineName,DTM_BeginDate AS BeginDate,
+      DTM_EndDate AS EndDate,DTM_CreateUser AS CreateUser,DTM_CreateDate AS CreateDate,DTM_States AS States,DTM_LicenceType AS LicenceType,
+      DTM_DealerAddress AS DealerAddress,DTM_Remark1 AS Remark1,DTM_Remark2 AS Remark2,DTM_Remark3 AS Remark3,DTM_DealerType AS DealerType, DTM_SubBU as SubBU,
+      DTM_ApplicType as ApplicType,DTM_SupDealer as SupDealer
+      FROM AuthorizationTenderMain
+      left join interface.ClassificationContract cc on cc.CC_Code=DTM_SubBU
+      left join V_DivisionProductLineRelation v on v.ProductLineID=DTM_ProductLine_ID
+      left join DealerMaster de on de.DMA_ID=DTM_SupDealer
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DTM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <!--获取附件信息-->
+    <select id="SelectTenderFileQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT AT_ID AS Id,AT_Main_ID AS MainId,AT_Name AS Name,AT_Url AS Url,AT_Type AS Type,DIC.VALUE1 AS  TypeName ,AT_UploadUser AS UploadUser,Convert(NVARCHAR(10),AT_UploadDate,120) AS UploadDate
+      ,li.Identity_Name,row_number() OVER (ORDER BY AT_UploadDate DESC) AS row_number
+      FROM Attachment a
+      INNER JOIN Lafite_Identity li ON a.AT_UploadUser = li.Id
+      INNER JOIN dbo.Lafite_DICT DIC ON DIC.DICT_KEY=a.AT_Type
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="MainId">AT_Main_ID=#MainId#</isNotNull>
+      </dynamic>
+    </select>
+    <!--校验经销商-->
+    <select id="SelectTenderDealerName" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT B.DMA_ChineseName DealerName,B.DMA_DealerType DealerType,b.DMA_SAP_Code SAPCode,c.ProductLineID,c.ProductLineName,A.DCM_CC_ID SubBuId,b.DMA_Parent_DMA_ID
+      FROM DealerContractMaster A(nolock)
+      INNER JOIN DealerMaster B(nolock) ON A.DCM_DMA_ID=B.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.DCM_Division) AND C.IsEmerging='0'
+      LEFT join interface.ClassificationContract cc on cc.CC_ID=A.DCM_CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerName">B.DMA_ChineseName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">B.DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">C.ProductLineID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="SubBU">C.ProductLineID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="SupDealer">b.DMA_Parent_DMA_ID=#SupDealer#</isNotNull>
+      </dynamic>
+    </select>
+    <!--删除产品-->
+    <delete id="DeleteTenderProduct" parameterClass="System.Collections.Hashtable">
+      DELETE AuthorizationTenderProduct WHERE DTP_DTH_ID=#DthId#
+    </delete>
+    <delete id="DeleteTenderProductByKey" parameterClass="string">
+      DELETE AuthorizationTenderProduct WHERE DTP_ID=#value#
+    </delete>
+    <!--清空授权医院-->
+    <delete id="ClearHospital" parameterClass="string">
+      DELETE AuthorizationTenderHospital where  DTH_DTM_ID=#value#
+    </delete>
+    <!--清空授权产品-->
+    <delete id="ClearHospitalProduct" parameterClass="string">
+      DELETE  C FROM AuthorizationTenderMain A
+      INNER JOIN AuthorizationTenderHospital B ON A.DTM_ID=B.DTH_DTM_ID
+      INNER JOIN AuthorizationTenderProduct C ON C.DTP_DTH_ID=B.DTH_ID
+      WHERE A.DTM_ID=#value#
+    </delete>
+    <!--删除医院-->
+    <delete id="DeleteTenderHospital" parameterClass="System.Collections.Hashtable">
+      DELETE AuthorizationTenderHospital WHERE DTH_ID=#DthId# AND DTH_DTM_ID=#DtmId#
+    </delete>
+    <insert id="InsertAuthorizationTenderHospital" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AuthorizationTenderHospital (DTH_ID,DTH_DTM_ID,DTH_HospitalId)
+      SELECT NEWID(),#DtmId#,HOS_ID
+      FROM Hospital
+      WHERE NOT EXISTS (SELECT 1 FROM AuthorizationTenderHospital WHERE DTH_DTM_ID=#DtmId# AND DTH_HospitalId=#HospitalId#)
+      AND HOS_ActiveFlag=1
+      AND HOS_ID=#HospitalId#
+    </insert>
+    <insert id="AddTenderProduct" parameterClass="System.Collections.Hashtable">
+      INSERT INTO  AuthorizationTenderProduct (DTP_ID,DTP_DTH_ID,DTP_PMA_ID,DTP_Remark1,DTP_Remark2,DTP_Remark3)
+      SELECT NEWID(),#DthId#,B.VAL,NUll,NULL,NULL
+      FROM dbo.GC_Fn_SplitStringToTable(#ProductString#,',') B
+      WHERE NOT EXISTS(SELECT 1 FROM AuthorizationTenderProduct A WHERE A.DTP_DTH_ID=#DthId# AND CONVERT(NVARCHAR(36),A.DTP_PMA_ID)=B.VAL)
+    </insert>
+    <!--获取授权产品-->
+    <select id="SelectTenderAllProduct" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT CC_Code SubBuCode,CC_ID SubBuId,CC_NameCN SubBuName,CA_Code CaCode,CA_ID CaId,CA_NameCN CaName,CC_ProductLineID ProductLineId,CC_ProductLineName ProductLineName
+      FROM V_ProductClassificationStructure A
+      WHERE A.ActiveFlag=1
+      <isNotNull prepend="AND" property="ProductLindId">CC_ProductLineID=#ProductLindId#</isNotNull>
+      <isNotNull prepend="AND" property="SubBu">CC_Code=#SubBu#</isNotNull>
+      <isNotNull prepend="AND" property="DealerType">
+        ((#DealerType#='LP' AND CC_NameCN LIKE '%平台%') OR (#DealerType# &lt;>'LP' AND CC_NameCN NOT LIKE '%平台%'))
+      </isNotNull>
+      ORDER BY CC_Code,CA_NameCN
+    </select>
+    <!--维护主表数据-->
+    <insert id="InsertAuthorizationTenderMain" parameterClass="AuthorizationTenderMain">
+      INSERT INTO AuthorizationTenderMain
+      (DTM_ID,DTM_NO,DTM_DealerName,DTM_ProductLine_ID,DTM_BeginDate,DTM_EndDate,DTM_CreateUser,DTM_CreateDate,DTM_States,DTM_LicenceType,DTM_DealerAddress,DTM_DealerType,DTM_Remark1,DTM_Remark2,DTM_Remark3)
+      VALUES(#Id#,#No#,#DealerName#,#ProductLineId#,#BeginDate:DateTime:1/1/0001 12:00:00 AM#,#EndDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#States#,#LicenceType#,#DealerAddress#,#DealerType#,#Remark1#,#Remark2#,#Remark3#)
+    </insert>
+    <!--修改主数据-->
+    <update id="UpdateAuthorizationTenderMain" parameterClass="AuthorizationTenderMain">
+      UPDATE AuthorizationTenderMain
+      SET DTM_ID=#Id#,DTM_NO=#No#,DTM_DealerName=#DealerName#,DTM_ProductLine_ID=#ProductLineId#,DTM_BeginDate=#BeginDate#,DTM_EndDate=#EndDate#,DTM_States=#States#,DTM_LicenceType=#LicenceType#,
+      DTM_DealerAddress=#DealerAddress#,DTM_DealerType=#DealerType#,DTM_Remark1=#Remark1#,DTM_Remark2=#Remark2#,
+      DTM_Remark3=#Remark3#,DTM_CreateUser=#CreateUser#, DTM_CreateDate=#CreateDate:DateTime:1/1/0001 12:00:00 AM#,DTM_ApplicType=#ApplicType#,DTM_SubBU= #SubBU#,DTM_SupDealer=#SupDealer#
+      WHERE DTM_ID = #Id#
+    </update>
+    <delete id="DeleteTenderProductByDtmId" parameterClass="string">
+      DELETE A FROM AuthorizationTenderProduct A
+      INNER JOIN  AuthorizationTenderHospital B ON A.DTP_DTH_ID=B.DTH_ID
+      INNER JOIN AuthorizationTenderMain C ON B.DTH_DTM_ID=C.DTM_ID
+      WHERE C.DTM_ID=#value#
+    </delete>
+    <delete id="DeleteTenderHospitalByDtmId" parameterClass="string">
+      DELETE A FROM AuthorizationTenderHospital A
+      INNER JOIN  AuthorizationTenderMain B ON A.DTH_DTM_ID=B.DTM_ID
+      WHERE B.DTM_ID=#value#
+    </delete>
+    <delete id="DeleteTenderMainByDtmId" parameterClass="string">
+      DELETE A FROM AuthorizationTenderMain A
+      WHERE A.DTM_ID=#value#
+    </delete>
+
+    <delete id="DeleteClearHospital" parameterClass="string">
+      DELETE A FROM AuthorizationTenderMain A
+      WHERE A.DTM_ID=#value#
+    </delete>
+
+    <procedure id="GetNextAutoNumberForTender" parameterMap="dms-params-tender">
+      dbo.GC_GetNextAutoNumberForTender
+    </procedure>
+    <select id="SelectTenderAttachmentType" parameterClass="string" resultClass="System.Collections.Hashtable">
+      IF EXISTS (SELECT 1 FROM Attachment A WHERE A.AT_Main_ID=#value#
+      AND A.AT_Type in  ('Tender_01','Tender_02','Tender_03','Tender_04')  HAVING COUNT(DISTINCT AT_Type)=4 )
+      BEGIN
+      SELECT '2' retValue
+      END
+      ELSE IF EXISTS (SELECT 1 FROM Attachment A WHERE A.AT_Main_ID=#value#
+      AND A.AT_Type in  ('Tender_01','Tender_02')  HAVING COUNT(DISTINCT AT_Type)=2 )
+      BEGIN
+      SELECT '1' retValue
+      END
+      ELSE
+      BEGIN
+      SELECT '0' retValue
+      END
+    </select>
+    <update id="UpdateTenderHospitalDept" parameterClass="System.Collections.Hashtable">
+      UPDATE AuthorizationTenderHospital SET DTH_HospitalDept=#DthDept# WHERE DTH_ID=#DthId#
+    </update>
+    <!--End add by Hua kaichun in 20170504-->
+    <select id="ExcleHospitalproduct" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select DTM_DealerName as N'经销商名称',v.ProductLineName AS N'产品线' , h.HOS_HospitalName as N'医院名称' , DTH_HospitalDept as N'医院科室', D.CA_NameCN as N'产品名称'
+      from AuthorizationTenderMain a
+      inner join AuthorizationTenderHospital b  on b.DTH_DTM_ID=a.DTM_ID
+      inner join Hospital h on b.DTH_HospitalId=h.HOS_ID
+      inner join AuthorizationTenderProduct p on p.DTP_DTH_ID=b.DTH_ID
+      inner join (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization) D ON D.CA_ID=p.DTP_PMA_ID
+      inner join V_DivisionProductLineRelation v on v.ProductLineID=DTM_ProductLine_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          a.DTM_ID= #value#
+        </isParameterPresent>
+      </dynamic>
+      order by HOS_HospitalName
+    </select>
+    <!--授权医院和产品清单-->
+    <select id="ExcleHospitalproductWork" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT t1.HOS_HospitalName,DTH_HospitalDept,[ProductString] =STUFF (
+      (SELECT ',' + tt1.Product FROM (SELECT A.DTH_DTM_ID,C.HOS_HospitalName,A.DTH_HospitalDept,
+      ISNULL(D.CA_NameCN,'') Product
+      FROM AuthorizationTenderHospital A
+      INNER JOIN Hospital C ON C.HOS_ID=A.DTH_HospitalId
+      LEFT JOIN AuthorizationTenderProduct B ON A.DTH_ID=B.DTP_DTH_ID
+      LEFT JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization) D ON D.CA_ID=B.DTP_PMA_ID
+      WHERE 1= 1
+      <isNotNull prepend="AND" property="DTM_ID">A.DTH_DTM_ID=#DTM_ID#</isNotNull>
+      <isNotNull prepend="AND" property="HOS_ID"> C.HOS_ID=#HOS_ID#</isNotNull>
+
+      ) tt1 WHERE t1.DTH_DTM_ID =tt1.DTH_DTM_ID AND t1.HOS_HospitalName = tt1.HOS_HospitalName AND ISNULL(t1.DTH_HospitalDept,'') = ISNULL(tt1.DTH_HospitalDept,'')
+      FOR XML PATH ( '' )),1,1,'')
+      FROM (SELECT A.DTH_DTM_ID,C.HOS_HospitalName,A.DTH_HospitalDept,
+      ISNULL(D.CA_NameCN,'') Product
+      FROM AuthorizationTenderHospital A
+      INNER JOIN Hospital C ON C.HOS_ID=A.DTH_HospitalId
+      LEFT JOIN AuthorizationTenderProduct B ON A.DTH_ID=B.DTP_DTH_ID
+      LEFT JOIN (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization) D ON D.CA_ID=B.DTP_PMA_ID
+      WHERE 1= 1
+      <isNotNull prepend="AND" property="DTM_ID">A.DTH_DTM_ID=#DTM_ID#</isNotNull>
+      <isNotNull prepend="AND" property="HOS_ID"> C.HOS_ID=#HOS_ID#</isNotNull>
+      ) t1
+      GROUP BY t1.DTH_DTM_ID,t1.HOS_HospitalName,t1.DTH_HospitalDept
+    </select>
+
+    <select id="ExcleHospital" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select a.DTH_ID, a.DTH_DTM_ID,h.HOS_HospitalName,a.DTH_HospitalDept
+      ,row_number() OVER (ORDER BY DTH_DTM_ID ) AS row_number
+      from AuthorizationTenderHospital a
+      inner join Hospital h on h.HOS_ID=a.DTH_HospitalId
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DTH_DTM_ID= #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="ExportTenderAuthorizationProduct" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select SUBSTRING( (select D.CA_NameCN +',' FROM (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization)  D
+      inner join AuthorizationTenderMain a on  b.DTH_DTM_ID=a.DTM_ID
+      inner join V_DivisionProductLineRelation v on v.ProductLineID=a.DTM_ProductLine_ID
+      inner join AuthorizationTenderProduct p on p.DTP_DTH_ID=b.DTH_ID
+      WHERE D.CA_ID=p.DTP_PMA_ID
+      order by LEN(CA_NameCN) desc
+      For XML Path('')) ,1,len((select D.CA_NameCN +',' FROM (SELECT DISTINCT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization)  D
+      inner join AuthorizationTenderMain a on  b.DTH_DTM_ID=a.DTM_ID
+      inner join V_DivisionProductLineRelation v on v.ProductLineID=a.DTM_ProductLine_ID
+      inner join AuthorizationTenderProduct p on p.DTP_DTH_ID=b.DTH_ID
+      WHERE D.CA_ID=p.DTP_PMA_ID
+      order by LEN(CA_NameCN) desc
+      For XML Path('')))-1)AS ProductName
+      from AuthorizationTenderHospital b
+      where DTH_ID=#value#
+    </select>
+    <select id="SelectHospitalNum" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select DTH_ID ,DTH_DTM_ID from AuthorizationTenderHospital
+      where DTH_DTM_ID=#DtmId#
+    </select>
+
+
+    <!--Added By Song Yuqi On 2017-07-10 For Html-->
+    <select id="QueryTenderAuthorizationForHtmlById" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DTM_ID AS Id,DTM_NO AS No,DTM_DealerName AS DealerName,DTM_ProductLine_ID AS ProductLineId,CONVERT(NVARCHAR(10),DTM_BeginDate,120) AS BeginDate,CONVERT(NVARCHAR(10),DTM_EndDate,120) AS EndDate,DTM_CreateUser AS CreateUser,CONVERT(NVARCHAR(20),DTM_CreateDate,120) AS CreateDate,DTM_States AS States,CASE WHEN DTM_LicenceType = 1 THEN '是' ELSE '否' END AS LicenceType,DTM_DealerAddress AS DealerAddress,DTM_Remark1 AS Remark1,DTM_Remark2 AS Remark2,DTM_Remark3 AS Remark3,DTM_DealerType AS DealerType
+      ,(SELECT ATTRIBUTE_NAME FROM VIEW_ProductLine WHERE Id = DTM_ProductLine_ID) AS ProductLineName
+      ,(SELECT VALUE1 FROM Lafite_DICT WHERE DICT_TYPE = 'CONST_Dealer_Type' AND DICT_KEY = DTM_DealerType) AS DealerTypeNAME
+      FROM AuthorizationTenderMain
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DTM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <!--End-->
+  </statements>
+</sqlMap>

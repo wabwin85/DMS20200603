@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DpStatementScorecardMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DpStatementScorecard" assembly="DMS.Model.dll" type="DMS.Model.DpStatementScorecard" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DpStatementScorecardResult" class="DpStatementScorecard">
+      <result property="Id" column="STS_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SthId" column="STS_STH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Key" column="STS_Key" type="string" dbType="nvarchar"/>
+      <result property="Value" column="STS_Value" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDpStatementScorecard" parameterClass="string" resultClass="DpStatementScorecard">
+      SELECT STS_ID AS Id,STS_STH_ID AS SthId,STS_Key AS Key,STS_Value AS Value
+      FROM DPStatementScorecard
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDpStatementScorecard" parameterClass="DpStatementScorecard" resultClass="DpStatementScorecard">
+      SELECT STS_ID AS Id,STS_STH_ID AS SthId,STS_Key AS [Key],STS_Value AS Value
+      FROM DPStatementScorecard
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SthId">STS_STH_ID=#SthId#</isNotNull>
+        <isNotNull prepend="AND" property="Key">STS_Key=#Key#</isNotNull>
+        <isNotNull prepend="AND" property="Value">STS_Value=#Value#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDpStatementScorecard" parameterClass="DpStatementScorecard">
+      INSERT INTO DPStatementScorecard
+      (STS_ID,STS_STH_ID,STS_Key,STS_Value)
+      VALUES(#Id#,#SthId#,#Key#,#Value#)
+    </insert>
+    <update id="UpdateDpStatementScorecard" parameterClass="DpStatementScorecard">
+      UPDATE DPStatementScorecard
+      SET STS_ID=#Id#,STS_STH_ID=#SthId#,STS_Key=#Key#,STS_Value=#Value#
+      WHERE STS_ID = #Id#
+    </update>
+    <delete id="DeleteDpStatementScorecard" parameterClass="string">
+      DELETE FROM DPStatementScorecard
+      WHERE STS_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

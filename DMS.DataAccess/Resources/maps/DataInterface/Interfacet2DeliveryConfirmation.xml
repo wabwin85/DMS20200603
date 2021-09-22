@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Interfacet2DeliveryConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Interfacet2DeliveryConfirmation" assembly="DMS.Model.dll" type="DMS.Model.Interfacet2DeliveryConfirmation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="Interfacet2DeliveryConfirmationResult" class="Interfacet2DeliveryConfirmation">
+      <result property="Id" column="IDC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SapDeliveryNo" column="IDC_SapDeliveryNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="IDC_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="IsConfirm" column="IDC_IsConfirm" type="bool" dbType="bit"/>
+      <result property="Remark" column="IDC_Remark" type="string" dbType="nvarchar"/>
+      <result property="FileName" column="IDC_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="IDC_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IDC_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IDC_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_T2DeliveryConfirmation_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfacet2DeliveryConfirmation" parameterClass="string" resultClass="Interfacet2DeliveryConfirmation">
+      SELECT IDC_ID AS Id,IDC_SapDeliveryNo AS SapDeliveryNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr
+      FROM InterfaceT2DeliveryConfirmation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IDC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfacet2DeliveryConfirmation" parameterClass="Interfacet2DeliveryConfirmation" resultClass="Interfacet2DeliveryConfirmation">
+      SELECT IDC_ID AS Id,IDC_SapDeliveryNo AS SapDeliveryNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr
+      FROM InterfaceT2DeliveryConfirmation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IDC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryNo">IDC_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">IDC_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsConfirm">IDC_IsConfirm=#IsConfirm#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IDC_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IDC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IDC_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IDC_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IDC_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfacet2DeliveryConfirmation" parameterClass="Interfacet2DeliveryConfirmation">
+      INSERT INTO InterfaceT2DeliveryConfirmation
+      (IDC_ID,IDC_SapDeliveryNo,IDC_ConfirmDate,IDC_IsConfirm,IDC_Remark,IDC_FileName,IDC_ImportDate,IDC_ClientID,IDC_BatchNbr)
+      VALUES(#Id#,#SapDeliveryNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#Remark#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfacet2DeliveryConfirmation" parameterClass="Interfacet2DeliveryConfirmation">
+      UPDATE InterfaceT2DeliveryConfirmation
+      SET IDC_ID=#Id#,IDC_SapDeliveryNo=#SapDeliveryNo#,IDC_ConfirmDate=#ConfirmDate#,IDC_IsConfirm=#IsConfirm#,IDC_Remark=#Remark#,IDC_FileName=#FileName#,IDC_ImportDate=#ImportDate#,IDC_ClientID=#Clientid#,IDC_BatchNbr=#BatchNbr#
+      WHERE IDC_ID = #Id#
+    </update>
+    <delete id="DeleteInterfacet2DeliveryConfirmation" parameterClass="string">
+      DELETE FROM InterfaceT2DeliveryConfirmation
+      WHERE IDC_ID = #value#
+    </delete>
+
+    <procedure id="GC_Interface_T2DeliveryConfirmation" parameterMap="GC_Interface_T2DeliveryConfirmation_ParameterMap">
+      dbo.GC_Interface_T2DeliveryConfirmation
+    </procedure>
+  </statements>
+</sqlMap>

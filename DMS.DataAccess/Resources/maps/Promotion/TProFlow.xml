@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TProFlowMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TProFlow" assembly="DMS.Model.dll" type="DMS.Model.TProFlow" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TProFlowResult" class="TProFlow">
+      <result property="FlowId" column="FlowId" type="int" dbType="int"/>
+      <result property="Description" column="Description" type="string" dbType="nvarchar"/>
+      <result property="Bu" column="BU" type="string" dbType="nvarchar"/>
+      <result property="Period" column="Period" type="string" dbType="nvarchar"/>
+      <result property="AccountMonth" column="AccountMonth" type="string" dbType="nvarchar"/>
+      <result property="Status" column="Status" type="string" dbType="nvarchar"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="FlowType" column="FlowType" type="string" dbType="nvarchar"/>
+      <result property="MarketType" column="MarketType" type="int" dbType="int"/>
+      <result property="BeginDate" column="BeginDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="EndDate" type="DateTime" dbType="datetime"/>
+      <result property="Reason" column="Reason" type="string" dbType="nvarchar"/>
+      <result property="ApproveRole" column="ApproveRole" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ProGiftParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId"/>
+      <parameter property="Description" column="Description" />
+      <parameter property="MarketType" column="MarketType"/>
+      <parameter property="Reason" column="Reason" />
+      <parameter property="BeginDate" column="BeginDate"/>
+      <parameter property="EndDate" column="EndDate" />
+      <parameter property="ApproveRole" column="ApproveRole" />
+      <parameter property="AttachmentId" column="AttachmentId" />
+      <parameter property="PresentType" column="PresentType" />
+      <parameter property="Return" column="Return" direction="Output" />
+      <parameter property="ReFlowId" column="ReFlowId" direction="Output" />
+      <parameter property="ReQty" column="ReQty" direction="Output" />
+    </parameterMap>
+    <parameterMap id="ProPointParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId"/>
+      <parameter property="Description" column="Description" />
+      <parameter property="MarketType" column="MarketType"/>
+      <parameter property="Reason" column="Reason" />
+      <parameter property="BeginDate" column="BeginDate"/>
+      <parameter property="EndDate" column="EndDate" />
+      <parameter property="ApproveRole" column="ApproveRole" />
+      <parameter property="AttachmentId" column="AttachmentId" />
+      <parameter property="FormXml" column="FormXml" />
+      <parameter property="Return" column="Return" direction="Output" />
+      <parameter property="ReFlowId" column="ReFlowId" direction="Output" />
+      <parameter property="ReQty" column="ReQty" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+
+  <statements>
+    <select id="SelectTProFlow" parameterClass="string" resultClass="TProFlow">
+      SELECT FlowId AS FlowId,Description AS Description,BU AS Bu,Period AS Period,AccountMonth AS AccountMonth,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1
+      FROM T_Pro_Flow
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FlowId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTProFlow" parameterClass="TProFlow" resultClass="TProFlow">
+      SELECT FlowId AS FlowId,Description AS Description,BU AS Bu,Period AS Period,AccountMonth AS AccountMonth,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1
+      FROM T_Pro_Flow
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">BU=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="Period">Period=#Period#</isNotNull>
+        <isNotNull prepend="AND" property="AccountMonth">AccountMonth=#AccountMonth#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTProFlow" parameterClass="TProFlow">
+      INSERT INTO T_Pro_Flow
+      (Description,BU,Period,AccountMonth,Status,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1)
+      VALUES(#Description#,#Bu#,#Period#,#AccountMonth#,#Status#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#)
+      <selectKey resultClass="int" type="post" property="FlowId">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+    <update id="UpdateTProFlow" parameterClass="TProFlow">
+      UPDATE T_Pro_Flow
+      SET Description=#Description#,BU=#Bu#,Period=#Period#,AccountMonth=#AccountMonth#,Status=#Status#,CreateBy=#CreateBy#,CreateTime=#CreateTime#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,Remark1=#Remark1#
+      WHERE FlowId = #FlowId#
+    </update>
+    
+    <delete id="DeleteTProFlow" parameterClass="string">
+      DELETE FROM Promotion.T_Pro_Flow   WHERE FlowId = #value#
+      DELETE FROM Promotion.T_Pro_Flow_Detail   WHERE FlowId = #value#
+    </delete>
+
+    <!--在已有审批中获取账期-->
+    <select id="SelectApprovalCalPeriodByPeriod" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DISTINCT Period AS Period,AccountMonth AS AccountMonth
+      FROM Promotion.T_Pro_Flow
+      WHERE Period=#value#
+    </select>
+
+    <!--在政策信息中获取账期-->
+    <select id="SelectPolicyCalPeriodByPeriod" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM (
+      SELECT DISTINCT case when substring(Period,1,1) = '2' then '年度'
+      when substring(Period,1,1) = 'Q' then '季度'
+      else '月度' end as Period,
+      case when substring(Period,1,2) = '20' then Period else convert(nvarchar(4),year) + Period end AS AccountMonth
+      FROM Promotion.T_Pro_Flow_Mid
+      ) A
+      WHERE A.Period=#value#
+    </select>
+
+    <!--查询提交审批-->
+    <select id="SelectGiftApprovalList" parameterClass="TProFlow" resultClass="TProFlow">
+      SELECT FlowId AS FlowId,Description AS Description,
+      CASE WHEN ISNULL(CreateTime,GETDATE())>'2019-05-15' THEN (SELECT TOP 1 PR.DivisionName FROM V_DivisionProductLineRelation PR WHERE PR.IsEmerging='0' AND PR.DivisionCode=BU)
+      ELSE BU END AS Bu,
+      Period AS Period,AccountMonth AS AccountMonth,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,FlowType AS FlowType
+      ,ROW_NUMBER () OVER (ORDER BY CreateTime DESC ) AS [row_number]
+      FROM Promotion.T_Pro_Flow
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Description like N'%$Description$%'</isNotNull>
+        <isNotNull prepend="AND" property="Bu">
+          BU  IN  ( CASE WHEN ISNULL(CreateTime,GETDATE())>'2019-05-15' THEN ( SELECT DivisionCode FROM V_DivisionProductLineRelation A WHERE A.ProductLineID=#Bu# AND A.IsEmerging='0')
+          ELSE ( SELECT a.DivisionName FROM V_DivisionProductLineRelation A WHERE A.ProductLineID=#Bu# AND A.IsEmerging='0')  END )
+        </isNotNull>
+        <isNotNull prepend="AND" property="Period">Period=#Period#</isNotNull>
+        <isNotNull prepend="AND" property="AccountMonth">AccountMonth=#AccountMonth#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status=#Status#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取产品线相关信息-->
+    <select id="SelectProduclInformation" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ProductLineID,ProductLineName,DivisionName,DivisionCode FROM V_DivisionProductLineRelation A WHERE A.IsEmerging='0'
+      <isNotNull prepend="AND" property="ProductLineID">ProductLineID=#ProductLineID#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName=#ProductLineName#</isNotNull>
+      <isNotNull prepend="AND" property="DivisionCode">DivisionCode=#DivisionCode#</isNotNull>
+      <isNotNull prepend="AND" property="DivisionName">DivisionName=#DivisionName#</isNotNull>
+    </select>
+
+    <!--获取赠送导出计算结果-->
+    <select id="SelectGiftResult" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <!--EXEC PROMOTION.Proc_Pro_GetPolicy4EWorkFlow #BUName#,#Period#,#CalPeriod#-->
+      select BU ,SubBu, Year,convert(nvarchar(4),Year) + Period as Period,PolicyNo,ParentDealerCode,ParentDealerName,DealerCode ,
+      DealerName,HospitalCode,HospitalName,PresentValueConverted,PresentType,AdjustPresentValue,ActualValueLeft,
+      PointType ,LPPointConvertRate,PointValidEndDate,UnitPrice
+      from Promotion.T_Pro_Flow_Mid mid,V_DivisionProductLineRelation bu
+      where BU = DivisionCode
+      and bu.ProductLineID = #BUName#
+      and PresentType = '实物产品'
+      <isEqual prepend="AND" property="Period" compareValue="年度">
+        Period = #CalPeriod#
+      </isEqual>
+      <isEqual prepend="AND" property="Period" compareValue="季度">
+        convert(nvarchar(4),Year) + Period = #CalPeriod#
+      </isEqual>
+      <isEqual prepend="AND" property="Period" compareValue="月度">
+        convert(nvarchar(4),Year) + Period = #CalPeriod#
+      </isEqual>
+      and OperationState = 0
+    </select>
+    <!--获取积分导出计算结果-->
+    <select id="SelectPointResult" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <!--EXEC PROMOTION.Proc_Pro_GetPolicy4EWorkFlowPoint #BUName#,#Period#,#CalPeriod#-->
+      select BU ,SubBu, Year,convert(nvarchar(4),Year) + Period as Period,PolicyNo,ParentDealerCode,ParentDealerName,DealerCode ,
+      DealerName,HospitalCode,HospitalName,PresentValueConverted,PresentType,AdjustPresentValue,ActualValueLeft,
+      PointType ,LPPointConvertRate,PointValidEndDate,UnitPrice
+      from Promotion.T_Pro_Flow_Mid mid,V_DivisionProductLineRelation bu
+      where BU = DivisionCode
+      and bu.ProductLineID = #BUName#
+      and PresentType = '积分金额'
+      <isEqual prepend="AND" property="Period" compareValue="年度">
+        Period = #CalPeriod#
+      </isEqual>
+      <isEqual prepend="AND" property="Period" compareValue="季度">
+        convert(nvarchar(4),Year) + Period = #CalPeriod#
+      </isEqual>
+      <isEqual prepend="AND" property="Period" compareValue="月度">
+        convert(nvarchar(4),Year) + Period = #CalPeriod#
+      </isEqual>
+      and OperationState = 0
+    </select>
+
+    <procedure id="GC_ImportProGiftResult" parameterMap="ProGiftParameterMap">
+      PROMOTION.Proc_Pro_ImportResult4EWorkFlow
+    </procedure>
+
+    <procedure id="GC_ImportProPointResult" parameterMap="ProPointParameterMap">
+      PROMOTION.Proc_Pro_ImportResult4EWorkFlowPoint
+    </procedure>
+
+    <update id="UpdateProGiftFlow" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.T_Pro_Flow SET [Status]=#Status# WHERE FlowId=#flowId#
+    </update>
+
+    <select id="SelectProGiftHtml" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT FlowId AS FlowId,Description AS Description,BU AS Bu,Period AS Period,AccountMonth AS AccountMonth,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,HtmlStr AS HtmlStr
+      FROM PROMOTION.T_Pro_Flow
+      WHERE FlowId=#value#
+
+    </select>
+
+    <select id="SelectGiftInfo4EWorkflowByFlowId" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT t1.FlowId,t3.DivisionCode AS BuId,BU AS Bu,Period AS Period,
+      CASE WHEN FlowType='赠品' THEN  sum(AdjustNum*ISNULL(GiftPrice,1))
+      ELSE sum(AdjustNum) END as AdjustNum
+      FROM PROMOTION.T_Pro_Flow t1,Promotion.T_Pro_Flow_Detail t2 ,V_DivisionProductLineRelation t3
+      WHERE t1.FlowId = t2.FlowId
+      and t3.DivisionName=t1.BU
+      and t3.IsEmerging='0'
+      and t1.FlowId=#value#
+      group by Bu,DivisionCode,Period,t1.FlowId,FlowType
+    </select>
+
+    <!--初始积分导入-->
+    <select id="SelectInitialPointsList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT FlowId,Description,BU,PointType,PointUseRangeType,PointUseRange,Status,CreateBy,CreateTime,HtmlStr,FlowNo,ROW_NUMBER () OVER (ORDER BY CreateTime Desc ) AS [row_number]
+      FROM Promotion.Pro_InitPoint_Flow
+      WHERE Status NOT IN ('草稿')
+      <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Description like N'%$Description$%'</isNotNull>
+        <isNotNull prepend="AND" property="BU">
+          BU  IN ( SELECT ProductLineName FROM V_DivisionProductLineRelation A
+          WHERE A.ProductLineID=#BU#
+          AND A.IsEmerging='0')
+        </isNotNull>
+        <isNotNull prepend="AND" property="PointType">PointType=#PointType#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status=#Status#</isNotNull>
+     
+    </select>
+
+    <!--查询可结算政策-->
+    <select id="SelectPromotionSettlementList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyId,A.PolicyNo,A.PolicyName,A.PolicyStyle,A.Period,A.CalPeriod,D.ProductLineName,D.DivisionName ,ROW_NUMBER () OVER (ORDER BY CalPeriod ) AS [row_number]
+      FROM Promotion.PRO_POLICY A
+      INNER JOIN V_DivisionProductLineRelation D ON A.BU=D.DivisionName AND D.IsEmerging='0'
+      WHERE A.CalModule = '正式' AND A.CalStatus = '成功'
+      AND NOT EXISTS (SELECT 1 FROM Promotion.T_Pro_Flow B,Promotion.T_Pro_Flow_Detail C WHERE B.FlowId = C.FlowId AND B.Status='审批中' AND A.PolicyId=C.PolicyId )
+      AND EXISTS (SELECT 1 FROM Promotion.T_Pro_Flow B,Promotion.T_Pro_Flow_Detail C WHERE B.FlowId = C.FlowId  AND A.PolicyId=C.PolicyId and a.CalPeriod=b.AccountMonth)
+      <isNotNull prepend="AND" property="PolicyNo"> A.PolicyNo=#PolicyNo#</isNotNull>
+      <isNotNull prepend="AND" property="PolicyName"> A.PolicyName like N'%PolicyName%'</isNotNull>
+      <isNotNull prepend="AND" property="PolicyStyle"> A.PolicyStyle=#PolicyStyle#</isNotNull>
+      <isNotNull prepend="AND" property="Bu"> D.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="Period">A.Period=#Period#</isNotNull>
+      <isNotNull prepend="AND" property="CalPeriod">A.CalPeriod=#CalPeriod#</isNotNull>
+    </select>
+
+    <select id="GC_PolicyClosing" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC [Promotion].[Proc_PolicyGroupClosing] #StingPolicyId#,''
+    </select>
+
+    <select id="SelectPromotionGift" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT  FlowId,Description,FlowType,BU,Period,AccountMonth,Status,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,MarketType,BeginDate,EndDate,Reason,ApproveRole,SettlementStatus,WFCode,InstanceID
+      ,b.DivisionCode
+      ,b.ProductLineID
+      ,b.ProductLineName
+      ,b.DivisionName
+      FROM Promotion.T_Pro_Flow A
+      INNER JOIN V_DivisionProductLineRelation B ON A.BU=B.DivisionCode AND B.IsEmerging='0'
+      WHERE A.FlowId=#value#
+    </select>
+
+    <update id="UpdateGiftPromotionFlowNo" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.T_Pro_Flow SET WFCode=#FlowNo# WHERE FlowId=#FlowId#
+    </update>
+
+    <select id="SelectPromotionGiftSubDealer" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT TOP 1 CASE c.DMA_DealerType WHEN 'T2' THEN D.DMA_ChineseName ELSE C.DMA_ChineseName END AS DealerName
+      FROM  Promotion.T_Pro_Flow a(nolock)
+      INNER JOIN Promotion.T_Pro_Flow_Detail b(nolock) ON a.FlowId = b.FlowId
+      INNER JOIN DealerMaster c(nolock) ON b.DealerId = c.DMA_ID
+      LEFT JOIN DealerMaster D(nolock) ON B.LPID = D.DMA_ID
+      WHERE a.FlowId = #value#
+    </select>
+
+    <select id="SelectPromotionInitPointSubDealer" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT TOP 1 CASE c.DMA_DealerType WHEN 'T2' THEN D.DMA_ChineseName ELSE C.DMA_ChineseName END AS DealerName
+      FROM  Promotion.Pro_InitPoint_Flow a(nolock)
+      INNER JOIN Promotion.Pro_InitPoint_Flow_Detail b(nolock) ON a.FlowId = b.FlowId
+      INNER JOIN DealerMaster c(nolock) ON b.DealerId = c.DMA_ID
+      LEFT JOIN DealerMaster D(nolock) ON c.DMA_Parent_DMA_ID = D.DMA_ID
+      WHERE a.FlowId = #value#
+    </select>
+
+    <select id="SelectPromotionInitPointBUName" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT A.*,B.DivisionName,B.DivisionCode,B.ProductLineID
+      FROM  Promotion.Pro_InitPoint_Flow a
+      INNER JOIN V_DivisionProductLineRelation B ON A.BU=B.ProductLineName AND B.IsEmerging='0'
+      WHERE A.FlowId= #value#
+    </select>
+    <insert id="InsertTProFlowImport" parameterClass="System.Collections.Hashtable">
+      insert into Promotion.T_Pro_Flow_Import(
+      UserId,Descriptions,MarketType,Reason,BeginDate,EndDate,ApproveRole,BU,SubBu,Period,PolicyNo,ParentDealerCode,ParentDealerName ,DealerCode,
+      DealerName,HospitalCode,HospitalName,PresentValueConverted,PresentType,AdjustPresentValue,ActualValueLeft,PointType,LPPointConvertRate,PointValidEndDate,UnitPrice,ImportDate)
+      values
+      (#UserId#,#Descriptions#,#MarketType#,#Reason#,#BeginDate#,#EndDate#,#ApproveRole#,#BU#,#SubBu#,#Period#,#PolicyNo#,#ParentDealerCode#,#ParentDealerName#,#DealerCode#
+      ,#DealerName#,#HospitalCode#,#HospitalName#,#PresentValueConverted#,#PresentType#,#AdjustPresentValue#,#ActualValueLeft#,#PointType#,#LPPointConvertRate#,#PointValidEndDate#,#UnitPrice#,getdate()
+      )
+    </insert>
+    <insert id="InsertTPolicyImport" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.T_Pro_Use_Product
+      ( Id ,PolicyNo ,BU ,SubBU ,PolicyScope ,SelectType ,SelectCode ,SelectValue ,ProductApplyRange
+      )
+      VALUES	( NEWID() , 
+      #PolicyNo# , 
+      (SELECT DivisionCode FROM dbo.V_DivisionProductLineRelation WHERE ProductLineName=#ProductLineName# and SubCompanyName=#SubCompanyName# AND BrandName=#BrandName#),
+      (SELECT TOP 1 CC_Code FROM dbo.V_ProductClassificationStructure WHERE CC_ProductLineName=#ProductLineName# AND CA_NameCN=#CA_NameCN#),
+      #PolicyScope# ,
+      N'包含' , 
+      #SelectCode# , 
+      N'' , 
+      null  
+      )
+    </insert>
+    <delete id="DeleteImportGift" parameterClass="string">
+      delete from Promotion.T_Pro_Flow_Import
+      where UserId = #value#
+    </delete>
+  <update id="UpdateProOperationState" parameterClass="string">
+    update t4 set OperationState = 1      
+    FROM PROMOTION.T_Pro_Flow t1
+    INNER JOIN Promotion.T_Pro_Flow_Detail t2 ON t1.FlowId = t2.FlowId
+    INNER JOIN DealerMaster t3 on t2.DealerID = t3.Dma_ID
+    INNER JOIN Promotion.T_Pro_Flow_Mid T4 ON T2.PolicyId = t4.PolicyNo and t3.DMA_SAP_Code = t4.DealerCode
+    and t1.AccountMonth = convert(nvarchar(4),t4.Year) + t4.Period and t1.BU = t4.BU
+    WHERE t1.FlowId = #value#
+  </update>
+  </statements>
+</sqlMap>

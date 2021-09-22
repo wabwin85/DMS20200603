@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PoReceiptMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="PoReceipt" assembly="DMS.Model.dll" type="DMS.Model.PoReceipt" />
+    </alias>
+    <resultMaps>
+        <resultMap id="PoReceiptResult" class="PoReceipt">
+            <result property="Id" column="POR_ID" type="Guid" dbType="Guid"/>
+            <result property="SapsoLine" column="POR_SAPSOLine" type="string" dbType="varchar"/>
+            <result property="Sapsoid" column="POR_SAPSOID" type="string" dbType="varchar"/>
+            <result property="SapPmaId" column="POR_SAP_PMA_ID" type="Guid" dbType="Guid"/>
+            <result property="ReceiptQty" column="POR_ReceiptQty" type="double" dbType="Real"/>
+            <result property="UnitPrice" column="POR_UnitPrice" type="double" dbType="Real"/>
+            <result property="ConvertFactor" column="POR_ConvertFactor" type="double" dbType="Real"/>
+            <result property="PrhId" column="POR_PRH_ID" type="Guid" dbType="Guid"/>
+            <result property="ChangedUnitProductPmaId" column="POR_ChangedUnitProduct_PMA_ID" type="Guid" dbType="Guid"/>
+            <result property="LineNbr" column="POR_LineNbr" type="int" dbType="Int"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectPoReceipt" parameterClass="string" resultClass="PoReceipt">
+            SELECT POR_ID AS Id,POR_SAPSOLine AS SapsoLine,POR_SAPSOID AS Sapsoid,POR_SAP_PMA_ID AS SapPmaId,POR_ReceiptQty AS ReceiptQty,POR_UnitPrice AS UnitPrice,POR_ConvertFactor AS ConvertFactor,POR_PRH_ID AS PrhId,POR_ChangedUnitProduct_PMA_ID AS ChangedUnitProductPmaId,POR_LineNbr AS LineNbr
+            FROM POReceipt
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    POR_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterPoReceipt" parameterClass="PoReceipt" resultClass="PoReceipt">
+            SELECT POR_ID AS Id,POR_SAPSOLine AS SapsoLine,POR_SAPSOID AS Sapsoid,POR_SAP_PMA_ID AS SapPmaId,POR_ReceiptQty AS ReceiptQty,POR_UnitPrice AS UnitPrice,POR_ConvertFactor AS ConvertFactor,POR_PRH_ID AS PrhId,POR_ChangedUnitProduct_PMA_ID AS ChangedUnitProductPmaId,POR_LineNbr AS LineNbr
+            FROM POReceipt
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">POR_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="SapsoLine">POR_SAPSOLine=#SapsoLine#</isNotNull>
+                <isNotNull prepend="AND" property="Sapsoid">POR_SAPSOID=#Sapsoid#</isNotNull>
+                <isNotNull prepend="AND" property="SapPmaId">POR_SAP_PMA_ID=#SapPmaId#</isNotNull>
+                <isNotNull prepend="AND" property="ReceiptQty">POR_ReceiptQty=#ReceiptQty#</isNotNull>
+                <isNotNull prepend="AND" property="UnitPrice">POR_UnitPrice=#UnitPrice#</isNotNull>
+                <isNotNull prepend="AND" property="ConvertFactor">POR_ConvertFactor=#ConvertFactor#</isNotNull>
+                <isNotNull prepend="AND" property="PrhId">POR_PRH_ID=#PrhId#</isNotNull>
+                <isNotNull prepend="AND" property="ChangedUnitProductPmaId">POR_ChangedUnitProduct_PMA_ID=#ChangedUnitProductPmaId#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">POR_LineNbr=#LineNbr#</isNotNull>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterPrhId" parameterClass="string" resultClass="PoReceipt">
+            SELECT POR_ID AS Id,POR_SAPSOLine AS SapsoLine,POR_SAPSOID AS Sapsoid,POR_SAP_PMA_ID AS SapPmaId,POR_ReceiptQty AS ReceiptQty,POR_UnitPrice AS UnitPrice,POR_ConvertFactor AS ConvertFactor,POR_PRH_ID AS PrhId,POR_ChangedUnitProduct_PMA_ID AS ChangedUnitProductPmaId,POR_LineNbr AS LineNbr
+            FROM POReceipt
+            <dynamic prepend="WHERE">
+                <isParameterPresent>POR_PRH_ID=#PrhId#</isParameterPresent>
+            </dynamic>
+        </select>
+        <insert id="InsertPoReceipt" parameterClass="PoReceipt">
+            INSERT INTO POReceipt
+            (POR_ID,POR_SAPSOLine,POR_SAPSOID,POR_SAP_PMA_ID,POR_ReceiptQty,POR_UnitPrice,POR_ConvertFactor,POR_PRH_ID,POR_ChangedUnitProduct_PMA_ID,POR_LineNbr)
+            VALUES(#Id#,#SapsoLine#,#Sapsoid#,#SapPmaId#,#ReceiptQty#,#UnitPrice#,#ConvertFactor#,#PrhId#,#ChangedUnitProductPmaId#,#LineNbr#)
+        </insert>
+        <update id="UpdatePoReceipt" parameterClass="PoReceipt">
+            UPDATE POReceipt
+            SET POR_ID=#Id#,POR_SAPSOLine=#SapsoLine#,POR_SAPSOID=#Sapsoid#,POR_SAP_PMA_ID=#SapPmaId#,POR_ReceiptQty=#ReceiptQty#,POR_UnitPrice=#UnitPrice#,POR_ConvertFactor=#ConvertFactor#,POR_PRH_ID=#PrhId#,POR_ChangedUnitProduct_PMA_ID=#ChangedUnitProductPmaId#,POR_LineNbr=#LineNbr#
+            WHERE POR_ID = #Id#
+        </update>
+        <delete id="DeletePoReceipt" parameterClass="string">
+            DELETE FROM POReceipt
+            WHERE POR_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

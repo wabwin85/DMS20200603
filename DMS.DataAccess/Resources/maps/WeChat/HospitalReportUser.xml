@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="HospitalReportUserMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="HospitalReportUser" assembly="DMS.Model.dll" type="DMS.Model.HospitalReportUser" />
+    </alias>
+    <resultMaps>
+        <resultMap id="HospitalReportUserResult" class="HospitalReportUser">
+            <result property="Id" column="HRU_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="HospitalId" column="HRU_HospitalId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UserName" column="HRU_UserName" type="string" dbType="nvarchar"/>
+            <result property="Phone" column="HRU_Phone" type="string" dbType="nvarchar"/>
+            <result property="WeChat" column="HRU_WeChat" type="string" dbType="nvarchar"/>
+            <result property="IsActive" column="HRU_IsActive" type="bool" dbType="bit"/>
+            <result property="IsDeleted" column="HRU_IsDeleted" type="bool" dbType="bit"/>
+            <result property="CreateUser" column="HRU_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateDate" column="HRU_CreateDate" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="HRU_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateDate" column="HRU_UpdateDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="ProductMap" class="System.Collections.Hashtable" >
+            <parameter property="CfnUPN" column="CfnUPN" />
+            <parameter property="LotNumber" column="LotNumber" />
+            <parameter property="WeChatNumber" column="WeChatNumber" />
+            <parameter property="ResultValue" column="ResultValue" direction="Output" />
+        </parameterMap>
+        <parameterMap id="WeChatBySpecMap" class="System.Collections.Hashtable" >
+            <parameter property="Level2Code" column="Level2Code" dbType="nvarchar" type="string" />
+            <parameter property="Spec" column="Spec" dbType="nvarchar" type="string" />
+            <parameter property="ExpiredDate" column="ExpiredDate" dbType="nvarchar" type="string" />
+            <parameter property="ReportType" column="ReportType" dbType="nvarchar" type="string" />
+            <parameter property="WeChatNumber" column="WeChatNumber" dbType="nvarchar" type="string" />
+            <parameter property="ResultValue" column="ResultValue" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectHospitalReportUser" parameterClass="string" resultClass="HospitalReportUser">
+            SELECT HRU_ID AS Id,HRU_HospitalId AS HospitalId,HRU_UserName AS UserName,HRU_Phone AS Phone,HRU_WeChat AS WeChat,HRU_IsActive AS IsActive,HRU_IsDeleted AS IsDeleted,HRU_CreateUser AS CreateUser,HRU_CreateDate AS CreateDate,HRU_UpdateUser AS UpdateUser,HRU_UpdateDate AS UpdateDate
+            FROM HospitalReportUser
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    HRU_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterHospitalReportUser" parameterClass="HospitalReportUser" resultClass="HospitalReportUser">
+            SELECT HRU_ID AS Id,HRU_HospitalId AS HospitalId,HRU_UserName AS UserName,HRU_Phone AS Phone,HRU_WeChat AS WeChat,HRU_IsActive AS IsActive,HRU_IsDeleted AS IsDeleted,HRU_CreateUser AS CreateUser,HRU_CreateDate AS CreateDate,HRU_UpdateUser AS UpdateUser,HRU_UpdateDate AS UpdateDate
+            FROM HospitalReportUser
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">HRU_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalId">HRU_HospitalId=#HospitalId#</isNotNull>
+                <isNotNull prepend="AND" property="UserName">HRU_UserName=#UserName#</isNotNull>
+                <isNotNull prepend="AND" property="Phone">HRU_Phone=#Phone#</isNotNull>
+                <isNotNull prepend="AND" property="WeChat">HRU_WeChat=#WeChat#</isNotNull>
+                <isNotNull prepend="AND" property="IsActive">HRU_IsActive=#IsActive#</isNotNull>
+                <isNotNull prepend="AND" property="IsDeleted">HRU_IsDeleted=#IsDeleted#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">HRU_UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">HRU_UpdateDate=#UpdateDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertHospitalReportUser" parameterClass="HospitalReportUser">
+            INSERT INTO HospitalReportUser
+            (HRU_ID,HRU_HospitalId,HRU_UserName,HRU_Phone,HRU_WeChat,HRU_IsActive,HRU_IsDeleted,HRU_CreateUser,HRU_CreateDate,HRU_UpdateUser,HRU_UpdateDate)
+            VALUES(#Id#,#HospitalId#,#UserName#,#Phone#,#WeChat#,#IsActive#,#IsDeleted#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateHospitalReportUser" parameterClass="HospitalReportUser">
+            UPDATE HospitalReportUser
+            SET HRU_ID=#Id#,HRU_HospitalId=#HospitalId#,HRU_UserName=#UserName#,HRU_Phone=#Phone#,HRU_WeChat=#WeChat#,HRU_IsActive=#IsActive#,HRU_IsDeleted=#IsDeleted#,HRU_UpdateUser=#UpdateUser#,HRU_UpdateDate=#UpdateDate#
+            WHERE HRU_ID = #Id#
+        </update>
+        <delete id="DeleteHospitalReportUser" parameterClass="string">
+            DELETE FROM HospitalReportUser
+            WHERE HRU_ID = #value#
+        </delete>
+
+        <select id="QueryByFilterHospitalReportUser" parameterClass="System.Collections.Hashtable" resultClass="HospitalReportUser">
+            SELECT HRU_ID AS Id,HRU_HospitalId AS HospitalId,HRU_UserName AS UserName,HRU_Phone AS Phone,HRU_WeChat AS WeChat,HRU_IsActive AS IsActive,HRU_IsDeleted AS IsDeleted,HRU_CreateUser AS CreateUser,HRU_CreateDate AS CreateDate,HRU_UpdateUser AS UpdateUser,HRU_UpdateDate AS UpdateDate
+            FROM HospitalReportUser
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">HRU_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalId">HRU_HospitalId=#HospitalId#</isNotNull>
+                <isNotNull prepend="AND" property="UserName">HRU_UserName=#UserName#</isNotNull>
+                <isNotNull prepend="AND" property="Phone">HRU_Phone=#Phone#</isNotNull>
+                <isNotNull prepend="AND" property="WeChat">CHARINDEX(#WeChat#,HRU_WeChat)>0</isNotNull>
+                <isNotNull prepend="AND" property="IsActive">HRU_IsActive=#IsActive#</isNotNull>
+                <isNotNull prepend="AND" property="IsDeleted">HRU_IsDeleted=#IsDeleted#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">HRU_UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">HRU_UpdateDate=#UpdateDate#</isNotNull>
+            </dynamic>
+        </select>
+
+        <update id="BindingWeChatByMobile" parameterClass="HospitalReportUser">
+            UPDATE HospitalReportUser
+            SET HRU_WeChat=#WeChat#
+            WHERE HRU_Phone = #Phone#
+        </update>
+
+        <procedure id="GC_CheckProductInfo" parameterMap="ProductMap">
+            dbo.GC_CheckProductInfo
+        </procedure>
+
+        <procedure id="GC_CheckCfnWeChatBySpec" parameterMap="WeChatBySpecMap">
+            dbo.GC_CheckCfnWeChatBySpec
+        </procedure>
+
+        <select id="QueryHospitalReportUserByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            SELECT HRU_ID AS Id,HRU_HospitalId AS HospitalId,HRU_UserName AS UserName,HRU_Phone AS Phone,HRU_WeChat AS WeChat,
+            CASE WHEN HRU_WeChat IS NULL THEN 0 ELSE 1 END AS HasBinding,
+            HOS_HospitalName AS HospitalName,HOS_Grade AS Grade,HOS_Province AS Province,HOS_City AS City,HOS_District AS District,HOS_Key_Account AS KeyAccount,
+            HRU_IsActive AS IsActive,HRU_IsDeleted AS IsDeleted,HRU_CreateUser AS CreateUser,HRU_CreateDate AS CreateDate,HRU_UpdateUser AS UpdateUser,HRU_UpdateDate AS UpdateDate
+            FROM HospitalReportUser,Hospital
+            WHERE HRU_HospitalId = HOS_ID
+            AND HRU_IsDeleted = 0
+            <dynamic prepend="">
+                <isNotNull prepend="AND" property="Id">HRU_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalId">HRU_HospitalId=#HospitalId#</isNotNull>
+                <isNotNull prepend="AND" property="UserName">HRU_UserName=#UserName#</isNotNull>
+                <isNotNull prepend="AND" property="Phone">HRU_Phone=#Phone#</isNotNull>
+                <isNotNull prepend="AND" property="WeChat">HRU_WeChat=#WeChat#</isNotNull>
+                <isNotNull prepend="AND" property="IsActive">HRU_IsActive=#IsActive#</isNotNull>
+                <isNotNull prepend="AND" property="IsDeleted">HRU_IsDeleted=#IsDeleted#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">HRU_UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">HRU_UpdateDate=#UpdateDate#</isNotNull>
+            </dynamic>
+            ORDER BY HRU_UserName
+        </select>
+
+        <select id="CheckUserPhoneExist" parameterClass="System.Collections.Hashtable" resultClass="HospitalReportUser">
+            SELECT HRU_ID AS Id,HRU_HospitalId AS HospitalId,HRU_UserName AS UserName,HRU_Phone AS Phone,HRU_WeChat AS WeChat,HRU_IsActive AS IsActive,HRU_IsDeleted AS IsDeleted,HRU_CreateUser AS CreateUser,HRU_CreateDate AS CreateDate,HRU_UpdateUser AS UpdateUser,HRU_UpdateDate AS UpdateDate
+            FROM HospitalReportUser
+            WHERE HRU_IsDeleted = 0
+            <dynamic prepend="">
+                <isNotNull prepend="AND" property="Id">HRU_ID!=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="Phone">HRU_Phone=#Phone#</isNotNull>
+            </dynamic>
+        </select>
+
+        <update id="UpdateHospitalReportUserByFilter" parameterClass="HospitalReportUser">
+            UPDATE HospitalReportUser
+            SET HRU_UserName=#UserName#,HRU_Phone=#Phone#,HRU_IsActive=#IsActive#,HRU_UpdateUser=#UpdateUser#,HRU_UpdateDate=#UpdateDate#
+            WHERE HRU_ID = #Id#
+        </update>
+    </statements>
+</sqlMap>

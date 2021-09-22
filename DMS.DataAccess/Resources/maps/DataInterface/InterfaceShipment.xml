@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceShipmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceShipment" assembly="DMS.Model.dll" type="DMS.Model.InterfaceShipment" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceShipmentResult" class="InterfaceShipment">
+      <result property="Id" column="ISH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerSapCode" column="ISH_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="OrderNo" column="ISH_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="SapDeliveryNo" column="ISH_SapDeliveryNo" type="string" dbType="nvarchar"/>
+      <result property="SapDeliveryDate" column="ISH_SapDeliveryDate" type="DateTime" dbType="datetime"/>
+      <result property="ShippingDate" column="ISH_ShippingDate" type="DateTime" dbType="datetime"/>
+      <result property="ToWhmCode" column="ISH_ToWhmCode" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="ISH_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="SapDeliveryLineNbr" column="ISH_SapDeliveryLineNbr" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="ISH_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="ISH_ExpiredDate" type="DateTime" dbType="datetime"/>
+      <result property="DeliveryQty" column="ISH_DeliveryQty" type="decimal" dbType="decimal"/>
+      <result property="LineNbr" column="ISH_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ISH_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="ISH_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="ISH_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="ISH_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ShipmentType" column="ISH_ShipmentType" type="string" dbType="nvarchar"/>
+      <result property="UnitPrice" column="ISH_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="QrCode" column="ISH_QRCode" type="string" dbType="nvarchar"/>
+      <result property="TaxRate" column="ISH_TaxRate" type="decimal" dbType="decimal"/>
+      <result property="ShipType" column="ISH_ShipType" type="string" dbType="nvarchar"/>
+      <result property="ERPLineNbr" column="ISH_ERPLineNbr" type="string" dbType="nvarchar"/>
+      <result property="ERPAmount" column="ISH_ERPAmount" type="decimal" dbType="decimal"/>
+      <result property="ERPTaxRate" column="ISH_ERPTaxRate" type="decimal" dbType="decimal"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_Shipment_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_Interface_ShipmentT2Normal_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_Interface_ShipmentT2Consignment_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceShipment" parameterClass="string" resultClass="InterfaceShipment">
+      SELECT ISH_ID AS Id,ISH_Dealer_SapCode AS DealerSapCode,ISH_OrderNo AS OrderNo,ISH_SapDeliveryNo AS SapDeliveryNo,ISH_SapDeliveryDate AS SapDeliveryDate,ISH_ShippingDate AS ShippingDate,ISH_ToWhmCode AS ToWhmCode,ISH_ArticleNumber AS ArticleNumber,ISH_SapDeliveryLineNbr AS SapDeliveryLineNbr,ISH_LotNumber AS LotNumber,ISH_ExpiredDate AS ExpiredDate,ISH_DeliveryQty AS DeliveryQty,ISH_LineNbr AS LineNbr,ISH_FileName AS FileName,ISH_ImportDate AS ImportDate,ISH_ClientID AS Clientid,ISH_BatchNbr AS BatchNbr,ISH_ShipmentType AS ShipmentType,ISH_UnitPrice AS UnitPrice,ISH_QRCode AS QrCode,ISH_TaxRate AS TaxRate
+      FROM InterfaceShipment
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ISH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceShipment" parameterClass="InterfaceShipment" resultClass="InterfaceShipment">
+      SELECT ISH_ID AS Id,ISH_Dealer_SapCode AS DealerSapCode,ISH_OrderNo AS OrderNo,ISH_SapDeliveryNo AS SapDeliveryNo,ISH_SapDeliveryDate AS SapDeliveryDate,ISH_ShippingDate AS ShippingDate,ISH_ToWhmCode AS ToWhmCode,ISH_ArticleNumber AS ArticleNumber,ISH_SapDeliveryLineNbr AS SapDeliveryLineNbr,ISH_LotNumber AS LotNumber,ISH_ExpiredDate AS ExpiredDate,ISH_DeliveryQty AS DeliveryQty,ISH_LineNbr AS LineNbr,ISH_FileName AS FileName,ISH_ImportDate AS ImportDate,ISH_ClientID AS Clientid,ISH_BatchNbr AS BatchNbr,ISH_ShipmentType AS ShipmentType,ISH_UnitPrice AS UnitPrice,ISH_QRCode AS QrCode,ISH_TaxRate AS TaxRate
+      FROM InterfaceShipment
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ISH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">ISH_Dealer_SapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">ISH_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryNo">ISH_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryDate">ISH_SapDeliveryDate=#SapDeliveryDate#</isNotNull>
+        <isNotNull prepend="AND" property="ShippingDate">ISH_ShippingDate=#ShippingDate#</isNotNull>
+        <isNotNull prepend="AND" property="ToWhmCode">ISH_ToWhmCode=#ToWhmCode#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">ISH_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryLineNbr">ISH_SapDeliveryLineNbr=#SapDeliveryLineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">ISH_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">ISH_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="DeliveryQty">ISH_DeliveryQty=#DeliveryQty#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ISH_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ISH_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">ISH_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">ISH_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">ISH_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentType">ISH_ShipmentType=#ShipmentType#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">ISH_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">ISH_QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="TaxRate">ISH_TaxRate=#TaxRate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceShipment" parameterClass="InterfaceShipment">
+      INSERT INTO InterfaceShipment
+      (ISH_ID,ISH_Dealer_SapCode,ISH_OrderNo,ISH_SapDeliveryNo,ISH_SapDeliveryDate,ISH_ShippingDate,ISH_ToWhmCode,ISH_ArticleNumber,ISH_SapDeliveryLineNbr,ISH_LotNumber,ISH_ExpiredDate,ISH_DeliveryQty,ISH_LineNbr,ISH_FileName,ISH_ImportDate,ISH_ClientID,ISH_BatchNbr,ISH_ShipmentType,ISH_UnitPrice,ISH_QRCode,ISH_TaxRate,ISH_ExpressCompany,ISH_ExpressNo,ISH_ShipType,ISH_ERPLineNbr,ISH_ERPAmount,ISH_ERPTaxRate,ISH_ERPNbr)
+      VALUES(#Id#,#DealerSapCode#,#OrderNo#,#SapDeliveryNo#,#SapDeliveryDate:DateTime:1/1/0001 12:00:00 AM#,#ShippingDate:DateTime:1/1/0001 12:00:00 AM#,#ToWhmCode#,#ArticleNumber#,#SapDeliveryLineNbr#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#DeliveryQty#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ShipmentType#,#UnitPrice#,#QrCode#,#TaxRate#,#ExpressCompany#,#ExpressNo#,#ShipType#,#ERPLineNbr#,#ERPAmount#,#ERPTaxRate#,#ERPNbr#)
+    </insert>
+    <insert id="InsertInterfaceOrderStatus" parameterClass="System.Collections.Hashtable">
+      INSERT INTO InterfaceOrderStatus
+      (ID,ImportDate,OrderNo,OrderStatus,LineNbr,ClientId,BatchNbr)
+      VALUES(#Id#,#ImportDate#,#OrderNo#,#OrderStatus#,#LineNbr#,#ClientId#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceShipment" parameterClass="InterfaceShipment">
+      UPDATE InterfaceShipment
+      SET ISH_ID=#Id#,ISH_Dealer_SapCode=#DealerSapCode#,ISH_OrderNo=#OrderNo#,ISH_SapDeliveryNo=#SapDeliveryNo#,ISH_SapDeliveryDate=#SapDeliveryDate#,ISH_ShippingDate=#ShippingDate#,ISH_ToWhmCode=#ToWhmCode#,ISH_ArticleNumber=#ArticleNumber#,ISH_SapDeliveryLineNbr=#SapDeliveryLineNbr#,ISH_LotNumber=#LotNumber#,ISH_ExpiredDate=#ExpiredDate#,ISH_DeliveryQty=#DeliveryQty#,ISH_LineNbr=#LineNbr#,ISH_FileName=#FileName#,ISH_ImportDate=#ImportDate#,ISH_ClientID=#Clientid#,ISH_BatchNbr=#BatchNbr#,ISH_ShipmentType=#ShipmentType#,ISH_UnitPrice=#UnitPrice#,ISH_TaxRate=#TaxRate#,ISH_ERPLineNbr=#ERPLineNbr#,ISH_ERPAmount=#ERPAmount#,ISH_ERPTaxRate=#ERPTaxRate#
+      WHERE ISH_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceShipment" parameterClass="string">
+      DELETE FROM InterfaceShipment
+      WHERE ISH_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_Shipment" parameterMap="GC_Interface_Shipment_ParameterMap">
+      dbo.GC_Interface_Shipment
+    </procedure>
+    <procedure id="GC_Interface_ShipmentVR" parameterMap="GC_Interface_Shipment_ParameterMap">
+      dbo.GC_Interface_ShipmentVR
+    </procedure>
+    <procedure id="GC_Interface_ShipmentT2Normal" parameterMap="GC_Interface_ShipmentT2Normal_ParameterMap">
+      dbo.GC_Interface_ShipmentT2Normal
+    </procedure>
+    <procedure id="GC_Interface_ShipmentT2Consignment" parameterMap="GC_Interface_ShipmentT2Consignment_ParameterMap">
+      dbo.GC_Interface_ShipmentT2Consignment
+    </procedure>
+    <procedure id="GC_Interface_OrderStatus" parameterMap="GC_Interface_Shipment_ParameterMap">
+      dbo.GC_Interface_OrderStatus
+    </procedure>
+  </statements>
+</sqlMap>

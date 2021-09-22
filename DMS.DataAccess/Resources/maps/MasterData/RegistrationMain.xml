@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="RegistrationMainMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="RegistrationMain" assembly="DMS.Model.dll" type="DMS.Model.RegistrationMain" />
+    </alias>
+    <resultMaps>
+        <resultMap id="RegistrationMainResult" class="RegistrationMain">
+            <result property="Id" column="RM_ID" type="Guid" dbType="Guid"/>
+            <result property="RegistrationNbrcn" column="RM_RegistrationNbrCN" type="string" dbType="varchar"/>
+            <result property="RegistrationNbren" column="RM_RegistrationNbrEN" type="string" dbType="varchar"/>
+            <result property="OpeningDate" column="RM_OpeningDate" type="DateTime" dbType="DateTime"/>
+            <result property="ExpirationDate" column="RM_ExpirationDate" type="DateTime" dbType="DateTime"/>
+            <result property="ArticleNumber" column="RD_ArticleNumber" type="string" dbType="string"/>
+            <result property="RegistrationProductName" column="RM_RegistrationProductName" type="string" dbType="varchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectRegistrationMain" parameterClass="string" resultClass="RegistrationMain">
+            SELECT RM_ID AS Id,RM_RegistrationNbrCN AS RegistrationNbrcn,RM_RegistrationNbrEN AS RegistrationNbren,RM_OpeningDate AS OpeningDate,
+            RM_ExpirationDate AS ExpirationDate,RM_RegistrationProductName AS RegistrationProductName FROM RegistrationMain
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    RM_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterRegistrationMain" parameterClass="RegistrationMain" resultClass="RegistrationMain">
+            SELECT RM_ID AS Id,RM_RegistrationNbrCN AS RegistrationNbrcn,RM_RegistrationNbrEN AS RegistrationNbren,CONVERT(varchar(100), RegistrationMain.RM_OpeningDate, 112) AS OpeningDate,
+            CONVERT(varchar(100), RegistrationMain.RM_ExpirationDate, 112) AS ExpirationDate,RM_RegistrationProductName AS RegistrationProductName
+            ,row_number() OVER (ORDER BY [RM_ID] ASC) AS [row_number] FROM RegistrationMain
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">RM_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="RegistrationNbrcn">(RM_RegistrationNbrCN like '%$RegistrationNbrcn$%' OR RM_RegistrationNbrEN like '%$RegistrationNbrcn$%')</isNotNull>
+                <isNotNull prepend="AND" property="RegistrationProductName">RM_RegistrationProductName like '%$RegistrationProductName$%'</isNotNull>
+                <isNotNull prepend="AND" property="OpeningDateStart">CONVERT(varchar(100), RegistrationMain.RM_OpeningDate, 112) >= #OpeningDateStart#</isNotNull>
+                <isNotNull prepend="AND" property="OpeningDateEnd">CONVERT(varchar(100), RegistrationMain.RM_OpeningDate, 112) &lt;= #OpeningDateEnd#</isNotNull>
+                <isNotNull prepend="AND" property="ExpirationDateStart">CONVERT(varchar(100), RegistrationMain.RM_ExpirationDate, 112) >= #ExpirationDateStart#</isNotNull>
+                <isNotNull prepend="AND" property="ExpirationDateEnd">CONVERT(varchar(100), RegistrationMain.RM_ExpirationDate, 112) &lt;= #ExpirationDateEnd#</isNotNull>
+                <isNotNull prepend="AND" property="ArticleNumber">
+                    RegistrationMain.RM_ID IN (SELECT DISTINCT RD_RM_ID FROM RegistrationDetail WHERE RD_ArticleNumber like '%$ArticleNumber$%')
+                </isNotNull>
+                <isNotNull prepend="AND" property="DmaId">
+                    EXISTS (SELECT 1 FROM
+                    (SELECT * FROM CFN
+                    WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+                    INNER JOIN DealerContract AS DC
+                    ON DA.DAT_DCL_ID = DC.DCL_ID
+                    INNER JOIN Cache_PartsClassificationRec AS CP
+                    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+                    WHERE DC.DCL_DMA_ID = #DmaId#
+                    <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+                    AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+                    AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+                    UNION
+                    SELECT CFN.* FROM CFN
+                    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+                    WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+                    INNER JOIN DealerContract AS DC
+                    ON DA.DAT_DCL_ID = DC.DCL_ID
+                    INNER JOIN Cache_PartsClassificationRec AS CP
+                    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+                    WHERE DC.DCL_DMA_ID = #DmaId#
+                    <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+                  AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+                  AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+                  AND CP.PCT_ID = CC.ClassificationId)
+                  ) t1 INNER JOIN RegistrationDetail t2 ON t1.CFN_CustomerFaceNbr = t2.RD_ArticleNumber
+                  WHERE RegistrationMain.RM_ID = t2.RD_RM_ID
+                  )
+                </isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertRegistrationMain" parameterClass="RegistrationMain">
+            INSERT INTO RegistrationMain
+            (RM_ID,RM_RegistrationNbrCN,RM_RegistrationNbrEN,RM_OpeningDate,RM_ExpirationDate,RM_RegistrationProductName)
+            VALUES(#Id#,#RegistrationNbrcn#,#RegistrationNbren#,#OpeningDate:DateTime:1/1/0001 12:00:00 AM#,#ExpirationDate:DateTime:1/1/0001 12:00:00 AM#,#RegistrationProductName#)
+        </insert>
+        <update id="UpdateRegistrationMain" parameterClass="RegistrationMain">
+            UPDATE RegistrationMain
+            SET RM_ID=#Id#,RM_RegistrationNbrCN=#RegistrationNbrcn#,RM_RegistrationNbrEN=#RegistrationNbren#,RM_OpeningDate=#OpeningDate#,RM_ExpirationDate=#ExpirationDate#,RM_RegistrationProductName=#RegistrationProductName#
+            WHERE RM_ID = #Id#
+        </update>
+        <delete id="DeleteRegistrationMain" parameterClass="string">
+            DELETE FROM RegistrationMain
+            WHERE RM_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

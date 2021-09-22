@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DMS.Business.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DMS_Business_EwfService_WfAction" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://shaappten01/flow/Service/WfAction.asmx</Value>
+    </Setting>
+    <Setting Name="DMS_Business_EkpWebService_IntegratedWebServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.91.22:8084/sys/webservice/flowWebService</Value>
+    </Setting>
+    <Setting Name="DMS_Business_kmReviewAddService_KmReviewAddServiceImpService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://47.103.49.242:8080/sys/webservice/kmReviewWebserviceService</Value>
+    </Setting>
+    <Setting Name="DMS_Business_kmReviewNodeService_IKmReviewNodeServiceService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://47.103.49.242:8080/sys/webservice/kmReviewNodeService</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

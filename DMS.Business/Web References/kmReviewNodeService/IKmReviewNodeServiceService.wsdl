@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice.kmss.landray.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="IKmReviewNodeServiceService" targetNamespace="http://webservice.kmss.landray.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.kmss.landray.com/">
+      <xsd:complexType name="Exception">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="message" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Exception" type="tns:Exception" />
+      <xsd:element name="getNodeById" type="tns:getNodeById" />
+      <xsd:complexType name="getNodeById">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="fdId" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getNodeByIdResponse" type="tns:getNodeByIdResponse" />
+      <xsd:complexType name="getNodeByIdResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="return" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getNodeById">
+    <wsdl:part name="parameters" element="tns:getNodeById" />
+  </wsdl:message>
+  <wsdl:message name="getNodeByIdResponse">
+    <wsdl:part name="parameters" element="tns:getNodeByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part name="Exception" element="tns:Exception" />
+  </wsdl:message>
+  <wsdl:portType name="IKmReviewNodeService">
+    <wsdl:operation name="getNodeById">
+      <wsdl:input name="getNodeById" message="tns:getNodeById" />
+      <wsdl:output name="getNodeByIdResponse" message="tns:getNodeByIdResponse" />
+      <wsdl:fault name="Exception" message="tns:Exception" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IKmReviewNodeServiceServiceSoapBinding" type="tns:IKmReviewNodeService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getNodeById">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getNodeById">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getNodeByIdResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault use="literal" name="Exception" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IKmReviewNodeServiceService">
+    <wsdl:port name="IKmReviewNodeServicePort" binding="tns:IKmReviewNodeServiceServiceSoapBinding">
+      <soap:address location="http://47.103.49.242:8080/sys/webservice/kmReviewNodeService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="BusinessLicenseMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="BusinessLicense" assembly="DMS.Model.dll" type="DMS.Model.BusinessLicense" />
+    </alias>
+    <resultMaps>
+        <resultMap id="BusinessLicenseResult" class="BusinessLicense">
+            <result property="Id" column="BL_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CmId" column="BL_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Name" column="BL_Name" type="string" dbType="nvarchar"/>
+            <result property="Country" column="BL_Country" type="string" dbType="nvarchar"/>
+            <result property="AuthOrg" column="BL_Auth_Org" type="string" dbType="nvarchar"/>
+            <result property="RegisterDate" column="BL_Register_Date" type="DateTime" dbType="datetime"/>
+            <result property="RegisterNumber" column="BL_Register_Number" type="string" dbType="nvarchar"/>
+            <result property="CreateDate" column="BL_Create_Date" type="DateTime" dbType="datetime"/>
+            <result property="CreateUser" column="BL_Create_User" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateDate" column="BL_Update_Date" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="BL_Update_User" type="Guid" dbType="uniqueidentifier"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectBusinessLicense" parameterClass="string" resultClass="BusinessLicense">
+            SELECT BL_ID AS Id,BL_CM_ID AS CmId,BL_Name AS Name,BL_Country AS Country,BL_Auth_Org AS AuthOrg,BL_Register_Date AS RegisterDate,BL_Register_Number AS RegisterNumber,BL_Create_Date AS CreateDate,BL_Create_User AS CreateUser,BL_Update_Date AS UpdateDate,BL_Update_User AS UpdateUser
+            FROM BusinessLicense
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    BL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterBusinessLicense" parameterClass="BusinessLicense" resultClass="BusinessLicense">
+            SELECT BL_ID AS Id,BL_CM_ID AS CmId,BL_Name AS Name,BL_Country AS Country,BL_Auth_Org AS AuthOrg,BL_Register_Date AS RegisterDate,BL_Register_Number AS RegisterNumber,BL_Create_Date AS CreateDate,BL_Create_User AS CreateUser,BL_Update_Date AS UpdateDate,BL_Update_User AS UpdateUser
+            FROM BusinessLicense
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">BL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CmId">BL_CM_ID=#CmId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">BL_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Country">BL_Country=#Country#</isNotNull>
+                <isNotNull prepend="AND" property="AuthOrg">BL_Auth_Org=#AuthOrg#</isNotNull>
+                <isNotNull prepend="AND" property="RegisterDate">BL_Register_Date=#RegisterDate#</isNotNull>
+                <isNotNull prepend="AND" property="RegisterNumber">BL_Register_Number=#RegisterNumber#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">BL_Update_Date=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">BL_Update_User=#UpdateUser#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertBusinessLicense" parameterClass="BusinessLicense">
+            INSERT INTO BusinessLicense
+            (BL_ID,BL_CM_ID,BL_Name,BL_Country,BL_Auth_Org,BL_Register_Date,BL_Register_Number,BL_Create_Date,BL_Create_User,BL_Update_Date,BL_Update_User)
+            VALUES(#Id#,#CmId#,#Name#,#Country#,#AuthOrg#,#RegisterDate:DateTime:1/1/0001 12:00:00 AM#,#RegisterNumber#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#)
+        </insert>
+        <update id="UpdateBusinessLicense" parameterClass="BusinessLicense">
+            UPDATE BusinessLicense
+            SET BL_ID=#Id#,BL_CM_ID=#CmId#,BL_Name=#Name#,BL_Country=#Country#,BL_Auth_Org=#AuthOrg#,BL_Register_Date=#RegisterDate#,BL_Register_Number=#RegisterNumber#,BL_Update_Date=#UpdateDate#,BL_Update_User=#UpdateUser#
+            WHERE BL_ID = #Id#
+        </update>
+        <delete id="DeleteBusinessLicense" parameterClass="string">
+            DELETE FROM BusinessLicense
+            WHERE BL_ID = #value#
+        </delete>
+
+        <select id="SelectBusinessLicenseByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            SELECT BL_ID AS Id,BL_CM_ID AS CmId,BL_Name AS Name,BL_Country AS Country,BL_Auth_Org AS AuthOrg,BL_Register_Date AS RegisterDate,BL_Register_Number AS RegisterNumber,BL_Create_Date AS CreateDate,BL_Create_User AS CreateUser,BL_Update_Date AS UpdateDate,BL_Update_User AS UpdateUser
+            FROM BusinessLicense
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">BL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CmId">BL_CM_ID=#CmId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">BL_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Country">BL_Country=#Country#</isNotNull>
+                <isNotNull prepend="AND" property="AuthOrg">BL_Auth_Org=#AuthOrg#</isNotNull>
+                <isNotNull prepend="AND" property="RegisterDate">BL_Register_Date=#RegisterDate#</isNotNull>
+                <isNotNull prepend="AND" property="RegisterNumber">BL_Register_Number=#RegisterNumber#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">BL_Update_Date=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">BL_Update_User=#UpdateUser#</isNotNull>
+            </dynamic>
+            Order By BL_Name 
+        </select>
+
+        <update id="UpdateBusinessLicenseByFilter" parameterClass="BusinessLicense">
+          UPDATE BusinessLicense
+          SET BL_Name=#Name#,BL_Country=#Country#,BL_Auth_Org=#AuthOrg#,BL_Register_Date=#RegisterDate:DateTime:1/1/0001 12:00:00 AM#,BL_Register_Number=#RegisterNumber#,BL_Update_Date=#UpdateDate#,BL_Update_User=#UpdateUser#
+          WHERE BL_ID = #Id#
+        </update>
+        
+    </statements>
+</sqlMap>

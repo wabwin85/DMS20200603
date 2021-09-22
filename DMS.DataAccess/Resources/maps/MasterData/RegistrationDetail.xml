@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="RegistrationDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="RegistrationDetail" assembly="DMS.Model.dll" type="DMS.Model.RegistrationDetail" />
+    </alias>
+    <resultMaps>
+        <resultMap id="RegistrationDetailResult" class="RegistrationDetail">
+            <result property="Id" column="RD_ID" type="Guid" dbType="Guid"/>
+            <result property="RmId" column="RD_RM_ID" type="Guid" dbType="Guid"/>
+            <result property="ArticleNumber" column="RD_ArticleNumber" type="string" dbType="varchar"/>
+            <result property="ChineseName" column="RD_ChineseName" type="string" dbType="varchar"/>
+            <result property="EnglishName" column="RD_EnglishName" type="string" dbType="varchar"/>
+            <result property="Specification" column="RD_Specification" type="string" dbType="varchar"/>
+            <result property="ManufacturerId" column="RD_Manufacturer_ID" type="string" dbType="varchar"/>
+            <result property="ManufacturerName" column="RD_Manufacturer_Name" type="string" dbType="varchar"/>
+            <result property="ManufacturerAddress" column="RD_Manufacturer_Address" type="string" dbType="varchar"/>
+            <result property="ManufactoryAddress" column="RD_Manufactory_Address" type="string" dbType="varchar"/>
+            <result property="Scope" column="RD_Scope" type="string" dbType="varchar"/>
+            <result property="RegisteredAgent" column="RD_RegisteredAgent" type="string" dbType="varchar"/>
+            <result property="Service" column="RD_Service" type="string" dbType="varchar"/>
+            <result property="Import" column="RD_Import" type="string" dbType="varchar"/>
+            <result property="Implant" column="RD_Implant" type="string" dbType="varchar"/>
+            <result property="Lot" column="RD_Lot" type="string" dbType="varchar"/>
+            <result property="Sn" column="RD_SN" type="string" dbType="varchar"/>
+            <result property="Pacemaker" column="RD_Pacemaker" type="string" dbType="varchar"/>
+            <result property="GuaranteePeriod" column="RD_GuaranteePeriod" type="string" dbType="varchar"/>
+            <result property="MinUnit" column="RD_MinUnit" type="string" dbType="varchar"/>
+            <result property="Barcode1" column="RD_Barcode1" type="string" dbType="varchar"/>
+            <result property="Barcode2" column="RD_Barcode2" type="string" dbType="varchar"/>
+            <result property="Barcode3" column="RD_Barcode3" type="string" dbType="varchar"/>
+            <result property="Barcode4" column="RD_Barcode4" type="string" dbType="varchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectRegistrationDetail" parameterClass="string" resultClass="RegistrationDetail">
+            SELECT RD_ID AS Id,RD_RM_ID AS RmId,RD_ArticleNumber AS ArticleNumber,RD_ChineseName AS ChineseName,RD_EnglishName AS EnglishName,RD_Specification AS Specification,RD_Manufacturer_ID AS ManufacturerId,RD_Manufacturer_Name AS ManufacturerName,RD_Manufacturer_Address AS ManufacturerAddress,RD_Manufactory_Address AS ManufactoryAddress,RD_Scope AS Scope,RD_RegisteredAgent AS RegisteredAgent,RD_Service AS Service,RD_Import AS Import,RD_Implant AS Implant,RD_Lot AS Lot,RD_SN AS Sn,RD_Pacemaker AS Pacemaker,RD_GuaranteePeriod AS GuaranteePeriod,RD_MinUnit AS MinUnit,RD_Barcode1 AS Barcode1,RD_Barcode2 AS Barcode2,RD_Barcode3 AS Barcode3,RD_Barcode4 AS Barcode4
+            ,row_number() OVER (ORDER BY [RD_ID] ASC) AS [row_number] FROM RegistrationDetail
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    RD_RM_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterRegistrationDetail" parameterClass="RegistrationDetail" resultClass="RegistrationDetail">
+            SELECT RD_ID AS Id,RD_RM_ID AS RmId,RD_ArticleNumber AS ArticleNumber,RD_ChineseName AS ChineseName,RD_EnglishName AS EnglishName,RD_Specification AS Specification,RD_Manufacturer_ID AS ManufacturerId,RD_Manufacturer_Name AS ManufacturerName,RD_Manufacturer_Address AS ManufacturerAddress,RD_Manufactory_Address AS ManufactoryAddress,RD_Scope AS Scope,RD_RegisteredAgent AS RegisteredAgent,RD_Service AS Service,RD_Import AS Import,RD_Implant AS Implant,RD_Lot AS Lot,RD_SN AS Sn,RD_Pacemaker AS Pacemaker,RD_GuaranteePeriod AS GuaranteePeriod,RD_MinUnit AS MinUnit,RD_Barcode1 AS Barcode1,RD_Barcode2 AS Barcode2,RD_Barcode3 AS Barcode3,RD_Barcode4 AS Barcode4
+            ,row_number() OVER (ORDER BY [RD_ID] ASC) AS [row_number] FROM RegistrationDetail
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">RD_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="RmId">RD_RM_ID=#RmId#</isNotNull>
+                <isNotNull prepend="AND" property="ArticleNumber">RD_ArticleNumber=#ArticleNumber#</isNotNull>
+                <isNotNull prepend="AND" property="ChineseName">RD_ChineseName=#ChineseName#</isNotNull>
+                <isNotNull prepend="AND" property="EnglishName">RD_EnglishName=#EnglishName#</isNotNull>
+                <isNotNull prepend="AND" property="Specification">RD_Specification=#Specification#</isNotNull>
+                <isNotNull prepend="AND" property="ManufacturerId">RD_Manufacturer_ID=#ManufacturerId#</isNotNull>
+                <isNotNull prepend="AND" property="ManufacturerName">RD_Manufacturer_Name=#ManufacturerName#</isNotNull>
+                <isNotNull prepend="AND" property="ManufacturerAddress">RD_Manufacturer_Address=#ManufacturerAddress#</isNotNull>
+                <isNotNull prepend="AND" property="ManufactoryAddress">RD_Manufactory_Address=#ManufactoryAddress#</isNotNull>
+                <isNotNull prepend="AND" property="Scope">RD_Scope=#Scope#</isNotNull>
+                <isNotNull prepend="AND" property="RegisteredAgent">RD_RegisteredAgent=#RegisteredAgent#</isNotNull>
+                <isNotNull prepend="AND" property="Service">RD_Service=#Service#</isNotNull>
+                <isNotNull prepend="AND" property="Import">RD_Import=#Import#</isNotNull>
+                <isNotNull prepend="AND" property="Implant">RD_Implant=#Implant#</isNotNull>
+                <isNotNull prepend="AND" property="Lot">RD_Lot=#Lot#</isNotNull>
+                <isNotNull prepend="AND" property="Sn">RD_SN=#Sn#</isNotNull>
+                <isNotNull prepend="AND" property="Pacemaker">RD_Pacemaker=#Pacemaker#</isNotNull>
+                <isNotNull prepend="AND" property="GuaranteePeriod">RD_GuaranteePeriod=#GuaranteePeriod#</isNotNull>
+                <isNotNull prepend="AND" property="MinUnit">RD_MinUnit=#MinUnit#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode1">RD_Barcode1=#Barcode1#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode2">RD_Barcode2=#Barcode2#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode3">RD_Barcode3=#Barcode3#</isNotNull>
+                <isNotNull prepend="AND" property="Barcode4">RD_Barcode4=#Barcode4#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertRegistrationDetail" parameterClass="RegistrationDetail">
+            INSERT INTO RegistrationDetail
+            (RD_ID,RD_RM_ID,RD_ArticleNumber,RD_ChineseName,RD_EnglishName,RD_Specification,RD_Manufacturer_ID,RD_Manufacturer_Name,RD_Manufacturer_Address,RD_Manufactory_Address,RD_Scope,RD_RegisteredAgent,RD_Service,RD_Import,RD_Implant,RD_Lot,RD_SN,RD_Pacemaker,RD_GuaranteePeriod,RD_MinUnit,RD_Barcode1,RD_Barcode2,RD_Barcode3,RD_Barcode4)
+            VALUES(#Id#,#RmId#,#ArticleNumber#,#ChineseName#,#EnglishName#,#Specification#,#ManufacturerId#,#ManufacturerName#,#ManufacturerAddress#,#ManufactoryAddress#,#Scope#,#RegisteredAgent#,#Service#,#Import#,#Implant#,#Lot#,#Sn#,#Pacemaker#,#GuaranteePeriod#,#MinUnit#,#Barcode1#,#Barcode2#,#Barcode3#,#Barcode4#)
+        </insert>
+        <update id="UpdateRegistrationDetail" parameterClass="RegistrationDetail">
+            UPDATE RegistrationDetail
+            SET RD_ID=#Id#,RD_RM_ID=#RmId#,RD_ArticleNumber=#ArticleNumber#,RD_ChineseName=#ChineseName#,RD_EnglishName=#EnglishName#,RD_Specification=#Specification#,RD_Manufacturer_ID=#ManufacturerId#,RD_Manufacturer_Name=#ManufacturerName#,RD_Manufacturer_Address=#ManufacturerAddress#,RD_Manufactory_Address=#ManufactoryAddress#,RD_Scope=#Scope#,RD_RegisteredAgent=#RegisteredAgent#,RD_Service=#Service#,RD_Import=#Import#,RD_Implant=#Implant#,RD_Lot=#Lot#,RD_SN=#Sn#,RD_Pacemaker=#Pacemaker#,RD_GuaranteePeriod=#GuaranteePeriod#,RD_MinUnit=#MinUnit#,RD_Barcode1=#Barcode1#,RD_Barcode2=#Barcode2#,RD_Barcode3=#Barcode3#,RD_Barcode4=#Barcode4#
+            WHERE RD_ID = #Id#
+        </update>
+        <delete id="DeleteRegistrationDetail" parameterClass="string">
+            DELETE FROM RegistrationDetail
+            WHERE RD_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

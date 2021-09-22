@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WorkflowSettingMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="SelectModelSettingListByFilter" parameterClass="System.Collections.Hashtable" resultClass="DMS.Model.EKPWorkflow.ModelSetting">
+      SELECT [Id]
+      ,[sysId]
+      ,[modelId]
+      ,[modelName]
+      ,[templateFormId]
+      ,[templateFormName]
+      ,[formUrl]
+      ,[language]
+      ,[Rev1]
+      ,[Rev2]
+      ,[Rev3]
+      ,[CreateDate]
+      ,[CreateUser]
+      ,[UpdateDate]
+      ,[UpdateUser]
+      FROM [Workflow].[ModelSetting]
+      WHERE [sysId]=#sysId#
+    </select>
+
+    <select id="SelectFieldSettingListByFilter" parameterClass="System.Collections.Hashtable" resultClass="DMS.Model.EKPWorkflow.FieldSetting">
+      SELECT [Id]
+      ,[sysId]
+      ,[modelId]
+      ,[templateFormId]
+      ,[language]
+      ,[fieldId]
+      ,[fieldName]
+      ,[type]
+      ,[Rev1]
+      ,[Rev2]
+      ,[Rev3]
+      ,[CreateDate]
+      ,[CreateUser]
+      ,[UpdateDate]
+      ,[UpdateUser]
+      FROM [Workflow].[FieldSetting]
+      WHERE [sysId]=#sysId#
+      AND [modelId]=#modelId#
+      AND [templateFormId]=#templateFormId#
+    </select>
+
+  </statements>
+</sqlMap>

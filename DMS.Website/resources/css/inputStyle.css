@@ -1,0 +1,62 @@
+input.checkbox{
+	width:16px;
+	height:16px;
+}
+/*查询日期下拉样式*/
+input.searchdate_field {
+	border:1px #11509f solid;
+	Line-Height:100%;
+	width:65%;
+	height:18px;
+}
+/*普通输入框样式*/
+input.common_field {
+	 Line-Height:100%;
+	 border:1px #11509f solid;
+	width:220px;
+	height:16px;
+}
+/*中等长度输入框样式*/
+input.middle_field {
+	 Line-Height:100%;
+	 border:1px #11509f solid;
+	width:50%;
+	height:16px;
+}
+/*输入框样式-宽度自适应较长*/
+input.long_field {
+	Line-Height:100%;
+	border:1px #11509f solid;
+	width:95%;
+	height:16px;
+}
+
+/*输入框样式-宽度自适应较短*/
+input.short_field_ {
+	Line-Height:100%;
+	border:1px #11509f solid;
+	width:50%;
+	height:16px;
+}
+
+/*输入框样式－字数较少文本输入框*/
+input.short_field {
+	 Line-Height:100%;
+	 border:1px #11509f solid;
+	border-spacing: 3px;
+	width:80%;
+}
+/*输入框样式－字数极少固定长度文本输入框*/
+input.minfixed_field {
+	border:1px #11509f solid;
+	Line-Height:100%;
+	border-spacing: 3px;
+	width:30px;
+}
+/*输入框样式－字数较少固定长度文本输入框*/
+input.shortfixed_field {
+	border:1px #11509f solid;
+	 Line-Height:100%;
+	border-spacing: 3px;
+	width:75px;
+}

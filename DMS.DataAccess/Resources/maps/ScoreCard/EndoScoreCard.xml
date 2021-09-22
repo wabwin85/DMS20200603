@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EndoScoreCardMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EndoScoreCard" assembly="DMS.Model.dll" type="DMS.Model.EndoScoreCard" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EndoScoreCardResult" class="EndoScoreCard">
+      <result property="Id" column="ESC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ESC_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="ESC_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="ESC_Year" type="string" dbType="nvarchar"/>
+      <result property="Quarter" column="ESC_Quarter" type="string" dbType="nvarchar"/>
+      <result property="No" column="ESC_No" type="string" dbType="nvarchar"/>
+      <result property="Status" column="ESC_Status" type="string" dbType="nvarchar"/>
+      <result property="Manage1" column="ESC_Manage1" type="string" dbType="nvarchar"/>
+      <result property="Item1" column="ESC_Item1" type="string" dbType="nvarchar"/>
+      <result property="Source1" column="ESC_Source1" type="string" dbType="nvarchar"/>
+      <result property="TotalScore1" column="ESC_TotalScore1" type="string" dbType="nvarchar"/>
+      <result property="Content1" column="ESC_Content1" type="string" dbType="nvarchar"/>
+      <result property="Score1" column="ESC_Score1" type="string" dbType="nvarchar"/>
+      <result property="Manage2" column="ESC_Manage2" type="string" dbType="nvarchar"/>
+      <result property="Item2" column="ESC_Item2" type="string" dbType="nvarchar"/>
+      <result property="Source2" column="ESC_Source2" type="string" dbType="nvarchar"/>
+      <result property="TotalScore2" column="ESC_TotalScore2" type="string" dbType="nvarchar"/>
+      <result property="Content2" column="ESC_Content2" type="string" dbType="nvarchar"/>
+      <result property="Score2" column="ESC_Score2" type="string" dbType="nvarchar"/>
+      <result property="Manage3" column="ESC_Manage3" type="string" dbType="nvarchar"/>
+      <result property="Item3" column="ESC_Item3" type="string" dbType="nvarchar"/>
+      <result property="Source3" column="ESC_Source3" type="string" dbType="nvarchar"/>
+      <result property="TotalScore3" column="ESC_TotalScore3" type="string" dbType="nvarchar"/>
+      <result property="Content3" column="ESC_Content3" type="string" dbType="nvarchar"/>
+      <result property="Score3" column="ESC_Score3" type="string" dbType="nvarchar"/>
+      <result property="Manage4" column="ESC_Manage4" type="string" dbType="nvarchar"/>
+      <result property="Item4" column="ESC_Item4" type="string" dbType="nvarchar"/>
+      <result property="Source4" column="ESC_Source4" type="string" dbType="nvarchar"/>
+      <result property="TotalScore4" column="ESC_TotalScore4" type="string" dbType="nvarchar"/>
+      <result property="Content4" column="ESC_Content4" type="string" dbType="nvarchar"/>
+      <result property="Score4" column="ESC_Score4" type="string" dbType="nvarchar"/>
+      <result property="Manage5" column="ESC_Manage5" type="string" dbType="nvarchar"/>
+      <result property="Item5" column="ESC_Item5" type="string" dbType="nvarchar"/>
+      <result property="Source5" column="ESC_Source5" type="string" dbType="nvarchar"/>
+      <result property="TotalScore5" column="ESC_TotalScore5" type="string" dbType="nvarchar"/>
+      <result property="Content5" column="ESC_Content5" type="string" dbType="nvarchar"/>
+      <result property="Score5" column="ESC_Score5" type="string" dbType="nvarchar"/>
+      <result property="Grade1" column="ESC_Grade1" type="string" dbType="nvarchar"/>
+      <result property="GradeValue1" column="ESC_GradeValue1" type="string" dbType="nvarchar"/>
+      <result property="Grade2" column="ESC_Grade2" type="string" dbType="nvarchar"/>
+      <result property="GradeValue2" column="ESC_GradeValue2" type="string" dbType="nvarchar"/>
+      <result property="Grade3" column="ESC_Grade3" type="string" dbType="nvarchar"/>
+      <result property="GradeValue3" column="ESC_GradeValue3" type="string" dbType="nvarchar"/>
+      <result property="Grade4" column="ESC_Grade4" type="string" dbType="nvarchar"/>
+      <result property="GradeValue4" column="ESC_GradeValue4" type="string" dbType="nvarchar"/>
+      <result property="Grade5" column="ESC_Grade5" type="string" dbType="nvarchar"/>
+      <result property="GradeValue5" column="ESC_GradeValue5" type="string" dbType="nvarchar"/>
+      <result property="Grade6" column="ESC_Grade6" type="string" dbType="nvarchar"/>
+      <result property="GradeValue6" column="ESC_GradeValue6" type="string" dbType="nvarchar"/>
+      <result property="Grade7" column="ESC_Grade7" type="string" dbType="nvarchar"/>
+      <result property="GradeValue7" column="ESC_GradeValue7" type="string" dbType="nvarchar"/>
+      <result property="Grade8" column="ESC_Grade8" type="string" dbType="nvarchar"/>
+      <result property="GradeValue8" column="ESC_GradeValue8" type="string" dbType="nvarchar"/>
+      <result property="Grade9" column="ESC_Grade9" type="string" dbType="nvarchar"/>
+      <result property="GradeValue9" column="ESC_GradeValue9" type="string" dbType="nvarchar"/>
+      <result property="Flield1" column="ESC_Flield1" type="string" dbType="nvarchar"/>
+      <result property="Flield2" column="ESC_Flield2" type="string" dbType="nvarchar"/>
+      <result property="Flield3" column="ESC_Flield3" type="string" dbType="nvarchar"/>
+      <result property="CreareUser" column="ESC_CreareUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreareDate" column="ESC_CreareDate" type="DateTime" dbType="datetime"/>
+      <result property="LastUpdateUser" column="ESC_LastUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LastUpdateDate" column="ESC_LastUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser1" column="ESC_UpdateUser1" type="string" dbType="nvarchar"/>
+      <result property="UpdateRemark1" column="ESC_UpdateRemark1" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate1" column="ESC_UpdateDate1" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser2" column="ESC_UpdateUser2" type="string" dbType="nvarchar"/>
+      <result property="UpdateRemark2" column="ESC_UpdateRemark2" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate2" column="ESC_UpdateDate2" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser3" column="ESC_UpdateUser3" type="string" dbType="nvarchar"/>
+      <result property="UpdateRemark3" column="ESC_UpdateRemark3" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate3" column="ESC_UpdateDate3" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEndoScoreCard" parameterClass="string" resultClass="EndoScoreCard">
+      SELECT ESC_ID AS Id,ESC_DMA_ID AS DmaId,ESC_BUM_ID AS BumId,ESC_Year AS Year,ESC_Quarter AS Quarter,ESC_No AS No,ESC_Status AS Status,ESC_Manage1 AS Manage1,ESC_Item1 AS Item1,ESC_Source1 AS Source1,ESC_TotalScore1 AS TotalScore1,ESC_Content1 AS Content1,ESC_Score1 AS Score1,ESC_Manage2 AS Manage2,ESC_Item2 AS Item2,ESC_Source2 AS Source2,ESC_TotalScore2 AS TotalScore2,ESC_Content2 AS Content2,ESC_Score2 AS Score2,ESC_Manage3 AS Manage3,ESC_Item3 AS Item3,ESC_Source3 AS Source3,ESC_TotalScore3 AS TotalScore3,ESC_Content3 AS Content3,ESC_Score3 AS Score3,ESC_Manage4 AS Manage4,ESC_Item4 AS Item4,ESC_Source4 AS Source4,ESC_TotalScore4 AS TotalScore4,ESC_Content4 AS Content4,ESC_Score4 AS Score4,ESC_Manage5 AS Manage5,ESC_Item5 AS Item5,ESC_Source5 AS Source5,ESC_TotalScore5 AS TotalScore5,ESC_Content5 AS Content5,ESC_Score5 AS Score5,ESC_Grade1 AS Grade1,ESC_GradeValue1 AS GradeValue1,ESC_Grade2 AS Grade2,ESC_GradeValue2 AS GradeValue2,ESC_Grade3 AS Grade3,ESC_GradeValue3 AS GradeValue3,ESC_Grade4 AS Grade4,ESC_GradeValue4 AS GradeValue4,ESC_Grade5 AS Grade5,ESC_GradeValue5 AS GradeValue5,ESC_Grade6 AS Grade6,ESC_GradeValue6 AS GradeValue6,ESC_Grade7 AS Grade7,ESC_GradeValue7 AS GradeValue7,ESC_Grade8 AS Grade8,ESC_GradeValue8 AS GradeValue8,ESC_Grade9 AS Grade9,ESC_GradeValue9 AS GradeValue9,ESC_Flield1 AS Flield1,ESC_Flield2 AS Flield2,ESC_Flield3 AS Flield3,ESC_CreareUser AS CreareUser,ESC_CreareDate AS CreareDate,ESC_LastUpdateUser AS LastUpdateUser,ESC_LastUpdateDate AS LastUpdateDate,ESC_UpdateUser1 AS UpdateUser1,ESC_UpdateRemark1 AS UpdateRemark1,ESC_UpdateDate1 AS UpdateDate1,ESC_UpdateUser2 AS UpdateUser2,ESC_UpdateRemark2 AS UpdateRemark2,ESC_UpdateDate2 AS UpdateDate2,ESC_UpdateUser3 AS UpdateUser3,ESC_UpdateRemark3 AS UpdateRemark3,ESC_UpdateDate3 AS UpdateDate3
+      FROM EndoScoreCard
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ESC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEndoScoreCard" parameterClass="EndoScoreCard" resultClass="EndoScoreCard">
+      SELECT ESC_ID AS Id,ESC_DMA_ID AS DmaId,ESC_BUM_ID AS BumId,ESC_Year AS Year,ESC_Quarter AS Quarter,ESC_No AS No,ESC_Status AS Status,ESC_Manage1 AS Manage1,ESC_Item1 AS Item1,ESC_Source1 AS Source1,ESC_TotalScore1 AS TotalScore1,ESC_Content1 AS Content1,ESC_Score1 AS Score1,ESC_Manage2 AS Manage2,ESC_Item2 AS Item2,ESC_Source2 AS Source2,ESC_TotalScore2 AS TotalScore2,ESC_Content2 AS Content2,ESC_Score2 AS Score2,ESC_Manage3 AS Manage3,ESC_Item3 AS Item3,ESC_Source3 AS Source3,ESC_TotalScore3 AS TotalScore3,ESC_Content3 AS Content3,ESC_Score3 AS Score3,ESC_Manage4 AS Manage4,ESC_Item4 AS Item4,ESC_Source4 AS Source4,ESC_TotalScore4 AS TotalScore4,ESC_Content4 AS Content4,ESC_Score4 AS Score4,ESC_Manage5 AS Manage5,ESC_Item5 AS Item5,ESC_Source5 AS Source5,ESC_TotalScore5 AS TotalScore5,ESC_Content5 AS Content5,ESC_Score5 AS Score5,ESC_Grade1 AS Grade1,ESC_GradeValue1 AS GradeValue1,ESC_Grade2 AS Grade2,ESC_GradeValue2 AS GradeValue2,ESC_Grade3 AS Grade3,ESC_GradeValue3 AS GradeValue3,ESC_Grade4 AS Grade4,ESC_GradeValue4 AS GradeValue4,ESC_Grade5 AS Grade5,ESC_GradeValue5 AS GradeValue5,ESC_Grade6 AS Grade6,ESC_GradeValue6 AS GradeValue6,ESC_Grade7 AS Grade7,ESC_GradeValue7 AS GradeValue7,ESC_Grade8 AS Grade8,ESC_GradeValue8 AS GradeValue8,ESC_Grade9 AS Grade9,ESC_GradeValue9 AS GradeValue9,ESC_Flield1 AS Flield1,ESC_Flield2 AS Flield2,ESC_Flield3 AS Flield3,ESC_CreareUser AS CreareUser,ESC_CreareDate AS CreareDate,ESC_LastUpdateUser AS LastUpdateUser,ESC_LastUpdateDate AS LastUpdateDate,ESC_UpdateUser1 AS UpdateUser1,ESC_UpdateRemark1 AS UpdateRemark1,ESC_UpdateDate1 AS UpdateDate1,ESC_UpdateUser2 AS UpdateUser2,ESC_UpdateRemark2 AS UpdateRemark2,ESC_UpdateDate2 AS UpdateDate2,ESC_UpdateUser3 AS UpdateUser3,ESC_UpdateRemark3 AS UpdateRemark3,ESC_UpdateDate3 AS UpdateDate3
+      FROM EndoScoreCard
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ESC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">ESC_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ESC_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Quarter">ESC_Quarter=#Quarter#</isNotNull>
+        <isNotNull prepend="AND" property="No">ESC_No=#No#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ESC_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Manage1">ESC_Manage1=#Manage1#</isNotNull>
+        <isNotNull prepend="AND" property="Item1">ESC_Item1=#Item1#</isNotNull>
+        <isNotNull prepend="AND" property="Source1">ESC_Source1=#Source1#</isNotNull>
+        <isNotNull prepend="AND" property="TotalScore1">ESC_TotalScore1=#TotalScore1#</isNotNull>
+        <isNotNull prepend="AND" property="Content1">ESC_Content1=#Content1#</isNotNull>
+        <isNotNull prepend="AND" property="Score1">ESC_Score1=#Score1#</isNotNull>
+        <isNotNull prepend="AND" property="Manage2">ESC_Manage2=#Manage2#</isNotNull>
+        <isNotNull prepend="AND" property="Item2">ESC_Item2=#Item2#</isNotNull>
+        <isNotNull prepend="AND" property="Source2">ESC_Source2=#Source2#</isNotNull>
+        <isNotNull prepend="AND" property="TotalScore2">ESC_TotalScore2=#TotalScore2#</isNotNull>
+        <isNotNull prepend="AND" property="Content2">ESC_Content2=#Content2#</isNotNull>
+        <isNotNull prepend="AND" property="Score2">ESC_Score2=#Score2#</isNotNull>
+        <isNotNull prepend="AND" property="Manage3">ESC_Manage3=#Manage3#</isNotNull>
+        <isNotNull prepend="AND" property="Item3">ESC_Item3=#Item3#</isNotNull>
+        <isNotNull prepend="AND" property="Source3">ESC_Source3=#Source3#</isNotNull>
+        <isNotNull prepend="AND" property="TotalScore3">ESC_TotalScore3=#TotalScore3#</isNotNull>
+        <isNotNull prepend="AND" property="Content3">ESC_Content3=#Content3#</isNotNull>
+        <isNotNull prepend="AND" property="Score3">ESC_Score3=#Score3#</isNotNull>
+        <isNotNull prepend="AND" property="Manage4">ESC_Manage4=#Manage4#</isNotNull>
+        <isNotNull prepend="AND" property="Item4">ESC_Item4=#Item4#</isNotNull>
+        <isNotNull prepend="AND" property="Source4">ESC_Source4=#Source4#</isNotNull>
+        <isNotNull prepend="AND" property="TotalScore4">ESC_TotalScore4=#TotalScore4#</isNotNull>
+        <isNotNull prepend="AND" property="Content4">ESC_Content4=#Content4#</isNotNull>
+        <isNotNull prepend="AND" property="Score4">ESC_Score4=#Score4#</isNotNull>
+        <isNotNull prepend="AND" property="Manage5">ESC_Manage5=#Manage5#</isNotNull>
+        <isNotNull prepend="AND" property="Item5">ESC_Item5=#Item5#</isNotNull>
+        <isNotNull prepend="AND" property="Source5">ESC_Source5=#Source5#</isNotNull>
+        <isNotNull prepend="AND" property="TotalScore5">ESC_TotalScore5=#TotalScore5#</isNotNull>
+        <isNotNull prepend="AND" property="Content5">ESC_Content5=#Content5#</isNotNull>
+        <isNotNull prepend="AND" property="Score5">ESC_Score5=#Score5#</isNotNull>
+        <isNotNull prepend="AND" property="Grade1">ESC_Grade1=#Grade1#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue1">ESC_GradeValue1=#GradeValue1#</isNotNull>
+        <isNotNull prepend="AND" property="Grade2">ESC_Grade2=#Grade2#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue2">ESC_GradeValue2=#GradeValue2#</isNotNull>
+        <isNotNull prepend="AND" property="Grade3">ESC_Grade3=#Grade3#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue3">ESC_GradeValue3=#GradeValue3#</isNotNull>
+        <isNotNull prepend="AND" property="Grade4">ESC_Grade4=#Grade4#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue4">ESC_GradeValue4=#GradeValue4#</isNotNull>
+        <isNotNull prepend="AND" property="Grade5">ESC_Grade5=#Grade5#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue5">ESC_GradeValue5=#GradeValue5#</isNotNull>
+        <isNotNull prepend="AND" property="Grade6">ESC_Grade6=#Grade6#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue6">ESC_GradeValue6=#GradeValue6#</isNotNull>
+        <isNotNull prepend="AND" property="Grade7">ESC_Grade7=#Grade7#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue7">ESC_GradeValue7=#GradeValue7#</isNotNull>
+        <isNotNull prepend="AND" property="Grade8">ESC_Grade8=#Grade8#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue8">ESC_GradeValue8=#GradeValue8#</isNotNull>
+        <isNotNull prepend="AND" property="Grade9">ESC_Grade9=#Grade9#</isNotNull>
+        <isNotNull prepend="AND" property="GradeValue9">ESC_GradeValue9=#GradeValue9#</isNotNull>
+        <isNotNull prepend="AND" property="Flield1">ESC_Flield1=#Flield1#</isNotNull>
+        <isNotNull prepend="AND" property="Flield2">ESC_Flield2=#Flield2#</isNotNull>
+        <isNotNull prepend="AND" property="Flield3">ESC_Flield3=#Flield3#</isNotNull>
+        <isNotNull prepend="AND" property="CreareUser">ESC_CreareUser=#CreareUser#</isNotNull>
+        <isNotNull prepend="AND" property="CreareDate">ESC_CreareDate=#CreareDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser1">ESC_UpdateUser1=#UpdateUser1#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateRemark1">ESC_UpdateRemark1=#UpdateRemark1#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate1">ESC_UpdateDate1=#UpdateDate1#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser2">ESC_UpdateUser2=#UpdateUser2#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateRemark2">ESC_UpdateRemark2=#UpdateRemark2#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate2">ESC_UpdateDate2=#UpdateDate2#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser3">ESC_UpdateUser3=#UpdateUser3#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateRemark3">ESC_UpdateRemark3=#UpdateRemark3#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate3">ESC_UpdateDate3=#UpdateDate3#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEndoScoreCard" parameterClass="EndoScoreCard">
+      INSERT INTO EndoScoreCard
+      (ESC_ID,ESC_DMA_ID,ESC_BUM_ID,ESC_Year,ESC_Quarter,ESC_No,ESC_Status,ESC_Manage1,ESC_Item1,ESC_Source1,ESC_TotalScore1,ESC_Content1,ESC_Score1,ESC_Manage2,ESC_Item2,ESC_Source2,ESC_TotalScore2,ESC_Content2,ESC_Score2,ESC_Manage3,ESC_Item3,ESC_Source3,ESC_TotalScore3,ESC_Content3,ESC_Score3,ESC_Manage4,ESC_Item4,ESC_Source4,ESC_TotalScore4,ESC_Content4,ESC_Score4,ESC_Manage5,ESC_Item5,ESC_Source5,ESC_TotalScore5,ESC_Content5,ESC_Score5,ESC_Grade1,ESC_GradeValue1,ESC_Grade2,ESC_GradeValue2,ESC_Grade3,ESC_GradeValue3,ESC_Grade4,ESC_GradeValue4,ESC_Grade5,ESC_GradeValue5,ESC_Grade6,ESC_GradeValue6,ESC_Grade7,ESC_GradeValue7,ESC_Grade8,ESC_GradeValue8,ESC_Grade9,ESC_GradeValue9,ESC_Flield1,ESC_Flield2,ESC_Flield3,ESC_CreareUser,ESC_CreareDate,ESC_LastUpdateUser,ESC_LastUpdateDate,ESC_UpdateUser1,ESC_UpdateRemark1,ESC_UpdateDate1,ESC_UpdateUser2,ESC_UpdateRemark2,ESC_UpdateDate2,ESC_UpdateUser3,ESC_UpdateRemark3,ESC_UpdateDate3)
+      VALUES(#Id#,#DmaId#,#BumId#,#Year#,#Quarter#,#No#,#Status#,#Manage1#,#Item1#,#Source1#,#TotalScore1#,#Content1#,#Score1#,#Manage2#,#Item2#,#Source2#,#TotalScore2#,#Content2#,#Score2#,#Manage3#,#Item3#,#Source3#,#TotalScore3#,#Content3#,#Score3#,#Manage4#,#Item4#,#Source4#,#TotalScore4#,#Content4#,#Score4#,#Manage5#,#Item5#,#Source5#,#TotalScore5#,#Content5#,#Score5#,#Grade1#,#GradeValue1#,#Grade2#,#GradeValue2#,#Grade3#,#GradeValue3#,#Grade4#,#GradeValue4#,#Grade5#,#GradeValue5#,#Grade6#,#GradeValue6#,#Grade7#,#GradeValue7#,#Grade8#,#GradeValue8#,#Grade9#,#GradeValue9#,#Flield1#,#Flield2#,#Flield3#,#CreareUser#,#CreareDate:DateTime:1/1/0001 12:00:00 AM#,#LastUpdateUser#,#LastUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser1#,#UpdateRemark1#,#UpdateDate1:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser2#,#UpdateRemark2#,#UpdateDate2:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser3#,#UpdateRemark3#,#UpdateDate3:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateEndoScoreCard" parameterClass="EndoScoreCard">
+      UPDATE EndoScoreCard
+      SET ESC_ID=#Id#,ESC_DMA_ID=#DmaId#,ESC_BUM_ID=#BumId#,ESC_Year=#Year#,ESC_Quarter=#Quarter#,ESC_No=#No#,ESC_Status=#Status#,ESC_Manage1=#Manage1#,ESC_Item1=#Item1#,ESC_Source1=#Source1#,ESC_TotalScore1=#TotalScore1#,ESC_Content1=#Content1#,ESC_Score1=#Score1#,ESC_Manage2=#Manage2#,ESC_Item2=#Item2#,ESC_Source2=#Source2#,ESC_TotalScore2=#TotalScore2#,ESC_Content2=#Content2#,ESC_Score2=#Score2#,ESC_Manage3=#Manage3#,ESC_Item3=#Item3#,ESC_Source3=#Source3#,ESC_TotalScore3=#TotalScore3#,ESC_Content3=#Content3#,ESC_Score3=#Score3#,ESC_Manage4=#Manage4#,ESC_Item4=#Item4#,ESC_Source4=#Source4#,ESC_TotalScore4=#TotalScore4#,ESC_Content4=#Content4#,ESC_Score4=#Score4#,ESC_Manage5=#Manage5#,ESC_Item5=#Item5#,ESC_Source5=#Source5#,ESC_TotalScore5=#TotalScore5#,ESC_Content5=#Content5#,ESC_Score5=#Score5#,ESC_Grade1=#Grade1#,ESC_GradeValue1=#GradeValue1#,ESC_Grade2=#Grade2#,ESC_GradeValue2=#GradeValue2#,ESC_Grade3=#Grade3#,ESC_GradeValue3=#GradeValue3#,ESC_Grade4=#Grade4#,ESC_GradeValue4=#GradeValue4#,ESC_Grade5=#Grade5#,ESC_GradeValue5=#GradeValue5#,ESC_Grade6=#Grade6#,ESC_GradeValue6=#GradeValue6#,ESC_Grade7=#Grade7#,ESC_GradeValue7=#GradeValue7#,ESC_Grade8=#Grade8#,ESC_GradeValue8=#GradeValue8#,ESC_Grade9=#Grade9#,ESC_GradeValue9=#GradeValue9#,ESC_Flield1=#Flield1#,ESC_Flield2=#Flield2#,ESC_Flield3=#Flield3#,ESC_CreareUser=#CreareUser#,ESC_CreareDate=#CreareDate#,ESC_LastUpdateUser=#LastUpdateUser#,ESC_LastUpdateDate=#LastUpdateDate#,ESC_UpdateUser1=#UpdateUser1#,ESC_UpdateRemark1=#UpdateRemark1#,ESC_UpdateDate1=#UpdateDate1#,ESC_UpdateUser2=#UpdateUser2#,ESC_UpdateRemark2=#UpdateRemark2#,ESC_UpdateDate2=#UpdateDate2#,ESC_UpdateUser3=#UpdateUser3#,ESC_UpdateRemark3=#UpdateRemark3#,ESC_UpdateDate3=#UpdateDate3#
+      WHERE ESC_ID = #Id#
+    </update>
+    <delete id="DeleteEndoScoreCard" parameterClass="string">
+      DELETE FROM EndoScoreCard
+      WHERE ESC_ID = #value#
+    </delete>
+    <select id="QueryEndoScoreCardByCondition" parameterClass="System.Collections.Hashtable" resultClass="EndoScoreCard">
+      SELECT ESC_ID AS Id,ESC_DMA_ID AS DmaId,ESC_BUM_ID AS BumId,ESC_Year AS Year,ESC_Quarter AS Quarter,ESC_No AS No,ESC_Status AS Status,DIC.VALUE1 AS StatusName
+      ,row_number() OVER (ORDER BY ESC_CreareDate DESC) AS row_number
+      FROM EndoScoreCard A
+      INNER JOIN Lafite_DICT DIC
+      ON DIC.DICT_KEY = A.ESC_Status
+      and DIC.DICT_TYPE = 'CONST_ESC_Status'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ESC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ESC_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Quarter">ESC_Quarter=#Quarter#</isNotNull>
+        <isNotNull prepend="AND" property="No">ESC_No like N'%$No$%'</isNotNull>
+        <isNotNull prepend="AND" property="Status">ESC_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #LPId#
+          and DMA_ID = ESC_DMA_ID)
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = A.ESC_DMA_ID AND SD.BUM_ID = A.ESC_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = A.ESC_DMA_ID AND SD.BUM_ID = A.ESC_BUM_ID)
+          )
+
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="QueryEndoScoreCardByID" parameterClass="string" resultClass="EndoScoreCard">
+      SELECT ESC_ID AS Id,ESC_DMA_ID AS DmaId,ESC_BUM_ID AS BumId,ESC_Year AS Year,ESC_Quarter AS Quarter,ESC_No AS No,ESC_Status AS Status,ESC_Flield1 AS Flield1,ESC_Flield2 AS Flield2
+      FROM EndoScoreCard
+      WHERE ESC_ID=#value#
+    </select>
+    <!--<select id="QueryEndoScoreCardDetailById" parameterClass="string" resultClass="EndoScoreCard">
+      select newid() as Id,Manage1,Item1,Source1,Grade1,TotalScore1,Content1,Score1,row_number() OVER (ORDER BY rownum asc) AS row_number from (
+      select ESC_ID as Id,ESC_Manage1 as Manage1,ESC_Item1 as Item1,ESC_Source1 as Source1,ESC_Grade1+isnull(ESC_GradeValue1,'')+'&lt;br>
+      ' +ESC_Grade2+isnull(ESC_GradeValue2,'') as Grade1 ,ESC_TotalScore1 as TotalScore1,ESC_Content1 as Content1,ESC_Score1 as Score1,1 as rownum from EndoScoreCard
+      union
+      select ESC_ID,ESC_Manage2,ESC_Item2,ESC_Source2,ESC_Grade3+isnull(WeekUploadStaticValue,'')+'&lt;br>
+        ' +ESC_Grade4+isnull(ESC_GradeValue4,'')+'&lt;br>' +ESC_Grade5+isnull(ESC_GradeValue5,'') ,ESC_TotalScore2,ESC_Content2,
+      case when isnull(ESC_GradeValue5,'') = '' then IT.WeekUploadStaticScore else
+      case when ESC_GradeValue5 = '不配合' then 0 else ESC_Score2 end end,2 as rownum
+      from EndoScoreCard esc left join Interface.T_I_QV_ScoreCard_KPI IT
+      on IT.DMA_ID = ESC.ESC_DMA_ID
+      AND IT.[Year] = esc.ESC_Year
+      AND IT.[Quarter] = esc.ESC_Quarter
+      union
+      select ESC_ID,ESC_Manage3,ESC_Item3,ESC_Source3,ESC_Grade6+isnull(IT.DIOHValue,'') ,ESC_TotalScore3,ESC_Content3,IT.DIOHScore,3 as rownum
+      from EndoScoreCard esc left join Interface.T_I_QV_ScoreCard_KPI IT
+      on IT.DMA_ID = ESC.ESC_DMA_ID
+      AND IT.[Year] = esc.ESC_Year
+      AND IT.[Quarter] = esc.ESC_Quarter
+      union
+      select ESC_ID,ESC_Manage4,ESC_Item4,ESC_Source4,ESC_Grade7+isnull(ESC_GradeValue7,'')+'&lt;br>' +ESC_Grade8+isnull(ESC_GradeValue8,'') ,ESC_TotalScore4,ESC_Content4,ESC_Score4,4 as rownum from EndoScoreCard
+      union
+      select ESC_ID,ESC_Manage5,ESC_Item5,ESC_Source5,ESC_Grade9+isnull(ESC_GradeValue9,'') ,ESC_TotalScore5,ESC_Content5,ESC_Score5,5 as rownum from EndoScoreCard
+      union
+      select ESC_ID,'合计','','','','','',ESC_Score1 +isnull((case when isnull(ESC_GradeValue5,'') = '' then IT.WeekUploadStaticScore else
+      case when ESC_GradeValue5 = '不配合' then 0 else ESC_Score2 end end),0) +  isnull(DIOHScore,0) + ESC_Score4 +ESC_Score5,6 as rownum
+      from EndoScoreCard esc left join Interface.T_I_QV_ScoreCard_KPI IT
+      on IT.DMA_ID = ESC.ESC_DMA_ID
+      AND IT.[Year] = esc.ESC_Year
+      AND IT.[Quarter] = esc.ESC_Quarter
+      ) tab
+      WHERE Id=#value#
+    </select>-->
+    
+    
+    
+    <select id="GetScoreCardIdByNo" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select ESC_ID from EndoScoreCard where ESC_NO = #value#
+    </select>
+    <select id="GetUserIdByName" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select Id from Lafite_IDENTITY where IDENTITY_NAME = #value#
+    </select>
+   </statements>
+</sqlMap>

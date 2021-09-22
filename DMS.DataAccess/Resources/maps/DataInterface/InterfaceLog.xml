@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceLogMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceLog" assembly="DMS.Model.dll" type="DMS.Model.InterfaceLog" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceLogResult" class="InterfaceLog">
+      <result property="Id" column="IL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Name" column="IL_Name" type="string" dbType="nvarchar"/>
+      <result property="StartTime" column="IL_StartTime" type="DateTime" dbType="datetime"/>
+      <result property="EndTime" column="IL_EndTime" type="DateTime" dbType="datetime"/>
+      <result property="Status" column="IL_Status" type="string" dbType="nvarchar"/>
+      <result property="FileName" column="IL_FileName" type="string" dbType="nvarchar"/>
+      <result property="Message" column="IL_Message" type="string" dbType="nvarchar"/>
+      <result property="Clientid" column="IL_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IL_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_InterfaceData_SetStatusMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="DataType" column="DataType" />
+      <parameter property="InterfaceString" column="InterfaceString" />
+      <parameter property="Status" column="Status" />
+      <parameter property="RtnVal" column="RtnVal"  direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg"  direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceLog" parameterClass="string" resultClass="InterfaceLog">
+      SELECT IL_ID AS Id,IL_Name AS Name,IL_StartTime AS StartTime,IL_EndTime AS EndTime,IL_Status AS Status,IL_FileName AS FileName,IL_Message AS Message,IL_ClientID AS Clientid,IL_BatchNbr AS BatchNbr
+      FROM InterfaceLog
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceLog" parameterClass="InterfaceLog" resultClass="InterfaceLog">
+      SELECT IL_ID AS Id,IL_Name AS Name,IL_StartTime AS StartTime,IL_EndTime AS EndTime,IL_Status AS Status,IL_FileName AS FileName,IL_Message AS Message,IL_ClientID AS Clientid,IL_BatchNbr AS BatchNbr
+      FROM InterfaceLog
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Name">IL_Name=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="StartTime">IL_StartTime=#StartTime#</isNotNull>
+        <isNotNull prepend="AND" property="EndTime">IL_EndTime=#EndTime#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IL_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IL_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="Message">IL_Message=#Message#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IL_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IL_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceLog" parameterClass="InterfaceLog">
+      INSERT INTO InterfaceLog
+      (IL_ID,IL_Name,IL_StartTime,IL_EndTime,IL_Status,IL_FileName,IL_Message,IL_ClientID,IL_BatchNbr)
+      VALUES(#Id#,#Name#,#StartTime:DateTime:1/1/0001 12:00:00 AM#,#EndTime:DateTime:1/1/0001 12:00:00 AM#,#Status#,#FileName#,#Message#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceLog" parameterClass="InterfaceLog">
+      UPDATE InterfaceLog
+      SET IL_ID=#Id#,IL_Name=#Name#,IL_StartTime=#StartTime#,IL_EndTime=#EndTime#,IL_Status=#Status#,IL_FileName=#FileName#,IL_Message=#Message#,IL_ClientID=#Clientid#,IL_BatchNbr=#BatchNbr#
+      WHERE IL_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceLog" parameterClass="string">
+      DELETE FROM InterfaceLog
+      WHERE IL_ID = #value#
+    </delete>
+    <!--added by bozhenfei on 20130715-->
+    <update id="UpdateInterfaceLogByBatchNbr" parameterClass="System.Collections.Hashtable">
+      UPDATE InterfaceLog
+      SET IL_EndTime=#EndTime#, IL_Status=#Status#, IL_Message=#Message#
+      WHERE IL_BatchNbr=#BatchNbr#
+    </update>
+    <select id="SelectInterfaceDataByCondition" parameterClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT IL_ID Id,
+               IL_Name,
+               CONVERT(NVARCHAR(19), IL_StartTime, 121) IL_StartTime,
+               CONVERT(NVARCHAR(19), IL_EndTime, 121) IL_EndTime,
+               IL_Status,
+               DMA_ChineseName,
+               IL_BatchNbr,
+               row_number () OVER (ORDER BY IL_StartTime DESC) AS row_number
+        FROM   InterfaceLog,
+               Client,
+               DealerMaster
+        WHERE  IL_ClientId = CLT_ID
+               AND CLT_Corp_Id = DMA_ID
+               AND IL_ClientId NOT IN('EAI','SYS')
+               AND (ISNULL(#IlName#, '') = '' OR IL_Name = #IlName#)
+               AND (ISNULL(#IlStatus#, '') = '' OR IL_Status = #IlStatus#)
+               AND (ISNULL(#IlCorpId#, '') = '' OR CLT_Corp_Id = #IlCorpId#)
+               AND (ISNULL(#StartDate#, '') = '' OR CONVERT(NVARCHAR(10), IL_StartTime, 112) >= #StartDate#)
+               AND (ISNULL(#EndDate#, '') = '' OR CONVERT(NVARCHAR(10), IL_EndTime, 112) <= #EndDate#)
+               AND (ISNULL(#IlBatchNbr#, '') = '' OR IL_BatchNbr LIKE '%' + #IlBatchNbr# + '%')
+      ]]>
+    </select>
+    <select id="SelectInterfaceLogById" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT IL_ID Id,
+      IL_Name,
+      CONVERT(NVARCHAR(19), IL_StartTime, 121) IL_StartTime,
+      CONVERT(NVARCHAR(19), IL_EndTime, 121) IL_EndTime,
+      IL_Status,
+      DMA_ChineseName,
+      IL_BatchNbr,
+      Il_Message
+      FROM   InterfaceLog(nolock),
+      Client(nolock),
+      DealerMaster(nolock)
+      WHERE  IL_ClientId = CLT_ID
+      AND CLT_Corp_Id = DMA_ID
+
+      AND IL_ID = #value#
+    </select>
+
+    <select id="QueryInterfaceeDataByCondition" parameterClass="System.Collections.Hashtable"  resultClass="System.Data.DataSet">
+      EXEC [dbo].GC_GetInterfaceData #DataType#,#DataStatus#,#DealerId#,#StareData#,#EndData#,#BatchNbr#,#OrderNo#,#start#,#limit#
+    </select>
+    <procedure id="GC_InterfaceData_SetStatus" parameterMap="GC_InterfaceData_SetStatusMap">
+      dbo.GC_InterfaceData_SetStatus
+    </procedure>
+    <select id="SelectInterfaceDataTypeByOrderby" parameterClass="string"  resultClass="System.Data.DataSet">
+      SELECT DICT_KEY AS [Key],VALUE1 AS [Value] FROM Lafite_DICT WHERE DICT_TYPE=#value# ORDER BY VALUE2
+    </select>
+    
+    <!--end-->
+  </statements>
+</sqlMap>

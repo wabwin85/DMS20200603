@@ -1,0 +1,34 @@
+DROP PROCEDURE [dbo].[GC_Cache_UpdateCacheData] 
+GO
+
+
+
+CREATE PROCEDURE [dbo].[GC_Cache_UpdateCacheData] 
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+
+DECLARE @ProcName VARCHAR(100)
+DECLARE CACHE_PROCS_CURSOR CURSOR
+FOR SELECT ProcName FROM dbo.Lafite_Settings WHERE ProcName IS NOT NULL ORDER BY  OrderBy
+
+OPEN CACHE_PROCS_CURSOR
+FETCH NEXT FROM CACHE_PROCS_CURSOR INTO @ProcName
+WHILE (@@fetch_status = 0)
+BEGIN 
+    EXEC @ProcName    
+    UPDATE dbo.Lafite_Settings SET State =1, LastRunDate= getdate() WHERE State =0 AND ProcName=@ProcName     
+    FETCH NEXT FROM CACHE_PROCS_CURSOR INTO @ProcName
+END
+CLOSE CACHE_PROCS_CURSOR
+DEALLOCATE CACHE_PROCS_CURSOR
+
+END
+
+
+
+GO
+
+

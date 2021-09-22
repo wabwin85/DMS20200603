@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<oExcel fileName="产品采购预测导入模板_yyyymmdd" moduleName="DealerPurchaseForecastAdjust.xlsx">
+  <oSheets>
+    <oSheet Name="Sheet1" setDetailProperty="true">
+      <oMains>
+        <oMain>
+          <oItems>
+          </oItems>
+        </oMain>
+      </oMains>
+      <oDetails>
+        <oDetail keyPos="4,A" valuePos="5,A">
+          <oRecords>
+            <oRecord key="Forecast Version" value="PFA_ForecastVersion"></oRecord>
+            <oRecord key="业务部门" value="PFA_BU"></oRecord>
+            <oRecord key="母平台" value="DMA_Parent_ChineseName"></oRecord>
+            <oRecord key="T2经销商" value="DMA_ChineseName"></oRecord>
+            <oRecord key="UPN" value="PFA_UPN"></oRecord>
+            <oRecord key="产品描述" value="PFA_UPNDescription"></oRecord>
+            <oRecord key="产品大类" value="PFA_ProductGroup"></oRecord>
+            <oRecord key="产品组" value="PFA_ProductSubGroup"></oRecord>
+            <oRecord key="产品采购单价" value="PFA_PurchaseUnitPrice"></oRecord>
+            <oRecord key="m1" value="PFA_HisPurchase_M1"  valueFontFormat="int"></oRecord>
+            <oRecord key="m2" value="PFA_HisPurchase_M2"  valueFontFormat="int"></oRecord>
+            <oRecord key="m3" value="PFA_HisPurchase_M3"  valueFontFormat="int"></oRecord>
+            <oRecord key="m4" value="PFA_HisPurchase_M4"  valueFontFormat="int"></oRecord>
+            <oRecord key="m5" value="PFA_HisPurchase_M5"  valueFontFormat="int"></oRecord>
+            <oRecord key="m6" value="PFA_HisPurchase_M6"  valueFontFormat="int"></oRecord>
+            <oRecord key="m7" value="PFA_HisPurchase_M7"  valueFontFormat="int"></oRecord>
+            <oRecord key="m8" value="PFA_HisPurchase_M8"  valueFontFormat="int"></oRecord>
+            <oRecord key="m9" value="PFA_HisPurchase_M9"  valueFontFormat="int"></oRecord>
+            <oRecord key="m10" value="PFA_HisPurchase_M10"  valueFontFormat="int"></oRecord>
+            <oRecord key="m11" value="PFA_HisPurchase_M11"  valueFontFormat="int"></oRecord>
+            <oRecord key="m12" value="PFA_HisPurchase_M12"  valueFontFormat="int"></oRecord>
+            <oRecord key="年度采购" value="PFA_YearlyPurchase"  valueFontFormat="int"></oRecord>
+            <oRecord key="M-3" value="PFA_HisForecastMM3"  valueFontFormat="int"></oRecord>
+            <oRecord key="M-2" value="PFA_HisForecastMM2"  valueFontFormat="int"></oRecord>
+            <oRecord key="M-1" value="PFA_HisForecastMM1"  valueFontFormat="int"></oRecord>
+            <oRecord key="M-3" value="PFA_HisForecastAccuMM3"  valueFontFormat="percent"></oRecord>
+            <oRecord key="M-2" value="PFA_HisForecastAccuMM2" valueFontFormat="percent"></oRecord>
+            <oRecord key="M-1" value="PFA_HisForecastAccuMM1" valueFontFormat="percent"></oRecord>
+            <oRecord key="M-3" value="PFA_HisForecastAdjAccuMM3" valueFontFormat="percent"></oRecord>
+            <oRecord key="M-2" value="PFA_HisForecastAdjAccuMM2" valueFontFormat="percent"></oRecord>
+            <oRecord key="M-1" value="PFA_HisForecastAdjAccuMM1" valueFontFormat="percent"></oRecord>
+            <oRecord key="M+1" value="PFA_Forecast_M1" valueFontFormat="int"></oRecord>
+            <oRecord key="M+2" value="PFA_Forecast_M2" valueFontFormat="int"></oRecord>
+            <oRecord key="M+3" value="PFA_Forecast_M3" valueFontFormat="int"></oRecord>
+            <oRecord key="M+1" value="PFA_ForecastAdj_M1" valueFontFormat="int"></oRecord>
+            <oRecord key="M+2" value="PFA_ForecastAdj_M2" valueFontFormat="int"></oRecord>
+            <oRecord key="M+3" value="PFA_ForecastAdj_M3" valueFontFormat="int"></oRecord>
+            <oRecord key="备注" value="PFA_ForecastAdj_Remark"></oRecord>            
+          </oRecords>
+        </oDetail>
+      </oDetails>
+    </oSheet>
+  </oSheets>
+</oExcel>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WarehouseMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Warehouse" assembly="DMS.Model.dll" type="DMS.Model.Warehouse" />
+  </alias>
+  <resultMaps>
+    <resultMap id="WarehouseResult" class="Warehouse">
+      <result property="DmaId" column="WHM_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Name" column="WHM_Name" type="string" dbType="varchar"/>
+      <result property="Province" column="WHM_Province" type="string" dbType="varchar"/>
+      <result property="Id" column="WHM_ID" type="Guid" dbType="Guid"/>
+      <result property="City" column="WHM_City" type="string" dbType="varchar"/>
+      <result property="Type" column="WHM_Type" type="string" dbType="varchar"/>
+      <result property="ConId" column="WHM_CON_ID" type="Guid" dbType="Guid"/>
+      <result property="PostalCode" column="WHM_PostalCode" type="string" dbType="varchar"/>
+      <result property="Address" column="WHM_Address" type="string" dbType="varchar"/>
+      <result property="HoldWarehouse" column="WHM_HoldWarehouse" type="bool" dbType="bool"/>
+      <result property="Town" column="WHM_Town" type="string" dbType="varchar"/>
+      <result property="District" column="WHM_District" type="string" dbType="varchar"/>
+      <result property="Phone" column="WHM_Phone" type="string" dbType="varchar"/>
+      <result property="Fax" column="WHM_Fax" type="string" dbType="varchar"/>
+      <result property="ActiveFlag" column="WHM_ActiveFlag" type="bool" dbType="bool"/>
+      <result property="HospitalHosId" column="WHM_Hospital_HOS_ID" type="Guid" dbType="Guid"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectWarehouseName" parameterClass="System.Collections.Hashtable" resultClass="int">
+      SELECT WHM_Name FROM Warehouse where WHM_Name = #Name# and WHM_DMA_ID=#DmaId#
+    </select>
+    <select id="SelectWarehouseCode" parameterClass="string" resultClass="int">
+      SELECT WHM_Code FROM Warehouse
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          WHM_Code = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectWarehouseRecordCount" parameterClass="string" resultClass="int">
+      SELECT  Lot.LOT_OnHandQty
+      FROM   Lot INNER JOIN Inventory ON Lot.LOT_INV_ID = Inventory.INV_ID
+      WHERE     (Lot.LOT_OnHandQty > 0)
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          INV_WHM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectWarehouse" parameterClass="string" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS Name,WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS Type,WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId,WHM_Code AS Code
+      FROM Warehouse
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          WHM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectWarehouseByDealer" parameterClass="string" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS [Name],WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS [Type],WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId,WHM_Code AS Code
+      ,CASE WHEN WHM_Type = 'DefaultWH' THEN 0 ELSE 1 END AS SORTNO
+      FROM Warehouse
+      WHERE (WHM_Type &lt;> 'SystemHold') AND (WHM_ActiveFlag = 1)
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          WHM_DMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+      ORDER BY SORTNO,[Type],[Name]
+    </select>
+
+    <select id="SelectAllWarehouseByDealer" parameterClass="string" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS Name,WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS Type,WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId,WHM_Code AS Code
+      ,CASE WHEN WHM_Type = 'DefaultWH' THEN 0 ELSE 1 END AS SORTNO
+      FROM Warehouse
+      WHERE (WHM_ActiveFlag = 1)
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          WHM_DMA_ID = #value#
+        </isParameterPresent>
+        ORDER BY SORTNO,[Type],[Name]
+      </dynamic>
+    </select>
+    //*********************************按照用户来筛选仓库************************************************
+    <select id="SelectByUserID" parameterClass="string" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS Name,WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS Type,WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId
+      ,row_number() OVER (ORDER BY [WHM_Name] ASC) AS [row_number],WHM_Code AS Code
+      FROM Warehouse INNER JOIN Lafite_IDENTITY ON Warehouse.WHM_DMA_ID = Lafite_IDENTITY.Corp_ID
+      WHERE (WHM_Type &lt;> 'SystemHold')
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          Lafite_IDENTITY.Id = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    //***************************************************************************************************
+    //*********************************按照Hashtable来筛选仓库************************************************
+    <select id="SelectByHashtableForCreateSystemHoldWH" parameterClass="System.Collections.Hashtable" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS Name,WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS Type,WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId
+      ,row_number() OVER (ORDER BY [WHM_Name] ASC) AS [row_number],WHM_Code AS Code
+      FROM Warehouse
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">WHM_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Name">WHM_Name Like N'%$Name$%'</isNotNull>
+        <isNotNull prepend="AND" property="Province">WHM_Province=#Province#</isNotNull>
+        <isNotNull prepend="AND" property="Id">WHM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="City">WHM_City=#City#</isNotNull>
+        <isNotNull prepend="AND" property="Type">WHM_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="ConId">WHM_CON_ID=#ConId#</isNotNull>
+        <isNotNull prepend="AND" property="PostalCode">WHM_PostalCode=#PostalCode#</isNotNull>
+        <isNotNull prepend="AND" property="Address">WHM_Address Like N'%$Address$%'</isNotNull>
+        <isNotNull prepend="AND" property="HoldWarehouse">WHM_HoldWarehouse=#HoldWarehouse#</isNotNull>
+        <isNotNull prepend="AND" property="Town">WHM_Town=#Town#</isNotNull>
+        <isNotNull prepend="AND" property="District">WHM_District=#District#</isNotNull>
+        <isNotNull prepend="AND" property="Phone">WHM_Phone=#Phone#</isNotNull>
+        <isNotNull prepend="AND" property="Fax">WHM_Fax=#Fax#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">WHM_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalHosId">WHM_Hospital_HOS_ID=#HospitalHosId#</isNotNull>
+        <isNotNull prepend="AND" property="Code">WHM_Code=#Code#</isNotNull>
+      </dynamic>
+    </select>
+
+    //*********************************按照Hashtable来筛选仓库************************************************
+    <select id="SelectByHashtable" parameterClass="System.Collections.Hashtable" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS Name,WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS Type,WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(DealerMaster.DMA_ChineseShortName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') AS DealerName,
+      case WHM_Type
+      when 'Borrow' then '波科借货库'
+      when 'Consignment' then '波科寄售库'
+      when 'DefaultWH' then '缺省仓库'
+      when 'LP_Borrow' then '平台借货库'
+      when 'LP_Consignment' then '平台寄售库'
+      when 'Normal' then '普通仓库'
+      when 'SystemHold' then '在途仓库'
+      when 'Frozen' then '冻结库'
+      else '' end AS TypeName
+      ,row_number() OVER (ORDER BY [WHM_Name] ASC) AS [row_number],WHM_Code as Code
+      FROM Warehouse
+      LEFT JOIN dbo.DealerMaster WITH(NOLOCK) ON    DealerMaster.DMA_ID = Warehouse.WHM_DMA_ID
+      WHERE (WHM_Type &lt;&gt; 'SystemHold')
+      <isNotNull prepend="AND" property="DmaId">WHM_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="Name">WHM_Name Like N'%$Name$%'</isNotNull>
+      <isNotNull prepend="AND" property="Province">WHM_Province=#Province#</isNotNull>
+      <isNotNull prepend="AND" property="Id">WHM_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="City">WHM_City=#City#</isNotNull>
+      <isNotNull prepend="AND" property="Type">WHM_Type=#Type#</isNotNull>
+      <isNotNull prepend="AND" property="ConId">WHM_CON_ID=#ConId#</isNotNull>
+      <isNotNull prepend="AND" property="PostalCode">WHM_PostalCode=#PostalCode#</isNotNull>
+      <isNotNull prepend="AND" property="Address">WHM_Address Like N'%$Address$%'</isNotNull>
+      <isNotNull prepend="AND" property="HoldWarehouse">WHM_HoldWarehouse=#HoldWarehouse#</isNotNull>
+      <isNotNull prepend="AND" property="Town">WHM_Town=#Town#</isNotNull>
+      <isNotNull prepend="AND" property="District">WHM_District=#District#</isNotNull>
+      <isNotNull prepend="AND" property="Phone">WHM_Phone=#Phone#</isNotNull>
+      <isNotNull prepend="AND" property="Fax">WHM_Fax=#Fax#</isNotNull>
+      <isNotNull prepend="AND" property="ActiveFlag">WHM_ActiveFlag=#ActiveFlag#</isNotNull>
+      <isNotNull prepend="AND" property="HospitalHosId">WHM_Hospital_HOS_ID=#HospitalHosId#</isNotNull>
+      <isNotNull prepend="AND" property="Code">WHM_Code=#Code#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID)
+        )
+
+      </isEqual>
+    </select>
+    //***************************************************************************************************
+    <select id="SelectByFilterWarehouse" parameterClass="string" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS Name,WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS Type,WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId
+      ,row_number() OVER (ORDER BY [WHM_Name] ASC) AS [row_number],WHM_Code AS Code
+      FROM Warehouse
+      WHERE (WHM_Type &lt;> 'SystemHold')
+      <dynamic prepend="AND">
+        <isNotNull prepend="AND" property="DmaId">WHM_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Name">WHM_Name Like N'%$Name$%'</isNotNull>
+        <isNotNull prepend="AND" property="Province">WHM_Province=#Province#</isNotNull>
+        <isNotNull prepend="AND" property="Id">WHM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="City">WHM_City=#City#</isNotNull>
+        <isNotNull prepend="AND" property="Type">WHM_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="ConId">WHM_CON_ID=#ConId#</isNotNull>
+        <isNotNull prepend="AND" property="PostalCode">WHM_PostalCode=#PostalCode#</isNotNull>
+        <isNotNull prepend="AND" property="Address">WHM_Address Like N'%$Address$%'</isNotNull>
+        <isNotNull prepend="AND" property="HoldWarehouse">WHM_HoldWarehouse=#HoldWarehouse#</isNotNull>
+        <isNotNull prepend="AND" property="Town">WHM_Town=#Town#</isNotNull>
+        <isNotNull prepend="AND" property="District">WHM_District=#District#</isNotNull>
+        <isNotNull prepend="AND" property="Phone">WHM_Phone=#Phone#</isNotNull>
+        <isNotNull prepend="AND" property="Fax">WHM_Fax=#Fax#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">WHM_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalHosId">WHM_Hospital_HOS_ID=#HospitalHosId#</isNotNull>
+        <isNotNull prepend="AND" property="Code">WHM_Code=#Code#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertWarehouse" parameterClass="Warehouse">
+      INSERT INTO Warehouse
+      (WHM_DMA_ID,WHM_Name,WHM_Province,WHM_ID,WHM_City,WHM_Type,WHM_CON_ID,WHM_PostalCode,WHM_Address,WHM_HoldWarehouse,WHM_Town,WHM_District,WHM_Phone,WHM_Fax,WHM_ActiveFlag,WHM_Hospital_HOS_ID,WHM_Code)
+      VALUES(#DmaId#,#Name#,#Province#,#Id#,#City#,#Type#,#ConId#,#PostalCode#,#Address#,#HoldWarehouse#,#Town#,#District#,#Phone#,#Fax#,#ActiveFlag#,#HospitalHosId#,#Code#)
+    </insert>
+    <update id="UpdateWarehouse" parameterClass="Warehouse">
+      UPDATE Warehouse
+      SET WHM_DMA_ID=#DmaId#,WHM_Name=#Name#,WHM_Province=#Province#,WHM_ID=#Id#,WHM_City=#City#,WHM_Type=#Type#,WHM_CON_ID=#ConId#,WHM_PostalCode=#PostalCode#,WHM_Address=#Address#,WHM_HoldWarehouse=#HoldWarehouse#,WHM_Town=#Town#,WHM_District=#District#,WHM_Phone=#Phone#,WHM_Fax=#Fax#,WHM_ActiveFlag=#ActiveFlag#,WHM_Hospital_HOS_ID=#HospitalHosId#,WHM_Code=#Code#
+      WHERE WHM_ID = #Id#
+    </update>
+    <delete id="DeleteWarehouse" parameterClass="string">
+      DELETE FROM Warehouse
+      WHERE WHM_ID = #value#
+    </delete>
+    <insert id="InsertWhm" parameterClass="Warehouse">
+      INSERT INTO Warehouse
+      (WHM_DMA_ID,WHM_Name,WHM_Province,WHM_ID,WHM_City,WHM_Type,WHM_CON_ID,WHM_PostalCode,WHM_Address,WHM_HoldWarehouse,WHM_Town,WHM_District,WHM_Phone,WHM_Fax,WHM_ActiveFlag,WHM_Hospital_HOS_ID,WHM_Code)
+      VALUES(#DmaId#,#Name#,#Province#,#Id#,#City#,#Type#,#ConId#,#PostalCode#,#Address#,#HoldWarehouse#,#Town#,#District#,#Phone#,#Fax#,#ActiveFlag#,#HospitalHosId#,dbo.fn_GetWarehouseCode())
+    </insert>
+    <!--查询导出-->
+    <select id="SelectByHashtableForExport" parameterClass="System.Collections.Hashtable" resultClass="Warehouse">
+      SELECT DMA_ChineseName N'经销商名称',WHM_Code as N'仓库代码',
+      WHM_Name AS N'仓库名称',WHM_Province AS N'省份',WHM_City AS N'城市',VALUE1 AS N'仓库的类型',
+      WHM_PostalCode AS N'邮编',WHM_Address AS N'地址',WHM_District AS N'区或乡',
+      WHM_Phone AS N'电话',WHM_Fax AS N'传真',case WHM_ActiveFlag
+      when '1' then '有效' else '失效' end AS N'有效标志'
+      FROM Warehouse(nolock)
+      left join DealerMaster(nolock) on DealerMaster.DMA_ID=WHM_DMA_ID
+      left join Lafite_DICT l(nolock) on l.DICT_KEY=WHM_Type and DICT_TYPE='MS_WarehouseType'
+      WHERE (WHM_Type &lt;&gt; 'SystemHold')
+      <isNotNull prepend="AND" property="DmaId">WHM_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="Name">WHM_Name Like N'%$Name$%'</isNotNull>
+      <isNotNull prepend="AND" property="Province">WHM_Province=#Province#</isNotNull>
+      <isNotNull prepend="AND" property="Id">WHM_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="City">WHM_City=#City#</isNotNull>
+      <isNotNull prepend="AND" property="Type">WHM_Type=#Type#</isNotNull>
+      <isNotNull prepend="AND" property="ConId">WHM_CON_ID=#ConId#</isNotNull>
+      <isNotNull prepend="AND" property="PostalCode">WHM_PostalCode=#PostalCode#</isNotNull>
+      <isNotNull prepend="AND" property="Address">WHM_Address Like N'%$Address$%'</isNotNull>
+      <isNotNull prepend="AND" property="HoldWarehouse">WHM_HoldWarehouse=#HoldWarehouse#</isNotNull>
+      <isNotNull prepend="AND" property="Town">WHM_Town=#Town#</isNotNull>
+      <isNotNull prepend="AND" property="District">WHM_District=#District#</isNotNull>
+      <isNotNull prepend="AND" property="Phone">WHM_Phone=#Phone#</isNotNull>
+      <isNotNull prepend="AND" property="Fax">WHM_Fax=#Fax#</isNotNull>
+      <isNotNull prepend="AND" property="ActiveFlag">WHM_ActiveFlag=#ActiveFlag#</isNotNull>
+      <isNotNull prepend="AND" property="HospitalHosId">WHM_Hospital_HOS_ID=#HospitalHosId#</isNotNull>
+      <isNotNull prepend="AND" property="Code">WHM_Code=#Code#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID)
+        )
+        ORDER BY WHM_Name
+      </isEqual>
+    </select>
+    <select id="GetWarehouseTypeById" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select case when WHM_Type = 'Consignment' then 'BSC'
+      when WHM_Type = 'Borrow' then 'BSC'
+      when WHM_Type = 'LP_Consignment' then 'LP'
+      when WHM_Type = 'LP_Borrow' then 'LP'
+      when WHM_Type = 'DefaultWH' then 'T2'
+      when WHM_Type = 'SystemHold' then 'T2'
+      when WHM_Type = 'Normal' then 'T2'
+      when WHM_Type = 'Frozen' then 'Frozen'
+      end as TypeFrom
+      ,(SELECT DMA_DealerType FROM DealerMaster(nolock) WHERE DMA_ID = WHM_DMA_ID) AS DealerType
+      from Warehouse
+      where WHM_ID= #value#
+    </select> 
+    <select id="QueryDealerWarehouseIsLimit" patameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+       select count(*) cnt from dbo.bulimit where limit_type = 'Shipment' 
+       and (productline_bum_id = #ProductLineId# or DMA_ID = #DealerId#)
+    </select>
+  
+
+
+    <select id="SelectWarehouseByDealerDT" parameterClass="System.Data.DataSet" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS [Name],WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS [Type],WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId,WHM_Code AS Code
+      ,CASE WHEN WHM_Type = 'DefaultWH' THEN 0 ELSE 1 END AS SORTNO
+      FROM Warehouse
+      WHERE (WHM_Type &lt;> 'SystemHold') AND (WHM_ActiveFlag = 1) and
+      (WHM_Type=#Type1# or WHM_Type=#Type2#)
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          WHM_DMA_ID = #WHM_DMA_ID#
+        </isParameterPresent>
+      </dynamic>
+      ORDER BY SORTNO,[Type],[Name]
+    </select>
+
+    <select id="SelectWarehouseByDealerT2" parameterClass="System.Data.DataSet" resultClass="Warehouse">
+      SELECT WHM_DMA_ID AS DmaId,WHM_Name AS [Name],WHM_Province AS Province,WHM_ID AS Id,WHM_City AS City,WHM_Type AS [Type],WHM_CON_ID AS ConId,WHM_PostalCode AS PostalCode,WHM_Address AS Address,WHM_HoldWarehouse AS HoldWarehouse,WHM_Town AS Town,WHM_District AS District,WHM_Phone AS Phone,WHM_Fax AS Fax,WHM_ActiveFlag AS ActiveFlag,WHM_Hospital_HOS_ID AS HospitalHosId,WHM_Code AS Code
+      ,CASE WHEN WHM_Type = 'DefaultWH' THEN 0 ELSE 1 END AS SORTNO
+      FROM Warehouse
+      WHERE (WHM_Type &lt;> 'SystemHold') AND (WHM_ActiveFlag = 1) and
+      (WHM_Type=#Type1# or WHM_Type=#Type2# or WHM_Type=#Type3#)
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          WHM_DMA_ID = #WHM_DMA_ID#
+        </isParameterPresent>
+      </dynamic>
+      ORDER BY SORTNO,[Type],[Name]
+    </select>
+
+  </statements>
+</sqlMap>

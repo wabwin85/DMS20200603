@@ -1,0 +1,32 @@
+DROP FUNCTION [dbo].[GC_Fn_GetPriceForAopDealer]
+GO
+
+
+CREATE FUNCTION [dbo].[GC_Fn_GetPriceForAopDealer]
+(
+	@LotId UNIQUEIDENTIFIER
+)
+RETURNS DECIMAL
+AS
+
+BEGIN
+	DECLARE @Ret DECIMAL
+	
+	SELECT @Ret = POR_UnitPrice FROM dbo.POReceipt WHERE POR_ID = (
+	SELECT TOP 1 PRL_POR_ID FROM POReceiptLot WHERE PRL_LotNumber = (
+	SELECT TOP 1 LTM_LotNumber FROM dbo.LotMaster WHERE LTM_ID IN 
+	(SELECT LOT_LTM_ID FROM dbo.Lot WHERE LOT_ID = @LotId)))
+
+	IF @@ROWCOUNT = 0 
+		BEGIN
+			SET @Ret = 0
+			GOTO RetVal
+	  END
+	RetVal:
+		RETURN @Ret
+END
+
+
+GO
+
+

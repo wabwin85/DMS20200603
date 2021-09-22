@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProInitPointFlowDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProInitPointFlowDetail" assembly="DMS.Model.dll" type="DMS.Model.ProInitPointFlowDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProInitPointFlowDetailResult" class="ProInitPointFlowDetail">
+      <result property="FlowId" column="FlowId" type="int" dbType="int"/>
+      <result property="DealerId" column="DealerId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Point" column="Point" type="decimal" dbType="decimal"/>
+      <result property="Ratio" column="Ratio" type="decimal" dbType="decimal"/>
+      <result property="PointExpiredDate" column="PointExpiredDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectProInitPointFlowDetail" parameterClass="string" resultClass="ProInitPointFlowDetail">
+      SELECT FlowId AS FlowId,DealerId AS DealerId,Point AS Point,Ratio AS Ratio,PointExpiredDate AS PointExpiredDate,PolicyNo
+      FROM Promotion.Pro_InitPoint_Flow_Detail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FlowId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProInitPointFlowDetail" parameterClass="ProInitPointFlowDetail" resultClass="ProInitPointFlowDetail">
+      SELECT FlowId AS FlowId,DealerId AS DealerId,Point AS Point,Ratio AS Ratio,PointExpiredDate AS PointExpiredDate,PolicyNo
+      FROM Promotion.Pro_InitPoint_Flow_Detail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">Bu=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="PointType">PointType=#PointType#</isNotNull>
+        <isNotNull prepend="AND" property="PointUseRangeType">PointUseRangeType=#PointUseRangeType#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProInitPointFlowDetail" parameterClass="ProInitPointFlowDetail">
+      INSERT INTO Promotion.Pro_InitPoint_Flow_Detail
+      (FlowId,DealerId,Point,Ratio,PointExpiredDate,PolicyNo)
+      VALUES(#FlowId#,#DealerId#,#Point#,#Ratio#,#PointExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#PolicyNo#)
+    </insert>
+    <update id="UpdateProInitPointFlowDetail" parameterClass="ProInitPointFlowDetail">
+      UPDATE Promotion.Pro_InitPoint_Flow_Detail
+      SET DealerId=#DealerId#,Point=#Point#,Ratio+#Ratio#,PointExpiredDate=#PointExpiredDate#,PolicyNo =#PolicyNo#
+      WHERE FlowId = #FlowId#
+    </update>
+    <delete id="DeleteProInitPointFlowDetail" parameterClass="System.Collections.Hashtable" >
+      DELETE FROM Promotion.Pro_InitPoint_Flow_Detail
+      WHERE FlowId = #FlowId#
+    </delete>
+    <select id="GetTotalPointByFlowId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT convert(decimal(18,6),SUM(Point)) as Point from Promotion.Pro_InitPoint_Flow_Detail a
+      INNER JOIN Promotion.Pro_InitPoint_Flow b on a.FlowId=b.FlowId
+      WHERE a.FlowId = #value#
+    </select>
+    <select id="GetImportPointByFlowId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT  DMA_ChineseName as DealerName,Point,Ratio,convert(nvarchar(10),PointExpiredDate,112) as PointExpiredDate,PolicyNo
+      from Promotion.Pro_InitPoint_Flow_Detail a
+      INNER JOIN DealerMaster b on a.DealerId=b.DMA_ID
+      WHERE a.FlowId = #value#
+    </select>
+  </statements>
+</sqlMap>

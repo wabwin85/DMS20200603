@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AOPHospitalReferenceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="AOPHospitalReference" assembly="DMS.Model.dll" type="DMS.Model.AOPHospitalReference" />
+	</alias>
+	<resultMaps>
+		<resultMap id="AOPHospitalReferenceResult" class="AOPHospitalReference">
+			<result property="Id" column="Id" type="Guid" dbType="Guid"/>
+			<result property="HospitalId" column="HospitalId" type="Guid" dbType="Guid"/>
+			<result property="ProductLineBumId" column="ProductLineBumId" type="Guid" dbType="Guid"/>
+      <result property="PCTID" column="PCTID" type="Guid" dbType="Guid"/>
+			<result property="Year" column="Year" type="string" dbType="varchar"/>
+			<result property="January" column="January" type="double" dbType="Real"/>
+      <result property="February" column="February" type="double" dbType="Real"/>
+      <result property="March" column="March" type="double" dbType="Real"/>
+      <result property="April" column="April" type="double" dbType="Real"/>
+      <result property="May" column="May" type="double" dbType="Real"/>
+      <result property="June" column="June" type="double" dbType="Real"/>
+      <result property="July" column="July" type="double" dbType="Real"/>
+      <result property="August" column="August" type="double" dbType="Real"/>
+      <result property="September" column="September" type="double" dbType="Real"/>
+      <result property="October" column="October" type="double" dbType="Real"/>
+      <result property="November" column="November" type="double" dbType="Real"/>
+      <result property="December" column="December" type="double" dbType="Real"/>
+			<result property="UpdateUserId" column="UpdateUserId" type="Guid" dbType="Guid"/>
+			<result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="DateTime"/>
+		</resultMap>
+	</resultMaps>
+  <parameterMaps>
+    <parameterMap id="AOPHospitalReferenceParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+	<statements>
+
+		<select id="SelectAOPHospitalReference" parameterClass="string" resultClass="AOPHospitalReference">
+      SELECT [AOPHR_ID]
+      ,[AOPHR_ProductLine_BUM_ID]
+      ,[AOPHR_Year]
+      ,[AOPHR_Hospital_ID]
+      ,[AOPHR_January]
+      ,[AOPHR_February]
+      ,[AOPHR_March]
+      ,[AOPHR_April]
+      ,[AOPHR_May]
+      ,[AOPHR_June]
+      ,[AOPHR_July]
+      ,[AOPHR_August]
+      ,[AOPHR_September]
+      ,[AOPHR_October]
+      ,[AOPHR_November]
+      ,[AOPHR_December]
+      ,[AOPHR_Update_User_ID]
+      ,[AOPHR_Update_Date]
+      ,[AOPHR_PCT_ID]
+      FROM AOPHospitalReference
+      <dynamic prepend="WHERE">
+				<isParameterPresent>
+          AOPHR_ID = #value#
+        </isParameterPresent>
+			</dynamic>
+		</select>
+		<select id="SelectByFilterAOPHospitalReference" parameterClass="AOPHospitalReference" resultClass="AOPHospitalReference">
+      SELECT [AOPHR_ID]
+      ,[AOPHR_ProductLine_BUM_ID]
+      ,[AOPHR_Year]
+      ,[AOPHR_Hospital_ID]
+      ,[AOPHR_January]
+      ,[AOPHR_February]
+      ,[AOPHR_March]
+      ,[AOPHR_April]
+      ,[AOPHR_May]
+      ,[AOPHR_June]
+      ,[AOPHR_July]
+      ,[AOPHR_August]
+      ,[AOPHR_September]
+      ,[AOPHR_October]
+      ,[AOPHR_November]
+      ,[AOPHR_December]
+      ,[AOPHR_Update_User_ID]
+      ,[AOPHR_Update_Date]
+      ,[AOPHR_PCT_ID]
+      FROM AOPHospitalReference
+      <dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="Id">AOPHR_ID=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="HospitalId">AOPHR_Hospital_ID=#DealerDmaId#</isNotNull>
+				<isNotNull prepend="AND" property="ProductLineBumId">AOPHR_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+				<isNotNull prepend="AND" property="Year">AOPHR_Year=#Year#</isNotNull>
+				<isNotNull prepend="AND" property="PCTID">AOPHR_PCT_ID=#PCTID#</isNotNull>
+				<isNotNull prepend="AND" property="UpdateUserId">AOPD_Update_User_ID=#UpdateUserId#</isNotNull>
+				<isNotNull prepend="AND" property="UpdateDate">AOPD_Update_Date=#UpdateDate#</isNotNull>
+			</dynamic>
+		</select>
+
+    <select id="SelectAOPHospitalReferencesByFiller" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT [AOPHR_ID]
+      ,[AOPHR_ProductLine_BUM_ID]
+      ,vp.SubCompanyName
+      ,vp.BrandName
+      ,vp.Attribute_Name ProductLineName
+      ,vpcs.CQ_NameCN CQ_Name
+      ,[AOPHR_Year]
+      ,[AOPHR_Hospital_ID]
+      ,hos.HOS_HospitalName
+      ,hos.HOS_Key_Account
+      ,[AOPHR_January]
+      ,[AOPHR_February]
+      ,[AOPHR_March]
+      ,[AOPHR_April]
+      ,[AOPHR_May]
+      ,[AOPHR_June]
+      ,[AOPHR_July]
+      ,[AOPHR_August]
+      ,[AOPHR_September]
+      ,[AOPHR_October]
+      ,[AOPHR_November]
+      ,[AOPHR_December]
+      ,[AOPHR_Update_User_ID]
+      ,[AOPHR_Update_Date]
+      ,[AOPHR_PCT_ID]
+      ,ROW_NUMBER () OVER (ORDER BY AOPHR_ProductLine_BUM_ID,AOPHR_PCT_ID,AOPHR_Year DESC)AS row_number
+      From AOPHospitalReference aophr
+      INNER JOIN View_ProductLine vp ON aophr.AOPHR_ProductLine_BUM_ID=vp.Id
+      INNER JOIN Hospital hos ON hos.HOS_ID = aophr.AOPHR_Hospital_ID
+      INNER JOIN V_ProductClassificationStructure vpcs on aophr.AOPHR_PCT_ID=vpcs.CQ_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyID=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">vp.BrandID=#BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">AOPHR_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">AOPHR_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">hos.HOS_HospitalName like '%'+#HospitalName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="HospitalNbr">hos.HOS_Key_Account like '%'+#HospitalNbr#+'%'</isNotNull>
+      </dynamic>
+    </select>
+
+		
+		<insert id="InsertAOPHospitalReference" parameterClass="AOPHospitalReference">
+      INSERT INTO [dbo].[AOPHospitalReference]
+      ([AOPHR_ID]
+      ,[AOPHR_ProductLine_BUM_ID]
+      ,[AOPHR_Year]
+      ,[AOPHR_Hospital_ID]
+      ,[AOPHR_January]
+      ,[AOPHR_February]
+      ,[AOPHR_March]
+      ,[AOPHR_April]
+      ,[AOPHR_May]
+      ,[AOPHR_June]
+      ,[AOPHR_July]
+      ,[AOPHR_August]
+      ,[AOPHR_September]
+      ,[AOPHR_October]
+      ,[AOPHR_November]
+      ,[AOPHR_December]
+      ,[AOPHR_Update_User_ID]
+      ,[AOPHR_Update_Date]
+      ,[AOPHR_PCT_ID])
+      VALUES
+      (#Id#
+      ,#ProductLineBumId#
+      ,#Year#
+      ,#HospitalId#
+      ,#January#
+      ,#February#
+      ,#March#
+      ,#April#
+      ,#May#
+      ,#June#
+      ,#July#
+      ,#August#
+      ,#September#
+      ,#October#
+      ,#November#
+      ,#December#
+      ,#UpdateUserId#
+      ,#UpdateDate#
+      ,#PCTID#)
+    </insert>
+		<update id="UpdateAOPHospitalReference" parameterClass="AOPHospitalReference">
+      UPDATE [dbo].[AOPHospitalReference]
+      SET [AOPHR_ID] = #Id#
+      ,[AOPHR_ProductLine_BUM_ID] = #ProductLineBumId#
+      ,[AOPHR_Year] = #Year#
+      ,[AOPHR_Hospital_ID] = #HospitalId#
+      ,[AOPHR_January] = #January#
+      ,[AOPHR_February] = #February#
+      ,[AOPHR_March] = #March#
+      ,[AOPHR_April] = #April#
+      ,[AOPHR_May] = #May#
+      ,[AOPHR_June] = #June#
+      ,[AOPHR_July] = #July#
+      ,[AOPHR_August] = #August#
+      ,[AOPHR_September] = #September#
+      ,[AOPHR_October] = #October#
+      ,[AOPHR_November] = #November#
+      ,[AOPHR_December] = #December#
+      ,[AOPHR_Update_User_ID] = #UpdateUserId#
+      ,[AOPHR_Update_Date] = #UpdateDate:DateTime:1/1/0001 12:00:00 AM#
+      ,[AOPHR_PCT_ID] = #PCTID#
+      WHERE AOPHR_ID = #Id#
+    </update>
+		<delete id="DeleteAOPHospitalReference" parameterClass="System.Collections.Hashtable">
+      DELETE FROM AOPHospitalReference
+      WHERE AOPHR_ID=#ID#
+    </delete>
+    <select id="SelectAOPHospitalReferencesImportErrorData" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT [AOPHRI_ID]
+      ,[AOPHRI_SubCompanyName]
+      ,[AOPHRI_SubCompanyId]
+      ,[AOPHRI_BrandName]
+      ,[AOPHRI_BrandId]
+      ,[AOPHRI_ProductLine_BUM_ID]
+      ,[AOPHRI_ProductLineName]
+      ,[AOPHRI_Year]
+      ,[AOPHRI_HospitalName]
+      ,[AOPHRI_HospitalNbr]
+      ,[AOPHRI_Hospital_ID]
+      ,[AOPHRI_January]
+      ,[AOPHRI_February]
+      ,[AOPHRI_March]
+      ,[AOPHRI_April]
+      ,[AOPHRI_May]
+      ,[AOPHRI_June]
+      ,[AOPHRI_July]
+      ,[AOPHRI_August]
+      ,[AOPHRI_September]
+      ,[AOPHRI_October]
+      ,[AOPHRI_November]
+      ,[AOPHRI_December]
+      ,[AOPHRI_Update_User_ID]
+      ,[AOPHRI_Update_Date]
+      ,[AOPHRI_PCTName]
+      ,[AOPHRI_PCT_ID]
+      ,[AOPHRI_IsDelete]
+      ,[AOPHRI_ErrMassage]
+      ,ROW_NUMBER () OVER (ORDER BY AOPHRI_ProductLine_BUM_ID,AOPHRI_PCT_ID,AOPHRI_Year DESC)AS row_number
+      FROM [dbo].[AOPHospitalReferenceImport]
+      WHERE ISNULL(AOPHRI_ErrMassage,'') &lt;> ''
+      <dynamic>
+        <isNotNull prepend="AND" property="UserId">AOPHRI_Update_User_ID=#UserId#</isNotNull>
+      </dynamic>
+    </select>
+    <delete id="DeleteAOPHospitalReferencesImportByUser" parameterClass="string">
+      DELETE FROM AOPHospitalReferenceImport
+      WHERE AOPHRI_Update_User_ID=#value#
+    </delete>
+    <procedure id="GC_AOPHospitalReferenceImportInit" parameterMap="AOPHospitalReferenceParameterMap">
+      dbo.GC_AOPHospitalReferenceImportInit
+    </procedure>
+    <insert id="USP_GenerateHospitalMarketProperty" parameterClass="System.Collections.Hashtable">
+      EXEC dbo.USP_GenerateHospitalMarketProperty
+    </insert>
+  </statements>
+</sqlMap>

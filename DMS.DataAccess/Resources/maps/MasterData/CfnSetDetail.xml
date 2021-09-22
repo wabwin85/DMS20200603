@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnSetDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="CfnSetDetail" assembly="DMS.Model.dll" type="DMS.Model.CfnSetDetail" />
+    <typeAlias alias="ProductBOM" assembly="DMS.Model.dll" type="DMS.Model.ProductBOM" />
+  </alias>
+  <resultMaps>
+    <resultMap id="CfnSetDetailResult" class="CfnSetDetail">
+      <result property="Id" column="CSD_ID" type="Guid" dbType="Guid"/>
+      <result property="CfnsId" column="CSD_CFNS_ID" type="Guid" dbType="Guid"/>
+      <result property="CfnId" column="CSD_CFN_ID" type="Guid" dbType="Guid"/>
+      <result property="DefaultQuantity" column="CSD_Default_Quantity" type="double" dbType="Real"/>
+    </resultMap>
+    <resultMap id="ProductBOMResult" class="ProductBOM">
+      <result property="MasterUPN" column="MasterUPN" type="string" dbType="varchar"/>
+      <result property="BOMUPN" column="BOMUPN" type="string" dbType="varchar"/>
+      <result property="Qty" column="Qty" type="double" dbType="Real"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectCfnSetDetail" parameterClass="string" resultClass="CfnSetDetail">
+      SELECT CSD_ID AS Id,CSD_CFNS_ID AS CfnsId,CSD_CFN_ID AS CfnId,CSD_Default_Quantity AS DefaultQuantity
+      FROM CFNSetDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CSD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterCfnSetDetail" parameterClass="CfnSetDetail" resultClass="CfnSetDetail">
+      SELECT CSD_ID AS Id,CSD_CFNS_ID AS CfnsId,CSD_CFN_ID AS CfnId,CSD_Default_Quantity AS DefaultQuantity
+      FROM CFNSetDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CSD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CfnsId">CSD_CFNS_ID=#CfnsId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">CSD_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="DefaultQuantity">CSD_Default_Quantity=#DefaultQuantity#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertCfnSetDetail" parameterClass="CfnSetDetail">
+      INSERT INTO CFNSetDetail
+      (CSD_ID,CSD_CFNS_ID,CSD_CFN_ID,CSD_Default_Quantity)
+      VALUES(#Id#,#CfnsId#,#CfnId#,#DefaultQuantity#)
+    </insert>
+    <insert id="InsertProductBOM" parameterClass="ProductBOM">
+      INSERT INTO MD.ProductBOM
+      (MasterUPN,BOMUPN,Qty)
+      VALUES(#MasterUPN#,#BOMUPN#,#Qty#)
+    </insert>
+    <update id="UpdateCfnSetDetail" parameterClass="CfnSetDetail">
+      UPDATE CFNSetDetail
+      SET CSD_ID=#Id#,CSD_CFNS_ID=#CfnsId#,CSD_CFN_ID=#CfnId#,CSD_Default_Quantity=#DefaultQuantity#
+      WHERE CSD_ID = #Id#
+    </update>
+    <delete id="DeleteCfnSetDetail" parameterClass="string">
+      DELETE FROM CFNSetDetail
+      WHERE CSD_ID = #value#
+    </delete>
+    <delete id="DeleteCfnSetDetailByCfnsID" parameterClass="string">
+      DELETE FROM CFNSetDetail
+      WHERE CSD_CFNS_ID = #value#
+    </delete>
+    <delete id="DeleteCfnSetDetailByMasterUPN" parameterClass="string">
+      DELETE FROM MD.ProductBOM
+      WHERE MasterUPN = #value#
+    </delete>
+    <select id="QueryConsignmenCfnSetDetailByCFNSID" parameterClass="string" resultClass="CfnSetDetail">
+      SELECT CFNSetDetail.CSD_ID AS Id,CFNSetDetail.CSD_CFN_ID AS  CfnId,
+      CFNSetDetail.CSD_Default_Quantity AS Quantity,CFN.CFN_ChineseName AS ChineseName,CFN.CFN_EnglishName AS EnglishName,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN.CFN_Property1 AS Property1,ROW_NUMBER() OVER (ORDER BY CFN.CFN_CustomerFaceNbr) AS row_number
+      FROM CFNSetDetail INNER JOIN CFN ON CFNSetDetail.CSD_CFN_ID=CFN.CFN_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CSD_CFNS_ID=#CFNSId#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="QueryCfnSetDetailByCFNSID" parameterClass="string" resultClass="CfnSetDetail">
+      SELECT detail.CSD_ID AS Id,
+      detail.CSD_CFNS_ID AS CFNSID,
+      detail.CSD_Default_Quantity AS DefaultQuantity,
+      cfn.CFN_ID AS CFNID,
+      cfn.CFN_EnglishName AS EnglishName,
+      cfn.CFN_ChineseName AS ChineseName,
+      cfn.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      row_number() OVER (ORDER BY CSD_CFNS_ID ASC) AS row_number
+      FROM cfn INNER JOIN CFNSetDetail AS detail ON (detail.CSD_CFN_ID = cfn.CFN_ID)
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          detail.CSD_CFNS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="QueryCfnSetDetailByUPN" parameterClass="string" resultClass="ProductBOM">
+      SELECT newid() AS Id,
+      mpb.MasterUPN AS CFNSID,
+      mpb.qty AS DefaultQuantity,
+      cfn.CFN_ID AS CFNID,
+      cfn.CFN_EnglishName AS EnglishName,
+      cfn.CFN_ChineseName AS ChineseName,
+      cfn.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      row_number() OVER (ORDER BY mpb.BOMUPN ASC) AS row_number
+      FROM cfn INNER JOIN MD.ProductBOM AS mpb ON (mpb.BOMUPN = cfn.CFN_CustomerFaceNbr)
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          mpb.MasterUPN in (SELECT CFN_CustomerFaceNbr FROM CFN WHERE CFN_ID=#value#)
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <!--added by bozhenfei on 20110218-->
+    <!--根据经销商和产品线，根据经销商授权查询成套产品明细-->
+    <!--已不使用-->
+    <select id="QueryCFNSetDetailForPurchaseOrderByAuth" parameterClass="System.Collections.Hashtable" resultClass="CfnSetDetail">
+      SELECT
+      C2.CFN_ID AS Id,
+      C2.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      C2.CFN_ChineseName AS ChineseName,
+      C2.CFN_EnglishName AS EnglishName,
+      dbo.fn_GetPriceByDealerForBSCPO(#DealerId#,C2.CFN_ID,#PriceType#) AS Price,
+      D.CSD_Default_Quantity AS DefaultQuantity,
+      ROW_NUMBER() OVER (ORDER BY C2.CFN_CustomerFaceNbr) AS row_number
+      FROM CFNSetDetail AS D
+      INNER JOIN (
+      SELECT C1.CFN_ID,C1.CFN_CustomerFaceNbr,C1.CFN_ChineseName,C1.CFN_EnglishName
+      FROM
+      (
+      SELECT * FROM CFN
+      WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+      INNER JOIN DealerContract AS DC
+      ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+      WHERE DC.DCL_DMA_ID = #DealerId#
+      AND CFN.CFN_ProductLine_BUM_ID = #ProductLineId#
+      AND CFN.CFN_DeletedFlag = 0
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+      AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+      UNION
+      SELECT * FROM CFN
+      INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+      INNER JOIN DealerContract AS DC
+      ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+      WHERE DC.DCL_DMA_ID = #DealerId#
+      AND CFN.CFN_ProductLine_BUM_ID = #ProductLineId#
+      AND CFN.CFN_DeletedFlag = 0
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId)) AS C1
+      WHERE dbo.GC_Fn_CFN_CheckBSCDealerCanOrder(#DealerId#,C1.CFN_ID,#PriceType#) = 1
+      ) AS C2 ON C2.CFN_ID = D.CSD_CFN_ID
+      WHERE D.CSD_CFNS_ID = #CfnSetId#
+    </select>
+    <!--根据经销商和产品线，查询-->
+    <select id="QueryBSCCFNSetDetailForPurchaseOrderByAuth" parameterClass="System.Collections.Hashtable" resultClass="CfnSetDetail">
+      SELECT Id,Price,UPN,ChineseName,EnglishName,
+      DiscountRate * 100 AS DiscountRate,
+      DefaultQuantity,
+      Convert(decimal(18,2),Price * DiscountRate) AS DiscountPrice,
+      Convert(decimal(18,2),Price * DiscountRate * DefaultQuantity) AS PackagePrice,
+      ROW_NUMBER() OVER (ORDER BY UPN) AS row_number
+      FROM (
+      SELECT t1.CFN_ID AS Id,
+      ISNULL (t2.CFNP_Price, 0) AS Price,
+      t1.CFN_CustomerFaceNbr AS UPN,
+      t1.CFN_ChineseName AS ChineseName,
+      t1.CFN_EnglishName AS EnglishName,
+
+      convert(decimal(18,6),t3.DiscountRate/(select sum(isnull(dbo.fn_GetCfnPriceByDealer(#DealerId#,tt3.CFN_ID,#SubCompanyId#,#BrandId#,#PriceType#,0),0)* isnull(tt2.Qty,0))
+      from CFNPrice tt1, MD.ProductBOM tt2, CFN tt3, CFN CFNMaster
+      where tt1.CFNP_CFN_ID = tt3.CFN_ID and tt3.CFN_CustomerFaceNbr = tt2.BOMUPN
+      AND tt2.MasterUPN = CFNMaster.CFN_CustomerFaceNbr
+      and CFNMaster.CFN_ID= #CfnSetId#
+      AND tt1.CFNP_PriceType = #PriceType#
+      AND tt1.CFNP_Group_ID =  #DealerId#)
+      ) AS DiscountRate,
+      t3.Qty AS DefaultQuantity
+      FROM cfn t1
+      LEFT JOIN
+      (SELECT CFNP_CFN_ID,
+      <!--CFNP_Price-->
+      isnull( dbo.fn_GetCfnPriceByDealer(#DealerId#,CFNP_CFN_ID,#SubCompanyId#,#BrandId#,#PriceType#,0),0) AS CFNP_Price
+      FROM CFNPrice
+      WHERE     CFNP_Group_ID = #DealerId#
+      AND CFNP_PriceType = #PriceType#) t2
+      ON (t1.CFN_ID = t2.CFNP_CFN_ID)
+      INNER JOIN
+      (SELECT DISTINCT
+      BOM.Qty, dbo.fn_GetCfnPriceByDealer(#DealerId#,CFN.CFN_ID,#SubCompanyId#,#BrandId#,#PriceType#,0) AS DiscountRate, BOM.BOMUPN, BOM.MasterUPN
+      FROM MD.ProductBOM BOM, CFN, CFNPrice CFP
+      WHERE     BOM.MasterUPN = CFN.CFN_CustomerFaceNbr
+      AND CFN.CFN_ID = CFP.CFNP_CFN_ID
+      AND CFP.CFNP_Group_ID = #DealerId#
+      AND CFP.CFNP_PriceType = #PriceType#) t3
+      ON     t1.CFN_CustomerFaceNbr = t3.BOMUPN
+      where t3.MasterUPN in (select CFN_CustomerFaceNbr from cfn where CFN_ID=#CfnSetId#)
+      <!--and t1.CFN_ProductLine_BUM_ID = #ProductLineId#-->
+      ) TAB
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

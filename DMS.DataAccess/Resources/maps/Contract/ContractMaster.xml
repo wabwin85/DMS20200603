@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractMasterDM" assembly="DMS.Model.dll" type="DMS.Model.ContractMasterDM" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="ContractMasterResult" class="ContractMasterDM">
+      <result property="CmId" column="CmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmDmaId" column="CmDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmDealerCnName" column="CmDealerCnName" type="string" dbType="nvarchar"/>
+      <result property="CmDealerEnName" column="CmDealerEnName" type="string" dbType="nvarchar"/>
+      <result property="CmCharter" column="CmCharter" type="string" dbType="nvarchar"/>
+      <result property="CmAddress" column="CmAddress" type="string" dbType="nvarchar"/>
+      <result property="CmCountry" column="CmCountry" type="string" dbType="nvarchar"/>
+      <result property="CmTelephony" column="CmTelephony" type="string" dbType="nvarchar"/>
+      <result property="CmFax" column="CmFax" type="string" dbType="nvarchar"/>
+      <result property="CmContactPerson" column="CmContactPerson" type="string" dbType="nvarchar"/>
+      <result property="CmWebsite" column="CmWebsite" type="string" dbType="nvarchar"/>
+      <result property="CmEmail" column="CmEmail" type="string" dbType="nvarchar"/>
+      <result property="CmPubliclyTraded" column="CmPubliclyTraded" type="bool" dbType="bit"/>
+      <result property="CmExchange" column="CmExchange" type="string" dbType="nvarchar"/>
+      <result property="CmBank" column="CmBank" type="string" dbType="nvarchar"/>
+      <result property="CmBankAddress" column="CmBankAddress" type="string" dbType="nvarchar"/>
+      <result property="CmBankCountry" column="CmBankCountry" type="string" dbType="nvarchar"/>
+      <result property="CmBankAccount" column="CmBankAccount" type="string" dbType="nvarchar"/>
+      <result property="CmSwift" column="CmSwift" type="string" dbType="nvarchar"/>
+      <result property="CmProperty1" column="CmProperty1" type="bool" dbType="bit"/>
+      <result property="CmDesc1" column="CmDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmProperty2" column="CmProperty2" type="bool" dbType="bit"/>
+      <result property="CmDesc3" column="CmDesc3" type="string" dbType="nvarchar"/>
+      <result property="CmProperty3" column="CmProperty3" type="bool" dbType="bit"/>
+      <result property="CmDesc2" column="CmDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallDesc4" column="CmQualityRecallDesc4" type="string" dbType="nvarchar"/>
+      <result property="CmStatus" column="CmStatus" type="string" dbType="nvarchar"/>
+      <result property="CmType" column="CmType" type="string" dbType="nvarchar"/>
+      <result property="CmCreateDate" column="CmCreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CmCreateUser" column="CmCreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmUpdateUser" column="CmUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmUpdateDate" column="CmUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="CmForm4Country" column="CmForm4Country" type="string" dbType="nvarchar"/>
+      <result property="CmForm4AssessName" column="CmForm4AssessName" type="string" dbType="nvarchar"/>
+      <result property="CmForm4AssessDate" column="CmForm4AssessDate" type="DateTime" dbType="datetime"/>
+      <result property="CmQualityStoreProperty1" column="CmQualityStoreProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreDesc1" column="CmQualityStoreDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreProperty2" column="CmQualityStoreProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreDesc2" column="CmQualityStoreDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreProperty3" column="CmQualityStoreProperty3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreDesc3" column="CmQualityStoreDesc3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreProperty4" column="CmQualityStoreProperty4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreDesc4" column="CmQualityStoreDesc4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreProperty5" column="CmQualityStoreProperty5" type="string" dbType="nvarchar"/>
+      <result property="CmQualityStoreDesc5" column="CmQualityStoreDesc5" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityProperty1" column="CmQualityTraceabilityProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityDesc1" column="CmQualityTraceabilityDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityProperty2" column="CmQualityTraceabilityProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityDesc2" column="CmQualityTraceabilityDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityProperty3" column="CmQualityTraceabilityProperty3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityDesc3" column="CmQualityTraceabilityDesc3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityProperty4" column="CmQualityTraceabilityProperty4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTraceabilityDesc4" column="CmQualityTraceabilityDesc4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityImplantedProperty1" column="CmQualityImplantedProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityImplantedDesc1" column="CmQualityImplantedDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityMaintainProperty1" column="CmQualityMaintainProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityMaintainDesc1" column="CmQualityMaintainDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityMaintainProperty2" column="CmQualityMaintainProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityMaintainDesc2" column="CmQualityMaintainDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainProperty1" column="CmQualityComplainProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainDesc1" column="CmQualityComplainDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainProperty2" column="CmQualityComplainProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainDesc2" column="CmQualityComplainDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainProperty3" column="CmQualityComplainProperty3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainDesc3" column="CmQualityComplainDesc3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainProperty4" column="CmQualityComplainProperty4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityComplainDesc4" column="CmQualityComplainDesc4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityDisposeProperty1" column="CmQualityDisposeProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityDisposeDesc1" column="CmQualityDisposeDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityDisposeProperty2" column="CmQualityDisposeProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityDisposeDesc2" column="CmQualityDisposeDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityDisposeProperty3" column="CmQualityDisposeProperty3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityDisposeDesc3" column="CmQualityDisposeDesc3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityGuardProperty1" column="CmQualityGuardProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityGuardDesc1" column="CmQualityGuardDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityGuardProperty2" column="CmQualityGuardProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityGuardDesc2" column="CmQualityGuardDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallProperty1" column="CmQualityRecallProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallDesc1" column="CmQualityRecallDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallProperty2" column="CmQualityRecallProperty2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallDesc2" column="CmQualityRecallDesc2" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallProperty3" column="CmQualityRecallProperty3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallDesc3" column="CmQualityRecallDesc3" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallProperty4" column="CmQualityRecallProperty4" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallProperty5" column="CmQualityRecallProperty5" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallDesc5" column="CmQualityRecallDesc5" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallProperty6" column="CmQualityRecallProperty6" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecallDesc6" column="CmQualityRecallDesc6" type="string" dbType="nvarchar"/>
+      <result property="CmQualityExampleProperty1" column="CmQualityExampleProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityExampleDesc1" column="CmQualityExampleDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityLableProperty1" column="CmQualityLableProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityLableDesc1" column="CmQualityLableDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTrainProperty1" column="CmQualityTrainProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityTrainDesc1" column="CmQualityTrainDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecordProperty1" column="CmQualityRecordProperty1" type="string" dbType="nvarchar"/>
+      <result property="CmQualityRecordDesc1" column="CmQualityRecordDesc1" type="string" dbType="nvarchar"/>
+      <result property="CmForm1Check1" column="CmForm1Check1" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy1" column="CmForm1CheckBy1" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm1Check2" column="CmForm1Check2" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy2" column="CmForm1CheckBy2" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm1Check3" column="CmForm1Check3" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy3" column="CmForm1CheckBy3" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm1Check4" column="CmForm1Check4" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy4" column="CmForm1CheckBy4" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm1Check5" column="CmForm1Check5" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy5" column="CmForm1CheckBy5" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm1Check6" column="CmForm1Check6" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy6" column="CmForm1CheckBy6" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm1Check7" column="CmForm1Check7" type="string" dbType="nvarchar"/>
+      <result property="CmForm1CheckBy7" column="CmForm1CheckBy7" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmForm5UserName" column="CmForm5UserName" type="string" dbType="nvarchar"/>
+      <result property="CmForm5DealerName" column="CmForm5DealerName" type="string" dbType="nvarchar"/>
+      <result property="CmFrom3BankName" column="CmFrom3BankName" type="string" dbType="nvarchar"/>
+      <result property="CmFrom3BankAddress" column="CmFrom3BankAddress" type="string" dbType="nvarchar"/>
+      <result property="CmFrom3BankAccount" column="CmFrom3BankAccount" type="string" dbType="nvarchar"/>
+      <result property="CmFrom3BankCountry" column="CmFrom3BankCountry" type="string" dbType="nvarchar"/>
+      <result property="CmFrom3BankSwift" column="CmFrom3BankSwift" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectForContractMaster" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+
+      SELECT ContractID,
+      DealerID,
+      CmID,
+      mast.DMA_ChineseName AS DealerCnName,
+      mast.DMA_EnglishName AS DealerEnName,
+      mast.DMA_DealerType AS DealerType,
+      Division,
+      EffectiveDate,
+      ExpirationDate,
+      ContStatus,
+      ContType,
+      ParmetType,
+      UpdateDate,
+      cc.CC_NameCN SubDeptName,
+      ROW_NUMBER () OVER (ORDER BY UpdateDate DESC) AS [row_number]
+      FROM    (SELECT appoin.CAP_ID AS ContractID,
+      appoin.CAP_CM_ID AS CmID,
+      appoin.CAP_DMA_ID AS DealerID,
+      appoin.CAP_Division AS Division,
+      Convert(NVARCHAR(10),appoin.CAP_EffectiveDate ,120) as EffectiveDate,
+      Convert(NVARCHAR(10),appoin.CAP_ExpirationDate,120) as ExpirationDate,
+      appoin.CAP_Status AS ContStatus,
+      appoin.CAP_Type AS ContType,
+      'Appointment' AS ParmetType,
+      appoin.CAP_Update_Date AS UpdateDate,
+      appoin.CAP_SubDepID AS SubDepID
+      FROM ContractAppointment appoin
+      UNION
+      SELECT amend.CAM_ID AS ContractID,
+      amend.CAM_CM_ID AS CmID,
+      amend.CAM_DMA_ID AS DealerID,
+      amend.CAM_Division AS Division,
+      Convert(NVARCHAR(10),amend.CAM_Amendment_EffectiveDate ,120) as EffectiveDate,
+      Convert(NVARCHAR(10),amend.CAM_Agreement_ExpirationDate,120) as ExpirationDate,
+      amend.CAM_Status AS ContStatus,
+      amend.CAM_Type AS ContType,
+      'Amendment' AS ParmetType,
+      amend.CAM_Update_Date AS UpdateDate,
+      amend.CAM_SubDepID
+      FROM ContractAmendment amend
+      UNION
+      SELECT rene.CRE_ID AS ContractID,
+      rene.CRE_CM_ID AS CmID,
+      rene.CRE_DMA_ID AS DealerID,
+      rene.CRE_Division AS Division,
+      Convert(NVARCHAR(10),rene.CRE_Agrmt_EffectiveDate_Renewal ,120) as EffectiveDate,
+      Convert(NVARCHAR(10),rene.CRE_Agrmt_ExpirationDate_Renewal,120) as ExpirationDate,
+      rene.CRE_Status AS ContStatus,
+      rene.CRE_Type AS ContType,
+      'Renewal' AS ParmetType,
+      rene.CRE_Update_Date,
+      rene.CRE_SubDepID
+      FROM ContractRenewal rene
+      UNION
+      SELECT cte.CTE_ID AS ContractID,
+      cte.CTE_CM_ID AS CmID,
+      cte.CTE_DMA_ID AS DealerID,
+      cte.CTE_Division AS Division,
+      Convert(NVARCHAR(10),cte.CTE_Termination_EffectiveDate ,120) as EffectiveDate,
+      null AS ExpirationDate,
+      cte.CTE_Status AS ContStatus,
+      cte.CTE_Type AS ContType,
+      'Termination' AS ParmetType,
+      cte.CTE_Update_Date,
+      cte.CTE_SubDepID
+      FROM ContractTermination cte(nolock)) ToTable
+      INNER JOIN dbo.V_ProductClassificationStructure vp ON ToTable.SubDepID = vp.CC_Code
+      INNER JOIN dbo.V_DivisionProductLineRelation vd ON vp.CC_ProductLineID = vd.ProductLineID
+      LEFT JOIN DealerMaster mast(nolock) ON mast.DMA_ID = ToTable.DealerID
+      left join interface.ClassificationContract cc(nolock) on ToTable.SubDepID= cc.CC_Code
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubCompanyId">vd.SubCompanyId =#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">vd.BrandId =#BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">DMA_ChineseName like N'%$DealerName$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerID">DealerID =#DealerID#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ContStatus =#Status# </isNotNull>
+        <isNotNull prepend="AND" property="Division">Division =#Division# </isNotNull>
+        <isNotNull prepend="AND" property="StartBeginDate">
+          CONVERT(NVARCHAR(10), EffectiveDate, 112) >= CONVERT(NVARCHAR(10), #StartBeginDate#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="StartEndDate">
+          CONVERT(NVARCHAR(10), EffectiveDate, 112) &lt; = CONVERT(NVARCHAR(10), #StartEndDate#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="StopBeginDate">
+          CONVERT(NVARCHAR(10), ExpirationDate, 112) >= CONVERT(NVARCHAR(10), #StopBeginDate#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="StopEndDate">
+          CONVERT(NVARCHAR(10), ExpirationDate, 112) &lt; = CONVERT(NVARCHAR(10), #StopEndDate#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="ContractType">ParmetType =#ContractType# </isNotNull>
+        
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (mast.DMA_Parent_DMA_ID=#OwnerCorpId# OR ToTable.DealerID=#OwnerCorpId#)
+        </isEqual>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          <isEqual property="UserType" compareValue="SA">
+            (
+            EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD,V_DivisionProductLineRelation vp
+            WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+            AND SD.DealerID = ToTable.DealerID AND SD.BUM_ID = vp.ProductLineID  AND OU.AttributeId  &lt;&gt; OU.RootId
+            AND  vp.IsEmerging=0
+            AND vp.DivisionName=ToTable.Division
+
+            <iterate prepend="AND" property="OwnerOrganizationUnits"
+                  open="(" close=")" conjunction="OR">
+              OU.RootId = #OwnerOrganizationUnits[]#
+            </iterate>
+            )
+            OR
+            EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD ,V_DivisionProductLineRelation vp2
+            WHERE SD.SalesID = #OwnerId#
+            AND SD.DealerID = ToTable.DealerID AND SD.BUM_ID = vp2.ProductLineID
+            AND vp2.IsEmerging=0
+            AND vp2.DivisionName=ToTable.Division)
+            )
+          </isEqual>
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="SelectContractMasterByCmID" parameterClass="string" resultClass="ContractMasterDM">
+      SELECT CM_ID AS CmId,CM_DMA_ID AS CmDmaId,CM_Dealer_CN_Name AS CmDealerCnName,CM_Dealer_EN_Name AS CmDealerEnName,CM_Charter AS CmCharter,CM_Address AS CmAddress,CM_Country AS CmCountry,CM_Telephony AS CmTelephony,CM_Fax AS CmFax,CM_Contact_Person AS CmContactPerson,CM_Website AS CmWebsite,CM_Email AS CmEmail,CM_Publicly_Traded AS CmPubliclyTraded,CM_Exchange AS CmExchange,CM_Bank AS CmBank,CM_Bank_Address AS CmBankAddress,CM_Bank_Country AS CmBankCountry,CM_Bank_Account AS CmBankAccount,CM_Swift AS CmSwift,CM_Property1 AS CmProperty1,CM_Desc1 AS CmDesc1,CM_Property2 AS CmProperty2,CM_Desc3 AS CmDesc3,CM_Property3 AS CmProperty3,CM_Desc2 AS CmDesc2,CM_Quality_Recall_Desc4 AS CmQualityRecallDesc4,CM_Status AS CmStatus,CM_Type AS CmType,CM_Create_Date AS CmCreateDate,CM_Create_User AS CmCreateUser,CM_Update_User AS CmUpdateUser,CM_Update_Date AS CmUpdateDate,CM_Form4_Country AS CmForm4Country,CM_Form4_AssessName AS CmForm4AssessName,CM_Form4_AssessDate AS CmForm4AssessDate,CM_Quality_Store_Property1 AS CmQualityStoreProperty1,CM_Quality_Store_Desc1 AS CmQualityStoreDesc1,CM_Quality_Store_Property2 AS CmQualityStoreProperty2,CM_Quality_Store_Desc2 AS CmQualityStoreDesc2,CM_Quality_Store_Property3 AS CmQualityStoreProperty3,CM_Quality_Store_Desc3 AS CmQualityStoreDesc3,CM_Quality_Store_Property4 AS CmQualityStoreProperty4,CM_Quality_Store_Desc4 AS CmQualityStoreDesc4,CM_Quality_Store_Property5 AS CmQualityStoreProperty5,CM_Quality_Store_Desc5 AS CmQualityStoreDesc5,CM_Quality_Traceability_Property1 AS CmQualityTraceabilityProperty1,CM_Quality_Traceability_Desc1 AS CmQualityTraceabilityDesc1,CM_Quality_Traceability_Property2 AS CmQualityTraceabilityProperty2,CM_Quality_Traceability_Desc2 AS CmQualityTraceabilityDesc2,CM_Quality_Traceability_Property3 AS CmQualityTraceabilityProperty3,CM_Quality_Traceability_Desc3 AS CmQualityTraceabilityDesc3,CM_Quality_Traceability_Property4 AS CmQualityTraceabilityProperty4,CM_Quality_Traceability_Desc4 AS CmQualityTraceabilityDesc4,CM_Quality_Implanted_Property1 AS CmQualityImplantedProperty1,CM_Quality_Implanted_Desc1 AS CmQualityImplantedDesc1,CM_Quality_Maintain_Property1 AS CmQualityMaintainProperty1,CM_Quality_Maintain_Desc1 AS CmQualityMaintainDesc1,CM_Quality_Maintain_Property2 AS CmQualityMaintainProperty2,CM_Quality_Maintain_Desc2 AS CmQualityMaintainDesc2,CM_Quality_Complain_Property1 AS CmQualityComplainProperty1,CM_Quality_Complain_Desc1 AS CmQualityComplainDesc1,CM_Quality_Complain_Property2 AS CmQualityComplainProperty2,CM_Quality_Complain_Desc2 AS CmQualityComplainDesc2,CM_Quality_Complain_Property3 AS CmQualityComplainProperty3,CM_Quality_Complain_Desc3 AS CmQualityComplainDesc3,CM_Quality_Complain_Property4 AS CmQualityComplainProperty4,CM_Quality_Complain_Desc4 AS CmQualityComplainDesc4,CM_Quality_Dispose_Property1 AS CmQualityDisposeProperty1,CM_Quality_Dispose_Desc1 AS CmQualityDisposeDesc1,CM_Quality_Dispose_Property2 AS CmQualityDisposeProperty2,CM_Quality_Dispose_Desc2 AS CmQualityDisposeDesc2,CM_Quality_Dispose_Property3 AS CmQualityDisposeProperty3,CM_Quality_Dispose_Desc3 AS CmQualityDisposeDesc3,CM_Quality_Guard_Property1 AS CmQualityGuardProperty1,CM_Quality_Guard_Desc1 AS CmQualityGuardDesc1,CM_Quality_Guard_Property2 AS CmQualityGuardProperty2,CM_Quality_Guard_Desc2 AS CmQualityGuardDesc2,CM_Quality_Recall_Property1 AS CmQualityRecallProperty1,CM_Quality_Recall_Desc1 AS CmQualityRecallDesc1,CM_Quality_Recall_Property2 AS CmQualityRecallProperty2,CM_Quality_Recall_Desc2 AS CmQualityRecallDesc2,CM_Quality_Recall_Property3 AS CmQualityRecallProperty3,CM_Quality_Recall_Desc3 AS CmQualityRecallDesc3,CM_Quality_Recall_Property4 AS CmQualityRecallProperty4,CM_Quality_Recall_Property5 AS CmQualityRecallProperty5,CM_Quality_Recall_Desc5 AS CmQualityRecallDesc5,CM_Quality_Recall_Property6 AS CmQualityRecallProperty6,CM_Quality_Recall_Desc6 AS CmQualityRecallDesc6,CM_Quality_Example_Property1 AS CmQualityExampleProperty1,CM_Quality_Example_Desc1 AS CmQualityExampleDesc1,CM_Quality_Lable_Property1 AS CmQualityLableProperty1,CM_Quality_Lable_Desc1 AS CmQualityLableDesc1,CM_Quality_Train_Property1 AS CmQualityTrainProperty1,CM_Quality_Train_Desc1 AS CmQualityTrainDesc1,CM_Quality_Record_Property1 AS CmQualityRecordProperty1,CM_Quality_Record_Desc1 AS CmQualityRecordDesc1,CM_Form1_Check1 AS CmForm1Check1,CM_Form1_CheckBy1 AS CmForm1CheckBy1,CM_Form1_Check2 AS CmForm1Check2,CM_Form1_CheckBy2 AS CmForm1CheckBy2,CM_Form1_Check3 AS CmForm1Check3,CM_Form1_CheckBy3 AS CmForm1CheckBy3,CM_Form1_Check4 AS CmForm1Check4,CM_Form1_CheckBy4 AS CmForm1CheckBy4,CM_Form1_Check5 AS CmForm1Check5,CM_Form1_CheckBy5 AS CmForm1CheckBy5,CM_Form1_Check6 AS CmForm1Check6,CM_Form1_CheckBy6 AS CmForm1CheckBy6,CM_Form1_Check7 AS CmForm1Check7,CM_Form1_CheckBy7 AS CmForm1CheckBy7,CM_Form5_UserName AS CmForm5UserName,CM_Form5_DealerName AS CmForm5DealerName,CM_From3_BankName AS CmFrom3BankName,CM_From3_BankAddress AS CmFrom3BankAddress,CM_From3_BankAccount AS CmFrom3BankAccount,CM_From3_BankCountry AS CmFrom3BankCountry,CM_From3_BankSwift AS CmFrom3BankSwift
+      FROM ContractMaster
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CM_ID = #CmId#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectContractMasterByDealerID" parameterClass="string" resultClass="ContractMasterDM">
+      SELECT CM_ID AS CmId,CM_DMA_ID AS CmDmaId,CM_Dealer_CN_Name AS CmDealerCnName,CM_Dealer_EN_Name AS CmDealerEnName,CM_Charter AS CmCharter,CM_Address AS CmAddress,CM_Country AS CmCountry,CM_Telephony AS CmTelephony,CM_Fax AS CmFax,CM_Contact_Person AS CmContactPerson,CM_Website AS CmWebsite,CM_Email AS CmEmail,CM_Publicly_Traded AS CmPubliclyTraded,CM_Exchange AS CmExchange,CM_Bank AS CmBank,CM_Bank_Address AS CmBankAddress,CM_Bank_Country AS CmBankCountry,CM_Bank_Account AS CmBankAccount,CM_Swift AS CmSwift,CM_Property1 AS CmProperty1,CM_Desc1 AS CmDesc1,CM_Property2 AS CmProperty2,CM_Desc3 AS CmDesc3,CM_Property3 AS CmProperty3,CM_Desc2 AS CmDesc2,CM_Quality_Recall_Desc4 AS CmQualityRecallDesc4,CM_Status AS CmStatus,CM_Type AS CmType,CM_Create_Date AS CmCreateDate,CM_Create_User AS CmCreateUser,CM_Update_User AS CmUpdateUser,CM_Update_Date AS CmUpdateDate,CM_Form4_Country AS CmForm4Country,CM_Form4_AssessName AS CmForm4AssessName,CM_Form4_AssessDate AS CmForm4AssessDate,CM_Quality_Store_Property1 AS CmQualityStoreProperty1,CM_Quality_Store_Desc1 AS CmQualityStoreDesc1,CM_Quality_Store_Property2 AS CmQualityStoreProperty2,CM_Quality_Store_Desc2 AS CmQualityStoreDesc2,CM_Quality_Store_Property3 AS CmQualityStoreProperty3,CM_Quality_Store_Desc3 AS CmQualityStoreDesc3,CM_Quality_Store_Property4 AS CmQualityStoreProperty4,CM_Quality_Store_Desc4 AS CmQualityStoreDesc4,CM_Quality_Store_Property5 AS CmQualityStoreProperty5,CM_Quality_Store_Desc5 AS CmQualityStoreDesc5,CM_Quality_Traceability_Property1 AS CmQualityTraceabilityProperty1,CM_Quality_Traceability_Desc1 AS CmQualityTraceabilityDesc1,CM_Quality_Traceability_Property2 AS CmQualityTraceabilityProperty2,CM_Quality_Traceability_Desc2 AS CmQualityTraceabilityDesc2,CM_Quality_Traceability_Property3 AS CmQualityTraceabilityProperty3,CM_Quality_Traceability_Desc3 AS CmQualityTraceabilityDesc3,CM_Quality_Traceability_Property4 AS CmQualityTraceabilityProperty4,CM_Quality_Traceability_Desc4 AS CmQualityTraceabilityDesc4,CM_Quality_Implanted_Property1 AS CmQualityImplantedProperty1,CM_Quality_Implanted_Desc1 AS CmQualityImplantedDesc1,CM_Quality_Maintain_Property1 AS CmQualityMaintainProperty1,CM_Quality_Maintain_Desc1 AS CmQualityMaintainDesc1,CM_Quality_Maintain_Property2 AS CmQualityMaintainProperty2,CM_Quality_Maintain_Desc2 AS CmQualityMaintainDesc2,CM_Quality_Complain_Property1 AS CmQualityComplainProperty1,CM_Quality_Complain_Desc1 AS CmQualityComplainDesc1,CM_Quality_Complain_Property2 AS CmQualityComplainProperty2,CM_Quality_Complain_Desc2 AS CmQualityComplainDesc2,CM_Quality_Complain_Property3 AS CmQualityComplainProperty3,CM_Quality_Complain_Desc3 AS CmQualityComplainDesc3,CM_Quality_Complain_Property4 AS CmQualityComplainProperty4,CM_Quality_Complain_Desc4 AS CmQualityComplainDesc4,CM_Quality_Dispose_Property1 AS CmQualityDisposeProperty1,CM_Quality_Dispose_Desc1 AS CmQualityDisposeDesc1,CM_Quality_Dispose_Property2 AS CmQualityDisposeProperty2,CM_Quality_Dispose_Desc2 AS CmQualityDisposeDesc2,CM_Quality_Dispose_Property3 AS CmQualityDisposeProperty3,CM_Quality_Dispose_Desc3 AS CmQualityDisposeDesc3,CM_Quality_Guard_Property1 AS CmQualityGuardProperty1,CM_Quality_Guard_Desc1 AS CmQualityGuardDesc1,CM_Quality_Guard_Property2 AS CmQualityGuardProperty2,CM_Quality_Guard_Desc2 AS CmQualityGuardDesc2,CM_Quality_Recall_Property1 AS CmQualityRecallProperty1,CM_Quality_Recall_Desc1 AS CmQualityRecallDesc1,CM_Quality_Recall_Property2 AS CmQualityRecallProperty2,CM_Quality_Recall_Desc2 AS CmQualityRecallDesc2,CM_Quality_Recall_Property3 AS CmQualityRecallProperty3,CM_Quality_Recall_Desc3 AS CmQualityRecallDesc3,CM_Quality_Recall_Property4 AS CmQualityRecallProperty4,CM_Quality_Recall_Property5 AS CmQualityRecallProperty5,CM_Quality_Recall_Desc5 AS CmQualityRecallDesc5,CM_Quality_Recall_Property6 AS CmQualityRecallProperty6,CM_Quality_Recall_Desc6 AS CmQualityRecallDesc6,CM_Quality_Example_Property1 AS CmQualityExampleProperty1,CM_Quality_Example_Desc1 AS CmQualityExampleDesc1,CM_Quality_Lable_Property1 AS CmQualityLableProperty1,CM_Quality_Lable_Desc1 AS CmQualityLableDesc1,CM_Quality_Train_Property1 AS CmQualityTrainProperty1,CM_Quality_Train_Desc1 AS CmQualityTrainDesc1,CM_Quality_Record_Property1 AS CmQualityRecordProperty1,CM_Quality_Record_Desc1 AS CmQualityRecordDesc1,CM_Form1_Check1 AS CmForm1Check1,CM_Form1_CheckBy1 AS CmForm1CheckBy1,CM_Form1_Check2 AS CmForm1Check2,CM_Form1_CheckBy2 AS CmForm1CheckBy2,CM_Form1_Check3 AS CmForm1Check3,CM_Form1_CheckBy3 AS CmForm1CheckBy3,CM_Form1_Check4 AS CmForm1Check4,CM_Form1_CheckBy4 AS CmForm1CheckBy4,CM_Form1_Check5 AS CmForm1Check5,CM_Form1_CheckBy5 AS CmForm1CheckBy5,CM_Form1_Check6 AS CmForm1Check6,CM_Form1_CheckBy6 AS CmForm1CheckBy6,CM_Form1_Check7 AS CmForm1Check7,CM_Form1_CheckBy7 AS CmForm1CheckBy7,CM_Form5_UserName AS CmForm5UserName,CM_Form5_DealerName AS CmForm5DealerName,CM_From3_BankName AS CmFrom3BankName,CM_From3_BankAddress AS CmFrom3BankAddress,CM_From3_BankAccount AS CmFrom3BankAccount,CM_From3_BankCountry AS CmFrom3BankCountry,CM_From3_BankSwift AS CmFrom3BankSwift
+      FROM ContractMaster
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CM_DMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="ContractTakeEffectState" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC  Contract.Proc_Contract_TakeEffectState #ContractId#
+    </select>
+
+    <update id="UpdateContractFrom3" parameterClass="ContractMasterDM">
+      UPDATE ContractMaster
+      SET
+      CM_Dealer_CN_Name=#CmDealerCnName#,
+      CM_Address=#CmAddress#,
+      CM_Telephony=#CmTelephony#,
+      CM_Contact_Person=#CmContactPerson#,
+      CM_Email=#CmEmail#,
+      CM_Charter=#CmCharter#,
+      CM_Country=#CmCountry#,
+      CM_Fax=#CmFax#,
+      CM_Website=#CmWebsite#,
+      CM_Publicly_Traded=#CmPubliclyTraded#,
+      CM_Exchange=#CmExchange#,
+      CM_Property1=#CmProperty1#,
+      CM_Property2=#CmProperty2#,
+      CM_Property3=#CmProperty3#,
+      CM_Desc1=#CmDesc1#,
+      CM_Desc2=#CmDesc2#,
+      CM_Desc3=#CmDesc3#,
+      CM_Status=#CmStatus#,
+      CM_DMA_ID=#CmDmaId#,
+      CM_From3_BankName=#CmFrom3BankName#,
+      CM_From3_BankAddress=#CmFrom3BankAddress#,
+      CM_From3_BankAccount=#CmFrom3BankAccount#,
+      CM_From3_BankCountry=#CmFrom3BankCountry#,
+      CM_From3_BankSwift=#CmFrom3BankSwift#
+      WHERE CM_ID = #CmId#
+    </update>
+
+    <insert id="InsertContractFrom3" parameterClass="ContractMasterDM">
+      INSERT INTO ContractMaster(CM_ID,CM_Dealer_CN_Name,CM_Address,CM_Telephony,CM_Contact_Person,CM_Email,
+      CM_Charter,CM_Country,CM_Fax,CM_Website,CM_Publicly_Traded,CM_Exchange,CM_Property1,CM_Property2,CM_Property3,
+      CM_Desc1,CM_Desc2,CM_Desc3,CM_Status,CM_DMA_ID,CM_From3_BankName,CM_From3_BankAddress,CM_From3_BankAccount,CM_From3_BankCountry,CM_From3_BankSwift)
+      VALUES(#CmId#,#CmDealerCnName#,#CmAddress#,#CmTelephony#,#CmContactPerson#,#CmEmail#,#CmCharter#,#CmCountry#,#CmFax#,#CmWebsite#,
+      #CmPubliclyTraded#,#CmExchange#,#CmProperty1#,#CmProperty2#,#CmProperty3#,#CmDesc1#,#CmDesc2#,#CmDesc3#,#CmStatus#,#CmDmaId#,#CmFrom3BankName#,#CmFrom3BankAddress#,#CmFrom3BankAccount#,#CmFrom3BankCountry#,#CmFrom3BankSwift#)
+    </insert>
+
+    <update id="UpdateContractFrom4" parameterClass="ContractMasterDM">
+      UPDATE ContractMaster
+      SET CM_Dealer_EN_Name=#CmDealerEnName#,
+      CM_Form4_AssessName=#CmForm4AssessName#,
+      CM_Form4_AssessDate=#CmForm4AssessDate#,
+      CM_Form4_Country=#CmForm4Country#,
+      CM_Quality_Store_Property1=#CmQualityStoreProperty1#,
+      CM_Quality_Store_Property2=#CmQualityStoreProperty2#,
+      CM_Quality_Store_Property3=#CmQualityStoreProperty3#,
+      CM_Quality_Store_Property4=#CmQualityStoreProperty4#,
+      CM_Quality_Store_Property5=#CmQualityStoreProperty5#,
+      CM_Quality_Store_Desc1=#CmQualityStoreDesc1#,
+      CM_Quality_Store_Desc2=#CmQualityStoreDesc2#,
+      CM_Quality_Store_Desc3=#CmQualityStoreDesc3#,
+      CM_Quality_Store_Desc4=#CmQualityStoreDesc4#,
+      CM_Quality_Store_Desc5=#CmQualityStoreDesc5#,
+      CM_Quality_Traceability_Property1= #CmQualityTraceabilityProperty1#,
+      CM_Quality_Traceability_Property2= #CmQualityTraceabilityProperty2#,
+      CM_Quality_Traceability_Property3= #CmQualityTraceabilityProperty3#,
+      CM_Quality_Traceability_Property4= #CmQualityTraceabilityProperty4#,
+      CM_Quality_Traceability_Desc1=#CmQualityTraceabilityDesc1#,
+      CM_Quality_Traceability_Desc2=#CmQualityTraceabilityDesc2#,
+      CM_Quality_Traceability_Desc3=#CmQualityTraceabilityDesc3#,
+      CM_Quality_Traceability_Desc4=#CmQualityTraceabilityDesc4#,
+      CM_Quality_Implanted_Property1=#CmQualityImplantedProperty1#,
+      CM_Quality_Implanted_Desc1=#CmQualityImplantedDesc1#,
+      CM_Quality_Maintain_Property1=#CmQualityMaintainProperty1#,
+      CM_Quality_Maintain_Property2=#CmQualityMaintainProperty2#,
+      CM_Quality_Maintain_Desc1=#CmQualityMaintainDesc1#,
+      CM_Quality_Maintain_Desc2=#CmQualityMaintainDesc2#,
+      CM_Quality_Complain_Property1=#CmQualityComplainProperty1#,
+      CM_Quality_Complain_Property2=#CmQualityComplainProperty2#,
+      CM_Quality_Complain_Property3=#CmQualityComplainProperty3#,
+      CM_Quality_Complain_Property4=#CmQualityComplainProperty4#,
+      CM_Quality_Complain_Desc1=#CmQualityComplainDesc1#,
+      CM_Quality_Complain_Desc2=#CmQualityComplainDesc2#,
+      CM_Quality_Complain_Desc3=#CmQualityComplainDesc3#,
+      CM_Quality_Complain_Desc4=#CmQualityComplainDesc4#,
+      CM_Quality_Dispose_Property1=#CmQualityDisposeProperty1#,
+      CM_Quality_Dispose_Property2=#CmQualityDisposeProperty2#,
+      CM_Quality_Dispose_Property3=#CmQualityDisposeProperty3#,
+      CM_Quality_Dispose_Desc1=#CmQualityDisposeDesc1#,
+      CM_Quality_Dispose_Desc2=#CmQualityDisposeDesc2#,
+      CM_Quality_Dispose_Desc3=#CmQualityDisposeDesc3#,
+      CM_Quality_Guard_Property1=#CmQualityGuardProperty1#,
+      CM_Quality_Guard_Property2=#CmQualityGuardProperty2#,
+      CM_Quality_Guard_Desc1=#CmQualityGuardDesc1#,
+      CM_Quality_Guard_Desc2=#CmQualityGuardDesc2#,
+      CM_Quality_Recall_Property1=#CmQualityRecallProperty1#,
+      CM_Quality_Recall_Property2=#CmQualityRecallProperty2#,
+      CM_Quality_Recall_Property3=#CmQualityRecallProperty3#,
+      CM_Quality_Recall_Property4=#CmQualityRecallProperty4#,
+      CM_Quality_Recall_Property5=#CmQualityRecallProperty5#,
+      CM_Quality_Recall_Property6=#CmQualityRecallProperty6#,
+      CM_Quality_Recall_Desc1=#CmQualityRecallDesc1#,
+      CM_Quality_Recall_Desc2=#CmQualityRecallDesc2#,
+      CM_Quality_Recall_Desc3=#CmQualityRecallDesc3#,
+      CM_Quality_Recall_Desc4=#CmQualityRecallDesc4#,
+      CM_Quality_Recall_Desc5=#CmQualityRecallDesc5#,
+      CM_Quality_Recall_Desc6=#CmQualityRecallDesc6#,
+      CM_Quality_Example_Property1=#CmQualityExampleProperty1#,
+      CM_Quality_Example_Desc1=#CmQualityExampleDesc1#,
+      CM_Quality_Lable_Property1=#CmQualityLableProperty1#,
+      CM_Quality_Lable_Desc1=#CmQualityLableDesc1#,
+      CM_Quality_Train_Property1=#CmQualityTrainProperty1#,
+      CM_Quality_Train_Desc1=#CmQualityTrainDesc1#,
+      CM_Quality_Record_Property1=#CmQualityRecordProperty1#,
+      CM_Quality_Record_Desc1=#CmQualityRecordDesc1#,
+      CM_Status=#CmStatus#,
+      CM_DMA_ID=#CmDmaId#
+      WHERE CM_ID=#CmId#
+    </update>
+
+    <insert id="InsertContractFrom4" parameterClass="ContractMasterDM">
+      INSERT INTO ContractMaster
+      (CM_ID,CM_Dealer_EN_Name,	CM_Form4_AssessName,	CM_Form4_AssessDate,	CM_Form4_Country,	CM_Quality_Store_Property1,
+      CM_Quality_Store_Property2,	CM_Quality_Store_Property3,	CM_Quality_Store_Property4,	CM_Quality_Store_Property5,
+      CM_Quality_Store_Desc1,	CM_Quality_Store_Desc2,	CM_Quality_Store_Desc3,	CM_Quality_Store_Desc4,	CM_Quality_Store_Desc5,
+      CM_Quality_Traceability_Property1,	CM_Quality_Traceability_Property2,	CM_Quality_Traceability_Property3,
+      CM_Quality_Traceability_Property4,	CM_Quality_Traceability_Desc1,	CM_Quality_Traceability_Desc2,
+      CM_Quality_Traceability_Desc3,	CM_Quality_Traceability_Desc4,	CM_Quality_Implanted_Property1,	CM_Quality_Implanted_Desc1,
+      CM_Quality_Maintain_Property1,	CM_Quality_Maintain_Property2,	CM_Quality_Maintain_Desc1,	CM_Quality_Maintain_Desc2,
+      CM_Quality_Complain_Property1,	CM_Quality_Complain_Property2,	CM_Quality_Complain_Property3,	CM_Quality_Complain_Property4,
+      CM_Quality_Complain_Desc1,	CM_Quality_Complain_Desc2,	CM_Quality_Complain_Desc3,	CM_Quality_Complain_Desc4,	CM_Quality_Dispose_Property1,
+      CM_Quality_Dispose_Property2,	CM_Quality_Dispose_Property3,	CM_Quality_Dispose_Desc1,	CM_Quality_Dispose_Desc2,	CM_Quality_Dispose_Desc3,
+      CM_Quality_Guard_Property1,	CM_Quality_Guard_Property2,	CM_Quality_Guard_Desc1,	CM_Quality_Guard_Desc2,
+      CM_Quality_Recall_Property1,	CM_Quality_Recall_Property2,	CM_Quality_Recall_Property3,
+      CM_Quality_Recall_Property4,	CM_Quality_Recall_Property5,	CM_Quality_Recall_Property6,
+      CM_Quality_Recall_Desc1,	CM_Quality_Recall_Desc2, CM_Quality_Recall_Desc3,	CM_Quality_Recall_Desc4,
+      CM_Quality_Recall_Desc5,	CM_Quality_Recall_Desc6,	CM_Quality_Example_Property1,
+      CM_Quality_Example_Desc1,	CM_Quality_Lable_Property1,	CM_Quality_Lable_Desc1,
+      CM_Quality_Train_Property1,	CM_Quality_Train_Desc1,	CM_Quality_Record_Property1,	CM_Quality_Record_Desc1,	CM_Status,CM_DMA_ID)
+      VALUES(#CmId#,#CmDealerEnName#,	#CmForm4AssessName#,	#CmForm4AssessDate#,	#CmForm4Country#,	#CmQualityStoreProperty1#,
+      #CmQualityStoreProperty2#,	#CmQualityStoreProperty3#,	#CmQualityStoreProperty4#,	#CmQualityStoreProperty5#,
+      #CmQualityStoreDesc1#,	#CmQualityStoreDesc2#,	#CmQualityStoreDesc3#,	#CmQualityStoreDesc4#,	#CmQualityStoreDesc5#,
+      #CmQualityTraceabilityProperty1#,	 #CmQualityTraceabilityProperty2#,	 #CmQualityTraceabilityProperty3#,
+      #CmQualityTraceabilityProperty4#,	#CmQualityTraceabilityDesc1#,	#CmQualityTraceabilityDesc2#,	#CmQualityTraceabilityDesc3#,
+      #CmQualityTraceabilityDesc4#,	#CmQualityImplantedProperty1#,	#CmQualityImplantedDesc1#,	#CmQualityMaintainProperty1#,
+      #CmQualityMaintainProperty2#,	#CmQualityMaintainDesc1#,	#CmQualityMaintainDesc2#,	#CmQualityComplainProperty1#,	#CmQualityComplainProperty2#,	#CmQualityComplainProperty3#,
+      #CmQualityComplainProperty4#,	#CmQualityComplainDesc1#,	#CmQualityComplainDesc2#,	#CmQualityComplainDesc3#,	#CmQualityComplainDesc4#,
+      #CmQualityDisposeProperty1#,	#CmQualityDisposeProperty2#,	#CmQualityDisposeProperty3#,	#CmQualityDisposeDesc1#,
+      #CmQualityDisposeDesc2#,	#CmQualityDisposeDesc3#,	#CmQualityGuardProperty1#,	#CmQualityGuardProperty2#,
+      #CmQualityGuardDesc1#,	#CmQualityGuardDesc2#,	#CmQualityRecallProperty1#,	#CmQualityRecallProperty2#,
+      #CmQualityRecallProperty3#,	#CmQualityRecallProperty4#,	#CmQualityRecallProperty5#,	#CmQualityRecallProperty6#,
+      #CmQualityRecallDesc1#,	#CmQualityRecallDesc2#,	#CmQualityRecallDesc3#,	#CmQualityRecallDesc4#,	#CmQualityRecallDesc5#,
+      #CmQualityRecallDesc6#,	#CmQualityExampleProperty1#,	#CmQualityExampleDesc1#,	#CmQualityLableProperty1#,	#CmQualityLableDesc1#,
+      #CmQualityTrainProperty1#,	#CmQualityTrainDesc1#,	#CmQualityRecordProperty1#,	#CmQualityRecordDesc1#,	#CmStatus#,#CmDmaId#
+      )
+    </insert>
+
+    <update id="UpdateContractFrom5" parameterClass="ContractMasterDM">
+      UPDATE ContractMaster
+      SET CM_Form5_UserName=#CmForm5UserName#,CM_Form5_DealerName=#CmForm5DealerName#,CM_DMA_ID=#CmDmaId#,CM_Status=#CmStatus#
+      WHERE CM_ID=#CmId#
+    </update>
+
+    <insert id="InsertContractFrom5" parameterClass="ContractMasterDM">
+      INSERT INTO ContractMaster
+      (CM_ID,CM_Form5_UserName,CM_Form5_DealerName,CM_DMA_ID,CM_Status) VALUES(#CmId#,#CmForm5UserName#,#CmForm5DealerName#,#CmDmaId#,#CmStatus#)
+    </insert>
+
+    <update id="UpdateContractMasterStatus" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractMaster
+      SET  CM_Status=#CmStatus#
+      WHERE CM_ID=#Cmid#
+    </update>
+
+    <select id="SelectAuthorCodeAndDivName" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select * from [GC_Fn_GetAuthorCodeAndDivName](#ContractId#,#ParmetType#)
+    </select>
+
+    <select id="SelectActiveContractCount" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select COUNT(*) as CNT from dbo.V_DealerContractMaster t1,V_DivisionProductLineRelation t2
+      where convert(varchar(3),t1.Division) = t2.DivisionCode
+      AND T1.ActiveFlag = 1
+      AND T1.DMA_ID =#Dma_id#
+      AND T2.ProductLineID = #Productline_id#
+    </select>
+
+    <insert id="ContractMasterMaintain" parameterClass="System.Collections.Hashtable">
+      INSERT INTO ContractMaster (CM_ID,CM_DMA_ID,CM_Dealer_CN_Name,CM_Dealer_EN_Name,CM_Address,CM_Form5_DealerName,CM_Status)
+      SELECT #CmId#,A.DMA_ID,A.DMA_ChineseName,A.DMA_EnglishName,A.DMA_Address,A.DMA_EnglishName,'Draft' FROM DealerMaster A(nolock) WHERE A.DMA_ID=#DmaId#
+    </insert>
+
+    <update id="UpdateAppointmentCmId" parameterClass="System.Collections.Hashtable">
+      IF #ParmetType#='Appointment'
+      BEGIN
+      UPDATE ContractAppointment SET CAP_CM_ID =#CmId#  WHERE CAP_ID=#ContractId#
+      END
+      ELSE IF #ParmetType#='Amendment'
+      BEGIN
+      UPDATE ContractAmendment SET CAM_CM_ID =#CmId#  WHERE CAM_ID=#ContractId#
+      END
+      ELSE IF#ParmetType#='Renewal'
+      BEGIN
+      UPDATE ContractRenewal SET CRE_CM_ID =#CmId#  WHERE CRE_ID=#ContractId#
+      END
+      ELSE
+      BEGIN
+      UPDATE ContractTermination SET CTE_CM_ID=#CmId#  WHERE CTE_ID=#ContractId#
+      END
+    </update>
+
+    <select id="SelectAmandCurrentJudgeDate" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ConfigId,ValueDate,Remark1,Remark2,Remark3 FROM ContractConfig A
+      WHERE CONVERT(NVARCHAR(10), A.DateEnd, 112) >= CONVERT(NVARCHAR(10), GETDATE(), 112)
+      AND CONVERT(NVARCHAR(10), A.DateBegin, 112) &lt;= CONVERT(NVARCHAR(10), GETDATE(), 112)
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Remark1">Remark1 =#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="Remark2">Remark2 =#Remark2#</isNotNull>
+        <isNotNull prepend="AND" property="Remark3">Remark3 =#Remark3#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectSubCompnayAndBrandInfoByBU" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from V_DivisionProductLineRelation
+      WHERE DivisionCode = #value#
+    </select>
+  </statements>
+</sqlMap>

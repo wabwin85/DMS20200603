@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerSalesMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DealerSales" assembly="DMS.Model.dll" type="DMS.Model.DealerSales" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerSalesResult" class="DealerSales">
+            <result property="DealerSalesId" column="DealerSalesId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="WeChatUserId" column="WeChatUserId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertDealerSales" parameterClass="DealerSales">
+            INSERT INTO Commando.DealerSales
+            (DealerSalesId,WeChatUserId,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            SELECT #DealerSalesId#,#WeChatUserId#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#
+            WHERE NOT EXISTS (SELECT 1 FROM Commando.DealerSales WHERE DealerSalesId=#DealerSalesId#)
+        </insert>
+        <delete id="DeleteDealerSales" parameterClass="string">
+            DELETE FROM Commando.DealerSales
+            WHERE DealerSalesId = #value#
+        </delete>
+        <select id="SelectDealerSalesList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT A.DealerSalesId,
+                   B.BWU_DealerId DealerId,
+                   B.BWU_DealerName DealerName,
+                   B.BWU_UserName SalesName,
+                   B.BWU_Sex SalesSex,
+                   B.BWU_Phone SalesPhone,
+                   B.BWU_Email SalesEmail,
+                   ROW_NUMBER() OVER(ORDER BY B.BWU_DealerName, B.BWU_UserName) AS [row_number]
+            FROM   Commando.DealerSales A,
+                   BusinessWechatUser B
+            WHERE  A.WeChatUserId = B.BWU_ID
+                   AND B.BWU_Status = 'Active'
+                   AND (
+                           ISNULL(#DealerName#, '') = ''
+                           OR B.BWU_DealerName LIKE '%' + #DealerName# + '%'
+                       )
+                   AND (
+                           ISNULL(#SalesName#, '') = ''
+                           OR B.BWU_UserName LIKE '%' + #SalesName# + '%'
+                       )
+            ]]>
+        </select>
+        <select id="SelectRemainWechatUserList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT A.BWU_ID WeChatUserId,
+                   A.BWU_DealerName DealerName,
+                   A.BWU_UserName SalesName,
+                   A.BWU_Sex SalesSex,
+                   A.BWU_Phone SalesPhone,
+                   A.BWU_Email SalesEmail,
+                   ROW_NUMBER() OVER(ORDER BY A.BWU_DealerName, A.BWU_UserName) AS [row_number]
+            FROM   BusinessWechatUser A
+            WHERE  A.BWU_Status = 'Active'
+                   AND (
+                           ISNULL(#DealerName#, '') = ''
+                           OR A.BWU_DealerName LIKE '%' + #DealerName# + '%'
+                       )
+                   AND (
+                           ISNULL(#SalesName#, '') = ''
+                           OR A.BWU_UserName LIKE '%' + #SalesName# + '%'
+                       )
+                   AND NOT EXISTS (
+                           SELECT 1
+                           FROM   Commando.DealerSales B
+                           WHERE  A.BWU_ID = B.DealerSalesId
+                       )
+            ]]>
+        </select>
+        <select id="SelectRemainDealerSalesList" parameterClass="System.Collections.Hashtable" resultClass="string">
+            <![CDATA[
+                SELECT A.DealerSalesId,
+                       B.BWU_DealerId DealerId,
+                       B.BWU_DealerName DealerName,
+                       B.BWU_UserName SalesName,
+                       B.BWU_Phone SalesPhone,
+                       B.BWU_Email SalesEmail,
+                       ROW_NUMBER() OVER(ORDER BY B.BWU_DealerName, B.BWU_UserName) AS [row_number]
+                FROM   Commando.DealerSales A,
+                       BusinessWechatUser B
+                WHERE  A.WeChatUserId = B.BWU_ID
+                       AND (ISNULL(#DealerName#, '') = '' OR B.BWU_DealerName LIKE '%' + #DealerName# + '%')
+                       AND (ISNULL(#SalesName#, '') = '' OR B.BWU_UserName LIKE '%' + #SalesName# + '%')
+                       AND NOT EXISTS (
+                               SELECT 1
+                               FROM   Commando.SalesTrainMaster C
+                               WHERE  A.DealerSalesId = C.DealerSalesId
+                                      AND C.IsActive = 1
+                                      AND C.TrainId = #TrainId#
+                           )
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SystemManualMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="SystemManualMap.SelectListByType" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT ManualId,
+               ManualName,
+               ManualUrl
+        FROM   Platform_SystemManual
+        WHERE  ManualType = 'Dealer'
+               AND IsActive = 1
+      ]]>
+          <isNotEmpty prepend="AND" property="ManualName">
+            ManualName LIKE '%' + #ManualName# + '%'
+          </isNotEmpty>
+      <![CDATA[
+        ORDER BY
+               ManualId
+      ]]>
+    </select>
+  
+    <insert id="SystemManualMap.InsertSystemManual" parameterClass="System.Collections.Hashtable">
+      INSERT INTO dbo.Platform_SystemManual
+      (ManualId, ManualName, ManualUrl, ManualType, IsActive)
+      VALUES
+      ((SELECT MAX(ManualId)+1 FROM dbo.Platform_SystemManual),#ManualName#,#ManualUrl#,'Dealer',1)
+    </insert>
+  
+    <update id="SystemManualMap.UpdateSystemManual" parameterClass="System.Collections.Hashtable">
+      UPDATE dbo.Platform_SystemManual SET IsActive=0 WHERE ManualId=#ManualId#
+    </update>
+  </statements>
+</sqlMap>

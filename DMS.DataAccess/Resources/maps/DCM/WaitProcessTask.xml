@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WaitProcessTaskMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="WaitProcessTask" assembly="DMS.Model.dll" type="DMS.Model.WaitProcessTask" />
+  </alias>
+  <resultMaps>
+    <resultMap id="WaitProcessTaskResult" class="WaitProcessTask">
+      <result property="ModelID" column="ModleID" type="string" dbType="varchar"/>
+      <result property="RecordCount" column="RecordCount" type="string" dbType="varchar"/>
+      <result property="ItemQty" column="ItemQty" type="string" dbType="varchar"/>
+      <result property="TotalAmount" column="TotalAmount" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="WaitProcessTaskParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="OwnerId" column="OwnerId" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <procedure id="GC_WaitForProcessTaskByDealer" parameterMap="WaitProcessTaskParameterMap" resultClass="WaitProcessTask">
+      GC_WaitForProcessTaskByDealer
+    </procedure>
+  </statements>
+</sqlMap>

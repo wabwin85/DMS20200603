@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MasterDatas" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="SelectMasterDatasList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DISTINCT cad.CDD_Calendar AS Year ,cad.CDD_Date1 AS Day, CASE cad.CDD_Date10
+      WHEN 0 THEN '否'
+      WHEN 1 THEN '是'  END AS Date10
+      , cd.CD_LOGCreateUser AS CreateUser
+      , CONVERT(VARCHAR(10),cd.CD_LOGCreateDate ,120)  AS CreateDate
+      FROM CalendarDate cad
+      LEFT JOIN   (SELECT LG.*
+      FROM CalendarDateLog LG
+      INNER JOIN ( SELECT CD_LOGCalender,max(CD_LOGCreateDate)  CD_LOGCreateDate FROM CalendarDateLog group by CD_LOGCalender) LM  ON  LG.CD_LOGCalender=LM.CD_LOGCalender AND LG.CD_LOGCreateDate=LM.CD_LOGCreateDate) cd
+      ON cd.CD_LOGCalender =cad.CDD_Calendar
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" >CDD_Calendar=#Calender#</isNotEmpty>
+      </dynamic>
+      ORDER  BY CDD_Calendar DESC
+    </select>
+    <select id="SelectMasterDatasInfo" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT   SUBSTRING (CDD_Calendar,1,4) +'-'+SUBSTRING (CDD_Calendar,5,6)+'-'+ RIGHT('00'+CAST(CDD_Date1 AS varchar(10)),2) as Date1  , CASE CDD_Date10
+      WHEN '0' THEN '否'
+      WHEN '1' THEN '是'  END AS Date10
+      FROM CalendarDate
+      WHERE CDD_Calendar=#Year#
+    </select>
+    <select id="SelectMasterDatasInfoUpdate" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT   CDD_Calendar     FROM CalendarDate WHERE CDD_Calendar=#QryApplyDate#
+    </select>
+    <insert id="InsertMasterDatas" parameterClass="string">
+      INSERT INTO CalendarDate( CDD_Calendar,	CDD_Date1	,CDD_Date2	,CDD_Date3	,CDD_Date4,	CDD_Date5	,CDD_Date6,	CDD_Date7,	CDD_Date8,	CDD_Date9	,CDD_Date10)
+      VALUES(#Calendar#,#Day#,null,null,null,null,null,null,null,null,#flag#)
+    </insert>
+    <insert id="InsertCalendarDateLog" parameterClass="string">
+      INSERT INTO CalendarDateLog( CD_LOGCreateUser,	CD_LOGCreateDate	,CD_LOGCalender,CD_Operation)
+      VALUES(#UserId#,getdate(),#Calendar#,#operation#)
+    </insert>
+    <update id="UpdateMasterDatas" parameterClass="System.Collections.Hashtable">
+      UPDATE CalendarDate SET CDD_Date1=#Day#,CDD_Date10=#flag#
+      WHERE CDD_Calendar=#Calendar#
+    </update>
+  </statements>
+</sqlMap>

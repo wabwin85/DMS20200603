@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerAuthorizationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerAuthorization" assembly="DMS.Model.dll" type="DMS.Model.DealerAuthorization" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerAuthorizationResult" class="DealerAuthorization">
+      <result property="PmaId" column="DAT_PMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Id" column="DAT_ID" type="Guid" dbType="Guid"/>
+      <result property="DclId" column="DAT_DCL_ID" type="Guid" dbType="Guid"/>
+      <result property="DmaId" column="DAT_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="ProductLineBumId" column="DAT_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="AuthorizationType" column="DAT_AuthorizationType" type="string" dbType="varchar"/>
+      <result property="HospitalListDesc" column="DAT_HospitalListDesc" type="string" dbType="varchar"/>
+      <result property="ProductDescription" column="DAT_ProductDescription" type="string" dbType="varchar"/>
+      <result property="StartDate" column="DAT_StartDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="DAT_EndDate" type="DateTime" dbType="datetime"/>
+      <result property="Type" column="DAT_Type" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDealerAuthorization" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT DAT_PMA_ID AS PmaId,DAT_ID AS Id,DAT_DCL_ID AS DclId,DAT_DMA_ID AS DmaId,DAT_ProductLine_BUM_ID AS ProductLineBumId,DAT_AuthorizationType AS AuthorizationType,DAT_HospitalListDesc AS HospitalListDesc,DAT_ProductDescription AS ProductDescription,DAT_StartDate AS StartDate,DAT_EndDate AS EndDate,DAT_Type AS Type
+      FROM DealerAuthorizationTable
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DAT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <!--modified by bozhenfei on 20100712 @加入授权有效期限制-->
+    <select id="SelectByFilterDealerAuthorization" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT DAT_PMA_ID AS PmaId,DAT_ID AS Id,DAT_DCL_ID AS DclId,DAT_DMA_ID AS DmaId,DAT_ProductLine_BUM_ID AS ProductLineBumId,DAT_AuthorizationType AS AuthorizationType,DAT_HospitalListDesc AS HospitalListDesc,DAT_ProductDescription AS ProductDescription,DAT_StartDate AS StartDate,DAT_EndDate AS EndDate,DAT_Type AS Type
+      ,row_number() OVER (ORDER BY [DAT_ID] ASC) AS [row_number]
+      FROM DealerAuthorizationTable
+      <!--WHERE EXISTS (SELECT 1 FROM DealerContract
+      WHERE DealerContract.DCL_ID = DealerAuthorizationTable.DAT_DCL_ID
+      AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DealerContract.DCL_StartDate, 112) AND CONVERT(varchar(100), DealerContract.DCL_StopDate, 112))-->
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PmaId">DAT_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">DAT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DclId">DAT_DCL_ID=#DclId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">DAT_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">DAT_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="AuthorizationType">DAT_AuthorizationType=#AuthorizationType#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalListDesc">DAT_HospitalListDesc=#HospitalListDesc#</isNotNull>
+        <isNotNull prepend="AND" property="ProductDescription">DAT_ProductDescription=#ProductDescription#</isNotNull>
+        <isNotNull prepend="AND" property="Type">DAT_Type=#Type#</isNotNull>
+      </dynamic>
+    </select>
+    <!--added by bozhenfei on 20110702 @优化授权列表-->
+    <select id="SelectByFilterDealerAuthorizationForDataSet" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT DAT_PMA_ID AS PmaId,DAT_ID AS Id,DAT_DCL_ID AS DclId,DAT_DMA_ID AS DmaId,DAT_ProductLine_BUM_ID AS ProductLineBumId,DAT_AuthorizationType AS AuthorizationType,DAT_HospitalListDesc AS HospitalListDesc,DAT_ProductDescription AS ProductDescription,DAT_StartDate AS StartDate,DAT_EndDate AS EndDate,DAT_Type AS Type
+      ,(CASE WHEN DAT_PMA_ID = DAT_ProductLine_BUM_ID THEN ''
+      ELSE (SELECT PCT_Name FROM PartsClassification WHERE PCT_ID = DAT_PMA_ID)
+      END) AS PmaDesc
+      ,(SELECT P.ATTRIBUTE_NAME FROM View_ProductLine AS P WHERE P.ID = DAT_ProductLine_BUM_ID) AS ProductLineDesc
+      ,row_number() OVER (ORDER BY [DAT_ID] ASC) AS [row_number]
+      FROM DealerAuthorizationTable
+      WHERE EXISTS (SELECT 1 FROM DealerContract
+      WHERE DealerContract.DCL_ID = DealerAuthorizationTable.DAT_DCL_ID
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DealerContract.DCL_StartDate, 112) AND CONVERT(varchar(100), DealerContract.DCL_StopDate, 112)-->)
+      <isNotNull prepend="AND" property="PmaId">DAT_PMA_ID=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="Id">DAT_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="DclId">DAT_DCL_ID=#DclId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">DAT_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">DAT_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="AuthorizationType">DAT_AuthorizationType=#AuthorizationType#</isNotNull>
+      <isNotNull prepend="AND" property="HospitalListDesc">DAT_HospitalListDesc=#HospitalListDesc#</isNotNull>
+      <isNotNull prepend="AND" property="ProductDescription">DAT_ProductDescription=#ProductDescription#</isNotNull>
+      <isNotNull prepend="AND" property="Type">DAT_Type=#Type#</isNotNull>
+      <isNotNull prepend="AND" property="AuthStartBeginDate">DAT_StartDate >= #AuthStartBeginDate#</isNotNull>
+      <isNotNull prepend="AND" property="AuthStartEndDate">DAT_StartDate &lt;= #AuthStartEndDate#</isNotNull>
+      <isNotNull prepend="AND" property="AuthStopBeginDate">DAT_EndDate >= #AuthStopBeginDate#</isNotNull>
+      <isNotNull prepend="AND" property="AuthStopEndDate">DAT_EndDate &lt;= #AuthStopEndDate#</isNotNull>
+    </select>
+    <select id="SelectByFilterDealerAuthorizationForDataSetExclude" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT DAT_PMA_ID AS PmaId,DAT_ID AS Id,DAT_DCL_ID AS DclId,DAT_DMA_ID AS DmaId,DAT_ProductLine_BUM_ID AS ProductLineBumId,DAT_AuthorizationType AS AuthorizationType,DAT_HospitalListDesc AS HospitalListDesc,DAT_ProductDescription AS ProductDescription,DAT_StartDate AS StartDate,DAT_EndDate AS EndDate,DAT_Type AS Type
+      ,(CASE WHEN DAT_PMA_ID = DAT_ProductLine_BUM_ID THEN ''
+      ELSE (SELECT PCT_Name FROM PartsClassification WHERE PCT_ID = DAT_PMA_ID)
+      END) AS PmaDesc
+      ,(SELECT P.ATTRIBUTE_NAME FROM View_ProductLine AS P WHERE P.ID = DAT_ProductLine_BUM_ID) AS ProductLineDesc
+      ,row_number() OVER (ORDER BY [DAT_ID] ASC) AS [row_number]
+      FROM DealerAuthorizationTable
+      WHERE EXISTS (SELECT 1 FROM DealerContract
+      WHERE DealerContract.DCL_ID = DealerAuthorizationTable.DAT_DCL_ID
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DealerContract.DCL_StartDate, 112) AND CONVERT(varchar(100), DealerContract.DCL_StopDate, 112)-->)
+      <isNotNull prepend="AND" property="PmaId">DAT_PMA_ID=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="Id">DAT_ID&lt;&gt;#Id#</isNotNull>
+      <isNotNull prepend="AND" property="DclId">DAT_DCL_ID=#DclId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">DAT_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">DAT_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="AuthorizationType">DAT_AuthorizationType=#AuthorizationType#</isNotNull>
+      <isNotNull prepend="AND" property="HospitalListDesc">DAT_HospitalListDesc=#HospitalListDesc#</isNotNull>
+      <isNotNull prepend="AND" property="ProductDescription">DAT_ProductDescription=#ProductDescription#</isNotNull>
+      <isNotNull prepend="AND" property="Type">DAT_Type=#Type#</isNotNull>
+    </select>
+    <insert id="InsertDealerAuthorization" parameterClass="DealerAuthorization">
+      INSERT INTO DealerAuthorizationTable
+      (DAT_PMA_ID,DAT_ID,DAT_DCL_ID,DAT_DMA_ID,DAT_ProductLine_BUM_ID,DAT_AuthorizationType,DAT_HospitalListDesc,DAT_ProductDescription,DAT_StartDate,DAT_EndDate,DAT_Type)
+      VALUES(#PmaId#,#Id#,#DclId#,#DmaId#,#ProductLineBumId#,#AuthorizationType#,#HospitalListDesc#,#ProductDescription#,#StartDate:DateTime:1/1/0001 12:00:00 AM#,#EndDate:DateTime:1/1/0001 12:00:00 AM#,#Type#)
+    </insert>
+    <update id="UpdateDealerAuthorization" parameterClass="DealerAuthorization">
+      UPDATE DealerAuthorizationTable
+      SET DAT_PMA_ID=#PmaId#,DAT_ID=#Id#,DAT_DCL_ID=#DclId#,DAT_DMA_ID=#DmaId#,DAT_ProductLine_BUM_ID=#ProductLineBumId#,DAT_AuthorizationType=#AuthorizationType#,DAT_HospitalListDesc=#HospitalListDesc#,DAT_ProductDescription=#ProductDescription#,DAT_StartDate=#StartDate#,DAT_EndDate=#EndDate#,DAT_Type=#Type#
+      WHERE DAT_ID = #Id#
+    </update>
+    <delete id="DeleteDealerAuthorization" parameterClass="string">
+      IF (NOT EXISTS (SELECT 1 FROM  dbo.HospitalList m WITH ( UPDLOCK, HOLDLOCK )
+      WHERE m.HLA_DAT_ID = #value# ))
+      BEGIN
+      DELETE FROM DealerAuthorizationTable
+      WHERE DAT_ID = #value#
+      END
+    </delete>
+    <select id="SelectDealerProductLine" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT DISTINCT dt.DAT_ProductLine_BUM_ID  as ProductLineId ,pl.ProductLineName as ProductLineName,pl.DivisionName as DivisionName,dt.DAT_StartDate as StartDate,dt.DAT_EndDate as EndDate
+      FROM DealerAuthorizationTable dt
+      INNER JOIN V_DivisionProductLineRelation pl ON dt.DAT_ProductLine_BUM_ID=pl.ProductLineID and IsEmerging = 0
+      LEFT JOIN DealerContract dc ON dc.DCL_ID=dt.DAT_DCL_ID
+      WHERE  dc.DCL_DMA_ID=#value#
+    </select>
+
+    <select id="ExportDealerAuthorization" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT dm.DMA_ChineseName as N'经销商名称',dm.DMA_DealerType as N'经销商等级',pl.ProductLineName as N'产品线',pl.DAT_StartDate as N'授权开始时间',pl.DAT_EndDate as N'授权截止时间',pl.DAT_Type as N'授权类型',hos.HOS_HospitalName as N'医院名称',hsl.HLA_StartDate as N'医院授权开始时间',hsl.HLA_EndDate as N'医院授权截止时间' FROM
+      HospitalList hsl(nolock)
+      left join Hospital hos(nolock) on hsl.HLA_HOS_ID=hos.HOS_ID
+      inner join DealerAuthorizationTable  adt(nolock) on adt.DAT_ID=hsl.HLA_DAT_ID
+      inner join DealerContract dc(nolock) ON dc.DCL_ID=adt.DAT_DCL_ID
+      inner join V_DivisionProductLineRelation pl on pl.ProductLineID=adt.DAT_ProductLine_BUM_ID
+      inner join DealerMaster dm(nolock) on dm.DMA_ID=adt.DAT_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">dc.DCL_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">adt.DAT_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+      </dynamic>
+      ORDER BY dm.DMA_DealerType,dm.DMA_ChineseName
+    </select>
+
+    <update id="SaveHositalAuthDate" parameterClass="System.Collections.Hashtable">
+      UPDATE HospitalList SET HLA_StartDate=#HosAuthStartDate#,HLA_EndDate=#HosAuthEndDate#
+      WHERE HLA_HOS_ID = #HosId# AND HLA_DAT_ID = #DatId#
+    </update>
+
+    <insert id="InsertDealerAuthorizationLog" parameterClass="System.Collections.Hashtable">
+      INSERT INTO DealerAuthorizationTableLog
+      (DAT_PMA_ID,DAT_ID,DAT_DCL_ID,DAT_DMA_ID,DAT_ProductLine_BUM_ID,DAT_AuthorizationType,DAT_HospitalListDesc,DAT_ProductDescription,DAT_StartDate,DAT_EndDate,DAT_Type,DAT_OperationType,DAT_OperationDate,DAT_OperationUser)
+      SELECT DAT_PMA_ID,DAT_ID,DAT_DCL_ID,DAT_DMA_ID,DAT_ProductLine_BUM_ID,DAT_AuthorizationType,DAT_HospitalListDesc,DAT_ProductDescription,DAT_StartDate,DAT_EndDate,DAT_Type,#OperationType#,GETDATE(),#UserId# FROM DealerAuthorizationTable
+      WHERE DAT_ID = #Id#
+    </insert>
+    <select id="SelectByFilterDealerAuthorizationLimit" parameterClass="string" resultClass="DealerAuthorization">
+      SELECT DAT_PMA_ID AS PmaId,DAT_ID AS Id,DAT_DCL_ID AS DclId,DAT_DMA_ID AS DmaId,DAT_ProductLine_BUM_ID AS ProductLineBumId,DAT_AuthorizationType AS AuthorizationType,DAT_HospitalListDesc AS HospitalListDesc,DAT_ProductDescription AS ProductDescription,DAT_StartDate AS StartDate,DAT_EndDate AS EndDate,DAT_Type AS Type
+      ,row_number() OVER (ORDER BY [DAT_ID] ASC) AS [row_number]
+      FROM DealerAuthorizationTable
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PmaId">DAT_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">DAT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DclId">DAT_DCL_ID=#DclId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">DAT_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">DAT_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="AuthorizationType">DAT_AuthorizationType=#AuthorizationType#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalListDesc">DAT_HospitalListDesc=#HospitalListDesc#</isNotNull>
+        <isNotNull prepend="AND" property="ProductDescription">DAT_ProductDescription=#ProductDescription#</isNotNull>
+        <isNotNull prepend="AND" property="Type">DAT_Type=#Type#</isNotNull>
+      </dynamic>
+      and not exists (select 1 from BULimit where (DAT_ProductLine_BUM_ID = ProductLine_BUM_ID or DAT_DMA_ID = DMA_ID) and Limit_Type = 'Transfer')
+    </select>
+
+    <!--获取授权的子公司-->
+    <select id="DealerAuthorization.GetAuthSubCompany" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT T_SubCompany.* FROM dbo.Lafite_ATTRIBUTE(nolock) T_SubCompany
+INNER JOIN dbo.View_ProductLine(nolock) V_ProductLine ON T_SubCompany.Id=V_ProductLine.SubCompanyId
+ WHERE T_SubCompany.ATTRIBUTE_TYPE='SubCompany' AND T_SubCompany.DELETE_FLAG = '0'
+     <dynamic prepend="">
+      <iterate prepend="AND" property="ProductLines" open="(" close=")" conjunction="OR">
+        V_ProductLine.Id = #ProductLines[]#
+      </iterate>
+    </dynamic>
+    </select>
+
+    <!--获取授权的品牌-->
+    <select id="DealerAuthorization.GetAuthBrand" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT T_Brand.* FROM dbo.Lafite_ATTRIBUTE(nolock) T_Brand
+INNER JOIN dbo.View_ProductLine(nolock) V_ProductLine ON T_Brand.Id=V_ProductLine.BrandId
+ WHERE T_Brand.ATTRIBUTE_TYPE='Brand' AND T_Brand.DELETE_FLAG = '0'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">V_ProductLine.SubCompanyId=#SubCompanyId#</isNotNull>
+      <iterate prepend="AND" property="ProductLines" open="(" close=")" conjunction="OR">
+        V_ProductLine.Id = #ProductLines[]#
+      </iterate>
+    </dynamic>
+    </select>
+    
+  </statements>
+</sqlMap>

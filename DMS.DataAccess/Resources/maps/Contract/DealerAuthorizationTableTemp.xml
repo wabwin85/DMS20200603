@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerAuthorizationTableTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerAuthorizationTamp" assembly="DMS.Model.dll" type="DMS.Model.DealerAuthorization" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerAuthorizationResult" class="DealerAuthorization">
+      <result property="PmaId" column="DAT_PMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Id" column="DAT_ID" type="Guid" dbType="Guid"/>
+      <result property="DclId" column="DAT_DCL_ID" type="Guid" dbType="Guid"/>
+      <result property="DmaId" column="DAT_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="ProductLineBumId" column="DAT_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="AuthorizationType" column="DAT_AuthorizationType" type="string" dbType="varchar"/>
+      <result property="HospitalListDesc" column="DAT_HospitalListDesc" type="string" dbType="varchar"/>
+      <result property="ProductDescription" column="DAT_ProductDescription" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAuthorizationTempListForDataSet" parameterClass="DealerAuthorizationTamp" resultClass="System.Data.DataSet">
+      SELECT DAT_PMA_ID AS PmaId,DAT_ID AS Id,DAT_DCL_ID AS DclId,DAT_DMA_ID AS DmaId,DAT_DMA_ID_Actual AS DmaIdActual,DAT_ProductLine_BUM_ID AS ProductLineBumId,DAT_AuthorizationType AS AuthorizationType,DAT_HospitalListDesc AS HospitalListDesc,DAT_ProductDescription AS ProductDescription
+      ,(CASE WHEN DAT_PMA_ID = DAT_ProductLine_BUM_ID THEN ''
+      ELSE (SELECT PCT_Name FROM PartsClassification WHERE PCT_ID = DAT_PMA_ID)
+      END) AS PmaDesc
+      ,(SELECT P.ATTRIBUTE_NAME FROM View_ProductLine AS P WHERE P.ID = DAT_ProductLine_BUM_ID) AS ProductLineDesc
+      ,row_number() OVER (ORDER BY [DAT_ID] ASC) AS [row_number]
+      FROM DealerAuthorizationTableTemp
+      WHERE  1=1
+      <isNotNull prepend="AND" property="PmaId">DAT_PMA_ID=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="Id">DAT_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="DclId">DAT_DCL_ID=#DclId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">DAT_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">DAT_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="AuthorizationType">DAT_AuthorizationType=#AuthorizationType#</isNotNull>
+      <isNotNull prepend="AND" property="HospitalListDesc">DAT_HospitalListDesc=#HospitalListDesc#</isNotNull>
+      <isNotNull prepend="AND" property="ProductDescription">DAT_ProductDescription=#ProductDescription#</isNotNull>
+    </select>
+
+    <insert id="InsertDealerAuthorizationTableTemp" parameterClass="DealerAuthorizationTamp">
+      INSERT INTO DealerAuthorizationTableTemp
+      (DAT_PMA_ID,DAT_ID,DAT_DCL_ID,DAT_DMA_ID,DAT_ProductLine_BUM_ID,DAT_AuthorizationType,DAT_HospitalListDesc,DAT_ProductDescription)
+      VALUES(#PmaId#,#Id#,#DclId#,#DmaId#,#ProductLineBumId#,#AuthorizationType#,#HospitalListDesc#,#ProductDescription#)
+    </insert>
+    
+  </statements>
+</sqlMap>

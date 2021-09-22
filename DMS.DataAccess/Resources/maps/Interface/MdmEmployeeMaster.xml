@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MdmEmployeeMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="Interface.MdmEmployeeMasterMap.SelectFilterListAll" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT TOP 10 RIGHT('0000000' + CONVERT(NVARCHAR, EmployeeMaster.EID), 7) UserAccount,
+               EmployeeMaster.Name UserName
+        FROM   interface.MDM_EmployeeMaster EmployeeMaster
+        WHERE  1 = 1
+               AND EmployeeMaster.Name LIKE '%' + #Filter# + '%'
+        ORDER BY
+               EmployeeMaster.Name
+      ]]>
+    </select>
+    <select id="Interface.MdmEmployeeMasterMap.SelectEmployeeName" parameterClass="String" resultClass="String">
+      <!--<![CDATA[
+        SELECT EmployeeMaster.Name
+        FROM   interface.MDM_EmployeeMaster EmployeeMaster
+        WHERE  RIGHT('0000000' + CONVERT(NVARCHAR, EmployeeMaster.EID), 7) = #value#
+      ]]>-->
+      <![CDATA[
+      SELECT top 1 li.IDENTITY_NAME AS Name
+      from View_SalesOfDealer vsd
+      INNER JOIN Lafite_Identity li ON vsd.SalesID=li.Id
+      WHERE  li.IDENTITY_CODE= #value#
+            ]]>
+    </select>
+  </statements>
+</sqlMap>

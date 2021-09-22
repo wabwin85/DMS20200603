@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TransferLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TransferLot" assembly="DMS.Model.dll" type="DMS.Model.TransferLot" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TransferLotResult" class="TransferLot">
+      <result property="TrlId" column="TLT_TRL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotId" column="TLT_LOT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Id" column="TLT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TransferLotQty" column="TLT_TransferLotQty" type="double" dbType="float"/>
+      <result property="QrlotId" column="IAL_QRLOT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrLotNumber" column="IAL_QRLotNumber" type="string" dbType="nvarchar"/>
+      <result property="UnitPrice" column="TLT_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="ExpiredDate" column="TLT_ExpiredDate" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectTransferLot" parameterClass="string" resultClass="TransferLot">
+      SELECT TLT_TRL_ID AS TrlId,
+      TLT_LOT_ID AS LotId,
+      TLT_ID AS Id,
+      TLT_TransferLotQty AS TransferLotQty,
+      IAL_QRLOT_ID AS QrlotId,
+      IAL_QRLotNumber AS QrLotNumber ,
+      TLT_UnitPrice AS UnitPrice,
+      TLT_Lot AS LTMLot,
+      TLT_QRCode AS LTMQRCode,
+      TLT_ExpiredDate AS ExpiredDate
+      FROM TransferLot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TLT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTransferLot" parameterClass="TransferLot" resultClass="TransferLot">
+      SELECT TLT_TRL_ID AS TrlId,TLT_LOT_ID AS LotId,TLT_ID AS Id,TLT_TransferLotQty AS TransferLotQty,IAL_QRLOT_ID AS QrlotId,IAL_QRLotNumber AS QrLotNumber ,TLT_UnitPrice AS UnitPrice
+      FROM TransferLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TrlId">TLT_TRL_ID=#TrlId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">TLT_LOT_ID=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">TLT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="TransferLotQty">TLT_TransferLotQty=#TransferLotQty#</isNotNull>
+        <isNotNull prepend="AND" property="QrlotId">IAL_QRLOT_ID=#QrlotId#</isNotNull>
+        <isNotNull prepend="AND" property="QrLotNumber">IAL_QRLotNumber=#QrLotNumber#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTransferLot" parameterClass="TransferLot">
+      INSERT INTO TransferLot
+      (TLT_TRL_ID,TLT_LOT_ID,TLT_ID,TLT_TransferLotQty,IAL_QRLOT_ID,IAL_QRLotNumber,TLT_UnitPrice ,TLT_Lot , TLT_QRCode  ,TLT_DOM ,TLT_ExpiredDate  )
+      VALUES(#TrlId#,#LotId#,#Id#,#TransferLotQty#,#QrlotId#,#QrLotNumber#,#UnitPrice#,#LTMLot#,#LTMQRCode#,#DOM#,#ExpiredDate#)
+    </insert>
+    <update id="UpdateTransferLot" parameterClass="TransferLot">
+      UPDATE TransferLot SET TLT_TRL_ID=#TrlId#,
+      TLT_LOT_ID=#LotId#,
+      TLT_ID=#Id#,
+      TLT_TransferLotQty=#TransferLotQty#,
+      IAL_QRLOT_ID=#QrlotId#,
+      IAL_QRLotNumber=#QrLotNumber#,
+      TLT_UnitPrice=#UnitPrice#,
+      TLT_Lot=#LTMLot#,
+      TLT_QRCode=#LTMQRCode#,
+      TLT_DOM =#DOM#,
+      TLT_ExpiredDate=#ExpiredDate#
+      WHERE TLT_ID = #Id#
+    </update>
+    <delete id="DeleteTransferLot" parameterClass="string">
+      DELETE FROM TransferLot
+      WHERE TLT_ID = #value#
+    </delete>
+    <delete id="DeleteTransferLotById" parameterClass="string">
+      DELETE FROM TransferLot
+      WHERE TLT_TRL_ID IN
+      (SELECT TRL_ID FROM TransferLine WHERE TRL_TRN_ID = #value#)
+    </delete>
+    <select id="SelectByFilterTransferLotAll" parameterClass="System.Collections.Hashtable" resultClass="TransferLot">
+      SELECT
+      TransferLot.TLT_ID AS Id,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      wh2.WHM_ID AS ToWarehouseId,
+      wh2.WHM_Name AS ToWarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      CFN.CFN_ChineseName AS CFNChineseName,
+      Product.PMA_UPN AS UPN,
+      TLT_Lot AS LotNumber,
+      TLT_QRCode AS QRCode,
+      case when isnull(IAL_QRLotNumber,'') = '' then '' else substring(IAL_QRLotNumber,CHARINDEX('@@',IAL_QRLotNumber,0)+2,LEN(IAL_QRLotNumber)-CHARINDEX('@@',IAL_QRLotNumber,0)) end AS QRCodeEdit,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), TransferLot.TLT_ExpiredDate, 112) else CONVERT(varchar(100),TransferLot.TLT_ExpiredDate, 112) end AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      Convert(decimal(18,6),ISNULL(Lot.LOT_OnHandQty,0)) AS TotalQty,
+      TransferLot.TLT_TransferLotQty AS TransferQty,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr,Product.PMA_UPN) AS row_number
+      FROM TransferLot
+      INNER JOIN TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+      INNER JOIN Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON TransferLine.TRL_FromWarehouse_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Warehouse wh2 ON TransferLine.TRL_ToWarehouse_WHM_ID = wh2.WHM_ID
+      LEFT  JOIN Lot ON ISNULL(TransferLot.IAL_QRLOT_ID, TransferLot.TLT_LOT_ID) = Lot.LOT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="hid">TransferLine.TRL_TRN_ID=#hid#</isNotNull>
+      </dynamic>
+    </select>
+
+    //获得移库单的相关信息，包括ToWarehouse冻结库解冻
+    <select id="SelectByFilterTransferLotFromTo" parameterClass="System.Collections.Hashtable" resultClass="TransferLot">
+      SELECT
+      TransferLot.TLT_ID AS Id,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      CFN.CFN_ChineseName AS CFNChineseName,
+      Product.PMA_UPN AS UPN,
+      CFN.CFN_Property5 AS Registration,
+      TLT_Lot AS LotNumber,
+      TLT_QRCode AS QRCode,
+      case when isnull(IAL_QRLotNumber,'') = '' then '' else substring(IAL_QRLotNumber,CHARINDEX('@@',IAL_QRLotNumber,0)+2,LEN(IAL_QRLotNumber)-CHARINDEX('@@',IAL_QRLotNumber,0)) end AS QRCodeEdit,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), TransferLot.TLT_ExpiredDate, 112) else CONVERT(varchar(100), TransferLot.TLT_ExpiredDate, 112) end AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      Convert(decimal(18,6),ISNULL(Lot.LOT_OnHandQty,0)) AS TotalQty,
+      TransferLot.TLT_TransferLotQty AS TransferQty,
+      ToWarehouse.WHM_ID AS ToWarehouseId, ToWarehouse.WHM_Name AS ToWarehouseName,
+      CONVERT(DECIMAL(18,6),Product.PMA_ConvertFactor) AS ConvertFactor,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr,Product.PMA_UPN) AS row_number
+      FROM TransferLot
+      INNER JOIN TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+      INNER JOIN Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON TransferLine.TRL_FromWarehouse_WHM_ID = Warehouse.WHM_ID
+      LEFT JOIN Lot ON isnull(TransferLot.IAL_QRLOT_ID,TransferLot.TLT_LOT_ID) = Lot.LOT_ID
+      LEFT JOIN Warehouse AS ToWarehouse ON TransferLine.TRL_ToWarehouse_WHM_ID = ToWarehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="hid">TransferLine.TRL_TRN_ID=#hid#</isNotNull>
+      </dynamic>
+    </select>
+    //获得移库单打印的相关信息
+    <select id="SelectByFilterTransferLotFromToPrint" parameterClass="System.Collections.Hashtable" resultClass="TransferLot">
+      SELECT
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      CFN.CFN_ChineseName AS CFNChineseName,
+      Product.PMA_UPN AS UPN,
+      CFN.CFN_Property5 AS Registration,
+      V_LotMaster.LTM_LotNumber AS LotNumber,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), V_LotMaster.LTM_ExpiredDate, 112) else CONVERT(varchar(100), V_LotMaster.LTM_ExpiredDate, 112) end AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      sum(TransferLot.TLT_TransferLotQty) AS TransferQty,
+      ToWarehouse.WHM_ID AS ToWarehouseId, ToWarehouse.WHM_Name AS ToWarehouseName,
+      CONVERT(DECIMAL(18,6),Product.PMA_ConvertFactor) AS ConvertFactor,
+      row_number() OVER (ORDER BY CFN.CFN_ChineseName,CFN.CFN_EnglishName, V_LotMaster.LTM_LotNumber) AS row_number
+      FROM TransferLot
+      INNER JOIN TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+      INNER JOIN Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON TransferLine.TRL_FromWarehouse_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Lot ON isnull(TransferLot.IAL_QRLOT_ID,TransferLot.TLT_LOT_ID) = Lot.LOT_ID
+      INNER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      LEFT JOIN Warehouse AS ToWarehouse ON TransferLine.TRL_ToWarehouse_WHM_ID = ToWarehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="hid">TransferLine.TRL_TRN_ID=#hid#</isNotNull>
+      </dynamic>
+      group by Warehouse.WHM_ID,
+      Warehouse.WHM_Name ,
+      CFN.CFN_CustomerFaceNbr ,
+      CFN.CFN_EnglishName ,
+      CFN.CFN_ChineseName ,
+      Product.PMA_UPN ,
+      CFN.CFN_Property5,
+      V_LotMaster.LTM_LotNumber,
+      CFN_Property6,
+      V_LotMaster.LTM_ExpiredDate,
+      Product.PMA_UnitOfMeasure ,
+      ToWarehouse.WHM_ID ,
+      ToWarehouse.WHM_Name ,
+      Product.PMA_ConvertFactor
+    </select>
+
+    //获得移库单的产品数量是否满足需求
+
+    <select id="SelectShortLotsInATransferOrder" parameterClass="string" resultClass="TransferLot">
+      SELECT     TransferLot_1.TLT_TRL_ID AS TrlId, TransferLot_1.TLT_LOT_ID AS LotId, TransferLot_1.TLT_ID AS Id,
+      TransferLot_1.TLT_TransferLotQty AS TransferLotQty
+      FROM         (SELECT     SUM(TransferLot.TLT_TransferLotQty) AS RequiredTransferLotQty, TransferLot.TLT_LOT_ID, Transfer.TRN_ID
+      FROM          TransferLot INNER JOIN
+      TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID INNER JOIN
+      Transfer ON TransferLine.TRL_TRN_ID = Transfer.TRN_ID
+      GROUP BY TransferLot.TLT_LOT_ID, Transfer.TRN_ID) AS LotSum INNER JOIN
+      Lot ON Lot.LOT_ID = LotSum.TLT_LOT_ID AND LotSum.RequiredTransferLotQty &gt; Lot.LOT_OnHandQty INNER JOIN
+      TransferLot AS TransferLot_1 ON TransferLot_1.TLT_LOT_ID = Lot.LOT_ID INNER JOIN
+      TransferLine AS TransferLine_1 ON TransferLot_1.TLT_TRL_ID = TransferLine_1.TRL_ID INNER JOIN
+      Transfer AS Transfer_1 ON TransferLine_1.TRL_TRN_ID = Transfer_1.TRN_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Transfer_1.TRN_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+
+    <select id="SelectByFilterHashtable" parameterClass="System.Collections.Hashtable" resultClass="TransferLot">
+      SELECT TLT_TRL_ID AS TrlId,TLT_LOT_ID AS LotId,TLT_ID AS Id,TLT_TransferLotQty AS TransferLotQty
+      FROM TransferLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TrlId">TLT_TRL_ID=#TrlId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">TLT_LOT_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectTransferLotByLineId" parameterClass="string" resultClass="TransferLot">
+      SELECT TLT_TRL_ID AS TrlId,TLT_LOT_ID AS LotId,TLT_ID AS Id,TLT_TransferLotQty AS TransferLotQty ,IAL_QRLOT_ID as QrlotId
+      ,IAL_QRLotNumber as QrLotNumber ,TLT_QRCode  as LTMQRCode, TLT_Lot as LTMLot,TLT_DOM  as	DOM 	,TLT_ExpiredDate AS ExpiredDate
+      FROM TransferLot WHERE TLT_TRL_ID = #value#
+    </select>
+    <select id="SelectTransferLotById" parameterClass="string" resultClass="TransferLot">
+      SELECT TLT_LOT_ID AS LotId,IAL_QRLOT_ID AS QrlotId,   sum(TLT_TransferLotQty) AS TransferLotQty
+      FROM TransferLot
+      WHERE TLT_TRL_ID IN
+      (SELECT TRL_ID FROM TransferLine WHERE TRL_TRN_ID = #value#)
+      group by TLT_LOT_ID,IAL_QRLOT_ID
+    </select>
+    <select id="SelectTotalTransferLotQtyByLineId" parameterClass="string" resultClass="string">
+      SELECT SUM(TLT_TransferLotQty) AS TotalQty
+      FROM TransferLot WHERE TLT_TRL_ID = #value#
+    </select>
+
+    <select id="SelectTransferLotByFilter" parameterClass="string" resultClass="string">
+
+      SELECT '批次号:'+LotNumber+' 二维码:'+QrCode+' 超过了库存数量,' FROM
+      (
+      SELECT
+      Product.PMA_UPN AS UPN,
+      V_LotMaster.LTM_LotNumber AS LotNumber,
+      V_LotMaster.LTM_QrCode AS QRCode,
+      Convert(decimal(18,6),Lot.LOT_OnHandQty) AS TotalQty,
+      SUM(TransferLot.TLT_TransferLotQty) AS TransferQty
+      FROM TransferLot
+      INNER JOIN TransferLine ON TransferLot.TLT_TRL_ID = TransferLine.TRL_ID
+      INNER JOIN Product ON TransferLine.TRL_TransferPart_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON TransferLine.TRL_FromWarehouse_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Lot ON ISNULL(TransferLot.IAL_QRLOT_ID, TransferLot.TLT_LOT_ID) = Lot.LOT_ID
+      INNER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      INNER JOIN Warehouse wh2 ON TransferLine.TRL_ToWarehouse_WHM_ID = wh2.WHM_ID
+      WHERE TransferLine.TRL_TRN_ID = #value#
+      GROUP BY PMA_UPN,LTM_LotNumber,LTM_QrCode,Lot.LOT_OnHandQty
+      ) T
+      WHERE TransferQty>TotalQty
+      ORDER BY LotNumber,QRCode FOR XML PATH('')
+    </select>
+
+    <!--Added By Song Yuqi On 2016-06-21-->
+    <select id="CheckTransferProductAuthInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DISTINCT 'UPN:'+ CFN_CustomerFaceNbr +'授权未通过 @@' FROM Transfer
+      INNER JOIN TransferLine ON TRN_ID = TRL_TRN_ID
+      INNER JOIN TransferLot ON TRL_ID = TLT_TRL_ID
+      INNER JOIN Lot ON LOT_ID = TLT_LOT_ID
+      INNER JOIN Inventory ON INV_ID = LOT_INV_ID
+      INNER JOIN Product ON PMA_ID = INV_PMA_ID
+      INNER JOIN CFN ON CFN_ID = PMA_CFN_ID
+      WHERE TRN_ID = #TransferOrderId#
+      AND NOT EXISTS (
+      SELECT 1 FROM DealerAuthorizationTable
+      INNER JOIN Cache_PartsClassificationRec ON PCT_ProductLine_BUM_ID = DAT_ProductLine_BUM_ID
+      INNER JOIN CfnClassification CC ON PCT_ID=cc.ClassificationId
+      WHERE DAT_PMA_ID != DAT_ProductLine_BUM_ID
+      AND DAT_DMA_ID = TRN_FromDealer_DMA_ID
+      AND DAT_ProductLine_BUM_ID = TRN_ProductLine_BUM_ID
+      AND PCT_ParentClassification_PCT_ID = DAT_PMA_ID
+      AND CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      AND CFN_DeletedFlag = 0
+      AND ((DAT_Type = 'Transfer' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR (#OrderAuthCount# = 0 AND (DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DATEADD(DAY,-1 * DATEPART(DAY,DATEADD(MONTH,2,DAT_EndDate)),DATEADD(MONTH,2,DAT_EndDate)),DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      UNION
+      SELECT 1 FROM DealerAuthorizationTable
+      INNER JOIN Cache_PartsClassificationRec ON PCT_ProductLine_BUM_ID = DAT_ProductLine_BUM_ID
+      INNER JOIN CfnClassification CC ON PCT_ID=cc.ClassificationId
+      WHERE DAT_PMA_ID = DAT_ProductLine_BUM_ID
+      AND DAT_DMA_ID = TRN_FromDealer_DMA_ID
+      AND DAT_ProductLine_BUM_ID = TRN_ProductLine_BUM_ID
+      AND DAT_PMA_ID = PCT_ProductLine_BUM_ID
+      AND CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      AND CFN_DeletedFlag = 0
+      AND ((DAT_Type = 'Transfer' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR (#OrderAuthCount# = 0 AND (DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DATEADD(DAY,-1 * DATEPART(DAY,DATEADD(MONTH,2,DAT_EndDate)),DATEADD(MONTH,2,DAT_EndDate)),DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      )
+      FOR XML PATH('')
+    </select>
+  </statements>
+</sqlMap>

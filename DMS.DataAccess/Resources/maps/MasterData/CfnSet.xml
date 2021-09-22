@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnSetMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="CfnSet" assembly="DMS.Model.dll" type="DMS.Model.CfnSet" />
+  </alias>
+  <resultMaps>
+    <resultMap id="CfnSetResult" class="CfnSet">
+      <result property="Id" column="CFNS_ID" type="Guid" dbType="Guid"/>
+      <result property="ChineseName" column="CFNS_ChineseName" type="string" dbType="varchar"/>
+      <result property="EnglishName" column="CFNS_EnglishName" type="string" dbType="varchar"/>
+      <result property="ProductLineBumId" column="CFNS_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="CreateUser" column="CFNS_CreateUser" type="Guid" dbType="Guid"/>
+      <result property="CreateDate" column="CFNS_CreateDate" type="DateTime" dbType="DateTime"/>
+      <result property="UpdateUser" column="CFNS_UpdateUser" type="Guid" dbType="Guid"/>
+      <result property="UpdateDate" column="CFNS_UpdateDate" type="DateTime" dbType="DateTime"/>
+      <result property="DeleteFlag" column="CFNS_DeleteFlag" type="bool" dbType="bool"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectCfnSet" parameterClass="string" resultClass="CfnSet">
+      SELECT CFNS_ID AS Id,CFNS_ChineseName AS ChineseName,CFNS_EnglishName AS EnglishName,CFNS_ProductLine_BUM_ID AS ProductLineBumId,CFNS_CreateUser AS CreateUser,CFNS_CreateDate AS CreateDate,CFNS_UpdateUser AS UpdateUser,CFNS_UpdateDate AS UpdateDate,CFNS_DeleteFlag AS DeleteFlag
+      FROM CFNSet
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CFNS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectCfnSetById" parameterClass="string" resultClass="CfnSet">
+      SELECT [CFN_ID]
+      ,[CFN_EnglishName]
+      ,[CFN_ChineseName]
+      ,[CFN_Implant]
+      ,[CFN_Tool]
+      ,[CFN_Description]
+      ,[CFN_CustomerFaceNbr]
+      ,[CFN_ProductCatagory_PCT_ID]
+      ,[CFN_Property1]
+      ,[CFN_Property2]
+      ,[CFN_Property3]
+      ,[CFN_Property4]
+      ,[CFN_Property5]
+      ,[CFN_Property6]
+      ,[CFN_Property7]
+      ,[CFN_Property8]
+      ,[CFN_LastModifiedDate]
+      ,[CFN_DeletedFlag]
+      ,[CFN_ProductLine_BUM_ID]
+      ,[CFN_LastModifiedBy_USR_UserID]
+      ,[CFN_Share]
+      ,vp.ATTRIBUTE_NAME
+      FROM CFN
+      INNER JOIN view_ProductLine vp ON vp.Id = CFN.CFN_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="value">CFN_ID = #value#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">vp.BrandId = #BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryConsignmentCfnSetBy" parameterClass="string" resultClass="CfnSet">
+      SELECT CFNS_ID AS Id, CFNS_ChineseName AS ChineseName, CFNS_EnglishName AS EnglishName,CFNS_ProductLine_BUM_ID AS ProductLineBUMID, ROW_NUMBER() OVER (ORDER BY CFNS_ChineseName) AS row_number FROM CFNSet
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CFNS_ProductLine_BUM_ID=#ProductLine_BUM_ID# AND CFNS_DeleteFlag='0'
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterCfnSet" parameterClass="CfnSet" resultClass="CfnSet">
+      SELECT CFNS_ID AS Id,CFNS_ChineseName AS ChineseName,CFNS_EnglishName AS EnglishName,CFNS_ProductLine_BUM_ID AS ProductLineBumId,CFNS_CreateUser AS CreateUser,CFNS_CreateDate AS CreateDate,CFNS_UpdateUser AS UpdateUser,CFNS_UpdateDate AS UpdateDate,CFNS_DeleteFlag AS DeleteFlag
+      FROM CFNSet
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CFNS_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">CFNS_ChineseName=#ChineseName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">CFNS_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">CFNS_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">CFNS_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">CFNS_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="DeleteFlag">CFNS_DeleteFlag=#DeleteFlag#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertCfnSet" parameterClass="CfnSet">
+      INSERT INTO CFNSet
+      (CFNS_ID,CFNS_ChineseName,CFNS_EnglishName,CFNS_ProductLine_BUM_ID,CFNS_CreateUser,CFNS_CreateDate,CFNS_UpdateUser,CFNS_UpdateDate,CFNS_DeleteFlag)
+      VALUES(#Id#,#ChineseName#,#EnglishName#,#ProductLineBumId#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#DeleteFlag#)
+    </insert>
+    <update id="UpdateCfnSet" parameterClass="CfnSet">
+      UPDATE CFNSet
+      SET CFNS_ID=#Id#,CFNS_ChineseName=#ChineseName#,CFNS_EnglishName=#EnglishName#,CFNS_ProductLine_BUM_ID=#ProductLineBumId#,CFNS_UpdateUser=#UpdateUser#,CFNS_UpdateDate=#UpdateDate#,CFNS_DeleteFlag=#DeleteFlag#
+      WHERE CFNS_ID = #Id#
+    </update>
+    <delete id="DeleteCfnSet" parameterClass="string">
+      DELETE FROM CFNSet
+      WHERE CFNS_ID = #value#
+    </delete>
+    <select id="QueryDataByFilterConsignmentCfnSet" parameterClass="System.Collections.Hashtable" resultClass="CfnSet">
+      SELECT CFNS_ID AS Id,
+      CFNS_ChineseName AS ChineseName,
+      CFNS_EnglishName AS EnglishName,
+      CFNS_ProductLine_BUM_ID AS ProductLineBumId,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName,
+      CFNS_CreateUser AS CreateUser,
+      CFNS_CreateDate AS CreateDate,
+      CFNS_UpdateUser AS UpdateUser,
+      CFNS_UpdateDate AS UpdateDate,
+      CFNS_DeleteFlag AS DeleteFlag,
+      row_number() OVER (ORDER BY CFNS_ID ASC) AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM CFNSet
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=CFNSet.CFNS_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CfnSetName">(CFNS_ChineseName like N'%$CfnSetName$%' OR CFNS_EnglishName like N'%$CfnSetName$%')</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">CFNS_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="CustomerFaceNbr">
+          CFNSet.CFNS_ID IN(
+          SELECT DISTINCT CFNSetDetail.CSD_CFNS_ID
+          FROM CFNSetDetail INNER JOIN CFN ON CFN.CFN_ID = CFNSetDetail.CSD_CFN_ID
+          WHERE CFN.CFN_CustomerFaceNbr like N'%$CustomerFaceNbr$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryDataByFilterCfnSet" parameterClass="System.Collections.Hashtable" resultClass="CfnSet">
+      SELECT CFN_ID AS Id,
+      CFN_ChineseName AS ChineseName,
+      CFN_EnglishName AS EnglishName,
+      CFN_ProductLine_BUM_ID AS ProductLineBumId,
+      CFN_CustomerFaceNbr AS UPN,
+      vp.ATTRIBUTE_NAME AS ProductLineName,
+      vp.SubCompanyId AS SubCompanyId,
+      vp.SubCompanyName AS SubCompanyName,
+      vp.BrandId AS BrandId,
+      vp.BrandName AS BrandName,
+      CFN_LastModifiedBy_USR_UserID AS UpdateUser,
+      CFN_LastModifiedDate AS UpdateDate,
+      CFN_DeletedFlag AS DeleteFlag,
+      row_number() OVER (ORDER BY CFN_ID ASC) AS row_number
+      FROM CFN
+      INNER JOIN View_ProductLine vp on cfn.CFN_ProductLine_BUM_ID=vp.ID
+      WHERE EXISTS(SELECT 1 FROM MD.ProductBOM WHERE CFN.CFN_CustomerFaceNbr=MasterUPN)
+      AND ISNULL(CFN_DeletedFlag,0)&lt;>1
+      <dynamic>
+        <isNotNull prepend="AND" property="CfnSetName">(CFN_ChineseName like N'%$CfnSetName$%' OR CFN_EnglishName like N'%$CfnSetName$%')</isNotNull>
+        <isNotNull prepend="AND" property="CfnSetUPN">(CFN_CustomerFaceNbr like N'%$CfnSetUPN$%')</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="CustomerFaceNbr">
+          CFN_CustomerFaceNbr IN(
+          SELECT DISTINCT MasterUPN
+          FROM MD.ProductBOM INNER JOIN CFN ON CFN.CFN_CustomerFaceNbr = MD.ProductBOM.BOMUPN
+          WHERE BOMUPN like N'%$CustomerFaceNbr$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">vp.BrandId=#BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <!--added by bozhenfei on 20110217-->
+    <!--根据经销商和产品线，根据经销商授权查询成套产品-->
+    <!--已不使用-->
+    <select id="QueryCfnSetForPurchaseOrderByAuth" parameterClass="System.Collections.Hashtable" resultClass="CfnSet">
+      SELECT
+      S.CFNS_ID AS Id,
+      S.CFNS_ChineseName AS ChineseName,
+      S.CFNS_EnglishName AS EnglishName,
+      S.CFNS_ProductLine_BUM_ID AS ProductLineBumId,
+      ROW_NUMBER() OVER (ORDER BY S.CFNS_ChineseName ASC) AS row_number
+      FROM CFNSet AS S
+      WHERE S.CFNS_ProductLine_BUM_ID = #ProductLineId#
+      AND EXISTS (SELECT 1 FROM CFNSetDetail AS D
+      INNER JOIN (
+      SELECT C1.CFN_ID
+      FROM
+      (
+      SELECT CFN_ID FROM CFN
+      WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+      INNER JOIN DealerContract AS DC
+      ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+      WHERE DC.DCL_DMA_ID = #DealerId#
+      AND CFN.CFN_ProductLine_BUM_ID = #ProductLineId#
+      AND CFN.CFN_DeletedFlag = 0
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+      AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+      UNION
+      SELECT CFN_ID FROM CFN
+      INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+      INNER JOIN DealerContract AS DC
+      ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+      WHERE DC.DCL_DMA_ID = #DealerId#
+      AND CFN.CFN_ProductLine_BUM_ID = #ProductLineId#
+      AND CFN.CFN_DeletedFlag = 0
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId)) AS C1
+      WHERE dbo.GC_Fn_CFN_CheckBSCDealerCanOrder(#DealerId#,C1.CFN_ID,#PriceType#) = 1
+      ) AS C2 ON C2.CFN_ID = D.CSD_CFN_ID
+      WHERE D.CSD_CFNS_ID = S.CFNS_ID)
+    </select>
+    <!--根据经销商和产品线，根据经销商授权查询成套产品-->
+    <select id="QueryBSCCfnSetForPurchaseOrderByAuth" parameterClass="System.Collections.Hashtable" resultClass="CfnSet">
+      SELECT *,ROW_NUMBER() OVER ( ORDER BY UPN ASC ) AS [row_number]
+      FROM (
+      select *,ROW_NUMBER() over(partition by  Id order BY id) AS rn from (
+      SELECT
+      TAB.Id,
+      TAB.CustomerFaceNbr AS UPN,
+      TAB.ChineseName,
+      TAB.EnglishName,
+      TAB.UOM,
+      convert(decimal(18,6),TAB.Price/ (select sum(isnull(dbo.fn_GetCfnPriceByDealer(#DealerId#, t3.CFN_ID, #SubCompanyId#, #BrandId#, #PriceType#, 0),0)* isnull(t2.Qty,0)) from CFNPrice t1, MD.ProductBOM t2, CFN t3
+      where t1.CFNP_CFN_ID = t3.CFN_ID and t3.CFN_CustomerFaceNbr = t2.BOMUPN
+      AND t2.MasterUPN = Tab.CustomerFaceNbr
+      AND t1.CFNP_PriceType = #PriceType#
+      AND t1.CFNP_Group_ID =  #DealerId#)
+      ) * 100 AS DiscountRate ,
+      CASE WHEN TAB.IsCanOrder = 0 THEN '否' ELSE '是' END AS IsCanOrder,
+      ProductMsg
+      <!--ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number]-->
+      FROM (
+      SELECT
+      C.CFN_ID AS Id,
+      C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      C.CFN_ChineseName AS ChineseName,
+      C.CFN_EnglishName AS EnglishName,
+      C.CFN_Property3 AS UOM,
+      C.CFN_Property7,
+      C.CFN_Property8 AS ProductMsg,
+      (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer(#DealerId#, C.CFN_ID, #SubCompanyId#, #BrandId#, #PriceType#, 0) AS CFNP_Price
+      FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND ISNULL(dbo.fn_GetCfnPriceByDealer(#DealerId#, C.CFN_ID, #SubCompanyId#, #BrandId#, #PriceType#, 0),0) > 0) AS Price,
+      CASE  WHEN (SELECT  TOP 1 dbo.fn_GetCfnPriceByDealer(#DealerId#, C.CFN_ID, #SubCompanyId#, #BrandId#, #PriceType#, 0) AS CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND ISNULL(dbo.fn_GetCfnPriceByDealer(#DealerId#, C.CFN_ID, #SubCompanyId#, #BrandId#, #PriceType#, 0),0) > 0) IS NULL THEN 0
+      when
+      (SELECT COUNT(*) FROM dbo.CFNPrice(nolock)
+      left join DealerMaster(nolock) on DMA_ID=CFNP_Group_ID
+      WHERE CFNP_CFN_ID =
+      C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND
+      CFNP_DeletedFlag = 0 AND ISNULL(dbo.fn_GetCfnPriceByDealer(#DealerId#, C.CFN_ID, #SubCompanyId#, #BrandId#, #PriceType#, 0),0) > 0 and DMA_DealerType in ('T1','LP','T2') and
+      Getdate()  between isnull([CFNP_ValidDateFrom],'1900-01-01')
+      and isnull([CFNP_ValidDateTo],getdate()))=0
+      then 0
+      ELSE C.CFN_Property4 END AS IsCanOrder
+      FROM
+      (
+      SELECT CFN.* FROM CFN(nolock)
+      INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+      WHERE DA.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ProductLine_BUM_ID = DA.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DA.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR ( (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      )
+      AND CFN.CFN_DeletedFlag = 0
+      AND CFN_Property4 != '-1'
+      UNION
+      SELECT CFN.* FROM CFN
+      INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+      WHERE DA.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+      AND CP.PCT_ID =  CC.ClassificationId
+      AND ((DA.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR ((DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      )
+      AND CFN.CFN_DeletedFlag = 0
+      AND CFN_Property4 != '-1'
+
+      UNION
+      SELECT C.*
+      FROM CFN AS C, CFNShare CS
+      Where C.CFN_ID = CS.CFNS_CFN_ID
+      AND CS.CFNS_BUM_ID = #ProductLineId#
+      AND CFN_Property4 != '-1'
+      AND CS.CFNS_DeletedFlag = 0
+      AND CS.CFNS_Property2 = 'T1'
+
+      <isNotNull prepend="UNION" property="IsClearBorrow">
+        SELECT C.CFN_ID, C.CFN_EnglishName, C.CFN_ChineseName, C.CFN_Implant, C.CFN_Tool, C.CFN_Description, C.CFN_CustomerFaceNbr, C.CFN_ProductCatagory_PCT_ID, C.CFN_Property1, C.CFN_Property2, C.CFN_Property3, 1 AS CFN_Property4, C.CFN_Property5, C.CFN_Property6, C.CFN_Property7, C.CFN_Property8, C.CFN_LastModifiedDate, C.CFN_DeletedFlag, C.CFN_ProductLine_BUM_ID, C.CFN_LastModifiedBy_USR_UserID, C.CFN_Share, C.CFN_Level1Code, C.CFN_Level1Desc, C.CFN_Level2Code, C.CFN_Level2Desc, C.CFN_Level3Code, C.CFN_Level3Desc, C.CFN_Level4Code, C.CFN_Level4Desc, C.CFN_Level5Code, C.CFN_Level5Desc
+        FROM CFN AS C
+        WHERE C.CFN_Property2 = 1
+      </isNotNull>
+      ) AS C
+      ) AS TAB
+      WHERE TAB.IsCanOrder = 1
+      AND TAB.CustomerFaceNbr IN (select MasterUPN from MD.ProductBOM)
+      <isNotNull prepend="AND" property="ProtectName">(TAB.ChineseName  like N'%$ProtectName$%' or TAB.EnglishName like N'%$ProtectName$%')</isNotNull>
+      <isNotNull prepend="AND" property="ProtectCode">TAB.CustomerFaceNbr like   N'%$ProtectCode$%'</isNotNull>
+
+      ) AS tb ) AS u WHERE u.rn=1
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

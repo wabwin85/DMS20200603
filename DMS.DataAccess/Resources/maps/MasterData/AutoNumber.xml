@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AutoNumberMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <procedure id="GetNextAutoNumber" parameterMap="swap-params">
+      dbo.GC_GetNextAutoNumber
+    </procedure>
+  </statements>
+  <parameterMaps>
+    <parameterMap id="swap-params" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DMA_RecID" />
+      <parameter property="Settings" column="Setting" />
+      <parameter property="BusinessUnit" column="BU" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="NextAutoNbr" column="NextAutoNbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <!--added by bozhenfei on 20100609-->
+  <statements>
+    <procedure id="GetNextAutoNumberForST" parameterMap="swap-params-st">
+      dbo.GC_GetNextAutoNumberForST
+    </procedure>
+  </statements>
+  <parameterMaps>
+    <parameterMap id="swap-params-st" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DMA_RecID" />
+      <parameter property="Settings" column="Setting" />
+      <parameter property="NextAutoNbr" column="NextAutoNbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <!--added by bozhenfei on 20110224-->
+  <statements>
+    <procedure id="GetNextAutoNumberForInt" parameterMap="swap-params-int">
+      dbo.GC_GetNextAutoNumberForInt
+    </procedure>
+  </statements>
+  <parameterMaps>
+    <parameterMap id="swap-params-int" class="System.Collections.Hashtable" >
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Settings" column="Setting" />
+      <parameter property="NextAutoNbr" column="NextAutoNbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <procedure id="GetNextAutoNumberForCode" parameterMap="swap-params-code">
+      dbo.GC_GetNextAutoNumberForCode
+    </procedure>
+  </statements>
+  <parameterMaps>
+    <parameterMap id="swap-params-code" class="System.Collections.Hashtable" >
+      <parameter property="Settings" column="Setting" />
+      <parameter property="NextAutoNbr" column="NextAutoNbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+
+</sqlMap>

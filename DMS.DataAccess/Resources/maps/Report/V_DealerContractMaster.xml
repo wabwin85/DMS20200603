@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="V_DealerContractMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <!--经销商授权报表-->
+    <select id="SelectDealerAuthCate" parameterClass="System.Collections.Hashtable">
+      SELECT top 300 *
+      FROM (SELECT a.dma_id,
+      dma_chinesename,
+      dat_productline_bum_id,
+      dpr.ProductLineName AS 'ProductLine',
+      a.EffectiveDate AS  DCL_STARTDATE,
+      a.ExpirationDate AS dcl_stopdate,
+      ct.CA_NameCN AS 'Auth_Cate',
+      HOS_HospitalName,
+      HOS_ID,
+      HOS_Province,
+      HOS_HospitalShortName,
+      HOS_City,
+      HOS_Grade,
+      HOS_PostalCode,
+      HOS_Key_Account,
+      HOS_Address,
+      HOS_PublicEmail,
+      HOS_Town,
+      HOS_Website,
+      HOS_District,
+      HOS_Phone,
+      HOS_DailyOutpatient,
+      HOS_ICU_BedNumber,
+      HOS_BedsCount,
+      HOS_Fax,
+      HOS_ActiveFlag,
+      HOS_CreatedDate,
+      HOS_CreatedBy,
+      HOS_ChiefEquipment,
+      HOS_Director,
+      HOS_ChiefEquipmentContact,
+      HOS_DirectorContact,
+      HOS_DeletedFlag,
+      HOS_LastModifiedDate,
+      HOS_LastModifiedBy_USR_UserID
+      FROM V_DealerContractMaster a(nolock)
+      inner join (select distinct CC_Division,CC_Code,CC_ID,CA_Code,CA_ID,CA_NameCN from V_ProductClassificationStructure(nolock)) ct on ct.CC_ID=a.CC_ID and ct.CC_Division=CONVERT(nvarchar(10),a.Division)
+      inner join V_DivisionProductLineRelation dpr(nolock) on dpr.IsEmerging='0' and dpr.DivisionCode=CONVERT(nvarchar(10),a.Division)
+      inner join DealerAuthorizationTable b(nolock) ON a.DMA_ID=b.DAT_DMA_ID and b.DAT_ProductLine_BUM_ID=dpr.ProductLineID and b.DAT_PMA_ID=ct.CA_ID
+      inner join DEALERMASTER c(nolock) on a.DMA_ID=c.DMA_ID
+      inner join HospitalList hl(nolock) on hl.HLA_DAT_ID=b.DAT_ID
+      inner join hospital hos(nolock) on hos.HOS_ID=hl.HLA_HOS_ID
+      WHERE    dma_activeflag = '1'
+      AND a.ActiveFlag='1'
+      <isNotEmpty prepend="AND" property="ProductLine">
+        dpr.ProductLineID = #ProductLine#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="DealerId">
+         a.DMA_ID = #DealerId#
+      </isNotEmpty>
+      ) table1
+
+      ORDER BY dma_chinesename, dat_productline_bum_id
+    </select>
+   
+     <select id="ExportDealerAuthCate" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+       SELECT
+       dma_chinesename AS '经销商名称',
+       ProductLineName AS '产品线',
+       CA_NameCN AS '授权分类/产品线',
+       HOS_HospitalName AS '授权医院',
+       HOS_Key_Account AS '授权医院编号',
+       HOS_Province AS '省份',
+       HOS_City AS '地区',
+       HOS_District AS '县市（区）',
+       HOS_PublicEmail AS '邮编',
+       HOS_Address AS '医院地址',
+       HOS_Phone AS '医院电话'
+       FROM (SELECT a.dma_id,
+       dma_chinesename,
+       dat_productline_bum_id,
+       dpr.ProductLineName,
+       ct.CA_NameCN,
+       HOS_ID,
+       HOS_HospitalName,
+       HOS_Key_Account,
+       HOS_Province,
+       HOS_City,
+       HOS_District,
+       HOS_PublicEmail,
+       HOS_Address,
+       HOS_Phone
+       FROM V_DealerContractMaster a(nolock)
+       inner join (select distinct CC_Division,CC_Code,CC_ID,CA_Code,CA_ID,CA_NameCN from V_ProductClassificationStructure(nolock)) ct on ct.CC_ID=a.CC_ID and ct.CC_Division=CONVERT(nvarchar(10),a.Division)
+       inner join V_DivisionProductLineRelation dpr(nolock) on dpr.IsEmerging='0' and dpr.DivisionCode=CONVERT(nvarchar(10),a.Division)
+       inner join DealerAuthorizationTable b(nolock) ON a.DMA_ID=b.DAT_DMA_ID and b.DAT_ProductLine_BUM_ID=dpr.ProductLineID and b.DAT_PMA_ID=ct.CA_ID
+       inner join DEALERMASTER c(nolock) on a.DMA_ID=c.DMA_ID
+       inner join HospitalList hl(nolock) on hl.HLA_DAT_ID=b.DAT_ID
+       inner join hospital hos(nolock) on hos.HOS_ID=hl.HLA_HOS_ID
+       WHERE    dma_activeflag = '1'
+       AND a.ActiveFlag='1'
+       <isNotEmpty prepend="AND" property="ProductLine">
+       dpr.ProductLineID = #ProductLine#
+     </isNotEmpty>
+     <isNotEmpty prepend="AND" property="DealerId">
+       a.DMA_ID = #DealerId#
+     </isNotEmpty>
+       ) table1
+     
+       ORDER BY '经销商名称', dat_productline_bum_id
+     </select>
+    <!--End 经销商授权报表-->
+  
+  </statements>
+</sqlMap>

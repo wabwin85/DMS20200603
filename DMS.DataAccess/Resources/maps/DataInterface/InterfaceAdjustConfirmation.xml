@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceAdjustConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceAdjustConfirmation" assembly="DMS.Model.dll" type="DMS.Model.InterfaceAdjustConfirmation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceAdjustConfirmationResult" class="InterfaceAdjustConfirmation">
+      <result property="Id" column="IAC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AdjustNo" column="IAC_AdjustNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="IAC_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="IsConfirm" column="IAC_IsConfirm" type="bool" dbType="bit"/>
+      <result property="Remark" column="IAC_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="IAC_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IAC_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="IAC_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IAC_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IAC_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_AdjustConfirmation_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceAdjustConfirmation" parameterClass="string" resultClass="InterfaceAdjustConfirmation">
+      SELECT IAC_ID AS Id,IAC_AdjustNo AS AdjustNo,IAC_ConfirmDate AS ConfirmDate,IAC_IsConfirm AS IsConfirm,IAC_Remark AS Remark,IAC_LineNbr AS LineNbr,IAC_FileName AS FileName,IAC_ImportDate AS ImportDate,IAC_ClientID AS Clientid,IAC_BatchNbr AS BatchNbr
+      FROM InterfaceAdjustConfirmation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IAC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceAdjustConfirmation" parameterClass="InterfaceAdjustConfirmation" resultClass="InterfaceAdjustConfirmation">
+      SELECT IAC_ID AS Id,IAC_AdjustNo AS AdjustNo,IAC_ConfirmDate AS ConfirmDate,IAC_IsConfirm AS IsConfirm,IAC_Remark AS Remark,IAC_LineNbr AS LineNbr,IAC_FileName AS FileName,IAC_ImportDate AS ImportDate,IAC_ClientID AS Clientid,IAC_BatchNbr AS BatchNbr
+      FROM InterfaceAdjustConfirmation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IAC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNo">IAC_AdjustNo=#AdjustNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">IAC_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsConfirm">IAC_IsConfirm=#IsConfirm#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IAC_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IAC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IAC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IAC_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IAC_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IAC_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceAdjustConfirmation" parameterClass="InterfaceAdjustConfirmation">
+      INSERT INTO InterfaceAdjustConfirmation
+      (IAC_ID,IAC_AdjustNo,IAC_ConfirmDate,IAC_IsConfirm,IAC_Remark,IAC_LineNbr,IAC_FileName,IAC_ImportDate,IAC_ClientID,IAC_BatchNbr)
+      VALUES(#Id#,#AdjustNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceAdjustConfirmation" parameterClass="InterfaceAdjustConfirmation">
+      UPDATE InterfaceAdjustConfirmation
+      SET IAC_ID=#Id#,IAC_AdjustNo=#AdjustNo#,IAC_ConfirmDate=#ConfirmDate#,IAC_IsConfirm=#IsConfirm#,IAC_Remark=#Remark#,IAC_LineNbr=#LineNbr#,IAC_FileName=#FileName#,IAC_ImportDate=#ImportDate#,IAC_ClientID=#Clientid#,IAC_BatchNbr=#BatchNbr#
+      WHERE IAC_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceAdjustConfirmation" parameterClass="string">
+      DELETE FROM InterfaceAdjustConfirmation
+      WHERE IAC_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_AdjustConfirmation" parameterMap="GC_Interface_AdjustConfirmation_ParameterMap">
+      dbo.GC_Interface_AdjustConfirmation
+    </procedure>
+  </statements>
+</sqlMap>

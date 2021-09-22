@@ -1,0 +1,226 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="DMS.Website.Revolution.MasterPage.Site" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/styles/kendo.common.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/styles/kendo.bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/styles/kendo.bootstrap.mobile.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/bootstrap-3.3.5/css/bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/Font-Awesome-4.7.0/css/font-awesome.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/LTE/css/AdminLTE.css") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>">
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/css/weui.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/css/kendo.css") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/css/main.css") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Revolution/Resources/css/main.dms.css") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>" />
+
+    <asp:ContentPlaceHolder ID="StyleContent" runat="server" />
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/js/jquery.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/js/kendo.web.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/js/kendo.all.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/js/jszip.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/js/messages/kendo.messages.zh-CN.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/kendo/js/cultures/kendo.culture.zh-CN.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/bootstrap-3.3.5/js/bootstrap.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/js/bootbox.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/js/jquery.slimscroll.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/FrameJs/Kendo/FrameJS.Kendo.min.js") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/FrameJs/Extention/FrameJS.KendoExtention.min.js") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/FrameJs/kendo/util.js") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Revolution/Resources/js/common.js") %>?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>"></script>
+
+
+    <style type="text/css">
+        html {
+            overflow: hidden;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .content-main {
+            display: flex;
+        }
+
+        .panel-head {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .panel-main {
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .panel-foot {
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+
+    <script type="text/javascript">
+        Common.AppVirtualPath = "<%=DMS.Common.WebHelper.GetWebRoot() %>";
+        Common.AppHandler = Common.AppVirtualPath + 'Revolution/Pages/Handler/ActionHandler.ashx';
+        Common.ExportUrl = Common.AppVirtualPath + 'Revolution/Pages/Util/FileExport.aspx';
+
+        kendo.culture("zh-CN");
+
+        bootbox.setDefaults({
+            locale: 'zh_CN'
+        });
+
+        var createTab = function (option) {
+            window.open(Common.AppVirtualPath + option.url);
+        }
+
+        var changeTabsName = function (id, name) {
+            if (top != self) {
+                top.changeTabsName(self.frameElement.getAttribute('id'), id, name);
+            }
+        }
+
+        var setGridMaxHeight = function (grid) {
+            var w = $(window).height();
+            var h = $('.panel-head').height();
+            var f = $('.panel-foot').height();
+            $("#" + grid).find(".k-grid-content").css('max-height', '500px');
+        }
+
+        var initLayout = function () {
+            var w = $(window).height();
+            var h = $('.panel-head').height();
+            var f = $('.panel-foot').height();
+            $('.panel-main').height(w - h - f);
+        }
+
+        $(document).ready(function () {
+            initLayout();
+            $(window).resize(function () {
+                initLayout();
+            })
+        })
+        //business第一个参数为映射business页面
+        //method第二个参数为business页面查询方法，
+        //mfields第三个参数为需要格式化参数类型，如日期类型，无需处理则传入null或不传，
+        //Size第四个参数每页显示条目，不传默认为10条
+        //fn自定义获取搜索条件方法
+        function GetKendoDataSource(business, method, mfields, Size, fn) {
+            var size = 10;
+            if (Size) {
+                size = Size;
+            }
+            var kendoDataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        type: "post",
+                        url: Common.AppHandler + '?Business=' + business + '&Method=' + method,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation == "read") {
+                            var Data = FrameUtil.GetModel();
+                            if (fn && typeof (fn) == "function") {
+                                Data = fn();
+                            }
+                            Data.Page = options.page;
+                            Data.PageSize = options.pageSize;
+                            return JSON.stringify(Data);
+                        }
+                    }
+                },
+
+                schema: {
+                    model: {
+                        fields: mfields
+                    },
+                    data: function (d) {
+                        return d.data;
+                    },
+                    total: function (d) {
+                        return d.total;
+                    },
+                    parse: function (response) {
+                        if (typeof (response) != 'string') {
+                            response = JSON.stringify(response);
+                        }
+                        var r = JSON.parse(response);
+                        return r.data;
+                    }
+                },
+                serverPaging: true,
+                pageSize: size
+            });
+            return kendoDataSource;
+        }
+
+        function ValidateDataType(str) {
+            if (typeof (str) == "undefined") {
+                str = "";
+            }
+            if (!str && typeof (str) != "undefined" && str != 0) {
+                str = "";
+            }
+            //if (isNaN(str)) {
+            //    str = "";
+            //}
+            return str;
+        };
+    </script>
+</head>
+<body>
+    <div class="panel-head">
+        <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+    </div>
+    <div class="panel-main" id="PnlMain">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+    <div class="panel-foot">
+        <asp:ContentPlaceHolder ID="FootContent" runat="server" />
+    </div>
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
+    <%--实现整个页面的遮罩--%>
+    <div id="loadingToast" class="weui_loading_toast">
+        <div class="weui_mask_transparent">
+        </div>
+        <div class="weui_toast">
+            <div class="weui_loading">
+                <div class="weui_loading_leaf weui_loading_leaf_0">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_1">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_2">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_3">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_4">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_5">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_6">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_7">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_8">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_9">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_10">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_11">
+                </div>
+            </div>
+            <p id="mscont" class="weui_toast_content">
+                数据加载中
+            </p>
+        </div>
+    </div>
+</body>
+</html>

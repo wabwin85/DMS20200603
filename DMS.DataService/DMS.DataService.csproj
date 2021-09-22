@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5EFA666A-ADF8-4CF7-ADB7-8FE64A2D2CCA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.DataService</RootNamespace>
+    <AssemblyName>DMS.DataService</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net1213, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Common.Logging.Log4Net1213.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.Common, Version=1.6.2.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper, Version=1.6.2.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EKPService.asmx" />
+    <Content Include="InterfaceT2.asmx" />
+    <Content Include="Platform.asmx" />
+    <Content Include="BIInterface.asmx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthHeader.cs" />
+    <Compile Include="Core\DataEventArgs.cs" />
+    <Compile Include="Core\IDownloadData.cs" />
+    <Compile Include="Core\IUploadData.cs" />
+    <Compile Include="Core\AuthHeader.cs" />
+    <Compile Include="Core\DownloadData.cs" />
+    <Compile Include="EKPService.asmx.cs">
+      <DependentUpon>EKPService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Handler\BSCDeliveryUploader.cs" />
+    <Compile Include="Handler\BSCInvoiceDownloader.cs" />
+    <Compile Include="Handler\ChannelLogisticInfoWithQR301Downloader.cs" />
+    <Compile Include="Handler\ChannelLogisticInfoWithQRDownloader.cs" />
+    <Compile Include="Handler\ConsignmentWarehouseUploader.cs" />
+    <Compile Include="Handler\DealerConsignmentSalesPriceUploader.cs" />
+    <Compile Include="Handler\DealerInventoryDownloader.cs" />
+    <Compile Include="Handler\DealerInventoryWithQRForRedCrossDownloader.cs" />
+    <Compile Include="Handler\DealerReturnConfirmUploader.cs" />
+    <Compile Include="Handler\DealerSalesWritebackUploader.cs" />
+    <Compile Include="Handler\DealerTransactionUploader.cs" />
+    <Compile Include="Handler\DMSCalculatedPointsDownloader.cs" />
+    <Compile Include="Handler\DMSFilesUploader.cs" />
+    <Compile Include="Handler\HospitalSalesForT2Uploader.cs" />
+    <Compile Include="Handler\HospitalTransactionWithQRUploader.cs" />
+    <Compile Include="Handler\InventoryTransferForT2Uploader.cs" />
+    <Compile Include="Handler\LpComplainDownloader.cs" />
+    <Compile Include="Handler\LpConsignmentUploader.cs" />
+    <Compile Include="Handler\LPDeliveryForT2Downloader.cs" />
+    <Compile Include="Handler\LpDeliveryUploader.cs" />
+    <Compile Include="Handler\LpRentDownloader.cs" />
+    <Compile Include="Handler\LpReturnDownloader.cs" />
+    <Compile Include="Handler\LpSalesUploader.cs" />
+    <Compile Include="Handler\LpTransferUploader.cs" />
+    <Compile Include="Handler\ProductDownloader.cs" />
+    <Compile Include="Handler\QRCodeMasterUploader.cs" />
+    <Compile Include="Handler\RedCrossHospitalTransactionWithQRUploader.cs" />
+    <Compile Include="Handler\SampleManage\CreateSampleApplyHandler.cs" />
+    <Compile Include="Handler\SampleManage\CreateSampleReturnHandler.cs" />
+    <Compile Include="Handler\SampleManage\ReceiveSampleHandler.cs" />
+    <Compile Include="Handler\SampleManage\CreateSampleEvalHandler.cs" />
+    <Compile Include="Handler\SampleManage\SampleCloseApplyHandler.cs" />
+    <Compile Include="Handler\SapDeliveryConfirmationUploader.cs" />
+    <Compile Include="Handler\SapDeliveryDownloader.cs" />
+    <Compile Include="Handler\LpOrderDownloader.cs" />
+    <Compile Include="Handler\OrderStatusUploader.cs" />
+    <Compile Include="Handler\SapDeliveryUploaderNew.cs" />
+    <Compile Include="Handler\SapOrderDownloader.cs" />
+    <Compile Include="Handler\SapDeliveryUploader.cs" />
+    <Compile Include="Handler\T2AuthorizationDownloader.cs" />
+    <Compile Include="Handler\T2CommercialIndexDownloader.cs" />
+    <Compile Include="Handler\T2ConsignToSellingDownloader.cs" />
+    <Compile Include="Handler\T2ContactInfoUploader.cs" />
+    <Compile Include="Handler\T2CreditMemoUpload.cs" />
+    <Compile Include="Handler\T2DeliveryConfirmUploader.cs" />
+    <Compile Include="Handler\T2OrderConfirmationUploader.cs" />
+    <Compile Include="Handler\T2OrderDownloader.cs" />
+    <Compile Include="Handler\LpReturnConfirmationUploader.cs" />
+    <Compile Include="Handler\LpBorrowUploader.cs" />
+    <Compile Include="Handler\LpAdjustUploader.cs" />
+    <Compile Include="Handler\T2ConsignmentSalesDownloader.cs" />
+    <Compile Include="Handler\HospitalInfoDownloader.cs" />
+    <Compile Include="Handler\DealerInfoDownloader.cs" />
+    <Compile Include="Handler\T2PointsAdjustmentUpload.cs" />
+    <Compile Include="Handler\T2ReturnDownloader.cs" />
+    <Compile Include="Hospital.asmx.cs">
+      <DependentUpon>Hospital.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InterfaceT2.asmx.cs">
+      <DependentUpon>InterfaceT2.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Platform.asmx.cs">
+      <DependentUpon>Platform.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="BIInterface.asmx.cs">
+      <DependentUpon>BIInterface.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\UploadData.cs" />
+    <Compile Include="ReportSales.asmx.cs">
+      <DependentUpon>ReportSales.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\DataHelper.cs" />
+    <Compile Include="zzcsc.asmx.cs">
+      <DependentUpon>zzcsc.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SampleManageService.asmx.cs">
+      <DependentUpon>SampleManageService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.Business\DMS.Business.csproj">
+      <Project>{3CA1033F-AEFB-414A-AE2E-58FA4533F374}</Project>
+      <Name>DMS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Common\DMS.Common.csproj">
+      <Project>{F752671C-1874-4C06-8192-00186E5D00DE}</Project>
+      <Name>DMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.DataAccess\DMS.DataAccess.csproj">
+      <Project>{03A4A80F-98B9-40C7-A3DD-804D7901F0DC}</Project>
+      <Name>DMS.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Model\DMS.Model.csproj">
+      <Project>{25EA2C8A-56FD-446F-B3F6-D9A7CFA11C77}</Project>
+      <Name>DMS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Signature\DMS.Signature.csproj">
+      <Project>{9623e5e2-d457-4b5b-954c-e4b113dae22b}</Project>
+      <Name>DMS.Signature</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\DMS.Website\config\enterpriseLibrary.config">
+      <Link>config\enterpriseLibrary.config</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="..\DMS.Website\config\grapecityLibrary.config">
+      <Link>config\grapecityLibrary.config</Link>
+    </Content>
+    <Content Include="..\DMS.Website\config\providers.config">
+      <Link>config\providers.config</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\DMS.Website\SqlMap.config">
+      <Link>SqlMap.config</Link>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Hospital.asmx" />
+    <Content Include="ReportSales.asmx" />
+    <Content Include="zzcsc.asmx" />
+    <Content Include="SampleManageService.asmx" />
+    <Content Include="config\log4net.config" />
+    <None Include="Properties\PublishProfiles\DataService.pubxml" />
+    <None Include="Properties\PublishProfiles\DMSService.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51715</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8149/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

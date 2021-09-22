@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterprisePayAuthMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterprisePayAuth" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterprisePayAuth" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterprisePayAuthResult" class="EnterprisePayAuth">
+      <result property="Id" column="EP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="EaId" column="EP_EA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="EP_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentDmaId" column="EP_Parent_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerName" column="EP_DealerName" type="string" dbType="nvarchar"/>
+      <result property="AccountUid" column="EP_AccountUid" type="string" dbType="nvarchar"/>
+      <result property="Name" column="EP_Name" type="string" dbType="nvarchar"/>
+      <result property="CardNo" column="EP_CardNo" type="string" dbType="nvarchar"/>
+      <result property="SubBranch" column="EP_SubBranch" type="string" dbType="nvarchar"/>
+      <result property="Bank" column="EP_Bank" type="string" dbType="nvarchar"/>
+      <result property="Provice" column="EP_Provice" type="string" dbType="nvarchar"/>
+      <result property="City" column="EP_City" type="string" dbType="nvarchar"/>
+      <result property="Notify" column="EP_Notify" type="string" dbType="nvarchar"/>
+      <result property="ServiceId" column="EP_ServiceId" type="string" dbType="nvarchar"/>
+      <result property="Prcptcd" column="EP_Prcptcd" type="string" dbType="nvarchar"/>
+      <result property="PizId" column="EP_PizId" type="string" dbType="nvarchar"/>
+      <result property="IsActive" column="EP_IsActive" type="int" dbType="int"/>
+      <result property="Status" column="EP_Status" type="string" dbType="nvarchar"/>
+      <result property="PayAuthCount" column="EP_PayAuthCount" type="int" dbType="int"/>
+      <result property="PayResult" column="EP_PayResult" type="string" dbType="nvarchar"/>
+      <result property="PayDate" column="EP_PayDate" type="DateTime" dbType="datetime"/>
+      <result property="PayMoney" column="EP_PayMoney" type="decimal" dbType="decimal"/>
+      <result property="CreateUser" column="EP_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="EP_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="EP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="EP_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="EP_UpdateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="EP_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="EP_Remark1" type="string" dbType="nvarchar"/>
+      <result property="Remark2" column="EP_Remark2" type="string" dbType="nvarchar"/>
+      <result property="Remark3" column="EP_Remark3" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterprisePayAuth" parameterClass="string" resultClass="EnterprisePayAuth">
+      SELECT EP_ID AS Id,EP_EA_ID AS EaId,EP_DMA_ID AS DmaId,EP_Parent_DMA_ID AS ParentDmaId,EP_DealerName AS DealerName,EP_AccountUid AS AccountUid,EP_Name AS Name,EP_CardNo AS CardNo,EP_SubBranch AS SubBranch,EP_Bank AS Bank,EP_Provice AS Provice,EP_City AS City,EP_Notify AS Notify,EP_ServiceId AS ServiceId,EP_Prcptcd AS Prcptcd,EP_PizId AS PizId,EP_IsActive AS IsActive,EP_Status AS Status,EP_PayAuthCount AS PayAuthCount,EP_PayResult AS PayResult,EP_PayDate AS PayDate,EP_PayMoney AS PayMoney,EP_CreateUser AS CreateUser,EP_CreateUserName AS CreateUserName,EP_CreateDate AS CreateDate,EP_UpdateUser AS UpdateUser,EP_UpdateUserName AS UpdateUserName,EP_UpdateDate AS UpdateDate,EP_Remark1 AS Remark1,EP_Remark2 AS Remark2,EP_Remark3 AS Remark3
+      FROM ESign.EnterprisePayAuth
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          EP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterprisePayAuth" parameterClass="EnterprisePayAuth" resultClass="EnterprisePayAuth">
+      SELECT EP_ID AS Id,EP_EA_ID AS EaId,EP_DMA_ID AS DmaId,EP_Parent_DMA_ID AS ParentDmaId,EP_DealerName AS DealerName,EP_AccountUid AS AccountUid,EP_Name AS Name,EP_CardNo AS CardNo,EP_SubBranch AS SubBranch,EP_Bank AS Bank,EP_Provice AS Provice,EP_City AS City,EP_Notify AS Notify,EP_ServiceId AS ServiceId,EP_Prcptcd AS Prcptcd,EP_PizId AS PizId,EP_IsActive AS IsActive,EP_Status AS Status,EP_PayAuthCount AS PayAuthCount,EP_PayResult AS PayResult,EP_PayDate AS PayDate,EP_PayMoney AS PayMoney,EP_CreateUser AS CreateUser,EP_CreateUserName AS CreateUserName,EP_CreateDate AS CreateDate,EP_UpdateUser AS UpdateUser,EP_UpdateUserName AS UpdateUserName,EP_UpdateDate AS UpdateDate,EP_Remark1 AS Remark1,EP_Remark2 AS Remark2,EP_Remark3 AS Remark3
+      FROM ESign.EnterprisePayAuth
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">EP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="EaId">EP_EA_ID=#EaId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">EP_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ParentDmaId">EP_Parent_DMA_ID=#ParentDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">EP_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="AccountUid">EP_AccountUid=#AccountUid#</isNotNull>
+        <isNotNull prepend="AND" property="Name">EP_Name=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="CardNo">EP_CardNo=#CardNo#</isNotNull>
+        <isNotNull prepend="AND" property="SubBranch">EP_SubBranch=#SubBranch#</isNotNull>
+        <isNotNull prepend="AND" property="Bank">EP_Bank=#Bank#</isNotNull>
+        <isNotNull prepend="AND" property="Provice">EP_Provice=#Provice#</isNotNull>
+        <isNotNull prepend="AND" property="City">EP_City=#City#</isNotNull>
+        <isNotNull prepend="AND" property="Notify">EP_Notify=#Notify#</isNotNull>
+        <isNotNull prepend="AND" property="ServiceId">EP_ServiceId=#ServiceId#</isNotNull>
+        <isNotNull prepend="AND" property="Prcptcd">EP_Prcptcd=#Prcptcd#</isNotNull>
+        <isNotNull prepend="AND" property="PizId">EP_PizId=#PizId#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">EP_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="Status">EP_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="PayAuthCount">EP_PayAuthCount=#PayAuthCount#</isNotNull>
+        <isNotNull prepend="AND" property="PayResult">EP_PayResult=#PayResult#</isNotNull>
+        <isNotNull prepend="AND" property="PayDate">EP_PayDate=#PayDate#</isNotNull>
+        <isNotNull prepend="AND" property="PayMoney">EP_PayMoney=#PayMoney#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">EP_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">EP_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">EP_UpdateUserName=#UpdateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">EP_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">EP_Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="Remark2">EP_Remark2=#Remark2#</isNotNull>
+        <isNotNull prepend="AND" property="Remark3">EP_Remark3=#Remark3#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterprisePayAuth" parameterClass="EnterprisePayAuth">
+      IF (EXISTS (SELECT 1 FROM ESign.EnterprisePayAuth WITH ( UPDLOCK, HOLDLOCK )
+      WHERE EP_DMA_ID = #DmaId# AND EP_IsActive = 1 ))
+      BEGIN
+      UPDATE ESign.EnterprisePayAuth SET EP_IsActive = 0,EP_UpdateUser=#UpdateUser#,EP_UpdateUserName=#UpdateUserName#,EP_UpdateDate=#UpdateDate#
+      WHERE EP_DMA_ID = #DmaId# AND EP_IsActive = 1
+      END
+
+      INSERT INTO ESign.EnterprisePayAuth
+      (EP_ID,EP_EA_ID,EP_DMA_ID,EP_Parent_DMA_ID,EP_DealerName,EP_AccountUid,EP_Name,EP_CardNo,EP_SubBranch,EP_Bank,EP_Provice,EP_City,EP_Notify,EP_ServiceId,EP_Prcptcd,EP_PizId,EP_IsActive,EP_Status,EP_PayAuthCount,EP_PayResult,EP_PayDate,EP_PayMoney,EP_CreateUser,EP_CreateUserName,EP_CreateDate,EP_UpdateUser,EP_UpdateUserName,EP_UpdateDate,EP_Remark1,EP_Remark2,EP_Remark3)
+      VALUES(#Id#,#EaId#,#DmaId#,#ParentDmaId#,#DealerName#,#AccountUid#,#Name#,#CardNo#,#SubBranch#,#Bank#,#Provice#,#City#,#Notify#,#ServiceId#,#Prcptcd#,#PizId#,#IsActive#,#Status#,#PayAuthCount#,#PayResult#,#PayDate:DateTime:1/1/0001 12:00:00 AM#,#PayMoney#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#Remark2#,#Remark3#)
+    </insert>
+    <update id="UpdateEnterprisePayAuth" parameterClass="EnterprisePayAuth">
+      UPDATE ESign.EnterprisePayAuth
+      SET EP_ID=#Id#,EP_EA_ID=#EaId#,EP_DMA_ID=#DmaId#,EP_Parent_DMA_ID=#ParentDmaId#,EP_DealerName=#DealerName#,EP_AccountUid=#AccountUid#,EP_Name=#Name#,EP_CardNo=#CardNo#,EP_SubBranch=#SubBranch#,EP_Bank=#Bank#,EP_Provice=#Provice#,EP_City=#City#,EP_Notify=#Notify#,EP_ServiceId=#ServiceId#,EP_Prcptcd=#Prcptcd#,EP_PizId=#PizId#,EP_IsActive=#IsActive#,EP_Status=#Status#,EP_PayAuthCount=#PayAuthCount#,EP_PayResult=#PayResult#,EP_PayDate=#PayDate#,EP_PayMoney=#PayMoney#,EP_CreateUserName=#CreateUserName#,EP_UpdateUser=#UpdateUser#,EP_UpdateUserName=#UpdateUserName#,EP_UpdateDate=#UpdateDate#,EP_Remark1=#Remark1#,EP_Remark2=#Remark2#,EP_Remark3=#Remark3#
+      WHERE EP_ID = #Id#
+    </update>
+    <delete id="DeleteEnterprisePayAuth" parameterClass="string">
+      DELETE FROM ESign.EnterprisePayAuth
+      WHERE EP_ID = #value#
+    </delete>
+
+    <select id="QueryEnterprisePayAuthByDealerId" parameterClass="System.Collections.Hashtable" resultClass="EnterprisePayAuth">
+      SELECT EP_ID AS Id,EP_EA_ID AS EaId,EP_DMA_ID AS DmaId,EP_Parent_DMA_ID AS ParentDmaId,EP_DealerName AS DealerName,EP_AccountUid AS AccountUid,EP_Name AS Name,EP_CardNo AS CardNo,EP_SubBranch AS SubBranch,EP_Bank AS Bank,EP_Provice AS Provice,EP_City AS City,EP_Notify AS Notify,EP_ServiceId AS ServiceId,EP_Prcptcd AS Prcptcd,EP_PizId AS PizId,EP_IsActive AS IsActive,EP_Status AS Status,EP_PayAuthCount AS PayAuthCount,EP_PayResult AS PayResult,EP_PayDate AS PayDate,EP_PayMoney AS PayMoney,EP_CreateUser AS CreateUser,EP_CreateUserName AS CreateUserName,EP_CreateDate AS CreateDate,EP_UpdateUser AS UpdateUser,EP_UpdateUserName AS UpdateUserName,EP_UpdateDate AS UpdateDate,EP_Remark1 AS Remark1,EP_Remark2 AS Remark2,EP_Remark3 AS Remark3
+      <!--,(SELECT TOP 1 EA_ServiceId FROM ESign.EnterpriseAuthentication WHERE EA_DMA_ID=#DealerId# AND EA_IsActive = 1 AND EA_Status = 'RealNameSuccess') AS RealNameServiceId
+      ,(SELECT TOP 1 EA_ToPayCount FROM ESign.EnterpriseAuthentication WHERE EA_DMA_ID=#DealerId# AND EA_IsActive = 1 AND EA_Status = 'RealNameSuccess') AS ToPayCount-->
+      FROM ESign.EnterprisePayAuth
+      INNER JOIN DealerMaster ON DMA_ID = EP_DMA_ID
+      WHERE EP_DMA_ID=#DealerId#
+      AND EP_IsActive = 1
+    </select>
+  </statements>
+</sqlMap>

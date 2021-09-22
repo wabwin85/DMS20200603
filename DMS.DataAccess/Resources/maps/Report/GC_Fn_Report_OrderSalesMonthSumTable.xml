@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="GC_Fn_Report_OrderSalesMonthSumTableMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <!--月订单销售汇总报表-->
+    <select id="SelectOrderSalesSummaryInMonthReport" parameterClass="System.Collections.Hashtable">
+      select ProductLineName,ChineseName,SAPCode,SAPShipmentDate,ParentDealerName,Type,Years,OneAmount,
+      TwoAmount,ThreeAmount,FourAmount,FiveAmount,SixAmount,SevenAmount,EightAmount,NineAmount,
+      TenAmount,ElevenAmount,TwelveAmount,Amount
+      from GC_Fn_Report_OrderSalesMonthSumTable(#ProductLine#,#Year#,#LpId#,#DealerId#)
+    </select>
+   
+     <select id="ExportOrderSalesSummaryInMonthReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+       select ProductLineName AS '产品线',
+       ChineseName AS '经销商中文名称',
+       SAPCode AS '经销商ERP Account',
+       ParentDealerName AS '上级经销商',
+       Type AS '订单类型',
+       SAPShipmentDate AS '发货日期',
+       Years AS '年度',
+       OneAmount AS '一月订单金额',
+       TwoAmount AS '二月订单金额',
+       ThreeAmount AS '三月订单金额',
+       FourAmount AS '四月订单金额',
+       FiveAmount AS '五月订单金额',
+       SixAmount AS '六月订单金额',
+       SevenAmount AS '七月订单金额',
+       EightAmount AS '八月订单金额',
+       NineAmount AS '九月订单金额',
+       TenAmount AS '十月订单金额',
+       ElevenAmount AS '十一月订单金额',
+       TwelveAmount AS '十二月订单金额',
+       Amount AS '金额汇总'
+       from GC_Fn_Report_OrderSalesMonthSumTable(#ProductLine#,#Year#,#LpId#,#DealerId#)
+     </select>
+    <!--End 月订单销售汇总报表-->
+  
+  </statements>
+</sqlMap>

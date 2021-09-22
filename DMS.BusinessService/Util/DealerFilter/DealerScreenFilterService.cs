@@ -1,0 +1,45 @@
+﻿using DMS.BusinessService.Util.DealerFilter;
+using DMS.Common.Common;
+using DMS.Common.Extention;
+using DMS.ViewModel.Util;
+using Spring.Context;
+using Spring.Context.Support;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DMS.BusinessService.Util.DealerFilter
+{
+    public class DealerScreenFilterService : ABaseQueryService
+    {
+
+        public DealerScreenFilterVO DealerFilter(DealerScreenFilterVO model)
+        {
+            try
+            {
+                if (model.DelegateBusiness.IsNullOrEmpty())
+                {
+                    model.IsSuccess = false;
+                    model.ExecuteMessage.Add("Empty of DelegateBusiness");
+                }
+                else
+                {
+                    IApplicationContext iac = ContextRegistry.GetContext();
+                    IDealerFilterFac fac = iac.GetObject(model.DelegateBusiness + "_Service") as IDealerFilterFac;
+
+                    model.RstResult = fac.CreateDealerFilter().GetDealerList(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex);
+
+                model.IsSuccess = false;
+                model.ExecuteMessage.Add(ex.Message);
+            }
+            return model;
+        }
+
+    }
+}

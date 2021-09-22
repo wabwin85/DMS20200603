@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TIIfInvoiceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TIIfInvoice" assembly="BPM.DataModel.dll" type="DMS.Model.TIIfInvoice" />
+    <typeAlias alias="BSCInvoiceData" assembly="BPM.DataModel.dll" type="DMS.Model.BSCInvoiceData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TIIfInvoiceResult" class="TIIfInvoice">
+      <result property="OrderNo" column="OrderNo" type="string" dbType="nvarchar"/>
+      <result property="InvoiceNo" column="InvoiceNo" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDate" column="InvoiceDate" type="DateTime" dbType="datetime"/>
+      <result property="InvoiceStatus" column="InvoiceStatus" type="string" dbType="nvarchar"/>
+      <result property="InvoiceAmount" column="InvoiceAmount" type="decimal" dbType="decimal"/>
+      <result property="Id733" column="ID733" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="BSCInvoiceDataResult" class="BSCInvoiceData">
+      <result property="OrderNo" column="OrderNo" type="string" dbType="nvarchar"/>
+      <result property="InvoiceNo" column="InvoiceNo" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDate" column="InvoiceDate" type="DateTime" dbType="datetime"/>
+      <result property="InvoiceAmount" column="InvoiceAmount" type="decimal" dbType="decimal"/>
+      <result property="ID733" column="ID733" type="string" dbType="nvarchar"/>
+      <result property="DeliveryNo" column="DeliveryNo" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectTIIfInvoice" parameterClass="string" resultClass="TIIfInvoice">
+      SELECT OrderNo AS OrderNo,InvoiceNo AS InvoiceNo,InvoiceDate AS InvoiceDate,InvoiceStatus AS InvoiceStatus,InvoiceAmount AS InvoiceAmount,ID733 AS Id733
+      FROM T_I_IF_Invoice
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          OrderNo = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTIIfInvoice" parameterClass="TIIfInvoice" resultClass="TIIfInvoice">
+      SELECT OrderNo AS OrderNo,InvoiceNo AS InvoiceNo,InvoiceDate AS InvoiceDate,InvoiceStatus AS InvoiceStatus,InvoiceAmount AS InvoiceAmount,ID733 AS Id733
+      FROM T_I_IF_Invoice
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">InvoiceNo=#InvoiceNo#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceDate">InvoiceDate=#InvoiceDate#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceStatus">InvoiceStatus=#InvoiceStatus#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceAmount">InvoiceAmount=#InvoiceAmount#</isNotNull>
+        <isNotNull prepend="AND" property="Id733">ID733=#Id733#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTIIfInvoice" parameterClass="TIIfInvoice">
+      INSERT INTO T_I_IF_Invoice
+      (OrderNo,InvoiceNo,InvoiceDate,InvoiceStatus,InvoiceAmount,ID733)
+      VALUES(#OrderNo#,#InvoiceNo#,#InvoiceDate:DateTime:1/1/0001 12:00:00 AM#,#InvoiceStatus#,#Id733#)
+    </insert>
+    <update id="UpdateTIIfInvoice" parameterClass="TIIfInvoice">
+      UPDATE T_I_IF_Invoice
+      SET OrderNo=#OrderNo#,InvoiceNo=#InvoiceNo#,InvoiceDate=#InvoiceDate#,InvoiceStatus=#InvoiceStatus#,InvoiceAmount=#InvoiceAmount#,ID733=#Id733#
+      WHERE OrderNo = #OrderNo#
+    </update>
+    <delete id="DeleteTIIfInvoice" parameterClass="string">
+      DELETE FROM T_I_IF_Invoice
+      WHERE OrderNo = #value#
+    </delete>
+    <select id="QueryInvoiceByFilter" parameterClass="System.Collections.Hashtable" resultClass="TIIfInvoice">
+      SELECT
+      OrderNo,
+      InvoiceNo,
+      InvoiceDate,
+      InvoiceStatus,
+      InvoiceAmount,
+      ID733,
+      ROW_NUMBER() OVER (ORDER BY OrderNo DESC) AS [row_number]
+      FROM  interface.T_I_IF_Invoice AS IV ,PurchaseOrderHeader AS PO
+      WHERE IV.OrderNo = PO.POH_OrderNo
+      and POH_ID = #HeaderId#
+    </select>
+    <select id="QueryBSCInvoiceInfo" resultClass="BSCInvoiceData" parameterCLass="string">
+      SELECT ISNULL(OrderNo,'') AS OrderNo,
+      ISNULL(InvoiceNo,'') AS InvoiceNo,
+      ISNULL(InvoiceDate,'') AS InvoiceDate,
+      ISNULL(InvoiceAmount,0) AS InvoiceAmount,
+      ISNULL(ID733,'') AS ID733,
+      ISNULL(DeliveryNo,'') AS DeliveryNo
+      FROM interface.T_I_IF_Invoice t1(nolock)
+      inner join PurchaseOrderHeader t2(nolock)  on t1.OrderNo = t2.POH_OrderNo
+      inner join DealerMaster t3(nolock) on t2.POH_DMA_ID = t3.DMA_ID
+      inner join Client t4(nolock) on t3.DMA_ID = t4.CLT_Corp_Id
+      where t1.DeliveryNo is null
+      and t4.CLT_Id = #value#
+      union all
+      SELECT ISNULL(OrderNo,'') AS OrderNo,
+      ISNULL(InvoiceNo,'') AS InvoiceNo,
+      ISNULL(InvoiceDate,'') AS InvoiceDate,
+      ISNULL(InvoiceAmount,0) AS InvoiceAmount,
+      ISNULL(ID733,'') AS ID733,
+      ISNULL(DeliveryNo,'') AS DeliveryNo
+      FROM interface.T_I_IF_Invoice t1(nolock) inner join POReceiptHeader t2(nolock)
+      on t1.DeliveryNo = t2.PRH_SAPShipmentID
+      inner join DealerMaster t3(nolock) on t2.PRH_Dealer_DMA_ID = t3.DMA_ID
+      inner join Client t4(nolock) on t3.DMA_ID = t4.CLT_Corp_Id
+      where t1.DeliveryNo is not null
+      and t4.CLT_Id = #value#
+    </select>
+  </statements>
+</sqlMap>

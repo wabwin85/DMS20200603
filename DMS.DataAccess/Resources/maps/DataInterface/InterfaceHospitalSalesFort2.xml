@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceHospitalSalesFort2Map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceHospitalSalesFort2" assembly="DMS.Model.dll" type="DMS.Model.InterfaceHospitalSalesFort2" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceHospitalSalesFort2Result" class="InterfaceHospitalSalesFort2">
+      <result property="Id" column="IHS_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Distributorid" column="IHS_DistributorID" type="string" dbType="nvarchar"/>
+      <result property="HospitalCode" column="IHS_HospitalCode" type="string" dbType="nvarchar"/>
+      <result property="Type" column="IHS_Type" type="string" dbType="nvarchar"/>
+      <result property="SaleDate" column="IHS_SaleDate" type="DateTime" dbType="datetime"/>
+      <result property="Departments" column="IHS_Departments" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="IHS_Remark" type="string" dbType="nvarchar"/>
+      <result property="InvoiceNo" column="IHS_InvoiceNo" type="string" dbType="nvarchar"/>
+      <result property="InvoiceTitle" column="IHS_InvoiceTitle" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDate" column="IHS_InvoiceDate" type="DateTime" dbType="datetime"/>
+      <result property="ArticleNumber" column="IHS_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="IHS_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="IHS_QRCode" type="string" dbType="nvarchar"/>
+      <result property="UnitPrice" column="IHS_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="LotQty" column="IHS_LotQty" type="decimal" dbType="decimal"/>
+      <result property="WarehouseName" column="IHS_WarehouseName" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="IHS_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IHS_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="IHS_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IHS_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IHS_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_SalesForT2_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID"/>
+      <parameter property="UserId" column="UserId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceHospitalSalesFort2" parameterClass="string" resultClass="InterfaceHospitalSalesFort2">
+      SELECT IHS_ID AS Id,IHS_DistributorID AS Distributorid,IHS_HospitalCode AS HospitalCode,IHS_Type AS Type,IHS_SaleDate AS SaleDate,IHS_Departments AS Departments,IHS_Remark AS Remark,IHS_InvoiceNo AS InvoiceNo,IHS_InvoiceTitle AS InvoiceTitle,IHS_InvoiceDate AS InvoiceDate,IHS_ArticleNumber AS ArticleNumber,IHS_LotNumber AS LotNumber,IHS_QRCode AS QrCode,IHS_UnitPrice AS UnitPrice,IHS_LotQty AS LotQty,IHS_WarehouseName AS WarehouseName,IHS_LineNbr AS LineNbr,IHS_FileName AS FileName,IHS_ImportDate AS ImportDate,IHS_ClientID AS Clientid,IHS_BatchNbr AS BatchNbr
+      FROM InterfaceHospitalSalesForT2
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IHS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceHospitalSalesFort2" parameterClass="InterfaceHospitalSalesFort2" resultClass="InterfaceHospitalSalesFort2">
+      SELECT IHS_ID AS Id,IHS_DistributorID AS Distributorid,IHS_HospitalCode AS HospitalCode,IHS_Type AS Type,IHS_SaleDate AS SaleDate,IHS_Departments AS Departments,IHS_Remark AS Remark,IHS_InvoiceNo AS InvoiceNo,IHS_InvoiceTitle AS InvoiceTitle,IHS_InvoiceDate AS InvoiceDate,IHS_ArticleNumber AS ArticleNumber,IHS_LotNumber AS LotNumber,IHS_QRCode AS QrCode,IHS_UnitPrice AS UnitPrice,IHS_LotQty AS LotQty,IHS_WarehouseName AS WarehouseName,IHS_LineNbr AS LineNbr,IHS_FileName AS FileName,IHS_ImportDate AS ImportDate,IHS_ClientID AS Clientid,IHS_BatchNbr AS BatchNbr
+      FROM InterfaceHospitalSalesForT2
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IHS_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Distributorid">IHS_DistributorID=#Distributorid#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalCode">IHS_HospitalCode=#HospitalCode#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IHS_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="SaleDate">IHS_SaleDate=#SaleDate#</isNotNull>
+        <isNotNull prepend="AND" property="Departments">IHS_Departments=#Departments#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IHS_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">IHS_InvoiceNo=#InvoiceNo#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceTitle">IHS_InvoiceTitle=#InvoiceTitle#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceDate">IHS_InvoiceDate=#InvoiceDate#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IHS_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IHS_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">IHS_QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">IHS_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="LotQty">IHS_LotQty=#LotQty#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseName">IHS_WarehouseName=#WarehouseName#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IHS_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IHS_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IHS_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IHS_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IHS_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceHospitalSalesFort2" parameterClass="InterfaceHospitalSalesFort2">
+      INSERT INTO InterfaceHospitalSalesForT2
+      (IHS_ID,IHS_DistributorID,IHS_HospitalCode,IHS_Type,IHS_SaleDate,IHS_Departments,IHS_Remark,IHS_InvoiceNo,IHS_InvoiceTitle,IHS_InvoiceDate,IHS_ArticleNumber,IHS_LotNumber,IHS_QRCode,IHS_UnitPrice,IHS_LotQty,IHS_WarehouseName,IHS_LineNbr,IHS_FileName,IHS_ImportDate,IHS_ClientID,IHS_BatchNbr)
+      VALUES(#Id#,#Distributorid#,#HospitalCode#,#Type#,#SaleDate:DateTime:1/1/0001 12:00:00 AM#,#Departments#,#Remark#,#InvoiceNo#,#InvoiceTitle#,#InvoiceDate:DateTime:1/1/0001 12:00:00 AM#,#ArticleNumber#,#LotNumber#,#QrCode#,#UnitPrice#,#LotQty#,#WarehouseName#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceHospitalSalesFort2" parameterClass="InterfaceHospitalSalesFort2">
+      UPDATE InterfaceHospitalSalesForT2
+      SET IHS_ID=#Id#,IHS_DistributorID=#Distributorid#,IHS_HospitalCode=#HospitalCode#,IHS_Type=#Type#,IHS_SaleDate=#SaleDate#,IHS_Departments=#Departments#,IHS_Remark=#Remark#,IHS_InvoiceNo=#InvoiceNo#,IHS_InvoiceTitle=#InvoiceTitle#,IHS_InvoiceDate=#InvoiceDate#,IHS_ArticleNumber=#ArticleNumber#,IHS_LotNumber=#LotNumber#,IHS_QRCode=#QrCode#,IHS_UnitPrice=#UnitPrice#,IHS_LotQty=#LotQty#,IHS_WarehouseName=#WarehouseName#,IHS_LineNbr=#LineNbr#,IHS_FileName=#FileName#,IHS_ImportDate=#ImportDate#,IHS_ClientID=#Clientid#,IHS_BatchNbr=#BatchNbr#
+      WHERE IHS_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceHospitalSalesFort2" parameterClass="string">
+      DELETE FROM InterfaceHospitalSalesForT2
+      WHERE IHS_ID = #value#
+    </delete>
+
+    <procedure id="GC_Interface_SalesForT2" parameterMap="GC_Interface_SalesForT2_ParameterMap">
+      dbo.GC_Interface_SalesForT2
+    </procedure>
+
+    <!--销售单批量导入优化-->
+    <select id="SelectShipmentInitList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC [dbo].[Pro_GetShipmentInitList] #DmaId#,#ShipmentStatus#,#SubmitDateStart#,#SubmitDateEnd#,#ShipmentInitNo#,#UserType#,#CreateUser#,#start#,#limit#
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{25EA2C8A-56FD-446F-B3F6-D9A7CFA11C77}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.Model</RootNamespace>
+    <AssemblyName>DMS.Model</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <PublishUrl>http://localhost/DMS.Model/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Lafite.RoleModel.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Lafite.RoleModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AOP\AOPHospitalReferenceImport.cs" />
+    <Compile Include="AOP\AOPHospitalReference.cs" />
+    <Compile Include="AOP\AopDealer.cs" />
+    <Compile Include="AOP\VAopDealer.cs" />
+    <Compile Include="ApiModel\BaseApiModel.cs" />
+    <Compile Include="ApiModel\ErrorApiModel.cs" />
+    <Compile Include="ApiModel\UPNDocumentDetail.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyDetails.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyHeader.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyInit.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentDealer.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentMaster.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentTransferInit.cs" />
+    <Compile Include="Consignment\ConsignInventoryAdjustHeaderPO.cs" />
+    <Compile Include="Consignment\ConsignmentTerminationPO.cs" />
+    <Compile Include="Consignment\ContractDetailPO.cs" />
+    <Compile Include="Consignment\TransferConfirmPO.cs" />
+    <Compile Include="Consignment\TransferDetailPO.cs" />
+    <Compile Include="Consignment\ConsignCountManagePO.cs" />
+    <Compile Include="Consignment\TransferHeaderPO.cs" />
+    <Compile Include="Consignment\ContractHeaderPO.cs" />
+    <Compile Include="ContractElectronic\DealerMasterDD.cs" />
+    <Compile Include="ContractElectronic\ExportUploadDetail.cs" />
+    <Compile Include="Contract\AmendmentMainTemp.cs" />
+    <Compile Include="Contract\AmendmentProposalsTemp.cs" />
+    <Compile Include="DataInterface\Genesis\OrderStatusData.cs" />
+    <Compile Include="DataInterface\Genesis\SapDeliveryDataNew.cs" />
+    <Compile Include="DataInterface\InterfaceTransferForls.cs" />
+    <Compile Include="DataInterface\LpTransferData.cs" />
+    <Compile Include="EKPWorkflow\KmReviewParamterForm.cs" />
+    <Compile Include="MasterData\CfnPriceImportInit.cs" />
+    <Compile Include="MasterData\HospitalPositionInit.cs" />
+    <Compile Include="MasterData\MasterDatasPO.cs" />
+    <Compile Include="MasterData\TerritoryEx.cs" />
+    <Compile Include="MasterData\ViewProductLine.cs" />
+    <Compile Include="Message\MailMessageAttachment.cs" />
+    <Compile Include="Message\MessageTaskSend.cs" />
+    <Compile Include="Order\ShipeOrderDetail.cs" />
+    <Compile Include="Platform\OperLogMasterPO.cs" />
+    <Compile Include="Promotion\ProLargessFort2Init.cs" />
+    <Compile Include="Shipment\HospitalShipmentbscBeforeSubmitInit.cs" />
+    <Compile Include="TenderAuthorizationList\TenderAuthorizationListVO.cs" />
+    <Compile Include="Transfer\TransferBorrowInit.cs" />
+    <Compile Include="ViewModel\ContractElectronic\ContractDetailView.cs" />
+    <Compile Include="ViewModel\ContractElectronic\DealerMasterDDBscView.cs" />
+    <Compile Include="ViewModel\ContractElectronic\QueryView.cs" />
+    <Compile Include="Contract\AopDealerHistory.cs" />
+    <Compile Include="Contract\AopDealerHospitaHistory.cs" />
+    <Compile Include="Contract\AopDealerHospitalTemp.cs" />
+    <Compile Include="Contract\AopDealerTemp.cs" />
+    <Compile Include="Contract\AopicDealerHospitalHistory.cs" />
+    <Compile Include="Contract\AopicDealerHospitalTemp.cs" />
+    <Compile Include="Contract\AopRemark.cs" />
+    <Compile Include="Contract\AuthorizationTenderMain.cs" />
+    <Compile Include="Contract\BusinessLicense.cs" />
+    <Compile Include="Contract\BusinessReferences.cs" />
+    <Compile Include="Contract\ClassificationAuthorization.cs" />
+    <Compile Include="Contract\ClassificationContract.cs" />
+    <Compile Include="Contract\ClassificationQuota.cs" />
+    <Compile Include="Contract\CompanyStockholder.cs" />
+    <Compile Include="Contract\ContractAmendment.cs" />
+    <Compile Include="Contract\ContractAppointment.cs" />
+    <Compile Include="Contract\ContractMaster.cs" />
+    <Compile Include="Contract\ContractProductLine.cs" />
+    <Compile Include="Contract\ContractPurchaseQuotas.cs" />
+    <Compile Include="Contract\ContractRenewal.cs" />
+    <Compile Include="Contract\ContractTermination.cs" />
+    <Compile Include="Contract\ContractTerritory.cs" />
+    <Compile Include="Contract\ContractTerritoryInsetTemp.cs" />
+    <Compile Include="Contract\CorporateEntity.cs" />
+    <Compile Include="Contract\DealerAuthorizationAreaTemp.cs" />
+    <Compile Include="Contract\DealerAuthorizationTableTemp.cs" />
+    <Compile Include="Contract\DealeriafSign.cs" />
+    <Compile Include="Contract\HospitalListHistory.cs" />
+    <Compile Include="Contract\HospitalProductaopInputTemp.cs" />
+    <Compile Include="Contract\IcProductStandardPrice.cs" />
+    <Compile Include="Contract\MedicalDevices.cs" />
+    <Compile Include="Contract\PerformedUser.cs" />
+    <Compile Include="Contract\ProductClassification.cs" />
+    <Compile Include="Contract\PublicOffice.cs" />
+    <Compile Include="Contract\PurchaseQuotasHospital.cs" />
+    <Compile Include="Contract\SeniorCompany.cs" />
+    <Compile Include="Contract\TerminationForm.cs" />
+    <Compile Include="Contract\ThirdPartyDisclosure.cs" />
+    <Compile Include="Contract\ThirdPartyDisclosureList.cs" />
+    <Compile Include="Contract\TrainingSignIn.cs" />
+    <Compile Include="Contract\VAopDealerHospitalTemp.cs" />
+    <Compile Include="Contract\VAopICDealerHospital.cs" />
+    <Compile Include="DataInterface\AdjustConfirmation.cs" />
+    <Compile Include="DataInterface\AdjustNote.cs" />
+    <Compile Include="DataInterface\BSCInvoiceData.cs" />
+    <Compile Include="DataInterface\BSCSLCDeliveryData.cs" />
+    <Compile Include="DataInterface\ChannelLogisticInfoWithQRData.cs" />
+    <Compile Include="DataInterface\ComplainInterface.cs" />
+    <Compile Include="DataInterface\ConsignmentWarehouseData.cs" />
+    <Compile Include="DataInterface\DealerConsignmentSalesPriceData.cs" />
+    <Compile Include="DataInterface\DealerReturnConfirmData.cs" />
+    <Compile Include="DataInterface\DealerSalesWritebackData.cs" />
+    <Compile Include="DataInterface\DealerTransactionData.cs" />
+    <Compile Include="DataInterface\DeliveryConfirmation.cs" />
+    <Compile Include="DataInterface\DeliveryInterface.cs" />
+    <Compile Include="DataInterface\DMSCalculatedPointsData.cs" />
+    <Compile Include="DataInterface\eWorkflow\BaseRequestData.cs" />
+    <Compile Include="DataInterface\eWorkflow\SampleApplyRequestData.cs" />
+    <Compile Include="DataInterface\eWorkflow\SampleReturnRequestData.cs" />
+    <Compile Include="DataInterface\HospitalSalesForT2Data.cs" />
+    <Compile Include="DataInterface\HospitalTransactionData.cs" />
+    <Compile Include="DataInterface\InterfaceAdjust.cs" />
+    <Compile Include="DataInterface\InterfaceAdjustConfirmation.cs" />
+    <Compile Include="DataInterface\InterfaceConfirmation.cs" />
+    <Compile Include="DataInterface\InterfaceDealerConsignmentSalesPrice.cs" />
+    <Compile Include="DataInterface\InterfaceDealerReturnConfirm.cs" />
+    <Compile Include="DataInterface\InterfaceDealerSalesWriteback.cs" />
+    <Compile Include="DataInterface\InterfaceDeliveryConfirmation.cs" />
+    <Compile Include="DataInterface\InterfaceHospitalSalesFort2.cs" />
+    <Compile Include="DataInterface\InterfaceHospitalTransactionWithqr.cs" />
+    <Compile Include="DataInterface\InterfaceLog.cs" />
+    <Compile Include="DataInterface\InterfaceqrCodeMaster.cs" />
+    <Compile Include="DataInterface\InterfaceqrDealerTransaction.cs" />
+    <Compile Include="DataInterface\InterfaceRedCrossHospitalTransactionWithqr.cs" />
+    <Compile Include="DataInterface\InterfaceSales.cs" />
+    <Compile Include="DataInterface\InterfaceShipment.cs" />
+    <Compile Include="DataInterface\InterfaceShipmentbscslc.cs" />
+    <Compile Include="DataInterface\Interfacet2ContactInfo.cs" />
+    <Compile Include="DataInterface\Interfacet2DeliveryConfirmation.cs" />
+    <Compile Include="DataInterface\InterfaceTransfer.cs" />
+    <Compile Include="DataInterface\InterfaceTransferFort2.cs" />
+    <Compile Include="DataInterface\InterfaceWarehouse.cs" />
+    <Compile Include="DataInterface\InventoryTransferForT2Data.cs" />
+    <Compile Include="DataInterface\LpComplainData.cs" />
+    <Compile Include="DataInterface\LpConsignmentData.cs" />
+    <Compile Include="DataInterface\LpDeliveryData.cs" />
+    <Compile Include="DataInterface\LPDeliveryForT2Data.cs" />
+    <Compile Include="DataInterface\LpOrderData.cs" />
+    <Compile Include="DataInterface\LpRentData.cs" />
+    <Compile Include="DataInterface\LpReturnData.cs" />
+    <Compile Include="DataInterface\LpSalesData.cs" />
+    <Compile Include="DataInterface\ProductData.cs" />
+    <Compile Include="DataInterface\QrCodeInventoryData.cs" />
+    <Compile Include="DataInterface\QrCodeInventoryForRedCrossData.cs" />
+    <Compile Include="DataInterface\QRCodeMasterData.cs" />
+    <Compile Include="DataInterface\RedCrossHospitalTransactionData.cs" />
+    <Compile Include="DataInterface\SalesNote.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapReceiveSampleHead.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapCreateSampleApply.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapCreateSampleEval.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapSampleApplyHead.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapSampleReturnHead.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapSampleTesting.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapSampleEval.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapSampleEvalHead.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapSampleUpn.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapCreateSampleReturn.cs" />
+    <Compile Include="DataInterface\SampleManage\SoapReceiveSample.cs" />
+    <Compile Include="DataInterface\SapDeliveryConfirmationData.cs" />
+    <Compile Include="DataInterface\SapDeliveryData.cs" />
+    <Compile Include="DataInterface\SapOrderData.cs" />
+    <Compile Include="DataInterface\T2AuthorizationData.cs" />
+    <Compile Include="DataInterface\T2CommercialIndexData.cs" />
+    <Compile Include="DataInterface\T2ConsignToSellingData.cs" />
+    <Compile Include="DataInterface\T2ContractInfoData.cs" />
+    <Compile Include="DataInterface\T2CreditMemoData.cs" />
+    <Compile Include="DataInterface\T2DeliveryConfirmData.cs" />
+    <Compile Include="DataInterface\T2OrderConfirmationData.cs" />
+    <Compile Include="DataInterface\T2OrderData.cs.cs" />
+    <Compile Include="DataInterface\LpReturnConfirmationData.cs" />
+    <Compile Include="DataInterface\LpBorrowData.cs" />
+    <Compile Include="DataInterface\LpAdjustData.cs" />
+    <Compile Include="DataInterface\LpHospitalData.cs" />
+    <Compile Include="DataInterface\LpDistributorData.cs" />
+    <Compile Include="DataInterface\LpConsignmentSalesData.cs" />
+    <Compile Include="DataInterface\T2PointsAdjustmentData.cs" />
+    <Compile Include="DataInterface\T2ReturnData.cs" />
+    <Compile Include="DataInterface\TransferNote.cs" />
+    <Compile Include="DCM\Attachment.cs" />
+    <Compile Include="DCM\BulletinDetail.cs" />
+    <Compile Include="DCM\BulletinMain.cs" />
+    <Compile Include="DCM\Dealerqa.cs" />
+    <Compile Include="DCM\IssuesList.cs" />
+    <Compile Include="DCM\WaitProcessTask.cs" />
+    <Compile Include="DealerTrain\DealerSales.cs" />
+    <Compile Include="DealerTrain\DealerSign.cs" />
+    <Compile Include="DealerTrain\SalesTrainMaster.cs" />
+    <Compile Include="DealerTrain\SignRelation.cs" />
+    <Compile Include="DealerTrain\TrainDetail.cs" />
+    <Compile Include="DealerTrain\TrainMaster.cs" />
+    <Compile Include="DealerTrain\BscUser.cs" />
+    <Compile Include="DealerTrain\TeacherDealerRelation.cs" />
+    <Compile Include="DealerTrain\TrainManager.cs" />
+    <Compile Include="DealerTrain\TrainScoreImport.cs" />
+    <Compile Include="DPInfo\DpStatementCashflow.cs" />
+    <Compile Include="DPInfo\DpStatementChangeLog.cs" />
+    <Compile Include="DPInfo\DpStatementDetail.cs" />
+    <Compile Include="DPInfo\DpStatementField.cs" />
+    <Compile Include="DPInfo\DpStatementHeader.cs" />
+    <Compile Include="DPInfo\DpStatementRatio.cs" />
+    <Compile Include="DPInfo\DpStatementScorecard.cs" />
+    <Compile Include="DPInfo\DpStatementScorecardHeader.cs" />
+    <Compile Include="DP\DealerMaster.cs" />
+    <Compile Include="DP\DpRight.cs" />
+    <Compile Include="EKPWorkflow\EkpOperation.cs" />
+    <Compile Include="EKPWorkflow\FieldSetting.cs" />
+    <Compile Include="EKPWorkflow\FormInstanceMaster.cs" />
+    <Compile Include="EKPWorkflow\ModelSetting.cs" />
+    <Compile Include="EKPWorkflow\WorkflowLog.cs" />
+    <Compile Include="Inventory\AdjustInterface.cs" />
+    <Compile Include="Inventory\DealerInventoryData.cs" />
+    <Compile Include="Inventory\DealerInventoryInit.cs" />
+    <Compile Include="Inventory\InventoryqrOperation.cs" />
+    <Compile Include="Inventory\InventoryAdjustConsignment.cs" />
+    <Compile Include="Inventory\InventoryAdjustInit.cs" />
+    <Compile Include="Inventory\InventoryReturnBsc.cs" />
+    <Compile Include="Inventory\InventoryReturnConsignmentInit.cs" />
+    <Compile Include="Inventory\InventoryReturnInit.cs" />
+    <Compile Include="Inventory\InventorySafety.cs" />
+    <Compile Include="Inventory\InventorySafetyInit.cs" />
+    <Compile Include="Inventory\ReportInventoryHistory.cs" />
+    <Compile Include="Inventory\StocktakingHeader.cs" />
+    <Compile Include="Inventory\StocktakingLine.cs" />
+    <Compile Include="Inventory\StocktakingLot.cs" />
+    <Compile Include="Inventory\TIWcDealerBarcodeqRcodeScan.cs" />
+    <Compile Include="Log\LafiteLog.cs" />
+    <Compile Include="MasterData\Address.cs" />
+    <Compile Include="MasterData\Cfn.cs" />
+    <Compile Include="Data\Common.cs" />
+    <Compile Include="MasterData\CfnHospitalPrice.cs" />
+    <Compile Include="MasterData\Client.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentAuthorization.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentCfn.cs" />
+    <Compile Include="MasterData\ConsignmentDiscountRule.cs" />
+    <Compile Include="MasterData\ConsignmentDiscountRuleInit.cs" />
+    <Compile Include="MasterData\DealerAuthorization.cs" />
+    <Compile Include="MasterData\DealerContract.cs" />
+    <Compile Include="MasterData\DealerHospital.cs" />
+    <Compile Include="MasterData\DealerMaster.cs" />
+    <Compile Include="MasterData\DealerMasterLicense.cs" />
+    <Compile Include="MasterData\DealerOperationLog.cs" />
+    <Compile Include="MasterData\DealerRelation.cs" />
+    <Compile Include="MasterData\DealerTerritory.cs" />
+    <Compile Include="MasterData\DeliveryInit.cs" />
+    <Compile Include="MasterData\Hospital.cs" />
+    <Compile Include="Inventory\CurrentInv.cs" />
+    <Compile Include="Inventory\Inventory.cs" />
+    <Compile Include="Inventory\InventoryAdjustDetail.cs" />
+    <Compile Include="Inventory\InventoryAdjustHeader.cs" />
+    <Compile Include="Inventory\InventoryAdjustLot.cs" />
+    <Compile Include="Inventory\InventoryInit.cs" />
+    <Compile Include="Inventory\InventoryTransaction.cs" />
+    <Compile Include="Inventory\InventoryTransactionLot.cs" />
+    <Compile Include="Inventory\Lot.cs" />
+    <Compile Include="Inventory\LotMaster.cs" />
+    <Compile Include="Inventory\QueryInventory.cs" />
+    <Compile Include="MasterData\CfnSet.cs" />
+    <Compile Include="MasterData\CfnSetDetail.cs" />
+    <Compile Include="MasterData\Payment.cs" />
+    <Compile Include="MasterData\ProductLevelRelationship.cs" />
+    <Compile Include="MasterData\QrCodeMaster.cs" />
+    <Compile Include="MasterData\RegistrationDetail.cs" />
+    <Compile Include="MasterData\RegistrationInit.cs" />
+    <Compile Include="MasterData\RegistrationMain.cs" />
+    <Compile Include="MasterData\SapWarehouseAddress.cs" />
+    <Compile Include="MasterData\SendInvoiceData.cs" />
+    <Compile Include="MasterData\SendInvoiceInit.cs" />
+    <Compile Include="MasterData\SpecialPriceDetail.cs" />
+    <Compile Include="MasterData\SpecialPriceMaster.cs" />
+    <Compile Include="MasterData\TerritoryHierarchy.cs" />
+    <Compile Include="MasterData\TerritoryMaster.cs" />
+    <Compile Include="MasterData\TIIfInvoice.cs" />
+    <Compile Include="MasterData\Virtualdc.cs" />
+    <Compile Include="Message\MailDeliveryAddress.cs" />
+    <Compile Include="Message\MailMessageProcess.cs" />
+    <Compile Include="Message\MailMessageQueue.cs" />
+    <Compile Include="Message\MailMessageTemplate.cs" />
+    <Compile Include="Message\ShortMessageProcess.cs" />
+    <Compile Include="Message\ShortMessageQueue.cs" />
+    <Compile Include="Message\ShortMessageTemplate.cs" />
+    <Compile Include="Order\BatchOrderInit.cs" />
+    <Compile Include="Order\CfnPrice.cs" />
+    <Compile Include="Order\DealerOrderNumber.cs" />
+    <Compile Include="Order\DealerOrderSetting.cs" />
+    <Compile Include="Order\DealerShipTo.cs" />
+    <Compile Include="Order\PromotionPolicy.cs" />
+    <Compile Include="Order\PurchaseOrderConfirmation.cs" />
+    <Compile Include="Order\PurchaseOrderDetail.cs" />
+    <Compile Include="Order\PurchaseOrderHeader.cs" />
+    <Compile Include="MasterData\PartsClassification.cs" />
+    <Compile Include="Order\PurchaseOrderInit.cs" />
+    <Compile Include="Order\PurchaseOrderInterface.cs" />
+    <Compile Include="Order\PurchaseOrderLog.cs" />
+    <Compile Include="POReceipt\ArrivalDateInit.cs" />
+    <Compile Include="POReceipt\DeliveryNote.cs" />
+    <Compile Include="POReceipt\DeliveryNotebscslc.cs" />
+    <Compile Include="POReceipt\PoReceipt.cs" />
+    <Compile Include="POReceipt\PoReceiptHeader.cs" />
+    <Compile Include="POReceipt\PoReceiptLot.cs" />
+    <Compile Include="MasterData\Product.cs" />
+    <Compile Include="POReceipt\WaybillInit.cs" />
+    <Compile Include="Promotion\ProBuPointRatio.cs" />
+    <Compile Include="Promotion\ProBuPointRatioUi.cs" />
+    <Compile Include="Promotion\ProDealerInputUi.cs" />
+    <Compile Include="Promotion\ProDealerStdPointUi.cs" />
+    <Compile Include="Promotion\ProGiftDetail.cs" />
+    <Compile Include="Promotion\ProInitPointFlow.cs" />
+    <Compile Include="Promotion\ProInitPointFlowDetail.cs" />
+    <Compile Include="Promotion\ProPolicy.cs" />
+    <Compile Include="Promotion\ProPolicyFactorConditionUi.cs" />
+    <Compile Include="Promotion\ProPolicyFactorUi.cs" />
+    <Compile Include="Promotion\ProPolicyPointratioUi.cs" />
+    <Compile Include="Promotion\ProPolicyRuleFactorUi.cs" />
+    <Compile Include="Promotion\ProPolicyRuleUi.cs" />
+    <Compile Include="Promotion\ProPolicyTopvalueUi.cs" />
+    <Compile Include="Promotion\ProProductIndexUi.cs" />
+    <Compile Include="Promotion\TProFlow.cs" />
+    <Compile Include="Promotion\TProOutLinePoints.cs" />
+    <Compile Include="Promotion\TProRedInvoice.cs" />
+    <Compile Include="Report\DealerInventoryDetail.cs" />
+    <Compile Include="Sample\SampleApplyHead.cs" />
+    <Compile Include="Sample\SampleEval.cs" />
+    <Compile Include="Sample\SampleReturnHead.cs" />
+    <Compile Include="Sample\SampleTesting.cs" />
+    <Compile Include="Sample\SampleUpn.cs" />
+    <Compile Include="Sample\SampleSyncStack.cs" />
+    <Compile Include="ScoreCard\EndoScoreCard.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardDetail.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardHeader.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardInit.cs" />
+    <Compile Include="ScoreCard\ScAttachment.cs" />
+    <Compile Include="ScoreCard\ScoreCardLog.cs" />
+    <Compile Include="Shipment\CalendarDate.cs" />
+    <Compile Include="Shipment\DealerCommonSetting.cs" />
+    <Compile Include="Shipment\DealerProductPriceHistory.cs" />
+    <Compile Include="Shipment\SalesInterface.cs" />
+    <Compile Include="Shipment\ShipmentAdjustLot.cs" />
+    <Compile Include="Shipment\ShipmentConsignment.cs" />
+    <Compile Include="Shipment\ShipmentHeader.cs" />
+    <Compile Include="Shipment\ShipmentInit.cs" />
+    <Compile Include="Shipment\ShipmentInvoiceInit.cs" />
+    <Compile Include="Shipment\ShipmentLine.cs" />
+    <Compile Include="Shipment\ShipmentLot.cs" />
+    <Compile Include="MasterData\Territory.cs" />
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="Shipment\ShipmentlpConfirmDetail.cs" />
+    <Compile Include="Shipment\ShipmentlpConfirmHeader.cs" />
+    <Compile Include="Shipment\ShipmentOperation.cs" />
+    <Compile Include="Shipment\UploadLog.cs" />
+    <Compile Include="SSO\RedirectUrl.cs" />
+    <Compile Include="Transfer\Transfer.cs" />
+    <Compile Include="Transfer\TransferInit.cs" />
+    <Compile Include="Transfer\TransferLine.cs" />
+    <Compile Include="Transfer\TransferLot.cs" />
+    <Compile Include="MasterData\Warehouse.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ContractElectronic\SelectedTemplate.cs" />
+    <Compile Include="ViewModel\InventoryReturn\DealerComplainBscVO.cs" />
+    <Compile Include="ViewModel\InventoryReturn\InventoryReturnBscVO.cs" />
+    <Compile Include="ViewModel\Promotion\MaintainAppointedDealerVO.cs" />
+    <Compile Include="ViewModel\Promotion\PolicyTemplateVO.cs" />
+    <Compile Include="ViewModel\Promotion\PolicyTemplateInfoVO.cs" />
+    <Compile Include="ViewModel\Promotion\PolicyTemplateListVO.cs" />
+    <Compile Include="ViewModel\Promotion\RuleInfoVO.cs" />
+    <Compile Include="ViewModel\Promotion\FactorInfoVO.cs" />
+    <Compile Include="ViewModel\Promotion\PolicyInfoVO.cs" />
+    <Compile Include="ViewModel\Promotion\PolicyListVO.cs" />
+    <Compile Include="ViewModel\HomeVO.cs" />
+    <Compile Include="ViewModel\Promotion\TermainationList.cs" />
+    <Compile Include="ViewModel\SimpleVO.cs" />
+    <Compile Include="ViewModel\UploadView.cs" />
+    <Compile Include="WeChat\BusinessWechatUser.cs" />
+    <Compile Include="WeChat\CfnWeChat.cs" />
+    <Compile Include="WeChat\HandleResult.cs" />
+    <Compile Include="WeChat\HospitalReportUser.cs" />
+    <Compile Include="WeChat\IntegralExchange.cs" />
+    <Compile Include="WeChat\ReportSales.cs" />
+    <Compile Include="WeChat\Wechatfqa.cs" />
+    <Compile Include="WeChat\WechatOperatLog.cs" />
+    <Compile Include="WeChat\ProductCodeReport.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.Common\DMS.Common.csproj">
+      <Project>{F752671C-1874-4C06-8192-00186E5D00DE}</Project>
+      <Name>DMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.ViewModel\DMS.ViewModel.csproj">
+      <Project>{3a217c2b-0108-4a0f-bf0b-463f259b255d}</Project>
+      <Name>DMS.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Inventory\OnHandQtyGTZero.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

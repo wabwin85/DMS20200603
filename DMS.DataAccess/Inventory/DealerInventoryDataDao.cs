@@ -1,0 +1,131 @@
+
+/**********************************************
+这是代码自动生成的，如果重新生成，所做的改动将会丢失
+ * NameSpace   : DMS.DataAccess 
+ * ClassName   : DealerInventoryData
+ * Created Time: 2013/8/21 14:28:52
+ *
+ ****** Copyright (C) 2009/2010 - GrapeCity*****
+ *
+***********************************************/
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using IBatisNet.DataMapper;
+using DMS.Model;
+using System.Data;
+
+namespace DMS.DataAccess
+{
+    /// <summary>
+    /// DealerInventoryData的Dao
+    /// </summary>
+    public class DealerInventoryDataDao : BaseSqlMapDao
+    {
+	
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+		public DealerInventoryDataDao(): base()
+        {
+        }
+		
+        /// <summary>
+        /// 根据PK得到实体
+        /// </summary>
+        /// <param name="PK">PK</param>
+        /// <returns>实体</returns>
+        public DealerInventoryData GetObject(Guid objKey)
+        {
+            DealerInventoryData obj = this.ExecuteQueryForObject<DealerInventoryData>("SelectDealerInventoryData", objKey);           
+            return obj;
+        }
+
+
+        /// <summary>
+        /// 得到所实体
+        /// </summary>
+        /// <returns>所有实体</returns>
+        public IList<DealerInventoryData> GetAll()
+        {
+            IList<DealerInventoryData> list = this.ExecuteQueryForList<DealerInventoryData>("SelectDealerInventoryData", null);          
+            return list;
+        }
+
+
+        /// <summary>
+        /// 查询DealerInventoryData
+        /// </summary>
+        /// <returns>返回DealerInventoryData集合</returns>
+		public IList<DealerInventoryData> SelectByFilter(DealerInventoryData obj)
+		{ 
+			IList<DealerInventoryData> list = this.ExecuteQueryForList<DealerInventoryData>("SelectByFilterDealerInventoryData", obj);          
+            return list;
+		}
+
+        /// <summary>
+        /// 更新实体
+        /// </summary>
+        /// <param name="obj">实体</param>
+        /// <returns>更新数目</returns>
+        public int Update(DealerInventoryData obj)
+        {
+            int cnt = (int)this.ExecuteUpdate("UpdateDealerInventoryData", obj);            
+            return cnt;
+        }
+
+
+
+        /// <summary>
+        /// 删除实体
+        /// </summary>
+        /// <param name="obj">实体</param>
+        /// <returns>删除数目</returns>
+        public int Delete(Guid objKey)
+        {
+            int cnt = (int)this.ExecuteDelete("DeleteDealerInventoryData", objKey);            
+            return cnt;
+        }
+
+
+		
+
+        /// <summary>
+        /// 逻辑删除实体
+        /// </summary>
+        /// <param name="obj">实体</param>
+        /// <returns>删除数目</returns>
+        public int FakeDelete(DealerInventoryData obj)
+        {
+            int cnt = (int)this.ExecuteUpdate("FakeDeleteDealerInventoryData", obj);            
+            return cnt;
+        }
+	
+        /// <summary>
+        /// 插入实体
+        /// </summary>
+        /// <param name="obj">实体</param>
+        /// <returns>主键</returns>
+        public void Insert(DealerInventoryData obj)
+        {
+            this.ExecuteInsert("InsertDealerInventoryData", obj);           
+        }
+
+
+
+        public IList<DealerInventoryData> SelectByHashtable(Hashtable param, int start, int limit, out int totalCount)
+        {
+
+            IList<DealerInventoryData> list = this.ExecuteQueryForList<DealerInventoryData>("SelectDIDByHashTable", param, start, limit, out totalCount);
+            return list;
+        }
+
+        public DealerInventoryData SelectRecordByHashtable(Hashtable param)
+        {
+
+            DealerInventoryData obj = this.ExecuteQueryForObject<DealerInventoryData>("SelectDIDRecordsByHashTable",param);
+            return obj;
+        }
+    }
+}

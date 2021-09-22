@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="DownloadDealerInventoryWithQR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="qrcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dealercode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDealerInventoryWithQRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDealerInventoryWithQRResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthHeader" type="tns:AuthHeader" />
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="DownloadChannelLogisticInfoWithQR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="qrcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadChannelLogisticInfoWithQRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadChannelLogisticInfoWithQRResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadHospitalTransactionWithQR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadHospitalTransactionWithQRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadHospitalTransactionWithQRResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDealerInventoryWithQRForRedCross">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="qrcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="upn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchandisename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="supplyid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="supplyname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDealerInventoryWithQRForRedCrossResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDealerInventoryWithQRForRedCrossResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadRedCrossHospitalTransactionWithQR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadRedCrossHospitalTransactionWithQRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadRedCrossHospitalTransactionWithQRResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DownloadDealerInventoryWithQRSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDealerInventoryWithQR" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerInventoryWithQRSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDealerInventoryWithQRResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerInventoryWithQRAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadChannelLogisticInfoWithQRSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadChannelLogisticInfoWithQR" />
+  </wsdl:message>
+  <wsdl:message name="DownloadChannelLogisticInfoWithQRSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadChannelLogisticInfoWithQRResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadChannelLogisticInfoWithQRAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadHospitalTransactionWithQRSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadHospitalTransactionWithQR" />
+  </wsdl:message>
+  <wsdl:message name="UploadHospitalTransactionWithQRSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadHospitalTransactionWithQRResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadHospitalTransactionWithQRAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerInventoryWithQRForRedCrossSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDealerInventoryWithQRForRedCross" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerInventoryWithQRForRedCrossSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDealerInventoryWithQRForRedCrossResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDealerInventoryWithQRForRedCrossAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="UploadRedCrossHospitalTransactionWithQRSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadRedCrossHospitalTransactionWithQR" />
+  </wsdl:message>
+  <wsdl:message name="UploadRedCrossHospitalTransactionWithQRSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadRedCrossHospitalTransactionWithQRResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadRedCrossHospitalTransactionWithQRAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:portType name="HospitalSoap">
+    <wsdl:operation name="DownloadDealerInventoryWithQR">
+      <wsdl:input message="tns:DownloadDealerInventoryWithQRSoapIn" />
+      <wsdl:output message="tns:DownloadDealerInventoryWithQRSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadChannelLogisticInfoWithQR">
+      <wsdl:input message="tns:DownloadChannelLogisticInfoWithQRSoapIn" />
+      <wsdl:output message="tns:DownloadChannelLogisticInfoWithQRSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadHospitalTransactionWithQR">
+      <wsdl:input message="tns:UploadHospitalTransactionWithQRSoapIn" />
+      <wsdl:output message="tns:UploadHospitalTransactionWithQRSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerInventoryWithQRForRedCross">
+      <wsdl:input message="tns:DownloadDealerInventoryWithQRForRedCrossSoapIn" />
+      <wsdl:output message="tns:DownloadDealerInventoryWithQRForRedCrossSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadRedCrossHospitalTransactionWithQR">
+      <wsdl:input message="tns:UploadRedCrossHospitalTransactionWithQRSoapIn" />
+      <wsdl:output message="tns:UploadRedCrossHospitalTransactionWithQRSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HospitalSoap" type="tns:HospitalSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DownloadDealerInventoryWithQR">
+      <soap:operation soapAction="http://tempuri.org/DownloadDealerInventoryWithQR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadDealerInventoryWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadChannelLogisticInfoWithQR">
+      <soap:operation soapAction="http://tempuri.org/DownloadChannelLogisticInfoWithQR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadChannelLogisticInfoWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHospitalTransactionWithQR">
+      <soap:operation soapAction="http://tempuri.org/UploadHospitalTransactionWithQR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadHospitalTransactionWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerInventoryWithQRForRedCross">
+      <soap:operation soapAction="http://tempuri.org/DownloadDealerInventoryWithQRForRedCross" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DownloadDealerInventoryWithQRForRedCrossAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadRedCrossHospitalTransactionWithQR">
+      <soap:operation soapAction="http://tempuri.org/UploadRedCrossHospitalTransactionWithQR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UploadRedCrossHospitalTransactionWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HospitalSoap12" type="tns:HospitalSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DownloadDealerInventoryWithQR">
+      <soap12:operation soapAction="http://tempuri.org/DownloadDealerInventoryWithQR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadDealerInventoryWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadChannelLogisticInfoWithQR">
+      <soap12:operation soapAction="http://tempuri.org/DownloadChannelLogisticInfoWithQR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadChannelLogisticInfoWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadHospitalTransactionWithQR">
+      <soap12:operation soapAction="http://tempuri.org/UploadHospitalTransactionWithQR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadHospitalTransactionWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDealerInventoryWithQRForRedCross">
+      <soap12:operation soapAction="http://tempuri.org/DownloadDealerInventoryWithQRForRedCross" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DownloadDealerInventoryWithQRForRedCrossAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadRedCrossHospitalTransactionWithQR">
+      <soap12:operation soapAction="http://tempuri.org/UploadRedCrossHospitalTransactionWithQR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UploadRedCrossHospitalTransactionWithQRAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Hospital">
+    <wsdl:port name="HospitalSoap" binding="tns:HospitalSoap">
+      <soap:address location="http://localhost:8149/Hospital.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HospitalSoap12" binding="tns:HospitalSoap12">
+      <soap12:address location="http://localhost:8149/Hospital.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryInit" assembly="DMS.Model.dll" type="DMS.Model.InventoryInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryInitResult" class="InventoryInit">
+      <result property="Id" column="II_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="II_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="II_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="II_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="II_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="II_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="II_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="SapCode" column="II_SAP_CODE" type="string" dbType="nvarchar"/>
+      <result property="WhmName" column="II_WHM_NAME" type="string" dbType="nvarchar"/>
+      <result property="Cfn" column="II_CFN" type="string" dbType="nvarchar"/>
+      <result property="LtmLotNumber" column="II_LTM_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="LtmExpiredDate" column="II_LTM_ExpiredDate" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="II_QTY" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="II_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="II_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="II_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="II_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="II_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SapCodeErrMsg" column="II_SAP_CODE_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WhmNameErrMsg" column="II_WHM_NAME_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="CfnErrMsg" column="II_CFN_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LtmLotNumberErrMsg" column="II_LTM_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LtmExpiredDateErrMsg" column="II_LTM_ExpiredDate_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QtyErrMsg" column="II_QTY_ErrMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InventoryInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+
+  <statements>
+
+    <select id="SelectInventoryInit" parameterClass="string" resultClass="InventoryInit">
+      SELECT II_ID AS Id,II_USER AS [User],II_UploadDate AS UploadDate,II_LineNbr AS LineNbr,II_FileName AS FileName,II_ErrorFlag AS ErrorFlag,II_ErrorDescription AS ErrorDescription,II_SAP_CODE AS SapCode,II_WHM_NAME AS WhmName,II_CFN AS Cfn,II_LTM_LotNumber AS LtmLotNumber,II_LTM_ExpiredDate AS LtmExpiredDate,II_QTY AS Qty,II_DMA_ID AS DmaId,II_WHM_ID AS WhmId,II_CFN_ID AS CfnId,II_PMA_ID AS PmaId,II_LTM_ID AS LtmId,II_SAP_CODE_ErrMsg AS SapCodeErrMsg,II_WHM_NAME_ErrMsg AS WhmNameErrMsg,II_CFN_ErrMsg AS CfnErrMsg,II_LTM_LotNumber_ErrMsg AS LtmLotNumberErrMsg,II_LTM_ExpiredDate_ErrMsg AS LtmExpiredDateErrMsg,II_QTY_ErrMsg AS QtyErrMsg
+      FROM InventoryInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          II_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryInit" parameterClass="InventoryInit" resultClass="InventoryInit">
+      SELECT II_ID AS Id,II_USER AS [User],II_UploadDate AS UploadDate,II_LineNbr AS LineNbr,II_FileName AS FileName,II_ErrorFlag AS ErrorFlag,II_ErrorDescription AS ErrorDescription,II_SAP_CODE AS SapCode,II_WHM_NAME AS WhmName,II_CFN AS Cfn,II_LTM_LotNumber AS LtmLotNumber,II_LTM_ExpiredDate AS LtmExpiredDate,II_QTY AS Qty,II_DMA_ID AS DmaId,II_WHM_ID AS WhmId,II_CFN_ID AS CfnId,II_PMA_ID AS PmaId,II_LTM_ID AS LtmId,II_SAP_CODE_ErrMsg AS SapCodeErrMsg,II_WHM_NAME_ErrMsg AS WhmNameErrMsg,II_CFN_ErrMsg AS CfnErrMsg,II_LTM_LotNumber_ErrMsg AS LtmLotNumberErrMsg,II_LTM_ExpiredDate_ErrMsg AS LtmExpiredDateErrMsg,II_QTY_ErrMsg AS QtyErrMsg
+      FROM InventoryInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">II_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">II_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">II_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">II_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">II_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">II_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">II_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">II_SAP_CODE=#SapCode#</isNotNull>
+        <isNotNull prepend="AND" property="WhmName">II_WHM_NAME=#WhmName#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">II_CFN=#Cfn#</isNotNull>
+        <isNotNull prepend="AND" property="LtmLotNumber">II_LTM_LotNumber=#LtmLotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LtmExpiredDate">II_LTM_ExpiredDate=#LtmExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">II_QTY=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">II_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">II_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">II_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">II_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">II_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="SapCodeErrMsg">II_SAP_CODE_ErrMsg=#SapCodeErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WhmNameErrMsg">II_WHM_NAME_ErrMsg=#WhmNameErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="CfnErrMsg">II_CFN_ErrMsg=#CfnErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LtmLotNumberErrMsg">II_LTM_LotNumber_ErrMsg=#LtmLotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LtmExpiredDateErrMsg">II_LTM_ExpiredDate_ErrMsg=#LtmExpiredDateErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QtyErrMsg">II_QTY_ErrMsg=#QtyErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryInit" parameterClass="InventoryInit">
+      INSERT INTO InventoryInit
+      (II_ID,II_USER,II_UploadDate,II_LineNbr,II_FileName,II_ErrorFlag,II_ErrorDescription,II_SAP_CODE,II_WHM_NAME,II_CFN,II_LTM_LotNumber,II_LTM_ExpiredDate,II_QTY,II_DMA_ID,II_WHM_ID,II_CFN_ID,II_PMA_ID,II_LTM_ID,II_SAP_CODE_ErrMsg,II_WHM_NAME_ErrMsg,II_CFN_ErrMsg,II_LTM_LotNumber_ErrMsg,II_LTM_ExpiredDate_ErrMsg,II_QTY_ErrMsg)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#SapCode#,#WhmName#,#Cfn#,#LtmLotNumber#,#LtmExpiredDate#,#Qty#,#DmaId#,#WhmId#,#CfnId#,#PmaId#,#LtmId#,#SapCodeErrMsg#,#WhmNameErrMsg#,#CfnErrMsg#,#LtmLotNumberErrMsg#,#LtmExpiredDateErrMsg#,#QtyErrMsg#)
+    </insert>
+    <update id="UpdateInventoryInit" parameterClass="InventoryInit">
+      UPDATE InventoryInit
+      SET II_ID=#Id#,II_USER=#User#,II_UploadDate=#UploadDate#,II_LineNbr=#LineNbr#,II_FileName=#FileName#,II_ErrorFlag=#ErrorFlag#,II_ErrorDescription=#ErrorDescription#,II_SAP_CODE=#SapCode#,II_WHM_NAME=#WhmName#,II_CFN=#Cfn#,II_LTM_LotNumber=#LtmLotNumber#,II_LTM_ExpiredDate=#LtmExpiredDate#,II_QTY=#Qty#,II_DMA_ID=#DmaId#,II_WHM_ID=#WhmId#,II_CFN_ID=#CfnId#,II_PMA_ID=#PmaId#,II_LTM_ID=#LtmId#,II_SAP_CODE_ErrMsg=#SapCodeErrMsg#,II_WHM_NAME_ErrMsg=#WhmNameErrMsg#,II_CFN_ErrMsg=#CfnErrMsg#,II_LTM_LotNumber_ErrMsg=#LtmLotNumberErrMsg#,II_LTM_ExpiredDate_ErrMsg=#LtmExpiredDateErrMsg#,II_QTY_ErrMsg=#QtyErrMsg#
+      WHERE II_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryInit" parameterClass="string">
+      DELETE FROM InventoryInit
+      WHERE II_ID = #value#
+    </delete>
+    <!--added by bozhenfein on 20130722-->
+    <!--根据上传人删除数据-->
+    <delete id="DeleteInventoryInitByUser" parameterClass="string">
+      DELETE FROM InventoryInit
+      WHERE II_USER = #value#
+    </delete>
+    <!--根据上传人显示上传数据-->
+    <select id="SelectInventoryInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="InventoryInit">
+      SELECT II_ID AS Id,II_USER AS [User],II_UploadDate AS UploadDate,II_LineNbr AS LineNbr,II_FileName AS FileName,II_ErrorFlag AS ErrorFlag,II_ErrorDescription AS ErrorDescription,II_SAP_CODE AS SapCode,II_WHM_NAME AS WhmName,II_CFN AS Cfn,II_LTM_LotNumber AS LtmLotNumber,II_LTM_ExpiredDate AS LtmExpiredDate,II_QTY AS Qty,II_DMA_ID AS DmaId,II_WHM_ID AS WhmId,II_CFN_ID AS CfnId,II_PMA_ID AS PmaId,II_LTM_ID AS LtmId,II_SAP_CODE_ErrMsg AS SapCodeErrMsg,II_WHM_NAME_ErrMsg AS WhmNameErrMsg,II_CFN_ErrMsg AS CfnErrMsg,II_LTM_LotNumber_ErrMsg AS LtmLotNumberErrMsg,II_LTM_ExpiredDate_ErrMsg AS LtmExpiredDateErrMsg,II_QTY_ErrMsg AS QtyErrMsg
+      ,ROW_NUMBER () OVER (ORDER BY II_USER, II_LineNbr) AS row_number
+      FROM InventoryInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserId">II_USER=#UserId#</isNotNull>
+        <isNotNull prepend="AND" property="Error">II_ErrorFlag=#Error#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateInventoryInitForEdit" parameterClass="InventoryInit">
+      UPDATE InventoryInit
+      SET II_SAP_CODE=#SapCode#,II_WHM_NAME=#WhmName#,II_CFN=#Cfn#,II_LTM_LotNumber=#LtmLotNumber#,
+      II_LTM_ExpiredDate=#LtmExpiredDate#,II_QTY=#Qty#,II_DMA_ID=null,II_WHM_ID=null,
+      II_CFN_ID=null,II_PMA_ID=null,II_LTM_ID=null,II_SAP_CODE_ErrMsg=null,
+      II_WHM_NAME_ErrMsg=null,II_CFN_ErrMsg=null,II_LTM_LotNumber_ErrMsg=null,
+      II_LTM_ExpiredDate_ErrMsg=null,II_QTY_ErrMsg=null
+      WHERE II_ID = #Id#
+    </update>
+    <!--期初库存导入-->
+    <procedure id="GC_InventoryInit" parameterMap="InventoryInitParameterMap">
+      dbo.GC_InventoryInit
+    </procedure>
+    <!--库存二次导入-->
+    <procedure id="GC_InventoryInit2" parameterMap="InventoryInitParameterMap">
+      dbo.GC_InventoryInit2
+    </procedure>
+    <!--end-->
+  </statements>
+</sqlMap>

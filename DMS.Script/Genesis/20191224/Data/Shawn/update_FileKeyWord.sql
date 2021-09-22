@@ -1,0 +1,1 @@
+UPDATE ESign.FileKeyWord SET FK_KeyWord='£¨À¶Íþ¸ÇÕÂ´¦£©' WHERE FK_UserType='Local' AND FK_KeyWord='£¨²¨¿Æ¸ÇÕÂ´¦£©'

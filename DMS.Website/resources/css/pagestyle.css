@@ -1,0 +1,10 @@
+/*内容页面标题样式*/
+table.pageTitle{
+	height: 19px;
+	background-image:url(../images/page_bar.gif);
+}
+table.pageTitle td{
+	color: #11509f;
+	font-weight:bold;
+	height: 19px;
+}

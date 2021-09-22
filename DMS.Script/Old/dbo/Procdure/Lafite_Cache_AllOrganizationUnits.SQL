@@ -1,0 +1,30 @@
+DROP PROCEDURE [dbo].[Lafite_Cache_AllOrganizationUnits] 
+GO
+
+CREATE PROCEDURE [dbo].[Lafite_Cache_AllOrganizationUnits] 
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+DECLARE @UNIT_ID VARCHAR(36)
+DECLARE ORG_UNITS_CURSOR CURSOR
+FOR select ID from dbo.Lafite_ATTRIBUTE where ATTRIBUTE_TYPE<>'Role'
+
+DELETE FROM [Cache_OrganizationUnits]
+
+OPEN ORG_UNITS_CURSOR
+FETCH NEXT FROM ORG_UNITS_CURSOR INTO @UNIT_ID
+WHILE (@@fetch_status = 0)
+BEGIN 
+    EXEC dbo.[Lafite_Cache_ChildOrganizationUnits] @UNIT_ID        
+    FETCH NEXT FROM ORG_UNITS_CURSOR INTO @UNIT_ID
+END
+CLOSE ORG_UNITS_CURSOR
+DEALLOCATE ORG_UNITS_CURSOR
+
+END
+
+GO
+
+

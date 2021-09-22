@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DPForecastImportMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  
+  <statements>
+    <select id="DPForecastExport" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT d.DMA_ChineseName DMA_Parent_ChineseName,c.DMA_ChineseName,
+      [PFA_ID]
+      ,[PFA_ForecastVersion]
+      ,v.DivisionName AS [PFA_BU]
+      ,[PFA_DMA_ID]
+      ,[PFA_UPN]
+      ,[PFA_UPNDescription]
+      ,[PFA_ProductGroup]
+      ,[PFA_ProductSubGroup]
+      ,[PFA_PurchaseUnitPrice]
+      ,[PFA_HisPurchase_M1]
+      ,[PFA_HisPurchase_M2]
+      ,[PFA_HisPurchase_M3]
+      ,[PFA_HisPurchase_M4]
+      ,[PFA_HisPurchase_M5]
+      ,[PFA_HisPurchase_M6]
+      ,[PFA_HisPurchase_M7]
+      ,[PFA_HisPurchase_M8]
+      ,[PFA_HisPurchase_M9]
+      ,[PFA_HisPurchase_M10]
+      ,[PFA_HisPurchase_M11]
+      ,[PFA_HisPurchase_M12]
+      ,[PFA_YearlyPurchase]
+      ,[PFA_InventoryQty]
+      ,[PFA_HisForecastMM3]
+      ,[PFA_HisForecastMM2]
+      ,[PFA_HisForecastMM1]
+      ,[PFA_HisForecastAccuMM3]
+      ,[PFA_HisForecastAccuMM2]
+      ,[PFA_HisForecastAccuMM1]
+      ,[PFA_HisForecastAdjAccuMM3]
+      ,[PFA_HisForecastAdjAccuMM2]
+      ,[PFA_HisForecastAdjAccuMM1]
+      ,[PFA_Forecast_M1]
+      ,[PFA_Forecast_M2]
+      ,[PFA_Forecast_M3]
+      ,[PFA_ForecastAdj_M1]
+      ,[PFA_ForecastAdj_M2]
+      ,[PFA_ForecastAdj_M3]
+      ,[PFA_ForecastAdj_Remark]
+      ,[PFA_IndexForecastRate_M1]
+      ,[PFA_IndexForecastRate_M2]
+      ,[PFA_IndexForecastRate_M3]
+      ,[PFA_IndexAdjustRate_M1]
+      ,[PFA_IndexAdjustRate_M2]
+      ,[PFA_IndexAdjustRate_M3]
+      ,[PFA_CreateDate]
+      ,[PFA_UpdateDate]
+      ,[PFA_UpdateUser]
+      ,[PFA_Status]
+      ,[PFA_Note] FROM DealerPurchaseForecastAdjust a(nolock)
+      INNER JOIN Lafite_IDENTITY b(nolock) ON a.PFA_DMA_ID = b.Corp_ID
+      INNER JOIN DealerMaster c(nolock) ON a.PFA_DMA_ID = c.DMA_ID
+      inner join V_DivisionProductLineRelation v on a.PFA_BU=v.DivisionCode AND ISEMERGING=0
+      LEFT JOIN DealerMaster d(nolock) ON c.DMA_Parent_DMA_ID = d.DMA_ID
+      <!--WHERE b.Id = #UserId# AND a.PFA_ForecastVersion =#YEARMONTH#-->
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserId">b.Id=#UserId#</isNotNull>
+        <isNotNull prepend="AND" property="YEARMONTH">a.PFA_ForecastVersion=#YEARMONTH#</isNotNull>
+        <isNotNull prepend="AND" property="cbProductLine">v.ProductLineID=#cbProductLine#</isNotNull>
+      </dynamic>
+      ORDER BY case when PFA_YearlyPurchase = 0 then 1 else 0 end ,PFA_BU,PFA_YearlyPurchase Desc
+    </select>
+
+    <select id="GetYearMonth" resultClass="System.Collections.Hashtable">
+    SELECT CDD_Calendar FROM CalendarDate
+    WHERE CDD_Calendar = CONVERT(NVARCHAR(6),GETDATE(),112) AND DAY(GETDATE()) BETWEEN CDD_Date8 AND CDD_Date9
+    </select>
+
+    <select id="Get3MonthBP" parameterClass="string" resultClass="System.Collections.Hashtable">
+      EXEC Proc_DealerPurchaseForecastAdjustGet3MonthBP #value#
+    </select>
+    
+  </statements>
+</sqlMap>

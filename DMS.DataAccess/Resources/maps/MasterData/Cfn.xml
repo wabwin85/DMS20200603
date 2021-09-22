@@ -1,0 +1,1800 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnMap"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Cfn"
+       assembly="DMS.Model.dll"
+       type="DMS.Model.Cfn" />
+  </alias>
+  <resultMaps>
+    <resultMap id="CfnResult"
+       class="Cfn">
+      <result property="Id"
+    column="CFN_ID"
+    type="Guid"
+    dbType="Guid"/>
+      <result property="EnglishName"
+    column="CFN_EnglishName"
+    type="string"
+    dbType="varchar"/>
+      <result property="ChineseName"
+    column="CFN_ChineseName"
+    type="string"
+    dbType="varchar"/>
+      <result property="Description"
+    column="CFN_Description"
+    type="string"
+    dbType="varchar"/>
+      <result property="Implant"
+    column="CFN_Implant"
+    type="bool"
+    dbType="bool"/>
+      <result property="Tool"
+    column="CFN_Tool"
+    type="bool"
+    dbType="bool"/>
+      <result property="Share"
+    column="CFN_Share"
+    type="bool"
+    dbType="bool"/>
+      <result property="CustomerFaceNbr"
+    column="CFN_CustomerFaceNbr"
+    type="string"
+    dbType="varchar"/>
+      <result property="ProductCatagoryPctId"
+    column="CFN_ProductCatagory_PCT_ID"
+    type="Guid"
+    dbType="Guid"/>
+      <result property="Property1"
+    column="CFN_Property1"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property2"
+    column="CFN_Property2"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property3"
+    column="CFN_Property3"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property4"
+    column="CFN_Property4"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property5"
+    column="CFN_Property5"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property6"
+    column="CFN_Property6"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property7"
+    column="CFN_Property7"
+    type="string"
+    dbType="varchar"/>
+      <result property="Property8"
+    column="CFN_Property8"
+    type="string"
+    dbType="varchar"/>
+      <result property="LastUpdateDate"
+    column="CFN_LastModifiedDate"
+    type="DateTime"
+    dbType="DateTime"/>
+      <result property="DeletedFlag"
+    column="CFN_DeletedFlag"
+    type="bool"
+    dbType="bool"/>
+      <result property="ProductLineBumId"
+    column="CFN_ProductLine_BUM_ID"
+    type="Guid"
+    dbType="Guid"/>
+      <result property="LastUpdateUser"
+    column="CFN_LastModifiedBy_USR_UserID"
+    type="Guid"
+    dbType="Guid"/>
+      <result property="PCTName"
+    column="PCT_Name"
+    type="string"
+    dbType="varchar"/>
+      <result property="PCTEnglishName"
+    column="PCT_EnglishName"
+    type="string"
+    dbType="varchar"/>
+      <result property="ProductLineName"
+    column="ATTRIBUTE_NAME"
+    type="string"
+    dbType="varchar"/>
+      <result property="Level2Code"
+    column="CFN_Level2Code"
+    type="string"
+    dbType="varchar"/>
+      <result property="ERPCode"
+    column="CFN_ERPCode"
+    type="string"
+    dbType="varchar"/>
+    </resultMap>
+    
+  </resultMaps>
+  <statements>
+
+  <select id="SelectCfn" parameterClass="string" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Tool AS Tool,CFN_Description AS Description,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code,CFN_ERPCode AS ERPCode
+    FROM CFN
+    <dynamic prepend="WHERE">
+      <isParameterPresent>
+        CFN_ID = #value#
+      </isParameterPresent>
+    </dynamic>
+  </select>
+  <select id="SelectCfnByUpn" parameterClass="string" resultClass="Cfn">
+    SELECT top 1 CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Tool AS Tool,CFN_Description AS Description,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    FROM CFN
+    <dynamic prepend="WHERE">
+      <isParameterPresent>
+        CFN_CustomerFaceNbr = #value#
+      </isParameterPresent>
+    </dynamic>
+  </select>
+
+  <select id="SelectByFilterCfn" parameterClass="string" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    FROM CFN
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="EnglishName">CFN_EnglishName=#EnglishName#</isNotNull>
+      <isNotNull prepend="AND" property="ChineseName">CFN_ChineseName=#ChineseName#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">CFN_Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>
+      <isNotNull prepend="AND" property="ProductCatagoryPctId">CFN_ProductCatagory_PCT_ID=#ProductCatagoryPctId#</isNotNull>
+      <isNotNull prepend="AND" property="Property1">CFN_Property1=#Property1#</isNotNull>
+      <isNotNull prepend="AND" property="Property2">CFN_Property2=#Property2#</isNotNull>
+      <isNotNull prepend="AND" property="Property3">CFN_Property3=#Property3#</isNotNull>
+      <isNotNull prepend="AND" property="Property4">CFN_Property4=#Property4#</isNotNull>
+      <isNotNull prepend="AND" property="Property5">CFN_Property5=#Property5#</isNotNull>
+      <isNotNull prepend="AND" property="Property6">CFN_Property6=#Property6#</isNotNull>
+      <isNotNull prepend="AND" property="Property7">CFN_Property7=#Property7#</isNotNull>
+      <isNotNull prepend="AND" property="Property8">CFN_Property8=#Property8#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+    </dynamic>
+  </select>
+
+  <select id="SelectCfnList" parameterClass="string" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    ,B.PCT_Name AS PCTName,B.PCT_EnglishName AS PCTEnglishName,C.ATTRIBUTE_NAME AS ProductLineName,CFN_Tool AS Tool,CFN_Description AS Description
+    ,row_number() OVER (ORDER BY [CFN_CustomerFaceNbr] ASC) AS [row_number]
+    FROM CFN
+    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    left join  PartsClassification B
+    on CC.ClassificationId = PCT_ID
+    LEFT JOIN View_ProductLine C
+    ON CFN_ProductLine_BUM_ID = Id
+    WHERE CFN_DeletedFlag = 0
+    <dynamic prepend="">
+      <isNotNull prepend="AND" property="SubCompanyId">C.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">C.BrandId=#BrandId#</isNotNull>
+      <isNotEmpty prepend="AND" property="EnglishName">CFN_EnglishName like '%$EnglishName$%'</isNotEmpty>
+      <isNotEmpty prepend="AND" property="ChineseName">CFN_ChineseName like '%$ChineseName$%'</isNotEmpty>
+      <isNotNull prepend="AND" property="Implant">CFN_Implant=#Implant#</isNotNull>
+      <isNotEmpty prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotEmpty>
+      <isNotNull prepend="AND" property="ProductCatagoryPctId" >CC.ClassificationId=#ProductCatagoryPctId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">(CFN_ProductLine_BUM_ID=#ProductLineBumId# OR CFN_ProductLine_BUM_ID IS NULL)</isNotNull>
+      <isNotNull prepend="AND" property="DeletedFlag">CFN_DeletedFlag = #DeletedFlag# </isNotNull>
+    </dynamic>
+  </select>
+
+  <select id="SelectCfnListContain" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    ,B.PCT_Name AS PCTName,B.PCT_EnglishName AS PCTEnglishName,C.ATTRIBUTE_NAME AS ProductLineName,CFN_Tool AS Tool,CFN_Description AS Description
+    ,row_number() OVER (ORDER BY [CFN_CustomerFaceNbr] ASC) AS [row_number]
+    FROM CFN(nolock)
+    INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    left join  PartsClassification B(nolock)
+    on CC.ClassificationId = B.PCT_ID
+    LEFT JOIN View_ProductLine C(nolock)
+    ON CFN_ProductLine_BUM_ID = Id
+    WHERE CFN_DeletedFlag = 0
+    AND CFN_Property4 = 1
+    <dynamic prepend="">
+      <isNotNull prepend="AND" property="SubCompanyId">C.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">C.BrandId=#BrandId#</isNotNull>
+      <isNotEmpty prepend="AND" property="EnglishName">CFN_EnglishName like '%$EnglishName$%'</isNotEmpty>
+      <isNotEmpty prepend="AND" property="ChineseName">CFN_ChineseName like '%$ChineseName$%'</isNotEmpty>
+      <isNotNull prepend="AND" property="Implant">CFN_Implant=#Implant#</isNotNull>
+      <isNotEmpty prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotEmpty>
+      <isNotNull prepend="AND" property="ProductCatagoryPctId" >CC.ClassificationId=#ProductCatagoryPctId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">(CFN_ProductLine_BUM_ID=#ProductLineBumId# OR CFN_ProductLine_BUM_ID IS NULL)</isNotNull>
+      <isNotNull prepend="AND" property="DeletedFlag">CFN_DeletedFlag = #DeletedFlag# </isNotNull>
+      <isNotNull prepend="AND"  property="IsContain">
+        <isEqual prepend="" property="IsContain" compareValue="1">
+          PCT_Name IS NOT NULL
+        </isEqual>
+        <isEqual prepend="" property="IsContain" compareValue="0">
+          PCT_Name IS NULL
+        </isEqual>
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="SelectByFilterNoSet" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    ,B.PCT_Name AS PCTName,B.PCT_EnglishName AS PCTEnglishName,C.ATTRIBUTE_NAME AS ProductLineName,CFN_Tool AS Tool,CFN_Description AS Description
+    ,row_number() OVER (ORDER BY [CFN_CustomerFaceNbr] ASC) AS [row_number]
+    FROM CFN(nolock)
+    INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    left join  PartsClassification B(nolock)
+    on CC.ClassificationId = B.PCT_ID
+    LEFT JOIN View_ProductLine C(nolock)
+    ON CFN_ProductLine_BUM_ID = Id
+    WHERE CFN_DeletedFlag = 0
+    AND CFN_Property4 = 1
+    AND CFN_CustomerFaceNbr NOT IN (SELECT DISTINCT MasterUPN FROM MD.ProductBOM)
+    <dynamic prepend="">
+      <isNotNull prepend="AND" property="SubCompanyId">C.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">C.BrandId=#BrandId#</isNotNull>
+      <isNotEmpty prepend="AND" property="EnglishName">CFN_EnglishName like '%$EnglishName$%'</isNotEmpty>
+      <isNotEmpty prepend="AND" property="ChineseName">CFN_ChineseName like '%$ChineseName$%'</isNotEmpty>
+      <isNotNull prepend="AND" property="Implant">CFN_Implant=#Implant#</isNotNull>
+      <isNotEmpty prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotEmpty>
+      <isNotNull prepend="AND" property="ProductCatagoryPctId" >CC.ClassificationId=#ProductCatagoryPctId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineBumId">(CFN_ProductLine_BUM_ID=#ProductLineBumId# OR CFN_ProductLine_BUM_ID IS NULL)</isNotNull>
+      <isNotNull prepend="AND" property="DeletedFlag">CFN_DeletedFlag = #DeletedFlag# </isNotNull>
+      <isNotNull prepend="AND"  property="IsContain">
+        <isEqual prepend="" property="IsContain" compareValue="1">
+          PCT_Name IS NOT NULL
+        </isEqual>
+        <isEqual prepend="" property="IsContain" compareValue="0">
+          PCT_Name IS NULL
+        </isEqual>
+      </isNotNull>
+    </dynamic>
+  </select>
+  <select id="SelectByCustomerFaceNbr"
+  parameterClass="Cfn"
+  resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Tool As Tool,CFN_Description As Description,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    FROM CFN
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>
+      <isNotNull prepend="AND" property="DeletedFlag">CFN_DeletedFlag=#DeletedFlag#</isNotNull>
+    </dynamic>
+  </select>
+
+  <insert id="InsertCfn"
+  parameterClass="Cfn">
+    INSERT INTO CFN
+    (CFN_ID,CFN_EnglishName,CFN_ChineseName,CFN_Implant,CFN_Tool,CFN_Share,CFN_Description,CFN_CustomerFaceNbr,CFN_ProductCatagory_PCT_ID,CFN_Property1,CFN_Property2,CFN_Property3,CFN_Property4,CFN_Property5,CFN_Property6,CFN_Property7,CFN_Property8,CFN_LastModifiedDate,CFN_DeletedFlag,CFN_ProductLine_BUM_ID,CFN_LastModifiedBy_USR_UserID)
+    VALUES(#Id#,#EnglishName#,#ChineseName#,#Implant#,#Tool#,#Share#,#Description#,#CustomerFaceNbr#,#ProductCatagoryPctId#,#Property1#,#Property2#,#Property3#,#Property4#,#Property5#,#Property6#,#Property7#,#Property8#,#LastUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#DeletedFlag#,#ProductLineBumId#,#LastUpdateUser#)
+  </insert>
+
+  <update id="UpdateCfn" parameterClass="Cfn">
+    UPDATE CFN SET
+    CFN_EnglishName=#EnglishName#,
+    CFN_ChineseName=#ChineseName#,
+    CFN_Implant=#Implant#,
+    CFN_Tool=#Tool#,
+    CFN_Share=#Share#,
+    CFN_Description=#Description#,
+    CFN_CustomerFaceNbr=#CustomerFaceNbr#,
+    CFN_ProductCatagory_PCT_ID=#ProductCatagoryPctId#,
+    CFN_Property1=#Property1#,
+    CFN_Property2=#Property2#,
+    CFN_Property3=#Property3#,
+    CFN_Property4=#Property4#,
+    CFN_Property5=#Property5#,
+    CFN_Property6=#Property6#,
+    CFN_Property7=#Property7#,
+    CFN_Property8=#Property8#,
+    CFN_LastModifiedDate=#LastUpdateDate#,
+    CFN_DeletedFlag=#DeletedFlag#,
+    CFN_ProductLine_BUM_ID=#ProductLineBumId#,
+    CFN_LastModifiedBy_USR_UserID=#LastUpdateUser#
+    WHERE CFN_ID = #Id#
+  </update>
+
+
+  <update id="UpdateCatagory" parameterClass="Cfn">
+    UPDATE [CFN] SET
+    CFN_ProductCatagory_PCT_ID=#ProductCatagoryPctId#,
+    CFN_ProductLine_BUM_ID=#ProductLineBumId#,
+
+    CFN_LastModifiedDate=#LastUpdateDate#,
+    CFN_LastModifiedBy_USR_UserID=#LastUpdateUser#
+    WHERE CFN_ID = #Id#
+
+    update cc set
+    cc.ClassificationId=#ProductCatagoryPctId#
+    from CfnClassification cc (nolock)
+    inner join CFN c (nolock) on cc.CfnCustomerFaceNbr=c.CFN_CustomerFaceNbr
+    where c.CFN_ID=#Id#
+  </update>
+
+  <delete id="DeleteCfn"
+  parameterClass="string">
+    DELETE FROM CFN
+    WHERE CFN_ID = #value#
+  </delete>
+
+  <update id="FakeDeleteCfn" parameterClass="Cfn">
+    UPDATE CFN
+    SET CFN_LastModifiedDate=#LastUpdateDate#,CFN_DeletedFlag=#DeletedFlag#,CFN_LastModifiedBy_USR_UserID=#LastUpdateUser#
+    WHERE CFN_ID = #Id#
+  </update>
+
+  <!--Edited By Song Yuqi On 2016-05-31 For Dealer Authorization Being-->
+  <!--added by bozhenfei on 20110216-->
+  <!--根据经销商和产品线，根据经销商授权查询可订购产品-->
+  <select id="QueryCfnForPurchaseOrderByAuth" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT *,ROW_NUMBER() OVER ( ORDER BY CustomerFaceNbr ASC ) AS [row_number]
+    FROM (
+    select *,ROW_NUMBER() over(partition by  Id order BY Id) AS rn from (
+    SELECT
+    TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE
+    WHEN (TAB.IsCanOrder = -3) THEN '否（经销商资质无此分类代码或已过期）'
+    WHEN TAB.IsCanOrder = 0 THEN '否' ELSE '是' END AS IsCanOrder,
+    ProductMsg,
+    <!-- (SELECT PMA_ConvertFactor FROM Product(nolock) WHERE PMA_CFN_ID = Tab.Id) AS Sheet,-->
+    TAB.PMA_ConvertFactor AS Shhet,
+    ISNULL(TAB.PMA_PackageFactor,1) AS PackageFactor,
+    <!--ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number],-->
+    REG.CurRegNo,
+    REG.CurValidDateFrom,
+    REG.CurValidDataTo,
+    REG.CurManuName,
+    REG.LastRegNo,
+    REG.LastValidDateFrom,
+    REG.LastValidDataTo,
+    REG.LastManuName,
+    REG.CurGMKind,
+    REG.CurGMCatalog
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    C.CFN_Property8 AS ProductMsg,
+    C.CFN_Property1 as CFNProperty,
+    C.PMA_ConvertFactor,
+    C.PMA_PackageFactor,
+    <!-- (SELECT CFNP_Price FROM dbo.CFNPrice(nolock) WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND CFNP_Price > 0) AS Price,-->
+    CASE WHEN isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0 then dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) ELSE null END AS Price,
+    <!-- Add By SongWeiming For GSP 根据产品分类代码判断产品是否可以下订单 -->
+    CASE
+    WHEN #OrderType#='ClearBorrowManual' and dbo.GC_Fn_CFN_CheckDealerLicenseGatagory(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3
+    WHEN #OrderType#&lt;>'ClearBorrowManual' and dbo.GC_Fn_CFN_CheckDealerLicenseGatagory_3rdCatagoryDateCheck(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3
+    <!--WHEN (SELECT CFNP_Price FROM dbo.CFNPrice(nolock) WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND CFNP_Price > 0) IS NULL THEN 0 -->
+    WHEN isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) = 0 THEN 0
+    <!--
+      WHEN
+      (SELECT COUNT(*) FROM dbo.CFNPrice(nolock)
+      LEFT JOIN DealerMaster(nolock) ON DMA_ID=CFNP_Group_ID
+      WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId#
+      AND CFNP_DeletedFlag = 0
+      AND CFNP_Price > 0
+      AND DMA_DealerType IN ('T1','LP')
+      AND GETDATE() BETWEEN ISNULL([CFNP_ValidDateFrom],'1900-01-01')
+      AND ISNULL([CFNP_ValidDateTo],GETDATE())) = 0
+      THEN 0 -->
+    ELSE C.CFN_Property4 END AS IsCanOrder
+    FROM
+    (
+    <!--Add By Huakaichun 产品结构调整-->
+    SELECT CFN.*,dbo.fn_GetCfnPriceByDealer( #DealerId#,CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price,
+    P.PMA_ConvertFactor,P.PMA_PackageFactor
+    FROM CFN(nolock)
+    INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    INNER JOIN Product P(nolock) on (CFN_ID = P.PMA_CFN_ID)
+    LEFT JOIN CFNPrice (nolock) ON  (CFNP_CFN_ID = CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0)
+    WHERE
+    (
+    EXISTS(
+    SELECT 1 FROM DealerAuthorizationTable DAT(nolock)
+    INNER JOIN Cache_PartsClassificationRec AS CP(nolock)
+    ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+    WHERE DAT.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DAT.DAT_PMA_ID = DAT.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ProductLine_BUM_ID = DAT.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    ))
+    )
+    OR EXISTS(
+    SELECT 1 FROM DealerAuthorizationTable DAT(nolock)
+    INNER JOIN Cache_PartsClassificationRec AS CP(nolock)
+    ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+    WHERE DAT.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    ))
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    AND CFN_Property4 != '-1'
+    <!--
+      UNION
+      SELECT CFN.* FROM CFN(nolock)    
+      INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      WHERE EXISTS
+      (
+      SELECT 1 FROM DealerAuthorizationTable DAT(nolock)
+      INNER JOIN Cache_PartsClassificationRec AS CP(nolock)
+      ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+      WHERE DAT.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR (#OrderAuthCount# = 0 AND (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      )
+      AND CFN_Property4 != '-1'
+      AND CFN.CFN_DeletedFlag = 0
+     
+      已不使用cfnshare
+      UNION
+      SELECT C.*
+      FROM CFN AS C(nolock), CFNShare CS(nolock)
+      Where C.CFN_ID = CS.CFNS_CFN_ID
+      AND CS.CFNS_BUM_ID = #ProductLineId#
+      AND CFN_Property4 != '-1'
+      AND CS.CFNS_DeletedFlag = 0
+      AND CS.CFNS_Property2 = 'T1'
+      -->
+    <isNotNull prepend="UNION" property="IsClearBorrow">
+      SELECT C.*,dbo.fn_GetCfnPriceByDealer( #DealerId#,CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price,
+      P.PMA_ConvertFactor
+      FROM CFN AS C(nolock)
+      INNER JOIN Product P(nolock) on (CFN_ID = P.PMA_CFN_ID)
+      LEFT JOIN CFNPrice (nolock) ON  (CFNP_CFN_ID = CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0)
+      WHERE C.CFN_Property2 = 1
+    </isNotNull>
+    ) AS C
+    LEFT JOIN DealerMasterLicense DML(nolock) on (DML.DML_DMA_ID = #DealerId#
+    <!--
+      <isNotNull prepend="AND" property="OrderType">
+        CONVERT(NVARCHAR(10),DML.DML_CurLicenseValidFrom , 112)&lt;=CONVERT(NVARCHAR(10),GETDATE(), 112) AND CONVERT(NVARCHAR(10),DML.DML_CurLicenseValidTo , 112)>=CONVERT(NVARCHAR(10),GETDATE(), 112)
+      </isNotNull>
+         -->
+    )
+    LEFT JOIN MD.V_INF_UPN_REG VREG ON (VREG.CurUPN=C.CFN_CustomerFaceNbr)
+    ) AS TAB left join MD.V_INF_UPN_REG AS REG ON (TAB.CustomerFaceNbr = REG.CurUPN)
+    WHERE (CASE WHEN (TAB.IsCanOrder = -3) THEN 0 ELSE TAB.IsCanOrder END = #DisplayCanOrder# or '0' = #DisplayCanOrder#)
+    AND TAB.CustomerFaceNbr NOT IN (SELECT DISTINCT MasterUPN FROM MD.ProductBOM(nolock))
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+    <isNotNull prepend="AND" property="CFNProperty"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty1">TAB.CFNProperty like '%$CFNProperty1$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty2">TAB.CFNProperty like '%$CFNProperty2$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty3">TAB.CFNProperty like '%$CFNProperty3$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty4">TAB.CFNProperty like '%$CFNProperty5$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty5">TAB.CFNProperty like '%$CFNProperty5$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty6">TAB.CFNProperty like '%$CFNProperty6$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty7">TAB.CFNProperty like '%$CFNProperty7$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty8">TAB.CFNProperty like '%$CFNProperty8$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty9">TAB.CFNProperty like '%$CFNProperty9$%'</isNotNull>
+    <isNotNull prepend="OR" property="CFNProperty10">TAB.CFNProperty like '%$CFNProperty10$%'</isNotNull>
+    <isNotNull prepend="" property="CFNProperty">) </isNotNull>
+
+    ) AS tb ) AS u WHERE u.rn=1
+  </select>
+
+  <!--added by SongWeiming on 20150203-->
+  <!--根据经销商和产品线以及促销政策，查询可订购产品-->
+  <!--Edited By Song Yuqi On 2016-05-30 根据经销商授权得到授权产品-->
+  <select id="QueryCfnForPurchaseOrderByPromotion" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT
+    TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE
+    WHEN TAB.IsCanOrder = -3 THEN '否（经销商资质无此分类代码）'
+    WHEN TAB.IsCanOrder = 0 THEN '否' ELSE '是' END AS IsCanOrder,
+    ProductMsg,
+    (select PMA_ConvertFactor from Product where PMA_CFN_ID=Tab.Id) AS Sheet,
+    ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number],
+    REG.CurRegNo,
+    REG.CurValidDateFrom,
+    REG.CurValidDataTo,
+    REG.CurManuName,
+    REG.LastRegNo,
+    REG.LastValidDateFrom,
+    REG.LastValidDataTo,
+    REG.LastManuName,
+    REG.CurGMKind,
+    REG.CurGMCatalog
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    C.CFN_Property8 AS ProductMsg,
+    (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price
+    FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) AS Price,
+    CASE
+    <!-- Add By SongWeiming For GSP 根据产品分类代码判断产品是否可以下订单 -->
+    WHEN dbo.GC_Fn_CFN_CheckDealerLicenseGatagory(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3
+
+    WHEN (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price
+    FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) IS NULL THEN 0
+    when
+    (SELECT COUNT(*) FROM dbo.CFNPrice(nolock)
+    left join DealerMaster(nolock) on DMA_ID=CFNP_Group_ID
+    WHERE CFNP_CFN_ID =
+    C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND
+    CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0 and DMA_DealerType in ('T1','LP') and
+    Getdate()  between isnull([CFNP_ValidDateFrom],'1900-01-01')
+    and isnull([CFNP_ValidDateTo],getdate()))=0
+    then 0
+    ELSE C.CFN_Property4 END AS IsCanOrder
+    FROM
+    (
+    SELECT CFN.* FROM CFN
+    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DA.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ProductLine_BUM_ID = DA.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DA.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    )
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    AND CFN_Property4 != '-1'
+    UNION
+    SELECT CFN.* FROM CFN
+    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DA.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DA.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    )
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    AND CFN_Property4 != '-1'
+    UNION
+    SELECT C.*
+    FROM CFN AS C, CFNShare CS
+    Where C.CFN_ID = CS.CFNS_CFN_ID
+    AND CS.CFNS_BUM_ID = #ProductLineId#
+    AND CFN_Property4 != '-1'
+    AND CS.CFNS_DeletedFlag = 0
+    AND CS.CFNS_Property2 = 'T1'
+    <isNotNull prepend="UNION" property="IsClearBorrow">
+      SELECT C.CFN_ID, C.CFN_EnglishName, C.CFN_ChineseName, C.CFN_Implant, C.CFN_Tool, C.CFN_Description, C.CFN_CustomerFaceNbr, C.CFN_ProductCatagory_PCT_ID, C.CFN_Property1, C.CFN_Property2, C.CFN_Property3, 1 AS CFN_Property4, C.CFN_Property5, C.CFN_Property6, C.CFN_Property7, C.CFN_Property8, C.CFN_LastModifiedDate, C.CFN_DeletedFlag, C.CFN_ProductLine_BUM_ID, C.CFN_LastModifiedBy_USR_UserID, C.CFN_Share, C.CFN_Level1Code, C.CFN_Level1Desc, C.CFN_Level2Code, C.CFN_Level2Desc, C.CFN_Level3Code, C.CFN_Level3Desc, C.CFN_Level4Code, C.CFN_Level4Desc, C.CFN_Level5Code, C.CFN_Level5Desc
+      FROM CFN AS C
+      WHERE C.CFN_Property2 = 1
+    </isNotNull>
+    ) AS C
+    left join DealerMasterLicense DML(nolock) on (DML.DML_DMA_ID = #DealerId# )
+    left join MD.V_INF_UPN_REG VREG(nolock) ON (VREG.CurUPN=C.CFN_CustomerFaceNbr)
+
+    ) AS TAB left join MD.V_INF_UPN_REG AS REG ON (TAB.CustomerFaceNbr = REG.CurUPN)
+    WHERE (
+    CASE
+    WHEN (TAB.IsCanOrder = -3) THEN 0 ELSE TAB.IsCanOrder END = #DisplayCanOrder# or '0' = #DisplayCanOrder#)
+    AND TAB.CustomerFaceNbr not in (select distinct MasterUPN from MD.ProductBOM)
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+
+    <isNotNull prepend="AND" property="SpecialPriceID">
+      TAB.CustomerFaceNbr in (select distinct t1.UPN
+      from interface.T_I_EW_PromotionProduct t1, PromotionPolicy t2
+      where t1.PRCode=t2.PMP_Code and t2.PMP_ID=#SpecialPriceID#
+      union
+      select distinct t1.UPN
+      from interface.T_I_EW_PromotionFreeGoods t1,PromotionPolicy t2
+      where t1.PRCode=t2.PMP_Code and t2.PMP_ID=#SpecialPriceID# )
+    </isNotNull>
+
+  </select>
+
+  <!--added by songweiming on 20130927-->
+  <!--根据二级经销商和产品线，根据二级经销商授权查询可订购产品-->
+  <!--根据经销商类型来确定如何使用合同有效期，临时经销商不限定合同有效期，长期经销商限定有效期+3个月-->
+  <!--Edited By Song Yuqi On 2016-05-30 根据经销商授权得到授权产品-->
+  <select id="QueryCfnForPurchaseOrderT2ByAuth" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT *,ROW_NUMBER() OVER ( ORDER BY CustomerFaceNbr ASC ) AS [row_number]
+    FROM (
+    select *,ROW_NUMBER() over(partition by  Id order BY Id) AS rn from (
+    SELECT
+    TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE
+    <!--WHEN (TAB.IsCanOrder = -3) THEN '否（经销商资质无此分类代码）'-->
+    WHEN (TAB.IsCanOrder = 0 and isnull(invNum,0) = 0) THEN '否' ELSE '是' END AS IsCanOrder,
+    <!--ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number],-->
+    REG.CurRegNo,
+    REG.CurValidDateFrom,
+    REG.CurValidDataTo,
+    REG.CurManuName,
+    REG.LastRegNo,
+    REG.LastValidDateFrom,
+    REG.LastValidDataTo,
+    REG.LastManuName,
+    REG.CurGMKind,
+    REG.CurGMCatalog,
+    ISNULL(PMA_PackageFactor,1) as PackageFactor,
+    PMA_ConvertFactor as ConvertFactor
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    CASE WHEN isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0 then dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) ELSE null END AS Price,
+    CASE WHEN isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0 then CFN_Property4 ELSE 0 END AS IsCanOrder,
+    <!-- (SELECT CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND CFNP_Price > 0) AS Price,-->
+
+    <!-- Add By SongWeiming For GSP 根据产品分类代码判断产品是否可以下订单 -->
+    <!--WHEN dbo.GC_Fn_CFN_CheckDealerLicenseGatagory(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3-->
+    <!--
+      CASE
+      WHEN (SELECT CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND CFNP_Price > 0) IS NULL THEN 0
+      ELSE C.CFN_Property4 END AS IsCanOrder,-->
+
+    ( select case when  <![CDATA[sum(isnull(INV.INV_OnHandQuantity,0)) < 0]]> then 0 else sum(isnull(INV.INV_OnHandQuantity,0)) end
+    from Inventory AS INV(nolock), Warehouse AS WH(nolock), Product AS P(nolock), DealerMaster AS DM(nolock)
+    where INV.INV_PMA_ID = P.PMA_ID and P.PMA_CFN_ID= C.CFN_ID
+    and INV.INV_WHM_ID=WH.WHM_ID and WH.WHM_ActiveFlag=1
+    and DM.DMA_ID = #DealerId# and DM.DMA_Parent_DMA_ID = WH.WHM_DMA_ID ) AS invNum
+    FROM
+    (
+    SELECT CFN.*
+    <!--dbo.fn_GetCfnPriceByDealer( #DealerId#,CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price-->
+    FROM CFN(NOLOCK)
+    INNER JOIN CfnClassification CC(NOLOCK) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+    <!--INNER JOIN CFNPrice (nolock) ON (CFNP_CFN_ID = CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0)-->
+    WHERE
+    (EXISTS(
+    SELECT 1 FROM DealerAuthorizationTable DAT
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+    WHERE DAT.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DAT.DAT_PMA_ID = DAT.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ProductLine_BUM_ID = DAT.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR ((DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    ))
+    )
+    OR
+    EXISTS(
+    SELECT 1 FROM DealerAuthorizationTable DAT
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+    WHERE DAT.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR ((DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    ))
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    <!--
+      UNION
+      SELECT CFN.* FROM CFN
+      INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      WHERE EXISTS
+      (
+      SELECT 1 FROM DealerAuthorizationTable DAT
+      INNER JOIN Cache_PartsClassificationRec AS CP
+      ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+      WHERE DAT.DAT_DMA_ID = #DealerId#
+      AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+      AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+      AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+      AND CP.PCT_ID = CC.ClassificationId
+      AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR (#OrderAuthCount# = 0 AND (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      )
+      AND CFN.CFN_DeletedFlag = 0
+      UNION
+      SELECT C.*
+      FROM CFN AS C, CFNShare CS
+      WHERE C.CFN_ID = CS.CFNS_CFN_ID
+      AND CS.CFNS_BUM_ID = #ProductLineId#
+      AND CFN_Property4 != '-1'
+      AND CS.CFNS_DeletedFlag = 0
+      AND CS.CFNS_Property2 = 'T2'-->
+    ) AS C
+    <!--
+      left join DealerMasterLicense DML(nolock) on (DML.DML_DMA_ID = #DealerId#
+      <isNotNull prepend="AND" property="OrderType">
+        CONVERT(NVARCHAR(10),DML.DML_CurLicenseValidFrom  , 112)&lt;=CONVERT(NVARCHAR(10),GETDATE(), 112) AND  CONVERT(NVARCHAR(10),DML.DML_CurLicenseValidTo , 112)>=CONVERT(NVARCHAR(10),GETDATE(), 112)
+      </isNotNull>
+      )
+      left join MD.V_INF_UPN_REG VREG ON (VREG.CurUPN=C.CFN_CustomerFaceNbr)
+      -->
+    ) AS TAB left join MD.V_INF_UPN_REG AS REG ON (TAB.CustomerFaceNbr = REG.CurUPN)
+    left join product(nolock) on TAB.CustomerFaceNbr = PMA_UPN
+    WHERE (CASE
+    <!--WHEN (TAB.IsCanOrder = -3) THEN 0-->
+    WHEN (TAB.IsCanOrder = 0 AND isnull(invNum,0) = 0) THEN 0
+    ELSE 1 END = #DisplayCanOrder# or '0' = #DisplayCanOrder#)
+    AND   TAB.Price IS NOT NULL
+    AND NOT Exists (SELECT 1 FROM DealerSpecialUPN SU where SU.DS_CFN_ID = TAB.Id and SU.DS_DMA_ID = #DealerId#)
+    AND NOT Exists (SELECT 1 FROM MD.ProductBOM BOM where BOM.MasterUPN = TAB.CustomerFaceNbr)
+
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CFN_Property7 like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CFN_Property7 like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CFN_Property7 like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CFN_Property7 like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CFN_Property7 like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CFN_Property7 like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CFN_Property7 like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CFN_Property7 like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CFN_Property7 like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CFN_Property7 like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+
+    ) AS tb ) AS u WHERE u.rn=1
+  </select>
+
+  <!--根据经销商、产品线、特殊价格政策编号，查询可订购产品-->
+  <!--特殊价格订单不需要根据经销商授权过滤-->
+  <select id="QueryCfnForPurchaseOrderBySpecialPrice" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE WHEN TAB.IsCanOrder = '0' THEN '否' ELSE '是' END AS IsCanOrder,
+    TAB.Avaiable,
+    (select PMA_ConvertFactor from Product where PMA_CFN_ID=Tab.Id) AS Sheet,
+    ROW_NUMBER () OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number]
+    FROM (SELECT CFN.CFN_ID AS Id,
+    CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    CFN.CFN_ChineseName AS ChineseName,
+    CFN.CFN_EnglishName AS EnglishName,
+    CFN.CFN_Property3 AS UOM,
+    SPD.SPD_Price AS Price,
+    CFN.CFN_Property4 AS IsCanOrder,
+    SPD.SPD_AvailableQty AS Avaiable
+    FROM (SELECT Detail.SPD_CFN_ID,
+    Detail.SPD_Price,
+    Detail.SPD_AvailableQty
+    FROM SpecialPriceMaster Master, SpecialPriceDetail Detail
+    WHERE     Master.SPM_ID = Detail.SPD_SPM_ID
+    AND Master.SPM_ID = #SpecialPriceID#
+    AND Master.SPM_DMA_ID = #DealerId#
+    AND Detail.SPD_AvailableQty > 0) AS SPD
+    INNER JOIN CFN ON (SPD.SPD_CFN_ID = CFN.CFN_ID)
+    WHERE     CFN.CFN_ProductLine_BUM_ID = #ProductLineId#
+    AND CFN_Property4 != '-1') AS TAB
+    WHERE (TAB.IsCanOrder = #DisplayCanOrder# OR '0' = #DisplayCanOrder#)
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+  </select>
+  <!--根据经销商和产品线查询共享产品-->
+  <select id="QueryCfnForPurchaseOrderByShare" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    <!--SELECT
+      C.CFN_ID AS Id,
+      C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      C.CFN_ChineseName AS ChineseName,
+      C.CFN_EnglishName AS EnglishName,
+      dbo.fn_GetPriceByDealerForPO(#DealerId#,C.CFN_ID) * 1.17 AS Price,
+      ROW_NUMBER() OVER (ORDER BY C.CFN_CustomerFaceNbr ASC) AS [row_number]
+      FROM CFN AS C
+      WHERE C.CFN_ProductLine_BUM_ID = #ProductLineId#
+      AND C.CFN_Share = 1 AND C.CFN_DeletedFlag = 0
+      AND dbo.GC_Fn_CFN_CheckDealerCanOrder(#DealerId#,C.CFN_ID) = 1
+      <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN1">C.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN2">C.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN3">C.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN4">C.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN5">C.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN6">C.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN7">C.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN8">C.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN9">C.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN10">C.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+      <isNotNull prepend="" property="ProductCFN">) </isNotNull>-->
+    SELECT
+    TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE WHEN TAB.IsCanOrder = 0 THEN '否' ELSE '是' END AS IsCanOrder,
+    ProductMsg,
+    (select PMA_ConvertFactor from Product where PMA_CFN_ID=Tab.Id) AS Sheet,
+    (select TOP 1 ISNULL(PMA_PackageFactor,1) from Product where PMA_CFN_ID=Tab.Id) AS PackageFactor,
+    ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number]
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    C.CFN_Property8 AS ProductMsg,
+    (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) AS Price,
+    CASE  WHEN (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as  CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) IS NULL THEN 0 ELSE C.CFN_Property4 END AS IsCanOrder
+    FROM
+    (
+    SELECT *
+    FROM CFN AS C
+    WHERE C.CFN_Share = 1
+    AND CFN_Property4 != '-1'
+    ) AS C
+    ) AS TAB
+    WHERE (TAB.IsCanOrder = #DisplayCanOrder# or '0' = #DisplayCanOrder#)
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+  </select>
+  <!--end-->
+  <!--Edited By Song Yuqi On 2016-05-31 For Dealer Authorization End-->
+
+  <!--added by songyuqi on 20100608-->
+  <select id="SelectCFNForDealerShare" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser
+    ,B.PCT_Name AS PCTName,B.PCT_EnglishName AS PCTEnglishName,C.ATTRIBUTE_NAME AS ProductLineName,CFN_Tool AS Tool,CFN_Description AS Description
+    ,at.AT_Name AS AttachName , at.AT_Url AS AttachURL
+    ,row_number () OVER (ORDER BY CFN_EnglishName ASC) AS row_number FROM CFN
+    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    left join  PartsClassification B
+    on cc.ClassificationId = PCT_ID
+    LEFT JOIN View_ProductLine(nolock) C
+    ON CFN_ProductLine_BUM_ID = Id
+    LEFT JOIN Attachment at on at.AT_Main_ID=CFN_ID  and at.AT_Type='UPN_License'
+    WHERE CFN_Share=1 AND CFN_DeletedFlag = 0
+    <dynamic>
+      <isNotNull prepend="AND" property="SubCompanyId">C.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">C.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN.CFN_CustomerFaceNbr like N'%$CustomerFaceNbr$%'</isNotNull>
+    </dynamic>
+  </select>
+
+  <select id="SelectCFNForDealerNotShare" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT
+    a.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    VP.SubCompanyName,
+    VP.BrandName,
+    c.ATTRIBUTE_NAME AS ProductLineName,
+    a.CFN_ID AS Id,
+    a.CFN_EnglishName AS EnglishName,
+    a.CFN_ChineseName AS ChineseName,
+    b.PCT_Name AS PCTName,
+    b.PCT_EnglishName AS PCTEnglishName,
+    a.CFN_Description AS Description,
+    a.CFN_Implant AS Implant,
+    a.CFN_Share AS Share,
+    a.ClassificationId AS ProductCatagoryPctId,
+    a.CFN_Property1 AS Property1,
+    a.CFN_Property2 AS Property2,
+    a.CFN_Property3 AS Property3,
+    case a.CFN_Property4
+    when '0' then N'否'
+    when '1' then N'是'
+    else a.CFN_Property4 end
+    AS Property4,
+    a.CFN_Property5 AS Property5,
+    case  a.CFN_Property6
+    when '0' then N'否'
+    when '1' then N'是'
+    else a.CFN_Property6  end
+    AS Property6,
+    a.CFN_Property7 AS Property7,
+    a.CFN_Property8 AS Property8,
+    a.CFN_LastModifiedDate AS LastUpdateDate,
+    a.CFN_DeletedFlag AS DeletedFlag,
+    a.CFN_ProductLine_BUM_ID AS ProductLineBumId,
+    a.CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,
+    a.CFN_Tool AS Tool
+
+    <!--,at.AT_Name AS AttachName , at.AT_Url AS AttachURL-->
+    ,a.CFN_Property5+'.pdf' AS AttachName ,a.CFN_Property5+'.pdf' AS AttachURL
+    ,row_number() OVER (ORDER BY a.CFN_CustomerFaceNbr ASC) AS [row_number]
+    FROM
+    (
+    select CFN.*,CCF.ClassificationId from CFN
+    INNER JOIN CfnClassification CCF ON CCF.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    where EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN DealerContract AS DC
+    ON DA.DAT_DCL_ID = DC.DCL_ID
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DC.DCL_DMA_ID = #DMA_ID#
+    <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+    AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+    AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+    union
+    select CFN.* ,CCF.ClassificationId from CFN
+    INNER JOIN CfnClassification CCF ON CCF.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    where EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN DealerContract AS DC
+    ON DA.DAT_DCL_ID = DC.DCL_ID
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DC.DCL_DMA_ID = #DMA_ID#
+    <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+    AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+    AND CP.PCT_ID = CCF.ClassificationId)
+    ) as a
+    left join  PartsClassification b on a.ClassificationId = b.PCT_ID
+    LEFT JOIN View_ProductLine(nolock) c ON a.CFN_ProductLine_BUM_ID = c.Id
+    LEFT JOIN View_ProductLine VP (nolock) on VP.Id = c.Id
+    <!--LEFT JOIN Attachment at on at.AT_Main_ID=a.CFN_ID and at.AT_Type='UPN_License'-->
+    WHERE a.CFN_DeletedFlag = 0
+    <isNotNull prepend="AND" property="SubCompanyId">c.SubCompanyId = #SubCompanyId#</isNotNull>
+    <isNotNull prepend="AND" property="BrandId">c.BrandId = #BrandId#</isNotNull>
+    <isNotNull prepend="AND" property="CustomerFaceNbr">a.CFN_CustomerFaceNbr like N'%$CustomerFaceNbr$%'</isNotNull>
+    <isNotNull prepend="AND" property="ProductLineBumId">a.CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+    <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId = #SubCompanyId#</isNotNull>
+    <isNotNull prepend="AND" property="BrandId">VP.BrandId = #BrandId#</isNotNull>
+  </select>
+  <!--end-->
+
+  <!---->
+  <select id="P_GetAllCRMProduction" resultClass="System.Collections.Hashtable">
+    select
+    CFN.CFN_CustomerFaceNbr as UPN,
+    CFN.CFN_ChineseName as [Description],
+    CFN.CFN_Level1Desc as Level1,
+    CFN.CFN_Level2Desc as Level2,
+    CFN.CFN_Level3Desc as Level3,
+    CFN.CFN_Level4Desc as Level4,
+    CFN.CFN_Level5Desc as Level5
+    from CFN
+    WHERE CFN.CFN_DeletedFlag = 0 and cfn.CFN_Property6 = '1' and cfn.CFN_Property4 = '1'
+    Order by  CFN_CustomerFaceNbr
+  </select>
+  <select id="SelectCFNForAdmin" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT
+    a.CFN_ID AS Id,
+    a.CFN_EnglishName AS EnglishName,
+    a.CFN_ChineseName AS ChineseName,
+    a.CFN_Implant AS Implant,
+    a.CFN_Share AS Share,
+    a.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    a.ClassificationId AS ProductCatagoryPctId,
+    a.CFN_Property1 AS Property1,
+    a.CFN_Property2 AS Property2,
+    a.CFN_Property3 AS Property3,
+    case a.CFN_Property4
+    when '0' then N'否'
+    when '1' then N'是'
+    else a.CFN_Property4 end
+    AS Property4,
+    a.CFN_Property5 AS Property5,
+    case  a.CFN_Property6
+    when '0' then N'否'
+    when '1' then N'是'
+    else a.CFN_Property6  end
+    AS Property6,
+    a.CFN_Property7 AS Property7,
+    a.CFN_Property8 AS Property8,
+    a.CFN_LastModifiedDate AS LastUpdateDate,
+    a.CFN_DeletedFlag AS DeletedFlag,
+    a.CFN_ProductLine_BUM_ID AS ProductLineBumId,
+    a.CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,
+    b.PCT_Name AS PCTName,
+    b.PCT_EnglishName AS PCTEnglishName,
+    c.ATTRIBUTE_NAME AS ProductLineName,
+    VP.SubCompanyName,
+    VP.BrandName,
+    a.CFN_Tool AS Tool,
+    a.CFN_Description AS Description
+    <!--,at.AT_Name AS AttachName , at.AT_Url AS AttachURL-->
+    ,a.CFN_Property5+'.pdf' AS AttachName ,a.CFN_Property5+'.pdf' AS AttachURL
+    ,row_number() OVER (ORDER BY a.CFN_CustomerFaceNbr ASC) AS [row_number]
+    FROM
+    (
+    select CFN.*,CCF.ClassificationId from CFN
+    INNER JOIN CfnClassification CCF ON CCF.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    where EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN DealerContract AS DC
+    ON DA.DAT_DCL_ID = DC.DCL_ID
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+    AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+    union
+    select CFN.* ,CCF.ClassificationId from CFN
+    INNER JOIN CfnClassification CCF ON CCF.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    where EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN DealerContract AS DC
+    ON DA.DAT_DCL_ID = DC.DCL_ID
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE  DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+    AND CP.PCT_ID = CCF.ClassificationId)
+    ) as a
+    left join  PartsClassification b on a.ClassificationId = b.PCT_ID
+    LEFT JOIN View_ProductLine(nolock) c ON a.CFN_ProductLine_BUM_ID = c.Id
+    LEFT JOIN View_ProductLine VP (nolock) on VP.Id = c.Id
+    <!--LEFT JOIN Attachment at on at.AT_Main_ID=a.CFN_ID-->
+    WHERE a.CFN_DeletedFlag = 0
+    <isNotNull prepend="AND" property="SubCompanyId">c.SubCompanyId = #SubCompanyId#</isNotNull>
+    <isNotNull prepend="AND" property="BrandId">c.BrandId = #BrandId#</isNotNull>
+    <isNotNull prepend="AND" property="CustomerFaceNbr">a.CFN_CustomerFaceNbr like N'%$CustomerFaceNbr$%'</isNotNull>
+    <isNotNull prepend="AND" property="ProductLineBumId">a.CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+    <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId = #SubCompanyId#</isNotNull>
+    <isNotNull prepend="AND" property="BrandId">VP.BrandId = #BrandId#</isNotNull>
+  </select>
+  <!--end-->
+
+  <!--Added By Song Yuqi On 2013-11-28 For WeChat Begin-->
+  <select id="GetAllProductTypeByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    SELECT DISTINCT CFN_ChineseName AS ChineseName,CFN_Property9 AS ShortName FROM CFN
+    where CFN_Property9 is not null
+    <isNotNull prepend="AND" property="ProductLineBumId">CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+  </select>
+  <!--Added By Song Yuqi On 2013-11-28 For WeChat End-->
+  <select id="P_GetAllCFN" resultClass="System.Collections.Hashtable">
+    SELECT DISTINCT CFN_ID,CFN_EnglishName,CFN_ChineseName,CFN_Implant,CFN_Tool,CFN_Description,CFN_CustomerFaceNbr,CFN_ProductCatagory_PCT_ID,CFN_Property1,CFN_Property2
+    ,CFN_Property3,CFN_Property4,CFN_Property5,CFN_Property6,CFN_Property7,CFN_Property8,CFN_LastModifiedDate,CFN_DeletedFlag,CFN_ProductLine_BUM_ID
+    ,CFN_LastModifiedBy_USR_UserID,CFN_Share,CFN_Level1Code,CFN_Level1Desc,CFN_Level2Code,CFN_Level2Desc,CFN_Level3Code,CFN_Level3Desc,CFN_Level4Code,CFN_Level4Desc,CFN_Level5Code,CFN_Level5Desc,
+    REG_NO as CFN_RegisterNo,VALID_DATE_FROM as CFN_ExpiryBeginDate,VALID_DATE_TO as CFN_ExpiryEndDate
+    from CFN LEFT JOIN InterfaceRegistration ON CFN_Property5 = REG_NO
+    Order by  CFN_CustomerFaceNbr
+  </select>
+
+  <select id="QueryPromotionTypeById" parameterClass="string" resultClass="System.Data.DataSet">
+    select * from interface.T_I_EW_PromotionRules
+    WHERE PRID=#value#
+  </select>
+
+  <!--Added By Song Yuqi On 2015-05-27 For WeChat End-->
+  <select id="QueryCfnByFilter" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Tool As Tool,CFN_Description As Description,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser
+    FROM CFN
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>
+      <isNotNull prepend="AND" property="Property7">CFN_Property7=#Property7#</isNotNull>
+    </dynamic>
+  </select>
+
+  <select id="SelectCFNRegistration" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    <!--SELECT REG_NO+'.pdf' AttachName,REG_NO+'.pdf' AttachURL ,REG_NO , PRODUCT_NAME,CONVERT(NVARCHAR(10), VALID_DATE_FROM,120) VALID_DATE_FROM,CONVERT(NVARCHAR(10),VALID_DATE_TO,120) VALID_DATE_TO,	MANU_NAME
+        ,row_number() OVER (ORDER BY [STATE] DESC) AS [row_number]
+        FROM MD.V_INF_UPN_REG_LIST
+        WHERE REG_NO is not null
+        <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>-->
+    <!--lijie update 2016-04-25-->
+    select * from(
+    select *,
+    CASE WHEN CHARINDEX('-', AType, 0) > 0 THEN substring(AType, 1, CHARINDEX('-', AType,
+    0) - 1) ELSE CASE WHEN CHARINDEX('.', AType, 0) > 0 THEN substring(AType, 1, CHARINDEX('.', AType,
+    0) - 1) ELSE AType END
+    END  as 'Type',
+    row_number() OVER (ORDER BY AType DESC) AS [row_number] from (
+    SELECT REG_NO+'.pdf' AttachName,REG_NO+'.pdf' AttachURL ,REG_NO , PRODUCT_NAME,CONVERT(NVARCHAR(10), VALID_DATE_FROM,120) VALID_DATE_FROM,CONVERT(NVARCHAR(10),VALID_DATE_TO,120) VALID_DATE_TO,	MANU_NAME,[STATE],
+    CASE WHEN CHARINDEX('-', REG_NO+'.pdf', 0) > 0 THEN substring(REG_NO+'.pdf', CHARINDEX('-', REG_NO+'.pdf', 0)+1, len(REG_NO+'.pdf')
+    - (CHARINDEX('-', REG_NO+'.pdf', 0))) ELSE '注册证' END as 'AType'
+
+    FROM MD.V_INF_UPN_REG_LIST
+    WHERE REG_NO is not null
+    and CFN_CustomerFaceNbr=#CustomerFaceNbr#
+    union
+    SELECT  T.AT_Name as 'AttachName',T.AT_Name as 'AttachURL',REG_NO,PRODUCT_NAME,CONVERT(NVARCHAR(10), VALID_DATE_FROM,120) VALID_DATE_FROM,CONVERT(NVARCHAR(10),VALID_DATE_TO,120) VALID_DATE_TO,	MANU_NAME,[STATE],
+    CASE WHEN CHARINDEX('-', T.AT_Name, 0) > 0 THEN substring(T.AT_Name, CHARINDEX('-', T.AT_Name, 0)+1, len(T.AT_Name)
+    - (CHARINDEX('-', T.AT_Name, 0))) ELSE '注册证' END as 'AType'
+    from MD.V_INF_UPN_REG_LIST  inner  join  (select * from Attachment inner join
+    (select AT_Name as 'Name',MAX(AT_UploadDate)as UploadDate  from Attachment where AT_Type='ProductLisence' group by AT_Name)T on
+    Attachment.AT_Name=T.Name and Attachment.AT_UploadDate=T.UploadDate  )T on T.AT_Name like '%'+MD.V_INF_UPN_REG_LIST.REG_NO+'%'
+    WHERE MD.V_INF_UPN_REG_LIST.REG_NO is not null
+    and MD.V_INF_UPN_REG_LIST.CFN_CustomerFaceNbr=#CustomerFaceNbr#
+    )T
+    group by AttachName,AttachURL,REG_NO,PRODUCT_NAME,VALID_DATE_FROM,VALID_DATE_TO,MANU_NAME,[STATE],AType)
+    A
+  </select>
+
+  <select id="SelectCfnForPurchaseOrderByPRO" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    SELECT
+    #DLid# AS DLid,
+    TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE
+    WHEN (TAB.IsCanOrder = -3) THEN '否（经销商资质无此分类代码）'
+    WHEN TAB.IsCanOrder = 0 THEN '否' ELSE '是' END AS IsCanOrder,
+    ProductMsg,
+    (select PMA_ConvertFactor from Product where PMA_CFN_ID=Tab.Id) AS Sheet,
+    ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number],
+    REG.CurRegNo,
+    REG.CurValidDateFrom,
+    REG.CurValidDataTo,
+    REG.CurManuName,
+    REG.LastRegNo,
+    REG.LastValidDateFrom,
+    REG.LastValidDataTo,
+    REG.LastManuName,
+    REG.CurGMKind,
+    REG.CurGMCatalog
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    C.CFN_Property8 AS ProductMsg,
+    (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) AS Price,
+    CASE
+    <!-- Add By SongWeiming For GSP 根据产品分类代码判断产品是否可以下订单 -->
+    <!--Edited By Song Yuqi On 2016-05-31 For Dealer Authorization -->
+    <!--WHEN dbo.GC_Fn_CFN_CheckDealerLicenseGatagory(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3-->
+    WHEN dbo.GC_Fn_CFN_CheckDealerLicenseGatagory_3rdCatagoryDateCheck(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3
+
+    WHEN (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) IS NULL THEN 0
+    when
+    (SELECT COUNT(*) FROM dbo.CFNPrice(nolock)
+    left join DealerMaster(nolock) on DMA_ID=CFNP_Group_ID
+    WHERE CFNP_CFN_ID =
+    C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND
+    CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0 and DMA_DealerType in ('T1','LP') and
+    Getdate()  between isnull([CFNP_ValidDateFrom],'1900-01-01')
+    and isnull([CFNP_ValidDateTo],getdate()))=0
+    then 0
+    ELSE C.CFN_Property4 END AS IsCanOrder
+    FROM
+    (
+    SELECT CFN.* FROM CFN(nolock)
+    INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+
+    WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA(nolock)
+    INNER JOIN Cache_PartsClassificationRec AS CP(nolock)
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DA.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ProductLine_BUM_ID = DA.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+
+    AND ((DA.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    )
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    AND CFN_Property4 != '-1'
+    UNION
+    SELECT CFN.* FROM CFN(nolock)
+    INNER JOIN CfnClassification CC(nolock) ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+
+    WHERE EXISTS (SELECT 1 FROM DealerAuthorizationTable AS DA
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+    WHERE DA.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+
+    AND ((DA.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    )
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    AND CFN_Property4 != '-1'
+    UNION
+    SELECT C.*
+    FROM CFN AS C(nolock), CFNShare CS(nolock)
+    Where C.CFN_ID = CS.CFNS_CFN_ID
+    AND CS.CFNS_BUM_ID = #ProductLineId#
+    AND CFN_Property4 != '-1'
+    AND CS.CFNS_DeletedFlag = 0
+    AND CS.CFNS_Property2 = 'T1'
+    <isNotNull prepend="UNION" property="IsClearBorrow">
+      SELECT C.CFN_ID, C.CFN_EnglishName, C.CFN_ChineseName, C.CFN_Implant, C.CFN_Tool, C.CFN_Description, C.CFN_CustomerFaceNbr, C.CFN_ProductCatagory_PCT_ID, C.CFN_Property1, C.CFN_Property2, C.CFN_Property3, 1 AS CFN_Property4, C.CFN_Property5, C.CFN_Property6, C.CFN_Property7, C.CFN_Property8, C.CFN_LastModifiedDate, C.CFN_DeletedFlag, C.CFN_ProductLine_BUM_ID, C.CFN_LastModifiedBy_USR_UserID, C.CFN_Share, C.CFN_Level1Code, C.CFN_Level1Desc, C.CFN_Level2Code, C.CFN_Level2Desc, C.CFN_Level3Code, C.CFN_Level3Desc, C.CFN_Level4Code, C.CFN_Level4Desc, C.CFN_Level5Code, C.CFN_Level5Desc
+      FROM CFN AS C
+      WHERE C.CFN_Property2 = 1
+    </isNotNull>
+    ) AS C
+    LEFT JOIN DealerMasterLicense DML(nolock) on (DML.DML_DMA_ID = #DealerId#
+    )
+    LEFT JOIN MD.V_INF_UPN_REG VREG ON (VREG.CurUPN=C.CFN_CustomerFaceNbr)
+    ) AS TAB left join MD.V_INF_UPN_REG AS REG ON (TAB.CustomerFaceNbr = REG.CurUPN)
+    WHERE (CASE WHEN (TAB.IsCanOrder = -3) THEN 0 ELSE TAB.IsCanOrder END = #DisplayCanOrder# or '0' = #DisplayCanOrder#)
+    AND TAB.CustomerFaceNbr not in (select distinct MasterUPN from MD.ProductBOM)
+    AND TAB.CustomerFaceNbr in (select UPN from Promotion.func_Pro_Utility_getLargessUPN  (#DLid#))
+
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+
+  </select>
+
+
+  <select id="SelectPromotionProductLineType" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+    SELECT DLID,	ListValue,	[Description],	LeftNum from [Promotion].[func_Pro_Utility_getLargess]((select top 1 a.DivisionName  from V_DivisionProductLineRelation a where a.IsEmerging='0' and a.ProductLineID=#ProductLineId#),#GivenType#,#DealerId#)
+
+    <!--<isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>-->
+  </select>
+
+  <select id="SelectCfnForConsignmentMaster" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+    SELECT
+    TAB.Id,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE
+    WHEN (TAB.IsCanOrder = -3) THEN '否（经销商资质无此分类代码）'
+    WHEN TAB.IsCanOrder = 0 THEN '否' ELSE '是' END AS IsCanOrder,
+    ProductMsg,
+    (select PMA_ConvertFactor from Product where PMA_CFN_ID=Tab.Id) AS Sheet,
+    ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number],
+    REG.CurRegNo,
+    REG.CurValidDateFrom,
+    REG.CurValidDataTo,
+    REG.CurManuName,
+    REG.LastRegNo,
+    REG.LastValidDateFrom,
+    REG.LastValidDataTo,
+    REG.LastManuName,
+    REG.CurGMKind,
+    REG.CurGMCatalog
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    C.CFN_Property8 AS ProductMsg,
+    C.CFN_Property1 as CFNProperty,
+    (SELECT top 1 dbo.fn_GetCfnPriceByDealer(CFNP_Group_ID,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType#  AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( CFNP_Group_ID,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) AS Price,
+    1 AS IsCanOrder
+    FROM
+    (SELECT C.*
+    FROM CFN AS C
+    where c.CFN_ProductLine_BUM_ID = #ProductLineId#
+    union
+    SELECT C.*
+    FROM CFN AS C, CFNShare CS
+    Where C.CFN_ID = CS.CFNS_CFN_ID
+    AND CS.CFNS_BUM_ID = #ProductLineId#
+    AND CFN_Property4 != '-1'
+    AND CS.CFNS_DeletedFlag = '0') AS C
+    left join MD.V_INF_UPN_REG VREG ON (VREG.CurUPN=C.CFN_CustomerFaceNbr)
+
+    ) AS TAB left join MD.V_INF_UPN_REG AS REG ON (TAB.CustomerFaceNbr = REG.CurUPN)
+    WHERE (CASE WHEN (TAB.IsCanOrder = -3) THEN 0 ELSE TAB.IsCanOrder END = #DisplayCanOrder# or '0' = #DisplayCanOrder#)
+    AND TAB.CustomerFaceNbr not in (select distinct MasterUPN from MD.ProductBOM)
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+TAB.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+  </select>
+  <!--lijie add 2016-05-09-->
+  <select id="SelectCFNRegistrationByUpn" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    select * from(
+    select *,
+    CASE WHEN CHARINDEX('-', AType, 0) > 0 THEN substring(AType, 1, CHARINDEX('-', AType,
+    0) - 1) ELSE CASE WHEN CHARINDEX('.', AType, 0) > 0 THEN substring(AType, 1, CHARINDEX('.', AType,
+    0) - 1) ELSE AType END
+    END  as 'Type'
+    from (
+    SELECT  T.UploadDate,T.AT_Name as 'AttachName',T.AT_Name as 'AttachURL',REG_NO,PRODUCT_NAME,CONVERT(NVARCHAR(10), VALID_DATE_FROM,120) VALID_DATE_FROM,CONVERT(NVARCHAR(10),VALID_DATE_TO,120) VALID_DATE_TO,	MANU_NAME,[STATE],
+    CASE WHEN CHARINDEX('-', T.AT_Name, 0) > 0 THEN substring(T.AT_Name, CHARINDEX('-', T.AT_Name, 0)+1, len(T.AT_Name)
+    - (CHARINDEX('-', T.AT_Name, 0))) ELSE '注册证' END as 'AType'
+    from MD.V_INF_UPN_REG_LIST  inner  join  (select * from Attachment inner join
+    (select AT_Name as 'Name',MAX(AT_UploadDate)as UploadDate  from Attachment where AT_Type='ProductLisence'
+    and  CASE WHEN CHARINDEX('.', AT_Name, 0) > 0 THEN substring(AT_Name, CHARINDEX('.', AT_Name, 0) + 1, LEN(AT_Name)
+    - CHARINDEX('.', AT_Name, 0)) ELSE '' END ='pdf' group by AT_Name)T on
+    Attachment.AT_Name=T.Name and Attachment.AT_UploadDate=T.UploadDate  )T on T.AT_Name like '%'+MD.V_INF_UPN_REG_LIST.REG_NO+'%'
+    WHERE MD.V_INF_UPN_REG_LIST.REG_NO is not null
+    and MD.V_INF_UPN_REG_LIST.CFN_CustomerFaceNbr=#CustomerFaceNbr#
+    <!--and   MD.V_INF_UPN_REG_LIST.VALID_DATE_FROM &lt;=GETDATE() and VALID_DATE_TO>=GETDATE()-->
+
+    )T
+    group by AttachName,AttachURL,REG_NO,PRODUCT_NAME,VALID_DATE_FROM,VALID_DATE_TO,MANU_NAME,[STATE],AType,UploadDate)
+    A where A.Type='COA' order by UploadDate desc
+  </select>
+  <select id="QueryCfnForPurchaseOrderT2ByPRO" parameterClass="System.Collections.Hashtable" resultClass="Cfn">
+    select UPN into ##UPN from Promotion.func_Pro_Utility_getLargessUPN  (#DLid#)
+    SELECT *,ROW_NUMBER() OVER ( ORDER BY CustomerFaceNbr ASC ) AS [row_number] into ##Temp
+    FROM (SELECT * FROM(
+    select *,ROW_NUMBER() over(partition by  Id order BY id) AS rn from (
+    SELECT
+    TAB.Id,
+    (select top 1 ISNULL(PMA_PackageFactor,1) from Product where PMA_CFN_ID=TAB.Id) AS PackageFactor,
+    #DLid# as DLid,
+    TAB.CustomerFaceNbr,
+    TAB.ChineseName,
+    TAB.EnglishName,
+    TAB.UOM,
+    TAB.Price,
+    CASE
+    <!--WHEN (TAB.IsCanOrder = -3) THEN '否（经销商资质无此分类代码）'-->
+    WHEN (TAB.IsCanOrder = 0 and isnull(invNum,0) = 0) THEN '否' ELSE '是' END AS IsCanOrder,
+    <!--ROW_NUMBER() OVER (ORDER BY TAB.CustomerFaceNbr ASC) AS [row_number],-->
+    REG.CurRegNo,
+    REG.CurValidDateFrom,
+    REG.CurValidDataTo,
+    REG.CurManuName,
+    REG.LastRegNo,
+    REG.LastValidDateFrom,
+    REG.LastValidDataTo,
+    REG.LastManuName,
+    REG.CurGMKind,
+    REG.CurGMCatalog
+    FROM (
+    SELECT
+    C.CFN_ID AS Id,
+    C.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+    C.CFN_ChineseName AS ChineseName,
+    C.CFN_EnglishName AS EnglishName,
+    C.CFN_Property3 AS UOM,
+    C.CFN_Property7,
+    (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) AS Price,
+    CASE
+    <!-- Add By SongWeiming For GSP 根据产品分类代码判断产品是否可以下订单 -->
+    <!--WHEN dbo.GC_Fn_CFN_CheckDealerLicenseGatagory(#DealerId#,C.CFN_ID,VREG.CurGMCatalog,VREG.curGMKind,DML.DML_CurSecondClassCatagory,DML_CurThirdClassCatagory) = 0  THEN -3-->
+
+    WHEN (SELECT TOP 1 dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0) as CFNP_Price FROM dbo.CFNPrice WHERE CFNP_CFN_ID = C.CFN_ID AND CFNP_PriceType = #PriceType# AND CFNP_Group_ID = #DealerId# AND CFNP_DeletedFlag = 0 AND isnull(dbo.fn_GetCfnPriceByDealer( #DealerId#,C.CFN_ID,#SubCompanyId#,#BrandId#, #PriceType#,0),0) > 0) IS NULL THEN 0
+    ELSE C.CFN_Property4 END AS IsCanOrder,
+    ( select case when  <![CDATA[sum(isnull(INV.INV_OnHandQuantity,0)) < 0]]> then 0 else sum(isnull(INV.INV_OnHandQuantity,0)) end
+    from Inventory AS INV(nolock), Warehouse AS WH(nolock), Product AS P(nolock), DealerMaster AS DM(nolock)
+    where INV.INV_PMA_ID = P.PMA_ID and P.PMA_CFN_ID= C.CFN_ID
+    and INV.INV_WHM_ID=WH.WHM_ID and WH.WHM_ActiveFlag=1
+    and DM.DMA_ID = #DealerId# and DM.DMA_Parent_DMA_ID = WH.WHM_DMA_ID ) AS invNum
+    FROM
+    (
+    SELECT CFN.* FROM CFN
+    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    WHERE EXISTS
+    (
+    SELECT 1 FROM DealerAuthorizationTable DAT
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+    WHERE DAT.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DAT.DAT_PMA_ID = DAT.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ProductLine_BUM_ID = DAT.DAT_PMA_ID
+    AND CP.PCT_ID = CC.ClassificationId
+    AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    )
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    UNION
+    SELECT CFN.* FROM CFN
+    INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+    WHERE EXISTS
+    (
+    SELECT 1 FROM DealerAuthorizationTable DAT
+    INNER JOIN Cache_PartsClassificationRec AS CP
+    ON CP.PCT_ProductLine_BUM_ID = DAT.DAT_ProductLine_BUM_ID
+    WHERE DAT.DAT_DMA_ID = #DealerId#
+    AND CP.PCT_ProductLine_BUM_ID = #ProductLineId#
+    AND DAT.DAT_PMA_ID != DAT.DAT_ProductLine_BUM_ID
+    AND CP.PCT_ParentClassification_PCT_ID = DAT.DAT_PMA_ID
+    AND CP.PCT_ID =CC.ClassificationId
+    AND ((DAT.DAT_Type = 'Order' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    OR (#OrderAuthCount# = 0 AND (DAT.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+    )
+    )
+    )
+    AND CFN.CFN_DeletedFlag = 0
+    UNION
+    SELECT C.*
+    FROM CFN AS C, CFNShare CS
+    WHERE C.CFN_ID = CS.CFNS_CFN_ID
+    AND CS.CFNS_BUM_ID = #ProductLineId#
+    AND CFN_Property4 != '-1'
+    AND CS.CFNS_DeletedFlag = 0
+    AND CS.CFNS_Property2 = 'T2'
+    ) AS C
+    left join DealerMasterLicense DML(nolock) on (DML.DML_DMA_ID = #DealerId#
+    <isNotNull prepend="AND" property="OrderType">
+      CONVERT(NVARCHAR(10),DML.DML_CurLicenseValidFrom  , 112)&lt;=CONVERT(NVARCHAR(10),GETDATE(), 112) AND  CONVERT(NVARCHAR(10),DML.DML_CurLicenseValidTo , 112)>=CONVERT(NVARCHAR(10),GETDATE(), 112)
+    </isNotNull>
+    )
+    left join MD.V_INF_UPN_REG VREG ON (VREG.CurUPN=C.CFN_CustomerFaceNbr)
+
+    ) AS TAB left join MD.V_INF_UPN_REG AS REG ON (TAB.CustomerFaceNbr = REG.CurUPN)
+    <!--) AS TB-->
+    WHERE (
+     <!--CASE
+    WHEN (TAB.IsCanOrder = 0 AND isnull(invNum,0) = 0) THEN 0
+    ELSE 1 END = #DisplayCanOrder# or '0' = #DisplayCanOrder#)-->
+    <!--AND TAB.CustomerFaceNbr in (select UPN from Promotion.func_Pro_Utility_getLargessUPN  (#DLid#))-->
+    <!--IsCanOrder= #DisplayCanOrder#)-->
+      EXISTS(
+    SELECT 1 FROM ##UPN WHERE UPN=TAB.CustomerFaceNbr
+    )
+    <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN1">TAB.CFN_Property7 like '%$ProductCFN1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN2">TAB.CFN_Property7 like '%$ProductCFN2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN3">TAB.CFN_Property7 like '%$ProductCFN3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN4">TAB.CFN_Property7 like '%$ProductCFN4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN5">TAB.CFN_Property7 like '%$ProductCFN5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN6">TAB.CFN_Property7 like '%$ProductCFN6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN7">TAB.CFN_Property7 like '%$ProductCFN7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN8">TAB.CFN_Property7 like '%$ProductCFN8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN9">TAB.CFN_Property7 like '%$ProductCFN9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFN10">TAB.CFN_Property7 like '%$ProductCFN10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+    <isNotNull prepend="AND" property="ProductCFNName"> ( 1=2 </isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.ChineseName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.ChineseName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.ChineseName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.ChineseName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.ChineseName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.ChineseName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.ChineseName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.ChineseName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.ChineseName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.ChineseName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName1">TAB.EnglishName like '%$ProductCFNName1$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName2">TAB.EnglishName like '%$ProductCFNName2$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName3">TAB.EnglishName like '%$ProductCFNName3$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName4">TAB.EnglishName like '%$ProductCFNName4$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName5">TAB.EnglishName like '%$ProductCFNName5$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName6">TAB.EnglishName like '%$ProductCFNName6$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName7">TAB.EnglishName like '%$ProductCFNName7$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName8">TAB.EnglishName like '%$ProductCFNName8$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName9">TAB.EnglishName like '%$ProductCFNName9$%'</isNotNull>
+    <isNotNull prepend="OR" property="ProductCFNName10">TAB.EnglishName like '%$ProductCFNName10$%'</isNotNull>
+    <isNotNull prepend="" property="ProductCFNName">) </isNotNull>
+
+    )) AS TB
+         WHERE  IsCanOrder= #DisplayCanOrder#
+    ) AS tb ) AS u WHERE u.rn=1
+
+    SELECT COUNT(*) FROM ##Temp
+    select Extent1.* from ##Temp  AS [Extent1] WHERE [Extent1].[row_number] > #start# and [Extent1].[row_number] &lt;= #limit# order by [Extent1].[row_number] option(recompile)
+  </select>
+
+  <select id="SelectCFNRegistrationBylot" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    select a.AT_Url, a.AT_Name,a.AT_Type,a.AT_UPN,a.AT_LotNumber,CONVERT(varchar(100), a. AT_UploadDate, 20) as AT_UploadDate,row_number()OVER (ORDER BY a.AT_UploadDate ASC) AS [row_number]from Attachment_FromEMars a
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="CustomerFaceNbr">a.AT_UPN=#CustomerFaceNbr#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLot">a.AT_LotNumber like N'%$ProductLot$%'</isNotNull>
+    </dynamic>
+
+  </select>
+  <select id="SelectByPMAID"    parameterClass="string"    resultClass="Cfn">
+    SELECT CFN_ID AS Id,CFN_EnglishName AS EnglishName,CFN_ChineseName AS ChineseName,CFN_Implant AS Implant,CFN_Tool As Tool,CFN_Description As Description,CFN_Share AS Share,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ProductCatagory_PCT_ID AS ProductCatagoryPctId,CFN_Property1 AS Property1,CFN_Property2 AS Property2,CFN_Property3 AS Property3,CFN_Property4 AS Property4,CFN_Property5 AS Property5,CFN_Property6 AS Property6,CFN_Property7 AS Property7,CFN_Property8 AS Property8,CFN_LastModifiedDate AS LastUpdateDate,CFN_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID AS ProductLineBumId,CFN_LastModifiedBy_USR_UserID AS LastUpdateUser,CFN_Level2Code AS Level2Code
+    FROM CFN,Product
+    WHERE CFN_ID = PMA_CFN_ID
+    AND PMA_ID = #value#
+  </select>
+  </statements>
+</sqlMap>

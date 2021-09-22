@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TransferBorrowInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TransferBorrowInit" assembly="DMS.Model.dll" type="DMS.Model.TransferBorrowInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TransferBorrowInitResult" class="TransferBorrowInit">
+      <result property="Id" column="TRI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="TRI_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="TRI_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="TRI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="TRI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="TRI_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="TRI_ErrorDescription" type="string" dbType="nchar"/>
+      <result property="WarehouseFrom" column="TRI_WarehouseFrom" type="string" dbType="nvarchar"/>
+      <result property="WarehouseTo" column="TRI_WarehouseTo" type="string" dbType="nvarchar"/>
+      <result property="DealerFrom" column="TRI_DealerFrom" type="string" dbType="nvarchar"/>
+      <result property="DealerTo" column="TRI_DealerTo" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="TRI_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="TRI_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="TransferQty" column="TRI_TransferQty" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="TRI_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerToId" column="TRI_DealerTo_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="TRI_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="TRI_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmFromId" column="TRI_WHMFrom_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmToId" column="TRI_WHMTo_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmTypeFrom" column="TRI_WHMTypeFrom" type="string" dbType="nvarchar"/>
+      <result property="WhmTypeTo" column="TRI_WHMTypeTo" type="string" dbType="nvarchar"/>
+      <result property="DealerFromErrMsg" column="TRI_DealerFrom_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="DealerToErrMsg" column="TRI_DealerTo_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumberErrMsg" column="TRI_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="TransferQtyErrMsg" column="TRI_TransferQty_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseFromErrMsg" column="TRI_WarehouseFrom_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseToErrMsg" column="TRI_WarehouseTo_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="TRI_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <!--<result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>-->
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="TransferBorrowInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectTransferBorrowInit2" parameterClass="string" resultClass="TransferBorrowInit">
+      SELECT TRI_ID AS Id,TRI_USER AS User,TRI_UploadDate AS UploadDate,TRI_LineNbr AS LineNbr,TRI_FileName AS FileName,TRI_ErrorFlag AS ErrorFlag,TRI_ErrorDescription AS ErrorDescription,TRI_WarehouseFrom AS WarehouseFrom,TRI_WarehouseTo AS WarehouseTo,TRI_ArticleNumber AS ArticleNumber,TRI_LotNumber AS LotNumber,TRI_TransferQty AS TransferQty,TRI_DMA_ID AS DmaId,TRI_DealerTo_ID AS DealerToId,TRI_CFN_ID AS CfnId,TRI_BUM_ID AS BumId, TRI_WHMFrom_ID AS WhmFromId,TRI_WHMTo_ID AS WhmToId,TRI_WHMTypeFrom AS WhmTypeFrom,TRI_WHMTypeTo AS WhmTypeTo,TRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,TRI_TransferQty_ErrMsg AS TransferQtyErrMsg,TRI_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,TRI_WarehouseTo_ErrMsg AS WarehouseToErrMsg,TRI_LotNumber_ErrMsg AS LotNumberErrMsg
+      FROM TransferBorrowInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TRI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectTransferBorrowInit" parameterClass="string" resultClass="TransferBorrowInit">
+      SELECT TRI_ID AS Id,TRI_USER AS User,TRI_UploadDate AS UploadDate,TRI_LineNbr AS LineNbr,TRI_FileName AS FileName,TRI_ErrorFlag AS ErrorFlag,TRI_ErrorDescription AS ErrorDescription,TRI_WarehouseFrom AS WarehouseFrom,TRI_WarehouseTo AS WarehouseTo,TRI_DealerFrom AS DealerFrom,TRI_DealerTo AS DealerTo,TRI_ArticleNumber AS ArticleNumber,TRI_LotNumber AS LotNumber,TRI_TransferQty AS TransferQty,TRI_DMA_ID AS DmaId,TRI_DealerTo_ID AS DealerToId,TRI_CFN_ID AS CfnId,TRI_BUM_ID AS BumId,TRI_WHMFrom_ID AS WhmFromId,TRI_WHMTo_ID AS WhmToId,TRI_WHMTypeFrom AS WhmTypeFrom,TRI_WHMTypeTo AS WhmTypeTo,TRI_DealerFrom_ErrMsg AS DealerFromErrMsg,TRI_DealerTo_ErrMsg AS DealerToErrMsg,TRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,TRI_TransferQty_ErrMsg AS TransferQtyErrMsg,TRI_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,TRI_WarehouseTo_ErrMsg AS WarehouseToErrMsg,TRI_LotNumber_ErrMsg AS LotNumberErrMsg,TRI_ProductLine AS ProductLine
+      FROM TransferBorrowInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TRI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTransferBorrowInit" parameterClass="TransferBorrowInit" resultClass="TransferBorrowInit">
+      SELECT TRI_ID AS Id,TRI_USER AS User,TRI_UploadDate AS UploadDate,TRI_LineNbr AS LineNbr,TRI_FileName AS FileName,TRI_ErrorFlag AS ErrorFlag,TRI_ErrorDescription AS ErrorDescription,TRI_WarehouseFrom AS WarehouseFrom,TRI_WarehouseTo AS WarehouseTo,TRI_DealerFrom AS DealerFrom,TRI_DealerTo AS DealerTo,TRI_ArticleNumber AS ArticleNumber,TRI_LotNumber AS LotNumber,TRI_TransferQty AS TransferQty,TRI_DMA_ID AS DmaId,TRI_DealerTo_ID AS DealerToID,TRI_CFN_ID AS CfnId,TRI_BUM_ID AS BumId,TRI_WHMFrom_ID AS WhmFromId,TRI_WHMTo_ID AS WhmToId,TRI_WHMTypeFrom AS WhmTypeFrom,TRI_WHMTypeTo AS WhmTypeTo,TRI_DealerFrom_ErrMsg AS DealerFromErrMsg,TRI_DealerTo_ErrMsg AS DealerToErrMsg,TRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,TRI_TransferQty_ErrMsg AS TransferQtyErrMsg,TRI_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,TRI_WarehouseTo_ErrMsg AS WarehouseToErrMsg,TRI_LotNumber_ErrMsg AS LotNumberErrMsg,TRI_ProductLine AS ProductLine
+      FROM TransferBorrowInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">TRI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">TRI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">TRI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">TRI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">TRI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">TRI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">TRI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseFrom">TRI_WarehouseFrom=#WarehouseFrom#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseTo">TRI_WarehouseTo=#WarehouseTo#</isNotNull>
+        <isNotNull prepend="AND" property="DealerFrom">TRI_DealerFrom=#DealerFrom#</isNotNull>
+        <isNotNull prepend="AND" property="DealerTo">TRI_DealerTo=#DealerTo#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">TRI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">TRI_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="TransferQty">TRI_TransferQty=#TransferQty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">TRI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerToId">TRI_DealerTo_ID=#DealerToId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">TRI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">TRI_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">TRI_DealerTo_ID=#DealerToId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmFromId">TRI_WHMFrom_ID=#WhmFromId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmToId">TRI_WHMTo_ID=#WhmToId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmTypeFrom">TRI_WHMTypeFrom=#WhmTypeFrom#</isNotNull>
+        <isNotNull prepend="AND" property="WhmTypeTo">TRI_WHMTypeTo=#WhmTypeTo#</isNotNull>
+        <isNotNull prepend="AND" property="DealerFromErrMsg">TRI_DealerFrom_ErrMsg=#DealerFromErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="DealerToErrMsg">TRI_DealerTo_ErrMsg=#DealerToErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumberErrMsg">TRI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="TransferQtyErrMsg">TRI_TransferQty_ErrMsg=#TransferQtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseFromErrMsg">TRI_WarehouseFrom_ErrMsg=#WarehouseFromErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseToErrMsg">TRI_WarehouseTo_ErrMsg=#WarehouseToErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">TRI_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">TRI_ProductLine=#ProductLine#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTransferBorrowInit" parameterClass="TransferBorrowInit">
+      INSERT INTO TransferBorrowInit
+      (TRI_ID,TRI_USER,TRI_UploadDate,TRI_LineNbr,TRI_FileName,TRI_ErrorFlag,TRI_ErrorDescription,TRI_WarehouseFrom,TRI_WarehouseTo,TRI_DealerFrom,TRI_DealerTo,TRI_ArticleNumber,TRI_LotNumber,TRI_TransferQty,TRI_DMA_ID,TRI_DealerTo_ID ,TRI_CFN_ID,TRI_BUM_ID,TRI_WHMFrom_ID,TRI_WHMTo_ID,TRI_WHMTypeFrom,TRI_WHMTypeTo,TRI_DealerFrom_ErrMsg,TRI_DealerTo_ErrMsg,TRI_ArticleNumber_ErrMsg,TRI_TransferQty_ErrMsg,TRI_WarehouseFrom_ErrMsg,TRI_WarehouseTo_ErrMsg,TRI_LotNumber_ErrMsg,TRI_ProductLine)
+      VALUES(#Id#,#User#,#UploadDate#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#WarehouseFrom#,#WarehouseTo#,#DealerFrom#,#DealerTo#,#ArticleNumber#,#LotNumber#,#TransferQty#,#DmaId#,#DealerToId#,#CfnId#,#BumId#,#WhmFromId#,#WhmToId#,#WhmTypeFrom#,#WhmTypeTo#,#DealerFromErrMsg#,#DealerToErrMsg#,#ArticleNumberErrMsg#,#TransferQtyErrMsg#,#WarehouseFromErrMsg#,#WarehouseToErrMsg#,#LotNumberErrMsg#,#ProductLine#)
+    </insert>
+    <update id="UpdateTransferBorrowInit" parameterClass="TransferBorrowInit">
+      UPDATE TransferBorrowInit
+      SET TRI_ID=#Id#,TRI_USER=#User#,TRI_UploadDate=#UploadDate#,TRI_LineNbr=#LineNbr#,TRI_FileName=#FileName#,TRI_ErrorFlag=#ErrorFlag#,TRI_ErrorDescription=#ErrorDescription#,TRI_WarehouseFrom=#WarehouseFrom#,TRI_WarehouseTo=#WarehouseTo#,TRI_DealerFrom=#DealerFrom#,TRI_DealerTo=#DealerTo#,TRI_ArticleNumber=#ArticleNumber#,TRI_LotNumber=#LotNumber#,TRI_TransferQty=#TransferQty#,TRI_DMA_ID=#DmaId#, TRI_DealerTo_ID= #DealerToId#,TRI_CFN_ID=#CfnId#,TRI_BUM_ID=#BumId#,TRI_WHMFrom_ID=#WhmFromId#,TRI_WHMTo_ID=#WhmToId#,TRI_WHMTypeFrom=#WhmTypeFrom#,TRI_WHMTypeTo=#WhmTypeTo#,TRI_DealerFrom_ErrMsg=#DealerFromErrMsg#,TRI_DealerTo_ErrMsg=#DealerToErrMsg#,TRI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,TRI_TransferQty_ErrMsg=#TransferQtyErrMsg#,TRI_WarehouseFrom_ErrMsg=#WarehouseFromErrMsg#,TRI_WarehouseTo_ErrMsg=#WarehouseToErrMsg#,TRI_LotNumber_ErrMsg=#LotNumberErrMsg#,TRI_ProductLine=#ProductLine#
+      WHERE TRI_ID = #Id#
+    </update>
+    <delete id="DeleteTransferBorrowInit" parameterClass="string">
+      DELETE FROM TransferBorrowInit
+      WHERE TRI_ID = #value#
+    </delete>
+
+    <!--added by huyong on 20191112-->
+    <delete id="DeleteTransferBorrowInitByUser" parameterClass="string">
+      DELETE FROM TransferBorrowInit
+      WHERE TRI_USER = #value#
+    </delete>
+    <select id="SelectTransferBorrowInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="TransferBorrowInit">
+      SELECT TRI_ID AS Id,TRI_USER AS [User],TRI_UploadDate AS UploadDate,TRI_LineNbr AS LineNbr,TRI_FileName AS FileName,
+      TRI_ErrorFlag AS ErrorFlag,TRI_ErrorDescription AS ErrorDescription,TRI_WarehouseFrom AS WarehouseFrom,TRI_WarehouseTo AS WarehouseTo,TRI_DealerFrom AS DealerFrom,TRI_DealerTo AS DealerTo,TRI_ArticleNumber AS ArticleNumber, case when charindex('@@',TRI_LotNumber)>0  then substring(TRI_LotNumber,1,CHARINDEX('@@',TRI_LotNumber,0)-1) else TRI_LotNumber end as LotNumber,
+      case when charindex('@@',TRI_LotNumber)>0  then substring(TRI_LotNumber,CHARINDEX('@@',TRI_LotNumber,0)+2,LEN(TRI_LotNumber)-CHARINDEX('@@',TRI_LotNumber,0)) else '' end as QRCode,TRI_TransferQty AS TransferQty,TRI_DMA_ID AS DmaId,TRI_CFN_ID AS CfnId,TRI_BUM_ID AS BumId,TRI_WHMFrom_ID AS WhmFromId,TRI_WHMTo_ID AS WhmToId,TRI_WHMTypeFrom AS WhmTypeFrom,TRI_WHMTypeTo AS WhmTypeTo,TRI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,TRI_TransferQty_ErrMsg AS TransferQtyErrMsg,TRI_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,TRI_WarehouseTo_ErrMsg AS WarehouseToErrMsg,TRI_DealerFrom_ErrMsg AS DealerFromErrMsg,TRI_DealerTo_ErrMsg AS DealerToErrMsg,TRI_LotNumber_ErrMsg AS LotNumberErrMsg,
+      ROW_NUMBER () OVER (ORDER BY TRI_ErrorFlag DESC,TRI_LineNbr ASC) AS row_number
+      FROM TransferBorrowInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">TRI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">TRI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">TRI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">TRI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">TRI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">TRI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">TRI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">TRI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="TransferQty">TRI_TransferQty=#TransferQty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">TRI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">TRI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">TRI_BUM_ID=#BumId#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateTransferBorrowInitForEdit" parameterClass="TransferBorrowInit">
+      UPDATE TransferBorrowInit
+      SET TRI_WarehouseFrom = #WarehouseFrom#,TRI_WarehouseTo = #WarehouseTo#,TRI_DealerFrom = #DealerFrom#,TRI_DealerTo = #DealerTo#,TRI_ArticleNumber=#ArticleNumber#,TRI_TransferQty=#TransferQty#,TRI_LotNumber=#LotNumber#,
+      TRI_CFN_ID = null,TRI_BUM_ID = null,TRI_WHMFrom_ID = null,TRI_WHMTo_ID = null,TRI_ArticleNumber_ErrMsg=null,TRI_TransferQty_ErrMsg=null,TRI_LotNumber_ErrMsg=null,TRI_WarehouseFrom_ErrMsg = NULL,TRI_WarehouseTo_ErrMsg = NULL
+      WHERE TRI_ID = #Id#
+    </update>
+
+    <procedure id="GC_TransferBorrowListInit" parameterMap="TransferBorrowInitParameterMap">
+      dbo.GC_TransferBorrowListInit
+    </procedure>
+    <!--end-->
+
+  </statements>
+</sqlMap>

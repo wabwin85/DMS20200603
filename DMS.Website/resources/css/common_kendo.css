@@ -1,0 +1,478 @@
+﻿/*------------------------------------------------------------------
+引入kendo ui 后公用css文件
+-------------------------------------------------------------------*/
+body {
+    font-family: "微软雅黑" !important;
+    font-size: 12px;
+    background-color: white;
+}
+
+textarea.k-textbox {
+    margin: 3px 0;
+}
+
+.page-header {
+    margin: 0 0 9px !important;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        line-height: 0;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+.position-relative {
+    position: relative;
+}
+
+.well-box {
+    height: auto;
+    min-height: 20px;
+    padding: 5px;
+    margin-bottom: 0;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
+
+    .well-box:after {
+        display: table;
+        line-height: 0;
+        content: "";
+        clear: both;
+    }
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right !important;
+}
+
+/*ul-li样式*/
+.lblcontrol {
+    float: left;
+    width: 85px;
+}
+/* ul 默认把前面的图标去掉，如果之后有用到（比较少），再特殊设定；*/
+ul {
+    list-style: none;
+}
+
+.ulcontrol {
+    width: 100%;
+    padding-left: 0;
+    overflow: hidden;
+    margin: 0;
+}
+/*多选框 li样式， 不设置高度，否则样式出问题*/
+.licontrol_multisel {
+    text-align: left;
+    vertical-align: middle !important;
+    /*height: 24px !important;*/
+    line-height: 24px;
+    margin: 3px;
+    /*display: inline-block;*/
+    float: left;
+    padding-right: 10px;
+}
+
+.licontrol {
+    text-align: left;
+    vertical-align: middle !important;
+    height: 24px !important;
+    line-height: 24px;
+    margin: 3px;
+    /*display: inline-block;*/
+    float: left;
+    padding: 0;
+    font-weight:normal;
+}
+
+.licontrolforview {
+    text-align: left;
+    vertical-align: middle !important;
+    margin: 3px;
+    /*display: inline-block;*/
+    float: left;
+}
+/*按屏幕分辨率1366*768的屏幕二等分列宽*/
+.litwi-width {
+    width: 640px;
+}
+/*按屏幕分辨率1366*768的屏幕三等分列宽*/
+.litri-width {
+    width: 422px;
+}
+/*按屏幕分辨率1366*768的屏幕四等分列宽*/
+.liquart-width {
+    width: 315px;
+}
+
+div[class="float-left"] {
+    width: 300px;
+}
+
+input[type="text"] {
+    width: 100%;
+}
+
+.float-left > .k-combobox {
+    width: 100%;
+}
+
+.float-left > .k-dropdown {
+    width: 100%;
+}
+
+.float-left > .k-datepicker {
+    width: 100%;
+}
+
+/*toolbar 放置按钮的ul-li样式  Start*/
+.ul-toolbar {
+    display: inline;
+    padding: 0;
+}
+
+.li-toolbar {
+    float: left;
+    width: 130px;
+}
+/*toolbar 放置按钮的ul-li样式   End */
+
+/*Kendo grid 中文字超长后，未显示省略号*/
+.k-grid td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/*按钮*/
+.btn-info {
+    background-color: #6fb3e0 !important;
+    border-color: #6fb3e0;
+}
+
+    .btn-info:hover {
+        background-color: #4f99c6 !important;
+    }
+
+    .btn-info.active {
+        background-color: #5ca3d0 !important;
+        border-color: #4f99c6;
+    }
+
+    .btn-info.disabled, .btn-info[disabled] {
+        background-color: #6fb3e0 !important;
+    }
+
+/*新增按钮样式  默认放左边*/
+.addbtn-info {
+    background-color: #ff8c69 !important;
+    border-color: #6fb3e0;
+}
+
+    .addbtn-info:hover {
+        background-color: #ff7f00 !important;
+    }
+
+    .addbtn-info.active {
+        background-color: #5ca3d0 !important;
+        border-color: #4f99c6;
+    }
+
+/*提交按钮样式*/
+.submitbtn-info {
+    background-color: #9ACD32 !important;
+    border-color: #6fb3e0;
+}
+
+    .submitbtn-info:hover {
+        background-color: #6B8E23 !important;
+    }
+
+    .submitbtn-info.active {
+        background-color: #8B8B00 !important;
+        border-color: #4f99c6;
+    }
+/*默认按钮样式   灰色*/
+.defaultbtn-info {
+    background-color: #D1D1D1 !important;
+    border-color: #6fb3e0;
+}
+
+    .defaultbtn-info:hover {
+        background-color: #B7B7B7 !important;
+    }
+
+    .defaultbtn-info.active {
+        background-color: #B7B7B7 !important;
+        border-color: #4f99c6;
+    }
+
+.buttonstyle {
+    width: 110px !important;
+    padding: 5px;
+    /*background-color: #6fb3e0;*/
+    margin: 5px !important;
+    border: 0;
+    line-height: 18px;
+    font-size: 12px !important;
+    border-radius: 3px 4px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.align-center {
+    text-align: center !important;
+}
+.align-left {
+    text-align: left !important;
+}
+.align-right {
+    text-align: right !important;
+}
+
+/*打印 时不显示*/
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+
+    .print {
+        display: block !important;
+    }
+
+    * {
+    font-size:9.5pt;
+    font:bold;
+    font-family:SimHei;
+    }
+
+    td {
+        border: none !important;
+    }
+
+    th {
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom:2px solid black !important;
+    }
+
+    #detailGrid {
+        border-left: none !important;
+        border-right: none !important; 
+        border-top: 2px solid black !important;
+        border-bottom: 2px solid black !important;
+    }
+
+    .print-noborder, .print-noborder * {
+        border: none !important;
+        box-shadow: none;
+    } 
+}
+
+@page {
+    size: A4 landscape;
+}
+
+/*页面的整体遮罩*/
+#fullmask {
+    background-color: gray;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    z-index: 50000;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+}
+
+/*弹出编辑框中的input长度100%*/
+.k-autocomplete, .k-colorpicker, .k-combobox, .k-datepicker, .k-datetimepicker, .k-dropdown, .k-numerictextbox, .k-selectbox, .k-textbox, .k-timepicker, .k-toolbar .k-split-button {
+    width:100%;
+}
+
+.k-textbox[disabled], .k-textbox[readonly], .k-textbox[readonly]:hover, .k-input[readonly], .k-input[readonly]:hover {
+    background-color: #f6f6f6;
+    opacity: 1;
+}
+
+.k-window-titlebar {
+    background-color: #eee !important;
+    color: #cf2f44 !important;
+    border-bottom: solid 1px #cf2f44;
+}
+
+/*Grid Head Style*/
+/*.k-grid-header th.k-header {
+    background-color: #ef5b6e;
+    color: #fff;
+    background-image: none;
+    vertical-align:middle;
+}*/
+
+/*.k-grid-content .k-auto-scrollable {
+    background-color: #f8e0e3;
+}
+.k-alt {
+    background-color: #fff;
+}*/
+
+
+/*Grid Body Style*/
+/*.k-grid-content > table[role="grid"] > tbody > tr:nth-of-type(odd) {
+    background-color: #fbeff1;
+}
+.k-grid-content> table[role="grid"] > tbody > tr:nth-of-type(even) {
+    background-color: #fff;
+}
+.k-grid-content > table[role="grid"] tr:hover {
+    background-color: #fff1e4 !important;
+    
+}
+    */
+.k-pager-wrap {
+    background-color: #fff;
+    color: #808080;
+}
+
+div.k-window-content {
+    background-color: #eee;
+}
+
+.k-tabstrip:focus {
+    -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.3);
+     box-shadow: 0 0 0 0 rgba(0,0,0,.3); 
+}
+
+.k-tabstrip .k-content.k-state-active {
+    background-color: #eee;
+}
+
+/*下拉框分类样式*/
+.k-first {
+    border-top: 1px solid #b6b6b6;
+}
+
+/*解决kendo下拉框与bootstrap样式冲突*/
+.k-dropdown-wrap {
+    box-sizing: content-box !important;
+}
+
+/*kendo上传按钮样式*/
+.k-upload-files, .k-upload-status, .k-dropzone > em {
+    display: none;
+}
+.k-dropzone {
+    padding: 0px;
+}
+.k-upload {
+    background-image: none;
+    background-color: #eee;
+    border: 0px;
+    display: inline-table;
+}
+    /*按钮的宽度与bootstrap保持一致*/
+    .k-upload * {
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+    .k-upload, .k-upload > ul {
+        margin-top: 10px;
+    }
+.k-upload-button {
+    width: 86px;
+    display: block;
+    margin: 0px !important;
+    padding:6px 12px !important;
+}
+
+.k-button {
+    padding:0px;
+}
+
+.k-state-selected {
+    color: #fff;
+    background-color: #cf2f44;
+    border-color: #cf2f44;
+}
+.k-pager-numbers .k-link {
+   border-radius: 0;
+}
+.k-pager-numbers .k-state-selected {
+    border-radius: 0;
+}
+.k-pager-wrap > .k-link {
+    border-radius: 0;
+}
+
+.k-alt {
+    background-color: #fff;
+}
+.k-grid td {
+    border-width: 0 0 1px 1px;
+    padding: .2em .6em;
+}
+
+.k-list > .k-state-selected, .k-state-selected {
+    background-color: #cf2f44;
+    border-color: #cf2f44;
+}
+
+.k-dropdown-wrap .k-input {
+    padding: 0;
+}
+
+.k-webkit .k-combobox .k-dropdown-wrap:before, .k-webkit .k-numeric-wrap:before, .k-webkit .k-picker-wrap:before {
+    padding-bottom: 0;
+}
+
+.k-dropdown-wrap .k-select {
+    line-height: 1.65em;
+}
+
+input.k-textbox {
+    height: 1.834em;
+    text-indent: 0.33em;
+    line-height: 1.834em;
+}
+
+.k-picker-wrap .k-input {
+    padding: 0;
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.k-picker-wrap .k-select {
+    line-height: 1.65em;
+}
+
+.k-calendar .k-today {
+    background-color: #cdcdcd;
+}
+
+.k-combobox .k-dropdown-wrap:before,.k-numeric-wrap:before,.k-picker-wrap:before {
+    height:0;
+}
+
+.k-combobox .k-input
+{
+	border-bottom: 1px solid #d5d5d5;
+}

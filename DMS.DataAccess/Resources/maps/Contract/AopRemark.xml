@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AopRemarkMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AopRemark" assembly="DMS.Model.dll" type="DMS.Model.AopRemark" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AopRemarkResult" class="AopRemark">
+      <result property="Id" column="Rmk_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Contractid" column="Rmk_ContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="Rmk_Hos_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Type" column="Rmk_Type" type="string" dbType="varchar"/>
+      <result property="Body" column="Rmk_Body" type="string" dbType="varchar"/>
+      <result property="Rv1" column="Rmk_Rv1" type="string" dbType="varchar"/>
+      <result property="Rv2" column="Rmk_Rv2" type="string" dbType="varchar"/>
+      <result property="Rv3" column="Rmk_Rv3" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAopRemark" parameterClass="string" resultClass="AopRemark">
+      SELECT Rmk_ID AS Id,Rmk_ContractID AS Contractid,Rmk_Hos_ID AS HosId,Rmk_Type AS Type,Rmk_Body AS Body,Rmk_Rv1 AS Rv1,Rmk_Rv2 AS Rv2,Rmk_Rv3 AS Rv3
+      FROM AOPRemark
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Rmk_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAopRemark" parameterClass="AopRemark" resultClass="AopRemark">
+      SELECT Rmk_ID AS Id,Rmk_ContractID AS Contractid,Rmk_Hos_ID AS HosId,Rmk_Type AS Type,Rmk_Body AS Body,Rmk_Rv1 AS Rv1,Rmk_Rv2 AS Rv2,Rmk_Rv3 AS Rv3
+      FROM AOPRemark
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Rmk_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Contractid">Rmk_ContractID=#Contractid#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">Rmk_Hos_ID=#HosId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">Rmk_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Body">Rmk_Body=#Body#</isNotNull>
+        <isNotNull prepend="AND" property="Rv1">Rmk_Rv1=#Rv1#</isNotNull>
+        <isNotNull prepend="AND" property="Rv2">Rmk_Rv2=#Rv2#</isNotNull>
+        <isNotNull prepend="AND" property="Rv3">Rmk_Rv3=#Rv3#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAopRemark" parameterClass="AopRemark">
+      INSERT INTO AOPRemark
+      (Rmk_ID,Rmk_ContractID,Rmk_Hos_ID,Rmk_Type,Rmk_Body,Rmk_Rv1,Rmk_Rv2,Rmk_Rv3)
+      VALUES(#Id#,#Contractid#,#HosId#,#Type#,#Body#,#Rv1#,#Rv2#,#Rv3#)
+    </insert>
+    <update id="UpdateAopRemark" parameterClass="AopRemark">
+      UPDATE AOPRemark
+      SET Rmk_ID=#Id#,Rmk_ContractID=#Contractid#,Rmk_Hos_ID=#HosId#,Rmk_Type=#Type#,Rmk_Body=#Body#,Rmk_Rv1=#Rv1#,Rmk_Rv2=#Rv2#,Rmk_Rv3=#Rv3#
+      WHERE Rmk_ID = #Id#
+    </update>
+    <delete id="DeleteAopRemark" parameterClass="string">
+      DELETE FROM AOPRemark
+      WHERE Rmk_ID = #value#
+    </delete>
+
+    <delete id="DeleteAopRemarkByCondition" parameterClass="AopRemark">
+      DELETE FROM AOPRemark
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Contractid">Rmk_ContractID=#Contractid#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">Rmk_Hos_ID=#HosId#</isNotNull>
+        <isNotNull prepend="AND" property="Rv1">Rmk_Rv1=#Rv1#</isNotNull>
+        <isNotNull prepend="AND" property="Type">Rmk_Type=#Type#</isNotNull>
+      </dynamic>
+    </delete>
+    
+  </statements>
+</sqlMap>

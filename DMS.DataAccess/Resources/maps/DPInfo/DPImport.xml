@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DPImportMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <parameterMaps>
+        <parameterMap id="ProcImportDPPayParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="Version" column="Version" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPAuditParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="ImportType" column="ImportType" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPTrainParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPPrizeParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPSatisfyParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="Version" column="Version" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPAuditChannelParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="ImportType" column="ImportType" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPBaseCompParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="ImportType" column="ImportType" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+        <parameterMap id="ProcImportDPDeepCompParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="ImportType" column="ImportType" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+        <delete id="DeleteDPPayImportByUser" parameterClass="string">
+            DELETE FROM DP.DPPayImport
+            WHERE ImportUser = #value#
+        </delete>
+        <procedure id="ProcImportDPPay" parameterMap="ProcImportDPPayParameterMap">
+            DP.Proc_ImportDPPay
+        </procedure>
+        <select id="SelectImportDPPayByCondition" parameterClass="System.Collections.Hashtable">
+            SELECT *,ROW_NUMBER () OVER (ORDER BY LineNum) AS row_number
+            FROM DP.DPPayImport
+            WHERE ErrorFlag = 1
+            <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+        </select>
+        <procedure id="ProcImportDPAudit" parameterMap="ProcImportDPAuditParameterMap">
+            DP.Proc_ImportDPAudit
+        </procedure>
+        <delete id="DeleteDPTrainImportByUser" parameterClass="string">
+            DELETE FROM DP.DPTrainImport
+            WHERE ImportUser = #value#
+        </delete>
+        <procedure id="ProcImportDPTrain" parameterMap="ProcImportDPTrainParameterMap">
+            DP.Proc_ImportDPTrain
+        </procedure>
+        <select id="SelectImportDPTrainByCondition" parameterClass="System.Collections.Hashtable">
+            SELECT *,ROW_NUMBER () OVER (ORDER BY LineNum) AS row_number
+            FROM DP.DPTrainImport
+            WHERE ErrorFlag = 1
+            <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+        </select>
+        <delete id="DeleteDPPrizeImportByUser" parameterClass="string">
+            DELETE FROM DP.DPPrizeImport
+            WHERE ImportUser = #value#
+        </delete>
+        <procedure id="ProcImportDPPrize" parameterMap="ProcImportDPPrizeParameterMap">
+            DP.Proc_ImportDPPrize
+        </procedure>
+        <select id="SelectImportDPPrizeByCondition" parameterClass="System.Collections.Hashtable">
+            SELECT *,ROW_NUMBER () OVER (ORDER BY LineNum) AS row_number
+            FROM DP.DPPrizeImport
+            WHERE ErrorFlag = 1
+            <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+        </select>
+        <delete id="DeleteDPSatisfyImportByUser" parameterClass="string">
+            DELETE FROM DP.DPSatisfyImport
+            WHERE ImportUser = #value#
+        </delete>
+        <procedure id="ProcImportDPSatisfy" parameterMap="ProcImportDPSatisfyParameterMap">
+            DP.Proc_ImportDPSatisfy
+        </procedure>
+        <select id="SelectImportDPSatisfyByCondition" parameterClass="System.Collections.Hashtable">
+            SELECT *,ROW_NUMBER () OVER (ORDER BY LineNum) AS row_number
+            FROM DP.DPSatisfyImport
+            WHERE ErrorFlag = 1
+            <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+        </select>
+        <procedure id="ProcImportDPAuditChannel" parameterMap="ProcImportDPAuditChannelParameterMap">
+            DP.Proc_ImportDPAuditChannel
+        </procedure>
+        <procedure id="ProcImportDPBaseComp" parameterMap="ProcImportDPBaseCompParameterMap">
+            DP.Proc_ImportDPBaseComp
+        </procedure>
+        <procedure id="ProcImportDPDeepComp" parameterMap="ProcImportDPDeepCompParameterMap">
+            DP.Proc_ImportDPDeepComp
+        </procedure>
+        <select id="SelectImportDPCompByCondition" parameterClass="System.Collections.Hashtable">
+            SELECT *,ROW_NUMBER () OVER (ORDER BY SheetName, LineNum) AS row_number
+            FROM DP.DPCompImport
+            WHERE 1 = 1
+            <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+        </select>
+        <insert id="InsertDpCompImport" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.DPCompImport
+            (ImportUser,ImportTime,SheetName,LineNum,ErrorDesc)
+            VALUES(#ImportUser#,GETDATE(),#SheetName#,#LineNum#,#ErrorDesc#)
+        </insert>
+        <insert id="GenerateVersion" resultClass="System.Collections.Hashtable">
+            SELECT CONVERT(NVARCHAR(4), YEAR(GETDATE()))
+            + RIGHT ('00' + CONVERT(NVARCHAR(2), MONTH(GETDATE())), 2)
+            + RIGHT ('00' + CONVERT(NVARCHAR(2), DAY(GETDATE())), 2)
+            + '-'
+            + RIGHT ('00' + CONVERT(NVARCHAR(2), DATEPART(hh, GETDATE())), 2)
+            + RIGHT ('00' + CONVERT(NVARCHAR(2), DATEPART(mi, GETDATE())), 2)
+            + RIGHT ('00' + CONVERT(NVARCHAR(2), DATEPART(ss, GETDATE())), 2) Version
+        </insert>
+        <insert id="InsertDpCompHead" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompHead
+            (CompId, DealerId, Version, ProName, ProAddress, ProPhone, ProFax, ProRegNo, ProCompanyName, ProCompanyNameEn, ProCompanyAddress, ProCompanyPhone, ProCompanyFax, ProCompanyZip, RegName, RegAddress, RegZip, RegCapital, RegType, RegRange, RegLegal, RegDate, RegOrganization, RegNo, RegTerm, RelInstitutions, StaffTotal, StaffManage, StaffSales, OpeAddress, OpePlace, OpeBusiness, OpePurchase, OpeEvaluateName, OpeEvaluateAddress, OpeEvaluatePhone, OpeEvaluateContact, OpeEvaluateDate, OpeEvaluateProduct, OpeEvaluatePay, OpeEvaluateMemo, OpeSales, PubRecord, PubLawsuit, DownFile, DownFileName, CreateBy, CreateDate)
+            VALUES(#CompId#, #DealerId#, #Version#, #ProName#, #ProAddress#, #ProPhone#, #ProFax#, #ProRegNo#, #ProCompanyName#, #ProCompanyNameEn#, #ProCompanyAddress#, #ProCompanyPhone#, #ProCompanyFax#, #ProCompanyZip#, #RegName#, #RegAddress#, #RegZip#, #RegCapital#, #RegType#, #RegRange#, #RegLegal#, #RegDate#, #RegOrganization#, #RegNo#, #RegTerm#, #RelInstitutions#, #StaffTotal#, #StaffManage#, #StaffSales#, #OpeAddress#, #OpePlace#, #OpeBusiness#, #OpePurchase#, #OpeEvaluateName#, #OpeEvaluateAddress#, #OpeEvaluatePhone#, #OpeEvaluateContact#, #OpeEvaluateDate#, #OpeEvaluateProduct#, #OpeEvaluatePay#, #OpeEvaluateMemo#, #OpeSales#, #PubRecord#, #PubLawsuit#, #DownFile#, #DownFileName#, #CreateBy#, GETDATE())
+        </insert>
+        <insert id="InsertDpCompOpePay" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompOpePay
+            (CompOpePayId, CompId, OpePayCustomer, OpePayType, OpePayCycle, OpePayDelay, OpePayScope)
+            VALUES(#CompOpePayId#, #CompId#, #OpePayCustomer#, #OpePayType#, #OpePayCycle#, #OpePayDelay#, #OpePayScope#)
+        </insert>
+        <insert id="InsertDpCompPubLawsuit" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompPubLawsuit
+            (CompPubLawsuitId, CompId, PubLawsuitDate, PubLawsuitCourt, PubLawsuitNo, PubLawsuitObject, PubLawsuitStatus)
+            VALUES(#CompPubLawsuitId#, #CompId#, #PubLawsuitDate#, #PubLawsuitCourt#, #PubLawsuitNo#, #PubLawsuitObject#, #PubLawsuitStatus#)
+        </insert>
+        <insert id="InsertDpCompRegChange" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompRegChange
+            (CompRegChangeId, CompId, RegChangeDate, RegChangeContent, RegChangeBefore, RegChangeAfter)
+            VALUES(#CompRegChangeId#, #CompId#, #RegChangeDate#, #RegChangeContent#, #RegChangeBefore#, #RegChangeAfter#)
+        </insert>
+        <insert id="InsertDpCompRegPort" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompRegPort
+            (CompRegPortId, CompId, RegPortContent, RegPortDate)
+            VALUES(#CompRegPortId#, #CompId#, #RegPortContent#, #RegPortDate#)
+        </insert>
+        <insert id="InsertDpCompStaff" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompStaff
+            (CompStaffId, CompId, StaffNo, StaffName, StaffSex, StaffBirth, StaffPosition, StaffBusiness)
+            VALUES(#CompStaffId#, #CompId#, #StaffNo#, #StaffName#, #StaffSex#, #StaffBirth#, #StaffPosition#, #StaffBusiness#)
+        </insert>
+        <insert id="InsertDpCompStaffResume" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompStaffResume
+            (CompStaffResumeId, CompStaffId, StaffResumeTime, StaffResumeCompany, StaffResumePosition)
+            VALUES(#CompStaffResumeId#, #CompStaffId#, #StaffResumeTime#, #StaffResumeCompany#, #StaffResumePosition#)
+        </insert>
+        <insert id="InsertDpCompStoInvest" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompStoInvest
+            (CompStoInvestId, CompId, StoInvestUser, StoInvestContent, StoInvestResult)
+            VALUES(#CompStoInvestId#, #CompId#, #StoInvestUser#, #StoInvestContent#, #StoInvestResult#)
+        </insert>
+        <insert id="InsertDpCompStoState" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompStoState
+            (CompStoStateId, CompId, StoStateName, StoStateSex, StoStateIdCard, StoStatePosition, StoStateRemark)
+            VALUES(#CompStoStateId#, #CompId#, #StoStateName#, #StoStateSex#, #StoStateIdCard#, #StoStatePosition#, #StoStateRemark#)
+        </insert>
+        <insert id="InsertDpCompStoStructure" parameterClass="System.Collections.Hashtable">
+            INSERT INTO DP.CompStoStructure
+            (CompStoStructureId, CompId, StoStructureName, StoStructureCapital, StoStructurePercent, StoStructureUnit)
+            VALUES(#CompStoStructureId#, #CompId#, #StoStructureName#, #StoStructureCapital#, #StoStructurePercent#, #StoStructureUnit#)
+        </insert>
+
+        <delete id="DeleteDPImportHead" parameterClass="System.Collections.Hashtable">
+            DELETE FROM DP.DPImportHead
+            WHERE ImportUser = #ImportUser# AND ImportType = #ImportType#
+        </delete>
+        <delete id="DeleteDPImportLine" parameterClass="System.Collections.Hashtable">
+            DELETE FROM DP.DPImportLine
+            WHERE ImportUser = #ImportUser# AND ImportType = #ImportType#
+        </delete>
+        <select id="SelectDPImportHead" parameterClass="System.Collections.Hashtable">
+            SELECT *,ROW_NUMBER () OVER (ORDER BY LineNum) AS row_number
+            FROM DP.DPImportHead
+            WHERE ErrorFlag = 1
+            <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+            <isNotNull prepend="AND" property="ImportType">ImportType=#ImportType#</isNotNull>
+        </select>
+    </statements>
+</sqlMap>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProDescriptionMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="ProDescription.SelectProDescriptioinList" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT *
+      FROM   Promotion.PRO_Description
+      WHERE  Level1 = #value#
+    </select>
+  </statements>
+</sqlMap>

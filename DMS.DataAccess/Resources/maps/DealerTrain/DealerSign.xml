@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerSignMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DealerSign" assembly="DMS.Model.dll" type="DMS.Model.DealerSign" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerSignResult" class="DealerSign">
+            <result property="SignId" column="SignId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SignName" column="SignName" type="string" dbType="nvarchar"/>
+            <result property="SignDesc" column="SignDesc" type="string" dbType="nvarchar"/>
+            <result property="TrainId" column="TrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SignStatus" column="SignStatus" type="string" dbType="nvarchar"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <select id="SelectDealerSign" parameterClass="string" resultClass="DealerSign">
+            SELECT SignId AS SignId,SignName AS SignName,SignDesc AS SignDesc,TrainId,SignStatus,CreateUser AS CreateUser,CreateTime AS CreateTime,UpdateUser AS UpdateUser,UpdateTime AS UpdateTime
+            FROM Commando.DealerSign
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    SignId = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <insert id="InsertDealerSign" parameterClass="DealerSign">
+            INSERT INTO Commando.DealerSign
+            (SignId,SignName,SignDesc,TrainId,SignStatus,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            VALUES(#SignId#,#SignName#,#SignDesc#,#TrainId#,#SignStatus#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateDealerSign" parameterClass="DealerSign">
+            UPDATE Commando.DealerSign
+            SET SignName=#SignName#,SignDesc=#SignDesc#,TrainId=#TrainId#,SignStatus=#SignStatus#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE SignId = #SignId#
+        </update>
+        <delete id="DeleteDealerSign" parameterClass="string">
+            DELETE FROM Commando.DealerSign
+            WHERE SignId = #value#
+        </delete>
+        <select id="SelectDealerSignList" parameterClass="System.Data.DataSet" resultClass="System.Data.DataSet">
+            <![CDATA[
+                SELECT A.SignId AS SignId,
+                       A.SignName AS SignName,
+                       A.SignDesc AS SignDesc,
+                       A.CreateUser AS CreateUser,
+                       A.CreateTime AS CreateTime,
+                       A.UpdateUser AS UpdateUser,
+                       A.UpdateTime AS UpdateTime,
+                       B.TrainName,
+                       B.TrainBu,
+                       B.TrainArea AS TrainArea,
+                       CASE 
+                            WHEN EXISTS (
+                                     SELECT 1
+                                     FROM   Commando.SalesTrainDetail T
+                                     WHERE  T.TrainId = A.SignId
+                                 ) THEN 1
+                            ELSE 0
+                       END AS HaveRecord,
+                       ROW_NUMBER() OVER(ORDER BY A.CreateTime DESC) AS [row_number]
+                FROM   Commando.DealerSign A
+                       INNER JOIN Commando.TrainMaster B
+                            ON  A.TrainId = B.TrainId
+                WHERE  A.SignStatus = 'Active'
+            ]]>
+            <isNotNull prepend="AND" property="SignName">A.SignName like '%' + #SignName# '%'</isNotNull>
+            <isNotNull prepend="AND" property="TrainName">C.TrainName like %' + #TrainName# '%'</isNotNull>
+        </select>
+
+        <select id="DeleteDealerSignById" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+            EXEC GC_DealerTrain_DeleteDealerSignById #SignId#,#RtnVal#,#RtnMsg#
+        </select>
+
+        <select id="SelectDealerSignById" parameterClass="System.Collections.Hashtable" resultClass="string" >
+            SELECT A.SignId AS SignId,a.SignName AS SignName,a.SignDesc AS SignDesc,B.RelationKey
+            FROM Commando.DealerSign A
+            INNER JOIN Commando.SignRelation B ON A.SignId=B.SignId AND B.RelationType='TrainCourse'
+            WHERE A.SignId = #value#
+
+        </select>
+        <select id="SelectRemainDealerSalesList" parameterClass="System.Collections.Hashtable" resultClass="string">
+            <![CDATA[
+                SELECT A.DealerSalesId,
+                       B.BWU_DealerId DealerId,
+                       B.BWU_DealerName DealerName,
+                       B.BWU_UserName SalesName,
+                       B.BWU_Phone SalesPhone,
+                       B.BWU_Email SalesEmail,
+                       ROW_NUMBER() OVER(ORDER BY B.BWU_DealerName, B.BWU_UserName) AS [row_number]
+                FROM   Commando.DealerSales A,
+                       BusinessWechatUser B
+                WHERE  A.WeChatUserId = B.BWU_ID
+                       AND (ISNULL(#DealerName#, '') = '' OR B.BWU_DealerName LIKE '%' + #DealerName# + '%')
+                       AND (ISNULL(#SalesName#, '') = '' OR B.BWU_UserName LIKE '%' + #SalesName# + '%')
+                       AND NOT EXISTS (
+                               SELECT 1
+                               FROM   Commando.SignRelation C
+                               WHERE  A.DealerSalesId = C.DealerSalesId
+                                      AND C.SignId = #SignId#
+                           )
+            ]]>
+        </select>
+        <select id="SelectSignDealerSalesList" parameterClass="string" resultClass="string">
+            <![CDATA[
+                SELECT C.SignRelationId,
+                       A.DealerSalesId,
+                       B.BWU_DealerId DealerId,
+                       B.BWU_DealerName DealerName,
+                       B.BWU_UserName SalesName,
+                       B.BWU_Phone SalesPhone,
+                       B.BWU_Email SalesEmail,
+                       ROW_NUMBER() OVER(ORDER BY B.BWU_DealerName, B.BWU_UserName) AS [row_number]
+                FROM   Commando.DealerSales A,
+                       BusinessWechatUser B,
+                       Commando.SignRelation C
+                WHERE  A.WeChatUserId = B.BWU_ID
+                       AND A.DealerSalesId = C.DealerSalesId
+                       AND C.SignId = #value#
+            ]]>
+        </select>
+        <update id="UpdateDealerSignStatus" parameterClass="DealerSign">
+            UPDATE Commando.DealerSign
+            SET SignStatus=#SignStatus#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE SignId = #SignId#
+        </update>
+        <select id="SelectSignSalesRecordCount" parameterClass="string" resultClass="int">
+            <![CDATA[
+            SELECT COUNT(*)
+            FROM   Commando.SalesTrainMaster B,
+                   Commando.SalesTrainDetail C
+            WHERE  B.SalesTrainId = C.SalesTrainId
+                   AND B.SignId = #value#
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

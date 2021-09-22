@@ -1,0 +1,723 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="From3.Btn.Draft" xml:space="preserve">
+    <value>保存草稿</value>
+  </data>
+  <data name="From3.Btn.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="From3.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="From3.Title" xml:space="preserve">
+    <value>蓝威第三方披露表 表格3</value>
+  </data>
+  <data name="Part1.Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Part1.Charter" xml:space="preserve">
+    <value>营业执照注册号</value>
+  </data>
+  <data name="Part1.ContactEmail" xml:space="preserve">
+    <value>主要联系人电子邮件</value>
+  </data>
+  <data name="Part1.ContactPerson" xml:space="preserve">
+    <value>主要联系人</value>
+  </data>
+  <data name="Part1.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Part1.DealerName" xml:space="preserve">
+    <value>公司名称（本表简称“公司”）</value>
+  </data>
+  <data name="Part1.DealerName.BlankText" xml:space="preserve">
+    <value>公司名称必须填写</value>
+  </data>
+  <data name="Part1.Exchange" xml:space="preserve">
+    <value>若“是”，在哪个证交所 &lt;br/&gt;若“无”，请填写"N/A"</value>
+  </data>
+  <data name="Part1.Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="Part1.Notes1" xml:space="preserve">
+    <value>蓝威的新经销商须附上公司过去两个会计年度的财务报表。</value>
+  </data>
+  <data name="Part1.Notes2" xml:space="preserve">
+    <value>若为蓝威现有经销商，则请留意您的合同正在更新中。自上次填写《第三方披露表》以来，您以下的相关信息（包括主要的所有人、股东、董事、银行信息等）均未变更的请核对该框。</value>
+  </data>
+  <data name="Part1.Notes3" xml:space="preserve">
+    <value>注意：第2 – 14节仅供新经销商合同或变更信息的续签合同。请完整填写全部内容，在不适用部分请填写“None”。</value>
+  </data>
+  <data name="Part1.PubliclyTraded" xml:space="preserve">
+    <value>公司是否上市</value>
+  </data>
+  <data name="Part1.PubliclyTradedNo" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Part1.PubliclyTradedYes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Part1.Telephony" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part1.Title" xml:space="preserve">
+    <value>1.	公司信息</value>
+  </data>
+  <data name="Part1.Website" xml:space="preserve">
+    <value>网址</value>
+  </data>
+  <data name="Part10.Notes1" xml:space="preserve">
+    <value>兹以通知，在您申请成为经销商时，蓝威可能会购买尽职调查验证报告及/或调查性的尽职调查报告，以获取有关各种事项的信息，包括但不限于公司结构、所有权、商务实践、银行记录、资信状况、破产程序、刑事记录、民事记录、一般声誉及个人品质（包括前述任何项目，以及个人的教育程度、从业历史等）。吾等需要您对以下的发布授权签字。</value>
+  </data>
+  <data name="Part10.Notes2" xml:space="preserve">
+    <value>发布授权：</value>
+  </data>
+  <data name="Part10.Notes3" xml:space="preserve">
+    <value>本人特此毫无保留地授权任何人员、公司、机构、教育或其他组织提供上述信息。与此同时，本人授权蓝威或其代理人从任何机构购买尽职调查验证报告及/或调查性的尽职调查报告，以查明本人的个人品质和资信状况。本人进一步承认，本次发布授权的摄影副本或传真件与正本具有相同等效力。本人同意免除所有人员及实体由此类披露引起的任何责任，以及因提供信息错误而引起的任何责任并使其免受损害。</value>
+  </data>
+  <data name="Part10.Title" xml:space="preserve">
+    <value>10.	信息发布</value>
+  </data>
+  <data name="Part2.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part2.Header.Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Part2.Header.ContactPerson" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="Part2.Header.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Part2.Header.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Part2.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part2.Header.Telephone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part2.Notes1" xml:space="preserve">
+    <value>请注明贵公司目前或曾经有过合作的两例相关商业推介。（此项为必填项，必须提供两家商业推介公司信息）</value>
+  </data>
+  <data name="Part2.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part2.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part2.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part2.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part2.Title" xml:space="preserve">
+    <value>2.	商业推介 （必填）</value>
+  </data>
+  <data name="Part2.Window.Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Part2.Window.Btn.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part2.Window.Btn.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part2.Window.ContactPerson" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="Part2.Window.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Part2.Window.Name" xml:space="preserve">
+    <value>名称:</value>
+  </data>
+  <data name="Part2.Window.Telephone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part2.Window.Title" xml:space="preserve">
+    <value>商业推荐</value>
+  </data>
+  <data name="Part3.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part3.Header.Describe" xml:space="preserve">
+    <value>业务描述</value>
+  </data>
+  <data name="Part3.Header.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Part3.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part3.Notes1" xml:space="preserve">
+    <value>请列出您／贵公司代理的其它医疗器械或制药公司的名称及描述。若没有，请在此填“None”。</value>
+  </data>
+  <data name="Part3.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part3.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part3.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part3.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part3.Title" xml:space="preserve">
+    <value>3. 	医疗器械或制药公司</value>
+  </data>
+  <data name="Part3.Window.Btn.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part3.Window.Btn.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part3.Window.Describe" xml:space="preserve">
+    <value>业务描述</value>
+  </data>
+  <data name="Part3.Window.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Part3.Window.Title" xml:space="preserve">
+    <value>医疗器械或制药公司</value>
+  </data>
+  <data name="Part4.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part4.Header.AuthOrg" xml:space="preserve">
+    <value>授权单位</value>
+  </data>
+  <data name="Part4.Header.Country" xml:space="preserve">
+    <value>签发国家</value>
+  </data>
+  <data name="Part4.Header.Name" xml:space="preserve">
+    <value>执照、许可或登记的名称</value>
+  </data>
+  <data name="Part4.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part4.Header.RegisterDate" xml:space="preserve">
+    <value>登记日期</value>
+  </data>
+  <data name="Part4.Header.RegisterNumber" xml:space="preserve">
+    <value>登记编号</value>
+  </data>
+  <data name="Part4.Notes1" xml:space="preserve">
+    <value>请贵司提供《营业执照》和《医疗器械经营许可证》。（此项为必填项）</value>
+  </data>
+  <data name="Part4.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part4.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part4.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part4.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part4.Title" xml:space="preserve">
+    <value>4. 	营业执照、许可或登记情况（必填）</value>
+  </data>
+  <data name="Part4.Window.AuthOrg" xml:space="preserve">
+    <value>授权单位</value>
+  </data>
+  <data name="Part4.Window.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part4.Window.Country" xml:space="preserve">
+    <value>签发国家:</value>
+  </data>
+  <data name="Part4.Window.Date" xml:space="preserve">
+    <value>登记日期</value>
+  </data>
+  <data name="Part4.Window.Name" xml:space="preserve">
+    <value>执照、许可或登记的名称:</value>
+  </data>
+  <data name="Part4.Window.Number" xml:space="preserve">
+    <value>登记编号:</value>
+  </data>
+  <data name="Part4.Window.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part4.Window.Title" xml:space="preserve">
+    <value>营业执照、许可或登记情况</value>
+  </data>
+  <data name="Part5.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part5.Header.Birthday" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Part5.Header.Birthplace" xml:space="preserve">
+    <value>出生地点</value>
+  </data>
+  <data name="Part5.Header.BusinessAddress" xml:space="preserve">
+    <value>办公地址</value>
+  </data>
+  <data name="Part5.Header.Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Part5.Header.Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="Part5.Header.HomeAddress" xml:space="preserve">
+    <value>居住地址</value>
+  </data>
+  <data name="Part5.Header.IdentityCard" xml:space="preserve">
+    <value>身份证ID#</value>
+  </data>
+  <data name="Part5.Header.Name" xml:space="preserve">
+    <value>全名（姓及名）</value>
+  </data>
+  <data name="Part5.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part5.Header.Pbumport" xml:space="preserve">
+    <value>护照#</value>
+  </data>
+  <data name="Part5.Header.Position" xml:space="preserve">
+    <value>职务</value>
+  </data>
+  <data name="Part5.Header.Telephone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part5.Notes1" xml:space="preserve">
+    <value>请提供有关贵公司的董事及各主要高层人员（董事长、总经理、首席财务官等）的下列资料。（此项为必填项，至少提供两位高层人员信息）</value>
+  </data>
+  <data name="Part5.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part5.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part5.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part5.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part5.Title" xml:space="preserve">
+    <value>5. 	公司董事及主要高层人员的背景信息（必填）</value>
+  </data>
+  <data name="Part5.Window.Birthday" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Part5.Window.Birthplace" xml:space="preserve">
+    <value>出生地点</value>
+  </data>
+  <data name="Part5.Window.BusinessAddress" xml:space="preserve">
+    <value>办公地址&lt;br/&gt;（若与第1节不同）</value>
+  </data>
+  <data name="Part5.Window.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part5.Window.Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Part5.Window.Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="Part5.Window.HomeAddress" xml:space="preserve">
+    <value>居住地址</value>
+  </data>
+  <data name="Part5.Window.IdentityCard" xml:space="preserve">
+    <value>身份证ID#</value>
+  </data>
+  <data name="Part5.Window.IdentityCard.BlankText" xml:space="preserve">
+    <value>请填写18位居民身份证号</value>
+  </data>
+  <data name="Part5.Window.Name" xml:space="preserve">
+    <value>全名（姓及名）:</value>
+  </data>
+  <data name="Part5.Window.Pbumport" xml:space="preserve">
+    <value>护照#</value>
+  </data>
+  <data name="Part5.Window.Position" xml:space="preserve">
+    <value>职位:</value>
+  </data>
+  <data name="Part5.Window.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part5.Window.Telephone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part5.Window.Title" xml:space="preserve">
+    <value>公司董事及主要高层人员的背景信息</value>
+  </data>
+  <data name="Part6.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part6.Header.Birthday" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Part6.Header.Birthplace" xml:space="preserve">
+    <value>出生地点</value>
+  </data>
+  <data name="Part6.Header.BusinessAddress" xml:space="preserve">
+    <value>办公地址</value>
+  </data>
+  <data name="Part6.Header.Country" xml:space="preserve">
+    <value>成立国家</value>
+  </data>
+  <data name="Part6.Header.Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Part6.Header.Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="Part6.Header.HomeAddress" xml:space="preserve">
+    <value>居住地址</value>
+  </data>
+  <data name="Part6.Header.IdentityCard" xml:space="preserve">
+    <value>身份证ID#</value>
+  </data>
+  <data name="Part6.Header.MiddleEntity" xml:space="preserve">
+    <value>中间实体</value>
+  </data>
+  <data name="Part6.Header.Name" xml:space="preserve">
+    <value>全名（姓及名）</value>
+  </data>
+  <data name="Part6.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part6.Header.Ownership" xml:space="preserve">
+    <value>所有权%</value>
+  </data>
+  <data name="Part6.Header.Pbumport" xml:space="preserve">
+    <value>护照#</value>
+  </data>
+  <data name="Part6.Header.Possessor" xml:space="preserve">
+    <value>最终实益拥有人</value>
+  </data>
+  <data name="Part6.Header.Register" xml:space="preserve">
+    <value>登记#</value>
+  </data>
+  <data name="Part6.Header.Telephone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part6.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part6.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part6.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part6.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part6.Title" xml:space="preserve">
+    <value>6. 	公司所有人及股东的背景信息（必填）</value>
+  </data>
+  <data name="Part6.Window.Birthday" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Part6.Window.Birthplace" xml:space="preserve">
+    <value>出生地点</value>
+  </data>
+  <data name="Part6.Window.BusinessAddress" xml:space="preserve">
+    <value>办公地址</value>
+  </data>
+  <data name="Part6.Window.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part6.Window.Compary" xml:space="preserve">
+    <value>若股东为公司:</value>
+  </data>
+  <data name="Part6.Window.Country" xml:space="preserve">
+    <value>成立国家</value>
+  </data>
+  <data name="Part6.Window.Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Part6.Window.Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="Part6.Window.HomeAddress" xml:space="preserve">
+    <value>居住地址</value>
+  </data>
+  <data name="Part6.Window.IdentityCard" xml:space="preserve">
+    <value>身份证ID#</value>
+  </data>
+  <data name="Part6.Window.MiddleEntity" xml:space="preserve">
+    <value>中间实体</value>
+  </data>
+  <data name="Part6.Window.Name" xml:space="preserve">
+    <value>全名（姓及名）:</value>
+  </data>
+  <data name="Part6.Window.Ownership" xml:space="preserve">
+    <value>所有权%:</value>
+  </data>
+  <data name="Part6.Window.Pbumport" xml:space="preserve">
+    <value>护照#</value>
+  </data>
+  <data name="Part6.Window.Person" xml:space="preserve">
+    <value>若股东为自然人:</value>
+  </data>
+  <data name="Part6.Window.Possessor" xml:space="preserve">
+    <value>最终实益拥有人</value>
+  </data>
+  <data name="Part6.Window.Register" xml:space="preserve">
+    <value>登记#</value>
+  </data>
+  <data name="Part6.Window.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part6.Window.Telephone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Part6.Window.Title" xml:space="preserve">
+    <value>公司所有人及股东的背景信息</value>
+  </data>
+  <data name="Part7.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part7.Header.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Part7.Header.Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Part7.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part7.Header.Owership" xml:space="preserve">
+    <value>所有权%</value>
+  </data>
+  <data name="Part7.Header.Register" xml:space="preserve">
+    <value>登记#</value>
+  </data>
+  <data name="Part7.Notes1" xml:space="preserve">
+    <value>请提供持有贵司所有权权益（例如子公司与合资企业）的全部实体的下列资料，若适用，包括成立国家与登记#，以及所有合资企业合伙人与其他权益持有人的信息。若有必要，请另附一页，提供额外的资料。若没有，请在此填“None”。</value>
+  </data>
+  <data name="Part7.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part7.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part7.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part7.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part7.Title" xml:space="preserve">
+    <value>7. 	公司拥有的全部实体的背景信息</value>
+  </data>
+  <data name="Part7.Window.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part7.Window.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Part7.Window.Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Part7.Window.Owership" xml:space="preserve">
+    <value>所有权%</value>
+  </data>
+  <data name="Part7.Window.Register" xml:space="preserve">
+    <value>登记#</value>
+  </data>
+  <data name="Part7.Window.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part7.Window.Title" xml:space="preserve">
+    <value>公司拥有的全部实体的背景信息</value>
+  </data>
+  <data name="Part8.BtnAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Part8.Header.Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Part8.Header.Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Part8.Header.Relation" xml:space="preserve">
+    <value>政府隶属关系</value>
+  </data>
+  <data name="Part8.Notes1" xml:space="preserve">
+    <value>请注明以上各节述及的人员（或其近亲属或商务伙伴）中，是否有人为现任或离任的政府官员或政务职位候选人，目前或过去曾担任公职，目前或过去曾受雇于或隶属于政府机关，包括国家所有或控制的医院或诊所、国家所有或控制的公司或慈善团体、政党及公共国际组织（例如世界银行和联合国）。若没有，请在此填“None”。</value>
+  </data>
+  <data name="Part8.Operation.ConfirmDelete" xml:space="preserve">
+    <value>是否要删除?</value>
+  </data>
+  <data name="Part8.Operation.Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Part8.Operation.Detail" xml:space="preserve">
+    <value>明细</value>
+  </data>
+  <data name="Part8.Operation.Processing" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="Part8.Title" xml:space="preserve">
+    <value>8. 	公职</value>
+  </data>
+  <data name="Part8.Window.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Part8.Window.Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Part8.Window.Relation" xml:space="preserve">
+    <value>政府隶属关系</value>
+  </data>
+  <data name="Part8.Window.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Part8.Window.Title" xml:space="preserve">
+    <value>公职</value>
+  </data>
+  <data name="Part9.Confirmation.Detail" xml:space="preserve">
+    <value>若“是”，请提供详情</value>
+  </data>
+  <data name="Part9.Confirmation1" xml:space="preserve">
+    <value>在过去五年中，公司或任一主要的高层人员、董事或股东是否涉及民事或刑事案件&lt;br/&gt;（轻微交通违规行为及家庭纠纷除外）</value>
+  </data>
+  <data name="Part9.Confirmation2" xml:space="preserve">
+    <value>在过去五年中，公司或任一主要的高层人员、董事或股东是否涉及任何政府/监管&lt;br/&gt;机构的调查或行政案件或受到制裁</value>
+  </data>
+  <data name="Part9.Confirmation3" xml:space="preserve">
+    <value>在过去五年中，公司或任一主要的高层人员、董事或股东是否申请或涉及任何与破&lt;br/&gt;产、无力偿债或重组相关的案件</value>
+  </data>
+  <data name="Part9.ConfirmationNo" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Part9.ConfirmationYes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Part9.Title" xml:space="preserve">
+    <value>9.	其他信息</value>
+  </data>
+  <data name="Title.Remind" xml:space="preserve">
+    <value>&lt;font color="red"&gt;&lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;*&amp;nbsp;&amp;nbsp;请使用英文填写表单信息\Fill in the information English&lt;/b&gt;&lt;/font&gt;</value>
+  </data>
+</root>

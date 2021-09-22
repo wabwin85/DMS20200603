@@ -1,0 +1,141 @@
+DROP PROCEDURE [dbo].[Lafite_Membership_GetPassword]
+GO
+
+
+CREATE PROCEDURE [dbo].[Lafite_Membership_GetPassword]
+    @ApplicationName                nvarchar(256),
+    @LoginId                       nvarchar(256),
+    @MaxInvalidPasswordAttempts     int,
+    @PasswordAttemptWindow          int,
+    @CurrentTimeUtc                 datetime,
+    @PasswordAnswer                 nvarchar(128) = NULL
+AS
+BEGIN
+    DECLARE @UserId                                 varchar(36)
+    DECLARE @PasswordFormat                         int
+    DECLARE @Password                               nvarchar(128)
+    DECLARE @passAns                                nvarchar(128)
+    DECLARE @IsLockedOut                            bit
+    DECLARE @LastLockoutDate                        datetime
+    DECLARE @FailedPasswordAttemptCount             int
+    DECLARE @FailedPasswordAttemptWindowStart       datetime
+    DECLARE @FailedPasswordAnswerAttemptCount       int
+    DECLARE @FailedPasswordAnswerAttemptWindowStart datetime
+
+    DECLARE @ErrorCode     int
+    SET @ErrorCode = 0
+
+    DECLARE @TranStarted   bit
+    SET @TranStarted = 0
+
+    IF( @@TRANCOUNT = 0 )
+    BEGIN
+	    BEGIN TRANSACTION
+	    SET @TranStarted = 1
+    END
+    ELSE
+    	SET @TranStarted = 0
+
+    SELECT  @UserId = u.UserId,
+            @Password = m.Password,
+            @passAns = m.PasswordAnswer,
+            @PasswordFormat = m.PasswordFormat,
+            @IsLockedOut = m.IsLockedOut,
+            @LastLockoutDate = m.LastLockoutDate,
+            @FailedPasswordAttemptCount = m.FailedPasswordAttemptCount,
+            @FailedPasswordAttemptWindowStart = m.FailedPasswordAttemptWindowStart,
+            @FailedPasswordAnswerAttemptCount = m.FailedPasswordAnswerAttemptCount,
+            @FailedPasswordAnswerAttemptWindowStart = m.FailedPasswordAnswerAttemptWindowStart
+    FROM    dbo.Lafite_Application a, dbo.dbo.Lafite_IDENTITY u, dbo.Lafite_Membership m WITH ( UPDLOCK )
+    WHERE   LOWER(@ApplicationName) = a.APPLICATION_CODE AND
+            u.App_Id = a.App_Id    AND
+            u.Id = m.UserId AND u.Delete_Flag = '0' AND
+            LOWER(@LoginId) = u.LOWERED_IDENTITY_CODE
+
+    IF ( @@rowcount = 0 )
+    BEGIN
+        SET @ErrorCode = 1
+        GOTO Cleanup
+    END
+
+    IF( @IsLockedOut = 1 )
+    BEGIN
+        SET @ErrorCode = 99
+        GOTO Cleanup
+    END
+
+    IF ( NOT( @PasswordAnswer IS NULL ) )
+    BEGIN
+        IF( ( @passAns IS NULL ) OR ( LOWER( @passAns ) <> LOWER( @PasswordAnswer ) ) )
+        BEGIN
+            IF( @CurrentTimeUtc > DATEADD( minute, @PasswordAttemptWindow, @FailedPasswordAnswerAttemptWindowStart ) )
+            BEGIN
+                SET @FailedPasswordAnswerAttemptWindowStart = @CurrentTimeUtc
+                SET @FailedPasswordAnswerAttemptCount = 1
+            END
+            ELSE
+            BEGIN
+                SET @FailedPasswordAnswerAttemptCount = @FailedPasswordAnswerAttemptCount + 1
+                SET @FailedPasswordAnswerAttemptWindowStart = @CurrentTimeUtc
+            END
+
+            BEGIN
+                IF( @FailedPasswordAnswerAttemptCount >= @MaxInvalidPasswordAttempts )
+                BEGIN
+                    SET @IsLockedOut = 1
+                    SET @LastLockoutDate = @CurrentTimeUtc
+                END
+            END
+
+            SET @ErrorCode = 3
+        END
+        ELSE
+        BEGIN
+            IF( @FailedPasswordAnswerAttemptCount > 0 )
+            BEGIN
+                SET @FailedPasswordAnswerAttemptCount = 0
+                SET @FailedPasswordAnswerAttemptWindowStart = CONVERT( datetime, '17540101', 112 )
+            END
+        END
+
+        UPDATE dbo.Lafite_Membership
+        SET IsLockedOut = @IsLockedOut, LastLockoutDate = @LastLockoutDate,
+            FailedPasswordAttemptCount = @FailedPasswordAttemptCount,
+            FailedPasswordAttemptWindowStart = @FailedPasswordAttemptWindowStart,
+            FailedPasswordAnswerAttemptCount = @FailedPasswordAnswerAttemptCount,
+            FailedPasswordAnswerAttemptWindowStart = @FailedPasswordAnswerAttemptWindowStart
+        WHERE @UserId = UserId
+
+        IF( @@ERROR <> 0 )
+        BEGIN
+            SET @ErrorCode = -1
+            GOTO Cleanup
+        END
+    END
+
+    IF( @TranStarted = 1 )
+    BEGIN
+	SET @TranStarted = 0
+	COMMIT TRANSACTION
+    END
+
+    IF( @ErrorCode = 0 )
+        SELECT @Password, @PasswordFormat
+
+    RETURN @ErrorCode
+
+Cleanup:
+
+    IF( @TranStarted = 1 )
+    BEGIN
+        SET @TranStarted = 0
+    	ROLLBACK TRANSACTION
+    END
+
+    RETURN @ErrorCode
+
+END
+
+GO
+
+

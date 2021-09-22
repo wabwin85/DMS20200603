@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DeliveryInterfaceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DeliveryInterface" assembly="DMS.Model.dll" type="DMS.Model.DeliveryInterface" />
+        <typeAlias alias="SapDeliveryData" assembly="DMS.Model.dll" type="DMS.Model.SapDeliveryData" />
+      <typeAlias alias="LPDeliveryForT2Data" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.LPDeliveryForT2Data" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DeliveryInterfaceResult" class="DeliveryInterface">
+            <result property="Id" column="DI_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="BatchNbr" column="DI_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="RecordNbr" column="DI_RecordNbr" type="string" dbType="nvarchar"/>
+            <result property="SapDeliveryNo" column="DI_SapDeliveryNo" type="string" dbType="nvarchar"/>
+            <result property="Status" column="DI_Status" type="string" dbType="nvarchar"/>
+            <result property="ProcessType" column="DI_ProcessType" type="string" dbType="nvarchar"/>
+            <result property="FileName" column="DI_FileName" type="string" dbType="nvarchar"/>
+            <result property="CreateUser" column="DI_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateDate" column="DI_CreateDate" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="DI_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateDate" column="DI_UpdateDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="DI_ClientID" type="string" dbType="nvarchar"/>
+        </resultMap>
+        <resultMap id="SapDeliveryDataResult" class="SapDeliveryData">
+            <result property="DeliveryNo" column="DeliveryNo" type="string" dbType="nvarchar"/>
+            <result property="DeliveryDate" column="DeliveryDate" type="DateTime" dbType="datetime"/>
+            <result property="BatchNo" column="BatchNo" type="string" dbType="nvarchar"/>
+            <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+            <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+            <result property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+            <result property="ExpDate" column="ExpDate" type="DateTime" dbType="datetime"/>
+            <result property="OrderNo" column="OrderNo" type="string" dbType="nvarchar"/>
+            <result property="BoxNo" column="BoxNo" type="string" dbType="nvarchar"/>
+            <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+        </resultMap>
+      <resultMap id="LPDeliveryForT2DataResult" class="LPDeliveryForT2Data">
+        <result property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+        <result property="OrderNo" column="OrderNo" type="string" dbType="nvarchar"/>
+        <result property="DeliveryNo" column="DeliveryNo" type="string" dbType="nvarchar"/>
+        <result property="DeliveryDate" column="DeliveryDate" type="string" dbType="nvarchar"/>
+        <result property="LPName" column="LPName" type="string" dbType="nvarchar"/>
+        <result property="Carrier" column="Carrier" type="string" dbType="nvarchar"/>
+        <result property="CourierNo" column="CourierNo" type="string" dbType="nvarchar"/>
+        <result property="TransportType" column="TransportType" type="string" dbType="nvarchar"/>
+        <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+        <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+        <result property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+        <result property="ExpDate" column="ExpDate" type="string" dbType="nvarchar"/>
+        <result property="UnitPrice" column="UnitPrice" type="decimal" dbType="decimal"/>
+        <result property="WarehouseName" column="WarehouseName" type="string" dbType="nvarchar"/>
+        <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+      </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectDeliveryInterface" parameterClass="string" resultClass="DeliveryInterface">
+            SELECT DI_ID AS Id,DI_BatchNbr AS BatchNbr,DI_RecordNbr AS RecordNbr,DI_SapDeliveryNo AS SapDeliveryNo,DI_Status AS Status,DI_ProcessType AS ProcessType,DI_FileName AS FileName,DI_CreateUser AS CreateUser,DI_CreateDate AS CreateDate,DI_UpdateUser AS UpdateUser,DI_UpdateDate AS UpdateDate,DI_ClientID AS Clientid
+            FROM DeliveryInterface
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DI_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterDeliveryInterface" parameterClass="DeliveryInterface" resultClass="DeliveryInterface">
+            SELECT DI_ID AS Id,DI_BatchNbr AS BatchNbr,DI_RecordNbr AS RecordNbr,DI_SapDeliveryNo AS SapDeliveryNo,DI_Status AS Status,DI_ProcessType AS ProcessType,DI_FileName AS FileName,DI_CreateUser AS CreateUser,DI_CreateDate AS CreateDate,DI_UpdateUser AS UpdateUser,DI_UpdateDate AS UpdateDate,DI_ClientID AS Clientid
+            FROM DeliveryInterface
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">DI_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">DI_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="RecordNbr">DI_RecordNbr=#RecordNbr#</isNotNull>
+                <isNotNull prepend="AND" property="SapDeliveryNo">DI_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+                <isNotNull prepend="AND" property="Status">DI_Status=#Status#</isNotNull>
+                <isNotNull prepend="AND" property="ProcessType">DI_ProcessType=#ProcessType#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">DI_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">DI_UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">DI_UpdateDate=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">DI_ClientID=#Clientid#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertDeliveryInterface" parameterClass="DeliveryInterface">
+            INSERT INTO DeliveryInterface
+            (DI_ID,DI_BatchNbr,DI_RecordNbr,DI_SapDeliveryNo,DI_Status,DI_ProcessType,DI_FileName,DI_CreateUser,DI_CreateDate,DI_UpdateUser,DI_UpdateDate,DI_ClientID)
+            VALUES(#Id#,#BatchNbr#,#RecordNbr#,#SapDeliveryNo#,#Status#,#ProcessType#,#FileName#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#)
+        </insert>
+        <update id="UpdateDeliveryInterface" parameterClass="DeliveryInterface">
+            UPDATE DeliveryInterface
+            SET DI_ID=#Id#,DI_BatchNbr=#BatchNbr#,DI_RecordNbr=#RecordNbr#,DI_SapDeliveryNo=#SapDeliveryNo#,DI_Status=#Status#,DI_ProcessType=#ProcessType#,DI_FileName=#FileName#,DI_UpdateUser=#UpdateUser#,DI_UpdateDate=#UpdateDate#,DI_ClientID=#Clientid#
+            WHERE DI_ID = #Id#
+        </update>
+        <delete id="DeleteDeliveryInterface" parameterClass="string">
+            DELETE FROM DeliveryInterface
+            WHERE DI_ID = #value#
+        </delete>
+        <!--added by bozhenfei on 20130716-->
+        <!--根据客户端ID初始化接口表-->
+        <update id="UpdateDeliveryInterfaceForInitByClientID" parameterClass="System.Collections.Hashtable">
+            WITH DI (DI_ID, RECORD_NBR) AS
+            (SELECT DI_ID,ROW_NUMBER() OVER (ORDER BY DI_SapDeliveryNo) AS RECORD_NBR from DeliveryInterface
+            WHERE DI_ClientID=#Clientid# AND DI_Status='Pending')
+            UPDATE DeliveryInterface SET DI_BatchNbr=#BatchNbr#, DI_RecordNbr = DI.RECORD_NBR, DI_Status='Processing', DI_UpdateDate = #UpdateDate#
+            FROM DI WHERE DI.DI_ID = DeliveryInterface.DI_ID
+        </update>
+        <!--根据批处理号得到发货单明细数据-->
+        <select id="QuerySapDeliveryDataByBatchNbr" parameterClass="string" resultClass="SapDeliveryData">
+            <!--SELECT
+        ISNULL(DI.DI_SapDeliveryNo,'') AS DeliveryNo,
+        DN.DNL_ShipmentDate AS DeliveryDate,
+        ISNULL(DN.DNL_ShipToDealerCode,'') AS BatchNo,
+        ISNULL(DN.DNL_CFN,'') AS UPN,
+        ISNULL(DN.DNL_LotNumber,'') AS Lot,
+        CONVERT(DECIMAL(18,6), DN.DNL_ReceiveQty) AS Qty,
+        DN.DNL_ExpiredDate AS ExpDate,
+        ISNULL(DN.DNL_PONbr,'') AS OrderNo,       
+        FROM DeliveryNote DN
+        INNER JOIN DeliveryInterface DI ON DI.DI_SapDeliveryNo = DN.DNL_DeliveryNoteNbr
+        INNER JOIN Client ON Client.CLT_ID = DI.DI_ClientID AND Client.CLT_Corp_Id = DN.DNL_DealerID_DMA_ID
+        INNER JOIN POReceiptHeader PRH on DN.DNL_DeliveryNoteNbr = PRH.PRH_SAPShipmentID and PRH.PRH_PurchaseOrderNbr = DN.DNL_PONbr and PRH.PRH_Status in ('Waiting','Complete')
+        INNER JOIN POReceipt POR on 
+        WHERE DI.DI_BatchNbr = #BatchNbr#
+        ORDER BY DI.DI_SapDeliveryNo, DN.DNL_CFN-->
+
+          SELECT
+          ISNULL(DI.DI_SapDeliveryNo,'') AS DeliveryNo,
+          <!-- 增加产品线，Add By SongWeiming on 2019-11-24 Start-->
+          (select VPL.DivisionName from  V_DivisionProductLineRelation VPL where VPL.ProductLineID = PRH.PRH_ProductLine_BUM_ID ) AS ProductLine,
+          PRH.PRH_SAPShipmentDate AS DeliveryDate,
+          ISNULL(DM.DMA_SAP_Code ,'') AS BatchNo,
+          ISNULL(P.PMA_UPN ,'') AS UPN,
+          ISNULL(C.CFN_Property1 ,'') AS ShortUPN,
+          CONVERT(DECIMAL(18,6),PRL.PRL_ReceiptQty) AS Qty,
+          PRL.PRL_ExpiredDate AS ExpDate,
+          ISNULL(PRH.PRH_PurchaseOrderNbr ,'') AS OrderNo,
+          CASE WHEN charindex('@@',PRL.PRL_LotNumber) > 0
+          THEN substring(PRL.PRL_LotNumber,1,charindex('@@',PRL.PRL_LotNumber)-1)
+          ELSE PRL.PRL_LotNumber
+          END AS Lot,
+          CASE WHEN charindex('@@',PRL.PRL_LotNumber) > 0
+          THEN substring(PRL.PRL_LotNumber,charindex('@@',PRL.PRL_LotNumber)+2,len(PRL.PRL_LotNumber))
+          ELSE ''
+          END AS QRCode,
+          ISNULL(PRH_TrackingNo,'') AS BoxNo,
+          isnull(LM.LTM_Type,'') AS ProductDOM,
+
+          isnull(CASE WHEN LM.LTM_Type = '' or LM.LTM_Type is null
+          then
+          (select top 1 t1.REG_NO
+          from MD.V_INF_UPN_REG_LIST t1,
+          (
+          select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_TO) As ValidDateTo from MD.V_INF_UPN_REG_LIST REG_NO where REG_NO.VALID_DATE_TO is not null and Reg_No.CFN_CustomerFaceNbr = C.CFN_CustomerFaceNbr  group by REG_NO.CFN_CustomerFaceNbr
+          ) t2
+          where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_TO =t2.ValidDateTo and t1.CFN_CustomerFaceNbr =C.CFN_CustomerFaceNbr)
+          ELSE (select top 1 t1.REG_NO
+          from MD.V_INF_UPN_REG_LIST t1, (
+          select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_From ) as ValidDateFrom from MD.V_INF_UPN_REG_LIST REG_NO
+          where REG_NO.VALID_DATE_TO is not null
+          and Reg_No.CFN_CustomerFaceNbr = C.CFN_CustomerFaceNbr
+          and convert(datetime,LM.LTM_Type) &lt;= REG_NO.VALID_DATE_TO
+          and convert(datetime,LM.LTM_Type) >= REG_NO.VALID_DATE_FROM
+          group by REG_NO.CFN_CustomerFaceNbr
+          ) t2 where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_From =t2.ValidDateFrom
+          and t1.CFN_CustomerFaceNbr=C.CFN_CustomerFaceNbr)
+          END ,'') AS ProductRegNbr,
+          
+          isnull(CASE WHEN LM.LTM_Type = '' or LM.LTM_Type is null
+          then
+          (select top  1 t1.MANU_NAME
+          from MD.V_INF_UPN_REG_LIST t1,
+          (
+          select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_From) As ValidDateFrom from MD.V_INF_UPN_REG_LIST REG_NO where REG_NO.VALID_DATE_TO is not null and Reg_No.CFN_CustomerFaceNbr = C.CFN_CustomerFaceNbr  group by REG_NO.CFN_CustomerFaceNbr
+          ) t2
+          where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_From =t2.ValidDateFrom and t1.CFN_CustomerFaceNbr =C.CFN_CustomerFaceNbr)
+          ELSE (select top 1 t1.MANU_NAME
+          from MD.V_INF_UPN_REG_LIST t1, (
+          select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_TO ) as ValidDateTo from MD.V_INF_UPN_REG_LIST REG_NO
+          where REG_NO.VALID_DATE_TO is not null
+          and Reg_No.CFN_CustomerFaceNbr = C.CFN_CustomerFaceNbr
+          and convert(datetime,LM.LTM_Type) &lt;= REG_NO.VALID_DATE_TO
+          and convert(datetime,LM.LTM_Type) >= REG_NO.VALID_DATE_FROM
+          group by REG_NO.CFN_CustomerFaceNbr
+          ) t2 where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_TO =t2.ValidDateTo
+          and t1.CFN_CustomerFaceNbr=C.CFN_CustomerFaceNbr)
+          END,'') AS ProductManuName
+          FROM DeliveryInterface DI(nolock)
+          INNER JOIN Client(nolock) ON (Client.CLT_ID = DI.DI_ClientID )
+          INNER JOIN POReceiptHeader PRH(nolock) on (DI.DI_SapDeliveryNo = PRH.PRH_SAPShipmentID and PRH.PRH_Status in ('Waiting','Complete'))
+          INNER JOIN POReceipt POR(nolock) on (POR.POR_PRH_ID = PRH.PRH_ID)
+          INNER JOIN POReceiptLot PRL(nolock) on (PRL.PRL_POR_ID = POR.POR_ID)
+          INNER JOIN Product P(nolock) ON (P.PMA_ID = POR.POR_SAP_PMA_ID )
+          INNER JOIN CFN C(nolock) on (C.Cfn_ID = P.PMA_CFN_ID)
+          INNER JOIN DealerMaster DM(nolock) on (PRH.PRH_Dealer_DMA_ID = DM.DMA_ID )
+          left join LotMaster LM(nolock) on (LM.LTM_Product_PMA_ID = P.PMA_ID and LM.LTM_LotNumber = PRL.PRL_LotNumber )
+          WHERE DI.DI_BatchNbr = #BatchNbr#
+          ORDER BY DI.DI_SapDeliveryNo, P.PMA_UPN
+          <!-- 增加二维码信息获取，Add By SongWeiming on 2015-12-03 End-->
+        </select>
+        <!--客户端下载完后更新数据-->
+        <update id="UpdateDeliveryInterfaceForDownloadedByBatchNbr" parameterClass="System.Collections.Hashtable">
+            UPDATE DeliveryInterface SET DI_Status = #Status#, DI_UpdateDate = #UpdateDate#
+            WHERE DI_BatchNbr = #BatchNbr#
+        </update>
+        <!--end-->
+    </statements>
+</sqlMap>

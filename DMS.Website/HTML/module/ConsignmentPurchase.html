@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <div style="width:100%;font-size:20px;text-align:center;border:2px solid #eee;padding:5px 0;margin:10px 0;">#{Header.VALUE1}</div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">#{Header.VALUE1}：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">单据编号：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.IAH_Inv_Adj_Nbr}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">申请人：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.IDENTITY_NAME}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">申请日期：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.IAH_CreatedDate}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">状态：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.IAH_Status}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">产品线：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ProductLineName}
+                    </div>
+                </li>
+                <li style="width: 450px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">经销商：</label>
+                    <div style="width: 350px;float: left;">
+                        #{Header.DMA_ChineseName}
+                    </div>
+                </li>
+                
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">类型：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.VALUE1}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">销售：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.SaleRep}
+                    </div>
+                </li>
+                <li style="width: 100%;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">备注：</label>
+                    <div style="width: 80%;float: left;">
+                        #{Header.IAH_UserDescription}
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">买断产品：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 1px;color: #2e2e2e;line-height: normal;outline: 0;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">仓库</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">产品型号UPN</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">产品中文名</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">产品规格</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">批号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">二维码</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">有效期</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">单位</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">库存数</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">单价</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">总金额</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">备注说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(ADDProduct)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{WarehouseName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{UPN}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ChineseName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{PMA_ConvertFactor}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{LotNumber}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{QRCode}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{LotExpiredDate}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{UnitOfMeasure}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{LotInvQty}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{IAL_LotQty}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Price}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SumPrice}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Remark}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

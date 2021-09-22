@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerHospitalMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerHospital" assembly="DMS.Model.dll" type="DMS.Model.DealerHospital" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerHospitalResult" class="DealerHospital">
+      <result property="DatId" column="HLA_DAT_ID" type="Guid" dbType="Guid"/>
+      <result property="HosId" column="HLA_HOS_ID" type="Guid" dbType="Guid"/>
+      <result property="Id" column="HLA_ID" type="Guid" dbType="Guid"/>
+      <result property="Remark" column="HLA_Remark" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDealerHospital" parameterClass="string" resultClass="DealerHospital">
+      SELECT HLA_DAT_ID AS DatId,HLA_HOS_ID AS HosId,HLA_ID AS Id
+      FROM DealerHospital
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          HLA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealerHospital" parameterClass="string" resultClass="DealerHospital">
+      SELECT HLA_DAT_ID AS DatId,HLA_HOS_ID AS HosId,HLA_ID AS Id
+      ,row_number() OVER (ORDER BY [HLA_ID] ASC) AS [row_number]
+      FROM DealerHospital
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DatId">HLA_DAT_ID=#DatId#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">HLA_HOS_ID=#HosId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">HLA_ID=#Id#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertDealerHospital" parameterClass="DealerHospital">
+      INSERT INTO DealerHospital
+      (HLA_DAT_ID,HLA_HOS_ID,HLA_ID)
+      VALUES(#DatId#,#HosId#,#Id#)
+    </insert>
+    <update id="UpdateDealerHospital" parameterClass="DealerHospital">
+      UPDATE DealerHospital
+      SET HLA_DAT_ID=#DatId#,HLA_HOS_ID=#HosId#,HLA_ID=#Id#
+      WHERE HLA_ID = #Id#
+    </update>
+    <delete id="DeleteDealerHospital" parameterClass="string">
+      DELETE FROM DealerHospital
+      WHERE HLA_ID = #value#
+    </delete>
+
+    <!--Edited By Song Yuqi 2016-05-31 Begin-->
+    <insert id="AttachHospitalToAuthorization" parameterClass="System.Collections.Hashtable">
+      IF (NOT EXISTS (SELECT 1 FROM  dbo.HospitalList m WITH ( UPDLOCK, HOLDLOCK )
+      WHERE HLA_DAT_ID = #DatId# AND HLA_HOS_ID = #HosId# ))
+      BEGIN
+      insert into dbo.HospitalList(HLA_ID,HLA_DAT_ID,HLA_HOS_ID,HLA_StartDate,HLA_EndDate)
+      values(newid(),#DatId#, #HosId#,#StartDate#,#EndDate#)
+      END
+    </insert>
+
+    <update id="AttachHospitalToAuthorizationByParts" parameterClass="System.Collections.Hashtable">
+      INSERT INTO HospitalList(HLA_ID,HLA_DAT_ID,HLA_HOS_ID,HLA_StartDate,HLA_EndDate)
+      SELECT newid() , '$DatId$', HOS_ID,
+      <isNotNull property="StartDate">#StartDate#</isNotNull>
+      <isNull property="StartDate">NULL</isNull>,
+      <isNotNull property="EndDate">#EndDate#</isNotNull>
+      <isNull property="EndDate">NULL</isNull> FROM dbo.Hospital
+      <!--WHERE EXISTS ( SELECT * FROM dbo.ProductLineHospital b WHERE b.PLH_HOS_ID =Hospital.HOS_ID AND b.PLH_BUM_ID =#ProductLineId# )
+      AND-->
+      WHERE
+      NOT EXISTS ( SELECT HLA_HOS_ID FROM dbo.HospitalList a WHERE a.HLA_HOS_ID =Hospital.HOS_ID AND a.HLA_DAT_ID=#DatId#)
+      <dynamic prepend="">
+        <isNotEmpty prepend="AND" property="HosCity">HOS_City=#HosCity#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosProvince"> HOS_Province=#HosProvince#</isNotEmpty>
+        <isNotEmpty prepend="AND" property="HosDistrict">HOS_District=#HosDistrict#</isNotEmpty>
+        <!--<isNotEmpty prepend="AND" property="HosRemark">dbo.fn_GetDeptRemarkForHositpalList(Hospital.HOS_ID)=#Remark#</isNotEmpty>-->
+      </dynamic>
+    </update>
+
+    <update id="UpdateHospitalList" parameterClass="DealerHospital">
+      UPDATE HospitalList
+      SET HLA_DAT_ID=#DatId#,HLA_HOS_ID=#HosId#,HLA_ID=#Id#,HLA_Remark=#Remark#,HLA_StartDate=#StartDate#,HLA_EndDate=#EndDate#
+      WHERE HLA_ID = #Id#
+    </update>
+
+    <delete id="DetachHospitalFromAuthorization" parameterClass="System.Collections.Hashtable">
+      DELETE FROM dbo.HospitalList where HLA_DAT_ID = #DatId# AND HLA_HOS_ID = #HosId#
+    </delete>
+
+    <update id="AttachHospitalAuthFromOtherAuth" parameterClass="System.Collections.Hashtable">
+      INSERT INTO HospitalList(HLA_ID,HLA_DAT_ID,HLA_HOS_ID,HLA_StartDate,HLA_EndDate)
+      SELECT newid() , '$DatId$', HLA_HOS_ID, #StartDate#, #EndDate# FROM dbo.HospitalList tt
+      WHERE tt.HLA_DAT_ID =#FromDatID#
+      AND
+      NOT EXISTS ( SELECT HLA_HOS_ID FROM dbo.HospitalList a WHERE a.HLA_HOS_ID =tt.HLA_HOS_ID AND a.HLA_DAT_ID=#DatId#)
+    </update>
+    <!--Edited By Song Yuqi 2016-05-31 End-->
+  </statements>
+</sqlMap>

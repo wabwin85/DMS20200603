@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerMaster" assembly="DMS.Model.dll" type="DMS.Model.DealerMaster" />
+    <typeAlias alias="LpDistributorData" assembly="DMS.Model.dll" type="DMS.Model.LpDistributorData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerMasterResult" class="DealerMaster">
+      <resultMap id="DealerMasterResult" class="DealerMaster">
+        <result property="Id" column="DMA_ID" type="Guid" dbType="Guid"/>
+        <result property="ChineseName" column="DMA_ChineseName" type="string" dbType="varchar"/>
+        <result property="ChineseShortName" column="DMA_ChineseShortName" type="string" dbType="varchar"/>
+        <result property="EnglishName" column="DMA_EnglishName" type="string" dbType="varchar"/>
+        <result property="EnglishShortName" column="DMA_EnglishShortName" type="string" dbType="varchar"/>
+        <result property="Nbr" column="DMA_Nbr" type="string" dbType="varchar"/>
+        <result property="SapCode" column="DMA_SAP_Code" type="string" dbType="varchar"/>
+        <result property="DealerType" column="DMA_DealerType" type="string" dbType="varchar"/>
+        <result property="CompanyType" column="DMA_CompanyType" type="string" dbType="varchar"/>
+        <result property="CompanyGrade" column="DMA_CompanyGrade" type="string" dbType="varchar"/>
+        <result property="DealerAuthentication" column="DMA_DealerAuthentication" type="string" dbType="varchar"/>
+        <result property="FirstContractDate" column="DMA_FirstContractDate" type="DateTime" dbType="DateTime"/>
+        <result property="RegisteredAddress" column="DMA_RegisteredAddress" type="string" dbType="varchar"/>
+        <result property="Address" column="DMA_Address" type="string" dbType="varchar"/>
+        <result property="ShipToAddress" column="DMA_ShipToAddress" type="string" dbType="varchar"/>
+        <result property="PostalCode" column="DMA_PostalCode" type="string" dbType="varchar"/>
+        <result property="Phone" column="DMA_Phone" type="string" dbType="varchar"/>
+        <result property="Fax" column="DMA_Fax" type="string" dbType="varchar"/>
+        <result property="ContactPerson" column="DMA_ContactPerson" type="string" dbType="varchar"/>
+        <result property="Email" column="DMA_Email" type="string" dbType="varchar"/>
+        <result property="GeneralManager" column="DMA_GeneralManager" type="string" dbType="varchar"/>
+        <result property="LegalRep" column="DMA_LegalRep" type="string" dbType="varchar"/>
+        <result property="RegisteredCapital" column="DMA_RegisteredCapital" type="single" dbType="Real"/>
+        <result property="Bank" column="DMA_Bank" type="string" dbType="varchar"/>
+        <result property="BankAccount" column="DMA_BankAccount" type="string" dbType="varchar"/>
+        <result property="TaxNo" column="DMA_TaxNo" type="string" dbType="varchar"/>
+        <result property="License" column="DMA_License" type="string" dbType="varchar"/>
+        <result property="LicenseLimit" column="DMA_LicenseLimit" type="string" dbType="varchar"/>
+        <result property="Province" column="DMA_Province" type="string" dbType="varchar"/>
+        <result property="City" column="DMA_City" type="string" dbType="varchar"/>
+        <result property="District" column="DMA_District" type="string" dbType="varchar"/>
+        <result property="SalesMode" column="DMA_SalesMode" type="bool" dbType="bool"/>
+        <result property="Taxpayer" column="DMA_Taxpayer" type="string" dbType="string"/>
+        <result property="Finance" column="DMA_Finance" type="string" dbType="varchar"/>
+        <result property="FinancePhone" column="DMA_Finance_Phone" type="string" dbType="varchar"/>
+        <result property="FinanceEmail" column="DMA_Finance_Email" type="string" dbType="varchar"/>
+        <result property="Payment" column="DMA_Payment" type="Guid" dbType="Guid"/>
+        <result property="ShipToContactConId" column="DMA_ShipToContact_CON_ID" type="Guid" dbType="Guid"/>
+        <result property="BillToContactConId" column="DMA_BillToContact_CON_ID" type="Guid" dbType="Guid"/>
+        <result property="EstablishDate" column="DMA_EstablishDate" type="DateTime" dbType="DateTime"/>
+        <result property="SystemStartDate" column="DMA_SystemStartDate" type="DateTime" dbType="DateTime"/>
+        <result property="Certification" column="DMA_Certification" type="string" dbType="varchar"/>
+        <result property="HostCompanyFlag" column="DMA_HostCompanyFlag" type="bool" dbType="bool"/>
+        <result property="DealerOrderNbrName" column="DMA_DealerOrderNbrName" type="string" dbType="varchar"/>
+        <result property="SapInvoiceToEmail" column="DMA_SAPInvoiceToEmail" type="string" dbType="varchar"/>
+        <result property="LastUpdateDate" column="DMA_LastModifiedDate" type="DateTime" dbType="DateTime"/>
+        <result property="LastUpdateUser" column="DMA_LastModifiedBy_USR_UserID" type="Guid" dbType="Guid"/>
+        <result property="LastUpdateUserName" column="LastUpdateUserName" type="string" dbType="varchar"/>
+        <result property="ActiveFlag" column="DMA_ActiveFlag" type="bool" dbType="bool"/>
+        <result property="DeletedFlag" column="DMA_DeletedFlag" type="bool" dbType="bool"/>
+        <result property="ParentDmaId" column="DMA_Parent_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+
+        <result property="OfficeNb" column="DMA_OfficeNb" type="string" dbType="varchar"/>
+        <result property="OfficeNb2" column="DMA_OfficeNb2" type="string" dbType="varchar"/>
+
+        <result property="Phone2" column="DMA_Phone2" type="string" dbType="varchar"/>
+        <result property="Address2" column="DMA_Address2" type="string" dbType="varchar"/>
+        <result property="Email2" column="DMA_Email2" type="string" dbType="varchar"/>
+
+
+        <result property="Business1" column="DMA_Business1" type="string" dbType="varchar"/>
+        <result property="BusinessPhone1" column="DMA_BusinessPhone1" type="string" dbType="varchar"/>
+        <result property="BusinessEmail1" column="DMA_BusinessEMail1" type="string" dbType="varchar"/>
+        <result property="BusinessOfficeNb1" column="DMA_BusinessOfficeNb1" type="string" dbType="varchar"/>
+        <result property="Business2" column="DMA_Business2" type="string" dbType="varchar"/>
+        <result property="BusinessPhone2" column="DMA_BusinessPhone2" type="string" dbType="varchar"/>
+        <result property="BusinessEmail2" column="DMA_BusinessEMail2" type="string" dbType="varchar"/>
+        <result property="BusinessOfficeNb2" column="DMA_BusinessOfficeNb2" type="string" dbType="varchar"/>
+
+
+        <result property="Purchase" column="DMA_Purchase" type="string" dbType="varchar"/>
+        <result property="PurchasePhone" column="DMA_PurchasePhone" type="string" dbType="varchar"/>
+        <result property="PurchaseEmail" column="DMA_PurchaseEMail" type="string" dbType="varchar"/>
+
+
+        <result property="SystemOperator" column="DMA_SystemOperator" type="string" dbType="varchar"/>
+        <result property="SystemOperatorPhone" column="DMA_SystemOperatorPhone" type="string" dbType="varchar"/>
+        <result property="SystemOperatorEmail" column="DMA_SystemOperatorEMail" type="string" dbType="varchar"/>
+        <result property="ContactRemark" column="DMA_ContactRemark" type="string" dbType="varchar"/>
+
+      </resultMap>
+    </resultMap>
+    <resultMap id="LpDistributorDataResult" class="LpDistributorData">
+      <result property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+      <result property="DistributorName" column="DistributorName" type="string" dbType="nvarchar"/>
+      <result property="DistributorType" column="DistributorType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DealerMasterMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerType" column="DealerType" />
+      <parameter property="NewDealerName" column="NewDealerName" />
+      <parameter property="SapCode" column="SapCode" />
+      <parameter property="NewDealerEnglishName" column="NewDealerEnglishName" />
+      <parameter property="DealerID" column="DealerID" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    //********************************Added By YangShaoWei @2009/7/1***************************
+
+    <select id="SelectDealerMasterList"
+                parameterClass="string"
+                resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_Province AS Province,DMA_ChineseName AS ChineseName,DMA_City AS City,DMA_PostalCode AS PostalCode,DMA_DealerType AS DealerType,DMA_SAP_Code AS SapCode,DMA_Address AS Address,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_EstablishDate AS EstablishDate,DMA_District AS District,DMA_Phone AS Phone,DMA_EnglishName AS EnglishName,DMA_GeneralManager AS GeneralManager,DMA_SystemStartDate AS SystemStartDate, DMA_Fax AS Fax,DMA_LegalRep AS LegalRep,DMA_BankAccount AS BankAccount,DMA_Bank AS Bank,DMA_TaxNo AS TaxNo,DMA_ActiveFlag AS ActiveFlag,DMA_Certification AS Certification,DMA_CompanyGrade AS CompanyGrade,DMA_CompanyType AS CompanyType,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DeletedFlag AS DeletedFlag,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_ContactPerson AS ContactPerson
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock)
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND"
+                            property="DmaChineseName">DMA_ChineseName like '%$DmaChineseName$%'</isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectDealerAuth"
+                parameterClass="string"
+                resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_Province AS Province,DMA_ChineseName AS ChineseName,DMA_City AS City,DMA_PostalCode AS PostalCode,DMA_DealerType AS DealerType,DMA_SAP_Code AS SapCode,DMA_Address AS Address,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_EstablishDate AS EstablishDate,DMA_District AS District,DMA_Phone AS Phone,DMA_EnglishName AS EnglishName,DMA_GeneralManager AS GeneralManager,DMA_SystemStartDate AS SystemStartDate, DMA_Fax AS Fax,DMA_LegalRep AS LegalRep,DMA_BankAccount AS BankAccount,DMA_Bank AS Bank,DMA_TaxNo AS TaxNo,DMA_ActiveFlag AS ActiveFlag,DMA_Certification AS Certification,DMA_CompanyGrade AS CompanyGrade,DMA_CompanyType AS CompanyType,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DeletedFlag AS DeletedFlag,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_ContactPerson AS ContactPerson
+      dcl_contractNumber AS dclContractNumber,PCT_NAME AS PCTNAME
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock),DealerContract(nolock),DealerAuthorizationTable(nolock),PartsClassification(nolock)
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND"
+                            property="DmaId">dma_id = dcl_dma_id</isNotEmpty>
+        <isNotEmpty prepend="AND"
+                            property="DmaId">dcl_id = dat_dcl_id</isNotEmpty>
+        <isNotEmpty prepend="AND"
+                            property="DmaId">dat_pma_id = pct_id</isNotEmpty>
+      </dynamic>
+    </select>
+    //***********************************************************
+
+    //修改中文名称、ERP Code和地址查询条件，可以用包含来搜索结果。
+
+    <select id="SelectDealerMaster" parameterClass="string" resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      ,DMA_Business1 AS Business1 ,DMA_BusinessPhone1 AS BusinessPhone1,DMA_BusinessEMail1 AS BusinessEmail1 ,DMA_Business2 AS Business2 ,DMA_BusinessPhone2 AS BusinessPhone2,DMA_BusinessEMail2 AS BusinessEmail2
+      ,DMA_Purchase AS Purchase ,DMA_PurchasePhone AS PurchasePhone,DMA_PurchaseEMail AS PurchaseEmail
+      ,DMA_SystemOperator AS SystemOperator,DMA_SystemOperatorPhone AS SystemOperatorPhone ,DMA_SystemOperatorEMail AS SystemOperatorEmail
+      ,DMA_OfficeNb AS OfficeNb,DMA_OfficeNb2 AS OfficeNb2,DMA_Phone2 AS Phone2, DMA_Address2 AS Address2 ,DMA_Email2 AS Email2
+      ,DMA_ContactRemark AS ContactRemark,DMA_BusinessOfficeNb1 AS BusinessOfficeNb1 ,DMA_BusinessOfficeNb2 AS BusinessOfficeNb2
+      ,DMA_Parent_DMA_ID as ParentDmaId
+      FROM DealerMaster(nolock) WHERE DMA_DeletedFlag = 0 AND DMA_HostCompanyFlag = 0
+      <isParameterPresent>AND DMA_ID=#value#</isParameterPresent>
+    </select>
+    <!--added by bozhenfei on 20110310-->
+    <select id="SelectDealerMasterForSynthes" parameterClass="string" resultClass="DealerMaster">
+      SELECT TOP 1 DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      FROM DealerMaster(nolock) WHERE DMA_DeletedFlag = 0 AND DMA_HostCompanyFlag = 1
+    </select>
+    <!--end-->
+
+    <select id="SelectByFilterDealerMaster" parameterClass="DealerMaster" resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = DMA_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      ,DMA_Parent_DMA_ID AS ParentDmaId
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock) WHERE DMA_DeletedFlag = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">DMA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ChineseShortName">DMA_ChineseShortName=#ChineseShortName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">DMA_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishShortName">DMA_EnglishShortName=#EnglishShortName#</isNotNull>
+        <isNotNull prepend="AND" property="Nbr">DMA_Nbr=#Nbr#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="CompanyType">DMA_CompanyType=#CompanyType#</isNotNull>
+        <isNotNull prepend="AND" property="CompanyGrade">DMA_CompanyGrade=#CompanyGrade#</isNotNull>
+        <isNotNull prepend="AND" property="FirstContractDate">DMA_FirstContractDate=#FirstContractDate#</isNotNull>
+        <isNotNull prepend="AND" property="RegisteredAddress">DMA_RegisteredAddress=#RegisteredAddress#</isNotNull>
+        <isNotNull prepend="AND" property="Address">DMA_Address like '%$Address$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipToAddress">DMA_ShipToAddress=#ShipToAddress#</isNotNull>
+        <isNotNull prepend="AND" property="PostalCode">DMA_PostalCode=#PostalCode#</isNotNull>
+        <isNotNull prepend="AND" property="Phone">DMA_Phone=#Phone#</isNotNull>
+        <isNotNull prepend="AND" property="Fax">DMA_Fax=#Fax#</isNotNull>
+        <isNotNull prepend="AND" property="ContactPerson">DMA_ContactPerson=#ContactPerson#</isNotNull>
+        <isNotNull prepend="AND" property="Email">DMA_Email=#Email#</isNotNull>
+        <isNotNull prepend="AND" property="GeneralManager">DMA_GeneralManager=#GeneralManager#</isNotNull>
+        <isNotNull prepend="AND" property="LegalRep">DMA_LegalRep=#LegalRep#</isNotNull>
+        <isNotNull prepend="AND" property="RegisteredCapital">DMA_RegisteredCapital=#RegisteredCapital#</isNotNull>
+        <isNotNull prepend="AND" property="Bank">DMA_Bank=#Bank#</isNotNull>
+        <isNotNull prepend="AND" property="BankAccount">DMA_BankAccount=#BankAccount#</isNotNull>
+        <isNotNull prepend="AND" property="TaxNo">DMA_TaxNo=#TaxNo#</isNotNull>
+        <isNotNull prepend="AND" property="License">DMA_License=#License#</isNotNull>
+        <isNotNull prepend="AND" property="LicenseLimit">DMA_LicenseLimit=#LicenseLimit#</isNotNull>
+        <isNotNull prepend="AND" property="Province">DMA_Province=#Province#</isNotNull>
+        <isNotNull prepend="AND" property="City">DMA_City=#City#</isNotNull>
+        <isNotNull prepend="AND" property="District">DMA_District=#District#</isNotNull>
+        <isNotNull prepend="AND" property="SalesMode">DMA_SalesMode=#SalesMode#</isNotNull>
+        <isNotNull prepend="AND" property="Taxpayer">DMA_Taxpayer=#Taxpayer#</isNotNull>
+        <isNotNull prepend="AND" property="Finance">DMA_Finance=#Finance#</isNotNull>
+        <isNotNull prepend="AND" property="FinancePhone">DMA_Finance_Phone=#FinancePhone#</isNotNull>
+        <isNotNull prepend="AND" property="FinanceEmail">DMA_Finance_Email=#FinanceEmail#</isNotNull>
+        <isNotNull prepend="AND" property="Payment">DMA_Payment=#Payment#</isNotNull>
+        <isNotNull prepend="AND" property="ShipToContactConId">DMA_ShipToContact_CON_ID=#ShipToContactConId#</isNotNull>
+        <isNotNull prepend="AND" property="BillToContactConId">DMA_BillToContact_CON_ID=#BillToContactConId#</isNotNull>
+        <isNotNull prepend="AND" property="EstablishDate">DMA_EstablishDate=#EstablishDate#</isNotNull>
+        <isNotNull prepend="AND" property="SystemStartDate">DMA_SystemStartDate=#SystemStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="Certification">DMA_Certification=#Certification#</isNotNull>
+        <isNotNull prepend="AND" property="HostCompanyFlag">DMA_HostCompanyFlag=#HostCompanyFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerOrderNbrName">DMA_DealerOrderNbrName=#DealerOrderNbrName#</isNotNull>
+        <isNotNull prepend="AND" property="SapInvoiceToEmail">DMA_SAPInvoiceToEmail=#SapInvoiceToEmail#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">DMA_ActiveFlag=#ActiveFlag#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectByFilterDealerMasterByAllUser" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = DMA_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      ,DMA_Parent_DMA_ID AS ParentDmaId
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock)
+      WHERE DMA_DeletedFlag = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ChineseShortName">DMA_ChineseShortName=#ChineseShortName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">DMA_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishShortName">DMA_EnglishShortName=#EnglishShortName#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">DMA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="DealerIdLP">(DMA_ID= #DealerIdLP# OR DMA_Parent_DMA_ID=#DealerIdLP#)</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--<select id="SelectByFilterDealerMaster" parameterClass="DealerMaster" resultClass="DealerMaster">
+            SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+            ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+            FROM DealerMaster WHERE DMA_DeletedFlag = 0
+            <dynamic prepend="">
+                <resultMap id="DealerMasterResult" class="DealerMaster">
+                    <result property="Id" column="DMA_ID" type="Guid" dbType="Guid"/>
+                    <result property="ChineseName" column="DMA_ChineseName" type="string" dbType="varchar"/>
+                    <result property="ChineseShortName" column="DMA_ChineseShortName" type="string" dbType="varchar"/>
+                    <result property="EnglishName" column="DMA_EnglishName" type="string" dbType="varchar"/>
+                    <result property="EnglishShortName" column="DMA_EnglishShortName" type="string" dbType="varchar"/>
+                    <result property="Nbr" column="DMA_Nbr" type="string" dbType="varchar"/>
+                    <result property="SapCode" column="DMA_SAP_Code" type="string" dbType="varchar"/>
+                    <result property="DealerType" column="DMA_DealerType" type="string" dbType="varchar"/>
+                    <result property="CompanyType" column="DMA_CompanyType" type="string" dbType="varchar"/>
+                    <result property="CompanyGrade" column="DMA_CompanyGrade" type="string" dbType="varchar"/>
+                    <result property="FirstContractDate" column="DMA_FirstContractDate" type="DateTime" dbType="DateTime"/>
+                    <result property="RegisteredAddress" column="DMA_RegisteredAddress" type="string" dbType="varchar"/>
+                    <result property="Address" column="DMA_Address" type="string" dbType="varchar"/>
+                    <result property="ShipToAddress" column="DMA_ShipToAddress" type="string" dbType="varchar"/>
+                    <result property="PostalCode" column="DMA_PostalCode" type="string" dbType="varchar"/>
+                    <result property="Phone" column="DMA_Phone" type="string" dbType="varchar"/>
+                    <result property="Fax" column="DMA_Fax" type="string" dbType="varchar"/>
+                    <result property="ContactPerson" column="DMA_ContactPerson" type="string" dbType="varchar"/>
+                    <result property="Email" column="DMA_Email" type="string" dbType="varchar"/>
+                    <result property="GeneralManager" column="DMA_GeneralManager" type="string" dbType="varchar"/>
+                    <result property="LegalRep" column="DMA_LegalRep" type="string" dbType="varchar"/>
+                    <result property="RegisteredCapital" column="DMA_RegisteredCapital" type="single" dbType="Real"/>
+                    <result property="Bank" column="DMA_Bank" type="string" dbType="varchar"/>
+                    <result property="BankAccount" column="DMA_BankAccount" type="string" dbType="varchar"/>
+                    <result property="TaxNo" column="DMA_TaxNo" type="string" dbType="varchar"/>
+                    <result property="License" column="DMA_License" type="string" dbType="varchar"/>
+                    <result property="LicenseLimit" column="DMA_LicenseLimit" type="string" dbType="varchar"/>
+                    <result property="Province" column="DMA_Province" type="string" dbType="varchar"/>
+                    <result property="City" column="DMA_City" type="string" dbType="varchar"/>
+                    <result property="District" column="DMA_District" type="string" dbType="varchar"/>
+                    <result property="SalesMode" column="DMA_SalesMode" type="bool" dbType="bool"/>
+                    <result property="Taxpayer" column="DMA_Taxpayer" type="string" dbType="varchar"/>
+                    <result property="Finance" column="DMA_Finance" type="string" dbType="varchar"/>
+                    <result property="FinancePhone" column="DMA_Finance_Phone" type="string" dbType="varchar"/>
+                    <result property="FinanceEmail" column="DMA_Finance_Email" type="string" dbType="varchar"/>
+                    <result property="Payment" column="DMA_Payment" type="Guid" dbType="Guid"/>
+                    <result property="ShipToContactConId" column="DMA_ShipToContact_CON_ID" type="Guid" dbType="Guid"/>
+                    <result property="BillToContactConId" column="DMA_BillToContact_CON_ID" type="Guid" dbType="Guid"/>
+                    <result property="EstablishDate" column="DMA_EstablishDate" type="DateTime" dbType="DateTime"/>
+                    <result property="SystemStartDate" column="DMA_SystemStartDate" type="DateTime" dbType="DateTime"/>
+                    <result property="Certification" column="DMA_Certification" type="string" dbType="varchar"/>
+                    <result property="HostCompanyFlag" column="DMA_HostCompanyFlag" type="bool" dbType="bool"/>
+                    <result property="DealerOrderNbrName" column="DMA_DealerOrderNbrName" type="string" dbType="varchar"/>
+                    <result property="SapInvoiceToEmail" column="DMA_SAPInvoiceToEmail" type="string" dbType="varchar"/>
+                    <result property="LastUpdateDate" column="DMA_LastModifiedDate" type="DateTime" dbType="DateTime"/>
+                    <result property="LastUpdateUser" column="DMA_LastModifiedBy_USR_UserID" type="Guid" dbType="Guid"/>
+                    <result property="ActiveFlag" column="DMA_ActiveFlag" type="bool" dbType="bool"/>
+                    <result property="DeletedFlag" column="DMA_DeletedFlag" type="bool" dbType="bool"/>
+                </resultMap>
+            </dynamic>
+        </select>
+-->
+
+
+    <select id="GetDealersBySales" parameterClass="System.Collections.Hashtable" resultClass="Guid">
+      SELECT SD.DealerID FROM Cache_SalesOfDealer SD
+      WHERE ( EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM
+      WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID AND OU.AttributeId &lt;&gt; OU.RootId
+      AND OU.RootID IN (select MAP_ID from Lafite_IDENTITY_MAP OM where OM.MAP_TYPE='Organization'  AND OM.IDENTITY_ID = #OwnerId#))
+      OR
+      (SD.SalesID = #OwnerId#)
+      )
+      <dynamic prepend="">
+        <iterate prepend="AND" property="ProductLines" open="(" close=")" conjunction="OR">
+          SD.BUM_ID = #ProductLines[]#
+        </iterate>
+      </dynamic>
+    </select>
+
+    <insert id="InsertDealerMaster" parameterClass="DealerMaster">
+      INSERT INTO DealerMaster
+      (DMA_ID,DMA_ChineseName,DMA_ChineseShortName,DMA_EnglishName,DMA_EnglishShortName,DMA_Nbr,DMA_SAP_Code,DMA_DealerType,DMA_CompanyType,DMA_CompanyGrade,DMA_DealerAuthentication,DMA_FirstContractDate,DMA_RegisteredAddress,DMA_Address,DMA_ShipToAddress,DMA_PostalCode,DMA_Phone,DMA_Fax,DMA_ContactPerson,DMA_Email,DMA_GeneralManager,DMA_LegalRep,DMA_RegisteredCapital,DMA_Bank,DMA_BankAccount,DMA_TaxNo,DMA_License,DMA_LicenseLimit,DMA_Province,DMA_City,DMA_District,DMA_SalesMode,DMA_Taxpayer,DMA_Finance,DMA_Finance_Phone,DMA_Finance_Email,DMA_Payment,DMA_ShipToContact_CON_ID,DMA_BillToContact_CON_ID,DMA_EstablishDate,DMA_SystemStartDate,DMA_Certification,DMA_DealerOrderNbrName,DMA_SAPInvoiceToEmail,DMA_LastModifiedDate,DMA_LastModifiedBy_USR_UserID,DMA_ActiveFlag,DMA_DeletedFlag)
+      VALUES(#Id#,#ChineseName#,#ChineseShortName#,#EnglishName#,#EnglishShortName#,#Nbr#,#SapCode#,#DealerType#,#CompanyType#,#CompanyGrade#,#DealerAuthentication#,#FirstContractDate:DateTime:1/1/0001 12:00:00 AM#,#RegisteredAddress#,#Address#,#ShipToAddress#,#PostalCode#,#Phone#,#Fax#,#ContactPerson#,#Email#,#GeneralManager#,#LegalRep#,#RegisteredCapital#,#Bank#,#BankAccount#,#TaxNo#,#License#,#LicenseLimit#,#Province#,#City#,#District#,#SalesMode#,#Taxpayer#,#Finance#,#FinancePhone#,#FinanceEmail#,#Payment#,#ShipToContactConId#,#BillToContactConId#,#EstablishDate:DateTime:1/1/0001 12:00:00 AM#,#SystemStartDate:DateTime:1/1/0001 12:00:00 AM#,#Certification#,#DealerOrderNbrName#,#SapInvoiceToEmail#,#LastUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#LastUpdateUser#,#ActiveFlag#,#DeletedFlag#)
+    </insert>
+    <insert id="InsertDealerMasterNew" parameterClass="DealerMaster">
+      INSERT INTO DealerMaster
+      (DMA_ID,DMA_ChineseName,DMA_ChineseShortName,DMA_EnglishName,DMA_EnglishShortName,DMA_Nbr,DMA_SAP_Code,DMA_DealerType,DMA_CompanyType,DMA_CompanyGrade,DMA_DealerAuthentication,DMA_FirstContractDate,DMA_RegisteredAddress,DMA_Address,DMA_ShipToAddress,DMA_PostalCode,DMA_Phone,DMA_Fax,DMA_ContactPerson,DMA_Email,DMA_GeneralManager,DMA_LegalRep,DMA_RegisteredCapital,DMA_Bank,DMA_BankAccount,DMA_TaxNo,DMA_License,DMA_LicenseLimit,DMA_Province,DMA_City,DMA_District,DMA_SalesMode,DMA_Taxpayer,DMA_Finance,DMA_Finance_Phone,DMA_Finance_Email,DMA_Payment,DMA_ShipToContact_CON_ID,DMA_BillToContact_CON_ID,DMA_EstablishDate,DMA_SystemStartDate,DMA_Certification,DMA_DealerOrderNbrName,DMA_SAPInvoiceToEmail,DMA_LastModifiedDate,DMA_LastModifiedBy_USR_UserID,DMA_ActiveFlag,DMA_DeletedFlag,DMA_Parent_DMA_ID)
+      VALUES(#Id#,#ChineseName#,#ChineseShortName#,#EnglishName#,#EnglishShortName#,#Nbr#,#SapCode#,#DealerType#,#CompanyType#,#CompanyGrade#,#DealerAuthentication#,#FirstContractDate:DateTime:1/1/0001 12:00:00 AM#,#RegisteredAddress#,#Address#,#ShipToAddress#,#PostalCode#,#Phone#,#Fax#,#ContactPerson#,#Email#,#GeneralManager#,#LegalRep#,#RegisteredCapital#,#Bank#,#BankAccount#,#TaxNo#,#License#,#LicenseLimit#,#Province#,#City#,#District#,#SalesMode#,#Taxpayer#,#Finance#,#FinancePhone#,#FinanceEmail#,#Payment#,#ShipToContactConId#,#BillToContactConId#,#EstablishDate:DateTime:1/1/0001 12:00:00 AM#,#SystemStartDate:DateTime:1/1/0001 12:00:00 AM#,#Certification#,#DealerOrderNbrName#,#SapInvoiceToEmail#,#LastUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#LastUpdateUser#,#ActiveFlag#,#DeletedFlag#,#ParentDmaId#)
+    </insert>
+    <update id="UpdateDealerMaster" parameterClass="DealerMaster">
+      UPDATE DealerMaster
+      SET DMA_ID=#Id#,DMA_ChineseName=#ChineseName#,DMA_ChineseShortName=#ChineseShortName#,DMA_EnglishName=#EnglishName#,DMA_EnglishShortName=#EnglishShortName#,DMA_Nbr=#Nbr#,DMA_SAP_Code=#SapCode#,DMA_DealerType=#DealerType#,DMA_CompanyType=#CompanyType#,DMA_CompanyGrade=#CompanyGrade#,DMA_DealerAuthentication=#DealerAuthentication#,DMA_FirstContractDate=#FirstContractDate#,DMA_RegisteredAddress=#RegisteredAddress#,DMA_Address=#Address#,DMA_ShipToAddress=#ShipToAddress#,DMA_PostalCode=#PostalCode#,DMA_Phone=#Phone#,DMA_Fax=#Fax#,DMA_ContactPerson=#ContactPerson#,DMA_Email=#Email#,DMA_GeneralManager=#GeneralManager#,DMA_LegalRep=#LegalRep#,DMA_RegisteredCapital=#RegisteredCapital#,DMA_Bank=#Bank#,DMA_BankAccount=#BankAccount#,DMA_TaxNo=#TaxNo#,DMA_License=#License#,DMA_LicenseLimit=#LicenseLimit#,DMA_Province=#Province#,DMA_City=#City#,DMA_District=#District#,DMA_SalesMode=#SalesMode#,DMA_Taxpayer=#Taxpayer#,DMA_Finance=#Finance#,DMA_Finance_Phone=#FinancePhone#,DMA_Finance_Email=#FinanceEmail#,DMA_Payment=#Payment#,DMA_ShipToContact_CON_ID=#ShipToContactConId#,DMA_BillToContact_CON_ID=#BillToContactConId#,DMA_EstablishDate=#EstablishDate#,DMA_SystemStartDate=#SystemStartDate#,DMA_Certification=#Certification#,DMA_DealerOrderNbrName=#DealerOrderNbrName#,DMA_SAPInvoiceToEmail=#SapInvoiceToEmail#,DMA_LastModifiedDate=#LastUpdateDate#,DMA_LastModifiedBy_USR_UserID=#LastUpdateUser#,DMA_ActiveFlag=#ActiveFlag#,DMA_DeletedFlag=#DeletedFlag#
+      WHERE DMA_ID = #Id#
+    </update>
+    <update id="UpdateDealerMasterNew" parameterClass="DealerMaster">
+      UPDATE DealerMaster
+      SET DMA_ID=#Id#,DMA_ChineseName=#ChineseName#,DMA_ChineseShortName=#ChineseShortName#,DMA_EnglishName=#EnglishName#,DMA_EnglishShortName=#EnglishShortName#,DMA_Nbr=#Nbr#,DMA_SAP_Code=#SapCode#,DMA_DealerType=#DealerType#,DMA_CompanyType=#CompanyType#,DMA_CompanyGrade=#CompanyGrade#,DMA_DealerAuthentication=#DealerAuthentication#,DMA_FirstContractDate=#FirstContractDate#,DMA_RegisteredAddress=#RegisteredAddress#,DMA_Address=#Address#,DMA_ShipToAddress=#ShipToAddress#,DMA_PostalCode=#PostalCode#,DMA_Phone=#Phone#,DMA_Fax=#Fax#,DMA_ContactPerson=#ContactPerson#,DMA_Email=#Email#,DMA_GeneralManager=#GeneralManager#,DMA_LegalRep=#LegalRep#,DMA_RegisteredCapital=#RegisteredCapital#,DMA_Bank=#Bank#,DMA_BankAccount=#BankAccount#,DMA_TaxNo=#TaxNo#,DMA_License=#License#,DMA_LicenseLimit=#LicenseLimit#,DMA_Province=#Province#,DMA_City=#City#,DMA_District=#District#,DMA_SalesMode=#SalesMode#,DMA_Taxpayer=#Taxpayer#,DMA_Finance=#Finance#,DMA_Finance_Phone=#FinancePhone#,DMA_Finance_Email=#FinanceEmail#,DMA_Payment=#Payment#,DMA_ShipToContact_CON_ID=#ShipToContactConId#,DMA_BillToContact_CON_ID=#BillToContactConId#,DMA_EstablishDate=#EstablishDate#,DMA_SystemStartDate=#SystemStartDate#,DMA_Certification=#Certification#,DMA_DealerOrderNbrName=#DealerOrderNbrName#,DMA_SAPInvoiceToEmail=#SapInvoiceToEmail#,DMA_LastModifiedDate=#LastUpdateDate#,DMA_LastModifiedBy_USR_UserID=#LastUpdateUser#,DMA_ActiveFlag=#ActiveFlag#,DMA_DeletedFlag=#DeletedFlag#,DMA_Parent_DMA_ID=#ParentDmaId#
+      WHERE DMA_ID = #Id#
+    </update>
+    <delete id="DeleteDealerMaster" parameterClass="string">
+      DELETE FROM DealerMaster
+      WHERE DMA_ID = #value#
+    </delete>
+    <update id="FakeDeleteDealerMaster" parameterClass="DealerMaster">
+      UPDATE DealerMaster
+      SET DMA_LastModifiedDate=#LastUpdateDate#,DMA_LastModifiedBy_USR_UserID=#LastUpdateUser#,DMA_DeletedFlag=#DeletedFlag#
+      WHERE DMA_ID = #Id#
+    </update>
+    <select id="SelectDealerMasterByName" parameterClass="string" resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_Province AS Province,DMA_ChineseName AS ChineseName,DMA_City AS City,DMA_PostalCode AS PostalCode,DMA_DealerType AS DealerType,DMA_SAP_Code AS SapCode,DMA_Address AS Address,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_EstablishDate AS EstablishDate,DMA_District AS District,DMA_Phone AS Phone,DMA_EnglishName AS EnglishName,DMA_GeneralManager AS GeneralManager,DMA_SystemStartDate AS SystemStartDate, DMA_Fax AS Fax,DMA_LegalRep AS LegalRep,DMA_BankAccount AS BankAccount,DMA_Bank AS Bank,DMA_TaxNo AS TaxNo,DMA_ActiveFlag AS ActiveFlag,DMA_Certification AS Certification,DMA_CompanyGrade AS CompanyGrade,DMA_CompanyType AS CompanyType,DMA_FirstContractDate AS FirstContractDate,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DeletedFlag AS DeletedFlag,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_ContactPerson AS ContactPerson
+      ,DMA_DealerAuthentication AS DealerAuthentication
+      FROM DealerMaster(nolock)
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DMA_ChineseName = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    //以下都和经销商有关
+
+    //根据经销商查询其下的借入经销商
+
+    <select id="SelectDealerMasterForTransferByDealerFromId" parameterClass="string" resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      FROM DealerMaster(nolock) WHERE
+      DMA_Parent_DMA_ID=#value#
+    </select>
+    //根据经销商查询其下的产品线
+
+    <select id="SelectProductLineByDealerId" parameterClass="string" resultClass="DealerMaster">
+      SELECT DISTINCT P.ID AS Id , P.ATTRIBUTE_NAME AS AttributeName
+      FROM DealerAuthorizationTable AS DA
+      INNER JOIN V_DivisionProductLineRelation AS VD ON DA.DAT_ProductLine_BUM_ID = VD.ProductLineID
+      LEFT JOIN V_DealerContractMaster AS DCM ON DA.DAT_DMA_ID = DCM.DMA_ID AND VD.DivisionCode = DCM.Division
+      INNER JOIN (SELECT Id, ATTRIBUTE_NAME FROM View_ProductLine(nolock) WHERE ATTRIBUTE_TYPE = 'Product_Line') AS P
+      ON P.Id = DA.DAT_ProductLine_BUM_ID
+      WHERE DA.DAT_DMA_ID = #value#
+      <!--AND (DCM.ActiveFlag = 1 OR DCM.ExtensionDate > GETDATE() OR EXISTS(SELECT 1 FROM PartsClassification WHERE PCT_ProductLine_BUM_ID = P.Id AND PCT_ParentClassification_PCT_ID IS NOT NULL))-->
+      <!--modified by bozhenfei on 20100712 @加入授权有效期限制-->
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      <!--end-->
+    </select>
+    //根据经销商和产品线查询其授权的销售医院
+
+    <select id="SelectHospitalForDealerByFilter" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT
+      DISTINCT Hospital.HOS_ID AS Id,
+      Hospital.HOS_HospitalName AS Name, Hospital.HOS_Address AS Address,Hospital.HOS_Town AS Town
+      FROM DealerAuthorizationTable DA
+      INNER JOIN DealerContract AS DC ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN HospitalList ON DA.DAT_ID = HospitalList.HLA_DAT_ID
+      INNER JOIN Hospital ON HospitalList.HLA_HOS_ID = Hospital.HOS_ID
+      <!--modified by bozhenfei on 20100712 @加入授权有效期限制-->
+      <!--WHERE CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      <!--end-->
+      <isNotNull prepend="AND" property="DealerId">DC.DCL_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLine">DA.DAT_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+      <!--Gridpanel中的排序没有规律，所以用SQL的排序功能-->
+      Order BY Hospital.HOS_HospitalName
+    </select>
+
+    <select id="SelectProductLineById" parameterClass="string" resultClass="DealerMaster">
+      SELECT DISTINCT P.ID AS Id , P.ATTRIBUTE_NAME AS AttributeName
+      FROM DealerAuthorizationTable AS DA
+      INNER JOIN DealerContract AS DC ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN (SELECT Id, ATTRIBUTE_NAME FROM View_ProductLine(nolock) WHERE ATTRIBUTE_TYPE = 'Product_Line') AS P
+      ON P.Id = DA.DAT_ProductLine_BUM_ID
+      WHERE P.ID = #value#
+    </select>
+
+    <select id="SelectHospitalById" parameterClass="string" resultClass="DealerMaster">
+      SELECT
+      DISTINCT Hospital.HOS_ID AS Id,
+      Hospital.HOS_HospitalName AS Name, Hospital.HOS_Address AS Address
+      FROM DealerAuthorizationTable DA
+      INNER JOIN DealerContract AS DC ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN HospitalList ON DA.DAT_ID = HospitalList.HLA_DAT_ID
+      INNER JOIN Hospital ON HospitalList.HLA_HOS_ID = Hospital.HOS_ID
+      WHERE Hospital.HOS_ID = #value#
+    </select>
+
+    <select id="SelectSapCodeById" parameterClass="string" resultClass="DealerMaster">
+      SELECT DMA_ID AS Id,DMA_Province AS Province,DMA_ChineseName AS ChineseName,DMA_City AS City,DMA_PostalCode AS PostalCode,DMA_DealerType AS DealerType,DMA_SAP_Code AS SapCode,DMA_Address AS Address,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_EstablishDate AS EstablishDate,DMA_District AS District,DMA_Phone AS Phone,DMA_EnglishName AS EnglishName,DMA_GeneralManager AS GeneralManager,DMA_SystemStartDate AS SystemStartDate, DMA_Fax AS Fax,DMA_LegalRep AS LegalRep,DMA_BankAccount AS BankAccount,DMA_Bank AS Bank,DMA_TaxNo AS TaxNo,DMA_ActiveFlag AS ActiveFlag,DMA_Certification AS Certification,DMA_CompanyGrade AS CompanyGrade,DMA_CompanyType AS CompanyType,DMA_FirstContractDate AS FirstContractDate,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DeletedFlag AS DeletedFlag,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_ContactPerson AS ContactPerson
+      ,DMA_DealerAuthentication AS DealerAuthentication
+      FROM DealerMaster(nolock) WHERE DMA_DeletedFlag = 0 AND DMA_SAP_Code=#value#
+    </select>
+
+    <select id="SelectSameLevelDealer" parameterClass="string" resultClass="DealerMaster">
+      select DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      from DealerMaster d1(nolock)
+      where exists (
+      select 1 from DealerMaster d2(nolock)
+      where DMA_ID=#value#
+      and d1.DMA_Parent_DMA_ID = d2.DMA_Parent_DMA_ID)
+      and DMA_ID &lt;> #value#
+    </select>
+    <select id="QueryLPDistributorInfo" parameterClass="string" resultClass="LpDistributorData">
+      select Isnull(DMA_SAP_Code,'') as DistributorID,isnull(DMA_ChineseName,'')
+      as DistributorName,
+      case isnull(DMA_DealerType,'')
+      when N'HQ' then N'BSC'
+      when N'LP' then N'LP'
+      when N'T1' then N'Tier1'
+      when N'T2' then N'Tier2'
+      else '' end
+      as DistributorType
+      from DealerMaster(nolock)
+      where DMA_ActiveFlag = 1 and DMA_DeletedFlag = 0
+    </select>
+    <!--经销商信息接口-->
+    <select id="P_GetCRMDealer" resultClass="System.Collections.Hashtable">
+      select DMA_ChineseName as Name_cn,DMA_EnglishName as Name_en,DMA_ChineseShortName as ShortName,DMA_SAP_Code as SAPID,DMA_City as City
+      from DealerMaster(nolock)
+      where DMA_ID in (select distinct DAT_DMA_ID from DealerAuthorizationTable
+      where DAT_ProductLine_BUM_ID in
+      (select ou.AttributeID from Cache_OrganizationUnits ou
+      inner join View_BU bu on bu.Id = ou.RootID
+      where bu.DivisionId = '19' and ou.AttributeType='Product_Line'))
+      and DMA_HostCompanyFlag = 0 and DMA_ActiveFlag = 1 and DMA_DeletedFlag = 0
+      order by DMA_ChineseName
+    </select>
+    <!--经销商对应产品价格接口-->
+    <select id="P_GetDealerProductionPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select d.DMA_SAP_Code as CustomerID,
+      c.CFN_CustomerFaceNbr as UPN,
+      Convert(money,dbo.fn_GetCfnPriceByDealer(d.DMA_ID, c.CFN_ID, #SubCompanyId#, #BrandId#, 'Dealer', 0)) as Price
+      from CFNPrice p(nolock)
+      inner join DealerMaster d(nolock) on d.DMA_ID = p.CFNP_Group_ID
+      inner join CFN c(nolock) on c.CFN_ID = p.CFNP_CFN_ID
+      where p.CFNP_PriceType = 'Dealer' and d.DMA_SAP_Code = #value# and c.CFN_Property6 = '1'
+      order by 1,2
+    </select>
+    <!--经销商与医院对应信息接口-->
+    <select id="P_GetCRMDealerHospital" resultClass="System.Collections.Hashtable">
+      select distinct d.DMA_SAP_Code as CustomerID, h.HOS_Key_Account as DMSCode
+      from DealerAuthorizationTable dat(nolock)
+      inner join HospitalList hl(nolock) on hl.HLA_DAT_ID = dat.DAT_ID
+      inner join Hospital h(nolock) on h.HOS_ID = hl.HLA_HOS_ID
+      inner join DealerMaster d(nolock) on d.DMA_ID = dat.DAT_DMA_ID
+      where dat.DAT_ProductLine_BUM_ID in (
+      select ou.AttributeID from Cache_OrganizationUnits ou
+      inner join View_BU bu on bu.Id = ou.RootID
+      where bu.DivisionId = '19' and ou.AttributeType='Product_Line')
+      and d.DMA_ActiveFlag = 1 and d.DMA_DeletedFlag = 0
+      and d.DMA_HostCompanyFlag = 0
+      order by 1,2
+    </select>
+    <select id="SelectHospitalForDealerByFilterNew" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT
+      DISTINCT Hospital.HOS_ID AS Id,
+      Hospital.HOS_HospitalName AS ChineseName, Hospital.HOS_Address AS Address,
+      row_number() OVER (Order BY Hospital.HOS_HospitalName) as row_number
+      FROM DealerAuthorizationTable DA
+      INNER JOIN DealerContract AS DC ON DA.DAT_DCL_ID = DC.DCL_ID
+      INNER JOIN HospitalList ON DA.DAT_ID = HospitalList.HLA_DAT_ID
+      INNER JOIN Hospital ON HospitalList.HLA_HOS_ID = Hospital.HOS_ID
+      <!--modified by bozhenfei on 20100712 @加入授权有效期限制-->
+      <!--WHERE CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+      <!--end-->
+      <isNotNull prepend="AND" property="DealerId">DC.DCL_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLine">DA.DAT_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+      <!--Gridpanel中的排序没有规律，所以用SQL的排序功能-->
+      <!--Order BY Hospital.HOS_HospitalName-->
+    </select>
+    <select id="SelectHospitalForDealer" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT HOS_ID AS Id,
+      HOS_HospitalName AS Name, HOS_Address AS [Address]
+      FROM Hospital
+      where HOS_DeletedFlag=0 and HOS_ActiveFlag=1
+      Order BY Hospital.HOS_HospitalName
+    </select>
+
+    <select id="SelectParentDealer" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT a.DMA_ID AS Id,
+      a.DMA_ChineseName as DealerName,
+      a.DMA_DealerType as DealerType,
+      b.DMA_ID as ParentId,
+      b.DMA_ChineseName as ParentDealerName
+      FROM DealerMaster a(nolock)
+      INNER JOIN DealerMaster b(nolock) on a.DMA_Parent_DMA_ID=b.DMA_ID
+      WHERE a.DMA_ID=#value#
+    </select>
+
+    <select id="ExportDealerMasterByDealerId" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.DMA_SAP_CODE AS N'SAP ID',
+      A.DMA_EnglishName AS N'English Name',
+      A.DMA_ChineseName AS N'Chinese Name',
+      A.DMA_ContactPerson AS N'Contact Person',
+      '' AS N'Job Title',
+      A.DMA_Phone AS N'Mobile Phone',
+      '' AS N'Office Phone',
+      DMA_Fax AS N'Fax',
+      DMA_City AS N'City',
+      DMA_Address AS N'Address',
+      DMA_PostalCode AS N'Post Code',
+      DMA_Email AS N'Email'
+      FROM DealerMaster A(nolock)
+      WHERE A.DMA_ID=#value#
+    </select>
+
+    <!--Edited By Song Yuqi 2016-06-12 Begin-->
+    <!--根据用量日期来过滤出在授权范围内的医院列表，只根据医院授权时间段，产品分类授权时间段在选择物料的时候进行过滤-->
+    <select id="SelectHospitalForDealerByShipmentDate" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT HOS_ID AS Id,
+      HOS_HospitalName AS Name,
+      HOS_HospitalShortName AS ShortName,
+      HOS_Address AS Address
+      FROM Hospital(NOLOCK),HospitalList(NOLOCK),DealerAuthorizationTable(NOLOCK)
+      WHERE HOS_ActiveFlag = 1
+      AND HLA_HOS_ID = HOS_ID
+      AND HLA_DAT_ID = DAT_ID
+      AND DAT_DMA_ID = #DealerId#
+      AND DAT_ProductLine_BUM_ID = #ProductLine#
+      AND #ShipmentDate# BETWEEN ISNULL(HLA_StartDate,'1900-01-01') AND ISNULL(HLA_EndDate,DATEADD(DAY,-1,#ShipmentDate#))
+
+      ORDER BY HOS_HospitalName
+    </select>
+    <!--Edited By Song Yuqi 2016-06-12 End-->
+
+    <select id="SelectNewDealerContract" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.ID ,A.DMA_ID ,B.DMA_ChineseName,B.DMA_DealerType AS DealerType,DP.ProductLineID,DP.DivisionCode,DP.DivisionName,DP.ProductLineName,ISNULL(A.MarketType,'0') MarketType,A.MarketTypeName,CONVERT(NVARCHAR(10), A.EffectiveDate,120) EffectiveDate,CONVERT(NVARCHAR(10),A.ExpirationDate,120) ExpirationDate,A.ActiveFlag,CASE WHEN A.ActiveFlag ='0' THEN '无效' WHEN A.ActiveFlag='1' THEN '有效' End ActiveFlagName
+      ,ThirdPartyUser  AS ThirdPartyUser
+      ,ThirdPartyPosition AS ThirdPartyPosition
+      ,ThirdPartyDate AS ThirdPartyDate
+      ,ROW_NUMBER() OVER (Order BY A.DMA_ID) as ROW_NUMBER
+      FROM V_DealerContractMaster A
+      INNER JOIN DealerMaster B(nolock) ON A.DMA_ID=B.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation DP ON DP.DivisionCode=CONVERT(Nvarchar(10), A.Division) AND DP.IsEmerging='0'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">A.DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">DP.ProductLineID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">B.DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="MarketType">CONVERT(nvarchar(10),ISNULL(A.MarketType,0)) =#MarketType#</isNotNull>
+        <isNotNull prepend="AND" property="DealerIdLP">(B.DMA_ID= #DealerIdLP# OR B.DMA_Parent_DMA_ID=#DealerIdLP#)</isNotNull>
+
+      </dynamic>
+    </select>
+
+    <update id="UpdateDealerContractThirdParty" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerContractMaster
+      SET DCM_ThirdPartyUser=#ThirdPartyUser#
+      ,DCM_ThirdPartyPosition=#ThirdPartyPosition#
+      ,DCM_ThirdPartyDate=#ThirdPartyDate#
+      FROM V_DivisionProductLineRelation DP WHERE DP.DivisionCode=CONVERT(NVARCHAR(20), DealerContractMaster.DCM_Division) AND DP.IsEmerging='0'
+      AND DCM_DMA_ID=#DmaId#
+      AND DP.ProductLineID=#ProductLineId#
+      AND ISNULL( DCM_MarketType,0)=#MarketType#
+    </update>
+
+    <update id="UpdateDealerBaseContact" parameterClass="DealerMaster">
+      UPDATE DealerMaster
+      SET DMA_Business1=#Business1#, DMA_BusinessPhone1=#BusinessPhone1# ,DMA_BusinessEMail1=#BusinessEmail1#,
+      DMA_Business2=#Business2#, DMA_BusinessPhone2=#BusinessPhone2# ,DMA_BusinessEMail2=#BusinessEmail2#,
+      DMA_Purchase=#Purchase# ,DMA_PurchasePhone=#PurchasePhone# ,DMA_PurchaseEMail=#PurchaseEmail#,
+      DMA_SystemOperator=#SystemOperator#,DMA_SystemOperatorPhone=#SystemOperatorPhone#,DMA_SystemOperatorEMail=#SystemOperatorEmail#,
+
+      DMA_Address=#Address#,DMA_Phone=#Phone#,DMA_Email=#Email#,DMA_OfficeNb=#OfficeNb#,
+      DMA_Address2=#Address2#, DMA_Phone2 = #Phone2#,DMA_Email2=#Email2# ,DMA_OfficeNb2=#OfficeNb2#,
+
+      DMA_Finance = #Finance#,DMA_Finance_Phone=#FinancePhone# ,DMA_Finance_Email=#FinanceEmail#,
+      DMA_ContactPerson = #ContactPerson#,
+      DMA_ContactRemark = #ContactRemark#,DMA_BusinessOfficeNb1 = #BusinessOfficeNb1#,DMA_BusinessOfficeNb2 = #BusinessOfficeNb2#
+
+      WHERE DMA_ID=#Id#
+
+    </update>
+
+    <update id="UpdateThirdPartSignature" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerMaster SET DMA_ThirdPartyUser=#ThirdPartyUser# ,DMA_ThirdPartyPosition=#ThirdPartyPosition# ,DMA_ThirdPartyDate=#ThirdPartyDate#  WHERE DMA_ID=#DmaId#
+    </update>
+
+    <select id="SelectThirdPartSignature" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.DMA_ID AS ID  ,A.DMA_ThirdPartyUser  AS ThirdPartyUser ,A.DMA_ThirdPartyPosition AS ThirdPartyPosition,A.DMA_ThirdPartyDate AS ThirdPartyDate
+      FROM DealerMaster A(nolock)
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">A.DMA_ID=#DealerId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectDealerMassageByAccount" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.* FROM DealerMaster a(nolock)
+      INNER JOIN Lafite_IDENTITY b(nolock) on a.DMA_ID=b.Corp_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserName">IDENTITY_CODE=#UserName#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectHomePageMessage" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select * from HomePageMessage
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="dealerId">HPM_DMA_ID=#dealerId#</isNotNull>
+        <isNotNull prepend="AND" property="insertDate">HPM_Date=#insertDate#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertHomePageMessage" parameterClass="System.Collections.Hashtable">
+      insert into HomePageMessage (HPM_DMA_ID,HPM_Date)
+      values(#dealerId#,#insertDate#)
+    </insert>
+
+    <select id="ExcelDealerMasterByAllUser" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      DMA_SAP_Code AS N'SAPCode',DMA_ChineseName AS N'经销商名称',DMA_DealerType AS N'经销商类型',
+      DMA_ContactPerson AS N'公司法人',
+      DMA_Phone AS N'手机号码1',DMA_OfficeNb AS N'办公室电话1',DMA_Email AS N'邮箱地址1',DMA_Address AS N'公司地址1',
+      DMA_Phone2 AS N'手机号码2',DMA_OfficeNb2 AS N'办公室电话2',DMA_Email2 AS N'邮箱地址2',DMA_Address2 AS N'公司地址2',
+      DMA_Business1 AS N'商务负责人1' ,DMA_BusinessPhone1 AS N'商务负责人手机1',DMA_BusinessOfficeNb1 AS  N'商务负责人办公电话1',DMA_BusinessEMail1 AS N'商务负责人邮件1' ,
+      DMA_Business2 AS N'商务负责人2' ,DMA_BusinessPhone2 AS N'商务负责人手机2',DMA_BusinessOfficeNb2 AS N'商务负责人办公电话2',DMA_BusinessEMail2 AS '商务负责人邮件2' ,
+      DMA_Purchase AS N'采购负责人' ,DMA_PurchasePhone AS N'采购负责人手机',DMA_PurchaseEMail AS N'采购负责人邮箱',
+      DMA_SystemOperator AS N'数据负责人' ,DMA_SystemOperatorPhone AS N'数据负责人手机' ,DMA_SystemOperatorEMail AS N'数据负责人邮箱',
+      DMA_Finance AS N'财务负责人',DMA_Finance_Phone AS N'财务负责人手机',DMA_Finance_Email N'财务负责人邮箱',
+      DMA_ContactRemark AS N'备注'
+      FROM DealerMaster(nolock)
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ChineseShortName">DMA_ChineseShortName=#ChineseShortName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">DMA_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishShortName">DMA_EnglishShortName=#EnglishShortName#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">DMA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="DealerIdLP">(DMA_ID= #DealerIdLP# OR DMA_Parent_DMA_ID=#DealerIdLP#)</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取产品分类代码 Add By Songweiming on 2015-09-15 for GSP project-->
+    <select id="GetDealerLicenseCatagoryByCatId" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT CatagoryID,CatagoryName,[TYPE] As CatagoryType ,Status AS CatagoryStatus,VersionNumber
+      FROM [MD].[MedicalDeviceCatagory]
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="strCatId"> CatagoryID in (select VAL from dbo.GC_Fn_SplitStringToTable(#strCatId#,','))</isNotNull>
+        <isNotNull prepend="AND" property="catType">[TYPE]= #catType#</isNotNull>
+        <isNotNull prepend="AND" property="versionNumber">VersionNumber=#versionNumber#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--根据经销商分类代码类别，获取产品分类信息 Add By Songweiming on 2015-09-15 for GSP project-->
+    <select id="GetLicenseCatagoryByCatType" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT CatagoryID,CatagoryName,[TYPE] As CatagoryType ,Status AS CatagoryStatus
+      FROM [MD].[MedicalDeviceCatagory]
+      WHERE Status = 1
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="catId">CatagoryID like N'%'+#catId#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="catName">CatagoryName like N'%'+#catName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="catType"> [TYPE] = #catType# </isNotNull>
+        <isNotNull prepend="AND" property="versionNumber"> VersionNumber =#versionNumber#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--根据条件获取经销商及经销商注册证信息，Add By Songweiming on 2015-09-15 for GSP project-->
+    <select id="QueryForDealerMaster" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DMA_ID AS Id,
+      DMA_ChineseName AS ChineseName,
+      DMA_ChineseShortName AS ChineseShortName,
+      DMA_EnglishName AS EnglishName,
+      DMA_EnglishShortName AS EnglishShortName,
+      DMA_Nbr AS Nbr,
+      DMA_SAP_Code AS SapCode,
+      DMA_DealerType AS DealerType,
+      DMA_CompanyType AS CompanyType,
+      DMA_CompanyGrade AS CompanyGrade,
+      DMA_DealerAuthentication AS DealerAuthentication,
+      DMA_FirstContractDate AS FirstContractDate,
+      DMA_RegisteredAddress AS RegisteredAddress,
+      DMA_Address AS Address,
+      DMA_ShipToAddress AS ShipToAddress,
+      DMA_PostalCode AS PostalCode,
+      DMA_Phone AS Phone,
+      DMA_Fax AS Fax,
+      DMA_ContactPerson AS ContactPerson,
+      DMA_Email AS Email,
+      DMA_GeneralManager AS GeneralManager,
+      DMA_LegalRep AS LegalRep,
+      CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,
+      DMA_Bank AS Bank,
+      DMA_BankAccount AS BankAccount,
+      DMA_TaxNo AS TaxNo,
+      DMA_License AS License,
+      DMA_LicenseLimit AS LicenseLimit,
+      DMA_Province AS Province,
+      DMA_City AS City,
+      DMA_District AS District,
+      DMA_SalesMode AS SalesMode,
+      DMA_Taxpayer AS Taxpayer,
+      DMA_Finance AS Finance,
+      DMA_Finance_Phone AS FinancePhone,
+      DMA_Finance_Email AS FinanceEmail,
+      DMA_Payment AS Payment,
+      DMA_ShipToContact_CON_ID AS ShipToContactConId,
+      DMA_BillToContact_CON_ID AS BillToContactConId,
+      DMA_EstablishDate AS EstablishDate,
+      DMA_SystemStartDate AS SystemStartDate,
+      DMA_Certification AS Certification,
+      DMA_HostCompanyFlag AS HostCompanyFlag,
+      DMA_DealerOrderNbrName AS DealerOrderNbrName,
+      DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,
+      DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME
+      FROM Lafite_IDENTITY(nolock)
+      WHERE Id = DMA_LastModifiedBy_USR_UserID)
+      AS LastUpdateUserName,
+      DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,
+      DMA_ActiveFlag AS ActiveFlag,
+      DMA_DeletedFlag AS DeletedFlag,
+      DMA_Parent_DMA_ID AS ParentDmaId,
+      row_number () OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number],
+      DML_NewApplyStatus AS LicenseStatus
+      FROM DealerMaster(nolock) left join DealerMasterLicense on ( DealerMaster.DMA_ID = DealerMasterLicense.DML_DMA_ID)
+      WHERE DMA_DeletedFlag = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ChineseShortName">DMA_ChineseShortName=#ChineseShortName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">DMA_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishShortName">DMA_EnglishShortName=#EnglishShortName#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">DMA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="DealerIdLP">(DMA_ID= #DealerIdLP# OR DMA_Parent_DMA_ID=#DealerIdLP#)</isNotNull>
+        <isNotNull prepend="AND" property="Address">DMA_Address like '%$Address$%'</isNotNull>
+        <isNotNull prepend="AND" property="LicenseStatus">DML_NewApplyStatus = #LicenseStatus#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">DMA_SubCompanyId = #SubCompanyId#</isNotNull>
+      </dynamic>
+    </select>
+    <!--根据条件获取经销商及经销商注册证信息，Add By Songweiming on 2015-09-15 for GSP project-->
+    <select id="QueryForDealerMasterForDD" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DMA_ID AS Id,
+      DMA_ChineseName AS ChineseName,
+      DMA_ChineseShortName AS ChineseShortName,
+      DMA_EnglishName AS EnglishName,
+      DMA_EnglishShortName AS EnglishShortName,
+      DMA_Nbr AS Nbr,
+      DMA_SAP_Code AS SapCode,
+      DMA_DealerType AS DealerType,
+      DMA_CompanyType AS CompanyType,
+      DMA_CompanyGrade AS CompanyGrade,
+      DMA_DealerAuthentication AS DealerAuthentication,
+      DMA_FirstContractDate AS FirstContractDate,
+      DMA_RegisteredAddress AS RegisteredAddress,
+      DMA_Address AS Address,
+      DMA_ShipToAddress AS ShipToAddress,
+      DMA_PostalCode AS PostalCode,
+      DMA_Phone AS Phone,
+      DMA_Fax AS Fax,
+      DMA_ContactPerson AS ContactPerson,
+      DMA_Email AS Email,
+      DMA_GeneralManager AS GeneralManager,
+      DMA_LegalRep AS LegalRep,
+      CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,
+      DMA_Bank AS Bank,
+      DMA_BankAccount AS BankAccount,
+      DMA_TaxNo AS TaxNo,
+      DMA_License AS License,
+      DMA_LicenseLimit AS LicenseLimit,
+      DMA_Province AS Province,
+      DMA_City AS City,
+      DMA_District AS District,
+      DMA_SalesMode AS SalesMode,
+      DMA_Taxpayer AS Taxpayer,
+      DMA_Finance AS Finance,
+      DMA_Finance_Phone AS FinancePhone,
+      DMA_Finance_Email AS FinanceEmail,
+      DMA_Payment AS Payment,
+      DMA_ShipToContact_CON_ID AS ShipToContactConId,
+      DMA_BillToContact_CON_ID AS BillToContactConId,
+      DMA_EstablishDate AS EstablishDate,
+      DMA_SystemStartDate AS SystemStartDate,
+      DMA_Certification AS Certification,
+      DMA_HostCompanyFlag AS HostCompanyFlag,
+      DMA_DealerOrderNbrName AS DealerOrderNbrName,
+      DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,
+      DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME
+      FROM Lafite_IDENTITY(nolock)
+      WHERE Id = DMA_LastModifiedBy_USR_UserID)
+      AS LastUpdateUserName,
+      DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,
+      DMA_ActiveFlag AS ActiveFlag,
+      DMA_DeletedFlag AS DeletedFlag,
+      DMA_Parent_DMA_ID AS ParentDmaId,
+      CONVERT(varchar(10), tab.DMDD_StartDate, 120) AS DDStartDate,
+      CONVERT(varchar(10), tab.DMDD_ENDDate, 120) AS DDEndDate,
+      CASE tab.DMDD_IsHaveRedFlag WHEN 0 THEN '否' WHEN 1 THEN '是' ELSE ''END AS IsHaveRedFlag,
+      tab.DMDD_ReportName AS DDReportName,
+      CONVERT(varchar(10), tab.DMDD_UpdateDate, 120) AS DDUpdateDate,
+      li.Identity_Name AS DDUpdateUser,
+      row_number () OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock)
+      LEFT JOIN (
+      SELECT * FROM(
+      SELECT
+      [DMDD_ReportName]
+      ,[DMDD_StartDate]
+      ,[DMDD_EndDate]
+      ,[DMDD_DealerID]
+      ,[DMDD_IsHaveRedFlag]
+      ,[DMDD_UpdateDate]
+      ,[DMDD_UpdateUser]
+      ,ROW_NUMBER() OVER(PARTITION BY [DMDD_DealerID] ORDER BY [DMDD_UpdateDate] desc) RowNum
+      FROM DealerMasterDD
+      GROUP BY [DMDD_ReportName]
+      ,[DMDD_StartDate]
+      ,[DMDD_EndDate]
+      ,[DMDD_DealerID]
+      ,[DMDD_IsHaveRedFlag]
+      ,[DMDD_UpdateDate]
+      ,[DMDD_UpdateUser]
+      )t5
+      WHERE RowNum = 1
+      ) tab ON DealerMaster.DMA_ID=tab.DMDD_DealerID
+      LEFT JOIN Lafite_Identity li on li.Identity_Code=tab.DMDD_UpdateUser
+      WHERE DMA_DeletedFlag = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ChineseShortName">DMA_ChineseShortName=#ChineseShortName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">DMA_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishShortName">DMA_EnglishShortName=#EnglishShortName#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">DMA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="DealerIdLP">(DMA_ID= #DealerIdLP# OR DMA_Parent_DMA_ID=#DealerIdLP#)</isNotNull>
+        <isNotNull prepend="AND" property="Address">DMA_Address like '%$Address$%'</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">DMA_SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="IsHaveRedFlag">ISNULL(tab.DMDD_IsHaveRedFlag,0) = #IsHaveRedFlag#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryForDealerProfileMaster" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC DP.Proc_QueryDealerMaster #DealerName#,#SapCode#,#DealerType#,#LPId#,#OwnerIdentityType#,#OwnerId#,#PageStart#,#PageLimit#
+    </select>
+    <select id="GetReturnDealerListByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select distinct DMA_ChineseName as ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_ID as Id
+      from DealerContractMaster,V_DivisionProductLineRelation,DealerMaster
+      where convert(nvarchar(10),DCM_Division) = DivisionCode
+      and DCM_DMA_ID = DMA_ID
+      and DMA_HostCompanyFlag = 0
+      and DMA_DealerType in ('LP','T1')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DmaId">DCM_DMA_ID &lt;> #DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineID = #ProductLineId#</isNotNull>
+      </dynamic>
+      order by DMA_ChineseName
+    </select>
+    <!--lijie add 2016-05-26-->
+    <select id="SelectDealerMasterParentTypebyId" parameterClass="string" resultClass="DealerMaster">
+      select top 1
+      a.DMA_ID AS Id,a.DMA_ChineseName AS ChineseName,a.DMA_ChineseShortName AS ChineseShortName,a.DMA_EnglishName AS EnglishName,a.DMA_EnglishShortName AS EnglishShortName,a.DMA_Nbr AS Nbr,a.DMA_SAP_Code AS SapCode,a.DMA_DealerType AS DealerType,a.DMA_CompanyType AS CompanyType,a.DMA_CompanyGrade AS CompanyGrade,a.DMA_DealerAuthentication AS DealerAuthentication,a.DMA_FirstContractDate AS FirstContractDate,a.DMA_RegisteredAddress AS RegisteredAddress,a.DMA_Address AS Address,a.DMA_ShipToAddress AS ShipToAddress,a.DMA_PostalCode AS PostalCode,a.DMA_Phone AS Phone,a.DMA_Fax AS Fax,a.DMA_ContactPerson AS ContactPerson,a.DMA_Email AS Email,a.DMA_GeneralManager AS GeneralManager,a.DMA_LegalRep AS LegalRep,CAST (a.DMA_RegisteredCapital AS REAL) AS RegisteredCapital,a.DMA_Bank AS Bank,a.DMA_BankAccount AS BankAccount,a.DMA_TaxNo AS TaxNo,a.DMA_License AS License,a.DMA_LicenseLimit AS LicenseLimit,a.DMA_Province AS Province,a.DMA_City AS City,a.DMA_District AS District,a.DMA_SalesMode AS SalesMode,isnull(b.DMA_Taxpayer,a.DMA_Taxpayer) AS Taxpayer,a.DMA_Finance AS Finance,a.DMA_Finance_Phone AS FinancePhone,a.DMA_Finance_Email AS FinanceEmail,a.DMA_Payment AS Payment,a.DMA_ShipToContact_CON_ID AS ShipToContactConId,a.DMA_BillToContact_CON_ID AS BillToContactConId,a.DMA_EstablishDate AS EstablishDate,a.DMA_SystemStartDate AS SystemStartDate,a.DMA_Certification AS Certification,a.DMA_HostCompanyFlag AS HostCompanyFlag,a.DMA_DealerOrderNbrName AS DealerOrderNbrName,a.DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,a.DMA_LastModifiedDate AS LastUpdateDate,a.DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,a.DMA_ActiveFlag AS ActiveFlag,a.DMA_DeletedFlag AS DeletedFlag
+      ,a.DMA_Business1 AS Business1 ,a.DMA_BusinessPhone1 AS BusinessPhone1,a.DMA_BusinessEMail1 AS BusinessEmail1 ,a.DMA_Business2 AS Business2 ,a.DMA_BusinessPhone2 AS BusinessPhone2,a.DMA_BusinessEMail2 AS BusinessEmail2
+      ,a.DMA_Purchase AS Purchase ,a.DMA_PurchasePhone AS PurchasePhone,a.DMA_PurchaseEMail AS PurchaseEmail
+      ,a.DMA_SystemOperator AS SystemOperator,a.DMA_SystemOperatorPhone AS SystemOperatorPhone ,a.DMA_SystemOperatorEMail AS SystemOperatorEmail
+      ,a.DMA_OfficeNb AS OfficeNb,a.DMA_OfficeNb2 AS OfficeNb2,a.DMA_Phone2 AS Phone2, a.DMA_Address2 AS Address2 ,a.DMA_Email2 AS Email2
+      ,a.DMA_ContactRemark AS ContactRemark,a.DMA_BusinessOfficeNb1 AS BusinessOfficeNb1 ,a.DMA_BusinessOfficeNb2 AS BusinessOfficeNb2
+      ,a.DMA_Parent_DMA_ID as ParentDmaId
+      from DealerMaster a(nolock) inner join DealerMaster b(nolock)
+      on a.DMA_Parent_DMA_ID=b.DMA_ID
+      where a.DMA_ID=#value#
+    </select>
+    <!--huyong add 2016-10-23-->
+    <select id="GetNoLimitProductLineByDealer" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT DISTINCT P.ID AS Id , P.ATTRIBUTE_NAME AS AttributeName
+      FROM DealerAuthorizationTable AS DA
+      INNER JOIN (SELECT Id, ATTRIBUTE_NAME FROM View_ProductLine WHERE ATTRIBUTE_TYPE = 'Product_Line') AS P
+      ON P.Id = DA.DAT_ProductLine_BUM_ID
+      left join View_ProductLine PL(nolock) on PL.Id=DA.DAT_ProductLine_BUM_ID AND P.Id=PL.Id
+      WHERE DA.DAT_DMA_ID = #DealerId#
+      and not exists(select 1 from dbo.V_ShipmentFileUpload where DAT_ProductLine_BUM_ID = SPH_ProductLine_BUM_ID and DAT_DMA_ID = SPH_Dealer_DMA_ID)
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+        (PL.SubCompanyId=#SubCompanyId#)
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="BrandId">
+        (PL.BrandId=#BrandId#)
+      </isNotEmpty>
+    </select>
+    <select id="GetNoLimitProductLineByDealerAll" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT DISTINCT ID AS Id , ATTRIBUTE_NAME AS AttributeName
+      FROM View_ProductLine
+    </select>
+    <select id="GetDealerForLocalSeal" parameterClass="System.Collections.Hashtable" resultClass="DealerMaster">
+      SELECT TOP 1 * FROM dbo.DealerMaster T_DealerMaster
+      WHERE EXISTS (
+      SELECT 1 FROM dbo.View_ProductLine V_ProductLine WHERE V_ProductLine.SubCompanyId=T_DealerMaster.DMA_SubCompanyId
+      AND T_DealerMaster.DMA_DealerType='T0'
+      <isNotEmpty prepend="AND" property="BrandId">
+        V_ProductLine.BrandId=#BrandId#
+      </isNotEmpty>
+      )
+    </select>
+
+    <select id="GetDealerMaster" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = DMA_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      ,DMA_Parent_DMA_ID AS ParentDmaId
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock) WHERE DMA_DeletedFlag = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">DMA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ChineseShortName">DMA_ChineseShortName=#ChineseShortName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName">DMA_EnglishName=#EnglishName#</isNotNull>
+        <isNotNull prepend="AND" property="EnglishShortName">DMA_EnglishShortName=#EnglishShortName#</isNotNull>
+        <isNotNull prepend="AND" property="Nbr">DMA_Nbr=#Nbr#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="CompanyType">DMA_CompanyType=#CompanyType#</isNotNull>
+        <isNotNull prepend="AND" property="CompanyGrade">DMA_CompanyGrade=#CompanyGrade#</isNotNull>
+        <isNotNull prepend="AND" property="FirstContractDate">DMA_FirstContractDate=#FirstContractDate#</isNotNull>
+        <isNotNull prepend="AND" property="RegisteredAddress">DMA_RegisteredAddress=#RegisteredAddress#</isNotNull>
+        <isNotNull prepend="AND" property="Address">DMA_Address like '%$Address$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipToAddress">DMA_ShipToAddress=#ShipToAddress#</isNotNull>
+        <isNotNull prepend="AND" property="PostalCode">DMA_PostalCode=#PostalCode#</isNotNull>
+        <isNotNull prepend="AND" property="Phone">DMA_Phone=#Phone#</isNotNull>
+        <isNotNull prepend="AND" property="Fax">DMA_Fax=#Fax#</isNotNull>
+        <isNotNull prepend="AND" property="ContactPerson">DMA_ContactPerson=#ContactPerson#</isNotNull>
+        <isNotNull prepend="AND" property="Email">DMA_Email=#Email#</isNotNull>
+        <isNotNull prepend="AND" property="GeneralManager">DMA_GeneralManager=#GeneralManager#</isNotNull>
+        <isNotNull prepend="AND" property="LegalRep">DMA_LegalRep=#LegalRep#</isNotNull>
+        <isNotNull prepend="AND" property="RegisteredCapital">DMA_RegisteredCapital=#RegisteredCapital#</isNotNull>
+        <isNotNull prepend="AND" property="Bank">DMA_Bank=#Bank#</isNotNull>
+        <isNotNull prepend="AND" property="BankAccount">DMA_BankAccount=#BankAccount#</isNotNull>
+        <isNotNull prepend="AND" property="TaxNo">DMA_TaxNo=#TaxNo#</isNotNull>
+        <isNotNull prepend="AND" property="License">DMA_License=#License#</isNotNull>
+        <isNotNull prepend="AND" property="LicenseLimit">DMA_LicenseLimit=#LicenseLimit#</isNotNull>
+        <isNotNull prepend="AND" property="Province">DMA_Province=#Province#</isNotNull>
+        <isNotNull prepend="AND" property="City">DMA_City=#City#</isNotNull>
+        <isNotNull prepend="AND" property="District">DMA_District=#District#</isNotNull>
+        <isNotNull prepend="AND" property="SalesMode">DMA_SalesMode=#SalesMode#</isNotNull>
+        <isNotNull prepend="AND" property="Taxpayer">DMA_Taxpayer=#Taxpayer#</isNotNull>
+        <isNotNull prepend="AND" property="Finance">DMA_Finance=#Finance#</isNotNull>
+        <isNotNull prepend="AND" property="FinancePhone">DMA_Finance_Phone=#FinancePhone#</isNotNull>
+        <isNotNull prepend="AND" property="FinanceEmail">DMA_Finance_Email=#FinanceEmail#</isNotNull>
+        <isNotNull prepend="AND" property="Payment">DMA_Payment=#Payment#</isNotNull>
+        <isNotNull prepend="AND" property="ShipToContactConId">DMA_ShipToContact_CON_ID=#ShipToContactConId#</isNotNull>
+        <isNotNull prepend="AND" property="BillToContactConId">DMA_BillToContact_CON_ID=#BillToContactConId#</isNotNull>
+        <isNotNull prepend="AND" property="EstablishDate">DMA_EstablishDate=#EstablishDate#</isNotNull>
+        <isNotNull prepend="AND" property="SystemStartDate">DMA_SystemStartDate=#SystemStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="Certification">DMA_Certification=#Certification#</isNotNull>
+        <isNotNull prepend="AND" property="HostCompanyFlag">DMA_HostCompanyFlag=#HostCompanyFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerOrderNbrName">DMA_DealerOrderNbrName=#DealerOrderNbrName#</isNotNull>
+        <isNotNull prepend="AND" property="SapInvoiceToEmail">DMA_SAPInvoiceToEmail=#SapInvoiceToEmail#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">DMA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="bumid">
+          not EXISTS (select 1 from BulletinDetail b where b.BUD_BUM_ID=#bumid#
+          and DMA_ID=b.BUD_Dealer_DMA_ID)
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <procedure id="UpdateDealerName" parameterMap="DealerMasterMap">
+      dbo.GC_UpdateDealerName
+    </procedure>
+
+
+    <select id="MasterData.SelectFilterListConsign" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT TOP 10 DealerMaster.DMA_ID DealerId,
+               DealerMaster.DMA_ChineseShortName DealerName
+        FROM   dbo.DealerMaster DealerMaster
+               INNER JOIN Consignment.ContractHeader ContractHead
+                    ON  ContractHead.CCH_DMA_ID = DealerMaster.DMA_ID
+        WHERE  ContractHead.CCH_Status = 'Completed'
+               AND DealerMaster.DMA_ActiveFlag = 1
+               AND DealerMaster.DMA_DeletedFlag = 0
+      ]]>
+      <isNotEmpty prepend="AND" property="Bu">
+        ContractHead.CCH_ProductLine_BUM_ID = #Bu#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="DealerId">
+        ContractHead.CCH_DMA_ID &lt;> #DealerId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Filter">
+        DealerMaster.DMA_ChineseShortName LIKE '%' + #Filter# + '%'
+      </isNotEmpty>
+      <![CDATA[
+        ORDER BY
+               DealerMaster.DMA_ChineseShortName
+      ]]>
+    </select>
+    <select id="MasterData.SelectFilterListAll" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT TOP 10 DealerMaster.DMA_ID DealerId,
+               ISNULL(DealerMaster.DMA_ChineseShortName,DealerMaster.DMA_ChineseName) DealerName
+        FROM   dbo.DealerMaster DealerMaster
+        WHERE  DealerMaster.DMA_ActiveFlag = 1
+               AND DealerMaster.DMA_DeletedFlag = 0
+      ]]>
+      <isNotEmpty prepend="AND" property="Filter">
+        (DealerMaster.DMA_ChineseShortName LIKE '%' + #Filter# + '%'
+        OR DealerMaster.DMA_ChineseName LIKE '%' + #Filter# + '%')
+      </isNotEmpty>
+      <![CDATA[
+        ORDER BY
+               DealerName
+      ]]>
+    </select>
+
+    <select id="SelectDealerMasterByIdentityType" resultClass="System.Data.DataSet">
+      <![CDATA[
+        	SELECT DMA_ID AS 'DealerID',DMA_ChineseShortName AS 'DealerName'
+          FROM DealerMaster
+      ]]>
+      <dynamic prepend="WHERE">
+        <isEqual prepend="AND" property="IdentityType" compareValue="Dealer">
+          (DMA_ID=#CorpId# OR DMA_Parent_DMA_ID=#CorpId#)
+        </isEqual>
+        <isEqual prepend="AND" property="IdentityType" compareValue="User">
+          1=1
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="GetDealerMasterMain" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DMA_ID  AS ID,
+      DMM_ERP_Code AS ERPCode
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster dma
+      INNER JOIN DealerMasterMain dmm ON dma.DMA_DMM_ID=dmm.DMM_ID WHERE DMA_DeletedFlag = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like N'%'+#ChineseName#+'%'</isNotNull>        
+      </dynamic>
+    </select>
+
+  </statements>
+</sqlMap>

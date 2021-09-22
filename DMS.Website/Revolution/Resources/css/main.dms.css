@@ -1,0 +1,30 @@
+﻿.dms-picker {
+    background-color: #f6f9fe;
+    border-bottom: solid 1px #c5d0dc;
+}
+
+.dms-picker-select {
+    width: 60px;
+    height: 42px;
+    line-height: 42px;
+    border-style: solid;
+    border-width: 0 1px;
+    border-color: #c5d0dc;
+    background-color: #dff0d8;
+    margin: -2px;
+    margin-bottom: -3px;
+    text-align: center;
+}
+
+.dms-picker-clear {
+    width: 60px;
+    height: 42px;
+    line-height: 42px;
+    border-style: solid;
+    border-width: 0 1px;
+    border-color: #c5d0dc;
+    background-color: #f2dede;
+    margin: -2px;
+    margin-bottom: -3px;
+    text-align: center;
+}

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentCfnMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentCfn" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentCfn" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentCfnResult" class="ConsignmentCfn">
+      <result property="Id" column="CC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmId" column="CC_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="CC_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnSetId" column="CC_CFNSet_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Uom" column="CC_UOM" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="CC_Qty" type="decimal" dbType="decimal"/>
+      <result property="Price" column="CC_Price" type="decimal" dbType="decimal"/>
+      <result property="ActualPrice" column="CC_Actual_Price" type="decimal" dbType="decimal"/>
+      <result property="Amount" column="CC_Amount" type="decimal" dbType="decimal"/>
+      <result property="Remark" column="CC_Remark" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_ConsignmentMaster_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <parameterMaps>
+    <parameterMap id="GC_ConsignmentMaster_AddCfnSet_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="CMId" column="CMId" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="PriceType" column="PriceType"  />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+
+  <parameterMaps>
+    <parameterMap id="GC_Maunal_Receipt_ByShipmentNbr_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="ShipmentNbr" column="ShipmentNbr" />
+      <parameter property="WhmId" column="WhmId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  
+  
+  <statements>
+
+    <select id="SelectConsignmentCfn" parameterClass="string" resultClass="ConsignmentCfn">
+      SELECT CC_ID AS Id,CC_CM_ID AS CmId,CC_CFN_ID AS CfnId,CC_CFNSet_Id AS CfnSetId,CC_UOM AS Uom,CC_Qty AS Qty,CC_Price AS Price,CC_Actual_Price AS ActualPrice,CC_Amount AS Amount,CC_Remark AS Remark
+      FROM ConsignmentCfn
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentCfn" parameterClass="ConsignmentCfn" resultClass="ConsignmentCfn">
+      SELECT CC_ID AS Id,CC_CM_ID AS CmId,CC_CFN_ID AS CfnId,CC_CFNSet_Id AS CfnSetId,CC_UOM AS Uom,CC_Qty AS Qty,CC_Price AS Price,CC_Actual_Price AS ActualPrice,CC_Amount AS Amount,CC_Remark AS Remark
+      FROM ConsignmentCfn
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CmId">CC_CM_ID=#CmId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">CC_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnSetId">CC_CFNSet_Id=#CfnSetId#</isNotNull>
+        <isNotNull prepend="AND" property="Uom">CC_UOM=#Uom#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">CC_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="Price">CC_Price=#Price#</isNotNull>
+        <isNotNull prepend="AND" property="ActualPrice">CC_Actual_Price=#ActualPrice#</isNotNull>
+        <isNotNull prepend="AND" property="Amount">CC_Amount=#Amount#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">CC_Remark=#Remark#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentCfn" parameterClass="ConsignmentCfn">
+      INSERT INTO ConsignmentCfn
+      (CC_ID,CC_CM_ID,CC_CFN_ID,CC_CFNSet_Id,CC_UOM,CC_Qty,CC_Price,CC_Actual_Price,CC_Amount,CC_Remark)
+      VALUES(#Id#,#CmId#,#CfnId#,#CfnSetId#,#Uom#,#Qty#,#Price#,#ActualPrice#,#Amount#,#Remark#)
+    </insert>
+    <update id="UpdateConsignmentCfn" parameterClass="ConsignmentCfn">
+      UPDATE ConsignmentCfn
+      SET CC_ID=#Id#,CC_CM_ID=#CmId#,CC_CFN_ID=#CfnId#,CC_CFNSet_Id=#CfnSetId#,CC_UOM=#Uom#,CC_Qty=#Qty#,CC_Price=#Price#,CC_Actual_Price=#ActualPrice#,CC_Amount=#Amount#,CC_Remark=#Remark#
+      WHERE CC_ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentCfn" parameterClass="string">
+      DELETE FROM ConsignmentCfn
+      WHERE CC_ID = #value#
+    </delete>
+    <delete id="DeleteConsignmentCfnByCMID" parameterClass="string">
+      DELETE FROM ConsignmentCfn
+      WHERE CC_CM_ID = #value#
+    </delete>
+    <select id="QueryConsignmentCfnByFilter" parameterClass="System.Collections.Hashtable" resultClass="ConsignmentCfn">
+      SELECT
+      ConsignmentCfn.CC_ID AS Id,
+      ConsignmentCfn.CC_CM_ID AS PohId,
+      ConsignmentCfn.CC_CFN_ID AS CfnId,
+      ConsignmentCfn.CC_Price AS CfnPrice,
+      ConsignmentCfn.CC_Remark AS Remark,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_EnglishName AS CfnEnglishName,
+      CFN.CFN_Property1 AS ShortName,
+      ConsignmentCfn.CC_UOM AS Uom,
+      ConsignmentCfn.CC_Qty AS RequiredQty,
+      ConsignmentCfn.CC_Amount AS Amount,
+      Product.PMA_ConvertFactor AS ConvertFactor,
+      ROW_NUMBER() OVER (ORDER BY CFN.CFN_CustomerFaceNbr DESC) AS row_number
+      FROM    ConsignmentCfn
+      INNER JOIN CFN ON CFN.CFN_ID = ConsignmentCfn.CC_CFN_ID
+      INNER JOIN Product ON PMA_CFN_ID = CFN_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CmId">CC_CM_ID=#CmId#</isNotNull>
+      </dynamic>
+    </select>
+    <procedure id="GC_ConsignmentMaster_AddCfn" parameterMap="GC_ConsignmentMaster_AddCfn_ParameterMap">
+      dbo.GC_ConsignmentMaster_AddCfn
+    </procedure>
+    <procedure id="GC_ConsignmentMaster_AddCfnSet" parameterMap="GC_ConsignmentMaster_AddCfnSet_ParameterMap">
+      dbo.GC_ConsignmentMaster_AddCfnSet
+    </procedure>
+
+    <procedure id="GC_Maunal_Receipt_ByShipmentNbr" parameterMap="GC_Maunal_Receipt_ByShipmentNbr_ParameterMap">
+      dbo.GC_Maunal_Receipt_ByShipmentNbr
+    </procedure>
+  </statements>
+</sqlMap>

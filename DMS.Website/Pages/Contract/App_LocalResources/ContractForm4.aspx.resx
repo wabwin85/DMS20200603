@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Confirm.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Confirm.NotApplicable" xml:space="preserve">
+    <value>不适用</value>
+  </data>
+  <data name="Confirm.Remarks" xml:space="preserve">
+    <value>备注（回答为“否”或“不适用”&lt;br/&gt;的问题需提供备注说明）</value>
+  </data>
+  <data name="Confirm.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="From4.Draft" xml:space="preserve">
+    <value>保存草稿</value>
+  </data>
+  <data name="From4.Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="From4.Title" xml:space="preserve">
+    <value>质量自评检查表 表格4</value>
+  </data>
+  <data name="Part1.AssessDate" xml:space="preserve">
+    <value>评估日期（年月日）</value>
+  </data>
+  <data name="Part1.Assesser" xml:space="preserve">
+    <value>评估员姓名</value>
+  </data>
+  <data name="Part1.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Part1.DealerName" xml:space="preserve">
+    <value>第三方</value>
+  </data>
+  <data name="Part1.DealerName.BlankText" xml:space="preserve">
+    <value>第三方名称必须填写</value>
+  </data>
+  <data name="Part1.Notes1" xml:space="preserve">
+    <value>在委任潜在第三方（经销商或分销商）前或者当前第三方（经销商或分销商）续约前使用本表。</value>
+  </data>
+  <data name="Part1.Notes2" xml:space="preserve">
+    <value>目的：本质量检查表用于在委任潜在第三方前或者当前第三方续约前确认其是否有能力执行蓝威的质量要求。</value>
+  </data>
+  <data name="Part1.Signature" xml:space="preserve">
+    <value>评估员签名</value>
+  </data>
+  <data name="Part10.Confirmation1" xml:space="preserve">
+    <value>第三方是否能确保仅将演示设备（未消毒，不得用于人体）&lt;br/&gt;用于演示，并不提供给最终客户？（不带电池的非功能性植&lt;br/&gt;入发生器，是唯一一种可向客户提供的演示设备）</value>
+  </data>
+  <data name="Part10.Title" xml:space="preserve">
+    <value>示范设备</value>
+  </data>
+  <data name="Part11.Confirmation1" xml:space="preserve">
+    <value>第三方是否能确保产品标识，完全符合当地法律要求</value>
+  </data>
+  <data name="Part11.Title" xml:space="preserve">
+    <value>标签控制</value>
+  </data>
+  <data name="Part12.Confirmation1" xml:space="preserve">
+    <value>第三方是否能让直接参与产品销售的雇员参加蓝威的技术培训研习班，或在合理时间内组织他们进行经波士&lt;br/&gt;顿科技公司批准的培训</value>
+  </data>
+  <data name="Part12.Title" xml:space="preserve">
+    <value>培训</value>
+  </data>
+  <data name="Part13.Confirmation1" xml:space="preserve">
+    <value>第三方是否能按以下要求保存与质量附件相关的所有记录？&lt;br/&gt;- 植入器件：无限期&lt;br/&gt;- 设备：退出分销后两年或蓝威规定的其他期限&lt;br/&gt;- 所有其他产品：至少产品使用寿命／有效期 + 两年或波士&lt;br/&gt;顿科技公司规定的他期限。</value>
+  </data>
+  <data name="Part13.Title" xml:space="preserve">
+    <value>记录保留</value>
+  </data>
+  <data name="Part2.Confirm.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Part2.Confirm.NotApplicable" xml:space="preserve">
+    <value>不适用</value>
+  </data>
+  <data name="Part2.Confirm.Remarks" xml:space="preserve">
+    <value>备注（回答为“否”或“不适用”&lt;br/&gt;的问题需提供备注说明）</value>
+  </data>
+  <data name="Part2.Confirm.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Part2.Confirmation1" xml:space="preserve">
+    <value>第三方是否能将产品储存在安全、清洁、无虫害的储存场所</value>
+  </data>
+  <data name="Part2.Confirmation2" xml:space="preserve">
+    <value>第三方是否能将产品储存在只有授权人员才能进入的波士顿&lt;br/&gt;产品专用储存场所</value>
+  </data>
+  <data name="Part2.Confirmation3" xml:space="preserve">
+    <value>第三方是否能保持产品标签上或蓝威规定的环境&lt;br/&gt;条件</value>
+  </data>
+  <data name="Part2.Confirmation4" xml:space="preserve">
+    <value>环境条件存在差异的，第三方是否能联系蓝威寻&lt;br/&gt;求指导意见</value>
+  </data>
+  <data name="Part2.Confirmation5" xml:space="preserve">
+    <value>第三方是否能制定一个防止过效期、不合格产品和／或被隔&lt;br/&gt;离产品流向最终消费者的程序</value>
+  </data>
+  <data name="Part2.Title" xml:space="preserve">
+    <value>产品储存</value>
+  </data>
+  <data name="Part3.Confirm.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Part3.Confirm.NotApplicable" xml:space="preserve">
+    <value>不适用</value>
+  </data>
+  <data name="Part3.Confirm.Remarks" xml:space="preserve">
+    <value>备注（回答为“否”或“不适用”&lt;br/&gt;的问题需提供备注说明）</value>
+  </data>
+  <data name="Part3.Confirm.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Part3.Confirmation1" xml:space="preserve">
+    <value>第三方是否能罗列出一份完整的当前客户的名单（包括所有&lt;br/&gt;直接购买或寄售第三方公司产品的客户</value>
+  </data>
+  <data name="Part3.Confirmation2" xml:space="preserve">
+    <value>第三方是否能保证记录以下追溯性数据（最低要求）？&lt;br/&gt;• 购买或寄售日期； &lt;br/&gt;• 植入/试图植入有源植入物及配件的日期；&lt;br/&gt;• 数量； &lt;br/&gt;• 型号（见产品标签）； &lt;br/&gt;• 批号和/或序列号（见产品标签）；&lt;br/&gt;• UPNs（见产品标签）。</value>
+  </data>
+  <data name="Part3.Confirmation3" xml:space="preserve">
+    <value>第三方是否能保证记录并保管好程控仪和其他机器设备的位&lt;br/&gt;置及货品移动的可追溯记录</value>
+  </data>
+  <data name="Part3.Confirmation4" xml:space="preserve">
+    <value>第三方是否能做到已消费的寄售产品货帐一致</value>
+  </data>
+  <data name="Part3.Title" xml:space="preserve">
+    <value>产品可追溯性</value>
+  </data>
+  <data name="Part4.Confirm.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Part4.Confirm.NotApplicable" xml:space="preserve">
+    <value>不适用</value>
+  </data>
+  <data name="Part4.Confirm.Remarks" xml:space="preserve">
+    <value>备注（回答为“否”或“不适用”&lt;br/&gt;的问题需提供备注说明）</value>
+  </data>
+  <data name="Part4.Confirm.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Part4.Confirmation1" xml:space="preserve">
+    <value>第三方是否能及时向蓝威提交所有有源植入医疗&lt;br/&gt;器械及其配件的植入注册表</value>
+  </data>
+  <data name="Part4.Title" xml:space="preserve">
+    <value>植入报告（仅由CRM和神经调节的第三方填写）</value>
+  </data>
+  <data name="Part5.Confirmation1" xml:space="preserve">
+    <value>第三方是否能让程控仪保持正常工作状态，及时将需维修的&lt;br/&gt;程控仪发回蓝威维修</value>
+  </data>
+  <data name="Part5.Confirmation2" xml:space="preserve">
+    <value>第三方是否能按蓝威规定的时间框架，及时对程&lt;br/&gt;控仪或机器设备的软件进行更新</value>
+  </data>
+  <data name="Part5.Title" xml:space="preserve">
+    <value>设备维护和软件更新</value>
+  </data>
+  <data name="Part6.Confirmation1" xml:space="preserve">
+    <value>第三方是否能在两个工作日内将投诉信息上报给波士顿科技&lt;br/&gt;公司</value>
+  </data>
+  <data name="Part6.Confirmation2" xml:space="preserve">
+    <value>需提供更多客户投诉信息时，第三方是否能履行至少三次尝&lt;br/&gt;试收集信息的行动并记录在案</value>
+  </data>
+  <data name="Part6.Confirmation3" xml:space="preserve">
+    <value>第三方是否能将被投诉产品发回蓝威</value>
+  </data>
+  <data name="Part6.Confirmation4" xml:space="preserve">
+    <value>如果客户表示产品可退回，但尚未退回，第三方是否能履行&lt;br/&gt;至少三次尝试收回产品的行动，并记录在案</value>
+  </data>
+  <data name="Part6.Title" xml:space="preserve">
+    <value>投诉报告</value>
+  </data>
+  <data name="Part7.Confirmation1" xml:space="preserve">
+    <value>第三方是否能使用生物危害控制包装退回有源植入医疗器械&lt;br/&gt;及其配件（因为这些产品在退回时，不进行净化或消毒处理&lt;br/&gt;），并落实相应的安全处理控制措施</value>
+  </data>
+  <data name="Part7.Confirmation2" xml:space="preserve">
+    <value>针对其他非有源植入类医疗器械，第三方是否能将消毒证明&lt;br/&gt;和产品一起退回（即使产品尚未使用过），或用生物危害控&lt;br/&gt;制包装退回，并落实安全处理控制措施</value>
+  </data>
+  <data name="Part7.Confirmation3" xml:space="preserve">
+    <value>第三方是否能按蓝威的规定退回危险品</value>
+  </data>
+  <data name="Part7.Title" xml:space="preserve">
+    <value>处理生物危害产品或有害产品的退回</value>
+  </data>
+  <data name="Part8.Confirmation1" xml:space="preserve">
+    <value>第三方是否能在规定的时间内，将警戒事件或其他医疗器械&lt;br/&gt;的不良事件报告，上报给卫生部或有关当局</value>
+  </data>
+  <data name="Part8.Confirmation2" xml:space="preserve">
+    <value>第三方是否能在合理时间内，将当地有关警戒事件或其他医&lt;br/&gt;疗器械不良事件报告规定的变更，告知蓝威</value>
+  </data>
+  <data name="Part8.Title" xml:space="preserve">
+    <value>警戒事件或其他医疗器械不良事件报告</value>
+  </data>
+  <data name="Part9.Confirmation1" xml:space="preserve">
+    <value>在收到蓝威的通知包后，第三方是否能立即实施&lt;br&gt;召回和其他现场行动，并向蓝威发出收到现场行&lt;br/&gt;动通知的确认函</value>
+  </data>
+  <data name="Part9.Confirmation2" xml:space="preserve">
+    <value>第三方是否能执行通知包中的指示，并确保在通知包规定的&lt;br&gt;时限内实施有关行动</value>
+  </data>
+  <data name="Part9.Confirmation3" xml:space="preserve">
+    <value>第三方是否能从下列有关场所收回产品？&lt;br/&gt;• 第三方仓库存货&lt;br/&gt;• 蓝威发给第三方的运输途中产品&lt;br/&gt;• 第三方销售代表存货&lt;br/&gt;• 客户场所：无论是出售、寄售产品还是样品</value>
+  </data>
+  <data name="Part9.Confirmation4" xml:space="preserve">
+    <value>第三方是否能至少三次尝试记录客户已收到通知及执行波士&lt;br/&gt;顿科技公司规定的行动</value>
+  </data>
+  <data name="Part9.Confirmation5" xml:space="preserve">
+    <value>完成所有产品回收行动后，第三方是否能用通知包中的确认&lt;br/&gt;表，向蓝威报告召回的产品，并保证确认表上记&lt;br/&gt;录的产品数量与实际退回波士顿公司的产品数量一致</value>
+  </data>
+  <data name="Part9.Confirmation6" xml:space="preserve">
+    <value>第三方是否能按通知包中的指示，将产品退回蓝威</value>
+  </data>
+  <data name="Part9.Title" xml:space="preserve">
+    <value>召回和其他现场活动</value>
+  </data>
+</root>

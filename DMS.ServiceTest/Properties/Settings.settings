@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DMS.ServiceTest.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DMS_ServiceTest_ShareTracService_outlet" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://bsc.vision-sh.com/outlet.asmx</Value>
+    </Setting>
+    <Setting Name="DMS_ServiceTest_BSCService_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://testdms.bscwin.com/services/BIInterface.asmx</Value>
+    </Setting>
+    <Setting Name="DMS_ServiceTest_HospitalService_Hospital" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8149/Hospital.asmx</Value>
+    </Setting>
+    <Setting Name="DMS_ServiceTest_PlatformService_Platform" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://testdms.bscwin.com/services/platform.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

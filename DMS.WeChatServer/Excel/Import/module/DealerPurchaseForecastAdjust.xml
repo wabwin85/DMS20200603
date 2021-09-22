@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<iExcel Desc="经销商导入预测数据模板" Procedure="Proc_DealerPurchaseForecastAdjustImport">
+  <iSheets>
+    <iSheet TableName="DealerPurchaseForecastAdjust_Import" DataStartRowNumber="5">
+      <iRecords>
+        <iRecord Position="0" ColumnName="PFA_ForecastVersion" DescName="ForecastVersion" DataType="nvarchar" IsRequired="Y" ErrorMsgColumn="PFA_ForecastVersion_ErrMsg" CheckType="Format" CheckValue="YYYYMM"></iRecord>
+        <iRecord Position="1" ColumnName="PFA_BU" DescName="业务部门" DataType="nvarchar" IsRequired="" ErrorMsgColumn="" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="2" ColumnName="PFA_DMA_PARENT" DescName="母平台" DataType="nvarchar" IsRequired="" ErrorMsgColumn="" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="3" ColumnName="PFA_DMA" DescName="T2经销商" DataType="nvarchar" IsRequired="Y" ErrorMsgColumn="PFA_DMA_ErrMsg" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="4" ColumnName="PFA_UPN" DescName="UPN" DataType="nvarchar" IsRequired="" ErrorMsgColumn="PFA_UPN_ErrMsg" CheckType="Table" CheckValue="CFN.CFN_CustomerFaceNbr"></iRecord>
+        <iRecord Position="5" ColumnName="PFA_UPNDescription" DescName="" DataType="nvarchar" IsRequired="" ErrorMsgColumn="" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="6" ColumnName="PFA_ProductGroup" DescName="" DataType="nvarchar" IsRequired="" ErrorMsgColumn="" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="7" ColumnName="PFA_ProductSubGroup" DescName="" DataType="nvarchar" IsRequired="" ErrorMsgColumn="" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="31" ColumnName="PFA_Forecast_M1" DescName="M+1统计预测" DataType="int" IsRequired="" ErrorMsgColumn="PFA_Forecast_M1_ErrMsg" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="32" ColumnName="PFA_Forecast_M2" DescName="M+2统计预测" DataType="int" IsRequired="" ErrorMsgColumn="PFA_Forecast_M2_ErrMsg" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="33" ColumnName="PFA_Forecast_M3" DescName="M+3统计预测" DataType="int" IsRequired="" ErrorMsgColumn="PFA_Forecast_M3_ErrMsg" CheckType="" CheckValue=""></iRecord>
+        <iRecord Position="34" ColumnName="PFA_ForecastAdj_M1" DescName="M+1统计调整" DataType="int" IsRequired="Y" ErrorMsgColumn="PFA_ForecastAdj_M1_ErrMsg" CheckType="Format" CheckValue=">=0"></iRecord>
+        <iRecord Position="35" ColumnName="PFA_ForecastAdj_M2" DescName="M+2统计调整" DataType="int" IsRequired="Y" ErrorMsgColumn="PFA_ForecastAdj_M2_ErrMsg" CheckType="Format" CheckValue=">=0"></iRecord>
+        <iRecord Position="36" ColumnName="PFA_ForecastAdj_M3" DescName="M+3统计调整" DataType="int" IsRequired="Y" ErrorMsgColumn="PFA_ForecastAdj_M3_ErrMsg" CheckType="Format" CheckValue=">=0"></iRecord>
+        <iRecord Position="37" ColumnName="PFA_ForecastAdj_Remark" DescName="备注" DataType="nvarchar" IsRequired="" ErrorMsgColumn="" CheckType="" CheckValue=""></iRecord>
+        
+      </iRecords>
+    </iSheet>
+  </iSheets>
+</iExcel>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractProductLineMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractProductLine" assembly="DMS.Model.dll" type="DMS.Model.ContractProductLine" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ContractProductLineResult" class="ContractProductLine">
+      <result property="Id" column="Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractId" column="ContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractType" column="ContractType" type="string" dbType="nvarchar"/>
+      <result property="PlId" column="PlId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PlType" column="PlType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectProductLineByDivisionID" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT t1.AttributeID,
+      t1.AttributeType,
+      t1.AttributeName,
+      t2.Id,
+      t2.ATTRIBUTE_NAME AS DivisionName,
+      t2.REV1 AS DivisionCode,
+      t3.ATTRIBUTE_FIELD4 AS IsEmerging
+      FROM Cache_OrganizationUnits t1, Lafite_ATTRIBUTE t2,View_ProductLine t3
+      WHERE     t3.ATTRIBUTE_TYPE='Product_Line'
+      AND t3.Id=t1.AttributeID
+      AND t1.AttributeType = 'Product_Line'
+      AND t1.RootID = t2.Id
+      AND t1.RootID IN (SELECT AttributeID
+      FROM Cache_OrganizationUnits
+      WHERE AttributeType = 'BU')
+      <isNotNull prepend="AND" property="DivisionID">t2.REV1=#DivisionID#</isNotNull>
+      <isNotNull prepend="AND" property="DivisionName">t2.ATTRIBUTE_NAME=#DivisionName#</isNotNull>
+      <isNotNull prepend="AND" property="IsEmerging">t3.ATTRIBUTE_FIELD4=#IsEmerging#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineId">t1.AttributeID=#ProductLineId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineId">t3.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineId">t3.BrandId=#BrandId#</isNotNull>
+    </select>
+
+    <select id="SelectDivision" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT t2.ATTRIBUTE_NAME AS DivisionName, t2.REV1 AS DivisionCode
+      FROM Cache_OrganizationUnits t1, Lafite_ATTRIBUTE t2
+      WHERE     t1.AttributeType = 'Product_Line'
+      AND t1.RootID = t2.Id
+      AND t1.RootID IN (SELECT AttributeID
+      FROM Cache_OrganizationUnits
+      WHERE AttributeType = 'BU')
+      <isNotNull prepend="AND" property="DivisionID">t2.REV1=#DivisionID#</isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">EXISTS(SELECT 1 FROM dbo.V_DivisionProductLineRelation WHERE DivisionCode=t2.REV1 AND SubCompanyId=#SubCompanyId#)</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">EXISTS(SELECT 1 FROM dbo.V_DivisionProductLineRelation WHERE DivisionCode=t2.REV1 AND BrandId=#BrandId#)</isNotNull>
+    </select>
+
+  </statements>
+</sqlMap>

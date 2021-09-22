@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="QueryInventoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="QueryInventory" assembly="DMS.Model.dll" type="DMS.Model.QueryInventory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="QueryInventoryResult" class="QueryInventory">
+      <result property="CFNChineseName" column="CFNChineseName" type="string" dbType="varchar"/>
+      <result property="CustomerFaceNbr" column="CustomerFaceNbr" type="string" dbType="varchar"/>
+      <result property="Implant" column="Implant" type="bool" dbType="bool"/>
+      <result property="ProductLineName" column="ProductLineName" type="string" dbType="varchar"/>
+      <result property="Upn" column="Upn" type="string" dbType="varchar"/>
+      <result property="ProductName" column="ProductName" type="string" dbType="varchar"/>
+      <result property="WarehouseName" column="WarehouseName" type="string" dbType="varchar"/>
+      <result property="LotNumber" column="LotNumber" type="string" dbType="varchar"/>
+      <result property="ExpiredDate" column="ExpiredDate" type="DateTime" dbType="DateTime"/>
+      <result property="OnHandQty" column="OnHandQty" type="double" dbType="Real"/>
+      <result property="OnHandQuantity" column="OnHandQuantity" type="double" dbType="Real"/>
+      <result property="SapUnitPrice" column="SapUnitPrice" type="single" dbType="Real"/>
+      <result property="DealerName" column="DealerName" type="string" dbType="varchar"/>
+      <result property="UnitOfMeasure" column="UnitOfMeasure" type="string" dbType="varchar"/>
+      <result property="ExpiredDateString" column="ExpiredDateString" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectInventoryForDealer" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT     InventoryData.CFNChineseName, InventoryData.CustomerFaceNbr, InventoryData.Implant, InventoryData.ProductLineName, InventoryData.Upn,
+      InventoryData.ProductName, InventoryData.WarehouseName, InventoryData.LotNumber, CONVERT(varchar(100), InventoryData.ExpiredDate, 112) AS ExpiredDate, InventoryData.OnHandQty,
+      InventoryData.OnHandQuantity, InventoryData.Lotid, InventoryData.Invid, InventoryData.WhmId, InventoryData.PmaId, InventoryData.LtmId,
+      InventoryData.SapUnitPrice, InventoryData.DealerId, InventoryData.DealerName, InventoryData.UnitOfMeasure, '' as ExpiredDateString
+      ,row_number() OVER (ORDER BY DealerName, WarehouseName, CustomerFaceNbr) AS [row_number]
+      FROM         (SELECT DISTINCT
+      LogonUser.IDENTITY_CODE AS LeaderLogOn, LogonUser.IDENTITY_NAME AS LeaderUserName,
+      Cache_SalesOfDealer.DealerID AS AvailableDealerIDForLeader, LogonUser.Id AS LeaderId
+      FROM          Lafite_IDENTITY_MAP AS LogonUserBU(nolock) INNER JOIN
+      Lafite_IDENTITY AS LogonUser(nolock) ON LogonUserBU.IDENTITY_ID = LogonUser.Id INNER JOIN
+      Cache_OrganizationUnits(nolock) INNER JOIN
+      Lafite_IDENTITY_MAP(nolock) ON Cache_OrganizationUnits.AttributeID = Lafite_IDENTITY_MAP.MAP_ID INNER JOIN
+      Lafite_IDENTITY AS AllUsersUnderLogonUser(nolock) ON Lafite_IDENTITY_MAP.IDENTITY_ID = AllUsersUnderLogonUser.Id ON
+      LogonUserBU.MAP_ID = Cache_OrganizationUnits.RootID INNER JOIN
+      Cache_SalesOfDealer(nolock) ON Lafite_IDENTITY_MAP.IDENTITY_ID = Cache_SalesOfDealer.SalesID
+      WHERE      (Lafite_IDENTITY_MAP.MAP_TYPE = 'Organization') AND (LogonUserBU.MAP_TYPE = 'Organization')) AS UserRelations INNER JOIN
+      (SELECT     CFN.CFN_ChineseName AS CFNChineseName, CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr, CFN.CFN_Implant AS Implant,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName, Product.PMA_UPN AS Upn, Product.PMA_Name AS ProductName,
+      Warehouse.WHM_Name AS WarehouseName, LotMaster.LTM_Lot AS LotNumber, LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Lot.LOT_OnHandQty AS OnHandQty, Inventory.INV_OnHandQuantity AS OnHandQuantity, Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId, Inventory.INV_PMA_ID AS PmaId, Lot.LOT_LTM_ID AS LtmId,
+      CAST(Product.PMA_SAPUnitPrice AS REAL) AS SapUnitPrice, Warehouse.WHM_DMA_ID AS DealerId,
+      DealerMaster.DMA_ChineseName AS DealerName, Product.PMA_UnitOfMeasure AS UnitOfMeasure
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id INNER JOIN
+      DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      ) AS InventoryData ON UserRelations.AvailableDealerIDForLeader = InventoryData.DealerId
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DealerId = #value#
+        </isParameterPresent>
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectInventoryForMetronicUser" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT
+      CFN.CFN_ChineseName AS CFNChineseName,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_Implant AS Implant,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName,
+      Product.PMA_UPN AS Upn,
+      Product.PMA_Name AS ProductName,
+      Warehouse.WHM_Name AS WarehouseName,
+      LotMaster.LTM_LotNumber AS LotNumber,
+      LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Lot.LOT_OnHandQty AS OnHandQty,
+      Inventory.INV_OnHandQuantity AS OnHandQuantity,
+      Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId,
+      Inventory.INV_PMA_ID AS PmaId,
+      Lot.LOT_LTM_ID AS LtmId,
+      CAST(Product.PMA_SAPUnitPrice AS REAL) AS SapUnitPrice,
+      Warehouse.WHM_DMA_ID AS DealerId,
+      DealerMaster.DMA_ChineseName AS DealerName,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END) AS ExpiredDateString
+      ,row_number() OVER (ORDER BY DMA_ChineseName, WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber ) AS [row_number]
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      INNER JOIN        DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">LotMaster.LTM_LotNumber like '%$LotNumber$%'</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LotMaster.LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LotMaster.LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+
+      </isEqual>
+    </select>
+
+    <select id="SelectInventoryForBSCUserDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT
+      CFN.CFN_ChineseName AS CFNChineseName,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_Implant AS Implant,
+      CFN.CFN_Property1 AS Property1,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName,
+      VP.SubCompanyName,
+      VP.BrandName,
+      Product.PMA_UPN AS Upn,
+      Product.PMA_Name AS ProductName,
+      Warehouse.WHM_Name AS WarehouseName,
+      Lot.Lot_LTM_Lot AS LotNumber,
+      Lot.Lot_LTM_QrCode AS QRCode,
+      Lot.Lot_LTM_ExpiredDate AS ExpiredDate,
+      Convert(decimal(18,2),Lot.LOT_OnHandQty) AS OnHandQty,
+      Inventory.INV_OnHandQuantity AS OnHandQuantity,
+      Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId,
+      Inventory.INV_PMA_ID AS PmaId,
+      Lot.LOT_LTM_ID AS LtmId,
+      CAST(Product.PMA_SAPUnitPrice AS REAL) AS SapUnitPrice,
+      Warehouse.WHM_DMA_ID AS DealerId,
+      DealerMaster.DMA_ChineseName AS DealerName,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      Lafite_DICT.VALUE1 AS WhmType,
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(8), Lot.Lot_LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), Lot.Lot_LTM_ExpiredDate, 112) END) AS ExpiredDateString
+      ,row_number() OVER (ORDER BY DMA_ChineseName,Warehouse.WHM_Name, CFN_CustomerFaceNbr, PMA_UPN,Lot_LTM_Lot, Lot_LTM_QrCode ) AS [row_number],
+      Lot.LOT_LTM_DOM AS LotDOM
+      ,DATEDIFF(day,ISNULL( DIMD.MaxReceiptDate,'2016-02-01'),DATEADD(month,1,convert(datetime,convert(nvarchar(6),GETDATE(),112)+'01')))
+      as FrozenDate
+      ,case when Warehouse.WHM_Type = 'Frozen' then w2.WHM_Name else '' end as WarehouseFrom
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      INNER JOIN        DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      left join Archive.FrozenLots_MaxCDate AS FrozenLots(nolock) on INV_WHM_IN_ID = Warehouse.WHM_ID and FrozenLots.LTM_ID = Lot.LOT_LTM_ID
+      left join Warehouse w2(nolock) on w2.WHM_ID = FrozenLots.WHM_ID
+      LEFT JOIN Archive.DealerInventory_MaxReceiptDate AS DIMD (nolock) ON (DIMD.dealerid =DealerMaster.DMA_ID and DIMD.LOT = Lot_LTM_Lot and DIMD.QRCode =Lot_LTM_QrCode)
+      LEFT JOIN Lafite_DICT(nolock) on (Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type)
+      LEFT JOIN View_ProductLine VP(nolock) on CFN.CFN_ProductLine_BUM_ID = VP.Id
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">(Lot.Lot_LTM_Lot = #LotNumber# OR  Lot.Lot_LTM_QrCode = #LotNumber#)</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">Lot.Lot_LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">Lot.Lot_LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Stockdays">
+        DATEDIFF(day,ISNULL(DIMD.MaxReceiptDate,'2016-02-01'),DATEADD(month,1,convert(datetime,convert(nvarchar(6),GETDATE(),112)+'01')))>=#Stockdays#
+      </isNotNull>
+      <isNotNull prepend="AND" property="cbProductLine">
+        CFN_ProductLine_BUM_ID=#cbProductLine#
+      </isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">
+        (VP.SubCompanyId=#SubCompanyId#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="BrandId">
+        (VP.BrandId=#BrandId#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster(nolock) AS DM WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <!--<isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+      </isEqual>-->
+
+    </select>
+
+
+    <select id="SelectInventorySumForBSCUser" parameterClass="System.Collections.Hashtable" resultClass="System.Decimal">
+      SELECT
+      ISNULL(Sum(Convert(decimal(18,2),ISNULL(Lot.LOT_OnHandQty,0))),0) AS SumQty
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">(LOT.LOT_LTM_Lot = #LotNumber# OR  LOT.LOT_LTM_QrCode = #LotNumber#)</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LOT.LOT_LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LOT.LOT_LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster(nolock) AS DM WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <!--<isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+      </isEqual>-->
+    </select>
+
+    //Select Not use!
+    <select id="SelectInventoryForMetronicUser1" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT     InventoryData.CFNChineseName, InventoryData.CustomerFaceNbr, InventoryData.Implant, InventoryData.ProductLineName, InventoryData.Upn,
+      InventoryData.ProductName, InventoryData.WarehouseName, InventoryData.LotNumber, InventoryData.ExpiredDate, InventoryData.OnHandQty,
+      InventoryData.OnHandQuantity, InventoryData.Lotid, InventoryData.Invid, InventoryData.WhmId, InventoryData.PmaId, InventoryData.LtmId,
+      InventoryData.SapUnitPrice, InventoryData.DealerId, InventoryData.DealerName, InventoryData.UnitOfMeasure, '' AS ExpiredDateString
+      ,row_number() OVER (ORDER BY DealerName, WarehouseName, CustomerFaceNbr) AS [row_number]
+      FROM         (SELECT DISTINCT
+      LogonUser.IDENTITY_CODE AS LeaderLogOn, LogonUser.IDENTITY_NAME AS LeaderUserName,
+      Cache_SalesOfDealer.DealerID AS AvailableDealerIDForLeader, LogonUser.Id AS LeaderId
+      FROM          Lafite_IDENTITY_MAP AS LogonUserBU INNER JOIN
+      Lafite_IDENTITY AS LogonUser ON LogonUserBU.IDENTITY_ID = LogonUser.Id INNER JOIN
+      Cache_OrganizationUnits INNER JOIN
+      Lafite_IDENTITY_MAP ON Cache_OrganizationUnits.AttributeID = Lafite_IDENTITY_MAP.MAP_ID INNER JOIN
+      Lafite_IDENTITY AS AllUsersUnderLogonUser ON Lafite_IDENTITY_MAP.IDENTITY_ID = AllUsersUnderLogonUser.Id ON
+      LogonUserBU.MAP_ID = Cache_OrganizationUnits.RootID INNER JOIN
+      Cache_SalesOfDealer ON Lafite_IDENTITY_MAP.IDENTITY_ID = Cache_SalesOfDealer.SalesID
+      WHERE      (Lafite_IDENTITY_MAP.MAP_TYPE = 'Organization') AND (LogonUserBU.MAP_TYPE = 'Organization')) AS UserRelations INNER JOIN
+      (SELECT     CFN.CFN_ChineseName AS CFNChineseName, CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr, CFN.CFN_Implant AS Implant,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName, Product.PMA_UPN AS Upn, Product.PMA_Name AS ProductName,
+      Warehouse.WHM_Name AS WarehouseName, LotMaster.LTM_LotNumber AS LotNumber, LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Lot.LOT_OnHandQty AS OnHandQty, Inventory.INV_OnHandQuantity AS OnHandQuantity, Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId, Inventory.INV_PMA_ID AS PmaId, Lot.LOT_LTM_ID AS LtmId,
+      CAST(Product.PMA_SAPUnitPrice AS REAL) AS SapUnitPrice, Warehouse.WHM_DMA_ID AS DealerId,
+      DealerMaster.DMA_ChineseName AS DealerName, Product.PMA_UnitOfMeasure AS UnitOfMeasure
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id INNER JOIN
+      DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      ) AS InventoryData ON UserRelations.AvailableDealerIDForLeader = InventoryData.DealerId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="LeaderID">UserRelations.LeaderId=#LeaderID#</isNotNull>
+        <isNotNull prepend="AND" property="CFNChineseName">CFNChineseName=#CFNChineseName#</isNotNull>
+        <isNotNull prepend="AND" property="CustomerFaceNbr">CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineName">ProductLineName=#ProductLineName#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">Upn=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="ProductName">ProductName=#ProductName#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseName">WarehouseName=#WarehouseName#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+        <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+        <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">WhmId=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">DealerId=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">DealerName=#DealerName#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--经销商首页：3个月即将过期的产品-->
+    <select id="SelectInventoryByDealerForExpired" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT
+      TOP 10
+      DealerMaster.DMA_ChineseName AS DealerName,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Product.PMA_UPN AS UPN,
+      LotMaster.LTM_LotNumber AS LotNumber,
+      CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) AS ExpiredDate,
+      Lot.LOT_OnHandQty AS InvQty
+      FROM    Inventory(nolock)
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      WHERE (LotMaster.LTM_ExpiredDate IS NOT NULL) AND (Lot.LOT_OnHandQty &lt;> 0 )
+      <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="Months">DATEDIFF(MONTH, GETDATE(),LotMaster.LTM_ExpiredDate) BETWEEN 0 AND #Months#</isNotNull>
+      ORDER BY LotMaster.LTM_ExpiredDate
+    </select>
+
+
+    <select id="ExportInventoryForUser" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT '&lt;td&gt;' + Isnull(DealerMaster.DMA_ChineseName,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(DealerMaster.DMA_DealerType,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select DMA_ChineseName from dealermaster DM(nolock) where DM.dma_id=dealermaster.DMA_Parent_DMA_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(Warehouse.WHM_Name,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(Warehouse.WHM_Code,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Lafite_DICT.VALUE1 from Lafite_DICT(nolock) where Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and id = cfn.CFN_ProductLine_BUM_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select [DESCRIPTION] from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and id = cfn.CFN_ProductLine_BUM_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(CFN.CFN_CustomerFaceNbr,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(CFN.CFN_ChineseName,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(CFN.CFN_EnglishName,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(CFN.CFN_Property5,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + '="' +Isnull(CFN.CFN_Property7,'') + '"' +'&lt;/td&gt;' +
+      '&lt;td&gt;' + '波士顿科学公司' + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(LotMaster.LTM_Lot,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(LotMaster.LTM_QrCode,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(LotMaster.LTM_Type,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CONVERT(varchar(8), LotMaster.LTM_ExpiredDate, 112)  + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Isnull(Product.PMA_UnitOfMeasure,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + Convert(NVARCHAR(100),Isnull(Lot.LOT_OnHandQty,0)) '&lt;/td&gt;'
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      INNER JOIN        DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%'</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">LotMaster.LTM_Lot like '%$LotNumber$%'</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LotMaster.LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LotMaster.LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer(nolock) SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+
+      </isEqual>
+      ORDER BY DMA_ChineseName, WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber
+    </select>
+
+    <select id="ExportLPInventoryABCForUser" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      select LPIA.LIA_DivisionName AS '所属波科部门',
+      LPIA.LIA_UPN AS '产品型号',
+      LPIA.LIA_RFABC AS '金额销量频率ABC',
+      LPIA.LIA_Type AS 'ABC类型',
+      LPIA.LIA_DMA_ChineseName AS '经销商',
+      convert(nvarchar(6),LPIA.LIA_CreateDate,112) AS '统计月份',
+      INV.ParentDealer AS '上级经销商',
+      INV.WarehouseName AS '仓库名称',
+      INV.WarehouseCode AS '仓库编号',
+      INV.WarehouseType AS '仓库类型',
+      INV.ProductLineC AS '产品线中文名',
+      INV.ProductLineE AS '产品线英文名',
+      INV.SubCompanyName AS '分子公司',
+      INV.BrandName AS '品牌',
+      INV.UPNCName AS '产品中文名',
+      INV.UPNEName AS '产品规则',
+      INV.UPNRegName AS '产品注册证号',
+      Convert(nvarchar(20),INV.Num) AS '库存数量'
+      from LPInventoryAnalytics AS LPIA
+      left join (
+
+
+      SELECT DealerMaster.DMA_ID AS DMA_ID,
+      (SELECT DMA_ChineseName
+      FROM dealermaster DM(nolock)
+      WHERE DM.dma_id = dealermaster.DMA_Parent_DMA_ID)
+      AS ParentDealer,
+      Isnull (Warehouse.WHM_Name, '') AS WarehouseName,
+      Isnull (Warehouse.WHM_Code, '') AS WarehouseCode,
+      (SELECT Lafite_DICT.VALUE1
+      FROM Lafite_DICT
+      WHERE     Lafite_DICT.DICT_TYPE = 'MS_WarehouseType'
+      AND Lafite_DICT.DICT_KEY = Warehouse.WHM_Type)
+      AS WarehouseType,
+      (SELECT ATTRIBUTE_NAME
+      FROM View_ProductLine(nolock)
+      WHERE     ATTRIBUTE_TYPE = 'Product_Line'
+      AND id = cfn.CFN_ProductLine_BUM_ID)
+      AS ProductLineE,
+      VP.SubCompanyName,
+      VP.BrandName,
+      (SELECT [DESCRIPTION]
+      FROM View_ProductLine(nolock)
+      WHERE     ATTRIBUTE_TYPE = 'Product_Line'
+      AND id = cfn.CFN_ProductLine_BUM_ID)
+      AS ProductLineC,
+      Isnull (CFN.CFN_CustomerFaceNbr, '') AS UPN,
+      Isnull (CFN.CFN_ChineseName, '') AS UPNCName,
+      Isnull (CFN.CFN_EnglishName, '') AS UPNEName,
+      Isnull (CFN.CFN_Property5, '') AS UPNRegName,
+      sum (Isnull (Lot.LOT_OnHandQty, 0)) AS Num
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      INNER JOIN        DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      LEFT JOIN View_ProductLine VP(nolock) on CFN.CFN_ProductLine_BUM_ID=VP.Id
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%'</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">LotMaster.LTM_LotNumber like '%$LotNumber$%'</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LotMaster.LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LotMaster.LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">
+        (VP.SubCompanyId=#SubCompanyId#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="BrandId">
+        (VP.BrandId=#BrandId#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock), Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+
+      </isEqual>
+      group by DealerMaster.DMA_ID,dealermaster.DMA_Parent_DMA_ID,Warehouse.WHM_Name,Warehouse.WHM_Code,Warehouse.WHM_Type,cfn.CFN_ProductLine_BUM_ID,CFN.CFN_CustomerFaceNbr,CFN.CFN_ChineseName,CFN.CFN_EnglishName,CFN.CFN_Property5,VP.SubCompanyName,VP.BrandName
+
+      ) AS INV on (LPIA.LIA_DMA_ID=INV.DMA_ID and LPIA.LIA_UPN=INV.UPN )
+      where convert(nvarchar(6),LPIA.LIA_CreateDate,112)=convert(nvarchar(6),getdate(),112)
+      and (LPIA.LIA_DMA_ID = '00000000-0000-0000-0000-000000000000'
+      <isNotNull prepend="OR" property="DealerId"> LPIA.LIA_DMA_ID =#DealerId# </isNotNull>
+      )
+      ORDER BY LPIA.LIA_DMA_ChineseName,LPIA.LIA_DivisionName,LPIA.LIA_UPN
+
+    </select>
+
+
+    <select id="SelectInventoryLotForQABSCComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT DISTINCT
+      LotMaster.LTM_LotNumber AS [Id],
+      LotMaster.LTM_LotNumber AS [Name]
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(NOLOCK) ON INV_PMA_ID = PMA_ID
+      INNER JOIN CFN(NOLOCK) ON CFN_ID = PMA_CFN_ID
+      WHERE  CFN_ProductLine_BUM_ID NOT in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      AND Warehouse.WHM_Type &lt;> 'SystemHold'
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        Warehouse.WHM_DMA_ID = #DealerID#
+      </isEqual>
+    </select>
+
+    <select id="SelectInventoryUPNForQABSCComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT DISTINCT
+      [Product].PMA_UPN AS [Id],
+      [Product].PMA_UPN AS [Name]
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON CFN_ID = PMA_CFN_ID
+      WHERE   LotMaster.LTM_LotNumber=#LotNumber#
+      AND CFN_ProductLine_BUM_ID not in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (DealerMaster.DMA_ID = #DealerID# or DealerMaster.dma_parent_dma_id = #DealerID#)
+      </isEqual>
+    </select>
+
+    <select id="SelectInventoryWHMForQABSCComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT DISTINCT
+      Warehouse.WHM_ID AS [Id],
+      Warehouse.WHM_Name AS [Name]
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON CFN_ID = PMA_CFN_ID
+      WHERE  LotMaster.LTM_LotNumber=#LotNumber#
+      AND Product.PMA_UPN=#UPN#
+      AND Lot.LOT_OnHandQty &lt;> 0
+      AND Warehouse.WHM_Type &lt;> 'SystemHold'
+      AND  CFN_ProductLine_BUM_ID not in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (DealerMaster.DMA_ID = #DealerID# or DealerMaster.dma_parent_dma_id = #DealerID#)
+      </isEqual>
+      union
+      select '00000000-0000-0000-0000-000000000000' as [Id],
+      '销售到医院' as [Name]
+      from ShipmentHeader(nolock)
+      INNER JOIN ShipmentLine(nolock) ON SPH_ID = SPL_SPH_ID
+      INNER JOIN ShipmentLot(nolock) ON SPL_ID= SLT_SPL_ID
+      INNER JOIN Lot(nolock) ON LOT_ID = SLT_LOT_ID
+      INNER JOIN LotMaster(nolock) on LTM_ID = LOT_LTM_ID
+      INNER JOIN Product(nolock) ON PMA_ID = SPL_Shipment_PMA_ID
+      INNER JOIN CFN(nolock) ON PMA_CFN_ID = CFN_ID
+      INNER JOIN DealerMaster(nolock) ON SPH_Dealer_DMA_ID = DealerMaster.DMA_ID
+      WHERE LotMaster.LTM_LotNumber= #LotNumber#
+      AND Product.PMA_UPN= #UPN#
+      AND CFN_ProductLine_BUM_ID not in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (DealerMaster.DMA_ID = #DealerID# or DealerMaster.dma_parent_dma_id = #DealerID#)
+      </isEqual>
+    </select>
+
+    <select id="SelectInventoryLotForQACRMComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT DISTINCT
+      LotMaster.LTM_LotNumber AS [Id],
+      LotMaster.LTM_LotNumber AS [Name]
+      FROM Inventory(NOLOCK)
+      INNER JOIN Lot(NOLOCK) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(NOLOCK) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(NOLOCK) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(NOLOCK) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(NOLOCK) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON PMA_CFN_ID = CFN_ID
+      WHERE   CFN_ProductLine_BUM_ID in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      AND Warehouse.WHM_Type &lt;> 'SystemHold'
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        DealerMaster.DMA_ID = #DealerID#
+      </isEqual>
+    </select>
+
+    <select id="SelectInventoryUPNForQACRMComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT DISTINCT
+      [Product].PMA_UPN AS [Id],
+      [Product].PMA_UPN AS [Name]
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON PMA_CFN_ID = CFN_ID
+      WHERE  LotMaster.LTM_LotNumber=#LotNumber#
+      AND  CFN_ProductLine_BUM_ID in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (DealerMaster.DMA_ID = #DealerID# or DealerMaster.dma_parent_dma_id = #DealerID#)
+      </isEqual>
+    </select>
+
+    <select id="SelectInventoryWHMForQACRMComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT DISTINCT
+      Warehouse.WHM_ID AS [Id],
+      Warehouse.WHM_Name AS [Name]
+      FROM Inventory(NOLOCK)
+      INNER JOIN Lot(NOLOCK) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(NOLOCK) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(NOLOCK) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(NOLOCK) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(NOLOCK) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON PMA_CFN_ID = CFN_ID
+      WHERE  LotMaster.LTM_LotNumber=#LotNumber#
+      AND Product.PMA_UPN=#UPN#
+      AND Lot.LOT_OnHandQty &lt;> 0
+      AND Warehouse.WHM_Type &lt;> 'SystemHold'
+      AND CFN_ProductLine_BUM_ID in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (DealerMaster.DMA_ID = #DealerID# or DealerMaster.dma_parent_dma_id = #DealerID#)
+      </isEqual>
+      union
+      select '00000000-0000-0000-0000-000000000000' as [Id],
+      '销售到医院' as [Name]
+      from ShipmentHeader(nolock)
+      INNER JOIN ShipmentLine(nolock) ON SPH_ID = SPL_SPH_ID
+      INNER JOIN ShipmentLot(nolock) ON SPL_ID= SLT_SPL_ID
+      INNER JOIN Lot(nolock) ON LOT_ID = SLT_LOT_ID
+      INNER JOIN LotMaster(nolock) on LTM_ID = LOT_LTM_ID
+      INNER JOIN Product(nolock) ON PMA_ID = SPL_Shipment_PMA_ID
+      INNER JOIN CFN(nolock) ON PMA_CFN_ID = CFN_ID
+      INNER JOIN DealerMaster(nolock) ON SPH_Dealer_DMA_ID = DealerMaster.DMA_ID
+      WHERE LotMaster.LTM_LotNumber= #LotNumber#
+      AND Product.PMA_UPN= #UPN#
+      AND CFN_ProductLine_BUM_ID in ('97a4e135-74c7-4802-af23-9d6d00fcb2cc')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (DealerMaster.DMA_ID = #DealerID# or DealerMaster.dma_parent_dma_id = #DealerID#)
+      </isEqual>
+    </select>
+
+    <select id="ExportNPOIInventoryForUser" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(DealerMaster.DMA_ChineseName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as ChineseName ,
+      Isnull(DealerMaster.DMA_DealerType,'')  as  DealerType    ,
+      (select REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(DMA_ChineseName,CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') from dealermaster DM(nolock) where DM.dma_id=dealermaster.DMA_Parent_DMA_ID)  as  ParentChineseName,
+      Isnull(Warehouse.WHM_Name,'')  as WHMName,
+      Isnull(Warehouse.WHM_Code,'')  as WHMCode ,
+      Lafite_DICT.VALUE1 as WarehouseType,
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and id = cfn.CFN_ProductLine_BUM_ID)   as ProductLineName,
+      (select [DESCRIPTION] from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and id = cfn.CFN_ProductLine_BUM_ID)  as ProductLineEnglishName,
+      VP.SubCompanyName,
+      VP.BrandName,
+      Isnull(CFN.CFN_CustomerFaceNbr,'')  as CustomerFaceNbr,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_ChineseName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as CFNChineseName,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_EnglishName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as CFNEnglishName,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_Property5,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'')  as Registration ,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_Property7,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as GTIN,
+      '波士顿科学公司'  as 'Company',
+      Isnull(LotMaster.LTM_Lot,'') as LotNumber,
+      Isnull(LotMaster.LTM_QrCode,'') as QrCode,
+      Isnull(LotMaster.LTM_Type,'') as LTMType ,
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(8), LotMaster.LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END) as ExpiredDate ,
+      Isnull(Product.PMA_UnitOfMeasure,'') as UnitOfMeasure,
+      Convert(NVARCHAR(100),Isnull(Lot.LOT_OnHandQty,0))  as OnHandQty,
+      <!--(select max(w.WHM_Name) from Archive.FrozenLots f,Warehouse w where f.WHM_ID = w.WHM_ID and f.dma_id = DealerMaster.DMA_ID and f.LTM_ID = LotMaster.LTM_ID) as SourceWhmName,-->
+      isnull(w2.WHM_Name,'') as SourceWhmName
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster ON  Lot.LOT_LTM_ID =  LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id INNER JOIN
+      DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      left join Archive.FrozenLots_MaxCDate AS FrozenLots(nolock) on INV_WHM_IN_ID = Warehouse.WHM_ID and FrozenLots.LTM_ID = LotMaster.LTM_ID
+      left join Warehouse w2(nolock)  on w2.WHM_ID = FrozenLots.WHM_ID
+      LEFT JOIN Archive.DealerInventory_MaxReceiptDate AS DIMD (nolock) ON (DIMD.dealerid =DealerMaster.DMA_ID and DIMD.LOT = LTM_LotNumber and DIMD.QRCode =LTM_QrCode)
+      LEFT JOIN Lafite_DICT(nolock) on (Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type)
+      LEFT JOIN View_ProductLine VP(nolock) on CFN.CFN_ProductLine_BUM_ID=VP.Id
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%'</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">(LotMaster.LTM_Lot = #LotNumber# OR  LotMaster.LTM_QrCode = #LotNumber#)</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LotMaster.LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LotMaster.LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <isNotNull prepend="AND" property="Stockdays">
+        DATEDIFF(day,ISNULL(DIMD.MaxReceiptDate,'2016-02-01'),DATEADD(month,1,convert(datetime,convert(nvarchar(6),GETDATE(),112)+'01')))>=#Stockdays#
+      </isNotNull>
+      <isNotNull prepend="AND" property="cbProductLine">
+        CFN_ProductLine_BUM_ID=#cbProductLine#
+      </isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">
+        (VP.SubCompanyId=#SubCompanyId#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="BrandId">
+        (VP.BrandId=#BrandId#)
+      </isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM (nolock), Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+
+      </isEqual>
+      ORDER BY DMA_ChineseName, Warehouse.WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber
+    </select>
+
+
+    <select id="ExportNPOIInventoryPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(DealerMaster.DMA_ChineseName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as ChineseName ,
+      Isnull(DealerMaster.DMA_DealerType,'')  as  DealerType    ,
+      (select REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(DMA_ChineseName,CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') from dealermaster DM(nolock) where DM.dma_id=dealermaster.DMA_Parent_DMA_ID)  as  ParentChineseName,
+      (select ATTRIBUTE_NAME from View_ProductLine (nolock) where ATTRIBUTE_TYPE='Product_Line' and id = cfn.CFN_ProductLine_BUM_ID)   as ProductLineName,
+      (select [DESCRIPTION] from View_ProductLine (nolock) where ATTRIBUTE_TYPE='Product_Line' and id = cfn.CFN_ProductLine_BUM_ID)  as ProductLineEnglishName,
+      (select Lafite_DICT.VALUE1 from Lafite_DICT where Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type) as WarehouseType,
+      Isnull(Warehouse.WHM_Code,'')  as WHMCode ,
+      Isnull(Warehouse.WHM_Name,'')  as WHMName,
+      Isnull(CFN.CFN_CustomerFaceNbr,'')  as CustomerFaceNbr,
+      Isnull(LotMaster.LTM_Lot,'') as LotNumber,
+      Isnull(LotMaster.LTM_QrCode,'')  as QrCode,
+      Convert(NVARCHAR(100),Isnull(Lot.LOT_OnHandQty,0))  as OnHandQty,
+      Isnull(LotMaster.LTM_Type,'') as LTMType ,
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END) as ExpiredDate ,
+      Isnull(Product.PMA_UnitOfMeasure,'') as UnitOfMeasure,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_ChineseName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as CFNChineseName,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_EnglishName,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as CFNEnglishName,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_Property5,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'')  as Registration ,
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Isnull(CFN.CFN_Property7,''),CHAR(9),''),CHAR(10),''),CHAR(11),''),CHAR(12),''),CHAR(13),'') as GTIN,
+      '波士顿科学公司'  as 'Company',
+      isnull(w2.WHM_Name,'') as SourceWhmName
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      INNER JOIN DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      left join Archive.FrozenLots_MaxCDate AS FrozenLots(nolock) on INV_WHM_IN_ID = Warehouse.WHM_ID and FrozenLots.LTM_ID = LotMaster.LTM_ID
+      LEFT JOIN Archive.DealerInventory_MaxReceiptDate AS DIMD (nolock) ON (DIMD.dealerid =DealerMaster.DMA_ID and DIMD.LOT = LTM_LotNumber and DIMD.QRCode =LTM_QrCode)
+      left join Warehouse w2  on FrozenLots.WHM_ID = w2.WHM_ID
+      WHERE (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%'</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">(LotMaster.LTM_Lot = #LotNumber# OR  LotMaster.LTM_QrCode = #LotNumber#)</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LotMaster.LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LotMaster.LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <isNotNull prepend="AND" property="Stockdays">
+        DATEDIFF(day,ISNULL(DIMD.MaxReceiptDate,,'2016-02-01'),DATEADD(month,1,convert(datetime,convert(nvarchar(6),GETDATE(),112)+'01')))>=#Stockdays#
+      </isNotNull>
+      <isNotNull prepend="AND" property="cbProductLine">
+        CFN_ProductLine_BUM_ID=#cbProductLine#
+      </isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+
+      </isEqual>
+      ORDER BY DMA_ChineseName, Warehouse.WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber
+    </select>
+
+    <select id="SelectInventoryPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      CFN.CFN_ChineseName AS CFNChineseName,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_Implant AS Implant,
+      CFN.CFN_Property1 AS Property1,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName,
+      Product.PMA_UPN AS Upn,
+      Product.PMA_Name AS ProductName,
+      Warehouse.WHM_Name AS WarehouseName,
+      LotMaster.LTM_Lot AS LotNumber,
+      LotMaster.LTM_QrCode AS QRCode,
+      LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Convert(decimal(18,2),Lot.LOT_OnHandQty) AS OnHandQty,
+      Inventory.INV_OnHandQuantity AS OnHandQuantity,
+      Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId,
+      Inventory.INV_PMA_ID AS PmaId,
+      Lot.LOT_LTM_ID AS LtmId,
+      CAST(Product.PMA_SAPUnitPrice AS REAL) AS SapUnitPrice,
+      Warehouse.WHM_DMA_ID AS DealerId,
+      DealerMaster.DMA_ChineseName AS DealerName,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      (select Lafite_DICT.VALUE1 from Lafite_DICT where Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type) AS WhmType,
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END) AS ExpiredDateString
+      ,row_number() OVER (ORDER BY DMA_ChineseName,Warehouse.WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber ) AS [row_number],
+      LotMaster.LTM_Type AS LotDOM
+      ,DATEDIFF(day,ISNULL(DIMD.MaxReceiptDate,'2019-12-18'),DATEADD(month,1,convert(datetime,convert(nvarchar(6),GETDATE(),112)+'01'))) as FrozenDate
+      ,case when Warehouse.WHM_Type = 'Frozen' then w2.WHM_Name else '' end as WarehouseFrom,
+      ISNULL(dbo.fn_GetCfnPriceByDealer(isnull(#DealerId#,CFNP_Group_ID), CFN.CFN_ID, #SubCompanyId#, #BrandId#, 'Dealer', 0),0) as Price
+      FROM          Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID =  LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      INNER JOIN        DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      left join CFNPrice(nolock) on DealerMaster.DMA_ID=CFNPrice.CFNP_Group_ID and CFNP_PriceType='dealer' and CFNPrice.CFNP_CFN_ID= CFN_ID
+      LEFT JOIN Archive.DealerInventory_MaxReceiptDate AS DIMD (nolock) ON (DIMD.dealerid =DealerMaster.DMA_ID and DIMD.LOT = LTM_LotNumber and DIMD.QRCode =LTM_QrCode)
+      left join Archive.FrozenLots_MaxCDate AS FrozenLots(nolock) on INV_WHM_IN_ID = Warehouse.WHM_ID and FrozenLots.LTM_ID = LotMaster.LTM_ID
+      left join Warehouse w2(nolock) on w2.WHM_ID = FrozenLots.WHM_ID
+      WHERE      (Lot.LOT_OnHandQty &lt;> 0)
+      <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">DealerMaster.DMA_ChineseName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="CFNChineseName">CFN.CFN_ChineseName like '%$CFNChineseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineName">ProductLineName like '%$ProductLineName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Upn">Product.PMA_UPN like '%$Upn$%'</isNotNull>
+      <isNotNull prepend="AND" property="ProductName">Product.PMA_Name like '%$ProductName$%</isNotNull>
+      <isNotNull prepend="AND" property="WarehouseName">Warehouse.WHM_Name like '%$WarehouseName$%'</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">(LotMaster.LTM_Lot like '%$LotNumber$%' OR  LotMaster.LTM_QrCode like '%$LotNumber$%')</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateFrom">LotMaster.LTM_ExpiredDate >= #ExpiredDateFrom#</isNotNull>
+      <isNotNull prepend="AND" property="ExpiredDateTo">LotMaster.LTM_ExpiredDate &lt;=#ExpiredDateTo#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQty">OnHandQty=#OnHandQty#</isNotNull>
+      <isNotNull prepend="AND" property="OnHandQuantity">OnHandQuantity=#OnHandQuantity#</isNotNull>
+      <isNotNull prepend="AND" property="Implant">Implant=#Implant#</isNotNull>
+      <isNotNull prepend="AND" property="Lotid">Lotid=#Lotid#</isNotNull>
+      <isNotNull prepend="AND" property="Invid">Invid=#Invid#</isNotNull>
+      <isNotNull prepend="AND" property="WhmId">Inventory.INV_WHM_ID=#WhmId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">PmaId=#PmaId#</isNotNull>
+      <isNotNull prepend="AND" property="LtmId">LtmId=#LtmId#</isNotNull>
+      <isNotNull prepend="AND" property="SapUnitPrice">SapUnitPrice=#SapUnitPrice#</isNotNull>
+      <isNotNull prepend="AND" property="CfnName">CFN_ChineseName like '%$CfnName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Stockdays">
+        DATEDIFF(day,ISNULL(DIMD.MaxReceiptDate,,'2016-02-01'),DATEADD(month,1,convert(datetime,convert(nvarchar(6),GETDATE(),112)+'01')))>=#Stockdays#
+      </isNotNull>
+      <isNotNull prepend="AND" property="cbProductLine">
+        CFN_ProductLine_BUM_ID=#cbProductLine#
+      </isNotNull>
+      <isNotNull prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# OR DM.DMA_ID = #LPId#) AND Warehouse.WHM_DMA_ID=DM.DMA_ID)
+      </isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        )
+      </isEqual>
+
+    </select>
+
+    <!--Added By Song Yuqi For 经销商投诉退换货 On 2017-08-23-->
+    <select id="SelectInventoryForComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT NEWID() AS [Id],T.*,ROW_NUMBER() OVER (ORDER BY T.UpnName,T.LotName) AS [row_number],
+      (
+      SELECT DISTINCT REG_NO FROM MD.V_INF_UPN_REG_LIST t1,
+      (
+      SELECT REG_NO.CFN_CustomerFaceNbr,MAX(REG_NO.VALID_DATE_FROM) AS ValidDateFrom FROM MD.V_INF_UPN_REG_LIST REG_NO
+      WHERE REG_NO.VALID_DATE_TO IS NOT NULL
+      AND Reg_No.CFN_CustomerFaceNbr = T.UpnName
+      GROUP BY REG_NO.CFN_CustomerFaceNbr
+      ) t2
+      WHERE t1.CFN_CustomerFaceNbr = t2.CFN_CustomerFaceNbr
+      AND t1.VALID_DATE_FROM = t2.ValidDateFrom
+      AND t1.CFN_CustomerFaceNbr = T.UpnName
+      ) AS [Property5],
+      (SELECT DivisionName FROM V_DivisionProductLineRelation A WHERE A.ProductLineID = T.ProductLineId) AS BU,
+      (SELECT DivisionCode FROM V_DivisionProductLineRelation A WHERE A.ProductLineID = T.ProductLineId) AS BUCode
+      FROM (
+      SELECT DISTINCT
+      CFN.CFN_ID AS [UpnId],
+      CFN.CFN_CustomerFaceNbr AS [UpnName],
+      LotMaster.LTM_Lot AS [LotName],
+      CFN.CFN_ChineseName AS SkuCnName,
+      CFN.CFN_EnglishName AS SkuEnName,
+      CFN.CFN_Description AS SkuDesc,
+      CFN.CFN_Property1 AS [Property1],
+      CFN.CFN_Property2 AS [Property2],
+      CFN.CFN_Property3 AS [Property3],
+      CFN.CFN_Property4 AS [Property4],
+      <!--CFN.CFN_Property5 AS [Property5],-->
+      CFN.CFN_Property6 AS [Property6],
+      CFN.CFN_Property7 AS [Property7],
+      CFN.CFN_Property8 AS [Property8],
+      CFN.CFN_ProductLine_BUM_ID AS ProductLineId,
+      CONVERT(NVARCHAR(10),ISNULL(Product.PMA_ConvertFactor,0)) AS ConvertFactor,
+      CONVERT(NVARCHAR(10),CASE WHEN ISNULL(Product.PMA_ConvertFactor,0) = 0 THEN 1 ELSE CONVERT(DECIMAL(18,2),1/ISNULL(Product.PMA_ConvertFactor,0)) END) AS FactorNumber,
+      CFN.CFN_Level2Code AS [Level2Code]
+      FROM Inventory(NOLOCK)
+      INNER JOIN Lot(NOLOCK) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(NOLOCK) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(NOLOCK) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(NOLOCK) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(NOLOCK) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON PMA_CFN_ID = CFN_ID
+      WHERE Warehouse.WHM_Type != 'SystemHold'
+      <isEqual prepend="AND" property="IsCrm" compareValue="1">
+        CFN_ProductLine_BUM_ID = '97a4e135-74c7-4802-af23-9d6d00fcb2cc'
+      </isEqual>
+      <isEqual prepend="AND" property="IsCrm" compareValue="0">
+        CFN_ProductLine_BUM_ID != '97a4e135-74c7-4802-af23-9d6d00fcb2cc'
+      </isEqual>
+      <isNotNull prepend="AND" property="BumId">
+        CFN_ProductLine_BUM_ID = #BumId#
+      </isNotNull>
+      <isNotNull prepend="AND" property="Sku">
+        CFN.CFN_CustomerFaceNbr LIKE '%' + #Sku# + '%'
+      </isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">
+        LotMaster.LTM_Lot   LIKE '%' + #LotNumber# + '%'
+      </isNotNull>
+      <isNotNull prepend="AND" property="DealerId">
+        (DealerMaster.DMA_ID=#DealerId# OR DealerMaster.DMA_Parent_DMA_ID=#DealerId#)
+      </isNotNull>
+      ) T
+    </select>
+
+    <select id="SelectInventoryWarehouseForComplainsDataSet" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT NEWID() AS Id,*,
+      ROW_NUMBER() OVER (ORDER BY T.UpnName,T.LotName,T.QrCode,T.WarehouseName) AS [row_number],
+      CONVERT(NVARCHAR(8), T.LTM_ExpiredDate, 112) AS ExpiredDate
+      
+      <!--(
+      CASE WHEN T.Property6 = 0 THEN CONVERT(NVARCHAR(6),T.LTM_ExpiredDate, 112)
+      WHEN T.Property6 = 1 THEN CONVERT(NVARCHAR(8), T.LTM_ExpiredDate, 112)
+      ELSE CONVERT(NVARCHAR(100),T.LTM_ExpiredDate,112) END
+      ) AS ExpiredDate-->
+      FROM (
+      SELECT DISTINCT
+      Warehouse.WHM_ID AS [WarehouseId],
+      Warehouse.WHM_Name AS [WarehouseName],
+      CFN.CFN_ID AS [UpnId],
+      CFN.CFN_CustomerFaceNbr AS [UpnName],
+      CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN substring(LotMaster.LTM_LotNumber,1,CHARINDEX('@@',LotMaster.LTM_LotNumber)-1) ELSE LTM_LotNumber END AS [LotName],
+      CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN SUBSTRING(LTM_LotNumber,CHARINDEX('@@',LotMaster.LTM_LotNumber)+2,LEN(LotMaster.LTM_LotNumber)-CHARINDEX('@@',LotMaster.LTM_LotNumber)) ELSE 'NoQR' END AS [QrCode],
+      CFN.CFN_ChineseName AS SkuCnName,
+      CFN.CFN_EnglishName AS SkuEnName,
+      CFN.CFN_Description AS SkuDesc,
+      LTM_ExpiredDate AS LTM_ExpiredDate,
+      CFN.CFN_Property1 AS [Property1],
+      CFN.CFN_Property2 AS [Property2],
+      CFN.CFN_Property3 AS [Property3],
+      CFN.CFN_Property4 AS [Property4],
+      CFN.CFN_Property5 AS [Property5],
+      CFN.CFN_Property6 AS [Property6],
+      CFN.CFN_Property7 AS [Property7],
+      CFN.CFN_Property8 AS [Property8],
+      CFN.CFN_Level2Code AS [Level2Code],
+      CONVERT(NVARCHAR(10),ISNULL(Product.PMA_ConvertFactor,0)) AS ConvertFactor,
+      CONVERT(NVARCHAR(10),CASE WHEN ISNULL(Product.PMA_ConvertFactor,0) = 0 THEN 1 ELSE CONVERT(DECIMAL(18,2),1/ISNULL(Product.PMA_ConvertFactor,0)) END) AS FactorNumber,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLineId,
+      (SELECT DivisionName FROM V_DivisionProductLineRelation A WHERE A.ProductLineID = CFN.CFN_ProductLine_BUM_ID) AS BU,
+      (SELECT DivisionCode FROM V_DivisionProductLineRelation A WHERE A.ProductLineID = CFN.CFN_ProductLine_BUM_ID) AS BUCode
+      FROM Inventory(NOLOCK)
+      INNER JOIN Lot(NOLOCK) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(NOLOCK) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(NOLOCK) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(NOLOCK) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN DealerMaster(NOLOCK) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN CFN(NOLOCK) ON PMA_CFN_ID = CFN_ID
+      INNER JOIN dbo.View_ProductLine vp ON vp.Id=cfn.CFN_ProductLine_BUM_ID
+      WHERE Lot.LOT_OnHandQty != 0
+      AND Warehouse.WHM_Type != 'SystemHold'
+      <isNotNull prepend="AND" property="UPN">
+        Product.PMA_UPN = #UPN#
+      </isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">vp.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">
+        (CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN substring(LotMaster.LTM_LotNumber,1,CHARINDEX('@@',LotMaster.LTM_LotNumber)-1) ELSE LTM_LotNumber END) = #LotNumber#
+      </isNotNull>
+      <isNotNull prepend="AND" property="QrCode">
+        (CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN SUBSTRING(LTM_LotNumber,CHARINDEX('@@',LotMaster.LTM_LotNumber)+2,LEN(LotMaster.LTM_LotNumber)-CHARINDEX('@@',LotMaster.LTM_LotNumber)) ELSE 'NoQR' END) LIKE '%' + #QrCode# + '%'
+      </isNotNull>
+
+      AND (DealerMaster.DMA_ID = #DealerId# OR DealerMaster.DMA_Parent_DMA_ID = #DealerId#)
+      UNION ALL
+      SELECT DISTINCT
+      '00000000-0000-0000-0000-000000000000' AS [WarehouseId],
+      '销售到医院' AS [WarehouseName],
+      CFN.CFN_ID AS [UpnId],
+      CFN.CFN_CustomerFaceNbr AS [UpnName],
+      CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN substring(LotMaster.LTM_LotNumber,1,CHARINDEX('@@',LotMaster.LTM_LotNumber)-1) ELSE LTM_LotNumber END AS [LotName],
+      CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN SUBSTRING(LTM_LotNumber,CHARINDEX('@@',LotMaster.LTM_LotNumber)+2,LEN(LotMaster.LTM_LotNumber)-CHARINDEX('@@',LotMaster.LTM_LotNumber)) ELSE 'NoQR' END AS [QrCode],
+      CFN.CFN_ChineseName AS SkuCnName,
+      CFN.CFN_EnglishName AS SkuEnName,
+      CFN.CFN_Description AS SkuDesc,
+      CONVERT(NVARCHAR(10),LotMaster.LTM_ExpiredDate,120) AS ExpiredDate,
+      CFN.CFN_Property1 AS [Property1],
+      CFN.CFN_Property2 AS [Property2],
+      CFN.CFN_Property3 AS [Property3],
+      CFN.CFN_Property4 AS [Property4],
+      CFN.CFN_Property5 AS [Property5],
+      CFN.CFN_Property6 AS [Property6],
+      CFN.CFN_Property7 AS [Property7],
+      CFN.CFN_Property8 AS [Property8],
+      CFN.CFN_Level2Code AS [Level2Code],
+      CONVERT(NVARCHAR(10),ISNULL(Product.PMA_ConvertFactor,0)) AS ConvertFactor,
+      CONVERT(NVARCHAR(10),CASE WHEN ISNULL(Product.PMA_ConvertFactor,0) = 0 THEN 1 ELSE CONVERT(DECIMAL(18,2),1/ISNULL(Product.PMA_ConvertFactor,0)) END) AS FactorNumber,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLineId,
+      (SELECT DivisionName FROM V_DivisionProductLineRelation A WHERE A.ProductLineID = CFN.CFN_ProductLine_BUM_ID) AS BU,
+      (SELECT DivisionCode FROM V_DivisionProductLineRelation A WHERE A.ProductLineID = CFN.CFN_ProductLine_BUM_ID) AS BUCode
+      FROM ShipmentHeader(NOLOCK)
+      INNER JOIN ShipmentLine(NOLOCK) ON SPH_ID = SPL_SPH_ID
+      INNER JOIN ShipmentLot(NOLOCK) ON SPL_ID= SLT_SPL_ID
+      INNER JOIN Lot(NOLOCK) ON LOT_ID = SLT_LOT_ID
+      INNER JOIN LotMaster(NOLOCK) ON LTM_ID = LOT_LTM_ID
+      INNER JOIN Product(NOLOCK) ON PMA_ID = SPL_Shipment_PMA_ID
+      INNER JOIN CFN(NOLOCK) ON PMA_CFN_ID = CFN_ID
+      INNER JOIN DealerMaster(NOLOCK) ON SPH_Dealer_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN dbo.View_ProductLine vp ON vp.Id=cfn.CFN_ProductLine_BUM_ID
+      WHERE 1=1
+      <isNotNull prepend="AND" property="UPN">
+        Product.PMA_UPN = #UPN#
+      </isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">vp.BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="LotNumber">
+        (CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN substring(LotMaster.LTM_LotNumber,1,CHARINDEX('@@',LotMaster.LTM_LotNumber)-1) ELSE LTM_LotNumber END) = #LotNumber#
+      </isNotNull>
+      <isNotNull prepend="AND" property="QrCode">
+        (CASE WHEN CHARINDEX('@@',LotMaster.LTM_LotNumber) > 0 THEN SUBSTRING(LTM_LotNumber,CHARINDEX('@@',LotMaster.LTM_LotNumber)+2,LEN(LotMaster.LTM_LotNumber)-CHARINDEX('@@',LotMaster.LTM_LotNumber)) ELSE 'NoQR' END) LIKE '%' + #QrCode# + '%'
+      </isNotNull>
+      AND (DealerMaster.DMA_ID = #DealerId# OR DealerMaster.DMA_Parent_DMA_ID = #DealerId#)
+      ) T
+      where not exists (select 1 from DealerComplain where DC_Status in ('Completed','Confirmed','Delivered','InApprove','Submit') AND DC_ComplainStatus IN ('Approved','InApprove','Submit') and T.QRCode= DealerComplain.QRCode )
+      AND not exists (select 1 from DealerComplainCRM where DC_Status in ('Completed','Confirmed','Delivered','InApprove','Submit') AND DC_ComplainStatus IN ('Approved','InApprove','Submit') and T.QRCode= DealerComplainCRM.QRCode )
+    </select>
+
+    <select id="QueryDealerComplainProductSaleDate" parameterClass="System.Collections.Hashtable" resultClass="QueryInventory">
+      SELECT MAX(CONVERT(NVARCHAR(10),PRH_SapDeliveryDate,120)) AS SalesDate
+      FROM POReceiptHeader(nolock)
+      INNER JOIN POReceipt(nolock) ON PRH_ID = POR_PRH_ID
+      INNER JOIN POReceiptLot(nolock) ON POR_ID = PRL_POR_ID
+      INNER JOIN Product(nolock) ON PMA_ID = POR_SAP_PMA_ID
+      WHERE PMA_UPN = #UPN#
+      AND PRL_LotNumber = #LotNumer#
+      AND PRH_Dealer_DMA_ID = #DealerId#
+      AND PRH_Type in ('PurchaseOrder','Retail')
+    </select>
+
+    <select id="SelectNearEffectInventoryDataSet" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC GC_GetParentNearEffectInventoryList #DealerId#,#PageNum#,#PageSize#
+    </select>
+  </statements>
+</sqlMap>

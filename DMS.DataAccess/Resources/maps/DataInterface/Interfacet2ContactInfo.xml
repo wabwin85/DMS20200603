@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Interfacet2ContactInfoMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Interfacet2ContactInfo" assembly="DMS.Model.dll" type="DMS.Model.Interfacet2ContactInfo" />
+    <typeAlias alias="T2AuthorizationData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.T2AuthorizationData" />
+    <typeAlias alias="T2CommercialIndexData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.T2CommercialIndexData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="Interfacet2ContactInfoResult" class="Interfacet2ContactInfo">
+      <result property="Id" column="ICI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Distributorid" column="ICI_DistributorID" type="string" dbType="nvarchar"/>
+      <result property="DistributorName" column="ICI_DistributorName" type="string" dbType="nvarchar"/>
+      <result property="Position" column="ICI_Position" type="string" dbType="nvarchar"/>
+      <result property="Contract" column="ICI_Contract" type="string" dbType="nvarchar"/>
+      <result property="Phone" column="ICI_Phone" type="string" dbType="nvarchar"/>
+      <result property="Mobile" column="ICI_Mobile" type="string" dbType="nvarchar"/>
+      <result property="Email" column="ICI_EMail" type="string" dbType="nvarchar"/>
+      <result property="Address" column="ICI_Address" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="ICI_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="ICI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ICI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="ICI_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="ICI_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="ICI_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ErrorMsg" column="ICI_ErrorMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="T2AuthorizationDataResult" class="T2AuthorizationData">
+      <result property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+      <result property="DistributorName" column="DistributorName" type="string" dbType="nvarchar"/>
+      <result property="HospitalCode" column="HospitalCode" type="string" dbType="nvarchar"/>
+      <result property="HospitalName" column="HospitalName" type="string" dbType="nvarchar"/>
+      <result property="SubBUCode" column="SubBUCode" type="string" dbType="nvarchar"/>
+      <result property="SubBUName" column="SubBUName" type="string" dbType="nvarchar"/>
+      <result property="AuthCode" column="AuthCode" type="string" dbType="nvarchar"/>
+      <result property="AuthName" column="AuthName" type="string" dbType="nvarchar"/>
+      <result property="BU" column="BU" type="string" dbType="nvarchar"/>
+      <result property="AuthType" column="AuthType" type="string" dbType="nvarchar"/>
+      <result property="AuthStartTime" column="AuthStartTime" type="string" dbType="nvarchar"/>
+      <result property="AuthEndTime" column="AuthEndTime" type="string" dbType="nvarchar"/>
+    </resultMap>
+  <resultMap id="T2CommercialIndexDataResult" class="T2CommercialIndexData">
+      <result property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+      <result property="DistributorName" column="DistributorName" type="string" dbType="nvarchar"/>
+      <result property="BU" column="BU" type="string" dbType="nvarchar"/>
+      <result property="SubBUCode" column="SubBUCode" type="string" dbType="nvarchar"/>
+      <result property="SubBUName" column="SubBUName" type="string" dbType="nvarchar"/>
+      <result property="StartTime" column="StartTime" type="string" dbType="nvarchar"/>
+      <result property="EndTime" column="EndTime" type="string" dbType="nvarchar"/>
+      <result property="MarketType" column="MarketType" type="string" dbType="nvarchar"/>
+      <result property="Year" column="Year" type="string" dbType="nvarchar"/>
+      <result property="Month1" column="Month1" type="string" dbType="nvarchar"/>
+      <result property="Month2" column="Month2" type="string" dbType="nvarchar"/>
+      <result property="Month3" column="Month3" type="string" dbType="nvarchar"/>
+      <result property="Month4" column="Month4" type="string" dbType="nvarchar"/>
+      <result property="Month5" column="Month5" type="string" dbType="nvarchar"/>
+      <result property="Month6" column="Month6" type="string" dbType="nvarchar"/>
+      <result property="Month7" column="Month7" type="string" dbType="nvarchar"/>
+      <result property="Month8" column="Month8" type="string" dbType="nvarchar"/>
+      <result property="Month9" column="Month9" type="string" dbType="nvarchar"/>
+      <result property="Month10" column="Month10" type="string" dbType="nvarchar"/>
+      <result property="Month11" column="Month11" type="string" dbType="nvarchar"/>
+      <result property="Month12" column="Month12" type="string" dbType="nvarchar"/>
+      <result property="Amount" column="Amount" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_T2ContractInfo_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfacet2ContactInfo" parameterClass="string" resultClass="Interfacet2ContactInfo">
+      SELECT ICI_ID AS Id,ICI_DistributorID AS Distributorid,ICI_DistributorName AS DistributorName,ICI_Position AS Position,ICI_Contract AS Contract,ICI_Phone AS Phone,ICI_Mobile AS Mobile,ICI_EMail AS Email,ICI_Address AS Address,ICI_Remark AS Remark,ICI_LineNbr AS LineNbr,ICI_FileName AS FileName,ICI_ImportDate AS ImportDate,ICI_ClientID AS Clientid,ICI_BatchNbr AS BatchNbr,ICI_ErrorMsg AS ErrorMsg
+      FROM InterfaceT2ContactInfo
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ICI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfacet2ContactInfo" parameterClass="Interfacet2ContactInfo" resultClass="Interfacet2ContactInfo">
+      SELECT ICI_ID AS Id,ICI_DistributorID AS Distributorid,ICI_DistributorName AS DistributorName,ICI_Position AS Position,ICI_Contract AS Contract,ICI_Phone AS Phone,ICI_Mobile AS Mobile,ICI_EMail AS Email,ICI_Address AS Address,ICI_Remark AS Remark,ICI_LineNbr AS LineNbr,ICI_FileName AS FileName,ICI_ImportDate AS ImportDate,ICI_ClientID AS Clientid,ICI_BatchNbr AS BatchNbr,ICI_ErrorMsg AS ErrorMsg
+      FROM InterfaceT2ContactInfo
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ICI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Distributorid">ICI_DistributorID=#Distributorid#</isNotNull>
+        <isNotNull prepend="AND" property="DistributorName">ICI_DistributorName=#DistributorName#</isNotNull>
+        <isNotNull prepend="AND" property="Position">ICI_Position=#Position#</isNotNull>
+        <isNotNull prepend="AND" property="Contract">ICI_Contract=#Contract#</isNotNull>
+        <isNotNull prepend="AND" property="Phone">ICI_Phone=#Phone#</isNotNull>
+        <isNotNull prepend="AND" property="Mobile">ICI_Mobile=#Mobile#</isNotNull>
+        <isNotNull prepend="AND" property="Email">ICI_EMail=#Email#</isNotNull>
+        <isNotNull prepend="AND" property="Address">ICI_Address=#Address#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">ICI_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ICI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ICI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">ICI_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">ICI_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">ICI_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorMsg">ICI_ErrorMsg=#ErrorMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfacet2ContactInfo" parameterClass="Interfacet2ContactInfo">
+      INSERT INTO InterfaceT2ContactInfo
+      (ICI_ID,ICI_DistributorID,ICI_DistributorName,ICI_Position,ICI_Contract,ICI_Phone,ICI_Mobile,ICI_EMail,ICI_Address,ICI_Remark,ICI_LineNbr,ICI_FileName,ICI_ImportDate,ICI_ClientID,ICI_BatchNbr,ICI_ErrorMsg)
+      VALUES(#Id#,#Distributorid#,#DistributorName#,#Position#,#Contract#,#Phone#,#Mobile#,#Email#,#Address#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ErrorMsg#)
+    </insert>
+    <update id="UpdateInterfacet2ContactInfo" parameterClass="Interfacet2ContactInfo">
+      UPDATE InterfaceT2ContactInfo
+      SET ICI_ID=#Id#,ICI_DistributorID=#Distributorid#,ICI_DistributorName=#DistributorName#,ICI_Position=#Position#,ICI_Contract=#Contract#,ICI_Phone=#Phone#,ICI_Mobile=#Mobile#,ICI_EMail=#Email#,ICI_Address=#Address#,ICI_Remark=#Remark#,ICI_LineNbr=#LineNbr#,ICI_FileName=#FileName#,ICI_ImportDate=#ImportDate#,ICI_ClientID=#Clientid#,ICI_BatchNbr=#BatchNbr#,ICI_ErrorMsg=#ErrorMsg#
+      WHERE ICI_ID = #Id#
+    </update>
+    <delete id="DeleteInterfacet2ContactInfo" parameterClass="string">
+      DELETE FROM InterfaceT2ContactInfo
+      WHERE ICI_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_T2ContractInfo" parameterMap="GC_Interface_T2ContractInfo_ParameterMap">
+      dbo.GC_Interface_T2ContractInfo
+    </procedure>
+    <select id="SelectInterfacet2ContactInfoByBatchNbrErrorOnly" parameterClass="string" resultClass="Interfacet2ContactInfo">
+      SELECT ICI_ID AS Id,ICI_DistributorID AS Distributorid,ICI_DistributorName AS DistributorName,ICI_Position AS Position,ICI_Contract AS Contract,ICI_Phone AS Phone,ICI_Mobile AS Mobile,ICI_EMail AS Email,ICI_Address AS Address,ICI_Remark AS Remark,ICI_LineNbr AS LineNbr,ICI_FileName AS FileName,ICI_ImportDate AS ImportDate,ICI_ClientID AS Clientid,ICI_BatchNbr AS BatchNbr,ICI_ErrorMsg AS ErrorMsg
+      FROM InterfaceT2ContactInfo
+      WHERE ICI_BatchNbr = #value# AND ICI_ErrorMsg IS NOT NULL
+      ORDER BY ICI_DistributorID
+    </select>
+
+    <select id="SelectT2ContactInfoByID" parameterClass="string" resultClass="Interfacet2ContactInfo">
+      SELECT DMA_SAP_Code AS Distributorid,DMA_ChineseName AS DistributorName,DCI_Position AS Position,DCI_Contact AS Contract,DCI_Phone AS Phone,DCI_Mobile AS Mobile,DCI_EMail AS Email,DCI_Address AS Address,DCI_Remark AS Remark,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerContactInfo(nolock),DealerMaster(nolock)
+      WHERE DCI_DMA_ID = #value#
+      and DCI_DMA_ID = DMA_ID
+    </select>
+
+    <select id="SelectT2AuthorizationByCode" parameterClass="string" resultClass="T2AuthorizationData">
+      select SAPID as  DistributorID,
+      DealerName as DistributorName,
+      isnull(DMSCode,'') as HospitalCode,
+      isnull(Hospital,'') as HospitalName,
+      isnull(SubBUCode,'') as SubBUCode,
+      isnull(SubBUName,'') as SubBUName,
+      isnull(CaCode,'') as AuthCode,
+      isnull(CaName,'') as AuthName,
+      Division as BU,
+      AuthType as AuthType,
+      StartDate as AuthStartTime,
+      StopDate as AuthEndTime
+      from interface.V_I_QV_DealerAuthorization_V2 where SAPID = #value#
+    </select>
+    <select id="SelectT2CommercialIndexByCode" parameterClass="string" resultClass="T2CommercialIndexData">
+      select  SAPID as  DistributorID,
+      Dealer as DistributorName,
+      Division as BU,
+      isnull(SubBUCode,'') as SubBUCode,
+      isnull(SubBUName,'') as SubBUName,
+      isnull(Convert(nvarchar(20),StartDate,120),'') as StartTime,
+      isnull(Convert(nvarchar(20),StopDate,120),'') as EndTime,
+      case when MarketType = 0 then '红海' when  MarketType = 1 then '蓝海' else '不区分红蓝海' end as MarketType,
+      Year  as 'Year',
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_1,0))) as Month1,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_2,0))) as Month2,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_3,0))) as Month3,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_4,0))) as Month4,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_5,0))) as Month5,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(AOPD_Amount_6,0))) as Month6,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_7,0))) as Month7,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_8,0))) as Month8,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_9,0))) as Month9,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_10,0))) as Month10,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_11,0))) as Month11,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_12,0))) as Month12,
+      convert(nvarchar(20),convert(decimal(18,4),isnull(Amount_Total,0))) as Amount
+      from interface.V_I_QV_DealerAOP
+      where SAPID =  #value#
+    </select>
+  </statements>
+</sqlMap>

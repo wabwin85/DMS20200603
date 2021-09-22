@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TrainScoreImportMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="TrainScoreImport" assembly="DMS.Model.dll" type="DMS.Model.TrainScoreImport" />
+    </alias>
+    <resultMaps>
+        <resultMap id="TrainScoreImportResult" class="TrainScoreImport">
+            <result property="TrainScoreId" column="TrainScoreId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ImportUser" column="ImportUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ImportTime" column="ImportTime" type="DateTime" dbType="datetime"/>
+            <result property="ImportFileName" column="ImportFileName" type="String" dbType="nvarchar"/>
+            <result property="LineNum" column="LineNum" type="int" dbType="int"/>
+            <result property="DealerCode" column="DealerCode" type="String" dbType="nvarchar"/>
+            <result property="SalesName" column="SalesName" type="String" dbType="nvarchar"/>
+            <result property="IsPass" column="IsPass" type="String" dbType="nvarchar"/>
+            <result property="ErrorFlag" column="ErrorFlag" type="bool" dbType="bit"/>
+            <result property="ErrorDesc" column="ErrorDesc" type="String" dbType="nvarchar"/>
+            <result property="DealerId" column="DealerId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SalesId" column="SalesId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SalesTrainId" column="SalesTrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TrainResult" column="TrainResult" type="String" dbType="nvarchar"/>
+            <result property="DealerCodeDesc" column="DealerCodeDesc" type="String" dbType="nvarchar"/>
+            <result property="SalesNameDesc" column="SalesNameDesc" type="String" dbType="nvarchar"/>
+            <result property="IsPassDesc" column="IsPassDesc" type="String" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="ProcImportTrainScoreParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="TrainId" column="TrainId" />
+            <parameter property="ClassId" column="ClassId" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+        <insert id="InsertTrainScoreImport" parameterClass="TrainScoreImport">
+            INSERT INTO Commando.TrainScoreImport
+            (TrainScoreId,ImportUser,ImportTime,ImportFileName,LineNum,DealerCode,SalesName,IsPass,ErrorFlag,ErrorDesc,DealerId,SalesId,SalesTrainId,TrainResult,DealerCodeDesc,SalesNameDesc,IsPassDesc)
+            VALUES
+            (#TrainScoreId#,#ImportUser#,#ImportTime#,#ImportFileName#,#LineNum#,#DealerCode#,#SalesName#,#IsPass#,#ErrorFlag#,#ErrorDesc#,#DealerId#,#SalesId#,#SalesTrainId#,#TrainResult#,#DealerCodeDesc#,#SalesNameDesc#,#IsPassDesc#)
+        </insert>
+        <delete id="DeleteTrainScoreImport" parameterClass="string">
+            DELETE FROM Commando.TrainScoreImport
+            WHERE TrainScoreId = #value#
+        </delete>
+        <delete id="DeleteTrainScoreImportByUser" parameterClass="string">
+            DELETE FROM Commando.TrainScoreImport
+            WHERE ImportUser = #value#
+        </delete>
+        <select id="SelectTrainScoreImportByCondition" parameterClass="System.Collections.Hashtable" resultClass="TrainScoreImport">
+            SELECT TrainScoreId,ImportUser,ImportTime,ImportFileName,LineNum,DealerCode,SalesName,IsPass,ErrorFlag,ErrorDesc,DealerId,SalesId,SalesTrainId,TrainResult,DealerCodeDesc,SalesNameDesc,IsPassDesc
+            ,ROW_NUMBER () OVER (ORDER BY LineNum) AS row_number
+            FROM Commando.TrainScoreImport
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="UserId">ImportUser=#UserId#</isNotNull>
+            </dynamic>
+        </select>
+        <update id="UpdateTrainScoreImportForEdit" parameterClass="TrainScoreImport">
+            UPDATE Commando.TrainScoreImport SET
+            DealerCode=#DealerCode#,
+            SalesName=#SalesName#,
+            IsPass=#IsPass#,
+            ErrorFlag=NULL,
+            ErrorDesc=NULL,
+            DealerId=NULL,
+            SalesId=NULL,
+            SalesTrainId=NULL,
+            TrainResult=NULL,
+            DealerCodeDesc=NULL,
+            SalesNameDesc=NULL,
+            IsPassDesc=NULL
+            WHERE TrainScoreId = #TrainScoreId#
+        </update>
+        <procedure id="ProcImportTrainScore" parameterMap="ProcImportTrainScoreParameterMap">
+            Commando.Proc_ImportTrainScore
+        </procedure>
+    </statements>
+</sqlMap>

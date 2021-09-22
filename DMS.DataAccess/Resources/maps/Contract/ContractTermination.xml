@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractTerminationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractTermination" assembly="DMS.Model.dll" type="DMS.Model.ContractTermination" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ContractTerminationResult" class="ContractTermination">
+      <result property="CteId" column="CteId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CteCmId" column="CteCmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CteDmaId" column="CteDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CteDivision" column="CteDivision" type="string" dbType="nvarchar"/>
+      <result property="CteMarketType" column="CteMarketType" type="int" dbType="int"/>
+      <result property="CteDealerName" column="CteDealerName" type="string" dbType="nvarchar"/>
+      <result property="CteAgreementExpirationDate" column="CteAgreementExpirationDate" type="DateTime" dbType="datetime"/>
+      <result property="CteTerminationEffectiveDate" column="CteTerminationEffectiveDate" type="DateTime" dbType="datetime"/>
+      <result property="CteTerminationStatus" column="CteTerminationStatus" type="string" dbType="nvarchar"/>
+      <result property="CteTerminationsReasons" column="CteTerminationsReasons" type="string" dbType="nvarchar"/>
+      <result property="CteTerminationsReasonsRemark" column="CteTerminationsReasonsRemark" type="string" dbType="nvarchar"/>
+      <result property="CtePendTender" column="CtePendTender" type="bool" dbType="bit"/>
+      <result property="CtePendTenderRemark" column="CtePendTenderRemark" type="string" dbType="nvarchar"/>
+      <result property="CteRebate" column="CteRebate" type="string" dbType="nvarchar"/>
+      <result property="CteRebateAmount" column="CteRebateAmount" type="decimal" dbType="decimal"/>
+      <result property="CtePromotion" column="CtePromotion" type="string" dbType="nvarchar"/>
+      <result property="CtePromotionAmount" column="CtePromotionAmount" type="decimal" dbType="decimal"/>
+      <result property="CteComplaint" column="CteComplaint" type="string" dbType="nvarchar"/>
+      <result property="CteComplaintAmount" column="CteComplaintAmount" type="decimal" dbType="decimal"/>
+      <result property="CteTermRetn" column="CteTermRetn" type="string" dbType="nvarchar"/>
+      <result property="CteTermRetnAmount" column="CteTermRetnAmount" type="decimal" dbType="decimal"/>
+      <result property="CteTermRetnRemark" column="CteTermRetnRemark" type="string" dbType="nvarchar"/>
+      <result property="CteScarletLetter" column="CteScarletLetter" type="string" dbType="nvarchar"/>
+      <result property="CteScarletLetterRemark" column="CteScarletLetterRemark" type="string" dbType="nvarchar"/>
+      <result property="CteDisputeMoney" column="CteDisputeMoney" type="bool" dbType="bit"/>
+      <result property="CteDisputeMoneyAmount" column="CteDisputeMoneyAmount" type="decimal" dbType="decimal"/>
+      <result property="CteDisputeMoneyRemark" column="CteDisputeMoneyRemark" type="string" dbType="nvarchar"/>
+      <result property="CteCurrentar" column="CteCurrentar" type="decimal" dbType="decimal"/>
+      <result property="CteCurrentarRemark" column="CteCurrentarRemark" type="string" dbType="nvarchar"/>
+      <result property="CteCashDeposit" column="CteCashDeposit" type="bool" dbType="bit"/>
+      <result property="CteCashDepositAmount" column="CteCashDepositAmount" type="decimal" dbType="decimal"/>
+      <result property="CteBGuarantee" column="CteBGuarantee" type="string" dbType="nvarchar"/>
+      <result property="CteBGuaranteeAmount" column="CteBGuaranteeAmount" type="decimal" dbType="decimal"/>
+      <result property="CteCGuarantee" column="CteCGuarantee" type="string" dbType="nvarchar"/>
+      <result property="CteCGuaranteeAmount" column="CteCGuaranteeAmount" type="decimal" dbType="decimal"/>
+      <result property="CteInventory" column="CteInventory" type="bool" dbType="bit"/>
+      <result property="CteInventoryAmount" column="CteInventoryAmount" type="decimal" dbType="decimal"/>
+      <result property="CteEstimatedar" column="CteEstimatedar" type="decimal" dbType="decimal"/>
+      <result property="CteEstimatedarWirte" column="CteEstimatedarWirte" type="decimal" dbType="decimal"/>
+      <result property="CtePaymentPlan" column="CtePaymentPlan" type="string" dbType="nvarchar"/>
+      <result property="CteTakeOver" column="CteTakeOver" type="string" dbType="nvarchar"/>
+      <result property="CteTakeOverType" column="CteTakeOverType" type="string" dbType="nvarchar"/>
+      <result property="CteTakeOverNew" column="CteTakeOverNew" type="bool" dbType="bit"/>
+      <result property="CteTimelineHasNotified" column="CteTimelineHasNotified" type="bool" dbType="bit"/>
+      <result property="CteTimelineWhenNotify" column="CteTimelineWhenNotify" type="string" dbType="nvarchar"/>
+      <result property="CteTimelineWhenSettlement" column="CteTimelineWhenSettlement" type="string" dbType="nvarchar"/>
+      <result property="CteTimelineWhenHandover" column="CteTimelineWhenHandover" type="string" dbType="nvarchar"/>
+      <result property="CteHasCommunications" column="CteHasCommunications" type="bool" dbType="bit"/>
+      <result property="CteHasSettlementProposals" column="CteHasSettlementProposals" type="bool" dbType="bit"/>
+      <result property="CteHasBusinessHandover" column="CteHasBusinessHandover" type="bool" dbType="bit"/>
+      <result property="CteBusinessHandoverSpecify" column="CteBusinessHandoverSpecify" type="string" dbType="nvarchar"/>
+      <result property="CteHasiafPreparations" column="CteHasiafPreparations" type="bool" dbType="bit"/>
+      <result property="CteRsmPrintName" column="CteRsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteRsmDate" column="CteRsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CteNcmPrintName" column="CteNcmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteNcmDate" column="CteNcmDate" type="DateTime" dbType="datetime"/>
+      <result property="CteNsmPrintName" column="CteNsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteNsmDate" column="CteNsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CteNcmForPart2PrintName" column="CteNcmForPart2PrintName" type="string" dbType="nvarchar"/>
+      <result property="CteNcmForPart2Date" column="CteNcmForPart2Date" type="DateTime" dbType="datetime"/>
+      <result property="CteDrmPrintName" column="CteDrmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteDrmDate" column="CteDrmDate" type="DateTime" dbType="datetime"/>
+      <result property="CteFcPrintName" column="CteFcPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteFcDate" column="CteFcDate" type="DateTime" dbType="datetime"/>
+      <result property="CteCdPrintName" column="CteCdPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteCdDate" column="CteCdDate" type="DateTime" dbType="datetime"/>
+      <result property="CteVpfPrintName" column="CteVpfPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteVpfDate" column="CteVpfDate" type="DateTime" dbType="datetime"/>
+      <result property="CteVpapPrintName" column="CteVpapPrintName" type="string" dbType="nvarchar"/>
+      <result property="CteVpapDate" column="CteVpapDate" type="DateTime" dbType="datetime"/>
+      <result property="CteStatus" column="CteStatus" type="string" dbType="nvarchar"/>
+      <result property="CteType" column="CteType" type="string" dbType="nvarchar"/>
+      <result property="CteCreateDate" column="CteCreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CteCreateUser" column="CteCreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CteUpdateUser" column="CteUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CteUpdateDate" column="CteUpdateDate" type="DateTime" dbType="datetime"/>
+
+      <result property="CteSubDepid" column="CteSubDepid" type="string" dbType="nvarchar"/>
+      <result property="CteSubdepName" column="CteSubdepName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectContractTermination" parameterClass="string" resultClass="ContractTermination">
+      SELECT CTE_ID AS CteId,CTE_CM_ID AS CteCmId,CTE_DMA_ID AS CteDmaId,CTE_Division AS CteDivision,CTE_MarketType AS CteMarketType,CTE_Dealer_Name AS CteDealerName,CTE_Agreement_ExpirationDate AS CteAgreementExpirationDate,CTE_Termination_EffectiveDate AS CteTerminationEffectiveDate,CTE_TerminationStatus AS CteTerminationStatus,CTE_TerminationsReasons AS CteTerminationsReasons,CTE_TerminationsReasonsRemark AS CteTerminationsReasonsRemark,CTE_PendTender AS CtePendTender,CTE_PendTenderRemark AS CtePendTenderRemark,CTE_Rebate AS CteRebate,CTE_RebateAmount AS CteRebateAmount,CTE_Promotion AS CtePromotion,CTE_PromotionAmount AS CtePromotionAmount,CTE_Complaint AS CteComplaint,CTE_ComplaintAmount AS CteComplaintAmount,CTE_TermRetn AS CteTermRetn,CTE_TermRetnAmount AS CteTermRetnAmount,CTE_TermRetnRemark AS CteTermRetnRemark,CTE_ScarletLetter AS CteScarletLetter,CTE_ScarletLetterRemark AS CteScarletLetterRemark,CTE_DisputeMoney AS CteDisputeMoney,CTE_DisputeMoneyAmount AS CteDisputeMoneyAmount,CTE_DisputeMoneyRemark AS CteDisputeMoneyRemark,CTE_CurrentAR AS CteCurrentar,CTE_CurrentARRemark AS CteCurrentarRemark,CTE_CashDeposit AS CteCashDeposit,CTE_CashDepositAmount AS CteCashDepositAmount,CTE_BGuarantee AS CteBGuarantee,CTE_BGuaranteeAmount AS CteBGuaranteeAmount,CTE_CGuarantee AS CteCGuarantee,CTE_CGuaranteeAmount AS CteCGuaranteeAmount,CTE_Inventory AS CteInventory,CTE_InventoryAmount AS CteInventoryAmount,CTE_EstimatedAR AS CteEstimatedar,CTE_EstimatedARWirte AS CteEstimatedarWirte,CTE_PaymentPlan AS CtePaymentPlan,CTE_TakeOver AS CteTakeOver,CTE_TakeOverType AS CteTakeOverType,CTE_TakeOverNew AS CteTakeOverNew,CTE_Timeline_HasNotified AS CteTimelineHasNotified,CTE_Timeline_WhenNotify AS CteTimelineWhenNotify,CTE_Timeline_WhenSettlement AS CteTimelineWhenSettlement,CTE_Timeline_WhenHandover AS CteTimelineWhenHandover,CTE_HasCommunications AS CteHasCommunications,CTE_HasSettlementProposals AS CteHasSettlementProposals,CTE_HasBusinessHandover AS CteHasBusinessHandover,CTE_BusinessHandover_Specify AS CteBusinessHandoverSpecify,CTE_HasIAFPreparations AS CteHasiafPreparations,CTE_RSM_PrintName AS CteRsmPrintName,CTE_RSM_Date AS CteRsmDate,CTE_NCM_PrintName AS CteNcmPrintName,CTE_NCM_Date AS CteNcmDate,CTE_NSM_PrintName AS CteNsmPrintName,CTE_NSM_Date AS CteNsmDate,CTE_NCMForPart2_PrintName AS CteNcmForPart2PrintName,CTE_NCMForPart2_Date AS CteNcmForPart2Date,CTE_DRM_PrintName AS CteDrmPrintName,CTE_DRM_Date AS CteDrmDate,CTE_FC_PrintName AS CteFcPrintName,CTE_FC_Date AS CteFcDate,CTE_CD_PrintName AS CteCdPrintName,CTE_CD_Date AS CteCdDate,CTE_VPF_PrintName AS CteVpfPrintName,CTE_VPF_Date AS CteVpfDate,CTE_VPAP_PrintName AS CteVpapPrintName,CTE_VPAP_Date AS CteVpapDate,CTE_Status AS CteStatus,CTE_Type AS CteType,CTE_Create_Date AS CteCreateDate,CTE_Create_User AS CteCreateUser,CTE_Update_User AS CteUpdateUser,CTE_Update_Date AS CteUpdateDate
+      ,a.CTE_SubDepID AS CteSubDepid,b.CC_RV1 AS CteSubdepName
+      FROM ContractTermination A
+      LEFT JOIN  INTERFACE.ClassificationContract  B ON A.CTE_SubDepID=B.CC_Code
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CTE_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <update id="UpdateTerminationCmidByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractTermination
+      SET CTE_CM_ID=#CteCmId#
+      WHERE CTE_ID = #CteId#
+    </update>
+
+    <update id="UpdateTerminationStatusByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractTermination
+      SET CTE_Status=#Status#
+      WHERE CTE_ID = #CteId#
+    </update>
+    <select id="GetTermination" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select  t.ContractId,t.ContractNo,b.CC_NameCN, EName,d.DMA_ChineseShortName,c.ProductLineName,
+      E.VALUE1 AS ContractStatus
+      from Contract.TerminationMain t(nolock)
+      left join V_DivisionProductLineRelation c(nolock) on t.DepId=c.DivisionCode
+      left join INTERFACE.ClassificationContract b(nolock) on t.SUBDEPID=b.CC_Code
+      inner join DealerMaster d(nolock) on d.DMA_SAP_Code=t.DealerName
+      inner join Lafite_DICT E(nolock) on E.DICT_TYPE='CONST_CONTRACT_ContractStatus' and t.ContractStatus=E.DICT_KEY
+      where t.ContractNo =#value#
+    </select>
+
+    <select id="GetTerminationall" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select ReturnReason,DealerBeginDate,DealerEndDate ,PlanExpiration,DealerEndTyp,DealerEndReason,OtherReason,
+      TenderIssue, TenderIssueRemark,Rebate, RebateAmt ,Promotion,PromotionAmt,Complaint,ComplaintAmt,GoodsReturn,
+      GoodsReturnAmt,IsRGAAttach,RGAAttach,CreditMemo,CreditMemoRemark,IsPendingPayment,PendingAmt,PendingRemark
+      ,CurrentAR,CashDeposit,CashDepositAmt,BGuarantee,BGuaranteeAmt,CGuarantee,CGuaranteeAmt,Inventory,HandoverRemark
+      ,InventoryAmt,EstimatedAR,Wirteoff ,PaymentPlan,Reserve ,ReserveAmt,ReserveType,TakeOver,TakeOverType,
+      TakeOverIsNew,d.Notified,WhenNotify,WhenSettlement,WhenHandover,FollowUp ,FieldOperation,FollowUpRemark,FieldOperationRemark,
+      AdverseEvent,AdverseEventRemark,SubmitImplant,SubmitImplantRemark,InventoryDispose,InventoryDisposeRemark1,InventoryDisposeRemark2,f.Notified as NotifiedNCM,Reviewed,Handover,CurrentQuota,ActualSales,TenderDetails
+      from Contract.TerminationMain a inner join Contract.TerminationStatus b on a.ContractId=b.ContractId
+      inner join Contract.TerminationEndForm c on c.ContractId=a.ContractId inner join Contract.TerminationHandover d on d.ContractId=a.ContractId
+      inner join Contract.TerminationNCM f on f.ContractId=a.ContractId
+      where a.ContractNo =#value#
+    </select>
+
+    <insert id="insertTerminationMainTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      insert into Contract.TerminationMainTemp
+      (Temp_Id,ContractId,ContractNo,ContractStatus,DealerType,DepId,SUBDEPID,EId,EName,ApplicantDep,RequestDate,MarketType,DealerName,DealerBeginDate,DealerEndDate,DealerEndTyp,PlanExpiration,DealerEndReason,OtherReason,IAF,Quotatotal,QUOTAUSD,ReagionRSM,ISVAT,LPCode,ETitle,CreateUser,CreateDate,UpdateUser,UpdateDate,CurrentApprove,NextApprove)
+      select #Temp_Id#,ContractId,ContractNo,ContractStatus,DealerType,DepId,SUBDEPID,EId,EName,ApplicantDep,RequestDate,MarketType,DealerName,DealerBeginDate,DealerEndDate,#DealerEndTyp#,#PlanExpiration#,#DealerEndReason#,#OtherReason#,IAF,Quotatotal,QUOTAUSD,ReagionRSM,ISVAT,LPCode,ETitle,CreateUser,CreateDate,#UpdateUser#,#UpdateDate#,CurrentApprove,NextApprove
+      from Contract.TerminationMain c where c.ContractId=#ContractId#
+    </insert>
+
+    <insert id="insertTerminationStatusTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      insert into Contract.TerminationStatusTemp (Temp_Id ,ContractId,TenderIssue,TenderIssueRemark,Rebate,RebateAmt,Promotion,PromotionAmt,Complaint,ComplaintAmt,GoodsReturn,GoodsReturnAmt,ReturnReason,IsRGAAttach,RGAAttach,CreditMemo,CreditMemoRemark,IsPendingPayment,PendingAmt,PendingRemark,CurrentAR,CashDeposit,CashDepositAmt,BGuarantee,BGuaranteeAmt,CGuarantee,CGuaranteeAmt,Inventory,InventoryAmt,InventoryList,EstimatedAR,Wirteoff,PaymentPlan,Reserve,ReserveAmt,ReserveType)
+      values(#Temp_Id#,#ContractId#,#TenderIssue#,#TenderIssueRemark#,#Rebate#,#RebateAmt#,#Promotion#,#PromotionAmt#,#Complaint#,#ComplaintAmt#,#GoodsReturn#,#GoodsReturnAmt#,#ReturnReason#,#IsRGAAttach#,#RGAAttach#,#CreditMemo#,#CreditMemoRemark#,#IsPendingPayment#,#PendingAmt#,#PendingRemark#,#CurrentAR#,#CashDeposit#,#CashDepositAmt#,#BGuarantee#,#BGuaranteeAmt#,#CGuarantee#,#CGuaranteeAmt#,#Inventory#,#InventoryAmt#,#InventoryList#,#EstimatedAR#,#Wirteoff#,#PaymentPlan#,#Reserve#,#ReserveAmt#,#ReserveType#)
+    </insert>
+    <insert id="insertTerminationEndFormTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      insert into Contract.TerminationEndFormTemp(Temp_Id, ContractId,CurrentQuota,ActualSales,TenderDetails)
+      values(#Temp_Id#,#ContractId#,#CurrentQuota#,#ActualSales#,#TenderDetails#)
+    </insert>
+
+    <insert id="insertTerminationHandoverTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      insert into Contract.TerminationHandoverTemp(Temp_Id,ContractId,TakeOver,TakeOverType,TakeOverIsNew,Notified,WhenNotify,WhenSettlement,WhenHandover,FollowUp,FollowUpRemark,FieldOperation,FieldOperationRemark,AdverseEvent,AdverseEventRemark,SubmitImplant,SubmitImplantRemark,InventoryDispose,InventoryDisposeRemark1,InventoryDisposeRemark2)
+      values(#Temp_Id#,#ContractId#,#TakeOver#,#TakeOverType#,#TakeOverIsNew#,#Notified#,#WhenNotify#,#WhenSettlement#,#WhenHandover#,#FollowUp#,#FollowUpRemark#,#FieldOperation#,#FieldOperationRemark#,#AdverseEvent#,#AdverseEventRemark#,#SubmitImplant#,#SubmitImplantRemark#,#InventoryDispose#,#InventoryDisposeRemark1#,#InventoryDisposeRemark2#)
+    </insert>
+    <insert id="insertTerminationNCMTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      insert into Contract.TerminationNCMTemp(Temp_Id,ContractId,Notified,Reviewed,Handover,HandoverRemark)
+      values(#Temp_Id#,#ContractId#,#Notified#,#Reviewed#,#Handover#,#HandoverRemark#)
+    </insert>
+
+    <select id="SelectTerminationUpdatelog" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT	A.His_Id AS Id,UpdateUser AS UserId,B.IDENTITY_NAME+'('+ISNULL(IDENTITY_CODE,'')+')' AS UserName,UpdateDate,
+      row_number() OVER (ORDER BY a.UpdateDate ASC) AS [row_number]
+      FROM Contract.TerminationMainTempHistory A
+      INNER JOIN Lafite_IDENTITY B ON A.UpdateUser=B.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.ContractId=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

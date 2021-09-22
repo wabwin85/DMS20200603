@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.ConsignmentTermination" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+
+  <alias>
+    <typeAlias alias="Consignment.ConsignmentTerminationPO" assembly="DMS.Model.dll" type="DMS.Model.Consignment.ConsignmentTerminationPO" />
+  </alias>
+  <parameterMaps>
+    <parameterMap id="NextAutoNumberForTerminationMap" class="System.Collections.Hashtable" >
+      <parameter property="DeptCode" column="DeptCode" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="nextnbr" column="nextnbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="Consignment.ConsignmentTermination.SelectConsignmentTerminationList" parameterClass="string" resultClass="System.Data.DataSet">
+      select T.CST_ID,CCH_No,CCH_Name,CONVERT(varchar(50),CCH_BeginDate,23) as CCH_BeginDate,CONVERT(nvarchar(50),CCH_EndDate,23) as CCH_EndDate,PL.ATTRIBUTE_NAME AS ProductLineName,CST_NO,VALUE1 as CST_Status,PL.SubCompanyName,PL.BrandName
+      from Consignment.ConsignmentTermination  T
+      left join Consignment.ContractHeader C on C.CCH_ID=T.CST_CCH_ID
+      left join View_ProductLine PL(nolock) on PL.Id=C.CCH_ProductLine_BUM_ID
+      left join Lafite_DICT on Lafite_DICT.DICT_KEY=T.CST_Status and DICT_TYPE='Consignment_ConsignmentTermination_Status'
+      where 1=1
+
+      <isNotEmpty prepend="AND" property="CST_Status">
+        CST_Status like '%'+#CST_Status#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="CST_NO">
+        CST_NO like '%'+#CST_NO#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="CCH_NO">
+        CCH_NO like '%'+#CCH_NO#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="DealerID">
+        CCH_DMA_ID =#DealerID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+        PL.SubCompanyId=#SubCompanyId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="BrandId">
+        PL.BrandId=#BrandId#
+      </isNotEmpty>
+      order by CST_CreateDate desc
+    </select>
+
+    <insert id="Consignment.ConsignmentTermination.Insert" parameterClass="Consignment.ConsignmentTerminationPO">
+      <![CDATA[
+       Insert into Consignment.ConsignmentTermination (CST_ID,CST_CCH_ID,CST_No,CST_Status,CST_Reason,CST_Remark,CST_CreateUser,CST_CreateDate)
+       Values
+       (#CST_ID#,#CST_CCH_ID#,#CST_No#,#CST_Status#,#CST_Reason#,#CST_Remark#,#CST_CreateUser#,getdate())
+      ]]>
+    </insert>
+    <select id="Consignment.ConsignmentTermination.GetBuDivisionName" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DivisionName
+      FROM dbo.V_DivisionProductLineRelation WHERE IsEmerging='0' and ProductLineID=(select CCH_ProductLine_BUM_ID from Consignment.ContractHeader where CCH_ID=#CCH_ID#)
+    </select>
+
+
+    <select id="Consignment.ConsignmentTermination.SelectConsignTerminationInfo" parameterClass="string" resultClass="System.Data.DataSet">
+      <!--select T.CST_NO,T.CST_Reason,H.CCH_ID,H.CCH_No,CONVERT(varchar(50),CCH_BeginDate,23) as CCH_BeginDate,CONVERT(nvarchar(50),CCH_EndDate,23) as CCH_EndDate,H.CCH_Name 
+      from Consignment.ConsignmentTermination T
+      left join Consignment.ContractHeader H on T.CST_CCH_ID=H.CCH_ID
+      where T.CST_ID=#TerminationID#-->
+      select *,Consignment.ContractHeader.CCH_ID as ContractId,(Consignment.ContractHeader.CCH_No+'('+Consignment.ContractHeader.CCH_Name+')') as ContractName from  Consignment.ConsignmentTermination
+      left join Lafite_DICT on Lafite_DICT.DICT_KEY=CST_Status and Lafite_DICT.DICT_TYPE='Consignment_ConsignmentTermination_Status'
+      left join Consignment.ContractHeader on Consignment.ContractHeader.CCH_ID=Consignment.ConsignmentTermination.CST_CCH_ID
+      left join V_DivisionProductLineRelation on V_DivisionProductLineRelation.ProductLineID=Consignment.ContractHeader.CCH_ProductLine_BUM_ID
+      where Consignment.ConsignmentTermination.CST_ID=#TerminationID#
+    </select>
+
+    <procedure id="Consignment.ConsignmentTermination.SelectNextAutoNumberForTermination" parameterMap="NextAutoNumberForTerminationMap">
+      [Promotion].[GC_GetNextAutoNumberForPromotion]
+    </procedure>
+    <update id="Consignment.ConsignmentTermination.Update" parameterClass="Consignment.ConsignmentTerminationPO">
+      <![CDATA[
+       Update Consignment.ConsignmentTermination set CST_CCH_ID=#CST_CCH_ID#,CST_Status=#CST_Status#,CST_Reason=#CST_Reason#,CST_Remark=#CST_Remark#
+       where CST_ID=#CST_ID#
+      ]]>
+    </update>
+
+    <delete id="Consignment.ConsignmentTermination.Delete" parameterClass="string">
+      DELETE FROM Consignment.ConsignmentTermination
+      WHERE CST_ID = #value#
+    </delete>
+    <select id="Consignment.ConsignmentTermination.GetNumber" parameterClass="string" resultClass="System.Data.DataSet">
+      select CST_No from Consignment.ConsignmentTermination
+      where CST_ID=#ID#
+    </select>
+
+
+  </statements>
+</sqlMap>

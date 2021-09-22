@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="StocktakingLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="StocktakingLot" assembly="DMS.Model.dll" type="DMS.Model.StocktakingLot" />
+  </alias>
+  <resultMaps>
+    <resultMap id="StocktakingLotResult" class="StocktakingLot">
+      <result property="Id" column="SLT_ID" type="Guid" dbType="Guid"/>
+      <result property="StlId" column="SLT_STL_ID" type="Guid" dbType="Guid"/>
+      <result property="LotId" column="SLT_LOT_ID" type="Guid" dbType="Guid"/>
+      <result property="LotNumber" column="SLT_LotNumber" type="string" dbType="varchar"/>
+      <result property="ExpiredDate" column="SLT_ExpiredDate" type="DateTime" dbType="DateTime"/>
+      <result property="LotQty" column="SLT_LotQty" type="double" dbType="Real"/>
+      <result property="CheckQty" column="SLT_CheckQty" type="double" dbType="Real"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectStocktakingLot" parameterClass="string" resultClass="StocktakingLot">
+      SELECT SLT_ID AS Id,SLT_STL_ID AS StlId,SLT_LOT_ID AS LotId,SLT_LotNumber AS LotNumber,SLT_ExpiredDate AS ExpiredDate,SLT_LotQty AS LotQty,SLT_CheckQty AS CheckQty
+      FROM StocktakingLot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SLT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterStocktakingLot" parameterClass="StocktakingLot" resultClass="StocktakingLot">
+      SELECT SLT_ID AS Id,SLT_STL_ID AS StlId,SLT_LOT_ID AS LotId,SLT_LotNumber AS LotNumber,SLT_ExpiredDate AS ExpiredDate,SLT_LotQty AS LotQty,SLT_CheckQty AS CheckQty
+      FROM StocktakingLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SLT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="StlId">SLT_STL_ID=#StlId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">SLT_LOT_ID=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">SLT_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">SLT_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="LotQty">SLT_LotQty=#LotQty#</isNotNull>
+        <isNotNull prepend="AND" property="CheckQty">SLT_CheckQty=#CheckQty#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterStocktakingLotByStlId" parameterClass="string" resultClass="StocktakingLot">
+      SELECT SLT_ID AS Id,SLT_STL_ID AS StlId,SLT_LOT_ID AS LotId,SLT_LotNumber AS LotNumber,SLT_ExpiredDate AS ExpiredDate,SLT_LotQty AS LotQty,SLT_CheckQty AS CheckQty
+      FROM StocktakingLot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>SLT_STL_ID=#value#</isParameterPresent>
+      </dynamic>
+    </select>
+    <insert id="InsertStocktakingLot" parameterClass="StocktakingLot">
+      INSERT INTO StocktakingLot
+      (SLT_ID,SLT_STL_ID,SLT_LOT_ID,SLT_LotNumber,SLT_ExpiredDate,SLT_LotQty,SLT_CheckQty)
+      VALUES(#Id#,#StlId#,#LotId#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#LotQty#,#CheckQty#)
+    </insert>
+    <update id="UpdateStocktakingLot" parameterClass="StocktakingLot">
+      UPDATE StocktakingLot
+      SET SLT_ID=#Id#,SLT_STL_ID=#StlId#,SLT_LOT_ID=#LotId#,SLT_LotNumber=#LotNumber#,SLT_ExpiredDate=#ExpiredDate#,SLT_LotQty=#LotQty#,SLT_CheckQty=#CheckQty#
+      WHERE SLT_ID = #Id#
+    </update>
+    <delete id="DeleteStocktakingLot" parameterClass="string">
+      DELETE FROM StocktakingLot
+      WHERE SLT_ID = #value#
+    </delete>
+
+    <insert id="InsertAddLotInfoByActualInv" parameterClass="System.Collections.Hashtable">
+      INSERT INTO StocktakingLot
+      SELECT newid (),
+      STLine.STL_ID,
+      Lot.LOT_ID,
+      LM.LTM_LotNumber,
+      LM.LTM_ExpiredDate,
+      Lot.LOT_OnHandQty,
+      0 AS Check_Qty
+      FROM Lot
+      INNER JOIN LotMaster AS LM
+      ON (Lot.LOT_LTM_ID = LM.LTM_ID)
+      INNER JOIN Inventory AS INV
+      ON (Lot.LOT_INV_ID = INV.INV_ID)
+      INNER JOIN Warehouse AS WH
+      ON (WH.WHM_ID = INV.INV_WHM_ID)
+      INNER JOIN StocktakingLine AS STLine
+      ON (INV.INV_PMA_ID = STLine.STL_PMA_ID)
+      WHERE WH.WHM_Type != 'SystemHold'
+      <isNotNull prepend="AND" property="WHM_ID">WH.WHM_ID = #WHM_ID#</isNotNull>
+      <isNotNull prepend="AND" property="STH_ID">STLine.STL_STH_ID = #STH_ID#</isNotNull>
+    </insert>
+
+    <update id="UpdateLotCheckQty" parameterClass="System.Collections.Hashtable">
+      UPDATE StocktakingLot
+      <isParameterPresent property="CheckQty">
+        SET SLT_CheckQty = #CheckQty#
+      </isParameterPresent>
+      <isParameterPresent property="SLT_ID">
+        WHERE SLT_ID = #SLT_ID#
+      </isParameterPresent>
+
+    </update>
+  </statements>
+</sqlMap>

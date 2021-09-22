@@ -1,0 +1,1195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{03A4A80F-98B9-40C7-A3DD-804D7901F0DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.DataAccess</RootNamespace>
+    <AssemblyName>DMS.DataAccess</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <PublishUrl>http://localhost/DMS.Dao/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Grapecity.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.DataAccess.IBatisNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Grapecity.DataAccess.IBatisNet.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.Common, Version=1.6.2.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper, Version=1.6.2.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Lafite.RoleModel.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Lafite.RoleModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=9ad232b50c3e6444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AOP\AOPHospitalReferenceDao.cs" />
+    <Compile Include="AOP\AopDealerDao.cs" />
+    <Compile Include="APIManage\ApiService.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyDetailsDao.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentApplyHeaderDao.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentTransferInitDao.cs" />
+    <Compile Include="Consignment\ConsignInventoryAdjustHeaderDao.cs" />
+    <Compile Include="Consignment\ConsignmentTerminationDao.cs" />
+    <Compile Include="Consignment\ConsignCommonDao.cs" />
+    <Compile Include="Consignment\ContractDetailDao.cs" />
+    <Compile Include="Consignment\TransferConfirmDao.cs" />
+    <Compile Include="Consignment\TransferDetailDao.cs" />
+    <Compile Include="Consignment\TransferHeaderDao.cs" />
+    <Compile Include="Consignment\ContractHeaderDao.cs" />
+    <Compile Include="ContractElectronic\ContractDetailDao.cs" />
+    <Compile Include="ContractElectronic\DealerMasterDDBscDao.cs" />
+    <Compile Include="ContractElectronic\ExportUploadDetailDao.cs" />
+    <Compile Include="ContractElectronic\QueryDao.cs" />
+    <Compile Include="Contract\AopDealerHistoryDao.cs" />
+    <Compile Include="Contract\AopDealerHospitaHistoryDao.cs" />
+    <Compile Include="Contract\AopDealerHospitalTempDao.cs" />
+    <Compile Include="Contract\AopDealerTempDao.cs" />
+    <Compile Include="Contract\AopicDealerHospitalHistoryDao.cs" />
+    <Compile Include="Contract\AopicDealerHospitalTempDao.cs" />
+    <Compile Include="Contract\AopRemarkDao.cs" />
+    <Compile Include="Contract\BusinessLicenseDao.cs" />
+    <Compile Include="Contract\BusinessReferencesDao.cs" />
+    <Compile Include="Contract\CompanyStockholderDao.cs" />
+    <Compile Include="Contract\ContractAmendmentDao.cs" />
+    <Compile Include="Contract\ContractAppointmentDao.cs" />
+    <Compile Include="Contract\ContractCommonDao.cs" />
+    <Compile Include="Contract\ContractMasterDao.cs" />
+    <Compile Include="Contract\ContractProductLineDao.cs" />
+    <Compile Include="Contract\ContractPurchaseQuotasDao.cs" />
+    <Compile Include="Contract\ContractRenewalDao.cs" />
+    <Compile Include="Contract\ContractTerminationDao.cs" />
+    <Compile Include="Contract\ContractTerritoryDao.cs" />
+    <Compile Include="Contract\CorporateEntityDao.cs" />
+    <Compile Include="Contract\DealerAuthorizationAreaTempDao.cs" />
+    <Compile Include="Contract\DealerAuthorizationTableTempDao.cs" />
+    <Compile Include="Contract\DealeriafSignDao.cs" />
+    <Compile Include="Contract\HospitalListHistoryDao.cs" />
+    <Compile Include="Contract\IcProductStandardPriceDao.cs" />
+    <Compile Include="Contract\MedicalDevicesDao.cs" />
+    <Compile Include="Contract\ProductClassificationDao.cs" />
+    <Compile Include="Contract\PublicOfficeDao.cs" />
+    <Compile Include="Contract\PurchaseQuotasHospitalDao.cs" />
+    <Compile Include="Contract\SeniorCompanyDao.cs" />
+    <Compile Include="Contract\TenderAuthorizationListDao.cs" />
+    <Compile Include="Contract\TerminationFormDao.cs" />
+    <Compile Include="Contract\ThirdPartyDisclosureDao.cs" />
+    <Compile Include="Contract\ThirdPartyDisclosureListDao.cs" />
+    <Compile Include="Contract\TrainingSignInDao.cs" />
+    <Compile Include="DataInterface\AdjustConfirmationDao.cs" />
+    <Compile Include="DataInterface\AdjustNoteDao.cs" />
+    <Compile Include="DataInterface\DeliveryConfirmationDao.cs" />
+    <Compile Include="DataInterface\DeliveryInterfaceDao.cs" />
+    <Compile Include="DataInterface\InterfaceAdjustConfirmationDao.cs" />
+    <Compile Include="DataInterface\InterfaceAdjustDao.cs" />
+    <Compile Include="DataInterface\InterfaceConfirmationDao.cs" />
+    <Compile Include="DataInterface\InterfaceDealerConsignmentSalesPriceDao.cs" />
+    <Compile Include="DataInterface\InterfaceDealerReturnConfirmDao.cs" />
+    <Compile Include="DataInterface\InterfaceDealerSalesWritebackDao.cs" />
+    <Compile Include="DataInterface\InterfaceDeliveryConfirmationDao.cs" />
+    <Compile Include="DataInterface\InterfaceHospitalSalesFort2Dao.cs" />
+    <Compile Include="DataInterface\InterfaceHospitalTransactionWithqrDao.cs" />
+    <Compile Include="DataInterface\InterfaceLogDao.cs" />
+    <Compile Include="DataInterface\InterfaceqrCodeMasterDao.cs" />
+    <Compile Include="DataInterface\InterfaceqrDealerTransactionDao.cs" />
+    <Compile Include="DataInterface\InterfaceRedCrossHospitalTransactionWithqrDao.cs" />
+    <Compile Include="DataInterface\InterfaceSalesDao.cs" />
+    <Compile Include="DataInterface\InterfaceShipmentbscslcDao.cs" />
+    <Compile Include="DataInterface\InterfaceShipmentDao.cs" />
+    <Compile Include="DataInterface\Interfacet2DeliveryConfirmationDao.cs" />
+    <Compile Include="DataInterface\Interfacet2ContactInfoDao.cs" />
+    <Compile Include="DataInterface\InterfaceTransferDao.cs" />
+    <Compile Include="DataInterface\InterfaceTransferForlsDao.cs" />
+    <Compile Include="DataInterface\InterfaceTransferFort2Dao.cs" />
+    <Compile Include="DataInterface\InterfaceWarehouseDao.cs" />
+    <Compile Include="DataInterface\PushStackDao.cs" />
+    <Compile Include="DataInterface\SalesNoteDao.cs" />
+    <Compile Include="DataInterface\TransferNoteDao.cs" />
+    <Compile Include="DCM\AttachmentDao.cs" />
+    <Compile Include="DCM\BulletinDetailDao.cs" />
+    <Compile Include="DCM\BulletinMainDao.cs" />
+    <Compile Include="DCM\DealerqaDao.cs" />
+    <Compile Include="DCM\IssuesListDao.cs" />
+    <Compile Include="DealerTrain\DealerSalesDao.cs" />
+    <Compile Include="DealerTrain\DealerSignDao.cs" />
+    <Compile Include="DealerTrain\SignRelationDao.cs" />
+    <Compile Include="DealerTrain\TrainDetailDao.cs" />
+    <Compile Include="DealerTrain\TrainMasterDao.cs" />
+    <Compile Include="DealerTrain\SalesTrainMasterDao.cs" />
+    <Compile Include="DealerTrain\BscUserDao.cs" />
+    <Compile Include="DealerTrain\TeacherDealerRelationDao.cs" />
+    <Compile Include="DealerTrain\TrainManagerDao.cs" />
+    <Compile Include="DealerTrain\TrainScoreImportDao.cs" />
+    <Compile Include="DPInfo\DpStatementCashflowDao.cs" />
+    <Compile Include="DPInfo\DpStatementChangeLogDao.cs" />
+    <Compile Include="DPInfo\DpStatementDetailDao.cs" />
+    <Compile Include="DPInfo\DpStatementFieldDao.cs" />
+    <Compile Include="DPInfo\DpStatementHeaderDao.cs" />
+    <Compile Include="DPInfo\DpStatementRatioDao.cs" />
+    <Compile Include="DPInfo\DpStatementScorecardDao.cs" />
+    <Compile Include="DPInfo\DpStatementScorecardHeaderDao.cs" />
+    <Compile Include="DPInfo\DPImportDao.cs" />
+    <Compile Include="DP\DealerInfoDao.cs" />
+    <Compile Include="DP\DPForecastImportDao.cs" />
+    <Compile Include="DP\DpRightDao.cs" />
+    <Compile Include="EKPWorkflow\FormInstanceMasterDao.cs" />
+    <Compile Include="EKPWorkflow\WorkflowLogDao.cs" />
+    <Compile Include="EKPWorkflow\WorkflowSettingDao.cs" />
+    <Compile Include="HCPPassport\DealerAccountDao.cs" />
+    <Compile Include="Interface\MdmEmployeeMasterDao.cs" />
+    <Compile Include="Interface\TIQvSalesRepDao.cs" />
+    <Compile Include="Interface\RvDealerKpiScoreWarningDao.cs" />
+    <Compile Include="Interface\RvDealerKpiScoreDetailDao.cs" />
+    <Compile Include="Interface\RvDealerKpiScoreSummaryDao.cs" />
+    <Compile Include="Inventory\AdjustInterfaceDao.cs" />
+    <Compile Include="Inventory\ComplainInterfaceDao.cs" />
+    <Compile Include="Inventory\DealerInventoryDataDao.cs" />
+    <Compile Include="Inventory\DealerInventoryInitDao.cs" />
+    <Compile Include="Inventory\DealerComplainDao.cs" />
+    <Compile Include="Inventory\InventoryqrOperationDao.cs" />
+    <Compile Include="Inventory\InventoryAdjustConsignmentDao.cs" />
+    <Compile Include="Inventory\InventoryAdjustInitDao.cs" />
+    <Compile Include="Inventory\InventoryReturnBscDao.cs" />
+    <Compile Include="Inventory\InventoryReturnConsignmentInitDao.cs" />
+    <Compile Include="Inventory\InventoryReturnInitDao.cs" />
+    <Compile Include="Inventory\InventorySafetyDao.cs" />
+    <Compile Include="Inventory\InventorySafetyInitDao.cs" />
+    <Compile Include="Inventory\ReportInventoryHistoryDao.cs" />
+    <Compile Include="Inventory\ReturnPositionSearchDao.cs" />
+    <Compile Include="Inventory\StocktakingHeaderDao.cs" />
+    <Compile Include="Inventory\StocktakingLineDao.cs" />
+    <Compile Include="Inventory\StocktakingLotDao.cs" />
+    <Compile Include="Inventory\TIWcDealerBarcodeqRcodeScanDao.cs" />
+    <Compile Include="KendoCommon\LafiteDao.cs" />
+    <Compile Include="Lafite\IdentityDao.cs" />
+    <Compile Include="Lafite\SiteMapDao.cs" />
+    <Compile Include="Log\LafiteLogDao.cs" />
+    <Compile Include="MasterData\AutoNumberDao.cs" />
+    <Compile Include="MasterData\CfnDao.cs" />
+    <Compile Include="MasterData\CfnHospitalPriceDao.cs" />
+    <Compile Include="MasterData\CfnPriceImportInitDao.cs" />
+    <Compile Include="MasterData\ClientDao.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentAuthorizationDao.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentCfnDao.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentDealerDao.cs" />
+    <Compile Include="ConsignmentApply\ConsignmentMasterDao.cs" />
+    <Compile Include="MasterData\ConsignmentDiscountRuleDao.cs" />
+    <Compile Include="MasterData\COPDao.cs" />
+    <Compile Include="MasterData\HospitalPositionInitDao.cs" />
+    <Compile Include="MasterData\MasterDatasDao.cs" />
+    <Compile Include="MasterData\PositionHospitalDao.cs" />
+    <Compile Include="MasterData\DealerAuthorizationDao.cs" />
+    <Compile Include="MasterData\DealerContractDao.cs" />
+    <Compile Include="MasterData\DealerHospitalDao.cs" />
+    <Compile Include="MasterData\DealerMasterDao.cs" />
+    <Compile Include="MasterData\DealerMasterLicenseDao.cs" />
+    <Compile Include="MasterData\DealerOperationLogDao.cs" />
+    <Compile Include="MasterData\DealerRelationDao.cs" />
+    <Compile Include="MasterData\DealerTerritoryDao.cs" />
+    <Compile Include="MasterData\DeliveryInitDao.cs" />
+    <Compile Include="MasterData\HospitalDao.cs" />
+    <Compile Include="IDao\IBaseSqlDao.cs" />
+    <Compile Include="Inventory\CurrentInvDao.cs" />
+    <Compile Include="Inventory\InventoryAdjustDetailDao.cs" />
+    <Compile Include="Inventory\InventoryAdjustHeaderDao.cs" />
+    <Compile Include="Inventory\InventoryAdjustLotDao.cs" />
+    <Compile Include="Inventory\InventoryDao.cs" />
+    <Compile Include="Inventory\InventoryInitDao.cs" />
+    <Compile Include="Inventory\InventoryTransactionDao.cs" />
+    <Compile Include="Inventory\InventoryTransactionLotDao.cs" />
+    <Compile Include="Inventory\LotDao.cs" />
+    <Compile Include="Inventory\LotMasterDao.cs" />
+    <Compile Include="Inventory\QueryInventoryDao.cs" />
+    <Compile Include="MasterData\CfnSetDao.cs" />
+    <Compile Include="MasterData\CfnSetDetailDao.cs" />
+    <Compile Include="MasterData\ProductLineDao.cs" />
+    <Compile Include="MasterData\PaymentDao.cs" />
+    <Compile Include="MasterData\ProductLevelRelationshipDao.cs" />
+    <Compile Include="MasterData\QrCodeMasterDao.cs" />
+    <Compile Include="MasterData\RegistrationDetailDao.cs" />
+    <Compile Include="MasterData\RegistrationInitDao.cs" />
+    <Compile Include="MasterData\RegistrationMainDao.cs" />
+    <Compile Include="MasterData\SapWarehouseAddressDao.cs" />
+    <Compile Include="MasterData\SendInvoiceInitDao.cs" />
+    <Compile Include="MasterData\SpecialPriceDetailDao.cs" />
+    <Compile Include="MasterData\SpecialPriceMasterDao.cs" />
+    <Compile Include="MasterData\TerritoryHierarchyDao.cs" />
+    <Compile Include="MasterData\TerritoryMasterDao.cs" />
+    <Compile Include="MasterData\TIIfInvoiceDao.cs" />
+    <Compile Include="MasterData\VirtualdcDao.cs" />
+    <Compile Include="MasterData\XlsImportDao.cs" />
+    <Compile Include="MasterPage\DealerSpecialUPNDao.cs" />
+    <Compile Include="MasterPage\HomeDao.cs" />
+    <Compile Include="Message\MailDeliveryAddressDao.cs" />
+    <Compile Include="Message\MailMessageAttachmentDao.cs" />
+    <Compile Include="Message\MailMessageProcessDao.cs" />
+    <Compile Include="Message\MailMessageQueueDao.cs" />
+    <Compile Include="Message\MailMessageTemplateDao.cs" />
+    <Compile Include="Message\ShortMessageProcessDao.cs" />
+    <Compile Include="Message\ShortMessageQueueDao.cs" />
+    <Compile Include="Message\ShortMessageTemplateDao.cs" />
+    <Compile Include="OBORESign\OBORESignDao.cs" />
+    <Compile Include="Order\BatchOrderInitDao.cs" />
+    <Compile Include="Order\CfnPriceDao.cs" />
+    <Compile Include="Order\DealerOrderSettingDao.cs" />
+    <Compile Include="Order\DealerPriceInitDao.cs" />
+    <Compile Include="Order\DealerShipToDao.cs" />
+    <Compile Include="Order\PromotionPolicyDao.cs" />
+    <Compile Include="Order\PurchaseOrderConfirmationDao.cs" />
+    <Compile Include="Order\PurchaseOrderDetailDao.cs" />
+    <Compile Include="Order\PurchaseOrderHeaderDao.cs" />
+    <Compile Include="MasterData\PartsClassificationDao.cs" />
+    <Compile Include="Order\PurchaseOrderInitDao.cs" />
+    <Compile Include="Order\PurchaseOrderInterfaceDao.cs" />
+    <Compile Include="Order\PurchaseOrderLogDao.cs" />
+    <Compile Include="Platform\SystemManualDao.cs" />
+    <Compile Include="Platform\OperLogMasterDao.cs" />
+    <Compile Include="POReceipt\ArrivalDateInitDao.cs" />
+    <Compile Include="POReceipt\DeliveryNotebscslcDao.cs" />
+    <Compile Include="POReceipt\DeliveryNoteDao.cs" />
+    <Compile Include="POReceipt\PoReceiptDao.cs" />
+    <Compile Include="POReceipt\PoReceiptHeaderDao.cs" />
+    <Compile Include="POReceipt\PoReceiptLotDao.cs" />
+    <Compile Include="MasterData\ProductDao.cs" />
+    <Compile Include="POReceipt\WaybillInitDao.cs" />
+    <Compile Include="Promotion\GiftMaintainDao.cs" />
+    <Compile Include="Promotion\ProBuPointRatioDao.cs" />
+    <Compile Include="Promotion\ProBuPointRatioUiDao.cs" />
+    <Compile Include="Promotion\ProDescriptionDao.cs" />
+    <Compile Include="Promotion\ProLargessFort2InitDao.cs" />
+    <Compile Include="Promotion\ProPolicyDao.cs" />
+    <Compile Include="Promotion\TProOutLinePointsDao.cs" />
+    <Compile Include="Promotion\TProRedInvoiceDao.cs" />
+    <Compile Include="Report\DealerAuthCate_NewDao.cs" />
+    <Compile Include="Report\DealerOrderDetailReport_NewDao.cs" />
+    <Compile Include="Report\DealerBuyInReport_NewDao.cs" />
+    <Compile Include="Report\DealerInventoryHistoryReport_NewDao.cs" />
+    <Compile Include="Report\ProductOperationLogReport_NewDao.cs" />
+    <Compile Include="Report\DealerSalesStatistics_NewDao.cs" />
+    <Compile Include="Report\DealerTransferReport_NewDao.cs" />
+    <Compile Include="Report\OrderStatusReport_NewDao.cs" />
+    <Compile Include="Report\HospitalReport_NewDao.cs" />
+    <Compile Include="Report\OrderSalesSummaryInMonthReport_NewDao.cs" />
+    <Compile Include="Report\DealerSalesReport_NewDao.cs" />
+    <Compile Include="Report\ReportDao.cs" />
+    <Compile Include="Sample\SampleApplyHeadDao.cs" />
+    <Compile Include="Sample\SampleEvalDao.cs" />
+    <Compile Include="Sample\SampleReturnHeadDao.cs" />
+    <Compile Include="Sample\SampleTestingDao.cs" />
+    <Compile Include="Sample\SampleUpnDao.cs" />
+    <Compile Include="Sample\SampleSyncStackDao.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardDao.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardDetailDao.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardHeaderDao.cs" />
+    <Compile Include="ScoreCard\EndoScoreCardInitDao.cs" />
+    <Compile Include="ScoreCard\ScAttachmentDao.cs" />
+    <Compile Include="ScoreCard\ScoreCardLogDao.cs" />
+    <Compile Include="Shipment\CalendarDateDao.cs" />
+    <Compile Include="Shipment\DealerCommonSettingDao.cs" />
+    <Compile Include="Shipment\DealerProductPriceHistoryDao.cs" />
+    <Compile Include="Shipment\HospitalShipmentbscBeforeSubmitInitDao.cs" />
+    <Compile Include="Shipment\SalesInterfaceDao.cs" />
+    <Compile Include="Shipment\ShipmentAdjustLotDao.cs" />
+    <Compile Include="Shipment\ShipmentConsignmentDao.cs" />
+    <Compile Include="Shipment\ShipmentHeaderDao.cs" />
+    <Compile Include="Shipment\ShipmentInitDao.cs" />
+    <Compile Include="Shipment\ShipmentInvoiceInitDao.cs" />
+    <Compile Include="Shipment\ShipmentLineDao.cs" />
+    <Compile Include="Shipment\ShipmentLotDao.cs" />
+    <Compile Include="MasterData\TerritoryDao.cs" />
+    <Compile Include="BaseSqlMapDao.cs" />
+    <Compile Include="Shipment\ShipmentlpConfirmDetailDao.cs" />
+    <Compile Include="Shipment\ShipmentlpConfirmHeaderDao.cs" />
+    <Compile Include="Shipment\ShipmentOperationDao.cs" />
+    <Compile Include="Shipment\UploadLogDao.cs" />
+    <Compile Include="Transfer\TransferBorrowInitDao.cs" />
+    <Compile Include="Transfer\TransferDao.cs" />
+    <Compile Include="Transfer\TransferInitDao.cs" />
+    <Compile Include="Transfer\TransferLineDao.cs" />
+    <Compile Include="Transfer\TransferLotDao.cs" />
+    <Compile Include="MasterData\WarehouseDao.cs" />
+    <Compile Include="WeChat\BusinessWechatUserDao.cs" />
+    <Compile Include="WeChat\CfnWeChatDao.cs" />
+    <Compile Include="WeChat\HospitalReportUserDao.cs" />
+    <Compile Include="WeChat\IntegralExchangeDao.cs" />
+    <Compile Include="WeChat\ReportSalesDao.cs" />
+    <Compile Include="WeChat\WechatfqaDao.cs" />
+    <Compile Include="WeChat\WechatOperatLogDao.cs" />
+    <Compile Include="WeChat\ProductCodeReportDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.Common\DMS.Common.csproj">
+      <Project>{F752671C-1874-4C06-8192-00186E5D00DE}</Project>
+      <Name>DMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Model\DMS.Model.csproj">
+      <Project>{25EA2C8A-56FD-446F-B3F6-D9A7CFA11C77}</Project>
+      <Name>DMS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\Hospital.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\providers.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\Territory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerMaster.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\PartsClassification.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\Cfn.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerAuthorizationTable.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerContract.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\HospitalList.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\Inventory.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryTransaction.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryTransactionLot.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\Lot.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Inventory\LotMaster.xml" />
+    <EmbeddedResource Include="Resources\maps\POReceipt\PoReceipt.xml" />
+    <EmbeddedResource Include="Resources\maps\POReceipt\PoReceiptHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\POReceipt\PoReceiptLot.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Inventory\CurrentInv.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\AutoNumber.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryAdjustDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryAdjustHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryAdjustLot.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Inventory\QueryInventory.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\POReceipt\DeliveryNote.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\COP.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Order\PurchaseOrderHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Order\DealerShipTo.xml" />
+    <EmbeddedResource Include="Resources\maps\Order\CfnPrice.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\AutoNumberForPO.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerOperationLog.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\CfnSet.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\CfnSetDetail.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\RegistrationDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\RegistrationMain.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\Product.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentLine.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentLot.xml" />
+    <EmbeddedResource Include="Resources\maps\Transfer\Transfer.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Transfer\TransferLine.xml" />
+    <EmbeddedResource Include="Resources\maps\Transfer\TransferLot.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\Warehouse.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\Payment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\CfnHospitalPrice.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerRelation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\RegistrationInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DCM\BulletinDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\DCM\BulletinMain.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\InventorySafety.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\StocktakingHeader.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\StocktakingLine.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\StocktakingLot.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DCM\IssuesList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\DeliveryInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\AOP\AopDealer.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DCM\Dealerqa.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentOperation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\POReceipt\ArrivalDateInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\DealerOrderSetting.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerTerritory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\PurchaseOrderDetail.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\PurchaseOrderLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\TerritoryHierarchy.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\TerritoryMaster.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\SendInvoiceInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\POReceipt\WaybillInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\PurchaseOrderInterface.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Message\MailMessageTemplate.xml" />
+    <EmbeddedResource Include="Resources\maps\Message\ShortMessageTemplate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Message\MailMessageQueue.xml" />
+    <EmbeddedResource Include="Resources\maps\Message\ShortMessageQueue.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\PurchaseOrderConfirmation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\PurchaseOrderInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DP\DealerInfo.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DP\DpRight.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceAdjust.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceAdjustConfirmation.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceConfirmation.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceDeliveryConfirmation.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceLog.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceSales.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceShipment.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceTransfer.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\Client.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\DeliveryInterface.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Shipment\DealerProductPriceHistory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\DealerCommonSetting.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\SpecialPriceDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\SpecialPriceMaster.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\Virtualdc.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\CalendarDate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\InventorySafetyInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\SalesInterface.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\AdjustInterface.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\TIIfInvoice.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\DealerInventoryData.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\DealerInventoryInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Message\MailMessageProcess.xml" />
+    <EmbeddedResource Include="Resources\maps\Message\ShortMessageProcess.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\ReportInventoryHistory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceWarehouse.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\UploadLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\DeliveryConfirmation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\AdjustConfirmation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\SalesNote.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\AdjustNote.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\TransferNote.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DCM\WaitProcessTask.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DCM\Attachment.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\ProductLevelRelationship.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\SapWarehouseAddress.xml" />
+    <EmbeddedResource Include="Resources\maps\Message\MailDeliveryAddress.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\BusinessLicense.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\BusinessReferences.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\CompanyStockholder.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\CorporateEntity.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\MedicalDevices.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\PublicOffice.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\SeniorCompany.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\HospitalReportUser.xml" />
+    <EmbeddedResource Include="Resources\maps\WeChat\ReportSales.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractMaster.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractAppointment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\CfnWeChat.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractAmendment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\TrainingSignIn.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractRenewal.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryReturnInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractPurchaseQuotas.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractProductLine.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractTermination.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ContractTerritory.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\TerminationForm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Transfer\TransferInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\PurchaseQuotasHospital.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\DealerAuthorizationTableTemp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopDealerTemp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopDealerHospitalTemp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\DealerPriceInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\DealerComplain.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopicDealerHospitalTemp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\IcProductStandardPrice.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopDealerHistory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopDealerHospitaHistory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopicDealerHospitalHistory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\HospitalListHistory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceDealerReturnConfirm.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceDealerSalesWriteback.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryAdjustConsignment.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryReturnConsignmentInit.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentConsignment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\Wechatfqa.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceDealerConsignmentSalesPrice.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentlpConfirmDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentlpConfirmHeader.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\BusinessWechatUser.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\DealeriafSign.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\AopRemark.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ProductClassification.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ThirdPartyDisclosure.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ScoreCard\EndoScoreCard.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ScoreCard\ScAttachment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ScoreCard\ScoreCardLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ScoreCard\EndoScoreCardInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\IntegralExchange.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\WechatOperatLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\ComplainInterface.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\ClassificationAuthorization.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\ClassificationContract.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\ClassificationQuota.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Order\PromotionPolicy.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Contract\DealerAuthorizationAreaTemp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ScoreCard\EndoScoreCardDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\ScoreCard\EndoScoreCardHeader.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\TrainMaster.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\TrainDetail.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\SalesTrainMaster.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\DealerMasterLicense.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\BscUser.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\TeacherDealerRelation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\TrainManager.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DealerTrain\DealerSales.xml" />
+    <EmbeddedResource Include="Resources\maps\DealerTrain\TrainScoreImport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryAdjustInit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProPolicy.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentApplyDetails.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentApplyHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentDealer.xml" />
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentMaster.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentAuthorization.xml" />
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentCfn.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProPolicyFactorUi.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\WeChat\ProductCodeReport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementField.xml" />
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementHeader.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementChangeLog.xml" />
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementRatio.xml" />
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementScorecard.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementCashflow.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DPInfo\DpStatementScorecardHeader.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DPInfo\DPImport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\TIWcDealerBarcodeqRcodeScan.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryqrOperation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProPolicyRuleUi.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProPolicyRuleFactorUi.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceqrCodeMaster.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceqrDealerTransaction.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceShipmentbscslc.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\QrCodeMaster.xml" />
+    <EmbeddedResource Include="Resources\maps\POReceipt\DeliveryNotebscslc.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Sample\SampleApplyHead.xml" />
+    <EmbeddedResource Include="Resources\maps\Sample\SampleReturnHead.xml" />
+    <EmbeddedResource Include="Resources\maps\Sample\SampleTesting.xml" />
+    <EmbeddedResource Include="Resources\maps\Sample\SampleUpn.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\TProFlow.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Sample\SampleEval.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Sample\SampleSyncStack.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentAdjustLot.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProBuPointRatio.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProBuPointRatioUi.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProInitPointFlow.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\ProInitPointFlowDetail.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceHospitalTransactionWithqr.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Promotion\TProOutLinePoints.xml" />
+    <EmbeddedResource Include="Resources\maps\Promotion\TProRedInvoice.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Log\LafiteLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\MasterDatas.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\HospitalPositionInit.xml" />
+    <EmbeddedResource Include="Resources\maps\Transfer\TransferBorrowInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\CfnPriceImportInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\PositionHospital.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterPage\AdminHome.xml" />
+    <EmbeddedResource Include="Resources\maps\Promotion\ProLargessFort2Init.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\HCPPassport\DealerAccount.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\OBORESign\OBORESign.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterPage\DealerSpecialUPN.xml" />
+    <EmbeddedResource Include="Resources\maps\Report\InventoryDailyBackup.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Report\POReceiptHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Report\GC_Fn_Report_OrderSalesMonthSumTable.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Report\V_DealerContractMaster.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Platform\OperLogMaster.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\MasterData\ProductLine.xml" />
+    <EmbeddedResource Include="Resources\maps\Lafite\Identity.xml" />
+    <EmbeddedResource Include="Resources\maps\Interface\MdmEmployeeMaster.xml" />
+    <EmbeddedResource Include="Resources\maps\Interface\TIQvSalesRep.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Interface\RvDealerKpiScoreWarning.xml" />
+    <EmbeddedResource Include="Resources\maps\Interface\RvDealerKpiScoreDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\Interface\RvDealerKpiScoreSummary.xml" />
+    <EmbeddedResource Include="Resources\maps\Platform\SystemManual.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Lafite\SiteMap.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\HospitalShipmentbscBeforeSubmitInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Message\MailMessageAttachment.xml" />
+    <EmbeddedResource Include="Resources\maps\Inventory\InventoryReturnBsc.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\KendoCommon\Lafite.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\EKPWorkflow\WorkflowSetting.xml" />
+    <EmbeddedResource Include="Resources\maps\EKPWorkflow\FormInstanceMaster.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\EKPWorkflow\WorkflowLog.xml" />
+    <EmbeddedResource Include="Resources\maps\Promotion\ProDescription.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\ShipmentInvoiceInit.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Inventory\ReturnPositionSearch.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Order\BatchOrderInit.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\ConsignmentDiscountRule.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\DP\DPForecastImport.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\XlsImport.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Report\Report.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\DataInterface\Interfacet2DeliveryConfirmation.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceTransferFort2.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceHospitalSalesFort2.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\PushStack.xml" />
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceRedCrossHospitalTransactionWithqr.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\TenderAuthorizationList.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\DataInterface\Interfacet2ContactInfo.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Contract\ThirdPartyDisclosureList.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\ContractElectronic\LPAndT1.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Contract\AmendmentMainTemp.xml" />
+    <EmbeddedResource Include="Resources\maps\Contract\AmendmentProposalsTemp.xml" />
+    <EmbeddedResource Include="Resources\maps\Consignment\ContractHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\ConsignmentTermination.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\ContractDetail.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\ConsignInventoryAdjustHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\ConsignCommon.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\TransferHeader.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\TransferDetail.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\Consignment\TransferConfirm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentApplyInit.xml" />
+    <EmbeddedResource Include="Resources\maps\ConsignmentApply\ConsignmentTransferInit.xml" />
+    <EmbeddedResource Include="Resources\maps\ContractElectronic\ExportUploadDetail.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\DataInterface\InterfaceTransferForls.xml" />
+    <EmbeddedResource Include="Resources\maps\ContractElectronic\DealerMasterDD.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\maps\AOP\AOPHospitalReference.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Resources\maps\DealerTrain\DealerSign.xml" />
+    <Content Include="Resources\maps\DealerTrain\SignRelation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcrobatAccessLib">
+      <Guid>{C523F390-9C83-11D3-9094-00104BD0D535}</Guid>
+      <VersionMajor>3</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,2 @@
+﻿ALTER TABLE dbo.Lafite_IDENTITY ADD JoinDate DATETIME;
+ALTER TABLE dbo.Lafite_IDENTITY ADD AccountingDate DATETIME;

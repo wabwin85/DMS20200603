@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceqrCodeMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="InterfaceqrCodeMaster" assembly="DMS.Model.dll" type="DMS.Model.InterfaceqrCodeMaster" />
+    </alias>
+    <resultMaps>
+        <resultMap id="InterfaceqrCodeMasterResult" class="InterfaceqrCodeMaster">
+            <result property="Id" column="QRC_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="QrCode" column="QRC_QRCode" type="string" dbType="nvarchar"/>
+            <result property="Status" column="QRC_Status" type="int" dbType="int"/>
+            <result property="CreateDate" column="QRC_CreateDate" type="DateTime" dbType="datetime"/>
+            <result property="UserCode" column="QRC_UserCode" type="string" dbType="nvarchar"/>
+            <result property="Channel" column="QRC_Channel" type="string" dbType="nvarchar"/>
+            <result property="LineNbr" column="QRC_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="QRC_FileName" type="string" dbType="nvarchar"/>
+            <result property="ImportDate" column="QRC_ImportDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="QRC_ClientID" type="string" dbType="nvarchar"/>
+            <result property="BatchNbr" column="QRC_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="ErrorMsg" column="QRC_ErrorMsg" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="GC_Interface_QRCodeMaster_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="BatchNbr" column="BatchNbr" />
+            <parameter property="ClientID" column="ClientID" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+      
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectInterfaceqrCodeMaster" parameterClass="string" resultClass="InterfaceqrCodeMaster">
+            SELECT QRC_ID AS Id,QRC_QRCode AS QrCode,QRC_Status AS Status,QRC_CreateDate AS CreateDate,QRC_UserCode AS UserCode,QRC_Channel AS Channel,QRC_LineNbr AS LineNbr,QRC_FileName AS FileName,QRC_ImportDate AS ImportDate,QRC_ClientID AS Clientid,QRC_BatchNbr AS BatchNbr,QRC_ErrorMsg AS ErrorMsg
+            FROM InterfaceQRCodeMaster
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    QRC_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterInterfaceqrCodeMaster" parameterClass="InterfaceqrCodeMaster" resultClass="InterfaceqrCodeMaster">
+            SELECT QRC_ID AS Id,QRC_QRCode AS QrCode,QRC_Status AS Status,QRC_CreateDate AS CreateDate,QRC_UserCode AS UserCode,QRC_Channel AS Channel,QRC_LineNbr AS LineNbr,QRC_FileName AS FileName,QRC_ImportDate AS ImportDate,QRC_ClientID AS Clientid,QRC_BatchNbr AS BatchNbr,QRC_ErrorMsg AS ErrorMsg
+            FROM InterfaceQRCodeMaster
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">QRC_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="QrCode">QRC_QRCode=#QrCode#</isNotNull>
+                <isNotNull prepend="AND" property="Status">QRC_Status=#Status#</isNotNull>
+                <isNotNull prepend="AND" property="UserCode">QRC_UserCode=#UserCode#</isNotNull>
+                <isNotNull prepend="AND" property="Channel">QRC_Channel=#Channel#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">QRC_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">QRC_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ImportDate">QRC_ImportDate=#ImportDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">QRC_ClientID=#Clientid#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">QRC_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorMsg">QRC_ErrorMsg=#ErrorMsg#</isNotNull>
+            </dynamic>
+        </select>
+        
+        <insert id="InsertInterfaceqrCodeMaster" parameterClass="InterfaceqrCodeMaster">
+            INSERT INTO InterfaceQRCodeMaster
+            (QRC_ID,QRC_QRCode,QRC_Status,QRC_CreateDate,QRC_UserCode,QRC_Channel,QRC_LineNbr,QRC_FileName,QRC_ImportDate,QRC_ClientID,QRC_BatchNbr,QRC_ErrorMsg)
+            VALUES(#Id#,#QrCode#,#Status#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UserCode#,#Channel#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ErrorMsg#)
+        </insert>
+        <update id="UpdateInterfaceqrCodeMaster" parameterClass="InterfaceqrCodeMaster">
+            UPDATE InterfaceQRCodeMaster
+            SET QRC_ID=#Id#,QRC_QRCode=#QrCode#,QRC_Status=#Status#,QRC_UserCode=#UserCode#,QRC_Channel=#Channel#,QRC_LineNbr=#LineNbr#,QRC_FileName=#FileName#,QRC_ImportDate=#ImportDate#,QRC_ClientID=#Clientid#,QRC_BatchNbr=#BatchNbr#,QRC_ErrorMsg=#ErrorMsg#
+            WHERE QRC_ID = #Id#
+        </update>
+        <delete id="DeleteInterfaceqrCodeMaster" parameterClass="string">
+            DELETE FROM InterfaceQRCodeMaster
+            WHERE QRC_ID = #value#
+        </delete>
+        <procedure id="GC_Interface_QRCodeMaster" parameterMap="GC_Interface_QRCodeMaster_ParameterMap">
+            dbo.GC_Interface_QRCodeMaster
+        </procedure>
+        <select id="SelectInterfaceQRCodeMasterByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceqrCodeMaster">
+            SELECT QRC_ID AS Id,QRC_QRCode AS QrCode,QRC_Status AS Status,QRC_CreateDate AS CreateDate,QRC_UserCode AS UserCode,QRC_Channel AS Channel,QRC_LineNbr AS LineNbr,QRC_FileName AS FileName,QRC_ImportDate AS ImportDate,QRC_ClientID AS Clientid,QRC_BatchNbr AS BatchNbr,QRC_ErrorMsg AS ErrorMsg
+            FROM InterfaceQRCodeMaster
+            WHERE QRC_BatchNbr = #value# AND QRC_ErrorMsg IS NOT NULL
+            ORDER BY QRC_QRCode
+        </select>
+        
+    </statements>
+</sqlMap>

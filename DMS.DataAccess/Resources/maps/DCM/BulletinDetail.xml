@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="BulletinDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="BulletinDetail" assembly="DMS.Model.dll" type="DMS.Model.BulletinDetail" />
+    </alias>
+    <resultMaps>
+        <resultMap id="BulletinDetailResult" class="BulletinDetail">
+            <result property="Id" column="BUD_ID" type="Guid" dbType="Guid"/>
+            <result property="BumId" column="BUD_BUM_ID" type="Guid" dbType="Guid"/>
+            <result property="DealerDmaId" column="BUD_Dealer_DMA_ID" type="Guid" dbType="Guid"/>
+            <result property="IsRead" column="BUD_IsRead" type="bool" dbType="bool"/>
+            <result property="ReadUser" column="BUD_ReadUser" type="Guid" dbType="Guid"/>
+            <result property="ReadDate" column="BUD_ReadDate" type="DateTime" dbType="DateTime"/>
+            <result property="IsConfirm" column="BUD_IsConfirm" type="bool" dbType="bool"/>
+            <result property="ConfirmUser" column="BUD_ConfirmUser" type="Guid" dbType="Guid"/>
+            <result property="ConfirmDate" column="BUD_ConfirmDate" type="DateTime" dbType="DateTime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectBulletinDetail" parameterClass="string" resultClass="BulletinDetail">
+            SELECT BUD_ID AS Id,BUD_BUM_ID AS BumId,BUD_Dealer_DMA_ID AS DealerDmaId,BUD_IsRead AS IsRead,BUD_ReadUser AS ReadUser,BUD_ReadDate AS ReadDate,BUD_IsConfirm AS IsConfirm,BUD_ConfirmUser AS ConfirmUser,BUD_ConfirmDate AS ConfirmDate
+            FROM BulletinDetail
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    BUD_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterBulletinDetail" parameterClass="BulletinDetail" resultClass="BulletinDetail">
+            SELECT BUD_ID AS Id,BUD_BUM_ID AS BumId,BUD_Dealer_DMA_ID AS DealerDmaId,BUD_IsRead AS IsRead,BUD_ReadUser AS ReadUser,BUD_ReadDate AS ReadDate,BUD_IsConfirm AS IsConfirm,BUD_ConfirmUser AS ConfirmUser,BUD_ConfirmDate AS ConfirmDate
+            FROM BulletinDetail
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">BUD_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="BumId">BUD_BUM_ID=#BumId#</isNotNull>
+                <isNotNull prepend="AND" property="DealerDmaId">BUD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+                <isNotNull prepend="AND" property="IsRead">BUD_IsRead=#IsRead#</isNotNull>
+                <isNotNull prepend="AND" property="ReadUser">BUD_ReadUser=#ReadUser#</isNotNull>
+                <isNotNull prepend="AND" property="ReadDate">BUD_ReadDate=#ReadDate#</isNotNull>
+                <isNotNull prepend="AND" property="IsConfirm">BUD_IsConfirm=#IsConfirm#</isNotNull>
+                <isNotNull prepend="AND" property="ConfirmUser">BUD_ConfirmUser=#ConfirmUser#</isNotNull>
+                <isNotNull prepend="AND" property="ConfirmDate">BUD_ConfirmDate=#ConfirmDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertBulletinDetail" parameterClass="BulletinDetail">
+            INSERT INTO BulletinDetail
+            (BUD_ID,BUD_BUM_ID,BUD_Dealer_DMA_ID,BUD_IsRead,BUD_ReadUser,BUD_ReadDate,BUD_IsConfirm,BUD_ConfirmUser,BUD_ConfirmDate)
+            VALUES(#Id#,#BumId#,#DealerDmaId#,#IsRead#,#ReadUser#,#ReadDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#ConfirmUser#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateBulletinDetail" parameterClass="BulletinDetail">
+            UPDATE BulletinDetail
+            SET BUD_ID=#Id#,BUD_BUM_ID=#BumId#,BUD_Dealer_DMA_ID=#DealerDmaId#,BUD_IsRead=#IsRead#,BUD_ReadUser=#ReadUser#,BUD_ReadDate=#ReadDate#,BUD_IsConfirm=#IsConfirm#,BUD_ConfirmUser=#ConfirmUser#,BUD_ConfirmDate=#ConfirmDate#
+            WHERE BUD_ID = #Id#
+        </update>
+        <delete id="DeleteBulletinDetail" parameterClass="string">
+            DELETE FROM BulletinDetail
+            WHERE BUD_ID = #value#
+        </delete>
+
+        <!--added by songyuqi on 20100601-->
+        <select id="QuerySelectByFilterBulletinDetail" parameterClass="System.Collections.Hashtable" resultClass="BulletinDetail">
+          SELECT BUD_ID AS Id,BUD_BUM_ID AS BumId,BUD_Dealer_DMA_ID AS DealerDmaId,master.DMA_ChineseName AS ChineseName,master.DMA_SAP_Code AS SapCode,BUD_IsRead AS IsRead,BUD_ReadUser AS ReadUser,BUD_ReadDate AS ReadDate,BUD_IsConfirm AS IsConfirm,BUD_ConfirmUser AS ConfirmUser,BUD_ConfirmDate AS ConfirmDate
+          ,row_number() OVER (ORDER BY BUD_BUM_ID ASC) AS row_number FROM BulletinDetail detail(nolock) INNER JOIN DealerMaster master(nolock)
+          on detail.BUD_Dealer_DMA_ID = master.DMA_ID
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="BumId">BUD_BUM_ID=#BumId#</isNotNull>
+            </dynamic>
+        </select>
+
+        <select id="QuerySelectByFilterBulletinDetailSession" parameterClass="System.Collections.Hashtable" resultClass="BulletinDetail">
+          SELECT
+          Id,BumId,DealerDmaId,ChineseName,SapCode,IsRead,ReadUser,ReadDate,IsConfirm,ConfirmUser,ConfirmDate
+          ,row_number() OVER (ORDER BY ChineseName) AS row_number
+          FROM (
+          SELECT BUD_ID AS Id,BUD_BUM_ID AS BumId,BUD_Dealer_DMA_ID AS DealerDmaId,master.DMA_ChineseName AS ChineseName,master.DMA_SAP_Code AS SapCode,BUD_IsRead AS IsRead,BUD_ReadUser AS ReadUser,BUD_ReadDate AS ReadDate,BUD_IsConfirm AS IsConfirm,BUD_ConfirmUser AS ConfirmUser,BUD_ConfirmDate AS ConfirmDate
+          FROM BulletinDetail detail(nolock) INNER JOIN DealerMaster master(nolock)
+          on detail.BUD_Dealer_DMA_ID = master.DMA_ID
+          WHERE BUD_BUM_ID=#BumId#
+          <isNotNull prepend="" property="DealerList">
+                AND master.DMA_ID in
+                <iterate prepend="" property="DealerList"
+                      open="(" close=")" conjunction=",">
+                    #DealerList[]#
+                </iterate>
+            </isNotNull>
+            <isNotNull prepend="" property="DealerList">
+              UNION ALL
+              SELECT NEWID() AS Id,#BumId# AS BumId,master.DMA_ID AS DealerDmaId,master.DMA_ChineseName AS ChineseName,master.DMA_SAP_Code AS SapCode,'0' AS IsRead,'00000000-0000-0000-0000-000000000000' AS ReadUser,NULL AS ReadDate,'0' AS IsConfirm,'00000000-0000-0000-0000-000000000000' AS ConfirmUser,NULL AS ConfirmDate
+              FROM DealerMaster AS master(nolock)
+              WHERE NOT EXISTS (SELECT 1 FROM BulletinDetail AS detail(nolock) WHERE detail.BUD_BUM_ID = #BumId#
+              AND detail.BUD_Dealer_DMA_ID = master.DMA_ID)
+              AND master.DMA_ID in
+              <iterate prepend="" property="DealerList"
+                      open="(" close=")" conjunction=",">
+                    #DealerList[]#
+                </iterate>
+            </isNotNull>
+            ) as t
+        </select>
+        
+        <delete id="DeleteBulletinDetailByMainId" parameterClass="string">
+            DELETE FROM BulletinDetail
+            WHERE BUD_BUM_ID = #value#
+        </delete>
+
+        <update id="UpdateBulletinDetailRead" parameterClass="System.Collections.Hashtable">
+            UPDATE BulletinDetail
+            SET BUD_IsRead=#IsRead#,BUD_ReadUser=#ReadUser#,BUD_ReadDate=#ReadDate#
+            WHERE BUD_BUM_ID = #BumId# AND BUD_Dealer_DMA_ID=#DealerDmaId#
+        </update>
+
+        <update id="UpdateBulletinDetailConfirm" parameterClass="System.Collections.Hashtable">
+            UPDATE BulletinDetail
+            SET BUD_IsConfirm=#IsConfirm#,BUD_ConfirmUser=#ConfirmUser#,BUD_ConfirmDate=#ConfirmDate#
+            WHERE BUD_BUM_ID = #BumId# AND BUD_Dealer_DMA_ID=#DealerDmaId#
+        </update>
+        <!--end-->
+      <delete id="DeleteBulletinDetailBydealerId" parameterClass="string">
+        DELETE FROM BulletinDetail
+        WHERE BUD_Dealer_DMA_ID= #value#
+      </delete>
+    </statements>
+</sqlMap>

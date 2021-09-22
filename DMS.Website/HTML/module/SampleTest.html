@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <div style="width:100%;font-size:20px;text-align:center;border:2px solid #eee;padding:5px 0;margin:10px 0;">商业样品申请</div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">申请信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 100%;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">样品类型：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.SampleType}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">单据状态：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyStatus}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">申请数量：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyQuantity}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">使用人：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ProcessUser}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">申请时间：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyDate}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">申请单编号：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyNo}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">申请人：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyUser}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">部门：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyDept}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">事业部：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyDivision}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">费用分摊：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyCost}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">客户类型：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.CustType}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">客户名称：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.CustName}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">申请目的：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ApplyPurpose}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">业务部：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.Division}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">优先级：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.Priority}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">注册证：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.Certificate}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">成本中心：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.Cost}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">期望到货日期：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ArrivalDate2}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">IRF#：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.Irf}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">RA项目：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.Ra}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">收货人：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ReceiptUser}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">收货人联系方式：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ReceiptPhone}
+                    </div>
+                </li>
+                <li style="width: 632px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">经销商：</label>
+                    <div style="width: 520px;float: left;">
+                        #{Header.DealerName}
+                    </div>
+                </li>
+                <li style="width: 316px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">收货地址：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.ReceiptAddress}
+                    </div>
+                </li>
+                <li style="width: 100%;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 105px;font-weight: 700;display: inline-block;">备注：</label>
+                    <div style="width: 520px;float: left;">
+                        #{Header.ApplyMemo}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">产品列表：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 1px;color: #2e2e2e;line-height: normal;outline: 0;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">UPN编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">产品名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">描述</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">申请数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">Cost</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(SampleUPN)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{UpnNo}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ProductName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ProductDesc}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ApplyQuantity}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Cost}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ProductMemo}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">发货数据：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 1px;color: #2e2e2e;line-height: normal;outline: 0;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">UPN编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">产品名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">描述</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">发货数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">批号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">备注</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(SampleDelivery)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{UpnNo}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ProductName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ProductDesc}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{DeliveryQuantity}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Lot}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ProductMemo}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{DeliveryStatus}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">样品追踪：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 1px;color: #2e2e2e;line-height: normal;outline: 0;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">UPN编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">批次</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">已发货数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">确认收货数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">上传评估单数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">退货数量</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">剩余数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(SampleTrace)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{UpnNo}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Lot}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{DeliveryQuantity}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ReciveQuantity}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{EvalQuantity}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ReturnQuantity}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{RemainQuantity}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--<div>
+        <div style="height:10px;width:100%;border-top-style: solid;border-top-color: #eee;border-top-width: 1px;margin-top: 10px;"></div>
+        <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">附件：</span>
+        <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;">
+            <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+                <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                    <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                        <thead>
+                            <tr>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">行号</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">附件名称</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">附件类型</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">上传人</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 700;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">上传时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #{foreach(Attachment)}
+                            <tr>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{row_number}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    <a href="/Pages/Download.aspx?downloadname=#{Name}&filename=#{Url}&downtype=TenderFile" target="_blank">#{Name}</a>
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{TypeName}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{Identity_Name}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{UploadDate}
+                                </td>
+                            </tr>
+                            #{end}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</body>
+</html>

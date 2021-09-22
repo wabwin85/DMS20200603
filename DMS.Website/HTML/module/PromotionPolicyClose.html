@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>促销终止</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <div style="width:100%;font-size:20px;text-align:center;border:2px solid #eee;padding:5px 0;margin:10px 0;">促销政策终止申请</div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">基本信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <ul style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;list-style: none;">
+                <li style="display: list-item;width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">申请编号：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.TermainationNo}
+                    </div>
+                </li>
+                <li style="width: 640px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">终止政策编号：</label>
+                    <div style="width: 210px;float: left;color:red;">
+                        #{Header.PolicyNo}
+                    </div>
+                </li>
+                <li style="width: 960px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">政策名称：</label>
+                    <div style="width:auto;float: left;">
+                        #{Header.PolicyName}
+                    </div>
+                </li>
+                <li style="width: 960px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">归类名称：</label>
+                    <div style="width: auto;float: left;">
+                        #{Header.PolicyGroupName}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">产品线：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.BU}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">SubBu：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.SubBu}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">终止类型：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.TemainationType}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">终止生效时间：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.TermainationDate}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">原政策开始时间：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.StartDate}
+                    </div>
+                </li>
+                <li style="width: 320px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: 24px;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">原政策终止时间：</label>
+                    <div style="width: 210px;float: left;">
+                        #{Header.EndDate}
+                    </div>
+                </li>
+                <li style="width: 960px;text-align: left;float: left;line-height: 24px;margin: 3px;padding: 0;font-weight: normal;vertical-align: middle;height: auto;">
+                    <label style="display: list-item;float: left;width: 100px;font-weight: 600;display: inline-block;">备注：</label>
+                    <div style="width:auto;float: left;">
+                        #{Header.Remark}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
+

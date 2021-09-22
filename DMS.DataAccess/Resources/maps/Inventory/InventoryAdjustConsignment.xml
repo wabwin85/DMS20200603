@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryAdjustConsignmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="InventoryAdjustConsignment" assembly="DMS.Model.dll" type="DMS.Model.InventoryAdjustConsignment" />
+    </alias>
+    <resultMaps>
+        <resultMap id="InventoryAdjustConsignmentResult" class="InventoryAdjustConsignment">
+            <result property="Id" column="IAC_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="IahId" column="IAC_IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="LtmId" column="IAC_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ShippedQty" column="IAC_ShippedQty" type="decimal" dbType="decimal"/>
+            <result property="PrhId" column="IAC_PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DmaId" column="IAC_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="ConsignmentAdjustForSubmit" class="System.Collections.Hashtable" >
+            <parameter property="AdjustHeadId" column="AdjustHeadId" />
+            <parameter property="RtnVal" column="RtnVal" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectInventoryAdjustConsignment" parameterClass="string" resultClass="InventoryAdjustConsignment">
+          SELECT IAC_ID AS Id,IAC_IAH_ID AS IahId,IAC_LTM_ID AS LtmId,IAC_ShippedQty AS ShippedQty,IAC_PRH_ID AS PrhId,IAC_DMA_ID AS DmaId
+          FROM InventoryAdjustConsignment
+          <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    IAC_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterInventoryAdjustConsignment" parameterClass="InventoryAdjustConsignment" resultClass="InventoryAdjustConsignment">
+          SELECT IAC_ID AS Id,IAC_IAH_ID AS IahId,IAC_LTM_ID AS LtmId,IAC_ShippedQty AS ShippedQty,IAC_PRH_ID AS PrhId,IAC_DMA_ID AS DmaId
+          FROM InventoryAdjustConsignment
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">IAC_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="IahId">IAC_IAH_ID=#IahId#</isNotNull>
+                <isNotNull prepend="AND" property="LtmId">IAC_LTM_ID=#LtmId#</isNotNull>
+                <isNotNull prepend="AND" property="ShippedQty">IAC_ShippedQty=#ShippedQty#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertInventoryAdjustConsignment" parameterClass="InventoryAdjustConsignment">
+          INSERT INTO InventoryAdjustConsignment
+          (IAC_ID,IAC_IAH_ID,IAC_LTM_ID,IAC_ShippedQty,IAC_PRH_ID,IAC_DMA_ID)
+          VALUES(#Id#,#IahId#,#LtmId#,#ShippedQty#,#PrhId#,#DmaId#)
+        </insert>
+        <update id="UpdateInventoryAdjustConsignment" parameterClass="InventoryAdjustConsignment">
+          UPDATE InventoryAdjustConsignment
+          SET IAC_ID=#Id#,IAC_IAH_ID=#IahId#,IAC_LTM_ID=#LtmId#,IAC_ShippedQty=#ShippedQty#,IAC_PRH_ID=#PrhId#,IAC_DMA_ID=#DmaId#
+          WHERE IAC_ID = #Id#
+        </update>
+        <delete id="DeleteInventoryAdjustConsignment" parameterClass="string">
+            DELETE FROM InventoryAdjustConsignment
+            WHERE IAC_ID = #value#
+        </delete>
+
+        <delete id="DeleteInventoryAdjustConsignmentByHeaderId" parameterClass="string">
+            DELETE FROM InventoryAdjustConsignment
+            WHERE IAC_IAH_ID = #value#
+        </delete>
+
+        <select id="SelectByFilterInventoryAdjustConsignmentByHeadId" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustConsignment">
+          SELECT	AC.IAC_ID AS Id,
+          C.CFN_CustomerFaceNbr AS CFN,
+          C.CFN_EnglishName AS CFNEnglishName,
+          C.CFN_ChineseName AS CFNChineseName,
+          P.PMA_ID AS PmaId,
+          P.PMA_UPN AS UPN,
+          LM.LTM_LotNumber AS LotNumber,
+          CASE WHEN C.CFN_Property6 = '0' THEN CONVERT(NVARCHAR(6), LM.LTM_ExpiredDate, 112) ELSE CONVERT(NVARCHAR(100), LM.LTM_ExpiredDate, 112) END AS ExpiredDate,
+          P.PMA_UnitOfMeasure AS UnitOfMeasure,
+          SUM(ISNULL(L.LOT_OnHandQty,0)) AS TotalQty,
+          MAX(CONVERT(NVARCHAR(100), LM.LTM_CreatedDate, 112)) AS CreatedDate,
+          AC.IAC_ShippedQty AS AdjustQty,
+          CONVERT(DECIMAL(18,6),P.PMA_ConvertFactor) AS ConvertFactor,
+          (SELECT PRH_PurchaseOrderNbr FROM POReceiptHeader WHERE PRH_ID = AC.IAC_PRH_ID) AS PurchaseOrderNbr,
+          (SELECT DMA_ChineseName FROM DealerMaster(nolock) WHERE IAC_DMA_ID = DMA_ID) AS ChineseName,
+          ROW_NUMBER() OVER (ORDER BY C.CFN_CustomerFaceNbr,P.PMA_UPN,LM.LTM_LotNumber) AS row_number
+          FROM InventoryAdjustConsignment AC(nolock)
+          INNER JOIN InventoryAdjustHeader AH(nolock) ON AH.IAH_ID = AC.IAC_IAH_ID
+          INNER JOIN LotMaster LM(nolock) ON AC.IAC_LTM_ID = LM.LTM_ID
+          INNER JOIN Lot L(nolock) ON L.LOT_LTM_ID = LM.LTM_ID
+          INNER JOIN Product P(nolock) ON P.PMA_ID = LM.LTM_Product_PMA_ID
+          INNER JOIN CFN C(nolock) ON C.CFN_ID = P.PMA_CFN_ID
+          INNER JOIN Inventory I(nolock) ON I.INV_ID = L.LOT_INV_ID
+          INNER JOIN Warehouse W(nolock) ON W.WHM_ID = I.INV_WHM_ID
+          WHERE W.WHM_DMA_ID = AH.IAH_DMA_ID
+          <dynamic prepend="">
+                <isNotNull prepend="AND" property="AdjustId">AC.IAC_IAH_ID=#AdjustId#</isNotNull>
+                <isNotNull prepend="AND" property="DealerId">AH.IAH_DMA_ID=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="WarehouseTypes">
+                    W.WHM_Type IN
+                    <iterate  property="WarehouseTypes" open="(" close=")" conjunction=",">
+                        #WarehouseTypes[]#
+                    </iterate>
+                </isNotNull>
+            </dynamic>
+          GROUP BY AC.IAC_ID,C.CFN_CustomerFaceNbr,C.CFN_ProductLine_BUM_ID,P.PMA_UPN,LM.LTM_ID,
+          LM.LTM_LotNumber,CFN_Property6,LM.LTM_ExpiredDate,P.PMA_UnitOfMeasure,
+          AC.IAC_ShippedQty,C.CFN_Implant,C.CFN_Property1,PMA_ConvertFactor,
+          CFN_EnglishName,CFN_ChineseName,AC.IAC_PRH_ID,P.PMA_ID,IAC_DMA_ID
+        </select>
+
+        <select id="QueryInventoryAdjustConsignmentByFilter" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustConsignment">
+          SELECT IAC_ID AS Id,IAC_IAH_ID AS IahId,IAC_LTM_ID AS LtmId,IAC_ShippedQty AS ShippedQty,IAC_PRH_ID AS PrhId,IAC_DMA_ID AS DmaId
+          FROM InventoryAdjustConsignment
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">IAC_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="IahId">IAC_IAH_ID=#IahId#</isNotNull>
+                <isNotNull prepend="AND" property="LtmId">IAC_LTM_ID=#LtmId#</isNotNull>
+                <isNotNull prepend="AND" property="ShippedQty">IAC_ShippedQty=#ShippedQty#</isNotNull>
+            </dynamic>
+        </select>
+
+        <procedure id="GC_AdjustSubmit_Before" parameterMap="ConsignmentAdjustForSubmit">
+            dbo.GC_AdjustSubmit_Before
+        </procedure>
+        <procedure id="GC_AdjustConsignmentSubmit_Before" parameterMap="ConsignmentAdjustForSubmit">
+          dbo.GC_AdjustConsignmentSubmit_Before
+        </procedure>
+
+      <select id="SelectByFilterInventoryAdjustBorrowByHeadId" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustConsignment">
+        SELECT	AC.IAC_ID AS Id,
+        C.CFN_CustomerFaceNbr AS CFN,
+        C.CFN_EnglishName AS CFNEnglishName,
+        C.CFN_ChineseName AS CFNChineseName,
+        P.PMA_ID AS PmaId,
+        P.PMA_UPN AS UPN,
+        LM.LTM_LotNumber AS LotNumber,
+        CASE WHEN C.CFN_Property6 = '0' THEN CONVERT(NVARCHAR(6), LM.LTM_ExpiredDate, 112) ELSE CONVERT(NVARCHAR(100), LM.LTM_ExpiredDate, 112) END AS ExpiredDate,
+        P.PMA_UnitOfMeasure AS UnitOfMeasure,
+        SUM(ISNULL(L.LOT_OnHandQty,0)) AS TotalQty,
+        MAX(CONVERT(NVARCHAR(100), LM.LTM_CreatedDate, 112)) AS CreatedDate,
+        AC.IAC_ShippedQty AS AdjustQty,
+        CONVERT(DECIMAL(18,6),P.PMA_ConvertFactor) AS ConvertFactor,
+        (SELECT CAH_OrderNo FROM ConsignmentApplyHeader WHERE CAH_ID = AC.IAC_PRH_ID) AS PurchaseOrderNbr,
+        (SELECT DMA_ChineseName FROM DealerMaster(nolock) WHERE IAC_DMA_ID = DMA_ID) AS ChineseName,
+        ROW_NUMBER() OVER (ORDER BY C.CFN_CustomerFaceNbr,P.PMA_UPN,LM.LTM_LotNumber) AS row_number
+        FROM InventoryAdjustConsignment AC(nolock)
+        INNER JOIN InventoryAdjustHeader AH(nolock) ON AH.IAH_ID = AC.IAC_IAH_ID
+        INNER JOIN LotMaster LM(nolock) ON AC.IAC_LTM_ID = LM.LTM_ID
+        INNER JOIN Lot L(nolock) ON L.LOT_LTM_ID = LM.LTM_ID
+        INNER JOIN Product P(nolock) ON P.PMA_ID = LM.LTM_Product_PMA_ID
+        INNER JOIN CFN C(nolock) ON C.CFN_ID = P.PMA_CFN_ID
+        INNER JOIN Inventory I(nolock) ON I.INV_ID = L.LOT_INV_ID
+        INNER JOIN Warehouse W(nolock) ON W.WHM_ID = I.INV_WHM_ID
+        WHERE W.WHM_DMA_ID = AH.IAH_DMA_ID
+        <dynamic prepend="">
+          <isNotNull prepend="AND" property="AdjustId">AC.IAC_IAH_ID=#AdjustId#</isNotNull>
+          <isNotNull prepend="AND" property="DealerId">AH.IAH_DMA_ID=#DealerId#</isNotNull>
+          <isNotNull prepend="AND" property="WarehouseTypes">
+            W.WHM_Type IN
+            <iterate  property="WarehouseTypes" open="(" close=")" conjunction=",">
+              #WarehouseTypes[]#
+            </iterate>
+          </isNotNull>
+        </dynamic>
+        GROUP BY AC.IAC_ID,C.CFN_CustomerFaceNbr,C.CFN_ProductLine_BUM_ID,P.PMA_UPN,LM.LTM_ID,
+        LM.LTM_LotNumber,CFN_Property6,LM.LTM_ExpiredDate,P.PMA_UnitOfMeasure,
+        AC.IAC_ShippedQty,C.CFN_Implant,C.CFN_Property1,PMA_ConvertFactor,
+        CFN_EnglishName,CFN_ChineseName,AC.IAC_PRH_ID,P.PMA_ID,IAC_DMA_ID
+      </select>
+    </statements>
+</sqlMap>

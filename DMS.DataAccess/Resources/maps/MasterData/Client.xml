@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ClientMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Client" assembly="DMS.Model.dll" type="DMS.Model.Client" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ClientResult" class="Client">
+      <result property="Id" column="CLT_ID" type="string" dbType="nvarchar"/>
+      <result property="Name" column="CLT_Name" type="string" dbType="nvarchar"/>
+      <result property="CorpId" column="CLT_Corp_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Password" column="CLT_Password" type="string" dbType="nvarchar"/>
+      <result property="ActiveFlag" column="CLT_ActiveFlag" type="bool" dbType="bit"/>
+      <result property="DeletedFlag" column="CLT_DeletedFlag" type="bool" dbType="bit"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectClient" parameterClass="string" resultClass="Client">
+      SELECT CLT_ID AS Id,CLT_Name AS Name,CLT_Corp_Id AS CorpId,CLT_Password AS Password,CLT_ActiveFlag AS ActiveFlag,CLT_DeletedFlag AS DeletedFlag
+      FROM Client
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CLT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterClient" parameterClass="Client" resultClass="Client">
+      SELECT CLT_ID AS Id,CLT_Name AS Name,CLT_Corp_Id AS CorpId,CLT_Password AS Password,CLT_ActiveFlag AS ActiveFlag,CLT_DeletedFlag AS DeletedFlag
+      FROM Client
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CLT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Name">CLT_Name=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="CorpId">CLT_Corp_Id=#CorpId#</isNotNull>
+        <isNotNull prepend="AND" property="Password">CLT_Password=#Password#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">CLT_ActiveFlag=#ActiveFlag#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertClient" parameterClass="Client">
+      INSERT INTO Client
+      (CLT_ID,CLT_Name,CLT_Corp_Id,CLT_Password,CLT_ActiveFlag,CLT_DeletedFlag)
+      VALUES(#Id#,#Name#,#CorpId#,#Password#,#ActiveFlag#,#DeletedFlag#)
+    </insert>
+    <update id="UpdateClient" parameterClass="Client">
+      UPDATE Client
+      SET CLT_ID=#Id#,CLT_Name=#Name#,CLT_Corp_Id=#CorpId#,CLT_Password=#Password#,CLT_ActiveFlag=#ActiveFlag#,CLT_DeletedFlag=#DeletedFlag#
+      WHERE CLT_ID = #Id#
+    </update>
+    <delete id="DeleteClient" parameterClass="string">
+      DELETE FROM Client
+      WHERE CLT_ID = #value#
+    </delete>
+    <update id="FakeDeleteClient" parameterClass="Client">
+      UPDATE Client
+      SET CLT_DeletedFlag=#DeletedFlag#
+      WHERE CLT_ID = #Id#
+    </update>
+    <!--added by bozhenfei on 20130716-->
+    <!--根据CorpId取得客户端信息-->
+    <select id="SelectClientByCorpId" parameterClass="string" resultClass="Client">
+      SELECT CLT_ID AS Id,CLT_Name AS Name,CLT_Corp_Id AS CorpId,CLT_Password AS Password,CLT_ActiveFlag AS ActiveFlag,CLT_DeletedFlag AS DeletedFlag
+      FROM Client WHERE CLT_Corp_Id=#value#      
+    </select>
+    <select id="SelectParentClient" parameterClass="string" resultClass="Client">
+      SELECT CLT_ID AS Id, CLT_Name AS Name, CLT_Corp_Id AS CorpId, CLT_Password AS Password, CLT_ActiveFlag AS ActiveFlag, CLT_DeletedFlag AS DeletedFlag
+      FROM Client(nolock) WHERE CLT_Corp_Id IN (SELECT DMA_Parent_DMA_ID FROM dealermaster(nolock) WHERE DMA_ID = #value# )
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://vision-sh.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://vision-sh.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://vision-sh.com/">
+      <s:element name="GetHospitalPrivilege">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="uid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHospitalPrivilegeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHospitalPrivilegeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetHospitalPrivilegeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHospitalPrivilege" />
+  </wsdl:message>
+  <wsdl:message name="GetHospitalPrivilegeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHospitalPrivilegeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="outletSoap">
+    <wsdl:operation name="GetHospitalPrivilege">
+      <wsdl:input message="tns:GetHospitalPrivilegeSoapIn" />
+      <wsdl:output message="tns:GetHospitalPrivilegeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="outletSoap" type="tns:outletSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetHospitalPrivilege">
+      <soap:operation soapAction="http://vision-sh.com/GetHospitalPrivilege" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="outletSoap12" type="tns:outletSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetHospitalPrivilege">
+      <soap12:operation soapAction="http://vision-sh.com/GetHospitalPrivilege" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="outlet">
+    <wsdl:port name="outletSoap" binding="tns:outletSoap">
+      <soap:address location="http://bsc.vision-sh.com/outlet.asmx" />
+    </wsdl:port>
+    <wsdl:port name="outletSoap12" binding="tns:outletSoap12">
+      <soap12:address location="http://bsc.vision-sh.com/outlet.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

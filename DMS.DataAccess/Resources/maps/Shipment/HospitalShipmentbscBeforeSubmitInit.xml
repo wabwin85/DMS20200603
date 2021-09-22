@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="HospitalShipmentbscBeforeSubmitInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="HospitalShipmentbscBeforeSubmitInit" assembly="DMS.Model.dll" type="DMS.Model.HospitalShipmentbscBeforeSubmitInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="HospitalShipmentbscBeforeSubmitInitResult" class="HospitalShipmentbscBeforeSubmitInit">
+      <result property="Id" column="Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IdentityType" column="IdentityType" type="string" dbType="nvarchar"/>
+      <result property="IdentityCode" column="IdentityCode" type="string" dbType="nvarchar"/>
+      <result property="SphId" column="SPH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SphType" column="SPH_Type" type="string" dbType="nvarchar"/>
+      <result property="ShipmentPmaId" column="SPL_Shipment_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotNumber" column="LTM_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="LTM_ExpiredDate" type="DateTime" dbType="datetime"/>
+      <result property="ShipmentQty" column="ShipmentQty" type="decimal" dbType="decimal"/>
+      <result property="TotalQty" column="TotalQty" type="decimal" dbType="decimal"/>
+      <result property="Iscrm" column="IsCRM" type="bool" dbType="bit"/>
+      <result property="CustomerFaceNbr" column="CFN_CustomerFaceNbr" type="string" dbType="nvarchar"/>
+      <result property="CfnId" column="CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CurDate" column="CurDate" type="DateTime" dbType="datetime"/>
+      <result property="ShipmentDate" column="ShipmentDate" type="DateTime" dbType="datetime"/>
+      <result property="HasAttachment" column="HasAttachment" type="bool" dbType="bit"/>
+      <result property="ActualShipDate" column="ActualShipDate" type="DateTime" dbType="datetime"/>
+      <result property="ConvertExpDate" column="ConvertExpDate" type="DateTime" dbType="datetime"/>
+      <result property="Dealerid" column="DealerID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="EditQrCode" column="EditQrCode" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="QrCode" type="string" dbType="nvarchar"/>
+      <result property="IsShipDateCrossQuarter" column="IsShipDateCrossQuarter" type="bool" dbType="bit"/>
+      <result property="IsActualShipDateCrossQuarter" column="IsActualShipDateCrossQuarter" type="bool" dbType="bit"/>
+      <result property="ErrorDesc" column="ErrorDesc" type="string" dbType="nvarchar"/>
+      <result property="HospitalId" column="HospitalId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="BumId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IsError" column="IsError" type="bool" dbType="bit"/>
+      <result property="ErrorType" column="ErrorType" type="string" dbType="nvarchar"/>
+      <result property="ErrorFixSuggestion" column="ErrorFixSuggestion" type="string" dbType="nvarchar"/>
+      <result property="WhmId" column="Whm_id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmName" column="WHM_Name" type="string" dbType="nvarchar"/>
+      <result property="CfnChineseName" column="CFN_ChineseName" type="string" dbType="nvarchar"/>
+      <result property="ConvertFactor" column="PMA_ConvertFactor" type="int" dbType="int"/>
+      <result property="AvailableQty" column="AvailableQty" type="decimal" dbType="decimal"/>
+      <result property="SalesUnitPrice" column="SalesUnitPrice" type="decimal" dbType="decimal"/>
+      <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectHospitalShipmentbscBeforeSubmitInit" parameterClass="string" resultClass="HospitalShipmentbscBeforeSubmitInit">
+      SELECT Id AS Id,IdentityType AS IdentityType,IdentityCode AS IdentityCode,SPH_ID AS SphId,SPH_Type AS SphType,SPL_Shipment_PMA_ID AS ShipmentPmaId,LTM_LotNumber AS LotNumber,LTM_ExpiredDate AS ExpiredDate,ShipmentQty AS ShipmentQty,TotalQty AS TotalQty,IsCRM AS Iscrm,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ID AS CfnId,CurDate AS CurDate,ShipmentDate AS ShipmentDate,HasAttachment AS HasAttachment,ActualShipDate AS ActualShipDate,ConvertExpDate AS ConvertExpDate,DealerID AS Dealerid,EditQrCode AS EditQrCode,QrCode AS QrCode,IsShipDateCrossQuarter AS IsShipDateCrossQuarter,IsActualShipDateCrossQuarter AS IsActualShipDateCrossQuarter,ErrorDesc AS ErrorDesc,HospitalId AS HospitalId,BumId AS BumId,IsError AS IsError,ErrorType AS ErrorType,ErrorFixSuggestion AS ErrorFixSuggestion,Whm_id AS WhmId,WHM_Name AS WhmName,CFN_ChineseName AS CfnChineseName,PMA_ConvertFactor AS ConvertFactor,AvailableQty AS AvailableQty,SalesUnitPrice AS SalesUnitPrice,CreateUser AS CreateUser,CreateDate AS CreateDate
+      FROM HospitalShipmentBSC_BeforeSubmit_Init
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Id = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterHospitalShipmentbscBeforeSubmitInit" parameterClass="HospitalShipmentbscBeforeSubmitInit" resultClass="HospitalShipmentbscBeforeSubmitInit">
+      SELECT Id AS Id,IdentityType AS IdentityType,IdentityCode AS IdentityCode,SPH_ID AS SphId,SPH_Type AS SphType,SPL_Shipment_PMA_ID AS ShipmentPmaId,LTM_LotNumber AS LotNumber,LTM_ExpiredDate AS ExpiredDate,ShipmentQty AS ShipmentQty,TotalQty AS TotalQty,IsCRM AS Iscrm,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ID AS CfnId,CurDate AS CurDate,ShipmentDate AS ShipmentDate,HasAttachment AS HasAttachment,ActualShipDate AS ActualShipDate,ConvertExpDate AS ConvertExpDate,DealerID AS Dealerid,EditQrCode AS EditQrCode,QrCode AS QrCode,IsShipDateCrossQuarter AS IsShipDateCrossQuarter,IsActualShipDateCrossQuarter AS IsActualShipDateCrossQuarter,ErrorDesc AS ErrorDesc,HospitalId AS HospitalId,BumId AS BumId,IsError AS IsError,ErrorType AS ErrorType,ErrorFixSuggestion AS ErrorFixSuggestion,Whm_id AS WhmId,WHM_Name AS WhmName,CFN_ChineseName AS CfnChineseName,PMA_ConvertFactor AS ConvertFactor,AvailableQty AS AvailableQty,SalesUnitPrice AS SalesUnitPrice,CreateUser AS CreateUser,CreateDate AS CreateDate
+      FROM HospitalShipmentBSC_BeforeSubmit_Init
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="IdentityType">IdentityType=#IdentityType#</isNotNull>
+        <isNotNull prepend="AND" property="IdentityCode">IdentityCode=#IdentityCode#</isNotNull>
+        <isNotNull prepend="AND" property="SphId">SPH_ID=#SphId#</isNotNull>
+        <isNotNull prepend="AND" property="SphType">SPH_Type=#SphType#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentPmaId">SPL_Shipment_PMA_ID=#ShipmentPmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LTM_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">LTM_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentQty">ShipmentQty=#ShipmentQty#</isNotNull>
+        <isNotNull prepend="AND" property="TotalQty">TotalQty=#TotalQty#</isNotNull>
+        <isNotNull prepend="AND" property="Iscrm">IsCRM=#Iscrm#</isNotNull>
+        <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="CurDate">CurDate=#CurDate#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">ShipmentDate=#ShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="HasAttachment">HasAttachment=#HasAttachment#</isNotNull>
+        <isNotNull prepend="AND" property="ActualShipDate">ActualShipDate=#ActualShipDate#</isNotNull>
+        <isNotNull prepend="AND" property="ConvertExpDate">ConvertExpDate=#ConvertExpDate#</isNotNull>
+        <isNotNull prepend="AND" property="Dealerid">DealerID=#Dealerid#</isNotNull>
+        <isNotNull prepend="AND" property="EditQrCode">EditQrCode=#EditQrCode#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">QrCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="IsShipDateCrossQuarter">IsShipDateCrossQuarter=#IsShipDateCrossQuarter#</isNotNull>
+        <isNotNull prepend="AND" property="IsActualShipDateCrossQuarter">IsActualShipDateCrossQuarter=#IsActualShipDateCrossQuarter#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDesc">ErrorDesc=#ErrorDesc#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalId">HospitalId=#HospitalId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">BumId=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="IsError">IsError=#IsError#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorType">ErrorType=#ErrorType#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFixSuggestion">ErrorFixSuggestion=#ErrorFixSuggestion#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">Whm_id=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmName">WHM_Name=#WhmName#</isNotNull>
+        <isNotNull prepend="AND" property="CfnChineseName">CFN_ChineseName=#CfnChineseName#</isNotNull>
+        <isNotNull prepend="AND" property="ConvertFactor">PMA_ConvertFactor=#ConvertFactor#</isNotNull>
+        <isNotNull prepend="AND" property="AvailableQty">AvailableQty=#AvailableQty#</isNotNull>
+        <isNotNull prepend="AND" property="SalesUnitPrice">SalesUnitPrice=#SalesUnitPrice#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertHospitalShipmentbscBeforeSubmitInit" parameterClass="HospitalShipmentbscBeforeSubmitInit">
+      INSERT INTO HospitalShipmentBSC_BeforeSubmit_Init
+      (Id,IdentityType,IdentityCode,SPH_ID,SPH_Type,SPL_Shipment_PMA_ID,LTM_LotNumber,LTM_ExpiredDate,ShipmentQty,TotalQty,IsCRM,CFN_CustomerFaceNbr,CFN_ID,CurDate,ShipmentDate,HasAttachment,ActualShipDate,ConvertExpDate,DealerID,EditQrCode,QrCode,IsShipDateCrossQuarter,IsActualShipDateCrossQuarter,ErrorDesc,HospitalId,BumId,IsError,ErrorType,ErrorFixSuggestion,Whm_id,WHM_Name,CFN_ChineseName,PMA_ConvertFactor,AvailableQty,SalesUnitPrice,CreateUser,CreateDate)
+      VALUES(#Id#,#IdentityType#,#IdentityCode#,#SphId#,#SphType#,#ShipmentPmaId#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#ShipmentQty#,#TotalQty#,#Iscrm#,#CustomerFaceNbr#,#CfnId#,#CurDate:DateTime:1/1/0001 12:00:00 AM#,#ShipmentDate:DateTime:1/1/0001 12:00:00 AM#,#HasAttachment#,#ActualShipDate:DateTime:1/1/0001 12:00:00 AM#,#ConvertExpDate:DateTime:1/1/0001 12:00:00 AM#,#Dealerid#,#EditQrCode#,#QrCode#,#IsShipDateCrossQuarter#,#IsActualShipDateCrossQuarter#,#ErrorDesc#,#HospitalId#,#BumId#,#IsError#,#ErrorType#,#ErrorFixSuggestion#,#WhmId#,#WhmName#,#CfnChineseName#,#ConvertFactor#,#AvailableQty#,#SalesUnitPrice#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateHospitalShipmentbscBeforeSubmitInit" parameterClass="HospitalShipmentbscBeforeSubmitInit">
+      UPDATE HospitalShipmentBSC_BeforeSubmit_Init
+      SET Id=#Id#,IdentityType=#IdentityType#,IdentityCode=#IdentityCode#,SPH_ID=#SphId#,SPH_Type=#SphType#,SPL_Shipment_PMA_ID=#ShipmentPmaId#,LTM_LotNumber=#LotNumber#,LTM_ExpiredDate=#ExpiredDate#,ShipmentQty=#ShipmentQty#,TotalQty=#TotalQty#,IsCRM=#Iscrm#,CFN_CustomerFaceNbr=#CustomerFaceNbr#,CFN_ID=#CfnId#,CurDate=#CurDate#,ShipmentDate=#ShipmentDate#,HasAttachment=#HasAttachment#,ActualShipDate=#ActualShipDate#,ConvertExpDate=#ConvertExpDate#,DealerID=#Dealerid#,EditQrCode=#EditQrCode#,QrCode=#QrCode#,IsShipDateCrossQuarter=#IsShipDateCrossQuarter#,IsActualShipDateCrossQuarter=#IsActualShipDateCrossQuarter#,ErrorDesc=#ErrorDesc#,HospitalId=#HospitalId#,BumId=#BumId#,IsError=#IsError#,ErrorType=#ErrorType#,ErrorFixSuggestion=#ErrorFixSuggestion#,Whm_id=#WhmId#,WHM_Name=#WhmName#,CFN_ChineseName=#CfnChineseName#,PMA_ConvertFactor=#ConvertFactor#,AvailableQty=#AvailableQty#,SalesUnitPrice=#SalesUnitPrice#
+      WHERE Id = #Id#
+    </update>
+    <delete id="DeleteHospitalShipmentbscBeforeSubmitInit" parameterClass="string">
+      DELETE FROM HospitalShipmentBSC_BeforeSubmit_Init
+      WHERE Id = #value#
+    </delete>
+    <select id="SelectHospitalShipmentbscBeforeSubmitInitByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Id AS Id,IdentityType AS IdentityType,IdentityCode AS IdentityCode,SPH_ID AS SphId,SPH_Type AS SphType,SPL_Shipment_PMA_ID AS ShipmentPmaId,CASE WHEN CHARINDEX('@@',LTM_LotNumber) > 0 THEN substring(LTM_LotNumber,1,CHARINDEX('@@',LTM_LotNumber)-1) ELSE LTM_LotNumber END AS LotNumber,LTM_ExpiredDate AS ExpiredDate,
+      Convert(decimal(18,2),ShipmentQty) AS ShipmentQty,Convert(decimal(18,2),TotalQty) AS TotalQty,IsCRM AS Iscrm,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_ID AS CfnId,CurDate AS CurDate,ShipmentDate AS ShipmentDate,HasAttachment AS HasAttachment,ActualShipDate AS ActualShipDate,ConvertExpDate AS ConvertExpDate,DealerID AS Dealerid,EditQrCode AS EditQrCode,QrCode AS QrCode,IsShipDateCrossQuarter AS IsShipDateCrossQuarter,IsActualShipDateCrossQuarter AS IsActualShipDateCrossQuarter,ErrorDesc AS ErrorDesc,HospitalId AS HospitalId,BumId AS BumId,IsError AS IsError,ErrorType AS ErrorType,ErrorFixSuggestion AS ErrorFixSuggestion,Whm_id AS WhmId,WHM_Name AS WhmName,CFN_ChineseName AS CfnChineseName,PMA_ConvertFactor AS ConvertFactor,AvailableQty AS AvailableQty,SalesUnitPrice AS SalesUnitPrice,CreateUser AS CreateUser,CreateDate AS CreateDate
+      FROM HospitalShipmentBSC_BeforeSubmit_Init
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SphId">SPH_ID=#SphId#</isNotNull>
+      </dynamic>
+      order by IsError,CFN_CustomerFaceNbr desc
+    </select>
+    <select id="SelectHospitalShipmentSumBeforeSubmitInitByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select sum(case when IsError=1 then 1 else 0 end) AS ErrorCnt
+      ,count(*) -sum(case when IsError=1 then 1 else 0 end) AS CorrectCnt,
+      sum(Convert(decimal(18,2),isnull(shipmentQty,0))) as TotalQty,
+      sum(Convert(decimal(18,2),isnull(shipmentQty,0) * isnull(SalesUnitPrice,0))) as TotalPrice
+      from HospitalShipmentBSC_BeforeSubmit_Init
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SphId">SPH_ID=#SphId#</isNotNull>
+      </dynamic>     
+    </select>
+    <select id="SelectHospitalShipmentbscBeforeSubmitInitForExport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+          SELECT case when IsError=1 then '错误' else '正确' end AS '结果',
+             Convert(nvarchar(10),ShipmentDate,120) AS '用量日期',
+             WHM_Name AS '仓库',
+             CFN_CustomerFaceNbr AS '产品型号',
+             CFN_ChineseName AS '产品名称',
+             PMA_ConvertFactor AS '包装数',
+             CASE WHEN CHARINDEX('@@',LTM_LotNumber) > 0 THEN substring(LTM_LotNumber,1,CHARINDEX('@@',LTM_LotNumber)-1) ELSE LTM_LotNumber END AS '批号',
+             QrCode AS '二维码',
+             convert(nvarchar(10), LTM_ExpiredDate,120) AS '产品有效期',
+             Convert(decimal(18,2),TotalQty) AS '可用库存数',
+             Convert(decimal(18,2),ShipmentQty) AS '销售数量',
+             AvailableQty AS '剩余库存',
+             SalesUnitPrice AS '销售单价',   
+             ErrorType AS '错误类型',
+             ErrorDesc AS '错误描述',
+             ErrorFixSuggestion AS '建议修改'
+      FROM HospitalShipmentBSC_BeforeSubmit_Init
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SphId">SPH_ID=#SphId#</isNotNull>
+      </dynamic>
+      order by IsError,CFN_CustomerFaceNbr desc
+    </select>
+  </statements>
+</sqlMap>

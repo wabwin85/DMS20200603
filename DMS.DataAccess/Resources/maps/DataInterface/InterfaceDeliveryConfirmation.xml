@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceDeliveryConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="InterfaceDeliveryConfirmation" assembly="DMS.Model.dll" type="DMS.Model.InterfaceDeliveryConfirmation" />
+    </alias>
+    <resultMaps>
+        <resultMap id="InterfaceDeliveryConfirmationResult" class="InterfaceDeliveryConfirmation">
+            <result property="Id" column="IDC_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SapDeliveryNo" column="IDC_SapDeliveryNo" type="string" dbType="nvarchar"/>
+            <result property="ConfirmDate" column="IDC_ConfirmDate" type="DateTime" dbType="datetime"/>
+            <result property="IsConfirm" column="IDC_IsConfirm" type="bool" dbType="bit"/>
+            <result property="Remark" column="IDC_Remark" type="string" dbType="nvarchar"/>
+            <result property="LineNbr" column="IDC_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="IDC_FileName" type="string" dbType="nvarchar"/>
+            <result property="ImportDate" column="IDC_ImportDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="IDC_ClientID" type="string" dbType="nvarchar"/>
+            <result property="BatchNbr" column="IDC_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="Upn" column="IDC_UPN" type="string" dbType="nvarchar"/>
+            <result property="Lot" column="IDC_Lot" type="string" dbType="nvarchar"/>
+            <result property="Qty" column="IDC_Qty" type="decimal" dbType="decimal"/>
+            <result property="QrCode" column="IDC_QRCode" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="GC_Interface_DeliveryConfirmation_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="BatchNbr" column="BatchNbr" />
+            <parameter property="ClientID" column="ClientID" />
+            <parameter property="RtnVal" column="RtnVal" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectInterfaceDeliveryConfirmation" parameterClass="string" resultClass="InterfaceDeliveryConfirmation">
+            SELECT IDC_ID AS Id,IDC_SapDeliveryNo AS SapDeliveryNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_LineNbr AS LineNbr,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr,IDC_UPN AS Upn,IDC_Lot AS Lot,IDC_Qty AS Qty,IDC_QRCode AS QrCode
+            FROM InterfaceDeliveryConfirmation
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    IDC_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterInterfaceDeliveryConfirmation" parameterClass="InterfaceDeliveryConfirmation" resultClass="InterfaceDeliveryConfirmation">
+            SELECT IDC_ID AS Id,IDC_SapDeliveryNo AS SapDeliveryNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_LineNbr AS LineNbr,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr,IDC_UPN AS Upn,IDC_Lot AS Lot,IDC_Qty AS Qty,IDC_QRCode AS QrCode
+            FROM InterfaceDeliveryConfirmation
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">IDC_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="SapDeliveryNo">IDC_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+                <isNotNull prepend="AND" property="ConfirmDate">IDC_ConfirmDate=#ConfirmDate#</isNotNull>
+                <isNotNull prepend="AND" property="IsConfirm">IDC_IsConfirm=#IsConfirm#</isNotNull>
+                <isNotNull prepend="AND" property="Remark">IDC_Remark=#Remark#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">IDC_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">IDC_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ImportDate">IDC_ImportDate=#ImportDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">IDC_ClientID=#Clientid#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">IDC_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="Upn">IDC_UPN=#Upn#</isNotNull>
+                <isNotNull prepend="AND" property="Lot">IDC_Lot=#Lot#</isNotNull>
+                <isNotNull prepend="AND" property="Qty">IDC_Qty=#Qty#</isNotNull>
+                <isNotNull prepend="AND" property="QrCode">IDC_QRCode=#QrCode#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertInterfaceDeliveryConfirmation" parameterClass="InterfaceDeliveryConfirmation">
+            INSERT INTO InterfaceDeliveryConfirmation
+            (IDC_ID,IDC_SapDeliveryNo,IDC_ConfirmDate,IDC_IsConfirm,IDC_Remark,IDC_LineNbr,IDC_FileName,IDC_ImportDate,IDC_ClientID,IDC_BatchNbr,IDC_UPN,IDC_Lot,IDC_Qty,IDC_QRCode)
+            VALUES(#Id#,#SapDeliveryNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#Upn#,#Lot#,#Qty#,#QrCode#)
+        </insert>
+        <update id="UpdateInterfaceDeliveryConfirmation" parameterClass="InterfaceDeliveryConfirmation">
+            UPDATE InterfaceDeliveryConfirmation
+            SET IDC_ID=#Id#,IDC_SapDeliveryNo=#SapDeliveryNo#,IDC_ConfirmDate=#ConfirmDate#,IDC_IsConfirm=#IsConfirm#,IDC_Remark=#Remark#,IDC_LineNbr=#LineNbr#,IDC_FileName=#FileName#,IDC_ImportDate=#ImportDate#,IDC_ClientID=#Clientid#,IDC_BatchNbr=#BatchNbr#,IDC_UPN=#Upn#,IDC_Lot=#Lot#,IDC_Qty=#Qty#,IDC_QRCode=#QrCode#
+            WHERE IDC_ID = #Id#
+        </update>
+        <delete id="DeleteInterfaceDeliveryConfirmation" parameterClass="string">
+            DELETE FROM InterfaceDeliveryConfirmation
+            WHERE IDC_ID = #value#
+        </delete>
+        <procedure id="GC_Interface_DeliveryConfirmation" parameterMap="GC_Interface_DeliveryConfirmation_ParameterMap">
+            dbo.GC_Interface_DeliveryConfirmation
+        </procedure>
+    </statements>
+</sqlMap>

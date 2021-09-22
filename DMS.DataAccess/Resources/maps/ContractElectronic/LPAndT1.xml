@@ -1,0 +1,761 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="LPAndT1Map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="ContractDetailView" assembly="DMS.Model.dll" type="DMS.Model.ViewModel.ContractElectronic.ContractDetailView" />
+    <typeAlias alias="SelectedTemplate" assembly="DMS.Model.dll" type="DMS.Model.ViewModel.ContractElectronic.SelectedTemplate" />
+    <!--<typeAlias alias="T2ContractDetailView" assembly="DMS.Model.dll" type="DMS.Model.ViewModel.ContractElectronic.T2ContractDetailView" />-->
+  </alias>
+  <resultMaps>
+    <resultMap id="SelectedTemplateResult" class="SelectedTemplate">
+      <result property="TmpID" column="TemplateId" type="string" dbType="nvarchar"/>
+      <result property="TmpName" column="TemplateName" type="string" dbType="nvarchar"/>
+      <result property="SortIndex" column="DisplayOrder" type="int" dbType="int"/>
+      <result property="FilePath" column="TemplateFile" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="ContractDetailViewResult" class="ContractDetailView">
+      <result property="ExportId" column="ExportId" type="Guid" dbType="Guid"/>
+      <result property="ContractId" column="ContractId" type="string" dbType="nvarchar"/>
+      
+      <result property="ContractNo" column="ContractNo" type="string" dbType="nvarchar"/>
+      <result property="ContractType" column="ContractType" type="string" dbType="nvarchar"/>
+      <result property="TerminationType" column="TerminationType" type="string" dbType="nvarchar"/>
+      <result property="DealerType" column="DealerType" type="string" dbType="nvarchar"/>
+      <result property="DeptId" column="DeptId" type="string" dbType="nvarchar"/>
+      <result property="DeptName" column="DeptName" type="string" dbType="nvarchar"/>
+      <result property="DeptNameEn" column="DeptNameEn" type="string" dbType="nvarchar"/>
+
+      <result property="DealerAddress" column="DealerAddress" type="string" dbType="nvarchar"/>
+      <result property="DealerAddressEn" column="DealerAddressEn" type="string" dbType="nvarchar"/>
+      <result property="DealerPhone" column="DealerPhone" type="string" dbType="nvarchar"/>
+      <result property="DealerFax" column="DealerFax" type="string" dbType="nvarchar"/>
+      <result property="DealerMail" column="DealerMail" type="string" dbType="nvarchar"/>
+
+      <result property="DealerManager" column="DealerManager" type="string" dbType="nvarchar"/>
+      <result property="DealerManagerEn" column="DealerManagerEn" type="string" dbType="nvarchar"/>
+      <result property="OriginalNo" column="OriginalNo" type="string" dbType="nvarchar"/>
+      <result property="PaymentType" column="PaymentType" type="string" dbType="nvarchar"/>
+      <result property="PaymentDays" column="PaymentDays" type="string" dbType="nvarchar"/>
+
+      <result property="AgreementStartDate" column="AgreementStartDate" type="DateTime" dbType="DateTime"/>
+      <result property="AgreementEndDate" column="AgreementEndDate" type="DateTime" dbType="DateTime"/>
+      <result property="OriginalStartDate" column="OriginalStartDate" type="DateTime" dbType="DateTime"/>
+      <result property="OriginalEndDate" column="OriginalEndDate" type="DateTime" dbType="DateTime"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="DateTime"/>
+      <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="DateTime"/>
+
+      <result property="CompanyGuarantee" column="CompanyGuarantee" type="string" dbType="nvarchar"/>
+      <result property="BankGuarantee" column="BankGuarantee" type="string" dbType="nvarchar"/>
+      <result property="CreditLimit" column="CreditLimit" type="string" dbType="nvarchar"/>
+      <result property="COName" column="COName" type="string" dbType="nvarchar"/>
+      <result property="CONameEn" column="CONameEn" type="string" dbType="nvarchar"/>
+
+      <result property="COContactInfo" column="COContactInfo" type="string" dbType="nvarchar"/>
+      <result property="Rebate" column="Rebate" type="string" dbType="nvarchar"/>
+      <result property="Status" column="Status" type="string" dbType="nvarchar"/>
+      <result property="ApplicantName" column="ApplicantName" type="string" dbType="nvarchar"/>
+      <result property="ApplicantNameEn" column="ApplicantNameEn" type="string" dbType="nvarchar"/>
+
+      <result property="Balance" column="Balance" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="CreateUser" type="string" dbType="nvarchar"/>
+      <result property="UpdateUser" column="UpdateUser" type="string" dbType="nvarchar"/>
+      <result property="ExclusiveType" column="ExclusiveType" type="string" dbType="nvarchar"/>
+      <result property="ContractVer" column="ContractVer" type="string" dbType="nvarchar"/>
+
+      <result property="VersionId" column="VersionId" type="string" dbType="nvarchar"/>
+
+
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <insert id ="InsertVersion" parameterclass="System.Collections.Hashtable">
+      INSERT INTO Contract.ExportVersion
+      (VersionId
+      ,VersionNo
+      ,ContractId
+      ,ExportId
+      ,CreateUser
+      ,CreateDate,VersionStatus)
+      VALUES
+      (NEWID(),#VersionNo#,#ContractId#,#ExportId#,#CreateUser#,#CreateDate#,#VersionStatus#)
+    </insert>
+
+    <insert id="InsertExportTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.ExportTemplate
+      (TemplateId
+      ,ContractType
+      ,DealerType
+      ,TemplateName
+      ,TemplateFile
+      ,IsActive
+      ,IsRequired
+      ,DisplayOrder)
+      VALUES
+      (NEWID(),#ContractType#,#DealerType#,#TemplateName#,#TemplateFile#,#IsActive#,#IsRequired#,#DisplayOrder#)
+    </insert>
+
+    <select id="SelectExportTemplate"  parameterClass="System.Collections.Hashtable">
+      SELECT
+      TemplateId
+      ,ContractType
+      ,DealerType
+      ,TemplateName
+      ,TemplateFile,
+      TemplateFile1
+      ,IsActive
+      ,IsRequired
+      ,DisplayOrder
+      ,IsRequiredBind
+      ,[FileName]
+      ,TemplateType as FileType
+      FROM
+      Contract.GC_Fn_ContractAttach_list(#ExportId#,#ContractType#,#DealerType#,#ProductlineId#,#DealerId#,#ContractId#)
+    </select>
+    <select id="SelectExportTemplateToList"  parameterClass="System.Collections.Hashtable" resultClass="SelectedTemplate">
+      SELECT
+      CONVERT(NVARCHAR(50), TemplateId) as TmpID
+      ,TemplateName as TmpName
+      ,TemplateFile1 as FilePath
+      ,DisplayOrder as SortIndex
+      ,TemplateType as FileType
+      FROM
+      Contract.GC_Fn_ContractAttach_list(#ExportId#,#ContractType#,#DealerType#,#ProductlineId#,#DealerId#,#ContractId#)
+    </select>
+
+    <select id="DealerAopDataHtmlTable" parameterClass="string" resultClass="string">
+      select 	Contract.GC_Fn_DealerAopData_HtmlTable(#ContractId#)
+    </select>
+    <select id="T2DealerAopDataHtmlTable" parameterClass="string" resultClass="string">
+      select 	Contract.GC_Fn_T2DealerAopData_HtmlTable(#ContractId#)
+    </select>
+    <select id="DealerImportAopDataHtmlTable" parameterClass="string" resultClass="string">
+      select 	Contract.GC_Fn_DealerImportAopData_HtmlTable(#ContractId#)
+    </select>
+    <select id="T2DealerImportAopDataHtmlTable" parameterClass="string" resultClass="string">
+      select 	Contract.GC_Fn_T2DealerImportAopData_HtmlTable(#ContractId#)
+    </select>
+    <select id="GetT2Taxamount" parameterClass="string" resultClass="string">
+      select * from Contract.GC_Fn_DealerAopData_List(#ContractId#)
+    </select>
+    <insert id="InsertSelectExportTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.ExportSelectedTemplate
+      (ExportId
+      ,TemplateId
+      ,DisplayOrder)
+      VALUES
+      (NEWID(),#TemplateId#,#DisplayOrder#)
+    </insert>
+
+    <delete id="DeleteDraftSelectExportTemp" parameterClass="string">
+      DELETE Contract.ExportSelectedTemplate  WHERE ExportId=#ExportId#
+    </delete>
+
+    <insert id="InsertContract" parameterClass="ContractDetailView">
+      INSERT INTO Contract.ExportMain
+      (ExportId,ContractId,ContractNo,ContractType,TerminationType
+      ,DealerType,DeptId,DeptName,DeptNameEn,SubDeptId
+      ,DealerId,DealerName,DealerNameEn,DealerAddress,DealerAddressEn
+      ,DealerPhone,DealerFax ,DealerMail ,DealerManager,DealerManagerEn
+      ,AgreementStartDate,AgreementEndDate,OriginalNo,OriginalStartDate ,OriginalEndDate,
+      PaymentType,PaymentDays,CompanyGuarantee,BankGuarantee ,CreditLimit
+      ,COName,CONameEn,COContactInfo,Rebate ,Status
+      ,Balance,ApplicantName,ApplicantNameEn
+      ,CreateUser ,CreateDate,UpdateUser,UpdateDate,CreditTerm,SubProductName,SubProductEName,IsProduct,IsPrices,IsTerritory,IsPurchase,IsPayment,LogisticsCompany,StartDate,EndDate)
+      VALUES
+      (#ExportId#,#ContractId#,#ContractNo#,#ContractType#,#TerminationType#,
+      #DealerType#,#DeptId#,#DeptName#,#DeptNameEn#,#SubDepId#,
+      #DealerId#,#DealerName#,#DealerNameEn#,#DealerAddress#,#DealerAddressEn#,
+      #DealerPhone#,#DealerFax#,#DealerMail#,#DealerManager#,#DealerManagerEn#,
+      #AgreementStartDate#,#AgreementEndDate#,#OriginalNo#,#OriginalStartDate#,#OriginalEndDate#,
+      #PaymentType#,#PaymentDays#,#CompanyGuarantee#,#BankGuarantee#,#CreditLimit#,
+      #COName#,#CONameEn#,#COContactInfo#,#Rebate#,#Status#,
+      #Balance#,#ApplicantName#,#ApplicantNameEn#,
+      #CreateUser#,#CreateDate#,#UpdateUser#,#UpdateDate#,#CreditTerm#,#SubProductName#,#SubProductEName#,#IsProduct#,#IsPrices#,#IsTerritory#,#IsPurchase#,#IsPayment#,#LogisticsCompany#,#StartDate#,#EndDate#
+      )
+    </insert>
+
+    <insert id="InsertT2Contract" parameterClass="ContractDetailView" >
+      INSERT INTO Contract.ExportT2Main
+      (ExportId,ContractId,ContractNo,ContractType,TerminationType
+      ,DealerType,DeptId,DeptName,DeptNameEn,SubDeptId
+      ,SubDeptName,SubDeptNameEn,DealerId,DealerName,DealerAddress
+      ,DealerFax,DealerPostCode,DealerBank,DealerContact,PlatformId
+      ,PlatformName,PlatformAddress,PlatformFax,PlatformPostCode,PlatformBank
+      ,PlatformContact,AgreementStartDate,AgreementEndDate,OriginalNo,OriginalStartDate
+      ,OriginalEndDate,Guarantee,IsAddNew,PlatformBusinessContact,PlatformBusinessPhone
+      ,Status,CreateUser,CreateDate,UpdateUser,UpdateDate,ContractDate,PaymentDate)
+      VALUES
+      (
+      #ExportId#,#ContractId#,#ContractNo#,#ContractType#,#TerminationType#
+      ,#DealerType#,#DeptId#,#DeptName#,#DeptNameEn#,#SubDepId#
+      ,#SubBuName#,#SubBuNameEn#,#DealerId#,#DealerName#,#DealerAddress#
+      ,#DealerFax#,#DealerPostCode#,#DealerBank#,#DealerContact#,#PlatformId#
+      ,#PlatformName#,#PlatformAddress#,#PlatformFax#,#PlatformPostCode#,#PlatformBank#
+      ,#PlatformContact#,#AgreementStartDate#,#AgreementEndDate#,#OriginalNo#,#OriginalStartDate#
+      ,#OriginalEndDate#,#Guarantee#,#IsAddNew#,#PlatformBusinessContact#,#PlatformBusinessPhone#
+      ,#Status#,#CreateUser#,#CreateDate#,#UpdateUser#,#UpdateDate#,#ContractDate#,#PaymentDate#
+      )
+    </insert>
+
+    <select id="SelectContractMainByExportId" parameterClass="System.Collections.Hashtable" resultClass="ContractDetailView">
+      SELECT        A.ExportId
+      ,CONVERT(NVARCHAR(50), A.ContractId) as ContractId
+      ,A.ContractNo
+      ,A.ContractType
+      ,A.TerminationType
+      ,A.DealerType
+      ,A.DeptId
+      ,A.DeptName
+      ,A.DeptNameEn
+      ,A.SubDeptId
+      ,A.DealerId
+      ,A.DealerName
+      ,A.DealerNameEn
+      ,A.DealerAddress
+      ,A.DealerAddressEn
+      ,A.DealerPhone
+      ,A.DealerFax
+      ,A.DealerMail
+      ,A.DealerManager
+      ,A.DealerManagerEn
+      ,A.AgreementStartDate
+      ,A.AgreementEndDate
+      ,A.OriginalNo
+      ,A.OriginalStartDate
+      ,A.OriginalEndDate
+      ,A.PaymentType
+      ,A.PaymentDays
+      ,A.CompanyGuarantee
+      ,A.BankGuarantee
+      ,A.CreditLimit
+      ,A.COName
+      ,A.CONameEn
+      ,A.COContactInfo
+      ,A.Rebate
+      ,A.ApplicantName
+      ,A.ApplicantNameEn
+      ,A.Balance
+      ,A.Status
+      ,CONVERT(NVARCHAR(50), A.CreateUser)  as CreateUser
+      ,A.CreateDate
+      ,CONVERT(NVARCHAR(50), A.UpdateUser) as UpdateUser
+      ,A.UpdateDate,
+
+      CONVERT(NVARCHAR(50), B.VersionId) as VersionId,
+      B.VersionNo as  ContractVer,
+      A.SubProductName,
+      A.SubProductEName,
+      A.IsProduct,
+      A.IsPrices,
+      A.IsTerritory,
+      A.IsPurchase,
+      A.IsPayment
+      FROM Contract.ExportMain A LEFT JOIN Contract.ExportVersion B
+      ON A.ExportId=B.ExportId
+      WHERE A.ExportId=#ExportId#
+    </select>
+
+    <select id="SelectContractT2MainByExportId" parameterClass="System.Collections.Hashtable" resultClass="ContractDetailView">
+      SELECT
+      A.ExportId
+      ,CONVERT(NVARCHAR(50), A.ContractId) as ContractId
+      ,A.ContractNo
+      ,A.ContractType
+      ,A.TerminationType
+      ,A.DealerType
+      ,A.DeptId
+      ,A.DeptName
+      ,A.DeptNameEn
+      ,A.SubDeptId
+      ,A.DealerId
+      ,A.DealerName
+      ,A.DealerAddress
+      ,A.DealerFax
+      ,A.DealerPostCode
+      ,A.DealerBank
+      ,A.DealerContact
+      ,A.PlatformId
+      ,A.PlatformName
+      ,A.PlatformAddress
+      ,A.PlatformFax
+      ,A.PlatformPostCode
+      ,A.PlatformBank
+      ,A.PlatformContact
+      ,A.AgreementStartDate
+      ,A.AgreementEndDate
+      ,A.OriginalNo
+      ,A.OriginalStartDate
+      ,A.OriginalEndDate
+      ,A.Guarantee
+      ,A.IsAddNew
+      ,A.PlatformBusinessContact
+      ,A.PlatformBusinessPhone
+      ,A.Status
+      ,A.SubDeptId as SubDepId
+      FROM Contract.ExportT2Main A LEFT JOIN Contract.ExportVersion B
+      ON A.ExportId=B.ExportId
+      WHERE A.ExportId=#ExportId#
+    </select>
+
+    <select id="SelectContractMainByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  A.ExportId,A.ContractId,A.ContractNo,A.ContractType,A.TerminationType,A.DealerType,A.DeptId,A.DeptName,A.DeptNameEn,A.SubDeptId,A.SubDeptName,A.SubDeptNameEn,A.DealerId,A.DealerName,A.DealerNameEn,A.DealerAddress,A.DealerAddressEn,A.DealerPhone,A.DealerFax,A.DealerMail,A.DealerManager,A.DealerManagerEn,A.AgreementStartDate,A.AgreementEndDate,A.OriginalNo,A.OriginalStartDate,A.OriginalEndDate,A.PaymentType
+      ,A.PaymentDays,A.CompanyGuarantee,A.BankGuarantee,A.CreditLimit,A.COName,A.CONameEn,A.COContactInfo,A.Rebate,A.Balance,A.ApplicantName,A.ApplicantNameEn,A.Status,A.CreateUser
+      ,A.CreateDate,A.UpdateUser,A.UpdateDate,A.CreditTerm,A.SubProductName,A.SubProductEName,B.VersionId,
+      CASE VersionStatus WHEN 'Draft' THEN C.VALUE1
+      ELSE B.VersionNo  END AS VersionNo,
+      B.VersionStatus,C.VALUE1 AS StatusName,
+      A.IsProduct,A.IsPrices,A.IsTerritory,A.IsPurchase,A.IsPayment,A.LogisticsCompany,A.StartDate,A.EndDate
+      FROM Contract.ExportMain A LEFT JOIN Contract.ExportVersion B
+      ON A.ExportId=B.ExportId
+      AND A.ContractId=B.ContractId
+      INNER JOIN Lafite_DICT C
+      ON B.VersionStatus=C.DICT_KEY
+      AND C.DICT_TYPE='ContractElectronic'
+      LEFT JOIN dbo.V_DivisionProductLineRelation dpr ON dpr.DivisionCode=A.DeptId
+      WHERE A.ContractId=#ContractId#
+      AND A.ContractType=#ContractType#
+      AND EXISTS(SELECT 1 FROM Contract.ExportSelectedTemplate est WHERE est.ExportId=A.ExportId)
+      <isNotEmpty prepend="AND" property="DeptId">
+        A.DeptId=#DeptId#
+      </isNotEmpty>
+      ORDER BY A.CreateDate DESC
+    </select>
+
+    <select id="SelectContractT2MainByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT   *,EM_LegalName as DealerContact,EM_Phone as Phone
+      <!--,EA_CardNo as DealerBank-->
+      FROM Contract.ExportT2Main A LEFT JOIN Contract.ExportVersion B
+      ON A.ExportId=B.ExportId
+      LEFT JOIN ESIGN.EnterpriseMaster C ON A.DealerId=cast(C.EM_DMA_ID as nvarchar(50)) AND EM_Status='NORMAL'
+      LEFT JOIN ESign.EnterpriseAuthentication EA ON EA_DMA_ID=A.DealerId AND EA_IsActive=1
+      LEFT JOIN dbo.V_DivisionProductLineRelation dpr ON dpr.DivisionCode=A.DeptId
+      WHERE A.ContractId=#ContractId#
+      AND EXISTS(SELECT 1 FROM Contract.ExportSelectedTemplate est WHERE est.ExportId=A.ExportId)
+      <isNotEmpty prepend="AND" property="DeptId">
+        A.DeptId=#DeptId#
+      </isNotEmpty>
+      ORDER BY A.CreateDate DESC
+    </select>
+
+    <delete id="deleteContract" parameterClass="System.Collections.Hashtable">
+      DELETE Contract.ExportMain  WHERE
+      Status='draft'
+      <!--AND ContractNo=#ContractNo#
+      AND ContractId=#ContractId#
+      AND ContractType=#ContractType#
+      AND DealerType=#DealerType#-->
+      AND ExportId=#ExportId#
+    </delete>
+    <delete id="deleteContractT2" parameterClass="System.Collections.Hashtable">
+      DELETE Contract.ExportT2Main  WHERE
+      Status='draft'
+      AND ContractNo=#ContractNo#
+      AND ContractId=#ContractId#
+      AND ContractType=#ContractType#
+      AND DealerType=#DealerType#
+    </delete>
+
+    <select id="SelectDeleteContract" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ExportId FROM Contract.ExportMain WHERE
+      Status='draft'
+      <!--AND ContractNo=#ContractNo#
+      AND ContractId=#ContractId#
+      AND ContractType=#ContractType#
+      AND DealerType=#DealerType#-->
+      AND ExportId=#ExportId#
+    </select>
+    <select id="SelectDeleteContractT2" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ExportId FROM Contract.ExportT2Main WHERE
+      Status='draft'
+      AND ContractNo=#ContractNo#
+      AND ContractId=#ContractId#
+      AND ContractType=#ContractType#
+      AND DealerType=#DealerType#
+    </select>
+
+    <select id="SelectAllContractByApproved" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC [Contract].[Proc_GetDealerContractList] #DealerType#,#ProductLine#,#ContractNo#,#DealerName#,#ContractStatus#,#ContractTypeName#,#InitDealerName#,#DealerID#,#CorpType#,#SubCompanyId#,#BrandId#
+      <!--SELECT ContractId,
+      ContractNo,
+      ContractType,
+      ContractTypeName,
+      DealerType,
+      CNameCN,
+      CCode ,
+      DealerName ,
+      ProductLineName ,
+      DivisionCode,
+      ContractStatus
+      FROM(
+      SELECT
+      T.ContractId,
+      T.ContractNo,
+      T.ContractType,
+      T.ContractTypeName,
+      T.DealerType,
+      CC.CC_NameCN as CNameCN,
+      CC.CC_Code as CCode,
+      T.DMA_ChineseName as DealerName,
+      PR.ProductLineName ,
+      PR.DivisionCode,
+      case when (ISNULL(Ex.VersionStatus,'')!='Draft' and ISNULL(Ex.VersionStatus,'')!='') then '已生成' else '
+      未生成' END ContractStatus
+      FROM
+      (
+      SELECT
+      A.ContractId,
+      A.ContractNo,
+      A.DealerType,
+      A.SUBDEPID,
+      A.DepId,
+      A.ContractStatus,
+      B.DMA_ChineseName,
+      'Amendment' AS ContractType,
+      '经销商修改' as ContractTypeName
+      FROM Contract.AmendmentMain A
+      INNER JOIN DealerMaster B ON A.CompanyID=CAST(B.DMA_ID AS NVARCHAR(100))
+      WHERE CONVERT(NVARCHAR(10),A.AmendEffectiveDate,120)>='2017-01-01'
+      UNION
+      SELECT
+      A.ContractId,
+      A.ContractNo,
+      A.DealerType,
+      A.SUBDEPID,
+      A.DepId,
+      A.ContractStatus,
+      B.CompanyName,
+      'Appointment' AS ContractType,
+      '新经销商申请' as ContractTypeName
+      FROM Contract.AppointmentMain A
+      INNER JOIN Contract.AppointmentCandidate B ON A.ContractId=B.ContractId
+      INNER JOIN Contract.AppointmentProposals C ON C.ContractId=B.ContractId
+      WHERE CONVERT(NVARCHAR(10),C.AgreementBegin,120)>='2017-01-01'
+      UNION
+      SELECT
+      A.ContractId,
+      A.ContractNo,
+      A.DealerType,
+      A.SUBDEPID,
+      A.DepId,
+      A.ContractStatus,
+      B.DMA_ChineseName,
+      'Renewal' AS ContractType,
+      '经销商续约' as ContractTypeName
+      FROM Contract.RenewalMain A
+      INNER JOIN DealerMaster B ON A.DealerName=B.DMA_SAP_Code
+      INNER JOIN Contract.RenewalProposals C ON A.ContractId=C.ContractId
+      WHERE CONVERT(NVARCHAR(10),C.AgreementBegin,120)>='2017-01-01'
+      UNION
+      SELECT
+      A.ContractId,
+      A.ContractNo,
+      A.DealerType,
+      A.SUBDEPID,
+      A.DepId,
+      A.ContractStatus,
+      B.DMA_ChineseName,
+      'Termination' AS ContractType,
+      '经销商终止' as ContractTypeName
+      FROM Contract.TerminationMain A
+      INNER JOIN DealerMaster B ON A.DealerName=B.DMA_SAP_Code
+      WHERE CONVERT(NVARCHAR(10),A.PlanExpiration,120)>='2017-01-01'
+
+      ) T
+      INNER JOIN [interface].[ClassificationContract] CC ON T.SUBDEPID=CC.CC_Code
+      INNER JOIN V_DivisionProductLineRelation PR ON T.DepId=PR.DivisionCode
+      LEFT JOIN Contract.ExportMain Em on T.ContractId=Em.ContractId
+      LEFT JOIN  Contract.ExportVersion Ex on Em.ExportId=Ex.ExportId
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractStatus">ContractStatus=#ContractStatus#</isNotNull>
+        <isNotNull prepend="AND" property="ContractNO"> ContractNo like  '%$ContractNO$%'</isNotNull>
+        <isNotNull prepend="AND" property="ContractType">ContractType=#ContractType#</isNotNull>
+        <isNotNull prepend="AND" property="CNameCN">CC.CC_Code=#CNameCN#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">T.DMA_ChineseName LIKE N'%'+#DealerName#+'%' </isNotNull>
+        <isNotNull prepend="AND" property="ProductLineName">DivisionCode=#ProductLineName#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">(T.DealerType=#DealerType# OR #DealerType#='AllDealer')</isNotNull>
+        <isNotNull property="IsNewContract">
+          <isEqual prepend="AND" property="IsNewContract" compareValue="AllContract" >
+            1=1
+          </isEqual>
+          <isEqual prepend="AND" property="IsNewContract" compareValue="Finaldraft" >
+            Ex.VersionStatus in('InApprova','Submitted','Complete','Cancelled','Cancelled')
+          </isEqual>
+          <isEqual prepend="AND" property="IsNewContract" compareValue="NoContract" >
+            (isnull(Ex.VersionStatus,'')='Draft' or isnull(Ex.VersionStatus,'')='' )
+          </isEqual>
+        </isNotNull>
+        ) Y GROUP BY  ContractId,
+        ContractNo,
+        ContractType,
+        ContractTypeName,
+        DealerType,
+        CNameCN,
+        CCode ,
+        DealerName ,
+        ProductLineName ,
+        DivisionCode,
+        ContractStatus
+      </dynamic>-->
+    </select>
+
+    <select id="SelectBU" resultClass="System.Data.DataSet" parameterClass="System.Collections.Hashtable">
+      SELECT ProductLineID
+      ,ProductLineName
+      ,DivisionName
+      ,DivisionCode
+      ,IsEmerging
+      FROM dbo.V_DivisionProductLineRelation WHERE IsEmerging='0'
+      AND SubCompanyId=#SubCompanyId#
+      AND BrandId=#BrandId#
+    </select>
+
+    <select id="SelectClassContractByBU" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT CC_ID
+      ,CC_Division
+      ,CC_Code
+      ,CC_NameCN
+      FROM interface.ClassificationContract a where a.CC_Division=#divisionCode#
+    </select>
+
+    <select id="SelectFunAppointmentByContractID" parameterClass="string" resultClass="System.Data.DataSet">
+      select ContractId,ContractNo,CompanyName,CompanyEName,OfficeAddress,Mobile,OfficeNumber,EMail,
+      Contact,AgreementBegin,AgreementEnd,ProductName,ProductEName,SubProductName,SubProductEName,
+      Payment,CreditTerm,CreditLimit,PayTerm,IsDeposit,Deposit,Inform,InformOther,Comment,LPId,LPName,LPAddress,LPContacts, CompanyId AS DealerId,DealerBank,PlatformBank,DealerContact,Phone from Contract.GC_Fn_Appointment_FormData_List (#contractID#)
+    </select>
+    <select id="SelectFunAmendmentByContractID" parameterClass="string" resultClass="System.Data.DataSet">
+      select ContractId,ContractNo,ContractNoCurrent,DealerBeginDate,DealerEndDate,AmendBegineDate,
+      AmendEndDate,CompanyName,CompanyEName,ProductName,ProductEName,SubProductName,SubProductEName,
+      Payment,CreditTerm,CreditLimit,PayTerm,IsDeposit,Deposit,Inform,InformOther,
+      Comment,LPId,LPName,LPAddress,LPContacts, CompanyId AS DealerId from Contract.GC_Fn_Amendment_FormData_List (#contractID#)
+    </select>
+    <select id="SelectFunRenewalByContractID" parameterClass="string" resultClass="System.Data.DataSet">
+      select ContractId,ContractNo,CompanyName,CompanyEName,OfficeAddress,Mobile,OfficeNumber,EMail,
+      Contact,AgreementBegin,AgreementEnd,ProductName,ProductEName,SubProductName,SubProductEName,Payment,
+      CreditTerm,CreditLimit,PayTerm,IsDeposit,Deposit,Inform,InformOther,Comment,LPId,LPName,
+      LPAddress,LPContacts, CompanyId AS DealerId,DealerContact,DealerBank,PlatformBank,DealerContact,Phone from Contract.GC_Fn_Renewal_FormData_List (#contractID#)
+    </select>
+    <select id="SelectFunTerminationByContractID" parameterClass="string" resultClass="System.Data.DataSet">
+      select ContractId,ContractNo,CompanyName,CompanyEName,OfficeAddress,Contact,TerminationType,ProductName,
+      ProductEName,PlanExpiration AS AgreementBegin,EndExpiration AS AgreementEnd,CurrentAR,LPId,LPName,LPAddress,LPContacts,SubmitUserCN,SubmitUserEN,SubProductName,SubProductEName,
+      CompanyId AS DealerId
+      from Contract.GC_Fn_Termination_FormData_List (#contractID#)
+    </select>
+
+    <select id="SelectFunAuthorizationData" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT TerritoryName,TerritoryEName FROM Contract.GC_Fn_AuthorizationData_List (#InstanceID#) group by TerritoryName,TerritoryEName
+    </select>
+    <select id="SelectFunDealerAopData" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM Contract.GC_Fn_DealerAopData_List (#InstanceID#)
+    </select>
+    <select id="SelectFunHospitalAopData" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM Contract.GC_Fn_HospitalAopData_List (#InstanceID#)
+    </select>
+    <select id="SelectAuthorizationData" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT distinct ISNULL(A.TerritoryName,'')+','+ISNULL(A.TerritoryEName,'')+CASE  ISNULL(A.TerritoryEName,'') WHEN '' THEN '' ELSE ';' END FROM [Contract].[GC_Fn_AuthorizationData_List](#ContractId#)A FOR XML PATH('')
+    </select>
+    <select id="SelectExportSelectedTemplateByFileType" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ExportId,TemplateId,DisplayOrder,UploadFilePath,FileName,FileType FROM CONTRACT.ExportSelectedTemplate
+      WHERE ExportId=#ExportId# AND FileType=#FileType#
+    </select>
+    <select id="SelectAuthorizationByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  [Contract].[GC_Fn_AuthorizationHospital_HtmlTable](#ContractId#) AS StrHtml
+    </select>
+    <select id="SelectAuthorizationProductByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ProductName,ProductEnglishName FROM [Contract].[GC_Fn_AuthorizationProduct_HtmlTable](#ContractId#)
+    </select>
+    <select id="GetContractListByDealerId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC   [Contract].[Proc_GetContractList] #DealerId#,#Status#,#ContractNo#,#StartTime#,#EndTime#,#ProductLine#,#UserId#,#SubCompanyId#,#BrandId#,#CurrentPageIndex#,#PageSize#
+    </select>
+    <delete id="DeleteExportVersionByExporId" parameterClass="System.Collections.Hashtable">
+      DELETE Contract.ExportVersion WHERE ExportId=#value#
+    </delete>
+    <select id="SelectExportVersionExporId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT VersionId,VersionNo,ContractId,ExportId,CreateUser,CreateDate,VersionStatus FROM Contract.ExportVersion WHERE ExportId=#value#
+    </select>
+    <select id="SelectDealerTypeExporId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DMA_DealerType FROM DealerMaster WHERE DMA_ID=#DealerID#
+    </select>
+    <update id="UpdateExportVersionStatusByExportId" parameterClass="System.Collections.Hashtable">
+      UPDATE Contract.ExportVersion SET VersionStatus=#VersionStatus#,CreateDate=GETDATE() WHERE ExportId=#ExportId#
+    </update>
+    <update id="UpdateExportSelectedTemplateExportId" parameterClass="System.Collections.Hashtable">
+      UPDATE Contract.ExportSelectedTemplate SET UploadFilePath=#UploadFilePath#  WHERE ExportId=#ExportId# AND FileType='Finaldraft'
+    </update>
+    <select id="GetExportSelectedTemplateByExportId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ExportId,replace(UploadFilePath,'\','/')  as UploadFilePath,FileName,
+      replace(SUBSTRING(UploadFilePath,1,len(UploadFilePath)- CHARINDEX('/',REVERSE(UploadFilePath))),'\','//') as FileSrcPath,REVERSE(SUBSTRING(REVERSE(UploadFilePath),1,CHARINDEX('/',REVERSE(UploadFilePath))-1)) as FileSrcName
+      FROM Contract.ExportSelectedTemplate   WHERE ExportId=#ExportId# AND FileType='Finaldraft'
+    </select>
+    <select id="SelectDealerMaster1" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  CONVERT(NVARCHAR(50),DMA_ID ) AS Id,DMA_ChineseName as Name,DMA_ChineseShortName as ShortName from DealerMaster(nolock)
+      
+      WHERE  (DMA_Parent_DMA_ID=#DealerName# or DMA_ID=#DealerName#)
+      union
+      SELECT 'All' AS Id,'所有经销商' AS Name,'所有经销商' ShortName
+    </select>
+    <select id="SelectDealerMasterALL" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  CONVERT(NVARCHAR(50),DMA_ID ) AS Id,DMA_ChineseName as Name,DMA_ChineseShortName as ShortName from DealerMaster(nolock)
+      union
+      SELECT 'All' AS Id,'所有经销商' AS Name,'所有经销商' ShortName
+    </select>
+    <select id="SelectDealerType1" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DMA_DealerType from DealerMaster WHERE DMA_ID=#ID#
+    </select>
+    <select id="SelectDealerTypeALL" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DMA_DealerType from DealerMaster 
+    </select>
+    <select id="GetSingStatusList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DICT_KEY as [Key],VALUE1 as Value FROM Lafite_DICT  WHERE DICT_TYPE=#value#
+    </select>
+    <select id="GetProductLineRelation" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ProductLineName,DivisionCode
+      FROM V_DivisionProductLineRelation 
+      WHERE SubCompanyId=#SubCompanyId#
+	    AND BrandId=#BrandId#
+      GROUP BY ProductLineName,DivisionCode ORDER BY DivisionCode
+    </select>
+
+    <select id="GetReadTemplate" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT
+      A.ReadId,
+      (CASE WHEN IsRequired = 0 THEN '否' ELSE '是' END) AS IsRequired,
+      DocumentName,ReadUserName,substring(DocumentFile,3,LEN(DocumentFile)) AS DocumentFile,CONVERT(VARCHAR(50),ReadDate,120) AS ReadDate,
+      B.ReadID AS Confirm,ROW_NUMBER() OVER(ORDER BY A.DisplayOrder) AS RowNumber
+      FROM Contract.ExportReadTemplate A
+      LEFT JOIN Contract.ExportReadDetail B ON A.ReadId = B.ReadID AND B.ContractID = #ContractId#
+      LEFT JOIN V_DivisionProductLineRelation V ON V.DivisionCode=#DivisionCode#
+      WHERE DealerType=#DealerType# and ContractType=#ContractType#
+      AND A.IsActive=1
+      AND ((ISNULL(A.BrandName,'')='' AND NOT EXISTS (SELECT 1 FROM Contract.ExportReadTemplate T2 WHERE T2.ContractType=A.ContractType AND T2.DealerType=A.DealerType AND T2.DocumentName=A.DocumentName AND IsActive=1 AND ISNULL(T2.BrandName,'')=V.BrandName)) 
+         OR (ISNULL(A.BrandName,'') = V.BrandName)) 
+    </select>
+    <select id="SelectReadFile" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from Contract.ExportReadTemplate a
+      left join Contract.ExportReadDetail b on a.ReadID=b.ReadId
+      LEFT JOIN V_DivisionProductLineRelation V ON V.DivisionCode=#DivisionCode#
+      where a.IsRequired=1
+      AND a.IsActive=1
+      AND a.ContractType = #ContractType#
+      AND a.DealerType = #DealerType#
+      AND ((ISNULL(a.BrandName,'')='' AND NOT EXISTS (SELECT 1 FROM Contract.ExportReadTemplate T2 WHERE T2.ContractType=a.ContractType AND T2.DealerType=a.DealerType AND T2.DocumentName=a.DocumentName AND IsActive=1 AND ISNULL(T2.BrandName,'')=V.BrandName)) 
+         OR (ISNULL(a.BrandName,'') = V.BrandName))
+      AND NOT EXISTS(SELECT 1 FROM Contract.ExportReadDetail b where a.ReadID=b.ReadId AND b.ContractId=#ContractId#)
+    </select>
+    <insert id="InsertDetail" parameterClass="System.Collections.Hashtable">
+      IF NOT EXISTS(SELECT 1 FROM Contract.ExportReadDetail A WITH ( UPDLOCK, HOLDLOCK ) WHERE A.ContractID = #ContractID# AND A.ReadID = #ReadID#)
+      BEGIN
+      INSERT INTO Contract.ExportReadDetail (ID,ContractID,ReadID,ReadUserId,ReadUserName,ReadDate) 
+      VALUES(#ID#,#ContractID#,#ReadID#,#ReadUserId#,#ReadUserName#,#ReadDate#)
+      END
+      
+    </insert>
+
+    <select id="GetBuDivisionName" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DivisionName
+      FROM dbo.V_DivisionProductLineRelation WHERE IsEmerging='0' and ProductLineID=#ProductLineID#
+    </select>
+
+    <select id="QueryDealerTrainingByDealerId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      ;WITH A AS (SELECT TOP 1 * FROM interface.T_I_MDM_DealerTraining
+      WHERE TestName = '第三方合规知识培训-测试试题'
+      AND TestStatus = '已通过'
+      AND DealerId = #DealerId#
+      ORDER BY TestDate DESC
+      )
+      , B AS (
+      SELECT TOP 1 * FROM interface.T_I_MDM_DealerTraining
+      WHERE TestName = '代理商质量培训考试'
+      AND TestStatus = '已通过'
+      AND DealerId = #DealerId#
+      ORDER BY TestDate DESC
+      ), C AS (
+      SELECT * FROM A
+      UNION ALL
+      SELECT * FROM B
+      )
+      SELECT C.*,DMA_ChineseName,DMA_SAP_Code,DMA_DealerType,CASE WHEN DATEADD(DD,90,TestDate) >= GETDATE() THEN '1' ELSE '0' END AS IsActived FROM C
+      LEFT JOIN DealerMaster ON DMA_ID = DealerId
+    </select>
+    
+    <select id="SelectClassificationFunAuthorizationData" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT CA_NameCN AS NameCn,CA_Code AS Code,ISNULL(CA_NameEN,CA_NameCN) AS NameEn FROM Contract.GC_Fn_AuthorizationData_List (#InstanceID#) 
+      GROUP BY CA_NameCN,CA_Code,ISNULL(CA_NameEN,CA_NameCN)
+      ORDER BY NameEn
+    </select>
+
+    <select id="GetContractEsignTypeByContractId" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM [Contract].[GC_Fn_GetContractEsignType](#ContractId#)
+    </select>
+    <select id="GetFunGC_Fn_GetContractDate" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT * FROM [Contract].[GC_Fn_GetContractDate](#DealerID#,#AgreementBegin#,#AgreementEnd#)
+    </select>
+  
+    <select id="GetSubBuContract" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC   [Contract].[Proc_GetSubBuContract] #DealerName#,#DeptId#,#SUBDEPID#,#ContractNo#
+    </select>
+
+    <select id="GetContract" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+
+      SELECT A.AgreementStartDate,A.AgreementEndDate,C.CreateDate FROM Contract.ExportT2Main A
+      INNER JOIN Contract.ExportVersion C ON A.ExportId = C.ExportId
+      WHERE ContractNo=
+      (
+      SELECT TOP 1 ContractNo FROM
+      (
+      SELECT AgreementBegin,ContractNo
+      FROM Contract.AppointmentMain A
+      INNER JOIN Contract.AppointmentCandidate B ON A.ContractId = B.ContractId
+      INNER JOIN Contract.AppointmentProposals C ON C.ContractId = A.ContractId
+      LEFT JOIN dbo.V_DivisionProductLineRelation dpr (nolock) ON dpr.DivisionCode = A.DepId
+      WHERE DealerType='T2' AND B.CompanyID=#DealerName#  AND ContractStatus='Approved' AND CONVERT(NVARCHAR(4),AgreementBegin,23)=CONVERT(NVARCHAR(4),GETDATE(),23)
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+        dpr.SubCompanyId=#SubCompanyId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="BrandId">
+        dpr.BrandId=#BrandId#
+      </isNotEmpty>
+    UNION ALL
+    SELECT AgreementBegin,ContractNo
+    FROM Contract.RenewalMain A
+    INNER JOIN DealerMaster B ON A.DealerName = B.DMA_SAP_Code
+    INNER JOIN Contract.RenewalProposals C ON A.ContractId = C.ContractId
+    LEFT JOIN dbo.V_DivisionProductLineRelation dpr (nolock) ON dpr.DivisionCode = A.DepId
+    WHERE DealerType='T2' AND DMA_ID=#DealerName#  AND ContractStatus='Approved' AND CONVERT(NVARCHAR(4),AgreementBegin,23)=CONVERT(NVARCHAR(4),GETDATE(),23)
+    <isNotEmpty prepend="AND" property="SubCompanyId">
+      dpr.SubCompanyId=#SubCompanyId#
+    </isNotEmpty>
+    <isNotEmpty prepend="AND" property="BrandId">
+      dpr.BrandId=#BrandId#
+    </isNotEmpty>
+    ) T
+    ORDER BY AgreementBegin ASC
+    )
+    AND VersionStatus ='Complete'
+
+  </select>
+
+    <select id="GetContractMainInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+      SELECT EmailAddress FROM Contract.AppointmentCandidate
+      WHERE ContractId=#ContractID#
+    </select>
+    <select id="GetClassificationContract" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+      SELECT CC_NameCN FROM [interface].[ClassificationContract]
+      WHERE CC_Code=#Code#
+    </select>
+
+    <select id="T2DealerPEPPHtmlTable" parameterClass="string" resultClass="string">
+      select 	[Contract].[GC_Fn_T2DealerPEPP_HtmlTable](#ContractId#)
+    </select>
+    <select id="T2DealerPEHtmlTable" parameterClass="string" resultClass="string">
+      select 	[Contract].[GC_Fn_T2DealerPE_HtmlTable](#ContractId#)
+    </select>
+
+
+    
+  </statements>
+</sqlMap>

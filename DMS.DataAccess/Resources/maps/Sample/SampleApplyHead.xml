@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SampleApplyHeadMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="SampleApplyHead" assembly="DMS.Model.dll" type="DMS.Model.SampleApplyHead" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SampleApplyHeadResult" class="SampleApplyHead">
+      <result property="SampleApplyHeadId" column="SampleApplyHeadId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SampleType" column="SampleType" type="string" dbType="nvarchar"/>
+      <result property="ApplyQuantity" column="ApplyQuantity" type="string" dbType="nvarchar"/>
+      <result property="RemainQuantity" column="RemainQuantity" type="string" dbType="nvarchar"/>
+      <result property="ApplyDate" column="ApplyDate" type="string" dbType="nvarchar"/>
+      <result property="ApplyNo" column="ApplyNo" type="string" dbType="nvarchar"/>
+      <result property="DealerId" column="DealerId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApplyUserId" column="ApplyUserId" type="string" dbType="nvarchar"/>
+      <result property="ApplyUser" column="ApplyUser" type="string" dbType="nvarchar"/>
+      <result property="ProcessUserId" column="ProcessUserId" type="string" dbType="nvarchar"/>
+      <result property="ProcessUser" column="ProcessUser" type="string" dbType="nvarchar"/>
+      <result property="ApplyDept" column="ApplyDept" type="string" dbType="nvarchar"/>
+      <result property="ApplyDivision" column="ApplyDivision" type="string" dbType="nvarchar"/>
+      <result property="CustType" column="CustType" type="string" dbType="nvarchar"/>
+      <result property="CustName" column="CustName" type="string" dbType="nvarchar"/>
+      <result property="ArrivalDate" column="ArrivalDate" type="string" dbType="nvarchar"/>
+      <result property="ApplyPurpose" column="ApplyPurpose" type="string" dbType="nvarchar"/>
+      <result property="ApplyCost" column="ApplyCost" type="string" dbType="nvarchar"/>
+      <result property="IrfNo" column="IrfNo" type="string" dbType="nvarchar"/>
+      <result property="HospName" column="HospName" type="string" dbType="nvarchar"/>
+      <result property="HpspAddress" column="HpspAddress" type="string" dbType="nvarchar"/>
+      <result property="TrialDoctor" column="TrialDoctor" type="string" dbType="nvarchar"/>
+      <result property="ReceiptUser" column="ReceiptUser" type="string" dbType="nvarchar"/>
+      <result property="ReceiptPhone" column="ReceiptPhone" type="string" dbType="nvarchar"/>
+      <result property="ReceiptAddress" column="ReceiptAddress" type="string" dbType="nvarchar"/>
+      <result property="DealerName" column="DealerName" type="string" dbType="nvarchar"/>
+      <result property="ApplyMemo" column="ApplyMemo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmItem1" column="ConfirmItem1" type="string" dbType="nvarchar"/>
+      <result property="ConfirmItem2" column="ConfirmItem2" type="string" dbType="nvarchar"/>
+      <result property="CostCenter" column="CostCenter" type="string" dbType="nvarchar"/>
+      <result property="ApplyStatus" column="ApplyStatus" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="CreateUser" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="UpdateUser" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="ConfirmItem3" column="ConfirmItem3" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ParamSaveDpDelivery" class="System.Collections.Hashtable" >
+      <parameter property="Upn" column="Upn" />
+      <parameter property="Lot" column="Lot" />
+      <parameter property="Quantity" column="Quantity" />
+      <parameter property="Memo" column="Memo" />
+      <parameter property="SampleNo" column="SampleNo" />
+    </parameterMap>
+    <parameterMap id="ParamReceiveReturnSample" class="System.Collections.Hashtable" >
+      <parameter property="ReturnNo" column="ReturnNo" />
+      <parameter property="ReceiveUser" column="ReceiveUser" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <select id="SelectSampleApplyHead" parameterClass="string" resultClass="SampleApplyHead">
+      SELECT SampleApplyHeadId AS SampleApplyHeadId,SampleType AS SampleType,ApplyQuantity AS ApplyQuantity,RemainQuantity AS RemainQuantity,ApplyDate AS ApplyDate,ApplyNo AS ApplyNo,DealerId AS DealerId,ApplyUserId AS ApplyUserId,ApplyUser AS ApplyUser,ProcessUserId,ProcessUser,ApplyDept AS ApplyDept,ApplyDivision AS ApplyDivision,CustType AS CustType,CustName AS CustName,ArrivalDate AS ArrivalDate,ApplyPurpose AS ApplyPurpose,ApplyCost AS ApplyCost,IrfNo AS IrfNo,HospName AS HospName,HpspAddress AS HpspAddress,TrialDoctor AS TrialDoctor,ReceiptUser AS ReceiptUser,ReceiptPhone AS ReceiptPhone,ReceiptAddress AS ReceiptAddress,DealerName AS DealerName,ApplyMemo AS ApplyMemo,ConfirmItem1 AS ConfirmItem1,ConfirmItem2 AS ConfirmItem2,ConfirmItem3 AS ConfirmItem3,ApplyStatus AS ApplyStatus,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate,CostCenter AS CostCenter
+      FROM SampleApplyHead
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SampleApplyHeadId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterSampleApplyHead" parameterClass="SampleApplyHead" resultClass="SampleApplyHead">
+      SELECT SampleApplyHeadId AS SampleApplyHeadId,SampleType AS SampleType,ApplyQuantity AS ApplyQuantity,RemainQuantity AS RemainQuantity,ApplyDate AS ApplyDate,ApplyNo AS ApplyNo,DealerId AS DealerId,ApplyUserId AS ApplyUserId,ApplyUser AS ApplyUser,ProcessUserId,ProcessUser,ApplyDept AS ApplyDept,ApplyDivision AS ApplyDivision,CustType AS CustType,CustName AS CustName,ArrivalDate AS ArrivalDate,ApplyPurpose AS ApplyPurpose,ApplyCost AS ApplyCost,IrfNo AS IrfNo,HospName AS HospName,HpspAddress AS HpspAddress,TrialDoctor AS TrialDoctor,ReceiptUser AS ReceiptUser,ReceiptPhone AS ReceiptPhone,ReceiptAddress AS ReceiptAddress,DealerName AS DealerName,ApplyMemo AS ApplyMemo,ConfirmItem1 AS ConfirmItem1,ConfirmItem2 AS ConfirmItem2,ConfirmItem3 AS ConfirmItem3,ApplyStatus AS ApplyStatus,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate,CostCenter AS CostCenter
+      FROM SampleApplyHead
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SampleApplyHeadId">SampleApplyHeadId=#SampleApplyHeadId#</isNotNull>
+        <isNotNull prepend="AND" property="SampleType">SampleType=#SampleType#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyQuantity">ApplyQuantity=#ApplyQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="RemainQuantity">RemainQuantity=#RemainQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyDate">ApplyDate=#ApplyDate#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyNo">ApplyNo=#ApplyNo#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">DealerId=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyUserId">ApplyUserId=#ApplyUserId#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyUser">ApplyUser=#ApplyUser#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyDept">ApplyDept=#ApplyDept#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyDivision">ApplyDivision=#ApplyDivision#</isNotNull>
+        <isNotNull prepend="AND" property="CustType">CustType=#CustType#</isNotNull>
+        <isNotNull prepend="AND" property="CustName">CustName=#CustName#</isNotNull>
+        <isNotNull prepend="AND" property="ArrivalDate">ArrivalDate=#ArrivalDate#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyPurpose">ApplyPurpose=#ApplyPurpose#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyCost">ApplyCost=#ApplyCost#</isNotNull>
+        <isNotNull prepend="AND" property="IrfNo">IrfNo=#IrfNo#</isNotNull>
+        <isNotNull prepend="AND" property="HospName">HospName=#HospName#</isNotNull>
+        <isNotNull prepend="AND" property="HpspAddress">HpspAddress=#HpspAddress#</isNotNull>
+        <isNotNull prepend="AND" property="TrialDoctor">TrialDoctor=#TrialDoctor#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptUser">ReceiptUser=#ReceiptUser#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptPhone">ReceiptPhone=#ReceiptPhone#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptAddress">ReceiptAddress=#ReceiptAddress#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyMemo">ApplyMemo=#ApplyMemo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmItem1">ConfirmItem1=#ConfirmItem1#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmItem2">ConfirmItem2=#ConfirmItem2#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmItem3">ConfirmItem3=#ConfirmItem3#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyStatus">ApplyStatus=#ApplyStatus#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertSampleApplyHead" parameterClass="SampleApplyHead">
+      INSERT INTO SampleApplyHead
+      (SampleApplyHeadId,SampleType,ApplyQuantity,RemainQuantity,ApplyDate,ApplyNo,DealerId,ApplyUserId,ApplyUser,ProcessUserId,ProcessUser,ApplyDept,ApplyDivision,CustType,CustName,ArrivalDate,ApplyPurpose,ApplyCost,IrfNo,HospName,HpspAddress,TrialDoctor,ReceiptUser,ReceiptPhone,ReceiptAddress,DealerName,ApplyMemo,ConfirmItem1,ConfirmItem2,ConfirmItem3,CostCenter,ApplyStatus,CreateUser,CreateDate,UpdateUser,UpdateDate)
+      VALUES(#SampleApplyHeadId#,#SampleType#,#ApplyQuantity#,#RemainQuantity#,#ApplyDate#,#ApplyNo#,#DealerId#,#ApplyUserId#,#ApplyUser#,#ProcessUserId#,#ProcessUser#,#ApplyDept#,#ApplyDivision#,#CustType#,#CustName#,#ArrivalDate#,#ApplyPurpose#,#ApplyCost#,#IrfNo#,#HospName#,#HpspAddress#,#TrialDoctor#,#ReceiptUser#,#ReceiptPhone#,#ReceiptAddress#,#DealerName#,#ApplyMemo#,#ConfirmItem1#,#ConfirmItem2#,#ConfirmItem3#,#CostCenter#,#ApplyStatus#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateSampleApplyHead" parameterClass="SampleApplyHead">
+      UPDATE SampleApplyHead
+      SET SampleApplyHeadId=#SampleApplyHeadId#,SampleType=#SampleType#,ApplyQuantity=#ApplyQuantity#,RemainQuantity=#RemainQuantity#,ApplyDate=#ApplyDate#,ApplyNo=#ApplyNo#,DealerId=#DealerId#,ApplyUserId=#ApplyUserId#,ApplyUser=#ApplyUser#,ProcessUserId=#ProcessUserId#,ProcessUser=#ProcessUser#,ApplyDept=#ApplyDept#,ApplyDivision=#ApplyDivision#,CustType=#CustType#,CustName=#CustName#,ArrivalDate=#ArrivalDate#,ApplyPurpose=#ApplyPurpose#,ApplyCost=#ApplyCost#,IrfNo=#IrfNo#,HospName=#HospName#,HpspAddress=#HpspAddress#,TrialDoctor=#TrialDoctor#,ReceiptUser=#ReceiptUser#,ReceiptPhone=#ReceiptPhone#,ReceiptAddress=#ReceiptAddress#,DealerName=#DealerName#,ApplyMemo=#ApplyMemo#,ConfirmItem1=#ConfirmItem1#,ConfirmItem2=#ConfirmItem2#,ConfirmItem3=#ConfirmItem3#,CostCenter=#CostCenter#,ApplyStatus=#ApplyStatus#,UpdateUser=#UpdateUser#,UpdateDate=#UpdateDate#
+      WHERE SampleApplyHeadId = #SampleApplyHeadId#
+    </update>
+    <delete id="DeleteSampleApplyHead" parameterClass="string">
+      DELETE FROM SampleApplyHead
+      WHERE SampleApplyHeadId = #value#
+    </delete>
+    <!--add-->
+    <select id="SelectSampleApplyList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT SampleApplyHeadId AS Id,SampleType AS SampleType,DealerId AS DealerId, isnull((select sum(ApplyQuantity) from SampleUpn where SampleApplyHeadID = SampleHeadID),0) AS Qty,ApplyDate AS ApplyDate ,ApplyNo AS ApplyNo,ApplyStatus AS ApplyStatus,ApplyMemo AS Remark ,ApplyUserId AS ApplyUserId,ApplyUser as ApplyUser,ProcessUserId,ProcessUser,HospName AS HospName,CostCenter AS CostCenter,
+      ROW_NUMBER ()OVER (ORDER BY ApplyDate DESC)  AS row_number
+      FROM SampleApplyHead
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SampleType">SampleApplyHead.SampleType = #SampleType#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyNo">SampleApplyHead.ApplyNo LIKE '%' + #ApplyNo# + '%'</isNotNull>
+        <isNotNull prepend="AND" property="ApplyStatus">SampleApplyHead.ApplyStatus = #ApplyStatus#</isNotNull>
+        <isNotNull prepend="AND" property="HospName">SampleApplyHead.HospName LIKE '%' + #HospName# + '%'</isNotNull>
+        <isNotNull prepend="AND" property="ApplyUser">SampleApplyHead.ApplyUser LIKE '%' + #ApplyUser# + '%'</isNotNull>
+        <isNotNull prepend="AND" property="ApplyUPN">
+          EXISTS (SELECT 1 FROM SampleUpn 
+          WHERE SampleUpn.SampleHeadId = SampleApplyHead.SampleApplyHeadId
+          AND SampleUpn.UpnNo LIKE '%' + #ApplyUPN# + '%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="DeliveryStatus">
+          EXISTS (SELECT 1 FROM POReceiptHeader_SAPNoQR,POReceipt_SAPNoQR,Product
+          WHERE PRH_ID = POR_PRH_ID AND POR_SAP_PMA_ID = PMA_ID
+          AND PRH_PurchaseOrderNbr = SampleApplyHead.ApplyNo
+          AND PRH_Status = #DeliveryStatus#
+          <isNotNull prepend="AND" property="ApplyUPN">
+            PMA_UPN LIKE '%' + #ApplyUPN# + '%'
+          </isNotNull>
+          )
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectSampleApplyHeadByApplyNo" parameterClass="string" resultClass="SampleApplyHead">
+      SELECT SampleApplyHeadId AS SampleApplyHeadId,SampleType AS SampleType,ApplyQuantity AS ApplyQuantity,RemainQuantity AS RemainQuantity,ApplyDate AS ApplyDate,ApplyNo AS ApplyNo,DealerId AS DealerId,ApplyUserId AS ApplyUserId,ApplyUser AS ApplyUser,ProcessUserId,ProcessUser,ApplyDept AS ApplyDept,ApplyDivision AS ApplyDivision,CustType AS CustType,CustName AS CustName,ArrivalDate AS ArrivalDate,ApplyPurpose AS ApplyPurpose,ApplyCost AS ApplyCost,IrfNo AS IrfNo,HospName AS HospName,HpspAddress AS HpspAddress,TrialDoctor AS TrialDoctor,ReceiptUser AS ReceiptUser,ReceiptPhone AS ReceiptPhone,ReceiptAddress AS ReceiptAddress,DealerName AS DealerName,ApplyMemo AS ApplyMemo,ConfirmItem1 AS ConfirmItem1,ConfirmItem2 AS ConfirmItem2,ConfirmItem3 AS ConfirmItem3,CostCenter AS CostCenter,ApplyStatus AS ApplyStatus,CreateDate AS CreateDate,UpdateDate AS UpdateDate
+      FROM SampleApplyHead
+      WHERE ApplyNo=#value#
+    </select>
+    <select id="FuncGetSampleApplyHtml" parameterClass="string">
+      SELECT dbo.Func_GetSampleApplyHtml(#value#) SampleApplyHtml
+    </select>
+    <select id="SelectSampleApplyDelivery" parameterClass="System.Collections.Hashtable">
+      SELECT * FROM POReceiptHeader_SAPNoQR
+      WHERE PRH_SAPShipmentID = #DeliveryNo#
+      AND PRH_PurchaseOrderNbr = #ApplyNo#
+      AND PRH_Status IN ('Waiting', 'CS')
+    </select>
+    <update id="UpdateSampleApplyDeliveryStatus" parameterClass="System.Collections.Hashtable">
+      UPDATE POReceiptHeader_SAPNoQR
+      SET PRH_Status = 'Complete'
+      WHERE PRH_SAPShipmentID = #DeliveryNo#
+      AND PRH_Status IN ('Waiting', 'CS')
+    </update>
+    <select id="SelectSampleDeliveryList" parameterClass="string">
+      <![CDATA[
+            SELECT A.PRH_ID DeliveryId,
+                   D.PMA_UPN UpnNo,
+                   E.CFN_ChineseName ProductName,
+                   E.CFN_Description ProductDesc,
+                   C.PRL_ReceiptQty DeliveryQuantity,
+                   C.PRL_LotNumber Lot,
+                   CASE A.PRH_Status
+                        WHEN 'Waiting' THEN '已发货'
+                        WHEN 'Complete' THEN 'RA确认收货'
+                        WHEN 'DP' THEN 'DP确认采购'
+                        WHEN 'IE' THEN 'IE确认清关'
+                        WHEN 'CS' THEN 'SS确认发货'
+                        WHEN 'RA' THEN 'RA确认发货'
+                        ELSE ''
+                   END DeliveryStatus,
+                   A.PRH_Note ProductMemo
+            FROM   POReceiptHeader_SAPNoQR A,
+                   POReceipt_SAPNoQR B,
+                   POReceiptLot_SAPNoQR C,
+                   Product D,
+                   CFN E
+            WHERE  A.PRH_ID = B.POR_PRH_ID
+                   AND B.POR_ID = C.PRL_POR_ID
+                   AND B.POR_SAP_PMA_ID = D.PMA_ID
+                   AND D.PMA_CFN_ID = E.CFN_ID
+                   AND A.PRH_PurchaseOrderNbr = #value#
+            ]]>
+    </select>
+    <select id="SelectSampleRemainList" parameterClass="System.Collections.Hashtable">
+      SELECT A.UpnNo,
+      A.ProductName,
+      A.ProductDesc,
+      F.PMA_ConvertFactor as ConvertFactor,
+      A.ApplyQuantity - ISNULL(SUM(E.PRL_ReceiptQty), 0) RemainQuantity
+      FROM   SampleUpn A
+      INNER JOIN SampleApplyHead B
+      ON  A.SampleHeadId = B.SampleApplyHeadId
+      LEFT JOIN Product F
+      ON  A.UpnNo = F.PMA_UPN
+      LEFT JOIN POReceiptHeader_SAPNoQR C
+      ON  B.ApplyNo = C.PRH_PurchaseOrderNbr
+      LEFT JOIN POReceipt_SAPNoQR D
+      ON  C.PRH_ID = D.POR_PRH_ID AND F.PMA_ID = D.POR_SAP_PMA_ID
+      LEFT JOIN POReceiptLot_SAPNoQR E
+      ON  D.POR_ID = E.PRL_POR_ID
+      WHERE  A.SampleHeadId = #HeadId#
+      <isNotNull prepend="AND" property="UpnId">A.SampleUpnId = #UpnId#</isNotNull>
+      GROUP BY A.UpnNo, A.ProductName, A.ProductDesc, F.PMA_ConvertFactor, A.ApplyQuantity
+      --A.ApplyQuantity - ISNULL(SUM(E.PRL_ReceiptQty), 0) > 0
+    </select>
+    <select id="SelectSampleTrace" parameterClass="string">
+      SELECT * FROM dbo.Func_GetSampleTrace(#value#)
+    </select>
+    <procedure id="ProcSaveDpDelivery" parameterMap="ParamSaveDpDelivery">
+      dbo.Proc_SaveDpDelivery
+    </procedure>
+    <update id="UpdateDeliveryStatus" parameterClass="System.Collections.Hashtable">
+      <!--UPDATE POReceiptHeader_SAPNoQR
+            SET    PRH_Status  = #DeliveryStatus#
+            WHERE  PRH_ID      = #DeliveryId#-->
+      EXEC dbo.Proc_SampleApply_UpdateDelivery #DeliveryId#,#DeliveryStatus#
+    </update>
+    <procedure id="ProcReceiveReturnSample" parameterMap="ParamReceiveReturnSample">
+      dbo.Proc_ReceiveReturnSample
+    </procedure>
+    <select id="SampleApplyIsNewCertificate" parameterClass="string">
+      SELECT COUNT(1) CNT FROM SampleApplyHead H, SampleTesting T
+      WHERE T.SampleHeadId = H.SampleApplyHeadId
+      AND T.Certificate IN ('新证','变更')
+      AND H.SampleApplyHeadId = #value#
+    </select>
+    <select id="SampleApplyCheckUPN" parameterClass="string">
+      exec dbo.Proc_SampleApply_CheckUPN #value#
+    </select>
+    <insert id="InsertPurchaseOrderHeaderBySampleId" parameterClass="string">
+      insert into PurchaseOrderHeader (POH_ID,POH_OrderNo,POH_ProductLine_BUM_ID,POH_DMA_ID,POH_VendorID,POH_ContactPerson,POH_ContactMobile,POH_ShipToAddress,POH_CreateType,
+      POH_CreateUser,POH_CreateDate,POH_SubmitUser,POH_SubmitDate,POH_OrderStatus,POH_IsLocked,POH_LastVersion,POH_OrderType,POH_WHM_ID,POH_Consignee,POH_ConsigneePhone, POH_Remark )
+      select SampleApplyHeadId,ApplyNo,ProductLineID,DMA_ID,DMA_Parent_DMA_ID,isnull(ApplyUser,'')  + '(' + isnull(CostCenter,'') + ')','',ReceiptAddress,'Manual',
+      Id,GETDATE(),Id,GETDATE(),'Submitted',0,1,'SampleApply',WHM_ID,isnull(ReceiptUser,''),isnull(ReceiptPhone,'') + ';' + isnull(ConfirmItem1,''),isnull(ApplyMemo,'') + ';医院SAP ID：'+ isnull(ConfirmItem2,'')
+      from SampleApplyHead(nolock),V_DivisionProductLineRelation,DealerMaster(nolock),Lafite_IDENTITY(nolock),Warehouse(nolock)
+      where ApplyDivision = DivisionCode
+      and DMA_SAP_Code='471288'
+      and DMA_ID = WHM_DMA_ID
+      and DMA_ID = Lafite_IDENTITY.Corp_ID
+      and whm_type = 'DefaultWH'
+      and SampleApplyHeadId= #value#
+    </insert>
+    <insert id="InsertPurchaseOrderDetailBySampleId" parameterClass="string">
+      insert into PurchaseOrderDetail (
+      POD_ID
+      ,POD_POH_ID
+      ,POD_CFN_ID
+      ,POD_CFN_Price
+      ,POD_UOM
+      ,POD_RequiredQty
+      ,POD_Amount
+      ,POD_Tax
+      ,POD_ReceiptQty
+      ,POD_Status
+      ,POD_LotNumber
+      ,POD_ShipmentNbr
+      ,POD_HOS_ID
+      ,POD_WH_ID
+      ,POD_Field1
+      ,POD_Field2
+      ,POD_Field3
+      ,POD_CurRegNo
+      ,POD_CurValidDateFrom
+      ,POD_CurValidDataTo
+      ,POD_CurManuName
+      ,POD_LastRegNo
+      ,POD_LastValidDateFrom
+      ,POD_LastValidDataTo
+      ,POD_LastManuName
+      ,POD_CurGMKind
+      ,POD_CurGMCatalog
+      ,POD_QRCode
+      )
+      select NEWID(),SampleHeadId,CFN_ID,0,PMA_UnitOfMeasure, ApplyQuantity,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null
+      from SampleUpn,Product,CFN
+      where UpnNo = PMA_UPN
+      and PMA_CFN_ID = CFN_ID     
+      and SampleHeadId= #value#
+    </insert>
+    <select id="GetUserAccountByEID" paramerClass="string" resultClass="System.Data.DataSet">
+      select * from interface.MDM_EmployeeMaster where eid =#value#
+    </select>
+  
+   <select id="GetSampleLimitApply" paramerClass="string" resultClass="System.Data.DataSet">
+       select s.SampleApplyLimitId, t.CFN_ProductLine_BUM_ID,s.Level4Code,v.ProductLineName,s.Limit
+    , ROW_NUMBER () OVER (ORDER BY CFN_ProductLine_BUM_ID) AS row_number
+     from SampleApplyLimit s inner join (select distinct c.CFN_Level4Code,c.CFN_ProductLine_BUM_ID from cfn c)t on t.CFN_Level4Code=s.Level4Code
+    inner join  V_DivisionProductLineRelation v on v.ProductLineID=t.CFN_ProductLine_BUM_ID
+   <dynamic prepend="WHERE">
+     <isNotNull prepend="AND" property="cbProductLine"> t.CFN_ProductLine_BUM_ID= #cbProductLine#</isNotNull>
+     <isNotNull prepend="AND" property="Level4Code">s.Level4Code =#Level4Code#</isNotNull>
+   </dynamic>
+</select>
+    
+ <select id="GetSampleLimitcode" paramerClass="string" resultClass="System.Data.DataSet">
+   select distinct v.CFN_Level4Code from CFN  v 
+   where v.CFN_ProductLine_BUM_ID=#ProductLine#
+   and v.CFN_Level4Code !=''and not EXISTS(select 1 from SampleApplyLimit t where v.CFN_Level4Code=t.Level4Code)
+</select>
+    
+      
+    <insert id="InsertSampleApplyLimit" paramerClass="string" resultClass="System.Data.DataSet">
+    insert into SampleApplyLimit values(NEWID(),#CFN_Level4Code#,'',null,#LimitAmount#)
+   </insert>
+    
+   <update id="updateSampleApplyLimit" paramerClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+    update SampleApplyLimit set Limit=#Limit# where SampleApplyLimitId=#id#
+   </update>
+
+    <insert id="InsertUserLog" paramerClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      insert into UserLog values(#UserId#,'Users',#EventId#,GETDATE(),#message#)
+    </insert>
+</statements>
+</sqlMap>

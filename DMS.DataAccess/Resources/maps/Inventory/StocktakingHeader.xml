@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="StocktakingHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="StocktakingHeader" assembly="DMS.Model.dll" type="DMS.Model.StocktakingHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="StocktakingHeaderResult" class="StocktakingHeader">
+      <result property="Id" column="STH_ID" type="Guid" dbType="Guid"/>
+      <result property="StocktakingNo" column="STH_StocktakingNo" type="string" dbType="varchar"/>
+      <result property="DealerDmaId" column="STH_Dealer_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="WarehouseWhmId" column="STH_Warehouse_WHM_ID" type="Guid" dbType="Guid"/>
+      <result property="Status" column="STH_Status" type="string" dbType="varchar"/>
+      <result property="CreateUser" column="STH_CreateUser" type="Guid" dbType="Guid"/>
+      <result property="CreateDate" column="STH_CreateDate" type="DateTime" dbType="DateTime"/>
+      <result property="AdjustUser" column="STH_AdjustUser" type="Guid" dbType="Guid"/>
+      <result property="AdjustDate" column="STH_AdjustDate" type="DateTime" dbType="DateTime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectStocktakingHeader" parameterClass="string" resultClass="StocktakingHeader">
+      SELECT STH_ID AS Id,STH_StocktakingNo AS StocktakingNo,STH_Dealer_DMA_ID AS DealerDmaId,STH_Warehouse_WHM_ID AS WarehouseWhmId,STH_Status AS Status,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_AdjustUser AS AdjustUser,STH_AdjustDate AS AdjustDate
+      FROM StocktakingHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterStocktakingHeader" parameterClass="StocktakingHeader" resultClass="StocktakingHeader">
+      SELECT STH_ID AS Id,STH_StocktakingNo AS StocktakingNo,STH_Dealer_DMA_ID AS DealerDmaId,STH_Warehouse_WHM_ID AS WarehouseWhmId,STH_Status AS Status,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_AdjustUser AS AdjustUser,STH_AdjustDate AS AdjustDate
+      FROM StocktakingHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="StocktakingNo">STH_StocktakingNo=#StocktakingNo#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">STH_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseWhmId">STH_Warehouse_WHM_ID=#WarehouseWhmId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">STH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustUser">STH_AdjustUser=#AdjustUser#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustDate">STH_AdjustDate=#AdjustDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertStocktakingHeader" parameterClass="StocktakingHeader">
+      INSERT INTO StocktakingHeader
+      (STH_ID,STH_StocktakingNo,STH_Dealer_DMA_ID,STH_Warehouse_WHM_ID,STH_Status,STH_CreateUser,STH_CreateDate,STH_AdjustUser,STH_AdjustDate)
+      VALUES(#Id#,#StocktakingNo#,#DealerDmaId#,#WarehouseWhmId#,#Status#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#AdjustUser#,#AdjustDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateStocktakingHeader" parameterClass="StocktakingHeader">
+      UPDATE StocktakingHeader
+      SET STH_ID=#Id#,STH_StocktakingNo=#StocktakingNo#,STH_Dealer_DMA_ID=#DealerDmaId#,STH_Warehouse_WHM_ID=#WarehouseWhmId#,STH_Status=#Status#,STH_AdjustUser=#AdjustUser#,STH_AdjustDate=#AdjustDate#
+      WHERE STH_ID = #Id#
+    </update>
+    <delete id="DeleteStocktakingHeader" parameterClass="string">
+      DELETE FROM StocktakingHeader
+      WHERE STH_ID = #value#
+    </delete>
+
+    <select id="GetStocktakingListByCondition" parameterClass="System.Collections.Hashtable" resultClass="StocktakingHeader">
+      SELECT SKLot.SLT_ID AS Id,
+      DM.DMA_ID,
+      DM.DMA_ChineseName,
+      WH.WHM_ID,
+      WH.WHM_Name,
+      CFN.CFN_ID,
+      CFN.CFN_CustomerFaceNbr AS ArticleNumber,
+      isnull (Lot.LOT_ID, SKLot.SLT_LOT_ID) AS LOT_ID,
+      isnull (LM.LTM_LotNumber, SKLot.SLT_LotNumber) AS LotNumber,
+      isnull (LM.LTM_ExpiredDate, SKLot.SLT_ExpiredDate) AS ExpiredDate,
+      Product.PMA_ID,
+      Product.PMA_Name,
+      SKH.STH_Status,
+      SKLot.SLT_LotQty,
+      SKLot.SLT_LotQty + SKLot.SLT_CheckQty AS SLT_CheckQty,
+      SKLot.SLT_CheckQty AS DifQty,
+      cast (CASE WHEN LM.LTM_LotNumber IS NULL THEN 1 ELSE 0 END AS BIT) AS isNewAdd,
+      SKH.STH_StocktakingNo,
+      row_number () OVER (ORDER BY CFN.CFN_CustomerFaceNbr ASC) AS row_number
+      FROM StocktakingHeader AS SKH(nolock)
+      INNER JOIN StocktakingLine AS SKLine(nolock)
+      ON (SKH.STH_ID = SKLine.STL_STH_ID)
+      INNER JOIN StocktakingLot AS SKLot(nolock)
+      ON (SKLine.STL_ID = SKLot.SLT_STL_ID)
+      INNER JOIN DealerMaster AS DM(nolock)
+      ON (DM.DMA_ID = SKH.STH_Dealer_DMA_ID)
+      INNER JOIN Warehouse AS WH(nolock)
+      ON (WH.WHM_ID = SKH.STH_Warehouse_WHM_ID)
+      INNER JOIN Product(nolock)
+      ON (Product.PMA_ID = SKLine.STL_PMA_ID)
+      INNER JOIN CFN(nolock)
+      ON (CFN.CFN_ID = Product.PMA_CFN_ID)
+      LEFT OUTER JOIN Lot(nolock)
+      ON (SKLot.SLT_LOT_ID = Lot.LOT_ID)
+      LEFT OUTER JOIN LotMaster AS LM(nolock)
+      ON (LM.LTM_ID = Lot.LOT_LTM_ID)
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="StocktakingNo">SKH.STH_StocktakingNo = #StocktakingNo#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">CFN.CFN_CustomerFaceNbr LIKE  N'%$ArticleNumber$%'</isNotNull>
+      </dynamic>
+    </select>
+    
+    <!--added by bozhenfei on 20100707-->
+      <select id="GetReportHeaderById" parameterClass="string" resultClass="StocktakingHeader">
+        select
+        DealerMaster.DMA_ChineseName ,
+        StocktakingHeader.STH_StocktakingNo,
+        Warehouse.WHM_Name,
+        StocktakingHeader.STH_CreateDate
+        from StocktakingHeader(nolock)
+        inner join DealerMaster(nolock) on DealerMaster.DMA_ID = StocktakingHeader.STH_Dealer_DMA_ID
+        inner join Warehouse(nolock) on Warehouse.WHM_ID = StocktakingHeader.STH_Warehouse_WHM_ID
+        where StocktakingHeader.STH_ID = #value#
+      </select>
+    <!--end-->
+    <select id="GetDifReportById" parameterClass="string" resultClass="StocktakingHeader">
+      SELECT SKLot.SLT_ID AS Id,
+      DM.DMA_ID,
+      DM.DMA_ChineseName,
+      WH.WHM_ID,
+      WH.WHM_Name,
+      CFN.CFN_ID,
+      CFN.CFN_CustomerFaceNbr AS ArticleNumber,
+      isnull (Lot.LOT_ID, SKLot.SLT_LOT_ID) AS LOT_ID,
+      isnull (LM.LTM_LotNumber, SKLot.SLT_LotNumber) AS LotNumber,
+      isnull (LM.LTM_ExpiredDate, SKLot.SLT_ExpiredDate) AS ExpiredDate,
+      Product.PMA_ID,
+      Product.PMA_Name,
+      SKH.STH_Status,
+      SKLot.SLT_LotQty,
+      SKLot.SLT_LotQty + SKLot.SLT_CheckQty AS SLT_CheckQty,
+      SKLot.SLT_CheckQty AS DifQty,
+      cast (CASE WHEN LM.LTM_LotNumber IS NULL THEN 1 ELSE 0 END AS BIT) AS isNewAdd,
+      SKH.STH_StocktakingNo,
+      SKH.STH_ID,
+      row_number () OVER (ORDER BY CFN.CFN_CustomerFaceNbr ASC) AS row_number
+      FROM StocktakingHeader AS SKH(nolock)
+      INNER JOIN StocktakingLine AS SKLine(nolock)
+      ON (SKH.STH_ID = SKLine.STL_STH_ID)
+      INNER JOIN StocktakingLot AS SKLot(nolock)
+      ON (SKLine.STL_ID = SKLot.SLT_STL_ID)
+      INNER JOIN DealerMaster AS DM(nolock)
+      ON (DM.DMA_ID = SKH.STH_Dealer_DMA_ID)
+      INNER JOIN Warehouse AS WH(nolock)
+      ON (WH.WHM_ID = SKH.STH_Warehouse_WHM_ID)
+      INNER JOIN Product(nolock)
+      ON (Product.PMA_ID = SKLine.STL_PMA_ID)
+      INNER JOIN CFN(nolock)
+      ON (CFN.CFN_ID = Product.PMA_CFN_ID)
+      LEFT OUTER JOIN Lot(nolock)
+      ON (SKLot.SLT_LOT_ID = Lot.LOT_ID)
+      LEFT OUTER JOIN LotMaster AS LM(nolock)
+      ON (LM.LTM_ID = Lot.LOT_LTM_ID)
+      WHERE SKLot.SLT_CheckQty != 0
+      and SKH.STH_ID = #value#
+    </select>
+    <select id="GetStockReportById" parameterClass="string" resultClass="StocktakingHeader">
+      SELECT SKLot.SLT_ID AS Id,
+      DM.DMA_ID,
+      DM.DMA_ChineseName,
+      WH.WHM_ID,
+      WH.WHM_Name,
+      CFN.CFN_ID,
+      CFN.CFN_CustomerFaceNbr AS ArticleNumber,
+      isnull (Lot.LOT_ID, SKLot.SLT_LOT_ID) AS LOT_ID,
+      isnull (LM.LTM_LotNumber, SKLot.SLT_LotNumber) AS LotNumber,
+      isnull (LM.LTM_ExpiredDate, SKLot.SLT_ExpiredDate) AS ExpiredDate,
+      Product.PMA_ID,
+      Product.PMA_Name,
+      SKH.STH_Status,
+      SKLot.SLT_LotQty,
+      SKLot.SLT_LotQty + SKLot.SLT_CheckQty AS SLT_CheckQty,
+      SKLot.SLT_CheckQty AS DifQty,
+      cast (CASE WHEN LM.LTM_LotNumber IS NULL THEN 1 ELSE 0 END AS BIT) AS isNewAdd,
+      SKH.STH_StocktakingNo,
+      SKH.STH_ID,
+      row_number () OVER (ORDER BY CFN.CFN_CustomerFaceNbr ASC) AS row_number
+      FROM StocktakingHeader AS SKH(nolock)
+      INNER JOIN StocktakingLine AS SKLine(nolock)
+      ON (SKH.STH_ID = SKLine.STL_STH_ID)
+      INNER JOIN StocktakingLot AS SKLot(nolock)
+      ON (SKLine.STL_ID = SKLot.SLT_STL_ID)
+      INNER JOIN DealerMaster AS DM(nolock)
+      ON (DM.DMA_ID = SKH.STH_Dealer_DMA_ID)
+      INNER JOIN Warehouse AS WH(nolock)
+      ON (WH.WHM_ID = SKH.STH_Warehouse_WHM_ID)
+      INNER JOIN Product(nolock)
+      ON (Product.PMA_ID = SKLine.STL_PMA_ID)
+      INNER JOIN CFN(nolock)
+      ON (CFN.CFN_ID = Product.PMA_CFN_ID)
+      LEFT OUTER JOIN Lot(nolock)
+      ON (SKLot.SLT_LOT_ID = Lot.LOT_ID)
+      LEFT OUTER JOIN LotMaster AS LM
+      ON (LM.LTM_ID = Lot.LOT_LTM_ID)
+      WHERE SKH.STH_ID = #value#
+    </select>
+    <select id="GetAllStocktakingNoByCondition" parameterClass="System.Collections.Hashtable" resultClass="StocktakingHeader">
+      SELECT STH_ID AS Id, STH_StocktakingNo AS Number
+      FROM StocktakingHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DMA_ID">STH_Dealer_DMA_ID = #DMA_ID#</isNotNull>
+        <isNotNull prepend="AND" property="WHM_ID">STH_Warehouse_WHM_ID = #WHM_ID#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateHistoryCheckListStatus" parameterClass="System.Collections.Hashtable">
+      UPDATE StocktakingHeader
+      SET STH_Status = 'Cancelled'
+      WHERE STH_Status = 'NotAdjust'
+      <isNotNull prepend="AND" property="DMA_ID">STH_Dealer_DMA_ID = #DMA_ID#</isNotNull>
+      <isNotNull prepend="AND" property="WHM_ID">STH_Warehouse_WHM_ID = #WHM_ID#</isNotNull>
+      <isNotNull prepend="AND" property="StocktakingNO">STH_StocktakingNo != #StocktakingNO#</isNotNull>
+    </update>
+    <update id="UpdateStocktakingHeaderStatus" parameterClass="System.Collections.Hashtable">
+      UPDATE StocktakingHeader
+      <dynamic >
+        <isParameterPresent property="STH_Status">SET STH_Status=#STH_Status#</isParameterPresent>
+        <isParameterPresent property="STH_ID">WHERE STH_ID = #STH_ID#</isParameterPresent>
+      </dynamic>
+    </update>
+  </statements>
+</sqlMap>

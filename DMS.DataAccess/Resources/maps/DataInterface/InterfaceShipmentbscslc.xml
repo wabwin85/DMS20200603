@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceShipmentbscslcMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="InterfaceShipmentbscslc" assembly="DMS.Model.dll" type="DMS.Model.InterfaceShipmentbscslc" />
+    </alias>
+    <resultMaps>
+        <resultMap id="InterfaceShipmentbscslcResult" class="InterfaceShipmentbscslc">
+            <result property="Id" column="ISB_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DeliveryNo" column="ISB_DeliveryNo" type="string" dbType="nvarchar"/>
+            <result property="DeliveryDate" column="ISB_DeliveryDate" type="DateTime" dbType="datetime"/>
+            <result property="SoldTosapCode" column="ISB_SoldToSAPCode" type="string" dbType="nvarchar"/>
+            <result property="SoldToName" column="ISB_SoldToName" type="string" dbType="nvarchar"/>
+            <result property="ShipTosapCode" column="ISB_ShipToSAPCode" type="string" dbType="nvarchar"/>
+            <result property="ShipToName" column="ISB_ShipToName" type="string" dbType="nvarchar"/>
+            <result property="Upn" column="ISB_UPN" type="string" dbType="nvarchar"/>
+            <result property="LotNumber" column="ISB_LotNumber" type="string" dbType="nvarchar"/>
+            <result property="QrCode" column="ISB_QRCode" type="string" dbType="nvarchar"/>
+            <result property="DeliveryQty" column="ISB_DeliveryQty" type="decimal" dbType="decimal"/>
+            <result property="ExpiredDate" column="ISB_ExpiredDate" type="DateTime" dbType="datetime"/>
+            <result property="OrderNo" column="ISB_OrderNo" type="string" dbType="nvarchar"/>
+            <result property="BoxNo" column="ISB_BoxNo" type="string" dbType="nvarchar"/>
+            <result property="DeliveryLineNbr" column="ISB_DeliveryLineNbr" type="string" dbType="nvarchar"/>
+            <result property="LineNbr" column="ISB_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="ISB_FileName" type="string" dbType="nvarchar"/>
+            <result property="ImportDate" column="ISB_ImportDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="ISB_ClientID" type="string" dbType="nvarchar"/>
+            <result property="BatchNbr" column="ISB_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="WaveNo" column="ISB_WaveNo" type="string" dbType="nvarchar"/>
+            <result property="PlateNo" column="ISB_PlateNo" type="string" dbType="nvarchar"/>
+          
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="GC_Interface_ShipmentBSCSLC_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="BatchNbr" column="BatchNbr" />
+            <parameter property="ClientID" column="ClientID" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectInterfaceShipmentbscslc" parameterClass="string" resultClass="InterfaceShipmentbscslc">
+          SELECT ISB_ID AS Id,ISB_DeliveryNo AS DeliveryNo,ISB_DeliveryDate AS DeliveryDate,ISB_SoldToSAPCode AS SoldTosapCode,ISB_SoldToName AS SoldToName,ISB_ShipToSAPCode AS ShipTosapCode,ISB_ShipToName AS ShipToName,ISB_UPN AS Upn,ISB_LotNumber AS LotNumber,ISB_QRCode AS QrCode,ISB_DeliveryQty AS DeliveryQty,ISB_ExpiredDate AS ExpiredDate,ISB_OrderNo AS OrderNo,ISB_BoxNo AS BoxNo,ISB_DeliveryLineNbr AS DeliveryLineNbr,ISB_LineNbr AS LineNbr,ISB_FileName AS FileName,ISB_ImportDate AS ImportDate,ISB_ClientID AS Clientid,ISB_BatchNbr AS BatchNbr,ISB_WaveNo AS WaveNo, ISB_PlateNo AS PlateNo
+          FROM InterfaceShipmentBSCSLC
+          <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    ISB_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterInterfaceShipmentbscslc" parameterClass="InterfaceShipmentbscslc" resultClass="InterfaceShipmentbscslc">
+            SELECT ISB_ID AS Id,ISB_DeliveryNo AS DeliveryNo,ISB_DeliveryDate AS DeliveryDate,ISB_SoldToSAPCode AS SoldTosapCode,ISB_SoldToName AS SoldToName,ISB_ShipToSAPCode AS ShipTosapCode,ISB_ShipToName AS ShipToName,ISB_UPN AS Upn,ISB_LotNumber AS LotNumber,ISB_QRCode AS QrCode,ISB_DeliveryQty AS DeliveryQty,ISB_ExpiredDate AS ExpiredDate,ISB_OrderNo AS OrderNo,ISB_BoxNo AS BoxNo,ISB_DeliveryLineNbr AS DeliveryLineNbr,ISB_LineNbr AS LineNbr,ISB_FileName AS FileName,ISB_ImportDate AS ImportDate,ISB_ClientID AS Clientid,ISB_BatchNbr AS BatchNbr
+            FROM InterfaceShipmentBSCSLC
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">ISB_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="DeliveryNo">ISB_DeliveryNo=#DeliveryNo#</isNotNull>
+                <isNotNull prepend="AND" property="DeliveryDate">ISB_DeliveryDate=#DeliveryDate#</isNotNull>
+                <isNotNull prepend="AND" property="SoldTosapCode">ISB_SoldToSAPCode=#SoldTosapCode#</isNotNull>
+                <isNotNull prepend="AND" property="SoldToName">ISB_SoldToName=#SoldToName#</isNotNull>
+                <isNotNull prepend="AND" property="ShipTosapCode">ISB_ShipToSAPCode=#ShipTosapCode#</isNotNull>
+                <isNotNull prepend="AND" property="ShipToName">ISB_ShipToName=#ShipToName#</isNotNull>
+                <isNotNull prepend="AND" property="Upn">ISB_UPN=#Upn#</isNotNull>
+                <isNotNull prepend="AND" property="LotNumber">ISB_LotNumber=#LotNumber#</isNotNull>
+                <isNotNull prepend="AND" property="QrCode">ISB_QRCode=#QrCode#</isNotNull>
+                <isNotNull prepend="AND" property="DeliveryQty">ISB_DeliveryQty=#DeliveryQty#</isNotNull>
+                <isNotNull prepend="AND" property="ExpiredDate">ISB_ExpiredDate=#ExpiredDate#</isNotNull>
+                <isNotNull prepend="AND" property="OrderNo">ISB_OrderNo=#OrderNo#</isNotNull>
+                <isNotNull prepend="AND" property="BoxNo">ISB_BoxNo=#BoxNo#</isNotNull>
+                <isNotNull prepend="AND" property="DeliveryLineNbr">ISB_DeliveryLineNbr=#DeliveryLineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">ISB_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">ISB_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ImportDate">ISB_ImportDate=#ImportDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">ISB_ClientID=#Clientid#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">ISB_BatchNbr=#BatchNbr#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertInterfaceShipmentbscslc" parameterClass="InterfaceShipmentbscslc">
+          INSERT INTO InterfaceShipmentBSCSLC
+          (ISB_ID,ISB_DeliveryNo,ISB_DeliveryDate,ISB_SoldToSAPCode,ISB_SoldToName,ISB_ShipToSAPCode,ISB_ShipToName,ISB_UPN,ISB_LotNumber,ISB_QRCode,ISB_DeliveryQty,ISB_ExpiredDate,ISB_OrderNo,ISB_BoxNo,ISB_DeliveryLineNbr,ISB_LineNbr,ISB_FileName,ISB_ImportDate,ISB_ClientID,ISB_BatchNbr,ISB_WaveNo,ISB_PlateNo)
+          VALUES(#Id#,#DeliveryNo#,#DeliveryDate:DateTime:1/1/0001 12:00:00 AM#,#SoldTosapCode#,#SoldToName#,#ShipTosapCode#,#ShipToName#,#Upn#,#LotNumber#,#QrCode#,#DeliveryQty#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#OrderNo#,#BoxNo#,#DeliveryLineNbr#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#WaveNo#,#PlateNo#)
+        </insert>
+        <update id="UpdateInterfaceShipmentbscslc" parameterClass="InterfaceShipmentbscslc">
+          UPDATE InterfaceShipmentBSCSLC
+          SET ISB_ID=#Id#,ISB_DeliveryNo=#DeliveryNo#,ISB_DeliveryDate=#DeliveryDate#,ISB_SoldToSAPCode=#SoldTosapCode#,ISB_SoldToName=#SoldToName#,ISB_ShipToSAPCode=#ShipTosapCode#,ISB_ShipToName=#ShipToName#,ISB_UPN=#Upn#,ISB_LotNumber=#LotNumber#,ISB_QRCode=#QrCode#,ISB_DeliveryQty=#DeliveryQty#,ISB_ExpiredDate=#ExpiredDate#,ISB_OrderNo=#OrderNo#,ISB_BoxNo=#BoxNo#,ISB_DeliveryLineNbr=#DeliveryLineNbr#,ISB_LineNbr=#LineNbr#,ISB_FileName=#FileName#,ISB_ImportDate=#ImportDate#,ISB_ClientID=#Clientid#,ISB_BatchNbr=#BatchNbr#,ISB_WaveNo=#WaveNo#,ISB_PlateNo=#PlateNo#
+          WHERE ISB_ID = #Id#
+        </update>
+        <delete id="DeleteInterfaceShipmentbscslc" parameterClass="string">
+            DELETE FROM InterfaceShipmentBSCSLC
+            WHERE ISB_ID = #value#
+        </delete>
+        <procedure id="GC_Interface_ShipmentBSCSLC" parameterMap="GC_Interface_ShipmentBSCSLC_ParameterMap">
+            dbo.GC_Interface_ShipmentBSCSLC
+        </procedure>
+    </statements>
+</sqlMap>

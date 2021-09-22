@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ExportUploadDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ExportUploadDetail" assembly="DMS.Model.dll" type="DMS.Model.ExportUploadDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ExportUploadDetailResult" class="ExportUploadDetail">
+      <result property="Id" column="EUD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="EUD_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadFilePath" column="EUD_UploadFilePath" type="string" dbType="nvarchar"/>
+      <result property="UploadFileName" column="EUD_UploadFileName" type="string" dbType="nvarchar"/>
+      <result property="FileType" column="EUD_FileType" type="string" dbType="nvarchar"/>
+      <result property="Status" column="EUD_Status" type="string" dbType="nvarchar"/>
+      <result property="IsActived" column="EUD_IsActived" type="int" dbType="int"/>
+      <result property="CreateDate" column="EUD_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUserId" column="EUD_CreateUserId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="EUD_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="EUD_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUserId" column="EUD_UpdateUserId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="EUD_UpdateUserName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectExportUploadDetail" parameterClass="string" resultClass="ExportUploadDetail">
+      SELECT EUD_ID AS Id,EUD_DMA_ID AS DmaId,EUD_UploadFilePath AS UploadFilePath,EUD_UploadFileName AS UploadFileName,EUD_FileType AS FileType,EUD_Status AS Status,EUD_IsActived AS IsActived,EUD_CreateDate AS CreateDate,EUD_CreateUserId AS CreateUserId,EUD_CreateUserName AS CreateUserName,EUD_UpdateDate AS UpdateDate,EUD_UpdateUserId AS UpdateUserId,EUD_UpdateUserName AS UpdateUserName
+      FROM Contract.ExportUploadDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          EUD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterExportUploadDetail" parameterClass="ExportUploadDetail" resultClass="ExportUploadDetail">
+      SELECT EUD_ID AS Id,EUD_DMA_ID AS DmaId,EUD_UploadFilePath AS UploadFilePath,EUD_UploadFileName AS UploadFileName,EUD_FileType AS FileType,EUD_Status AS Status,EUD_IsActived AS IsActived,EUD_CreateDate AS CreateDate,EUD_CreateUserId AS CreateUserId,EUD_CreateUserName AS CreateUserName,EUD_UpdateDate AS UpdateDate,EUD_UpdateUserId AS UpdateUserId,EUD_UpdateUserName AS UpdateUserName
+      FROM Contract.ExportUploadDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">EUD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">EUD_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="UploadFilePath">EUD_UploadFilePath=#UploadFilePath#</isNotNull>
+        <isNotNull prepend="AND" property="UploadFileName">EUD_UploadFileName=#UploadFileName#</isNotNull>
+        <isNotNull prepend="AND" property="FileType">EUD_FileType=#FileType#</isNotNull>
+        <isNotNull prepend="AND" property="Status">EUD_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="IsActived">EUD_IsActived=#IsActived#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserId">EUD_CreateUserId=#CreateUserId#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">EUD_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">EUD_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserId">EUD_UpdateUserId=#UpdateUserId#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">EUD_UpdateUserName=#UpdateUserName#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertExportUploadDetail" parameterClass="ExportUploadDetail">
+      IF (EXISTS (SELECT 1 FROM Contract.ExportUploadDetail WITH ( UPDLOCK, HOLDLOCK )
+      WHERE EUD_IsActived = 1 AND EUD_DMA_ID = #DmaId# ))
+      BEGIN
+      UPDATE Contract.ExportUploadDetail
+      SET EUD_IsActived=0,EUD_UpdateDate=#UpdateDate#,EUD_UpdateUserId=#UpdateUserId#,EUD_UpdateUserName=#UpdateUserName#
+      WHERE EUD_IsActived = 1 AND EUD_DMA_ID = #DmaId#
+      END
+
+      INSERT INTO Contract.ExportUploadDetail
+      (EUD_ID,EUD_DMA_ID,EUD_UploadFilePath,EUD_UploadFileName,EUD_FileType,EUD_Status,EUD_IsActived,EUD_CreateDate,EUD_CreateUserId,EUD_CreateUserName,EUD_UpdateDate,EUD_UpdateUserId,EUD_UpdateUserName)
+      VALUES(#Id#,#DmaId#,#UploadFilePath#,#UploadFileName#,#FileType#,#Status#,#IsActived#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUserId#,#CreateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUserId#,#UpdateUserName#)
+    </insert>
+    <update id="UpdateExportUploadDetail" parameterClass="ExportUploadDetail">
+      UPDATE Contract.ExportUploadDetail
+      SET EUD_ID=#Id#,EUD_DMA_ID=#DmaId#,EUD_UploadFilePath=#UploadFilePath#,EUD_UploadFileName=#UploadFileName#,EUD_FileType=#FileType#,EUD_Status=#Status#,EUD_IsActived=#IsActived#,EUD_CreateUserId=#CreateUserId#,EUD_CreateUserName=#CreateUserName#,EUD_UpdateDate=#UpdateDate#,EUD_UpdateUserId=#UpdateUserId#,EUD_UpdateUserName=#UpdateUserName#
+      WHERE EUD_ID = #Id#
+    </update>
+    <delete id="DeleteExportUploadDetail" parameterClass="string">
+      DELETE FROM Contract.ExportUploadDetail
+      WHERE EUD_ID = #value#
+    </delete>
+
+    <select id="QueryUploadFileByDealerId" parameterClass="System.Collections.Hashtable" resultClass="ExportUploadDetail">
+      SELECT EUD_ID AS Id,EUD_DMA_ID AS DmaId,EUD_UploadFilePath AS UploadFilePath,EUD_UploadFileName AS UploadFileName,EUD_FileType AS FileType,EUD_Status AS Status,EUD_IsActived AS IsActived,EUD_CreateDate AS CreateDate,EUD_CreateUserId AS CreateUserId,EUD_CreateUserName AS CreateUserName,EUD_UpdateDate AS UpdateDate,EUD_UpdateUserId AS UpdateUserId,EUD_UpdateUserName AS UpdateUserName
+      FROM Contract.ExportUploadDetail
+      WHERE EUD_IsActived = 1
+      AND EUD_DMA_ID = #DealerId#
+    </select>
+  
+    <select id="QueryUploadFileTemplateByDealerId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT TOP 1 TemplateId,ContractType,DealerType,TemplateName,REPLACE(TemplateFile,'~','') AS TemplateFile,IsRequired,IsActive,DisplayOrder,TemplateType 
+      FROM Contract.ExportTemplate
+      WHERE IsActive = 1
+      AND TemplateType = #TemplateType#
+      AND ContractType = #ContractType#
+      AND EXISTS(SELECT 1 FROM DealerMaster WHERE DMA_ID = #DealerId# AND DealerType = DMA_DealerType)
+    </select>
+  </statements>
+</sqlMap>

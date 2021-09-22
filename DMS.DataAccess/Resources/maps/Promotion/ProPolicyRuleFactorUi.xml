@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProPolicyRuleFactorUiMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProPolicyRuleFactorUi" assembly="DMS.Model.dll" type="DMS.Model.ProPolicyRuleFactorUi" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProPolicyRuleFactorUiResult" class="ProPolicyRuleFactorUi">
+      <result property="RuleFactorId" column="RuleFactorId" type="int" dbType="int"/>
+      <result property="RuleId" column="RuleId" type="int" dbType="int"/>
+      <result property="PolicyFactorId" column="PolicyFactorId" type="int" dbType="int"/>
+      <result property="LogicType" column="LogicType" type="string" dbType="nvarchar"/>
+      <result property="LogicSymbol" column="LogicSymbol" type="string" dbType="nvarchar"/>
+      <result property="AbsoluteValue1" column="AbsoluteValue1" type="decimal" dbType="decimal"/>
+      <result property="AbsoluteValue2" column="AbsoluteValue2" type="decimal" dbType="decimal"/>
+      <result property="RelativeValue1" column="RelativeValue1" type="string" dbType="nvarchar"/>
+      <result property="RelativeValue2" column="RelativeValue2" type="string" dbType="nvarchar"/>
+      <result property="OtherPolicyFactorIdRatio" column="OtherPolicyFactorIdRatio" type="decimal" dbType="decimal"/>
+      <result property="OtherPolicyFactorId" column="OtherPolicyFactorId" type="int" dbType="int"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="CurrUser" column="CurrUser" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="SelectPolicyRuleConditionUi" parameterClass="ProPolicyRuleFactorUi" resultClass="ProPolicyRuleFactorUi">
+      SELECT A.RuleFactorId AS RuleFactorId,A.RuleId AS RuleId,A.PolicyFactorId AS PolicyFactorId,C.FactName,B.FactDesc,A.LogicType AS LogicType,A.LogicSymbol AS LogicSymbol,
+      A.AbsoluteValue1 AS AbsoluteValue1,A.AbsoluteValue2 AS AbsoluteValue2,A.RelativeValue1 AS RelativeValue1,A.RelativeValue2 AS RelativeValue2,
+      A.OtherPolicyFactorIdRatio AS OtherPolicyFactorIdRatio,A.OtherPolicyFactorId AS OtherPolicyFactorId,A.CreateBy AS CreateBy,A.CreateTime AS CreateTime,
+      A.ModifyBy AS ModifyBy,A.ModifyDate AS ModifyDate,A.Remark1 AS Remark1,A.CurrUser AS CurrUser
+      ,ROW_NUMBER () OVER (ORDER BY A.RuleFactorId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_RULE_FACTOR_UI A
+      INNER JOIN Promotion.PRO_POLICY_FACTOR_UI B ON A.PolicyFactorId=B.PolicyFactorId AND A.CurrUser=B.CurrUser
+      INNER JOIN Promotion.PRO_FACTOR C ON C.FactId=B.FactId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleFactorId">A.RuleFactorId=#RuleFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleId">A.RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+    
+    <insert id="InsertPolicyRuleConditionUi" parameterClass="ProPolicyRuleFactorUi">
+      INSERT INTO Promotion.PRO_POLICY_RULE_FACTOR_UI
+      (RuleFactorId,RuleId,PolicyFactorId,LogicType,LogicSymbol,AbsoluteValue1,AbsoluteValue2,RelativeValue1,RelativeValue2,OtherPolicyFactorIdRatio,OtherPolicyFactorId,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,CurrUser)
+      VALUES(#RuleFactorId#,#RuleId#,#PolicyFactorId#,#LogicType#,#LogicSymbol#,#AbsoluteValue1#,#AbsoluteValue2#,#RelativeValue1#,#RelativeValue2#,#OtherPolicyFactorIdRatio#,#OtherPolicyFactorId#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#CurrUser#)
+    </insert>
+    
+    <update id="UpdatePolicyRuleConditionUi" parameterClass="ProPolicyRuleFactorUi">
+      UPDATE Promotion.PRO_POLICY_RULE_FACTOR_UI
+      SET RuleFactorId=#RuleFactorId#,RuleId=#RuleId#,PolicyFactorId=#PolicyFactorId#,LogicType=#LogicType#,LogicSymbol=#LogicSymbol#,AbsoluteValue1=#AbsoluteValue1#,AbsoluteValue2=#AbsoluteValue2#,RelativeValue1=#RelativeValue1#,RelativeValue2=#RelativeValue2#,OtherPolicyFactorIdRatio=#OtherPolicyFactorIdRatio#,OtherPolicyFactorId=#OtherPolicyFactorId#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,Remark1=#Remark1#,CurrUser=#CurrUser#
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleFactorId">RuleFactorId=#RuleFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleId">RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </update>
+    
+    <delete id="DeleteFactorRuleConditionUi" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.PRO_POLICY_RULE_FACTOR_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleFactorId">RuleFactorId=#RuleFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleId">RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <select id="SelectUIFactorRuleCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.RuleFactorId,A.RuleId,A.PolicyFactorId,C.FactName,A.LogicSymbol,D.VALUE1 AS LogicSymbolName,A.LogicType,
+      CASE  WHEN A.LogicType='AbsoluteValue' THEN dbo.GetFormatString (A.AbsoluteValue1,2)
+      WHEN A.LogicType='RelativeValue' THEN A.RelativeValue1
+      WHEN A.LogicType='OtherFactor' THEN F.FactName +'*' +CONVERT(NVARCHAR(10),ISNULL(A.OtherPolicyFactorIdRatio,1)) End AS Value1,
+      CASE  WHEN A.LogicType='AbsoluteValue' THEN dbo.GetFormatString (A.AbsoluteValue2,2)
+      WHEN A.LogicType='RelativeValue' THEN A.RelativeValue2 End AS Value2
+      ,ROW_NUMBER () OVER (ORDER BY A.RuleFactorId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_RULE_FACTOR_UI A
+      INNER JOIN  Promotion.PRO_POLICY_FACTOR_UI B ON A.CurrUser=B.CurrUser AND A.PolicyFactorId=B.PolicyFactorId
+      INNER JOIN Promotion.PRO_FACTOR C ON B.FactId=C.FactId
+      LEFT JOIN  Promotion.PRO_POLICY_FACTOR_UI E ON A.CurrUser=E.CurrUser AND A.OtherPolicyFactorId=E.PolicyFactorId
+      LEFT JOIN Promotion.PRO_FACTOR F ON E.FactId=F.FactId
+      INNER JOIN Lafite_DICT D ON D.DICT_KEY=A.LogicSymbol AND D.DICT_TYPE='PRO_ProRoleSymbol'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleFactorId">A.RuleFactorId=#RuleFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleId">A.RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+    
+  </statements>
+</sqlMap>

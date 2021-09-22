@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryReturnBscMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryReturnBsc" assembly="DMS.Model.dll" type="DMS.Model.InventoryReturnBsc" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryReturnBscResult" class="InventoryReturnBsc">
+      <result property="AdjId" column="IR_Adj_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="InvoiceNo" column="IR_InvoiceNo" type="string" dbType="nvarchar"/>
+      <result property="RevokeRemark" column="IR_RevokeRemark" type="string" dbType="nvarchar"/>
+      <result property="RgaNo" column="IR_RGANo" type="string" dbType="nvarchar"/>
+      <result property="DeliveryNo" column="IR_DeliveryNo" type="string" dbType="nvarchar"/>
+      <result property="ReasonCode" column="IR_ReasonCode" type="string" dbType="nvarchar"/>
+      <result property="ReasonCn" column="IR_ReasonCn" type="string" dbType="nvarchar"/>
+      <result property="ReasonEn" column="IR_ReasonEn" type="string" dbType="nvarchar"/>
+      <result property="Rev1" column="IR_Rev1" type="string" dbType="nvarchar"/>
+      <result property="Rev2" column="IR_Rev2" type="string" dbType="nvarchar"/>
+      <result property="Rev3" column="IR_Rev3" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="IR_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="IR_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="IR_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="IR_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="IR_UpdateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="IR_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectInventoryReturnBsc" parameterClass="string" resultClass="InventoryReturnBsc">
+      SELECT IR_Adj_Id AS AdjId,IR_InvoiceNo AS InvoiceNo,IR_RevokeRemark AS RevokeRemark,IR_RGANo AS RgaNo,IR_DeliveryNo AS DeliveryNo,IR_ReasonCode AS ReasonCode,IR_ReasonCn AS ReasonCn,IR_ReasonEn AS ReasonEn,IR_Rev1 AS Rev1,IR_Rev2 AS Rev2,IR_Rev3 AS Rev3,IR_CreateUser AS CreateUser,IR_CreateUserName AS CreateUserName,IR_CreateDate AS CreateDate,IR_UpdateUser AS UpdateUser,IR_UpdateUserName AS UpdateUserName,IR_UpdateDate AS UpdateDate
+      FROM InventoryReturnBsc
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IR_Adj_Id = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryReturnBsc" parameterClass="InventoryReturnBsc" resultClass="InventoryReturnBsc">
+      SELECT IR_Adj_Id AS AdjId,IR_InvoiceNo AS InvoiceNo,IR_RevokeRemark AS RevokeRemark,IR_RGANo AS RgaNo,IR_DeliveryNo AS DeliveryNo,IR_ReasonCode AS ReasonCode,IR_ReasonCn AS ReasonCn,IR_ReasonEn AS ReasonEn,IR_Rev1 AS Rev1,IR_Rev2 AS Rev2,IR_Rev3 AS Rev3,IR_CreateUser AS CreateUser,IR_CreateUserName AS CreateUserName,IR_CreateDate AS CreateDate,IR_UpdateUser AS UpdateUser,IR_UpdateUserName AS UpdateUserName,IR_UpdateDate AS UpdateDate
+      FROM InventoryReturnBsc
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AdjId">IR_Adj_Id=#AdjId#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">IR_InvoiceNo=#InvoiceNo#</isNotNull>
+        <isNotNull prepend="AND" property="RevokeRemark">IR_RevokeRemark=#RevokeRemark#</isNotNull>
+        <isNotNull prepend="AND" property="RgaNo">IR_RGANo=#RgaNo#</isNotNull>
+        <isNotNull prepend="AND" property="DeliveryNo">IR_DeliveryNo=#DeliveryNo#</isNotNull>
+        <isNotNull prepend="AND" property="ReasonCode">IR_ReasonCode=#ReasonCode#</isNotNull>
+        <isNotNull prepend="AND" property="ReasonCn">IR_ReasonCn=#ReasonCn#</isNotNull>
+        <isNotNull prepend="AND" property="ReasonEn">IR_ReasonEn=#ReasonEn#</isNotNull>
+        <isNotNull prepend="AND" property="Rev1">IR_Rev1=#Rev1#</isNotNull>
+        <isNotNull prepend="AND" property="Rev2">IR_Rev2=#Rev2#</isNotNull>
+        <isNotNull prepend="AND" property="Rev3">IR_Rev3=#Rev3#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">IR_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">IR_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">IR_UpdateUserName=#UpdateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">IR_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryReturnBsc" parameterClass="InventoryReturnBsc">
+      INSERT INTO InventoryReturnBsc
+      (IR_Adj_Id,IR_InvoiceNo,IR_RevokeRemark,IR_RGANo,IR_DeliveryNo,IR_ReasonCode,IR_ReasonCn,IR_ReasonEn,IR_Rev1,IR_Rev2,IR_Rev3,IR_CreateUser,IR_CreateUserName,IR_CreateDate,IR_UpdateUser,IR_UpdateUserName,IR_UpdateDate)
+      VALUES(#AdjId#,#InvoiceNo#,#RevokeRemark#,#RgaNo#,#DeliveryNo#,#ReasonCode#,#ReasonCn#,#ReasonEn#,#Rev1#,#Rev2#,#Rev3#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateInventoryReturnBsc" parameterClass="InventoryReturnBsc">
+      UPDATE InventoryReturnBsc
+      SET IR_Adj_Id=#AdjId#,IR_InvoiceNo=#InvoiceNo#,IR_RevokeRemark=#RevokeRemark#,IR_RGANo=#RgaNo#,IR_DeliveryNo=#DeliveryNo#,IR_ReasonCode=#ReasonCode#,IR_ReasonCn=#ReasonCn#,IR_ReasonEn=#ReasonEn#,IR_Rev1=#Rev1#,IR_Rev2=#Rev2#,IR_Rev3=#Rev3#,IR_CreateUserName=#CreateUserName#,IR_UpdateUser=#UpdateUser#,IR_UpdateUserName=#UpdateUserName#,IR_UpdateDate=#UpdateDate#
+      WHERE IR_Adj_Id = #AdjId#
+    </update>
+    <delete id="DeleteInventoryReturnBsc" parameterClass="string">
+      DELETE FROM InventoryReturnBsc
+      WHERE IR_Adj_Id = #value#
+    </delete>
+  
+    <update id="SaveInventoryReturnBsc" parameterClass="InventoryReturnBsc">
+      IF (NOT EXISTS(SELECT 1 FROM InventoryReturnBsc WITH ( UPDLOCK, HOLDLOCK ) WHERE IR_Adj_Id = #AdjId#))
+      BEGIN
+      INSERT INTO InventoryReturnBsc
+      (IR_Adj_Id,IR_InvoiceNo,IR_RevokeRemark,IR_RGANo,IR_DeliveryNo,IR_ReasonCode,IR_ReasonCn,IR_ReasonEn,IR_Rev1,IR_Rev2,IR_Rev3,IR_CreateUser,IR_CreateUserName,IR_CreateDate,IR_UpdateUser,IR_UpdateUserName,IR_UpdateDate)
+      VALUES(#AdjId#,#InvoiceNo#,#RevokeRemark#,#RgaNo#,#DeliveryNo#,#ReasonCode#,#ReasonCn#,#ReasonEn#,#Rev1#,#Rev2#,#Rev3#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+      END ELSE BEGIN
+      UPDATE InventoryReturnBsc
+      SET IR_Adj_Id=#AdjId#,IR_InvoiceNo=#InvoiceNo#,IR_RevokeRemark=#RevokeRemark#,IR_RGANo=#RgaNo#,IR_DeliveryNo=#DeliveryNo#,IR_ReasonCode=#ReasonCode#,IR_ReasonCn=#ReasonCn#,IR_ReasonEn=#ReasonEn#,IR_Rev1=#Rev1#,IR_Rev2=#Rev2#,IR_Rev3=#Rev3#,IR_UpdateUser=#UpdateUser#,IR_UpdateUserName=#UpdateUserName#,IR_UpdateDate=#UpdateDate#
+      WHERE IR_Adj_Id = #AdjId#
+      END
+    </update>
+  </statements>
+</sqlMap>

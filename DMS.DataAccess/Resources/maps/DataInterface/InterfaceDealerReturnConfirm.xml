@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceDealerReturnConfirmMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceDealerReturnConfirm" assembly="DMS.Model.dll" type="DMS.Model.InterfaceDealerReturnConfirm" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceDealerReturnConfirmResult" class="InterfaceDealerReturnConfirm">
+      <result property="Id" column="IDC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ReturnNo" column="IDC_ReturnNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="IDC_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="IsConfirm" column="IDC_IsConfirm" type="bool" dbType="bit"/>
+      <result property="Remark" column="IDC_Remark" type="string" dbType="nvarchar"/>
+      <result property="Upn" column="IDC_UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="IDC_Lot" type="string" dbType="nvarchar"/>
+      <result property="WarehouseCode" column="IDC_WarehouseCode" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="IDC_Qty" type="decimal" dbType="decimal"/>
+      <result property="LineNbr" column="IDC_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IDC_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="IDC_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="ErrorMsg" column="IDC_ErrorMsg" type="string" dbType="nvarchar"/>
+      <result property="Clientid" column="IDC_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IDC_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="UnitPrice" column="IDC_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="IsEnd" column="IDC_IsEnd" type="bool" dbType="bit"/>
+      <result property="TaxRate" column="IDC_TaxRate" type="decimal" dbType="decimal"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InterfaceDealerReturnConfirmParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID"/>
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceDealerReturnConfirm" parameterClass="string" resultClass="InterfaceDealerReturnConfirm">
+      SELECT IDC_ID AS Id,IDC_ReturnNo AS ReturnNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_UPN AS Upn,IDC_Lot AS Lot,IDC_WarehouseCode AS WarehouseCode,IDC_Qty AS Qty,IDC_LineNbr AS LineNbr,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ErrorMsg AS ErrorMsg,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr,IDC_UnitPrice AS UnitPrice,IDC_IsEnd AS IsEnd, IDC_TaxRate AS TaxRate 
+      FROM InterfaceDealerReturnConfirm
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IDC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceDealerReturnConfirm" parameterClass="InterfaceDealerReturnConfirm" resultClass="InterfaceDealerReturnConfirm">
+      SELECT IDC_ID AS Id,IDC_ReturnNo AS ReturnNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_UPN AS Upn,IDC_Lot AS Lot,IDC_WarehouseCode AS WarehouseCode,IDC_Qty AS Qty,IDC_LineNbr AS LineNbr,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ErrorMsg AS ErrorMsg,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr,IDC_UnitPrice AS UnitPrice,IDC_IsEnd AS IsEnd, IDC_TaxRate AS TaxRate
+      FROM InterfaceDealerReturnConfirm
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IDC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnNo">IDC_ReturnNo=#ReturnNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">IDC_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsConfirm">IDC_IsConfirm=#IsConfirm#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IDC_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">IDC_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">IDC_Lot=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseCode">IDC_WarehouseCode=#WarehouseCode#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">IDC_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IDC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IDC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IDC_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorMsg">IDC_ErrorMsg=#ErrorMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IDC_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IDC_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">IDC_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="IsEnd">IDC_IsEnd=#IsEnd#</isNotNull>
+        <isNotNull prepend="AND" property="IsEnd">IDC_TaxRate=#TaxRate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceDealerReturnConfirm" parameterClass="InterfaceDealerReturnConfirm">
+      INSERT INTO InterfaceDealerReturnConfirm
+      (IDC_ID,IDC_ReturnNo,IDC_ConfirmDate,IDC_IsConfirm,IDC_Remark,IDC_UPN,IDC_Lot,IDC_WarehouseCode,IDC_Qty,IDC_LineNbr,IDC_FileName,IDC_ImportDate,IDC_ErrorMsg,IDC_ClientID,IDC_BatchNbr,IDC_UnitPrice,IDC_IsEnd,IDC_TaxRate)
+      VALUES(#Id#,#ReturnNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#Remark#,#Upn#,#Lot#,#WarehouseCode#,#Qty#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#ErrorMsg#,#Clientid#,#BatchNbr#,#UnitPrice#,#IsEnd#,#TaxRate#)
+    </insert>
+    <update id="UpdateInterfaceDealerReturnConfirm" parameterClass="InterfaceDealerReturnConfirm">
+      UPDATE InterfaceDealerReturnConfirm
+      SET IDC_ID=#Id#,IDC_ReturnNo=#ReturnNo#,IDC_ConfirmDate=#ConfirmDate#,IDC_IsConfirm=#IsConfirm#,IDC_Remark=#Remark#,IDC_UPN=#Upn#,IDC_Lot=#Lot#,IDC_WarehouseCode=#WarehouseCode#,IDC_Qty=#Qty#,IDC_LineNbr=#LineNbr#,IDC_FileName=#FileName#,IDC_ImportDate=#ImportDate#,IDC_ErrorMsg=#ErrorMsg#,IDC_ClientID=#Clientid#,IDC_BatchNbr=#BatchNbr#,IDC_UnitPrice=#UnitPrice#,IDC_IsEnd=#IsEnd#,IDC_TaxRate=#TaxRate#
+      WHERE IDC_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceDealerReturnConfirm" parameterClass="string">
+      DELETE FROM InterfaceDealerReturnConfirm
+      WHERE IDC_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_DealerReturnConfirm" parameterMap="InterfaceDealerReturnConfirmParameterMap">
+      dbo.GC_Interface_DealerReturnConfirm
+    </procedure>
+    <select id="SelectDealerReturnConfirmByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceDealerReturnConfirm">
+      SELECT IDC_ID AS Id,IDC_ReturnNo AS ReturnNo,IDC_ConfirmDate AS ConfirmDate,IDC_IsConfirm AS IsConfirm,IDC_Remark AS Remark,IDC_UPN AS Upn,IDC_Lot AS Lot,IDC_WarehouseCode AS WarehouseCode,IDC_Qty AS Qty,IDC_LineNbr AS LineNbr,IDC_FileName AS FileName,IDC_ImportDate AS ImportDate,IDC_ErrorMsg AS ErrorMsg,IDC_ClientID AS Clientid,IDC_BatchNbr AS BatchNbr,IDC_UnitPrice AS UnitPrice,IDC_IsEnd AS IsEnd,IDC_TaxRate AS TaxRate
+      FROM InterfaceDealerReturnConfirm
+      WHERE IDC_BatchNbr = #value# AND IDC_ErrorMsg &lt;> ''
+      ORDER BY IDC_LineNbr
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AmendmentProposalsTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AmendmentProposalsTemp" assembly="DMS.Model.dll" type="DMS.Model.AmendmentProposalsTemp" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AmendmentProposalsTempResult" class="AmendmentProposalsTemp">
+      <result property="TempId" column="TempId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractId" column="ContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Payment" column="Payment" type="string" dbType="nvarchar"/>
+      <result property="CreditTerm" column="CreditTerm" type="string" dbType="nvarchar"/>
+      <result property="CreditLimit" column="CreditLimit" type="int" dbType="int"/>
+      <result property="PayTerm" column="PayTerm" type="string" dbType="nvarchar"/>
+      <result property="IsDeposit" column="IsDeposit" type="int" dbType="int"/>
+      <result property="Deposit" column="Deposit" type="int" dbType="int"/>
+      <result property="Inform" column="Inform" type="string" dbType="nvarchar"/>
+      <result property="InformOther" column="InformOther" type="string" dbType="nvarchar"/>
+      <result property="Comment" column="Comment" type="string" dbType="nvarchar"/>
+      <result property="Attachment" column="Attachment" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAmendmentProposalsTemp" parameterClass="string" resultClass="AmendmentProposalsTemp">
+      SELECT TempId AS TempId,ContractId AS ContractId,Payment AS Payment,CreditTerm AS CreditTerm,CreditLimit AS CreditLimit,PayTerm AS PayTerm,IsDeposit AS IsDeposit,Deposit AS Deposit,Inform AS Inform,InformOther AS InformOther,Comment AS Comment,Attachment AS Attachment
+      FROM Contract.AmendmentProposalsTemp
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TempId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAmendmentProposalsTemp" parameterClass="AmendmentProposalsTemp" resultClass="AmendmentProposalsTemp">
+      SELECT TempId AS TempId,ContractId AS ContractId,Payment AS Payment,CreditTerm AS CreditTerm,CreditLimit AS CreditLimit,PayTerm AS PayTerm,IsDeposit AS IsDeposit,Deposit AS Deposit,Inform AS Inform,InformOther AS InformOther,Comment AS Comment,Attachment AS Attachment
+      FROM Contract.AmendmentProposalsTemp
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TempId">TempId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractId">ContractId=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="Payment">Payment=#Payment#</isNotNull>
+        <isNotNull prepend="AND" property="CreditTerm">CreditTerm=#CreditTerm#</isNotNull>
+        <isNotNull prepend="AND" property="CreditLimit">CreditLimit=#CreditLimit#</isNotNull>
+        <isNotNull prepend="AND" property="PayTerm">PayTerm=#PayTerm#</isNotNull>
+        <isNotNull prepend="AND" property="IsDeposit">IsDeposit=#IsDeposit#</isNotNull>
+        <isNotNull prepend="AND" property="Deposit">Deposit=#Deposit#</isNotNull>
+        <isNotNull prepend="AND" property="Inform">Inform=#Inform#</isNotNull>
+        <isNotNull prepend="AND" property="InformOther">InformOther=#InformOther#</isNotNull>
+        <isNotNull prepend="AND" property="Comment">Comment=#Comment#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAmendmentProposalsTemp" parameterClass="AmendmentProposalsTemp">
+      INSERT INTO Contract.AmendmentProposalsTemp
+      (TempId,ContractId,Payment,CreditTerm,CreditLimit,PayTerm,IsDeposit,Deposit,Inform,InformOther,Comment,Attachment)
+      VALUES(#TempId#,#ContractId#,#Payment#,#CreditTerm#,#CreditLimit#,#PayTerm#,#IsDeposit#,#Deposit#,#Inform#,#InformOther#,#Comment#,#Attachment#)
+    </insert>
+    <update id="UpdateAmendmentProposalsTemp" parameterClass="AmendmentProposalsTemp">
+      UPDATE Contract.AmendmentProposalsTemp
+      SET TempId=#TempId#,ContractId=#ContractId#,Payment=#Payment#,CreditTerm=#CreditTerm#,CreditLimit=#CreditLimit#,PayTerm=#PayTerm#,IsDeposit=#IsDeposit#,Deposit=#Deposit#,Inform=#Inform#,InformOther=#InformOther#,Comment=#Comment#,Attachment=#Attachment#
+      WHERE TempId = #TempId#
+    </update>
+    <delete id="DeleteAmendmentProposalsTemp" parameterClass="string">
+      DELETE FROM Contract.AmendmentProposalsTemp
+      WHERE TempId = #value#
+    </delete>
+  </statements>
+</sqlMap>

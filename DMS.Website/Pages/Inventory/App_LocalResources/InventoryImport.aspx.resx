@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CopyInventoryToSafety.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="CopyInventoryToSafety.Confirm.Body" xml:space="preserve">
+    <value>此操作将以现有库存数字覆盖当前安全库存数字，确认是否要复制？</value>
+  </data>
+  <data name="CopyInventoryToSafety.Confirm.Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="DetailWindow.btnSearchWin.Text" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="DetailWindow.DraftButton.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="DetailWindow.FormLayout4.chkIsShareCFN.FieldLabel" xml:space="preserve">
+    <value>是否共享产品</value>
+  </data>
+  <data name="DetailWindow.RevokeButton.Listeners.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="DetailWindow.RevokeButton.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DetailWindow.Title" xml:space="preserve">
+    <value>明细信息</value>
+  </data>
+  <data name="GridPanel1.AddItemsButton.Text" xml:space="preserve">
+    <value>新增产品</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.DMAChineseName.Header" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.InvActualQty.Header" xml:space="preserve">
+    <value>实际库存数</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.InvSaftyQtyEdit.Header" xml:space="preserve">
+    <value>安全库存数</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.InvSaftyQtyQuery.Header" xml:space="preserve">
+    <value>安全库存数</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ProductLineName.Header" xml:space="preserve">
+    <value>产品线</value>
+  </data>
+  <data name="GridPanel1.Listeners.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="GridPanel1.Title" xml:space="preserve">
+    <value>查询结果</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.ActualQuantityWin.Header" xml:space="preserve">
+    <value>实际库存数量</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.EngName.Header" xml:space="preserve">
+    <value>英文说明</value>
+  </data>
+  <data name="GridPanel2.ColumnModel2.EngName.Header1" xml:space="preserve">
+    <value>中文说明</value>
+  </data>
+  <data name="GridPanel2.LoadMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel2.Title" xml:space="preserve">
+    <value>产品实际库存明细</value>
+  </data>
+  <data name="InvQtySearch.Alert.Body" xml:space="preserve">
+    <value>请选择经销商！</value>
+  </data>
+  <data name="InvQtySearch.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="plSearch.btnCopy.Text" xml:space="preserve">
+    <value>复制当前库存</value>
+  </data>
+  <data name="plSearch.btnSearch.Text" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="plSearch.FormLayout1.cbDealer.EmptyText" xml:space="preserve">
+    <value>选择经销商...</value>
+  </data>
+  <data name="plSearch.FormLayout1.cbDealer.FieldLabel" xml:space="preserve">
+    <value>经销商</value>
+  </data>
+  <data name="plSearch.FormLayout1.FieldTrigger.Qtip" xml:space="preserve">
+    <value>删除所选条目</value>
+  </data>
+  <data name="plSearch.Title" xml:space="preserve">
+    <value>查询条件</value>
+  </data>
+  <data name="SaveData.False.Alert.Body" xml:space="preserve">
+    <value>添加产品失败</value>
+  </data>
+  <data name="SaveData.False.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="SaveData.True.Alert.Body" xml:space="preserve">
+    <value>添加产品成功</value>
+  </data>
+  <data name="SaveData.True.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="SaveGridPanel2DB.Alert.Body" xml:space="preserve">
+    <value>请选择要添加的产品</value>
+  </data>
+  <data name="SaveGridPanel2DB.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="SaveGridPanel2DB.failure.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="SaveItem.Alert.Body" xml:space="preserve">
+    <value>保存出错</value>
+  </data>
+  <data name="SaveItem.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="UpdateSafetyQty.False.Alert.Body" xml:space="preserve">
+    <value>复制当前库存失败</value>
+  </data>
+  <data name="UpdateSafetyQty.False.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="UpdateSafetyQty.True.Alert.Body" xml:space="preserve">
+    <value>复制当前库存成功</value>
+  </data>
+  <data name="UpdateSafetyQty.True.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="loadExample.subMenu299" xml:space="preserve">
+    <value>Excel安全库存导入</value>
+  </data>
+  <data name="btnImport.Text" xml:space="preserve">
+    <value>Excel导入</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.WarehouseName.Header" xml:space="preserve">
+    <value>仓库名称</value>
+  </data>
+  <data name="loadExample.subMenu279" xml:space="preserve">
+    <value>Excel库存导入</value>
+  </data>
+  <data name="GridPanel1.DealerSapCode" xml:space="preserve">
+    <value>经销商编号</value>
+    </data>
+  <data name="GridPanel1.Warehouse" xml:space="preserve">
+    <value>仓库名称</value>
+    </data>
+  <data name="GridPanel1.WarehouseType" xml:space="preserve">
+    <value>仓库类型</value>
+    </data>
+  <data name="GridPanel1.ArticleNumber" xml:space="preserve">
+    <value>产品型号(UPN)</value>
+    </data>
+  <data name="GridPanel1.LotNumber" xml:space="preserve">
+    <value>产品批号</value>
+    </data>
+  <data name="GridPanel1.ExpiredDate" xml:space="preserve">
+    <value>产品有效期</value>
+    </data>
+  <data name="GridPanel1.Qty" xml:space="preserve">
+    <value>数量</value>
+    </data>
+  <data name="GridPanel1.UploadDate" xml:space="preserve">
+    <value>导入时间</value>
+    </data>
+  <data name="Panel.txtTotalCount" xml:space="preserve">
+    <value>总条数</value>
+    </data>
+  <data name="Panel.txtTotalQty" xml:space="preserve">
+    <value>总数量</value>
+    </data>
+  <data name="InvQtySearch.Alert.Date.Body" xml:space="preserve">
+    <value>库存期间不能为空</value>
+  </data>
+  <data name="plSearch.ImportDate" xml:space="preserve">
+    <value>库存期间(格式:YYYYMM)</value>
+    </data>
+</root>

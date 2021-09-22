@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProductLevelRelationshipMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProductLevelRelationship" assembly="DMS.Model.dll" type="DMS.Model.ProductLevelRelationship" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProductLevelRelationshipResult" class="ProductLevelRelationship">
+      <result property="PlrId" column="PlrId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PlrLevelCode" column="PlrLevelCode" type="string" dbType="nvarchar"/>
+      <result property="PlrLevelDesc" column="PlrLevelDesc" type="string" dbType="nvarchar"/>
+      <result property="PlrLevel" column="PlrLevel" type="int" dbType="int"/>
+      <result property="PlrParLevelCode" column="PlrParLevelCode" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectProductLevelRelationship" parameterClass="string" resultClass="ProductLevelRelationship">
+      SELECT PLR_ID AS PlrId,PLR_LevelCode AS PlrLevelCode,PLR_LevelDesc AS PlrLevelDesc,PLR_Level AS PlrLevel,PLR_ParLevelCode AS PlrParLevelCode
+      FROM ProductLevelRelationship
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PLR_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProductLevelRelationship" parameterClass="ProductLevelRelationship" resultClass="ProductLevelRelationship">
+      SELECT PLR_ID AS PlrId,PLR_LevelCode AS PlrLevelCode,PLR_LevelDesc AS PlrLevelDesc,PLR_Level AS PlrLevel,PLR_ParLevelCode AS PlrParLevelCode
+      FROM ProductLevelRelationship
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PlrId">PLR_ID=#PlrId#</isNotNull>
+        <isNotNull prepend="AND" property="PlrLevelCode">PLR_LevelCode=#PlrLevelCode#</isNotNull>
+        <isNotNull prepend="AND" property="PlrLevelDesc">PLR_LevelDesc=#PlrLevelDesc#</isNotNull>
+        <isNotNull prepend="AND" property="PlrLevel">PLR_Level=#PlrLevel#</isNotNull>
+        <isNotNull prepend="AND" property="PlrParLevelCode">PLR_ParLevelCode=#PlrParLevelCode#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProductLevelRelationship" parameterClass="ProductLevelRelationship">
+      INSERT INTO ProductLevelRelationship
+      (PLR_ID,PLR_LevelCode,PLR_LevelDesc,PLR_Level,PLR_ParLevelCode)
+      VALUES(#PlrId#,#PlrLevelCode#,#PlrLevelDesc#,#PlrLevel#,#PlrParLevelCode#)
+    </insert>
+    <update id="UpdateProductLevelRelationship" parameterClass="ProductLevelRelationship">
+      UPDATE ProductLevelRelationship
+      SET PLR_ID=#PlrId#,PLR_LevelCode=#PlrLevelCode#,PLR_LevelDesc=#PlrLevelDesc#,PLR_Level=#PlrLevel#,PLR_ParLevelCode=#PlrParLevelCode#
+      WHERE PLR_ID = #PlrId#
+    </update>
+    <delete id="DeleteProductLevelRelationship" parameterClass="string">
+      DELETE FROM ProductLevelRelationship
+      WHERE PLR_ID = #value#
+    </delete>
+    <update id="FakeDeleteProductLevelRelationship" parameterClass="ProductLevelRelationship">
+      UPDATE ProductLevelRelationship
+      SET PLR_ID=#PlrId#,PLR_LevelCode=#PlrLevelCode#,PLR_LevelDesc=#PlrLevelDesc#,PLR_Level=#PlrLevel#,PLR_ParLevelCode=#PlrParLevelCode#
+      WHERE PLR_ID = #PlrId#
+    </update>
+
+    <!---->
+    <select id="SelectProductlevelRelation" resultClass="System.Collections.Hashtable">
+      SELECT a.PLR_ID,
+      PLR_LevelCode,
+      PLR_LevelDesc,
+      PLR_Level,
+      PLR_ParLevelCode
+      FROM dbo.ProductLevelRelationship a
+      ORDER BY PLR_Level,PLR_ParLevelCode
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProInitPointFlowMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProInitPointFlow" assembly="DMS.Model.dll" type="DMS.Model.ProInitPointFlow" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProInitPointFlowResult" class="ProInitPointFlow">
+      <result property="FlowId" column="FlowId" type="int" dbType="int"/>
+      <result property="Description" column="Description" type="string" dbType="nvarchar"/>
+      <result property="Bu" column="Bu" type="string" dbType="nvarchar"/>
+      <result property="PointType" column="PointType" type="string" dbType="nvarchar"/>
+      <result property="PointUseRangeType" column="PointUseRangeType" type="string" dbType="nvarchar"/>
+      <result property="PointUseRange" column="PointUseRange" type="string" dbType="nvarchar"/>
+      <result property="Status" column="Status" type="string" dbType="nvarchar"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="HtmlStr" column="HtmlStr" type="string" dbType="nvarchar"/>
+      <result property="FlowNo" column="FlowNo" type="string" dbType="nvarchar"/>
+      <result property="UseRangeCondition" column="UseRangeCondition" type="int" dbType="int"/>
+      <result property="Instanceid" column="Instanceid" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ReasonType" column="ReasonType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ProInitPointParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="FlowId" column="FlowId"/>
+    </parameterMap>
+    <parameterMap id="FormPointParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="FlowId" column="FlowId"/>
+      <parameter property="EWorkFlowNo" column="EWorkFlowNo"/>
+      <parameter property="Status" column="Status"/>
+      <parameter property="ApprovalType" column="ApprovalType"/>
+      <parameter property="ProductLineId" column="ProductLineId"/>
+    </parameterMap>
+  </parameterMaps>
+
+  <statements>
+
+    <select id="SelectProInitPointFlow" parameterClass="string" resultClass="ProInitPointFlow">
+      SELECT FlowId AS FlowId,Description AS Description,Bu AS Bu,PointType AS PointType,PointUseRangeType AS PointUseRangeType,PointUseRange AS PointUseRange,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,HtmlStr AS HtmlStr,FlowNo as FlowNo,UseRangeCondition as UseRangeCondition,MarketType AS MarketType
+      FROM Promotion.Pro_InitPoint_Flow
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FlowId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProInitPointFlow" parameterClass="ProInitPointFlow" resultClass="ProInitPointFlow">
+      SELECT FlowId AS FlowId,Description AS Description,Bu AS Bu,PointType AS PointType,PointUseRangeType AS PointUseRangeType,PointUseRange AS PointUseRange,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,HtmlStr AS HtmlStr,FlowNo as FlowNo ,UseRangeCondition as UseRangeCondition,MarketType AS MarketType
+      FROM Promotion.Pro_InitPoint_Flow
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">Bu=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="PointType">PointType=#PointType#</isNotNull>
+        <isNotNull prepend="AND" property="PointUseRangeType">PointUseRangeType=#PointUseRangeType#</isNotNull>
+        <isNotNull prepend="AND" property="PointUseRange">PointUseRange=#PointUseRange#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="HtmlStr">HtmlStr=#HtmlStr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProInitPointFlow" parameterClass="ProInitPointFlow">
+      INSERT INTO Promotion.Pro_InitPoint_Flow
+      (Description,Bu,PointType,PointUseRangeType,PointUseRange,Status,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,HtmlStr,MarketType)
+      VALUES(#Description#,#Bu#,#PointType#,#PointUseRangeType#,#PointUseRange#,#Status#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#HtmlStr#,#MarketType#)
+    </insert>
+    <update id="UpdateProInitPointFlow" parameterClass="ProInitPointFlow">
+      UPDATE Promotion.Pro_InitPoint_Flow
+      SET Description=#Description#,Bu=#Bu#,PointType=#PointType#,PointUseRangeType=#PointUseRangeType#,Status=#Status#,ModifyBy=#ModifyBy#,ModifyDate=getdate(),MarketType=#MarketType#,Instanceid=#Instanceid#,FlowNo=#FlowNo#,ReasonType=#ReasonType#
+      WHERE FlowId = #FlowId#
+    </update>
+    <select id="SelectProInitPointFlowByFlowId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT FlowId AS FlowId,Description AS Description,Bu AS Bu,PointType AS PointType,PointUseRangeType AS PointUseRangeType,PointUseRange AS PointUseRange,Status AS Status,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,HtmlStr AS HtmlStr,FlowNo as FlowNo,ProductLineId as ProductLineId,MarketType AS MarketType
+      FROM Promotion.Pro_InitPoint_Flow
+      left join V_DivisionProductLineRelation on Bu = ProductLineName
+      WHERE FlowId = #value#
+    </select>
+    <delete id="DeleteProInitPointFlow" parameterClass="string" >
+      DELETE FROM Promotion.Pro_InitPoint_Flow
+      WHERE FlowId = #value#
+    </delete>
+    <select id="GetMaxFlowId" resultClass="string">
+      select max(FlowId) as FlowId from Promotion.Pro_InitPoint_Flow
+      where CreateBy = #value#
+    </select>
+    <select id="CheckDealerName" resultClass="System.Collections.Hashtable" parameterClass="string">
+      select dma_id from DealerMaster where (DMA_ChineseName = #value# or DMA_SAP_CODE = #value#)
+    </select>
+    <select id="CheckPolicyNo" resultClass="System.Collections.Hashtable" parameterClass="string">
+      select PolicyNo from Promotion.T_Pro_Flow_Mid where PolicyNo = #value#
+    </select>
+    <select id="GetBUCodeByProductLineId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select DivisionCode from V_DivisionProductLineRelation
+      where ProductLineName = #value#
+    </select>
+    <update id="UpdateInitialPointsHtmlStr" parameterClass="ProInitPointFlow">
+      UPDATE Promotion.Pro_InitPoint_Flow
+      SET HtmlStr=#HtmlStr#
+      WHERE FlowId = #FlowId#
+    </update>
+    <delete id="DeleteInitPointUPN" parameterClass="System.Collections.Hashtable">
+      delete from Promotion.Pro_InitPoint_Flow_UPN where PointUseRange = #UPN# and FlowId = #FlowId#
+      <isNotNull prepend="AND" property="OperTag">OperTag=#OperTag#</isNotNull>
+    </delete>
+
+    <!--维护产品类型-->
+    <update id="AddInitPointProductType" parameterClass="System.Collections.Hashtable">
+      Update Promotion.Pro_InitPoint_Flow set UseRangeCondition = #UseRangeCondition# where FlowId = #FlowId#
+    </update>
+
+    <update id="AddInitPointUPN" parameterClass="System.Collections.Hashtable">
+      insert into Promotion.Pro_InitPoint_Flow_UPN (FlowId,PointUseRange,RangeType,OperTag)
+      values (#FlowId#,#UPN#,#RangeType#,#OperTag#)
+    </update>
+    <!--获取政策因素可选规则-->
+    <select id="SelectUseRangeCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Id,Name
+      ,ROW_NUMBER () OVER (ORDER BY Id ) AS [row_number]
+      FROM [Promotion].[func_Interface_InitPoint_UseRange_List](#FactConditionId#,#ProductLineId#,#FlowId#,#KeyValue#,#CurrUser#)
+    </select>
+
+    <select id="SelectUseRangeSeleted" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <!--select Id,Name,ROW_NUMBER () OVER (ORDER BY Name ) AS [row_number]
+      from [Promotion].[func_Interface_InitPoint_FactorConditionSeleted_List](#FlowId#)-->
+
+      select PointUseRange as Id,PointUseRange as Name,RangeType as RangeType, ROW_NUMBER () OVER (ORDER BY PointUseRange ) AS [row_number] from Promotion.Pro_InitPoint_Flow_UPN
+      where FlowId = #FlowId#
+    </select>
+
+    <procedure id="GC_InitPointGetEWorkFlowHtml" parameterMap="ProInitPointParameterMap">
+      PROMOTION.Proc_InitPoint_GetEWorkFlowHtml
+    </procedure>
+
+    <select id="SelectInitialPointAttachment" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PAT_ID AS Id,PAT_PolicyId AS PolicyId,PAT_Name AS Name,PAT_Url AS Url,PAT_UploadUser AS UploadUser,Convert(NVARCHAR(10),PAT_UploadDate,120) AS UploadDate
+      ,li.Identity_Name,row_number() OVER (ORDER BY PAT_UploadDate DESC) AS row_number
+      FROM Promotion.PRO_Attachment a
+      INNER JOIN Lafite_Identity li ON a.PAT_UploadUser = li.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">PAT_PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="GiftId">PAT_GiftId=#GiftId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">PAT_Type=#Type#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectProInitPointFlowDetailByFlowId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT FlowId,DealerId,Point,Ratio,PointExpiredDate FROM Promotion.Pro_InitPoint_Flow_Detail WHERE FlowId=#value#
+    </select>
+
+    <procedure id="P_I_EW_InitPoint_Approval" parameterMap="FormPointParameterMap">
+      interface.P_I_EW_InitPoint_Approval
+    </procedure>
+
+    <delete id="DeleteInitPoint" parameterClass="System.Collections.Hashtable" >
+      DELETE FROM Promotion.Pro_InitPoint_Flow_Detail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+      </dynamic>
+    </delete>
+  </statements>
+</sqlMap>

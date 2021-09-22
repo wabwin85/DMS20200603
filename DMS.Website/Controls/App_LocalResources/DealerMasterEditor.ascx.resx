@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CancelButton.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="City.storeRecord.selText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="CompanyInfoTab.ActiveFlag.FieldLabel" xml:space="preserve">
+    <value>经销商状态</value>
+  </data>
+  <data name="CompanyInfoTab.ActiveFlag.RadioFalse.BoxLabel" xml:space="preserve">
+    <value>失效</value>
+  </data>
+  <data name="CompanyInfoTab.ActiveFlag.RadioTrue.BoxLabel" xml:space="preserve">
+    <value>有效</value>
+  </data>
+  <data name="CompanyInfoTab.Certification.FieldLabel" xml:space="preserve">
+    <value>承运商</value>
+  </data>
+  <data name="CompanyInfoTab.ChineseName.FieldLabel" xml:space="preserve">
+    <value>经销商中文名称</value>
+  </data>
+  <data name="CompanyInfoTab.ChineseShortName.FieldLabel" xml:space="preserve">
+    <value>经销商中文简称</value>
+  </data>
+  <data name="CompanyInfoTab.City.FieldLabel" xml:space="preserve">
+    <value>地区</value>
+  </data>
+  <data name="CompanyInfoTab.CompanyType.FieldLabel" xml:space="preserve">
+    <value>公司类型</value>
+  </data>
+  <data name="CompanyInfoTab.DealerAuthentication.EmptyText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="CompanyInfoTab.DealerAuthentication.FieldLabel" xml:space="preserve">
+    <value>经销商类型</value>
+  </data>
+  <data name="CompanyInfoTab.DealerNbr.FieldLabel" xml:space="preserve">
+    <value>经销商编号</value>
+  </data>
+  <data name="CompanyInfoTab.DealerType.EmptyText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="CompanyInfoTab.DealerType.FieldLabel" xml:space="preserve">
+    <value>经销商类别</value>
+  </data>
+  <data name="CompanyInfoTab.District.FieldLabel" xml:space="preserve">
+    <value>区/县</value>
+  </data>
+  <data name="CompanyInfoTab.EnglishName.FieldLabel" xml:space="preserve">
+    <value>经销商英文名称</value>
+  </data>
+  <data name="CompanyInfoTab.EnglishShortName.FieldLabel" xml:space="preserve">
+    <value>经销商英文简称</value>
+  </data>
+  <data name="CompanyInfoTab.FirstContractDate.FieldLabel" xml:space="preserve">
+    <value>首次签约日</value>
+  </data>
+  <data name="CompanyInfoTab.Id1.FieldLabel" xml:space="preserve">
+    <value>经销商标识ID</value>
+  </data>
+  <data name="CompanyInfoTab.Province.FieldLabel" xml:space="preserve">
+    <value>省份</value>
+  </data>
+  <data name="CompanyInfoTab.SalesMode.FieldLabel" xml:space="preserve">
+    <value>是否为&lt;br/&gt;驱动销售模式</value>
+  </data>
+  <data name="CompanyInfoTab.SalesMode.SalesModeFalse.BoxLabel" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="CompanyInfoTab.SalesMode.SalesModeTrue.BoxLabel" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="CompanyInfoTab.SapCode.FieldLabel" xml:space="preserve">
+    <value>ERP账号</value>
+  </data>
+  <data name="CompanyInfoTab.SystemStartDate.FieldLabel" xml:space="preserve">
+    <value>开账日</value>
+  </data>
+  <data name="CompanyInfoTab.Taxpayer.EmptyText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="CompanyInfoTab.Taxpayer.FieldLabel" xml:space="preserve">
+    <value>纳税人类型</value>
+  </data>
+  <data name="CompanyInfoTab.Title" xml:space="preserve">
+    <value>基本信息</value>
+  </data>
+  <data name="CompanyInfoTab2.Address.FieldLabel" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="CompanyInfoTab2.ContactPerson.FieldLabel" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="CompanyInfoTab2.Email.FieldLabel" xml:space="preserve">
+    <value>电子邮箱</value>
+  </data>
+  <data name="CompanyInfoTab2.Fax.FieldLabel" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="CompanyInfoTab2.Phone.FieldLabel" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="CompanyInfoTab2.PostalCode.FieldLabel" xml:space="preserve">
+    <value>邮编</value>
+  </data>
+  <data name="CompanyInfoTab2.RegisteredAddress.FieldLabel" xml:space="preserve">
+    <value>注册地址</value>
+  </data>
+  <data name="CompanyInfoTab2.ShipToAddress.FieldLabel" xml:space="preserve">
+    <value>仓库地址</value>
+  </data>
+  <data name="CompanyInfoTab2.Title" xml:space="preserve">
+    <value>地址信息</value>
+  </data>
+  <data name="CompanyType.ClientID.setValue" xml:space="preserve">
+    <value>有限责任公司</value>
+  </data>
+  <data name="District.storeRecord.selText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="ExporButton.Text" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="FinanceInfo.Finance.FieldLabel" xml:space="preserve">
+    <value>财务联系人</value>
+  </data>
+  <data name="FinanceInfo.FinanceEmail.FieldLabel" xml:space="preserve">
+    <value>财务电子邮件</value>
+  </data>
+  <data name="FinanceInfo.FinancePhone.FieldLabel" xml:space="preserve">
+    <value>财务电话</value>
+  </data>
+  <data name="FinanceInfo.Payment.EmptyText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="FinanceInfo.Payment.FieldLabel" xml:space="preserve">
+    <value>付款方式</value>
+  </data>
+  <data name="FinanceInfo.Payment.FieldTrigger.Qtip" xml:space="preserve">
+    <value>清空</value>
+  </data>
+  <data name="FinanceInfo.Title" xml:space="preserve">
+    <value>财务信息</value>
+  </data>
+  <data name="Panel1.Title" xml:space="preserve">
+    <value>查询条件1</value>
+  </data>
+  <data name="Province.storeRecord.selText" xml:space="preserve">
+    <value>选择...</value>
+  </data>
+  <data name="RegisteredInfo.Bank.FieldLabel" xml:space="preserve">
+    <value>开户银行</value>
+  </data>
+  <data name="RegisteredInfo.BankAccount.FieldLabel" xml:space="preserve">
+    <value>银行账号</value>
+  </data>
+  <data name="RegisteredInfo.EstablishDate.FieldLabel" xml:space="preserve">
+    <value>成立时间</value>
+  </data>
+  <data name="RegisteredInfo.GeneralManager.FieldLabel" xml:space="preserve">
+    <value>公司总经理</value>
+  </data>
+  <data name="RegisteredInfo.LegalRep.FieldLabel" xml:space="preserve">
+    <value>法人代表</value>
+  </data>
+  <data name="RegisteredInfo.License.FieldLabel" xml:space="preserve">
+    <value>许可证号</value>
+  </data>
+  <data name="RegisteredInfo.LicenseLimit.FieldLabel" xml:space="preserve">
+    <value>许可年限</value>
+  </data>
+  <data name="RegisteredInfo.RegisteredCapital.FieldLabel" xml:space="preserve">
+    <value>注册资金</value>
+  </data>
+  <data name="RegisteredInfo.TaxNo.FieldLabel" xml:space="preserve">
+    <value>税号</value>
+  </data>
+  <data name="RegisteredInfo.Title" xml:space="preserve">
+    <value>工商注册信息</value>
+  </data>
+  <data name="SaveButton.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="saveDealer.alert" xml:space="preserve">
+    <value>请完整填写经销商信息</value>
+  </data>
+  <data name="window.Title" xml:space="preserve">
+    <value>明细: {0}</value>
+  </data>
+  <data name="window.Title.DealerName" xml:space="preserve">
+    <value>新建经销商</value>
+  </data>
+</root>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SampleEvalMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SampleEval" assembly="DMS.Model.dll" type="DMS.Model.SampleEval" />
+    </alias>
+  <resultMaps>
+    <resultMap id="SampleEvalResult" class="SampleEval">
+      <result property="SampleEvalId" column="SampleEvalId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SampleHeadId" column="SampleHeadId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpnNo" column="UpnNo" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+      <result property="EvalName" column="EvalName" type="string" dbType="nvarchar"/>
+      <result property="EvalUrl" column="EvalUrl" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="CreateUser" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="UpdateUser" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectSampleEval" parameterClass="string" resultClass="SampleEval">
+      SELECT SampleEvalId AS SampleEvalId,SampleHeadId AS SampleHeadId,UpnNo AS UpnNo,Lot AS Lot,EvalName AS EvalName,EvalUrl AS EvalUrl,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate
+      FROM SampleEval
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SampleEvalId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterSampleEval" parameterClass="SampleEval" resultClass="SampleEval">
+      SELECT SampleEvalId AS SampleEvalId,SampleHeadId AS SampleHeadId,UpnNo AS UpnNo,Lot AS Lot,EvalName AS EvalName,EvalUrl AS EvalUrl,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate
+      FROM SampleEval
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SampleEvalId">SampleEvalId=#SampleEvalId#</isNotNull>
+        <isNotNull prepend="AND" property="SampleHeadId">SampleHeadId=#SampleHeadId#</isNotNull>
+        <isNotNull prepend="AND" property="UpnNo">UpnNo=#UpnNo#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">Lot=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="EvalName">EvalName=#EvalName#</isNotNull>
+        <isNotNull prepend="AND" property="EvalUrl">EvalUrl=#EvalUrl#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertSampleEval" parameterClass="SampleEval">
+      INSERT INTO SampleEval
+      (SampleEvalId,SampleHeadId,UpnNo,Lot,EvalName,EvalUrl,CreateUser,CreateDate,UpdateUser,UpdateDate)
+      VALUES(#SampleEvalId#,#SampleHeadId#,#UpnNo#,#Lot#,#EvalName#,#EvalUrl#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateSampleEval" parameterClass="SampleEval">
+      UPDATE SampleEval
+      SET SampleEvalId=#SampleEvalId#,SampleHeadId=#SampleHeadId#,UpnNo=#UpnNo#,Lot=#Lot#,EvalName=#EvalName#,EvalUrl=#EvalUrl#,UpdateUser=#UpdateUser#,UpdateDate=#UpdateDate#
+      WHERE SampleEvalId = #SampleEvalId#
+    </update>
+    <delete id="DeleteSampleEval" parameterClass="string">
+      DELETE FROM SampleEval
+      WHERE SampleEvalId = #value#
+    </delete>
+    <select id="GetSampleEvalListByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select EvalName,EvalUrl
+      from SampleEval
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SampleHeadId">SampleHeadId=#SampleHeadId#</isNotNull>
+        <isNotNull prepend="AND" property="UpnNo">UpnNo=#UpnNo#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">Lot=#Lot#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

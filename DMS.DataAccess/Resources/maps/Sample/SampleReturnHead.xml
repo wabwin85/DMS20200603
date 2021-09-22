@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SampleReturnHeadMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SampleReturnHead" assembly="DMS.Model.dll" type="DMS.Model.SampleReturnHead" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SampleReturnHeadResult" class="SampleReturnHead">
+            <result property="SampleReturnHeadId" column="SampleReturnHeadId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SampleType" column="SampleType" type="string" dbType="nvarchar"/>
+            <result property="ReturnRequire" column="ReturnRequire" type="string" dbType="nvarchar"/>
+            <result property="ReturnNo" column="ReturnNo" type="string" dbType="nvarchar"/>
+            <result property="ApplyNo" column="ApplyNo" type="string" dbType="nvarchar"/>
+            <result property="DealerId" column="DealerId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ReturnDate" column="ReturnDate" type="string" dbType="nvarchar"/>
+            <result property="ReturnUserId" column="ReturnUserId" type="string" dbType="nvarchar"/>
+            <result property="ReturnUser" column="ReturnUser" type="string" dbType="nvarchar"/>
+            <result property="ProcessUserId" column="ProcessUserId" type="string" dbType="nvarchar"/>
+            <result property="ProcessUser" column="ProcessUser" type="string" dbType="nvarchar"/>
+            <result property="ReturnHosp" column="ReturnHosp" type="string" dbType="nvarchar"/>
+            <result property="ReturnDept" column="ReturnDept" type="string" dbType="nvarchar"/>
+            <result property="ReturnDivision" column="ReturnDivision" type="string" dbType="nvarchar"/>
+            <result property="DealerName" column="DealerName" type="string" dbType="nvarchar"/>
+            <result property="ReturnReason" column="ReturnReason" type="string" dbType="nvarchar"/>
+            <result property="ReturnQuantity" column="ReturnQuantity" type="string" dbType="nvarchar"/>
+            <result property="ConfirmQuantity" column="ConfirmQuantity" type="string" dbType="nvarchar"/>
+            <result property="ReturnMemo" column="ReturnMemo" type="string" dbType="nvarchar"/>
+            <result property="ReturnStatus" column="ReturnStatus" type="string" dbType="nvarchar"/>
+          <result property="CreateUser" column="CreateUser" type="string" dbType="nvarchar"/>
+          <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+          <result property="UpdateUser" column="UpdateUser" type="string" dbType="nvarchar"/>
+          <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectSampleReturnHead" parameterClass="string" resultClass="SampleReturnHead">
+          SELECT SampleReturnHeadId AS SampleReturnHeadId,SampleType AS SampleType,ReturnNo AS ReturnNo,ApplyNo AS ApplyNo,DealerId AS DealerId,ReturnRequire AS ReturnRequire,ReturnDate AS ReturnDate,ReturnUserId AS ReturnUserId,ReturnUser AS ReturnUser,ProcessUserId AS ProcessUserId,ProcessUser AS ProcessUser,ReturnHosp AS ReturnHosp,ReturnDept AS ReturnDept,ReturnDivision AS ReturnDivision,DealerName AS DealerName,ReturnReason AS ReturnReason,ReturnQuantity AS ReturnQuantity,ConfirmQuantity AS ConfirmQuantity,ReturnMemo AS ReturnMemo,ReturnStatus AS ReturnStatus,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate,CourierNumber as CourierNumber
+          FROM SampleReturnHead
+          <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    SampleReturnHeadId = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterSampleReturnHead" parameterClass="SampleReturnHead" resultClass="SampleReturnHead">
+          SELECT SampleReturnHeadId AS SampleReturnHeadId,SampleType AS SampleType,ReturnNo AS ReturnNo,ApplyNo AS ApplyNo,DealerId AS DealerId,ReturnRequire AS ReturnRequire,ReturnDate AS ReturnDate,ReturnUserId AS ReturnUserId,ReturnUser AS ReturnUser,ProcessUserId AS ProcessUserId,ProcessUser AS ProcessUser,ReturnHosp AS ReturnHosp,ReturnDept AS ReturnDept,ReturnDivision AS ReturnDivision,DealerName AS DealerName,ReturnReason AS ReturnReason,ReturnQuantity AS ReturnQuantity,ConfirmQuantity AS ConfirmQuantity,ReturnMemo AS ReturnMemo,ReturnStatus AS ReturnStatus,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate
+          FROM SampleReturnHead
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="SampleReturnHeadId">SampleReturnHeadId=#SampleReturnHeadId#</isNotNull>
+                <isNotNull prepend="AND" property="SampleType">SampleType=#SampleType#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnRequire">ReturnRequire=#ReturnRequire#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnNo">ReturnNo=#ReturnNo#</isNotNull>
+                <isNotNull prepend="AND" property="DealerId">DealerId=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnDate">ReturnDate=#ReturnDate#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnUserId">ReturnUserId=#ReturnUserId#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnUser">ReturnUser=#ReturnUser#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnHosp">ReturnHosp=#ReturnHosp#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnDept">ReturnDept=#ReturnDept#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnDivision">ReturnDivision=#ReturnDivision#</isNotNull>
+                <isNotNull prepend="AND" property="DealerName">DealerName=#DealerName#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnReason">ReturnReason=#ReturnReason#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnQuantity">ReturnQuantity=#ReturnQuantity#</isNotNull>
+                <isNotNull prepend="AND" property="ConfirmQuantity">ConfirmQuantity=#ConfirmQuantity#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnMemo">ReturnMemo=#ReturnMemo#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnStatus">ReturnStatus=#ReturnStatus#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">UpdateDate=#UpdateDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertSampleReturnHead" parameterClass="SampleReturnHead">
+          INSERT INTO SampleReturnHead
+          (SampleReturnHeadId,SampleType,ReturnNo,ApplyNo,DealerId,ReturnRequire,ReturnDate,ReturnUserId,ReturnUser,ProcessUserId,ProcessUser,ReturnHosp,ReturnDept,ReturnDivision,DealerName,ReturnReason,ReturnQuantity,ConfirmQuantity,ReturnMemo,ReturnStatus,CreateUser,CreateDate,UpdateUser,UpdateDate)
+          VALUES(#SampleReturnHeadId#,#SampleType#,#ReturnNo#,#ApplyNo#,#DealerId#,#ReturnRequire#,#ReturnDate#,#ReturnUserId#,#ReturnUser#,#ProcessUserId#,#ProcessUser#,#ReturnHosp#,#ReturnDept#,#ReturnDivision#,#DealerName#,#ReturnReason#,#ReturnQuantity#,#ConfirmQuantity#,#ReturnMemo#,#ReturnStatus#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateSampleReturnHead" parameterClass="SampleReturnHead">
+          UPDATE SampleReturnHead
+          SET SampleReturnHeadId=#SampleReturnHeadId#,SampleType=#SampleType#,ReturnNo=#ReturnNo#,ApplyNo=#ApplyNo#,DealerId=#DealerId#,ReturnRequire=#ReturnRequire#,ReturnDate=#ReturnDate#,ReturnUserId=#ReturnUserId#,ReturnUser=#ReturnUser#,ProcessUserId=#ProcessUserId#,ProcessUser=#ProcessUser#,ReturnHosp=#ReturnHosp#,ReturnDept=#ReturnDept#,ReturnDivision=#ReturnDivision#,DealerName=#DealerName#,ReturnReason=#ReturnReason#,ReturnQuantity=#ReturnQuantity#,ConfirmQuantity=#ConfirmQuantity#,ReturnMemo=#ReturnMemo#,ReturnStatus=#ReturnStatus#,UpdateUser=#UpdateUser#,UpdateDate=#UpdateDate#
+          WHERE SampleReturnHeadId = #SampleReturnHeadId#
+        </update>
+        <delete id="DeleteSampleReturnHead" parameterClass="string">
+            DELETE FROM SampleReturnHead
+            WHERE SampleReturnHeadId = #value#
+        </delete>
+        <!--lijie add 2016-03-07-->
+        <select id="SelectSampleReturnList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+          SELECT SampleReturnHeadId as Id,SampleType,ReturnRequire,ReturnNo,ApplyNo,ReturnDate,ReturnUserId,ReturnUser,ProcessUserId,ProcessUser,ReturnHosp,
+          ReturnDept,ReturnDivision,DealerId,DealerName,ReturnReason,isnull((select sum(ApplyQuantity) from SampleUpn where SampleReturnHeadId = SampleHeadID),0) AS ReturnQuantity,ConfirmQuantity,ReturnMemo,ReturnStatus,
+          ROW_NUMBER ()OVER (ORDER BY ReturnDate DESC)  AS row_number
+          FROM SampleReturnHead
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="SampleType">SampleReturnHead.SampleType = #SampleType#</isNotNull>
+                <isNotNull prepend="AND" property="ReturnNo">SampleReturnHead.ReturnNo LIKE '%' + #ReturnNo# + '%'</isNotNull>
+                <isNotNull prepend="AND" property="ReturnStatus">SampleReturnHead.ReturnStatus = #ReturnStatus#</isNotNull> 
+                <isNotNull prepend="AND" property="ReturnHosp">SampleReturnHead.ReturnHosp LIKE '%' + #ReturnHosp# + '%'</isNotNull>
+                <isNotNull prepend="AND" property="ReturnUser">SampleReturnHead.ReturnUser LIKE '%' + #ReturnUser# + '%'</isNotNull>
+            </dynamic>
+        </select>
+        <select id="SelectSampleReturnHeadByReturnNo" parameterClass="string" resultClass="SampleReturnHead">
+          SELECT SampleReturnHeadId AS SampleReturnHeadId,SampleType AS SampleType,ReturnRequire AS ReturnRequire,ReturnNo AS ReturnNo,ApplyNo AS ApplyNo,DealerId AS DealerId,ReturnDate AS ReturnDate,ReturnUserId AS ReturnUserId,ReturnUser AS ReturnUser,ProcessUserId,ProcessUser,ReturnHosp AS ReturnHosp,ReturnDept AS ReturnDept,ReturnDivision AS ReturnDivision,DealerName AS DealerName,ReturnReason AS ReturnReason,ReturnQuantity AS ReturnQuantity,ConfirmQuantity AS ConfirmQuantity,ReturnMemo AS ReturnMemo,ReturnStatus AS ReturnStatus,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate 
+          FROM SampleReturnHead
+          WHERE ReturnNo=#value#
+        </select>
+        <select id="FuncGetSampleReturnHtml" parameterClass="string">
+            SELECT dbo.Func_GetSampleReturnHtml(#value#) SampleReturnHtml
+        </select>
+    </statements>
+</sqlMap>

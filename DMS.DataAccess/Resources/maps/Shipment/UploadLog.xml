@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="UploadLogMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="UploadLog" assembly="DMS.Model.dll" type="DMS.Model.UploadLog" />
+  </alias>
+  <resultMaps>
+    <resultMap id="UploadLogResult" class="UploadLog">
+      <result property="Id" column="ULL_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Type" column="ULL_Type" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="ULL_DMA_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUser" column="ULL_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="ULL_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="Rev1" column="ULL_Rev1" type="string" dbType="nvarchar"/>
+      <result property="Rev2" column="ULL_Rev2" type="string" dbType="nvarchar"/>
+      <result property="Rev3" column="ULL_Rev3" type="string" dbType="nvarchar"/>
+      <result property="AtId" column="ULL_AT_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductLineID" column="ULL_ProductLineID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectUploadLog" parameterClass="string" resultClass="UploadLog">
+      SELECT ULL_Id AS Id,ULL_Type AS Type,ULL_DMA_Id AS DmaId,ULL_CreateUser AS CreateUser,ULL_UploadDate AS UploadDate,ULL_Rev1 AS Rev1,ULL_Rev2 AS Rev2,ULL_Rev3 AS Rev3,ULL_AT_Id AS AtId,ULL_ProductLineID AS ProductLineID
+      FROM UploadLog
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ULL_Id = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterUploadLog" parameterClass="UploadLog" resultClass="UploadLog">
+      SELECT ULL_Id AS Id,ULL_Type AS Type,ULL_DMA_Id AS DmaId,ULL_CreateUser AS CreateUser,ULL_UploadDate AS UploadDate,ULL_Rev1 AS Rev1,ULL_Rev2 AS Rev2,ULL_Rev3 AS Rev3,ULL_AT_Id AS AtId,ULL_ProductLineID AS ProductLineID
+      FROM UploadLog
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ULL_Id=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Type">ULL_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ULL_DMA_Id=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">ULL_UploadDate=#UploadDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertUploadLog" parameterClass="UploadLog">
+      INSERT INTO UploadLog
+      (ULL_Id,ULL_Type,ULL_DMA_Id,ULL_CreateUser,ULL_UploadDate,ULL_Rev1,ULL_Rev2,ULL_Rev3,ULL_AT_Id,ULL_ProductLineID)
+      VALUES(#Id#,#Type#,#DmaId#,#CreateUser#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#Rev1#,#Rev2#,#Rev3#,#AtId#,#ProductLineID#)
+    </insert>
+    <update id="UpdateUploadLog" parameterClass="UploadLog">
+      UPDATE UploadLog
+      SET ULL_Id=#Id#,ULL_Type=#Type#,ULL_DMA_Id=#DmaId#,ULL_UploadDate=#UploadDate#,ULL_Rev1=#Rev1#,ULL_Rev2=#Rev2#,ULL_Rev3=#Rev3#,ULL_AT_Id=#AtId#,ULL_ProductLineID=#ProductLineID#
+      WHERE ULL_Id = #Id#
+    </update>
+    <delete id="DeleteUploadLog" parameterClass="string">
+      DELETE FROM UploadLog
+      WHERE ULL_Id = #value#
+    </delete>
+    <insert id="InsertUploadLogForShipment" parameterClass="UploadLog">
+      INSERT INTO UploadLog
+      (ULL_Id,ULL_Type,ULL_DMA_Id,ULL_ProductLineID,ULL_CreateUser,ULL_UploadDate)
+      VALUES(#Id#,#Type#,#DmaId#,#ProductLineID#,#CreateUser#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+  </statements>
+</sqlMap>

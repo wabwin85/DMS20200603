@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentApplyDetailsMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentApplyDetails" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentApplyDetails" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentApplyDetailsResult" class="ConsignmentApplyDetails">
+      <result property="Id" column="CAD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CahId" column="CAD_CAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="CAD_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnSetId" column="CAD_CFNSet_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Uom" column="CAD_UOM" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="CAD_Qty" type="decimal" dbType="decimal"/>
+      <result property="Price" column="CAD_Price" type="decimal" dbType="decimal"/>
+      <result property="ActualPrice" column="CAD_Actual_Price" type="decimal" dbType="decimal"/>
+      <result property="Amount" column="CAD_Amount" type="decimal" dbType="decimal"/>
+      <result property="Remark" column="CAD_Remark" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="CAD_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="BarCode" column="CAD_BarCode" type="string" dbType="nvarchar"/>
+      <result property="BarCodeId" column="CAD_BarCode_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IahId" column="CAD_IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IalId" column="CAD_IAL_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_ConsignmenOrderBSC_AddCfn_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="DealerType" column="DealerType" />
+      <parameter property="OrderType" column="OrderType" />
+      <parameter property="SpecialPriceId" column="SpecialPriceId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_ConsignmentOrderBSC_AddCfnSetMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsGetSpecialPrice" column="IsGetSpecialPrice" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="PriceType" column="PriceType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_ConsignmentOrderBSC_AddCfnInventoryMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsGetSpecialPrice" column="IsGetSpecialPrice" />
+      <parameter property="OrderType" column="OrderType" />
+      <parameter property="CfnString" column="CfnString" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_GetApplyOrderHtml_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="KeyId" column="KeyId" />
+      <parameter property="MainKeyColumn" column="MainKeyColumn" />
+      <parameter property="MainTableName" column="MainTableName" />
+      <parameter property="DetailKeyColumn" column="DetailKeyColumn" />
+      <parameter property="DetailTableName" column="DetailTableName" />
+
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_GetApplyOrderHtml_TEST_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="KeyId" column="KeyId" />
+      <parameter property="MainKeyColumn" column="MainKeyColumn" />
+      <parameter property="MainTableName" column="MainTableName" />
+      <parameter property="DetailKeyColumn" column="DetailKeyColumn" />
+      <parameter property="DetailTableName" column="DetailTableName" />
+
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectConsignmentApplyDetails" parameterClass="string" resultClass="ConsignmentApplyDetails">
+      SELECT CAD_ID AS Id,CAD_CAH_ID AS CahId,CAD_CFN_ID AS CfnId,CAD_CFNSet_Id AS CfnSetId,CAD_UOM AS Uom,CAD_Qty AS Qty,CAD_Price AS Price,CAD_Actual_Price AS ActualPrice,CAD_Amount AS Amount,CAD_Remark AS Remark,CAD_LotNumber AS LotNumber,CAD_BarCode AS BarCode,CAD_BarCode_Id AS BarCodeId,CAD_IAH_ID AS IahId,CAD_IAL_ID AS IalId
+      FROM ConsignmentApplyDetails
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CAD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentApplyDetails" parameterClass="ConsignmentApplyDetails" resultClass="ConsignmentApplyDetails">
+      SELECT CAD_ID AS Id,CAD_CAH_ID AS CahId,CAD_CFN_ID AS CfnId,CAD_CFNSet_Id AS CfnSetId,CAD_UOM AS Uom,CAD_Qty AS Qty,CAD_Price AS Price,CAD_Actual_Price AS ActualPrice,CAD_Amount AS Amount,CAD_Remark AS Remark,CAD_LotNumber AS LotNumber,CAD_BarCode AS BarCode,CAD_BarCode_Id AS BarCodeId,CAD_IAH_ID AS IahId,CAD_IAL_ID AS IalId
+      FROM ConsignmentApplyDetails
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CAD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CahId">CAD_CAH_ID=#CahId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">CAD_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnSetId">CAD_CFNSet_Id=#CfnSetId#</isNotNull>
+        <isNotNull prepend="AND" property="Uom">CAD_UOM=#Uom#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">CAD_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="Price">CAD_Price=#Price#</isNotNull>
+        <isNotNull prepend="AND" property="ActualPrice">CAD_Actual_Price=#ActualPrice#</isNotNull>
+        <isNotNull prepend="AND" property="Amount">CAD_Amount=#Amount#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">CAD_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">CAD_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode">CAD_BarCode=#BarCode#</isNotNull>
+        <isNotNull prepend="AND" property="BarCodeId">CAD_BarCode_Id=#BarCodeId#</isNotNull>
+        <isNotNull prepend="AND" property="IahId">CAD_IAH_ID=#IahId#</isNotNull>
+        <isNotNull prepend="AND" property="IalId">CAD_IAL_ID=#IalId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentApplyDetails" parameterClass="ConsignmentApplyDetails">
+      INSERT INTO ConsignmentApplyDetails
+      (CAD_ID,CAD_CAH_ID,CAD_CFN_ID,CAD_CFNSet_Id,CAD_UOM,CAD_Qty,CAD_Price,CAD_Actual_Price,CAD_Amount,CAD_Remark,CAD_LotNumber,CAD_BarCode,CAD_BarCode_Id,CAD_IAH_ID,CAD_IAL_ID)
+      VALUES(#Id#,#CahId#,#CfnId#,#CfnSetId#,#Uom#,#Qty#,#Price#,#ActualPrice#,#Amount#,#Remark#,#LotNumber#,#BarCode#,#BarCodeId#,#IahId#,#IalId#)
+    </insert>
+    <update id="UpdateConsignmentApplyDetails" parameterClass="ConsignmentApplyDetails">
+      UPDATE ConsignmentApplyDetails
+      SET CAD_ID=#Id#,CAD_CAH_ID=#CahId#,CAD_CFN_ID=#CfnId#,CAD_CFNSet_Id=#CfnSetId#,CAD_UOM=#Uom#,CAD_Qty=#Qty#,CAD_Price=#Price#,CAD_Actual_Price=#ActualPrice#,CAD_Amount=#Amount#,CAD_Remark=#Remark#,CAD_LotNumber=#LotNumber#,CAD_BarCode=#BarCode#,CAD_BarCode_Id=#BarCodeId#,CAD_IAH_ID=#IahId#,CAD_IAL_ID=#IalId#
+      WHERE CAD_ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentApplyDetails" parameterClass="string">
+      DELETE FROM ConsignmentApplyDetails
+      WHERE CAD_ID = #value#
+    </delete>
+    <!--根据主表Id删除订单明细-->
+    <delete id="DeleteHeaderConsignmentApplyDetails" parameterClass="string">
+      delete from ConsignmentApplyDetails where CAD_CAH_ID=#CAH_ID#
+    </delete>
+    <select id="SelectProductLineDma" parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct Dm.DMA_ID Id,Dm.DMA_ChineseShortName Name from
+      V_DivisionProductLineRelation as VPrline inner join
+      V_DealerContractMaster as VMaster on
+      VPrline.DivisionCode=VMaster.Division inner join DealerMaster(nolock)  as Dm on (VMaster.DMA_ID=Dm.DMA_ID and Dm.DMA_DealerType in ('T1','LP'))
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          VPrline.ProductLineID=#ProductLineID#
+          and VMaster.ActiveFlag='1'
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectProlineCFNList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select CFN_ID as Id,CFN_EnglishName as EnglishName,CFN_ChineseName as ChineseName,CFN_Description as Description,CFN_CustomerFaceNbr as CustomerFaceNbr,CFN_ProductCatagory_PCT_ID as ProductCatagory_PCT_ID,CFN_Property1 as Property1,CFN_Property2 as  Property2,CFN_Property3 as Property3,CFN_Property4 as Property4,CFN_Property5 as Property5,CFN_Property7 as Property7,CFN_Property8 as Property8,CFN_ProductLine_BUM_ID as ProductLine_BUM_ID,CFN_LastModifiedDate as LastModifiedDate,ROW_NUMBER ()OVER (ORDER BY CustomerFaceNbr ASC )   AS row_number  from CFN
+      where CFN_ProductLine_BUM_ID = #ProductLineId# and  CFN_DeletedFlag = '0'
+
+      <isNotNull prepend="AND" property="ProductCFN">
+        CFN_CustomerFaceNbr  like '%$ProductCFN$%'
+      </isNotNull>
+      <isNotNull prepend="AND" property="ProductCFNName">
+        CFN_ChineseName like '%$ProductCFNName$%'
+      </isNotNull>
+    </select>
+    <select id="SelectConsignmentApplyProList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ConsignmentApplyDetails.CAD_ID AS Id,
+      ConsignmentApplyDetails.CAD_CAH_ID AS CAH_Id,
+      ConsignmentApplyDetails.CAD_CFN_ID AS CFN_Id,
+      ConsignmentApplyDetails.CAD_UOM AS UOM,
+      ConsignmentApplyDetails.CAD_Qty AS Qty,
+      ConsignmentApplyDetails.CAD_Price AS Price,
+      ConsignmentApplyDetails.CAD_Actual_Price AS Actual_Price,
+      ConsignmentApplyDetails.CAD_Amount AS Amount,
+      ConsignmentApplyDetails.CAD_Remark AS Remark,
+      ConsignmentApplyDetails.CAD_LotNumber AS LotNumber,
+      ConsignmentApplyDetails.CAD_BarCode AS BarCode,
+      ConsignmentApplyDetails.CAD_BarCode_Id AS BarCode_Id,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_EnglishName AS CfnEnglishName,
+
+      ROW_NUMBER () OVER (ORDER BY CFN.CFN_CustomerFaceNbr DESC) AS row_number
+      FROM ConsignmentApplyDetails INNER JOIN CFN ON CFN.CFN_ID=ConsignmentApplyDetails.CAD_CFN_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CAH_ID">ConsignmentApplyDetails.CAD_CAH_ID=#CAH_ID#</isNotNull>
+        <isNotNull prepend="AND" property="Id">ConsignmentApplyDetails.CAD_ID=#Id#</isNotNull>
+      </dynamic>
+    </select>
+    <procedure id="GC_ConsignmenOrderBSC_AddCfn" parameterMap="GC_ConsignmenOrderBSC_AddCfn_ParameterMap">
+      dbo.GC_ConsignmenOrderBSC_AddCfn
+    </procedure>
+    <procedure id="GC_ConsignmentOrderBSC_AddCfnSet" parameterMap="GC_ConsignmentOrderBSC_AddCfnSetMap">
+      dbo.GC_ConsignmentOrderBSC_AddCfnSet
+    </procedure>
+    <procedure id="GC_ConsignmentOrderBSC_AddCfnInventory" parameterMap="GC_ConsignmentOrderBSC_AddCfnInventoryMap">
+      dbo.GC_ConsignmentOrderBSC_AddCfnInventory
+    </procedure>
+
+    <select id="SelectApplyOrderHtmlStr" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      exec dbo.GC_GetApplyOrderHtml #KeyId#,#MainKeyColumn#,#MainTableName#,#DetailKeyColumn#,#DetailTableName#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <select id="SelectDelayApplyOrderHtmlStr" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      exec dbo.GC_GetConsignmentDelayApplyOrderHtml #KeyId#,#MainKeyColumn#,#MainTableName#,#DetailKeyColumn#,#DetailTableName#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <select id="SelecConsignmentApplyDetailsCfnSum" parameterClass="string" resultClass="System.Data.DataSet">
+      select ISNULL(SUM(CAD_Qty),0) as Qtysum, ISNULL(SUM(CAD_Price*CAD_Qty),0)AS Pricesum from ConsignmentApplyDetails
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CAD_CAH_ID=#CAHID#
+        </isParameterPresent>
+      </dynamic>
+
+    </select>
+
+  </statements>
+</sqlMap>

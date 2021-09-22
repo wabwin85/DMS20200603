@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.TransferDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Consignment.TransferDetail" assembly="DMS.Model.dll" type="DMS.Model.Consignment.TransferDetailPO" />
+  </alias>
+  <parameterMaps>
+  </parameterMaps>
+  <statements>
+    <!-- Start Select -->
+    <select id="Consignment.TransferDetailMap.SelectByHeadId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT TransferDetail.TD_ID DetailId,
+               CFN.CFN_ID UpnId,
+               CFN.CFN_CustomerFaceNbr UpnNo,
+               CFN.CFN_Property1 UpnShortNo,
+               CFN.CFN_ChineseName UpnName,
+               CFN.CFN_EnglishName UpnEngName,
+               CFN.CFN_Property3 Unit,
+               TransferDetail.TD_QTY Quantity,
+               dbo.fn_GetCfnPriceByDealer(TransferHeader.TH_DMA_ID_To, CFN.CFN_ID, #SubCompanyId#, #BrandId#, 'DealerConsignment', 0) as Price,
+               TransferDetail.TD_Amount Total,
+               (
+                   SELECT COUNT(*)
+                   FROM   Consignment.TransferConfirm AS TransferConfirm
+                   WHERE  TransferConfirm.TC_TD_ID = TransferDetail.TD_ID
+               ) AS ConfirmQuantity
+        FROM   Consignment.TransferDetail AS TransferDetail
+               INNER JOIN Consignment.TransferHeader AS TransferHeader
+                    ON  TransferHeader.TH_ID = TransferDetail.TD_TH_ID
+               INNER JOIN CFN AS CFN
+                    ON  CFN.CFN_ID = TransferDetail.TD_CFN_ID
+        WHERE  TransferDetail.TD_TH_ID = #TD_TH_ID#
+      ]]>
+    </select>
+    <select id="Consignment.TransferDetailMap.SelectForConfirmByHeadId" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT TransferDetail.TD_ID DetailId,
+               CFN.CFN_ID UpnId,
+               CFN.CFN_CustomerFaceNbr UpnNo,
+               CFN.CFN_Property1 UpnShortNo,
+               CFN.CFN_ChineseName UpnName,
+               CFN.CFN_EnglishName UpnEngName,
+               CFN.CFN_Property3 Unit,
+               TransferDetail.TD_QTY Quantity,
+               (
+                   SELECT COUNT(*)
+                   FROM   Consignment.TransferConfirm AS TransferConfirm
+                   WHERE  TransferConfirm.TC_TD_ID = TransferDetail.TD_ID
+               ) AS ConfirmQuantity
+        FROM   Consignment.TransferDetail AS TransferDetail
+               INNER JOIN Consignment.TransferHeader AS TransferHeader
+                    ON  TransferHeader.TH_ID = TransferDetail.TD_TH_ID
+               INNER JOIN CFN AS CFN
+                    ON  CFN.CFN_ID = TransferDetail.TD_CFN_ID
+        WHERE  TransferDetail.TD_TH_ID = #value#
+      ]]>
+    </select>
+    <!-- End   Select -->
+
+    <!-- Start Insert -->
+    <insert id="Consignment.TransferDetailMap.Insert" parameterClass="Consignment.TransferDetail">
+      <![CDATA[
+        INSERT INTO Consignment.TransferDetail
+          (TD_ID, TD_TH_ID, TD_CFN_ID, TD_UOM, TD_QTY, TD_CFN_Price, TD_Amount)
+        VALUES
+          (#TD_ID#, #TD_TH_ID#, #TD_CFN_ID#, #TD_UOM#, #TD_QTY#, #TD_CFN_Price#, #TD_Amount#)
+      ]]>
+    </insert>
+    <!-- End   Insert -->
+
+    <!-- Start Update -->
+    <!-- End   Update -->
+
+    <!-- Start Delete -->
+    <delete id="Consignment.TransferDetailMap.DeleteByHeadId" parameterClass="Guid">
+      <![CDATA[
+        DELETE Consignment.TransferDetail
+        WHERE  TD_TH_ID = #value#
+      ]]>
+    </delete>
+    <!-- End   Delete -->
+
+    <!-- Start Procdure -->
+    <!-- End   Procdure -->
+  </statements>
+</sqlMap>

@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerMasterLicenseMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerMasterLicense" assembly="DMS.Model.dll" type="DMS.Model.DealerMasterLicense" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerMasterLicenseResult" class="DealerMasterLicense">
+      <result property="DmaId" column="DML_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CurLicenseNo" column="DML_CurLicenseNo" type="string" dbType="nvarchar"/>
+      <result property="CurLicenseValidFrom" column="DML_CurLicenseValidFrom" type="DateTime" dbType="datetime"/>
+      <result property="CurLicenseValidTo" column="DML_CurLicenseValidTo" type="DateTime" dbType="datetime"/>
+      <result property="CurSecondClassCatagory" column="DML_CurSecondClassCatagory" type="string" dbType="nvarchar"/>
+      <result property="CurFilingNo" column="DML_CurFilingNo" type="string" dbType="nvarchar"/>
+      <result property="CurFilingValidFrom" column="DML_CurFilingValidFrom" type="DateTime" dbType="datetime"/>
+      <result property="CurFilingValidTo" column="DML_CurFilingValidTo" type="DateTime" dbType="datetime"/>
+      <result property="CurThirdClassCatagory" column="DML_CurThirdClassCatagory" type="string" dbType="nvarchar"/>
+      <result property="CurRev1" column="DML_CurRev1" type="string" dbType="nvarchar"/>
+      <result property="CurRev2" column="DML_CurRev2" type="string" dbType="nvarchar"/>
+      <result property="CurRev3" column="DML_CurRev3" type="string" dbType="nvarchar"/>
+      <result property="CurRev4" column="DML_CurRev4" type="string" dbType="nvarchar"/>
+      <result property="CurUpdateDate" column="DML_CurUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="CurUpdateUser" column="DML_CurUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="NewApplyid" column="DML_NewApplyID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="NewApplyStatus" column="DML_NewApplyStatus" type="string" dbType="nvarchar"/>
+      <result property="NewLicenseNo" column="DML_NewLicenseNo" type="string" dbType="nvarchar"/>
+      <result property="NewLicenseValidFrom" column="DML_NewLicenseValidFrom" type="DateTime" dbType="datetime"/>
+      <result property="NewLicenseValidTo" column="DML_NewLicenseValidTo" type="DateTime" dbType="datetime"/>
+      <result property="NewSecondClassCatagory" column="DML_NewSecondClassCatagory" type="string" dbType="nvarchar"/>
+      <result property="NewFilingNo" column="DML_NewFilingNo" type="string" dbType="nvarchar"/>
+      <result property="NewFilingValidFrom" column="DML_NewFilingValidFrom" type="DateTime" dbType="datetime"/>
+      <result property="NewFilingValidTo" column="DML_NewFilingValidTo" type="DateTime" dbType="datetime"/>
+      <result property="NewThirdClassCatagory" column="DML_NewThirdClassCatagory" type="string" dbType="nvarchar"/>
+      <result property="NewRev1" column="DML_NewRev1" type="string" dbType="nvarchar"/>
+      <result property="NewRev2" column="DML_NewRev2" type="string" dbType="nvarchar"/>
+      <result property="NewRev3" column="DML_NewRev3" type="string" dbType="nvarchar"/>
+      <result property="NewRev4" column="DML_NewRev4" type="string" dbType="nvarchar"/>
+      <result property="NewApplyDate" column="DML_NewApplyDate" type="DateTime" dbType="datetime"/>
+      <result property="NewApplyUser" column="DML_NewApplyUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="NewApproveDate" column="DML_NewApproveDate" type="DateTime" dbType="datetime"/>
+      <result property="NewApproveUser" column="DML_NewApproveUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CurBizAddress" column="DML_CurBizAddress" type="string" dbType="nvarchar"/>
+      <result property="CurwhmAddress" column="DML_CurWHMAddress" type="string" dbType="nvarchar"/>
+      <result property="CurRespPerson" column="DML_CurRespPerson" type="string" dbType="nvarchar"/>
+      <result property="CurLegalPerson" column="DML_CurLegalPerson" type="string" dbType="nvarchar"/>
+      <result property="NewBizAddress" column="DML_NewBizAddress" type="string" dbType="nvarchar"/>
+      <result property="NewwhmAddress" column="DML_NewWHMAddress" type="string" dbType="nvarchar"/>
+      <result property="NewRespPerson" column="DML_NewRespPerson" type="string" dbType="nvarchar"/>
+      <result property="NewLegalPerson" column="DML_NewLegalPerson" type="string" dbType="nvarchar"/>
+      <result property="SalesRep" column="DML_SalesRep" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="CFDANo" class="System.Collections.Hashtable" >
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="nextnbr" column="nextnbr" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <select id="SelectDealerMasterLicense" parameterClass="string" resultClass="DealerMasterLicense">
+      SELECT DML_DMA_ID AS DmaId,DML_CurLicenseNo AS CurLicenseNo,DML_CurLicenseValidFrom AS CurLicenseValidFrom,DML_CurLicenseValidTo AS CurLicenseValidTo,DML_CurSecondClassCatagory AS CurSecondClassCatagory,DML_CurFilingNo AS CurFilingNo,DML_CurFilingValidFrom AS CurFilingValidFrom,DML_CurFilingValidTo AS CurFilingValidTo,DML_CurThirdClassCatagory AS CurThirdClassCatagory,DML_CurRev1 AS CurRev1,DML_CurRev2 AS CurRev2,DML_CurRev3 AS CurRev3,DML_CurRev4 AS CurRev4,DML_CurUpdateDate AS CurUpdateDate,DML_CurUpdateUser AS CurUpdateUser,DML_NewApplyID AS NewApplyid,DML_NewApplyStatus AS NewApplyStatus,DML_NewLicenseNo AS NewLicenseNo,DML_NewLicenseValidFrom AS NewLicenseValidFrom,DML_NewLicenseValidTo AS NewLicenseValidTo,DML_NewSecondClassCatagory AS NewSecondClassCatagory,DML_NewFilingNo AS NewFilingNo,DML_NewFilingValidFrom AS NewFilingValidFrom,DML_NewFilingValidTo AS NewFilingValidTo,DML_NewThirdClassCatagory AS NewThirdClassCatagory,DML_NewRev1 AS NewRev1,DML_NewRev2 AS NewRev2,DML_NewRev3 AS NewRev3,DML_NewRev4 AS NewRev4,DML_NewApplyDate AS NewApplyDate,DML_NewApplyUser AS NewApplyUser,DML_NewApproveDate AS NewApproveDate,DML_NewApproveUser AS NewApproveUser,DML_CurBizAddress AS CurBizAddress,DML_CurWHMAddress AS CurwhmAddress,DML_CurRespPerson AS CurRespPerson,DML_CurLegalPerson AS CurLegalPerson,DML_NewBizAddress AS NewBizAddress,DML_NewWHMAddress AS NewwhmAddress,DML_NewRespPerson AS NewRespPerson,DML_NewLegalPerson AS NewLegalPerson
+      FROM DealerMasterLicense
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DML_DMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectDealerMasterLicenseToTable" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT DML_DMA_ID AS DmaId,DML_CurLicenseNo AS CurLicenseNo,DML_CurLicenseValidFrom AS CurLicenseValidFrom,DML_CurLicenseValidTo AS CurLicenseValidTo,DML_CurSecondClassCatagory AS CurSecondClassCatagory,DML_CurFilingNo AS CurFilingNo,DML_CurFilingValidFrom AS CurFilingValidFrom,DML_CurFilingValidTo AS CurFilingValidTo,DML_CurThirdClassCatagory AS CurThirdClassCatagory,DML_CurRev1 AS CurRev1,DML_CurRev2 AS CurRev2,DML_CurRev3 AS CurRev3,DML_CurRev4 AS CurRev4,DML_CurUpdateDate AS CurUpdateDate,DML_CurUpdateUser AS CurUpdateUser,DML_NewApplyID AS NewApplyid,DML_NewApplyStatus AS NewApplyStatus,DML_NewLicenseNo AS NewLicenseNo,DML_NewLicenseValidFrom AS NewLicenseValidFrom,DML_NewLicenseValidTo AS NewLicenseValidTo,DML_NewSecondClassCatagory AS NewSecondClassCatagory,DML_NewFilingNo AS NewFilingNo,DML_NewFilingValidFrom AS NewFilingValidFrom,DML_NewFilingValidTo AS NewFilingValidTo,DML_NewThirdClassCatagory AS NewThirdClassCatagory,DML_NewRev1 AS NewRev1,DML_NewRev2 AS NewRev2,DML_NewRev3 AS NewRev3,DML_NewRev4 AS NewRev4,DML_NewApplyDate AS NewApplyDate,DML_NewApplyUser AS NewApplyUser,DML_NewApproveDate AS NewApproveDate,DML_NewApproveUser AS NewApproveUser,DML_CurBizAddress AS CurBizAddress,DML_CurWHMAddress AS CurwhmAddress,DML_CurRespPerson AS CurRespPerson,DML_CurLegalPerson AS CurLegalPerson,DML_NewBizAddress AS NewBizAddress,DML_NewWHMAddress AS NewwhmAddress,DML_NewRespPerson AS NewRespPerson,DML_NewLegalPerson AS NewLegalPerson
+     ,dbo.Func_DealerCatagoryString(DML_NewSecondClassCatagory,'二类','2002版') SecondClass2012
+      ,dbo.Func_DealerCatagoryString(DML_NewSecondClassCatagory,'二类','2017版') SecondClass2017
+      ,dbo.Func_DealerCatagoryString(DML_NewThirdClassCatagory,'三类','2002版') ThirdClass2012
+      ,dbo.Func_DealerCatagoryString(DML_NewThirdClassCatagory,'三类','2017版') ThirdClass2017
+      FROM DealerMasterLicense
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DML_DMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealerMasterLicense" parameterClass="DealerMasterLicense" resultClass="DealerMasterLicense">
+      SELECT DML_DMA_ID AS DmaId,DML_CurLicenseNo AS CurLicenseNo,DML_CurLicenseValidFrom AS CurLicenseValidFrom,DML_CurLicenseValidTo AS CurLicenseValidTo,DML_CurSecondClassCatagory AS CurSecondClassCatagory,DML_CurFilingNo AS CurFilingNo,DML_CurFilingValidFrom AS CurFilingValidFrom,DML_CurFilingValidTo AS CurFilingValidTo,DML_CurThirdClassCatagory AS CurThirdClassCatagory,DML_CurRev1 AS CurRev1,DML_CurRev2 AS CurRev2,DML_CurRev3 AS CurRev3,DML_CurRev4 AS CurRev4,DML_CurUpdateDate AS CurUpdateDate,DML_CurUpdateUser AS CurUpdateUser,DML_NewApplyID AS NewApplyid,DML_NewApplyStatus AS NewApplyStatus,DML_NewLicenseNo AS NewLicenseNo,DML_NewLicenseValidFrom AS NewLicenseValidFrom,DML_NewLicenseValidTo AS NewLicenseValidTo,DML_NewSecondClassCatagory AS NewSecondClassCatagory,DML_NewFilingNo AS NewFilingNo,DML_NewFilingValidFrom AS NewFilingValidFrom,DML_NewFilingValidTo AS NewFilingValidTo,DML_NewThirdClassCatagory AS NewThirdClassCatagory,DML_NewRev1 AS NewRev1,DML_NewRev2 AS NewRev2,DML_NewRev3 AS NewRev3,DML_NewRev4 AS NewRev4,DML_NewApplyDate AS NewApplyDate,DML_NewApplyUser AS NewApplyUser,DML_NewApproveDate AS NewApproveDate,DML_NewApproveUser AS NewApproveUser,DML_CurBizAddress AS CurBizAddress,DML_CurWHMAddress AS CurwhmAddress,DML_CurRespPerson AS CurRespPerson,DML_CurLegalPerson AS CurLegalPerson,DML_NewBizAddress AS NewBizAddress,DML_NewWHMAddress AS NewwhmAddress,DML_NewRespPerson AS NewRespPerson,DML_NewLegalPerson AS NewLegalPerson
+      FROM DealerMasterLicense
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">DML_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CurLicenseNo">DML_CurLicenseNo=#CurLicenseNo#</isNotNull>
+        <isNotNull prepend="AND" property="CurLicenseValidFrom">DML_CurLicenseValidFrom=#CurLicenseValidFrom#</isNotNull>
+        <isNotNull prepend="AND" property="CurLicenseValidTo">DML_CurLicenseValidTo=#CurLicenseValidTo#</isNotNull>
+        <isNotNull prepend="AND" property="CurSecondClassCatagory">DML_CurSecondClassCatagory=#CurSecondClassCatagory#</isNotNull>
+        <isNotNull prepend="AND" property="CurFilingNo">DML_CurFilingNo=#CurFilingNo#</isNotNull>
+        <isNotNull prepend="AND" property="CurFilingValidFrom">DML_CurFilingValidFrom=#CurFilingValidFrom#</isNotNull>
+        <isNotNull prepend="AND" property="CurFilingValidTo">DML_CurFilingValidTo=#CurFilingValidTo#</isNotNull>
+        <isNotNull prepend="AND" property="CurThirdClassCatagory">DML_CurThirdClassCatagory=#CurThirdClassCatagory#</isNotNull>
+        <isNotNull prepend="AND" property="CurRev1">DML_CurRev1=#CurRev1#</isNotNull>
+        <isNotNull prepend="AND" property="CurRev2">DML_CurRev2=#CurRev2#</isNotNull>
+        <isNotNull prepend="AND" property="CurRev3">DML_CurRev3=#CurRev3#</isNotNull>
+        <isNotNull prepend="AND" property="CurRev4">DML_CurRev4=#CurRev4#</isNotNull>
+        <isNotNull prepend="AND" property="CurUpdateDate">DML_CurUpdateDate=#CurUpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="CurUpdateUser">DML_CurUpdateUser=#CurUpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="NewApplyid">DML_NewApplyID=#NewApplyid#</isNotNull>
+        <isNotNull prepend="AND" property="NewApplyStatus">DML_NewApplyStatus=#NewApplyStatus#</isNotNull>
+        <isNotNull prepend="AND" property="NewLicenseNo">DML_NewLicenseNo=#NewLicenseNo#</isNotNull>
+        <isNotNull prepend="AND" property="NewLicenseValidFrom">DML_NewLicenseValidFrom=#NewLicenseValidFrom#</isNotNull>
+        <isNotNull prepend="AND" property="NewLicenseValidTo">DML_NewLicenseValidTo=#NewLicenseValidTo#</isNotNull>
+        <isNotNull prepend="AND" property="NewSecondClassCatagory">DML_NewSecondClassCatagory=#NewSecondClassCatagory#</isNotNull>
+        <isNotNull prepend="AND" property="NewFilingNo">DML_NewFilingNo=#NewFilingNo#</isNotNull>
+        <isNotNull prepend="AND" property="NewFilingValidFrom">DML_NewFilingValidFrom=#NewFilingValidFrom#</isNotNull>
+        <isNotNull prepend="AND" property="NewFilingValidTo">DML_NewFilingValidTo=#NewFilingValidTo#</isNotNull>
+        <isNotNull prepend="AND" property="NewThirdClassCatagory">DML_NewThirdClassCatagory=#NewThirdClassCatagory#</isNotNull>
+        <isNotNull prepend="AND" property="NewRev1">DML_NewRev1=#NewRev1#</isNotNull>
+        <isNotNull prepend="AND" property="NewRev2">DML_NewRev2=#NewRev2#</isNotNull>
+        <isNotNull prepend="AND" property="NewRev3">DML_NewRev3=#NewRev3#</isNotNull>
+        <isNotNull prepend="AND" property="NewRev4">DML_NewRev4=#NewRev4#</isNotNull>
+        <isNotNull prepend="AND" property="NewApplyDate">DML_NewApplyDate=#NewApplyDate#</isNotNull>
+        <isNotNull prepend="AND" property="NewApplyUser">DML_NewApplyUser=#NewApplyUser#</isNotNull>
+        <isNotNull prepend="AND" property="NewApproveDate">DML_NewApproveDate=#NewApproveDate#</isNotNull>
+        <isNotNull prepend="AND" property="NewApproveUser">DML_NewApproveUser=#NewApproveUser#</isNotNull>
+        <isNotNull prepend="AND" property="CurBizAddress">DML_CurBizAddress=#CurBizAddress#</isNotNull>
+        <isNotNull prepend="AND" property="CurwhmAddress">DML_CurWHMAddress=#CurwhmAddress#</isNotNull>
+        <isNotNull prepend="AND" property="CurRespPerson">DML_CurRespPerson=#CurRespPerson#</isNotNull>
+        <isNotNull prepend="AND" property="CurLegalPerson">DML_CurLegalPerson=#CurLegalPerson#</isNotNull>
+        <isNotNull prepend="AND" property="NewBizAddress">DML_NewBizAddress=#NewBizAddress#</isNotNull>
+        <isNotNull prepend="AND" property="NewwhmAddress">DML_NewWHMAddress=#NewwhmAddress#</isNotNull>
+        <isNotNull prepend="AND" property="NewRespPerson">DML_NewRespPerson=#NewRespPerson#</isNotNull>
+        <isNotNull prepend="AND" property="NewLegalPerson">DML_NewLegalPerson=#NewLegalPerson#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDealerMasterLicense" parameterClass="DealerMasterLicense">
+      INSERT INTO DealerMasterLicense
+      (DML_DMA_ID,DML_CurLicenseNo,DML_CurLicenseValidFrom,DML_CurLicenseValidTo,DML_CurSecondClassCatagory,DML_CurFilingNo,DML_CurFilingValidFrom,DML_CurFilingValidTo,DML_CurThirdClassCatagory,DML_CurRev1,DML_CurRev2,DML_CurRev3,DML_CurRev4,DML_CurUpdateDate,DML_CurUpdateUser,DML_NewApplyID,DML_NewApplyStatus,DML_NewLicenseNo,DML_NewLicenseValidFrom,DML_NewLicenseValidTo,DML_NewSecondClassCatagory,DML_NewFilingNo,DML_NewFilingValidFrom,DML_NewFilingValidTo,DML_NewThirdClassCatagory,DML_NewRev1,DML_NewRev2,DML_NewRev3,DML_NewRev4,DML_NewApplyDate,DML_NewApplyUser,DML_NewApproveDate,DML_NewApproveUser,DML_CurBizAddress,DML_CurWHMAddress,DML_CurRespPerson,DML_CurLegalPerson,DML_NewBizAddress,DML_NewWHMAddress,DML_NewRespPerson,DML_NewLegalPerson)
+      VALUES(#DmaId#,#CurLicenseNo#,#CurLicenseValidFrom:DateTime:1/1/0001 12:00:00 AM#,#CurLicenseValidTo:DateTime:1/1/0001 12:00:00 AM#,#CurSecondClassCatagory#,#CurFilingNo#,#CurFilingValidFrom:DateTime:1/1/0001 12:00:00 AM#,#CurFilingValidTo:DateTime:1/1/0001 12:00:00 AM#,#CurThirdClassCatagory#,#CurRev1#,#CurRev2#,#CurRev3#,#CurRev4#,#CurUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#CurUpdateUser#,#NewApplyid#,#NewApplyStatus#,#NewLicenseNo#,#NewLicenseValidFrom:DateTime:1/1/0001 12:00:00 AM#,#NewLicenseValidTo:DateTime:1/1/0001 12:00:00 AM#,#NewSecondClassCatagory#,#NewFilingNo#,#NewFilingValidFrom:DateTime:1/1/0001 12:00:00 AM#,#NewFilingValidTo:DateTime:1/1/0001 12:00:00 AM#,#NewThirdClassCatagory#,#NewRev1#,#NewRev2#,#NewRev3#,#NewRev4#,#NewApplyDate:DateTime:1/1/0001 12:00:00 AM#,#NewApplyUser#,#NewApproveDate:DateTime:1/1/0001 12:00:00 AM#,#NewApproveUser#,#CurBizAddress#,#CurwhmAddress#,#CurRespPerson#,#CurLegalPerson#,#NewBizAddress#,#NewwhmAddress#,#NewRespPerson#,#NewLegalPerson#)
+    </insert>
+    <update id="UpdateDealerMasterLicense" parameterClass="DealerMasterLicense">
+      UPDATE DealerMasterLicense
+      SET DML_DMA_ID=#DmaId#,DML_CurLicenseNo=#CurLicenseNo#,DML_CurLicenseValidFrom=#CurLicenseValidFrom#,DML_CurLicenseValidTo=#CurLicenseValidTo#,DML_CurSecondClassCatagory=#CurSecondClassCatagory#,DML_CurFilingNo=#CurFilingNo#,DML_CurFilingValidFrom=#CurFilingValidFrom#,DML_CurFilingValidTo=#CurFilingValidTo#,DML_CurThirdClassCatagory=#CurThirdClassCatagory#,DML_CurRev1=#CurRev1#,DML_CurRev2=#CurRev2#,DML_CurRev3=#CurRev3#,DML_CurRev4=#CurRev4#,DML_CurUpdateDate=#CurUpdateDate#,DML_CurUpdateUser=#CurUpdateUser#,DML_NewApplyID=#NewApplyid#,DML_NewApplyStatus=#NewApplyStatus#,DML_NewLicenseNo=#NewLicenseNo#,DML_NewLicenseValidFrom=#NewLicenseValidFrom#,DML_NewLicenseValidTo=#NewLicenseValidTo#,DML_NewSecondClassCatagory=#NewSecondClassCatagory#,DML_NewFilingNo=#NewFilingNo#,DML_NewFilingValidFrom=#NewFilingValidFrom#,DML_NewFilingValidTo=#NewFilingValidTo#,DML_NewThirdClassCatagory=#NewThirdClassCatagory#,DML_NewRev1=#NewRev1#,DML_NewRev2=#NewRev2#,DML_NewRev3=#NewRev3#,DML_NewRev4=#NewRev4#,DML_NewApplyDate=#NewApplyDate#,DML_NewApplyUser=#NewApplyUser#,DML_NewApproveDate=#NewApproveDate#,DML_NewApproveUser=#NewApproveUser#,DML_CurBizAddress=#CurBizAddress#,DML_CurWHMAddress=#CurwhmAddress#,DML_CurRespPerson=#CurRespPerson#,DML_CurLegalPerson=#CurLegalPerson#,DML_NewBizAddress=#NewBizAddress#,DML_NewWHMAddress=#NewwhmAddress#,DML_NewRespPerson=#NewRespPerson#,DML_NewLegalPerson=#NewLegalPerson#,
+      WHERE DML_DMA_ID = #DmaId#
+    </update>
+    <delete id="DeleteDealerMasterLicense" parameterClass="string">
+      DELETE FROM DealerMasterLicense
+      WHERE DML_DMA_ID = #value#
+    </delete>
+    <update id="ApproveLicenseApplication" parameterClass="System.Collections.Hashtable">
+      update DealerMasterLicense
+      set DML_CurLicenseNo = DML_NewLicenseNo,
+      DML_CurLicenseValidFrom = DML_NewLicenseValidFrom,
+      DML_CurLicenseValidTo = DML_NewLicenseValidTo,
+      DML_CurSecondClassCatagory = DML_NewSecondClassCatagory,
+      DML_CurFilingNo = DML_NewFilingNo,
+      DML_CurFilingValidFrom = DML_NewFilingValidFrom,
+      DML_CurFilingValidTo = DML_NewFilingValidTo,
+      DML_CurThirdClassCatagory = DML_NewThirdClassCatagory,
+      DML_CurUpdateDate = getdate(),
+      DML_CurUpdateUser = DML_NewApplyUser,
+      DML_NewApproveDate = getdate(),
+      DML_CurBizAddress=DML_NewBizAddress,
+      DML_CurWHMAddress=DML_NewWHMAddress,
+      DML_CurRespPerson=DML_NewRespPerson,
+      DML_CurLegalPerson=DML_NewLegalPerson,
+      DML_NewApproveUser = #ApproveUserId#,
+      DML_NewApplyStatus = #NewApplyStatus#,
+      DML_NewRev1 = #Remark#
+      WHERE DML_DMA_ID = #DealerId#
+    </update>
+
+    <update id="RejectLicenseApplication" parameterClass="System.Collections.Hashtable">
+      update DealerMasterLicense
+      set DML_NewApproveDate = getdate(),
+      DML_NewApproveUser = #ApproveUserId#,
+      DML_NewApplyStatus = #NewApplyStatus#,
+      DML_NewRev1 = #Remark#
+      WHERE DML_DMA_ID = #DealerId#
+    </update>
+
+    <!--查询导出-->
+    <select id="SelectDealerLicenseForExport" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT t2.DMA_ChineseName AS N'经销商名称',
+      t2.DMA_SAP_Code AS N'经销商编号',
+      t1.DML_CurLicenseNo AS N'医疗器械经营许可证编号',
+      t1.DML_CurLicenseValidFrom  AS N'医疗器械经营许可证有效起始日期',
+      t1.DML_CurLicenseValidTo AS N'医疗器械经营许可证有效结束日期',
+      t1.DML_CurFilingNo AS N'	医疗器械备案凭证号',
+      t1.DML_CurFilingValidFrom AS N'医疗器械备案凭证有效起始日期',
+      t1.DML_CurFilingValidTo AS N'医疗器械备案凭证有效结束日期',
+      t1.DML_CurSecondClassCatagory AS N'二类医疗器械分类代码',
+      t1.DML_CurThirdClassCatagory AS N'三类医疗器械分类代码',
+      t1.DML_CurBizAddress AS N'经营地址',
+      t1.DML_CurWHMAddress AS N'仓库地址',
+      t1.DML_CurRespPerson AS N'企业负责人',
+      t1.DML_CurLegalPerson AS N'法人代表'
+      FROM DealerMaster t2 left join DealerMasterLicense t1
+      on (t1.DML_DMA_ID = t2.DMA_ID)
+      where t2.DMA_DeletedFlag = 0
+      AND t2.DMA_ActiveFlag = 1
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SapCode">
+          T2.DMA_SAP_Code = #SapCode#
+        </isNotNull>
+        <isNotNull prepend="AND" property="DealerType">
+          T2.DMA_DealerType= #DealerType#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Address">
+          T2.DMA_Address like '%Address%'
+        </isNotNull>
+        <isNotNull prepend="AND" property="DealerId">
+          t2.DMA_ID = #DealerId#
+        </isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster AS DM WHERE (DM.dma_parent_dma_id = #LPId# AND t2.DMA_ID=DM.DMA_ID) OR (t2.DMA_ID = #LPId#))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = t2.DMA_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = t2.DMA_ID)
+          )
+          )
+        </isEqual>
+      </dynamic>
+      ORDER BY t2.DMA_SAP_Code
+    </select>
+    <select id="SelectDealerLicenseCfnForExport" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT tab.*,
+
+      REG.CurRegNo AS [当前注册证号],
+
+      REG.CurValidDateFrom [当前注册证起始日期],
+
+      REG.CurValidDataTo [当前注册证结束日期],
+
+      REG.CurManuName [当前注册证生产厂家],
+
+      REG.LastRegNo [历史注册证号],
+
+      REG.LastValidDateFrom [历史注册证起始日期],
+
+      REG.LastValidDataTo [历史注册证结束日期],
+
+      REG.LastManuName [历史注册证生产厂家],
+
+      REG.CurGMKind [产品所属分类],
+
+      REG.CurGMCatalog [产品所属分类代码] FROM (
+
+      <!--SELECT
+      F.DMA_ID as 'DmaId',
+      F.DMA_Address as 'Address',
+      F.DMA_SAP_Code AS 'SAPCode',F.DMA_ChineseName AS 'DealerName',
+
+      F.DMA_DealerType AS 'DealerType',
+
+      DMP.DMA_ChineseName AS 'ParentDealer' ,
+
+      B.CC_DivisionName AS 'DivisionName',B.CC_NameCN AS 'SubBuName',B.CA_NameCN AS 'PCTName',D.CFN_CustomerFaceNbr AS 'UPN',
+
+      D.CFN_ChineseName AS 'UPN_ChineseName',D.CFN_EnglishName AS 'UPN_Description', D.CFN_Property7 AS 'GTIN' FROM V_DealerContractMaster A
+
+      INNER JOIN DealerMaster F ON F.DMA_ID=A.DMA_ID
+
+      INNER JOIN DealerMaster DMP ON DMP.DMA_ID = F.DMA_Parent_DMA_ID
+
+      INNER JOIN (SELECT DISTINCT CC_DivisionName,CC_ProductLineID,CC_ID,CC_NameCN,CA_ID,CA_NameCN FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+
+      INNER JOIN DealerAuthorizationTable E ON E.DAT_DMA_ID=A.DMA_ID AND B.CC_ProductLineID=E.DAT_ProductLine_BUM_ID AND B.CA_ID=E.DAT_PMA_ID AND E.DAT_ProductLine_BUM_ID != E.DAT_PMA_ID
+
+      INNER JOIN PartsClassification C ON B.CA_ID=C.PCT_ID
+
+      INNER JOIN CfnClassification CCF ON CCF.ClassificationId=C.PCT_ID
+
+      INNER JOIN CFN D ON D.CFN_CustomerFaceNbr=CCF.CfnCustomerFaceNbr
+
+      WHERE A.ActiveFlag='1'
+      UNION
+
+      SELECT
+      F.DMA_ID as 'DmaId',
+      F.DMA_Address as 'Address',
+      F.DMA_SAP_Code AS 'SAPCode',F.DMA_ChineseName AS 'DealerName',
+
+      F.DMA_DealerType AS 'DealerType',
+
+      DMP.DMA_ChineseName AS 'ParentDealer' ,
+
+      B.CC_DivisionName AS 'DivisionName',B.CC_NameCN AS 'SubBuName',B.CA_NameCN AS 'PCTName',D.CFN_CustomerFaceNbr AS 'UPN',
+
+      D.CFN_ChineseName AS 'UPN_ChineseName',D.CFN_EnglishName AS 'UPN_Description', D.CFN_Property7 AS 'GTIN' FROM V_DealerContractMaster A
+
+      INNER JOIN DealerMaster F ON F.DMA_ID=A.DMA_ID
+
+      INNER JOIN DealerMaster DMP ON DMP.DMA_ID = F.DMA_Parent_DMA_ID
+
+      INNER JOIN
+
+      (SELECT DISTINCT CC_DivisionName,CC_ProductLineID,CC_ID,CC_NameCN,CA_ID,CA_NameCN FROM V_ProductClassificationStructure U WHERE ((U.CC_Code='C3401' AND U.CA_Code != '34') OR U.CC_Code !='C3401') ) B ON A.CC_ID=B.CC_ID
+
+      INNER JOIN DealerAuthorizationTable E ON E.DAT_DMA_ID=A.DMA_ID AND B.CC_ProductLineID=E.DAT_ProductLine_BUM_ID AND E.DAT_ProductLine_BUM_ID=B.CA_ID AND E.DAT_ProductLine_BUM_ID=E.DAT_PMA_ID
+
+      INNER JOIN CFN D ON D.CFN_ProductLine_BUM_ID=E.DAT_ProductLine_BUM_ID
+
+      WHERE A.ActiveFlag='1'-->
+      SELECT	F.DMA_ID AS 'DmaId' ,
+      F.DMA_Address AS 'Address' ,
+      F.DMA_SAP_Code AS 'SAPCode' ,
+      F.DMA_ChineseName AS 'DealerName' ,
+      F.DMA_DealerType AS 'DealerType' ,
+      DMP.DMA_ChineseName AS 'ParentDealer' ,
+      B.CC_DivisionName AS 'DivisionName' ,
+      B.CC_NameCN AS 'SubBuName' ,
+      B.CA_NameCN AS 'PCTName' ,
+      D.CFN_CustomerFaceNbr AS 'UPN' ,
+      D.CFN_ChineseName AS 'UPN_ChineseName' ,
+      D.CFN_EnglishName AS 'UPN_Description' ,
+      D.CFN_Property7 AS 'GTIN'
+      FROM	DealerMaster F
+      INNER JOIN DealerMaster DMP ON DMP.DMA_ID = F.DMA_Parent_DMA_ID
+      INNER JOIN DealerAuthorizationTable E ON E.DAT_DMA_ID = F.DMA_ID
+      AND E.DAT_ProductLine_BUM_ID != E.DAT_PMA_ID
+      INNER JOIN ( SELECT DISTINCT
+      CC_DivisionName ,
+      CC_ProductLineID ,
+      CC_ID ,
+      CC_NameCN ,
+      CA_ID ,
+      CA_NameCN
+      FROM
+      V_ProductClassificationStructure
+      ) B ON E.DAT_PMA_ID = B.CA_ID
+      AND B.CC_ProductLineID = E.DAT_ProductLine_BUM_ID
+      INNER JOIN PartsClassification C ON B.CA_ID = C.PCT_ID
+      INNER JOIN CfnClassification CCF ON CCF.ClassificationId = C.PCT_ID
+      INNER JOIN CFN D ON D.CFN_CustomerFaceNbr = CCF.CfnCustomerFaceNbr
+      UNION
+      SELECT	F.DMA_ID AS 'DmaId' ,
+      F.DMA_Address AS 'Address' ,
+      F.DMA_SAP_Code AS 'SAPCode' ,
+      F.DMA_ChineseName AS 'DealerName' ,
+      F.DMA_DealerType AS 'DealerType' ,
+      DMP.DMA_ChineseName AS 'ParentDealer' ,
+      B.CC_DivisionName AS 'DivisionName' ,
+      B.CC_NameCN AS 'SubBuName' ,
+      B.CA_NameCN AS 'PCTName' ,
+      D.CFN_CustomerFaceNbr AS 'UPN' ,
+      D.CFN_ChineseName AS 'UPN_ChineseName' ,
+      D.CFN_EnglishName AS 'UPN_Description' ,
+      D.CFN_Property7 AS 'GTIN'
+      FROM	DealerMaster F
+      INNER JOIN DealerMaster DMP ON DMP.DMA_ID = F.DMA_Parent_DMA_ID
+      INNER JOIN DealerAuthorizationTable E ON E.DAT_DMA_ID = F.DMA_ID
+      AND E.DAT_ProductLine_BUM_ID = E.DAT_PMA_ID
+      INNER JOIN ( SELECT DISTINCT
+      CC_DivisionName ,
+      CC_ProductLineID ,
+      CC_ID ,
+      CC_NameCN ,
+      CA_ID ,
+      CA_NameCN
+      FROM
+      V_ProductClassificationStructure U
+      WHERE
+      ( ( U.CC_Code = 'C3401'
+      AND U.CA_Code != '34'
+      )
+      OR U.CC_Code != 'C3401'
+      )
+      ) B ON E.DAT_ProductLine_BUM_ID = B.CA_ID
+      AND B.CC_ProductLineID = E.DAT_ProductLine_BUM_ID
+      AND E.DAT_ProductLine_BUM_ID = E.DAT_PMA_ID
+      INNER JOIN CFN D ON D.CFN_ProductLine_BUM_ID = E.DAT_ProductLine_BUM_ID
+      ) TAB LEFT JOIN MD.V_INF_UPN_REG AS REG ON (TAB.UPN = REG.CurUPN)
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">
+          TAB.DmaId = #DmaId#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Address">
+          TAB.Address like '%$Address$%'
+        </isNotNull>
+        <isNotNull prepend="AND" property="Code">
+          TAB.SAPCode like N'%'+#Code#+'%'
+        </isNotNull>
+        <isNotNull prepend="AND" property="DmaType">
+          TAB.DealerType=#DmaType#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Status">
+          exists(select 1 from DealerMasterLicense where TAB.DmaId=DealerMasterLicense.DML_DMA_ID and DealerMasterLicense.DML_NewApplyStatus=#Status#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectDealerAuthHospitalExport" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select
+      dm.DMA_ChineseName AS '经销商',
+      dm.DMA_SAP_Code AS '经销商Code',
+      dc.DCL_ContractNumber AS '合同编号',
+      CONVERT(varchar(100), dc.DCL_StartDate, 23) AS '合同开始日期',
+      CONVERT(varchar(100), dc.DCL_StopDate, 23) AS '合同结束日期',
+      CASE dat.DAT_AuthorizationType WHEN '1' THEN '正式授权' ELSE li.VALUE1 END AS '授权类型',
+      vp.CA_NameCN AS '授权分类',
+      CONVERT(varchar(100), dat.DAT_StartDate, 23) AS '授权分类开始日期',
+      CONVERT(varchar(100), dat.DAT_EndDate, 23) AS '授权分类结束日期',
+      hos.HOS_HospitalName AS '授权医院名称',
+      hos.HOS_Key_Account AS '授权医院编号',
+      CONVERT(varchar(100), hl.HLA_StartDate, 23) AS '授权医院开始日期',
+      CONVERT(varchar(100), hl.HLA_EndDate, 23) AS '授权医院结束日期'
+      from DealerMaster dm  
+      inner join DealerContract dc on dm.DMA_ID = dc.DCL_DMA_ID   
+      inner join DealerAuthorizationTable dat on dat.DAT_DCL_ID=dc.DCL_ID and DAT_DMA_ID=dc.DCL_DMA_ID 
+      inner join V_ProductClassificationStructure vp on dat.DAT_PMA_ID = vp.CA_ID
+      inner join HospitalList hl on HLA_DAT_ID = dat.DAT_ID
+      inner join Hospital hos on hl.HLA_HOS_ID = hos.HOS_ID
+      left join Lafite_DICT li on dat.DAT_AuthorizationType=li.DICT_KEY and DICT_TYPE='CONST_DMS_Authentication_Type'
+      where getdate() between dc.DCL_StartDate and DATEADD(DAY,1,dc.DCL_StopDate)
+      and  getdate() between dat.DAT_StartDate and DATEADD(DAY,1,dat.DAT_EndDate)
+      and  getdate() between hl.HLA_StartDate and DATEADD(DAY,1,hl.HLA_EndDate)
+
+      <dynamic>
+        <isNotNull prepend="AND" property="DmaId">
+          dm.DMA_ID = #DmaId#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Address">
+          dm.DMA_Address like '%$Address$%'
+        </isNotNull>
+        <isNotNull prepend="AND" property="Code">
+          dm.DMA_SAP_Code like N'%'+#Code#+'%'
+        </isNotNull>
+        <isNotNull prepend="AND" property="DmaType">
+          dm.DMA_DealerType=#DmaType#
+        </isNotNull>
+      </dynamic>
+      ORDER BY dm.DMA_SAP_Code,dc.DCL_ContractNumber,dat.DAT_AuthorizationType,vp.CA_NameCN
+    </select>
+    <select id="GetShiptoAddress" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select d.ST_Address from SAPWarehouseAddress_temp d where d.ST_DML_MID=#NewApplyId# and d.ST_IsSendAddress='1'
+    </select>
+    <insert id="insertaddaddress" parameterClass="System.Collections.Hashtable">
+      insert into SAPWarehouseAddress_temp (ST_ID,ST_DML_MID,ST_DMA_ID,ST_Type,ST_Address,ST_ActiveFlag,ST_IsSendAddress,ST_CreateDate)
+      values(#id#,#MID#,#dealerid#,#Type#,#Address#,#ActiveFlag#,#IsSendAddress#,#CreateDate#)
+    </insert>
+    <select id="GetAddress" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select s.ST_ID as ST_ID,d.DMA_ChineseShortName as DMA_ChineseShortName,s.ST_Type as ST_Type,s.ST_Address as ST_Address,case when(s.ST_IsSendAddress='1') then'是' when(s.ST_IsSendAddress='0') then'否' end as ST_IsSendAddress
+      ,s.ST_WH_Code,row_number () OVER (ORDER BY ST_CreateDate deSC) AS [row_number]
+      from SAPWarehouseAddress_temp s
+      inner join DealerMaster d on d.DMA_ID=s.ST_DMA_ID
+      where s.ST_DML_MID=#NewApplyId#
+      and s.ST_ActiveFlag ='1'
+    </select>
+
+    <!--设置地址为无效-->
+    <update id="updateaddress" parameterClass="System.Collections.Hashtable">
+      update SAPWarehouseAddress_temp set ST_ActiveFlag='0' ,ST_IsSendAddress='0' where ST_ID=#id#
+    </update>
+    <update id="updateshiptoaddress" parameterClass="System.Collections.Hashtable">
+      update SAPWarehouseAddress_temp  set ST_IsSendAddress='0' where  ST_IsSendAddress='1' and ST_DMA_ID=#DealerId#
+    </update>
+    <insert id="insertDealerMasterLicenseModify" parameterClass="System.Collections.Hashtable">
+      insert into DealerMasterLicenseModify (DML_MID,DML_DMA_ID,DML_NewApplyNO,DML_NewApplyStatus,DML_NewLicenseNo,DML_NewLicenseValidFrom
+      ,DML_NewLicenseValidTo,DML_NewSecondClassCatagory,DML_NewFilingNo,DML_NewFilingValidFrom,DML_NewFilingValidTo,DML_NewThirdClassCatagory,DML_NewApplyDate,DML_NewApplyUser,DML_NewCurRespPerson,DML_NewCurLegalPerson,DML_SalesRep)
+      values(#DML_MID#,#DML_DMA_ID#,#DML_NewApplyNO#,#DML_NewApplyStatus#,#DML_NewLicenseNo#,#DML_NewLicenseValidFrom#
+      ,#DML_NewLicenseValidTo#,#DML_NewSecondClassCatagory#,#DML_NewFilingNo#,#DML_NewFilingValidFrom#,#DML_NewFilingValidTo#,#DML_NewThirdClassCatagory#,#DML_NewApplyDate#,#DML_NewApplyUser#,#DML_NewCurRespPerson#,#DML_NewCurLegalPerson#,#DML_SalesRep#)
+    </insert>
+
+    <select id="GetCFDAHead" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select DML_MID,DML_NewApplyNO ,d.DMA_ChineseShortName,convert(nvarchar(20),c.DML_NewApplyDate,23) as DML_NewApplyDate,c.DML_NewApplyStatus
+      ,row_number () OVER (ORDER BY c.DML_NewApplyDate desc) AS [row_number]
+      from  DealerMasterLicenseModify c
+      inner join DealerMaster d on d.DMA_ID = c.DML_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">c.DML_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="NewApplyNO">c.DML_NewApplyNO=#NewApplyNO#</isNotNull>
+        <isNotNull prepend="AND" property="NewApplyStatus">c.DML_NewApplyStatus=#NewApplyStatus#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="GetCFDAHeadAll" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select DML_NewApplyNO ,d.DMA_ChineseShortName,c.DML_NewApplyDate,c.DML_NewApplyStatus
+      ,row_number () OVER (ORDER BY c.DML_NewApplyDate desc) AS [row_number]
+      from  DealerMasterLicenseModify c
+      inner join DealerMaster d on d.DMA_ID = c.DML_DMA_ID
+      where c.DML_DMA_ID=#DMA_ID# and c.DML_NewApplyStatus=#ApplyStatus#
+    </select>
+    <select id="GetCFDAProcess" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DML_MID,A.DML_DMA_ID,DML_NewApplyNO,A.DML_NewApplyStatus,A.DML_NewLicenseNo,
+      A.DML_NewLicenseValidFrom,
+      DML_NewCurRespPerson,
+      DML_NewCurLegalPerson
+      ,A.DML_NewLicenseValidTo,
+      CASE WHEN ISNULL(A.DML_NewSecondClassCatagory,'')='' THEN ISNULL(B.DML_CurSecondClassCatagory,'') ELSE A.DML_NewSecondClassCatagory END AS  DML_NewSecondClassCatagory,
+      A.DML_NewFilingNo,
+      A.DML_NewFilingValidFrom,
+      A.DML_NewFilingValidTo,
+      CASE WHEN ISNULL(A.DML_NewThirdClassCatagory,'')='' THEN ISNULL(B.DML_CurThirdClassCatagory,'') ELSE A.DML_NewThirdClassCatagory  END AS DML_NewThirdClassCatagory,
+      A.DML_NewApplyDate,
+      A.DML_NewApplyUser
+      ,DML_SalesRep
+      ,dbo.Func_DealerCatagoryString((CASE WHEN ISNULL(A.DML_NewSecondClassCatagory,'')='' THEN ISNULL(B.DML_CurSecondClassCatagory,'') ELSE A.DML_NewSecondClassCatagory END),'二类','2002版') SecondClass2012
+      ,dbo.Func_DealerCatagoryString((CASE WHEN ISNULL(A.DML_NewSecondClassCatagory,'')='' THEN ISNULL(B.DML_CurSecondClassCatagory,'') ELSE A.DML_NewSecondClassCatagory END),'二类','2017版') SecondClass2017
+      ,dbo.Func_DealerCatagoryString((CASE WHEN ISNULL(A.DML_NewThirdClassCatagory,'')='' THEN ISNULL(B.DML_CurThirdClassCatagory,'') ELSE A.DML_NewThirdClassCatagory  END),'三类','2002版') ThirdClass2012
+      ,dbo.Func_DealerCatagoryString((CASE WHEN ISNULL(A.DML_NewThirdClassCatagory,'')='' THEN ISNULL(B.DML_CurThirdClassCatagory,'') ELSE A.DML_NewThirdClassCatagory  END),'三类','2017版') ThirdClass2017
+      FROM DealerMasterLicenseModify A
+      LEFT JOIN DealerMasterLicense B ON A.DML_DMA_ID=B.DML_DMA_ID
+      WHERE DML_MID=#MID#
+    </select>
+    <update id="UpdateDealerMasterLicenseModify" parameterClass="System.Collections.Hashtable">
+      update DealerMasterLicenseModify set DML_NewLicenseNo=#DML_NewLicenseNo#,DML_NewLicenseValidFrom=#DML_NewLicenseValidFrom#,DML_NewApplyStatus=#DML_NewApplyStatus#,DML_NewApplyNO=#DML_NewApplyNO#,
+      DML_NewLicenseValidTo=#DML_NewLicenseValidTo#,DML_NewSecondClassCatagory=#DML_NewSecondClassCatagory#,DML_NewFilingNo=#DML_NewFilingNo#,DML_NewFilingValidFrom=#DML_NewFilingValidFrom#,DML_NewFilingValidTo=#DML_NewFilingValidTo#,
+      DML_NewThirdClassCatagory=#DML_NewThirdClassCatagory#,DML_NewApplyDate=#DML_NewApplyDate#,DML_NewApplyUser=#DML_NewApplyUser#,
+      DML_NewCurRespPerson=#DML_NewCurRespPerson#,DML_NewCurLegalPerson=#DML_NewCurLegalPerson#
+      ,DML_SalesRep=#DML_SalesRep#
+      where DML_MID=#DML_MID#
+    </update>
+    <procedure id="GetNextCFDANo" parameterMap="CFDANo">
+      [dbo].[GC_GetNextCFDANo]
+    </procedure>
+
+    <delete id="DeleteShipToAddress" parameterClass="Guid">
+      delete from SAPWarehouseAddress_temp where ST_DML_MID=#DML_MID#
+    </delete>
+    <delete id="DeleteAttachmentByMainid" parameterClass="Guid">
+      delete from Attachment where AT_Main_ID=#DML_MID#
+    </delete>
+
+    <delete id="DeleteDealerMasterLicenseModify" parameterClass="string">
+      DELETE FROM DealerMasterLicenseModify
+      WHERE DML_MID = #DML_MID#
+    </delete>
+    <insert id="insertShipToAddress" parameterClass="System.Collections.Hashtable">
+      INSERT INTO SAPWarehouseAddress_temp (ST_ID,ST_DML_MID,ST_DMA_ID,ST_Type,ST_Address,ST_ActiveFlag,ST_IsSendAddress,ST_CreateDate,ST_WH_Code)
+      SELECT newid(),#DML_MID#,s.SWA_DMA_ID,ISNULL(s.SWA_AddressType,'经营地址'),s.SWA_WH_Address,s.SWA_ActiveFlag,ISNULL(S.SWA_IsSendAddress,'0'),GETDATE(),s.SWA_WH_Code from SAPWarehouseAddress s
+      WHERE s.SWA_DMA_ID=#DealerId#
+    </insert>
+
+    <select id="SelectSAPWarehouseAddressByDealerId" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select s.SWA_WH_Code ,s.SWA_AddressType,s.SWA_WH_Address ,case when(s.SWA_IsSendAddress='1') then'是' when(s.SWA_IsSendAddress='0') then'否' end as SWA_IsSendAddress from SAPWarehouseAddress s where s.SWA_DMA_ID=#DealerId#
+    </select>
+    <update id="updateshiptoaddressbtn" parameterClass="System.Collections.Hashtable">
+      update SAPWarehouseAddress_temp  set ST_IsSendAddress=#IsSendAddress# where ST_ID=#ID#
+    </update>
+    <delete id="DeleteSAPWarehouseAddress_temp" parameterClass="string">
+      delete from SAPWarehouseAddress_temp where ST_ID=#id#
+    </delete>
+    <select id="SelectSAPWarehouseAddress_temp" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      select distinct ST_Type from SAPWarehouseAddress_temp  s where s.ST_DML_MID=#value#
+      and s.ST_Type = '仓库地址' or ST_Type='经营地址' and ST_ActiveFlag='1'
+    </select>
+
+    <!--update by Hua Kaichun-->
+    <select id="SelectSalesRepByParam" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT L.Identity_Name AS Value,L.Identity_Code AS [Key],B.DMA_SAP_Code
+      FROM View_SalesOfDealer A
+      INNER JOIN DealerMaster B ON A.DealerID=B.DMA_ID
+      INNER JOIN lafite_Identity L on A.SalesID = L.Id
+      WHERE 1=1
+      <isNotNull prepend="AND" property="DmaId">B.DMA_ID=#DmaId#</isNotNull>
+      UNION
+      SELECT DISTINCT C.Name  AS Value,C.account  [Key],C.EID AS DealerCode FROM Contract.AppointmentCandidate A
+      INNER JOIN Contract.AppointmentMain B ON A.ContractId=B.ContractId
+      INNER JOIN INTERFACE.MDM_EmployeeMaster C ON C.EID=B.EId
+      WHERE 1=1
+      <isNotNull prepend="AND" property="DmaId">A.CompanyID=#DmaId#</isNotNull>
+
+    </select>
+  </statements>
+</sqlMap>

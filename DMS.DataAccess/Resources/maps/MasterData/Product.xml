@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProductMap"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="Product" assembly="DMS.Model.dll" type="DMS.Model.Product" />
+        <typeAlias alias="ProductData" assembly="DMS.Model.dll" type="DMS.Model.ProductData" />
+        <typeAlias alias="ProductDataForQAComplain" assembly="DMS.Model.dll" type="DMS.Model.ProductDataForQAComplain" />
+    </alias>
+    <resultMaps>
+        <resultMap id="ProductResult"
+				   class="Product">
+            <result property="Id"
+					column="PMA_ID"
+					type="Guid"
+					dbType="Guid"/>
+            <result property="Upn"
+					column="PMA_UPN"
+					type="string"
+					dbType="varchar"/>
+            <result property="UnitOfMeasure"
+					column="PMA_UnitOfMeasure"
+					type="string"
+					dbType="varchar"/>
+            <result property="Name"
+					column="PMA_Name"
+					type="string"
+					dbType="varchar"/>
+            <result property="ProductCategory"
+					column="PMA_ProductCategory"
+					type="string"
+					dbType="varchar"/>
+            <result property="LotTrack"
+					column="PMA_LotTrack"
+					type="bool"
+					dbType="bool"/>
+            <result property="Version"
+					column="PMA_Version"
+					type="string"
+					dbType="varchar"/>
+            <result property="DmaId"
+					column="PMA_DMA_ID"
+					type="Guid"
+					dbType="Guid"/>
+            <result property="Cfn"
+					column="PMA_CFN"
+					type="string"
+					dbType="varchar"/>
+            <result property="SapUnitPrice"
+					column="PMA_SAPUnitPrice"
+					type="double"
+					dbType="Real"/>
+            <result property="DescChinese"
+					column="PMA_Desc_Chinese"
+					type="string"
+					dbType="varchar"/>
+            <result property="DescEnglish"
+					column="PMA_Desc_English"
+					type="string"
+					dbType="varchar"/>
+            <result property="Implant"
+					column="PMA_Implant"
+					type="bool"
+					dbType="bool"/>
+            <result property="ConvertFromPartPmaId"
+					column="PMA_ConvertFromPart_PMA_ID"
+					type="Guid"
+					dbType="Guid"/>
+            <result property="ConvertFactor"
+					column="PMA_ConvertFactor"
+					type="double"
+					dbType="Real"/>
+            <result property="ProductCategoryPctId"
+					column="PMA_ProductCategory_PCT_ID"
+					type="Guid"
+					dbType="Guid"/>
+            <result property="LastUpdateDate"
+					column="PMA_LastModifiedDate"
+					type="DateTime"
+					dbType="DateTime"/>
+            <result property="LastUpdateUser"
+					column="PMA_LastModifiedBy_USR_UserID"
+					type="Guid"
+					dbType="Guid"/>
+            <result property="DeletedFlag"
+					column="PMA_DeletedFlag"
+					type="bool"
+					dbType="bool"/>
+            <result property="Property8"
+					column="PMA_Property8"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property7"
+					column="PMA_Property7"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property6"
+					column="PMA_Property6"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property5"
+					column="PMA_Property5"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property4"
+					column="PMA_Property4"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property3"
+					column="PMA_Property3"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property2"
+					column="PMA_Property2"
+					type="string"
+					dbType="varchar"/>
+            <result property="Property1"
+					column="PMA_Property1"
+					type="string"
+					dbType="varchar"/>
+            <result property="ProductLineBumId"
+					column="PMA_ProductLine_BUM_ID"
+					type="Guid"
+					dbType="Guid"/>
+        </resultMap>
+      <resultMap id="ProductDataResult" class="ProductData">
+        <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+        <result property="CNName" column="CNName" type="string" dbType="nvarchar"/>
+        <result property="ENName" column="ENName" type="string" dbType="nvarchar"/>
+        <result property="ProductLine" column="ProductLine" type="string" dbType="nvarchar"/>
+        <result property="RegName" column="RegName" type="string" dbType="nvarchar"/>
+        <result property="SourceArea" column="SourceArea" type="string" dbType="nvarchar"/>
+      </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectProduct"
+				parameterClass="string"
+				resultClass="Product">
+          <!--SELECT PMA_ID AS Id,PMA_UPN AS Upn,PMA_UnitOfMeasure AS UnitOfMeasure,PMA_Name AS Name,PMA_ProductCategory AS ProductCategory,PMA_LotTrack AS LotTrack,PMA_Version AS Version,PMA_DMA_ID AS DmaId,PMA_CFN AS Cfn,PMA_SAPUnitPrice AS SapUnitPrice,PMA_Desc_Chinese AS DescChinese,PMA_Desc_English AS DescEnglish,PMA_Implant AS Implant,PMA_ConvertFromPart_PMA_ID AS ConvertFromPartPmaId,PMA_ConvertFactor AS ConvertFactor,PMA_ProductCategory_PCT_ID AS ProductCategoryPctId,PMA_LastModifiedDate AS LastUpdateDate,PMA_LastModifiedBy_USR_UserID AS LastUpdateUser,PMA_DeletedFlag AS DeletedFlag,PMA_Property8 AS Property8,PMA_Property7 AS Property7,PMA_Property6 AS Property6,PMA_Property5 AS Property5,PMA_Property4 AS Property4,PMA_Property3 AS Property3,PMA_Property2 AS Property2,PMA_Property1 AS Property1,PMA_ProductLine_BUM_ID AS ProductLineBumId
+          FROM Product-->
+          SELECT PMA_ID AS Id,PMA_UPN AS Upn,PMA_UnitOfMeasure AS UnitOfMeasure,PMA_Name AS Name,
+          PMA_LotTrack AS LotTrack,PMA_Version AS Version,PMA_DMA_ID AS DmaId,PMA_SAPUnitPrice
+          AS SapUnitPrice,PMA_Desc_Chinese AS DescChinese,PMA_Desc_English AS DescEnglish,
+          PMA_ConvertFromPart_PMA_ID AS ConvertFromPartPmaId,PMA_ConvertFactor
+          AS ConvertFactor,PMA_LastModifiedDate AS LastUpdateDate,PMA_LastModifiedBy_USR_UserID AS
+          LastUpdateUser,PMA_DeletedFlag AS DeletedFlag,CFN_ProductLine_BUM_ID as ProductLineBumId
+          FROM Product
+          join CFN on PMA_CFN_ID=CFN_ID
+          <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    PMA_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterProduct"
+				parameterClass="Product"
+				resultClass="Product">
+          SELECT  PMA_ID AS Id ,
+          PMA_UPN AS Upn ,
+          PMA_UnitOfMeasure AS UnitOfMeasure ,
+          PMA_Name AS Name ,
+          PMA_LotTrack AS LotTrack ,
+          PMA_Version AS Version ,
+          PMA_DMA_ID AS DmaId ,
+          CONVERT(NVARCHAR(50),PMA_CFN_ID) AS Cfn ,
+          PMA_SAPUnitPrice AS SapUnitPrice ,
+          PMA_Desc_Chinese AS DescChinese ,
+          PMA_Desc_English AS DescEnglish ,
+          PMA_ConvertFromPart_PMA_ID AS ConvertFromPartPmaId ,
+          PMA_ConvertFactor AS ConvertFactor ,
+          PMA_LastModifiedDate AS LastUpdateDate ,
+          PMA_LastModifiedBy_USR_UserID AS LastUpdateUser ,
+          PMA_DeletedFlag AS DeletedFlag,
+          CFN_ProductLine_BUM_ID AS ProductLineBumId
+          FROM    Product
+          INNER JOIN CFN ON PMA_CFN_ID = CFN_ID
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND"
+						   property="Upn">PMA_UPN=#Upn#</isNotNull>                
+                
+            </dynamic>
+        </select>
+        <insert id="InsertProduct"
+				parameterClass="Product">
+          INSERT INTO Product
+          (PMA_ID,PMA_UPN,PMA_UnitOfMeasure,PMA_Name,PMA_LotTrack,PMA_Version,PMA_CFN_ID,PMA_SAPUnitPrice,PMA_Desc_Chinese,PMA_Desc_English,PMA_ConvertFromPart_PMA_ID,PMA_ConvertFactor,PMA_LastModifiedDate,PMA_LastModifiedBy_USR_UserID,PMA_DeletedFlag)
+          VALUES(#Id#,#Upn#,#UnitOfMeasure#,#Name#,#LotTrack#,#Version#,#Cfn#,#SapUnitPrice#,#DescChinese#,#DescEnglish#,#ConvertFromPartPmaId#,#ConvertFactor#,#LastUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#LastUpdateUser#,#DeletedFlag#)
+        </insert>
+        <update id="UpdateProduct"
+				parameterClass="Product">
+            UPDATE Product
+            SET PMA_ID=#Id#,PMA_UPN=#Upn#,PMA_UnitOfMeasure=#UnitOfMeasure#,PMA_Name=#Name#,PMA_ProductCategory=#ProductCategory#,PMA_LotTrack=#LotTrack#,PMA_Version=#Version#,PMA_DMA_ID=#DmaId#,PMA_CFN=#Cfn#,PMA_SAPUnitPrice=#SapUnitPrice#,PMA_Desc_Chinese=#DescChinese#,PMA_Desc_English=#DescEnglish#,PMA_Implant=#Implant#,PMA_ConvertFromPart_PMA_ID=#ConvertFromPartPmaId#,PMA_ConvertFactor=#ConvertFactor#,PMA_ProductCategory_PCT_ID=#ProductCategoryPctId#,PMA_LastModifiedDate=#LastUpdateDate#,PMA_LastModifiedBy_USR_UserID=#LastUpdateUser#,PMA_DeletedFlag=#DeletedFlag#,PMA_Property8=#Property8#,PMA_Property7=#Property7#,PMA_Property6=#Property6#,PMA_Property5=#Property5#,PMA_Property4=#Property4#,PMA_Property3=#Property3#,PMA_Property2=#Property2#,PMA_Property1=#Property1#,PMA_ProductLine_BUM_ID=#ProductLineBumId#
+            WHERE PMA_ID = #Id#
+        </update>
+        <delete id="DeleteProduct"
+				parameterClass="string">
+            DELETE FROM Product
+            WHERE PMA_ID = #value#
+        </delete>
+
+      <select id="QueryProductDataInfo" resultClass="ProductData">
+        SELECT CFN_CustomerFaceNbr as UPN,CFN_ChineseName as CNName,CFN_EnglishName as ENName,
+        ATTRIBUTE_NAME as ProductLine,c.CFN_Property5 as RegName,PMA_Version as SourceArea
+        FROM CFN c,View_ProductLine la,Product p
+        WHERE c.CFN_ProductLine_BUM_ID = la.Id
+        <dynamic prepend="">
+          <isNotNull prepend="AND" property="SubCompanyId">la.SubCompanyId=#SubCompanyId#</isNotNull>
+          <isNotNull prepend="AND" property="BrandId">la.BrandId=#BrandId#</isNotNull>
+        </dynamic>
+        AND c.CFN_ID=p.PMA_CFN_ID
+      </select>
+
+      <select id="QueryProductDataInfoByUPN" parameterClass="System.Collections.Hashtable" resultClass="ProductDataForQAComplain">
+        SELECT CFN_CustomerFaceNbr as UPN,CFN_ChineseName as CNName,CFN_EnglishName as ENName,
+        (SELECT t2.ATTRIBUTE_NAME
+        FROM Cache_OrganizationUnits t1, Lafite_ATTRIBUTE t2
+        WHERE     t1.AttributeType = 'Product_Line'
+        AND t1.RootID = t2.Id
+        AND t1.RootID IN (SELECT AttributeID
+        FROM Cache_OrganizationUnits
+        WHERE AttributeType = 'BU')
+        AND t1.AttributeID = c.CFN_ProductLine_BUM_ID) as ProductLine,c.CFN_Property5 as RegName,PMA_Version as SourceArea,
+        Convert(nvarchar(10),isnull(p.PMA_ConvertFactor,0)) AS ConvertFactor,
+        Convert(nvarchar(10),case when isnull(p.PMA_ConvertFactor,0)=0 then 1 else Convert(decimal(18,2),1/isnull(p.PMA_ConvertFactor,0)) end) as FactorNumber,
+        (select Case c.CFN_Property6 when 0 then CONVERT(nvarchar(6), LM.LTM_ExpiredDate, 112)
+        when 1 then CONVERT(nvarchar(8), LM.LTM_ExpiredDate, 112)
+        else CONVERT(nvarchar(100), LM.LTM_ExpiredDate, 112)
+        end  from lotmaster AS LM where LM.LTM_Product_PMA_ID=p.PMA_ID and LM.LTM_LotNumber=#LOT# ) AS UPNExpDate,
+        (select substring(LTM_LotNumber,charindex('@@',LTM_LotNumber)+2,len(LTM_LotNumber))  from LotMaster where LTM_LotNumber=#LOT# ) AS QrCode,
+        c.CFN_Property1 AS Model,
+        (select DISTINCT REG_NO from MD.V_INF_UPN_REG_LIST t1,
+        (
+        select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_FROM) As ValidDateFrom from MD.V_INF_UPN_REG_LIST REG_NO where REG_NO.VALID_DATE_TO is not null and Reg_No.CFN_CustomerFaceNbr = c.CFN_CustomerFaceNbr group by REG_NO.CFN_CustomerFaceNbr
+        ) t2
+        where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_FROM =t2.ValidDateFrom and t1.CFN_CustomerFaceNbr =c.CFN_CustomerFaceNbr) as Registration,
+        (select max(convert(nvarchar(30),PRH_SapDeliveryDate,121))  from POReceiptHeader,POReceipt,POReceiptLot
+        where PRH_ID = POR_PRH_ID
+        and POR_ID = PRL_POR_ID
+        and POR_SAP_PMA_ID = p.PMA_ID
+        and PRL_LotNumber = #LOT#
+        and PRH_Dealer_DMA_ID = #DealerId#
+        and PRH_Type in ('PurchaseOrder','Retail')
+        ) as SalesDate
+        FROM CFN c,View_ProductLine la,Product p
+        WHERE c.CFN_ProductLine_BUM_ID = la.Id
+        <dynamic prepend="">
+          <isNotNull prepend="AND" property="SubCompanyId">la.SubCompanyId=#SubCompanyId#</isNotNull>
+          <isNotNull prepend="AND" property="BrandId">la.BrandId=#BrandId#</isNotNull>
+        </dynamic>
+        AND c.CFN_ID=p.PMA_CFN_ID
+        AND CFN_CustomerFaceNbr = #UPN#
+      </select>
+      <select id="P_GetAllProductList" resultClass="System.Collections.Hashtable">
+        select PMA_ID,PMA_UPN,PMA_UnitOfMeasure,PMA_Name,PMA_LotTrack,PMA_Version,PMA_DMA_ID,PMA_SAPUnitPrice,PMA_Desc_Chinese,PMA_Desc_English,PMA_ConvertFromPart_PMA_ID,PMA_ConvertFactor,PMA_LastModifiedDate,PMA_LastModifiedBy_USR_UserID,PMA_DeletedFlag,PMA_CFN_ID,PMA_PackageFactor
+        FROM Product
+      </select>
+      <select id="CheckProductMinQty" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+        select dbo.GC_Fn_CFN_CheckUOM (#CFN#,#QTY#)
+      </select>
+      <procedure id="GC_Interface_ERPProduct">
+        dbo.GC_Interface_ERPProduct
+      </procedure>
+    </statements>
+</sqlMap>

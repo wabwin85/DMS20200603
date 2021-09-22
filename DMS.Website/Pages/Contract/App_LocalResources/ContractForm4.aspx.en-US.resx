@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Confirm.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Confirm.NotApplicable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Confirm.Remarks" xml:space="preserve">
+    <value>Comments (at least all questions responded as "No" or "N/A" need to count with an explanatory comment)</value>
+  </data>
+  <data name="Confirm.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="From4.Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="From4.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="From4.Title" xml:space="preserve">
+    <value>Quality Self-Assessment Checklist Form 4</value>
+  </data>
+  <data name="Part1.AssessDate" xml:space="preserve">
+    <value>Date of assessment</value>
+  </data>
+  <data name="Part1.Assesser" xml:space="preserve">
+    <value>Name of assessor</value>
+  </data>
+  <data name="Part1.Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Part1.DealerName" xml:space="preserve">
+    <value>Third Party</value>
+  </data>
+  <data name="Part1.DealerName.BlankText" xml:space="preserve">
+    <value>Third party name must be filled</value>
+  </data>
+  <data name="Part1.Notes1" xml:space="preserve">
+    <value>This Form to be used prior to the appointment or renewal of a Third Party (Dealers or Distributors)</value>
+  </data>
+  <data name="Part1.Notes2" xml:space="preserve">
+    <value>Purpose: the purpose of this Quality Checklist is to confirm the capabilities of a Third Party to comply with Boston Scientific’s Quality requirements prior to appointment or renewal</value>
+  </data>
+  <data name="Part1.Signature" xml:space="preserve">
+    <value>Signature of assessor</value>
+  </data>
+  <data name="Part10.Confirmation1" xml:space="preserve">
+    <value>Using Demonstration Units (non-sterile, not for human use) &lt;br/&gt;for demonstration purposes only and not giving them to &lt;br/&gt;final customers? (Nonfunctional implantable generators that  &lt;br/&gt; do not contain a battery are the only demos that can be given &lt;br/&gt; to customers)</value>
+  </data>
+  <data name="Part10.Title" xml:space="preserve">
+    <value>Demonstration Units</value>
+  </data>
+  <data name="Part11.Confirmation1" xml:space="preserve">
+    <value>Ensuring that product labeling fully meet local laws</value>
+  </data>
+  <data name="Part11.Title" xml:space="preserve">
+    <value>Label Control</value>
+  </data>
+  <data name="Part12.Confirmation1" xml:space="preserve">
+    <value>Sending its employees directly engaged in selling the&lt;br/&gt; Products to attend a Boston Scientific technical training &lt;br/&gt;seminar or training those  employees in a program approved &lt;br/&gt;by Boston Scientific within a reasonable period of time</value>
+  </data>
+  <data name="Part12.Title" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="Part13.Confirmation1" xml:space="preserve">
+    <value>Retaining all records related to the Quality Annex per the following?&lt;br/&gt;
+- Implantable Device: indefinitely&lt;br/&gt;
+- Equipment: Two years beyond dated removal from distribution &lt;br/&gt;or as otherwise indicated by Boston Scientific&lt;br/&gt;
+- All other products: At least Product lifetime/expiry + two years &lt;br/&gt;or as otherwise indicated by Boston Scientific.</value>
+  </data>
+  <data name="Part13.Title" xml:space="preserve">
+    <value>Record Retention</value>
+  </data>
+  <data name="Part2.Confirm.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Part2.Confirm.NotApplicable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Part2.Confirm.Remarks" xml:space="preserve">
+    <value>Comments (at least all questions responded as "No" or "N/A" need to count with an explanatory comment)</value>
+  </data>
+  <data name="Part2.Confirm.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Part2.Confirmation1" xml:space="preserve">
+    <value>Storing product in a location secure, clean and pest free</value>
+  </data>
+  <data name="Part2.Confirmation2" xml:space="preserve">
+    <value>Dedicating a Boston Scientific product storage location&lt;br/&gt; limited to authorized personnel only</value>
+  </data>
+  <data name="Part2.Confirmation3" xml:space="preserve">
+    <value>Maintaining the environmental conditions specified  on &lt;br/&gt;the product label or as defined by Boston Scientific</value>
+  </data>
+  <data name="Part2.Confirmation4" xml:space="preserve">
+    <value>Contacting Boston Scientific for guidance in case of &lt;br/&gt;environmental deviations</value>
+  </data>
+  <data name="Part2.Confirmation5" xml:space="preserve">
+    <value>Establishing a process to prevent expired, non-conforming, &lt;br/&gt;and/or quarantined Products from being sent to final customers</value>
+  </data>
+  <data name="Part2.Title" xml:space="preserve">
+    <value>Product storage</value>
+  </data>
+  <data name="Part3.Confirm.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Part3.Confirm.NotApplicable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Part3.Confirm.Remarks" xml:space="preserve">
+    <value>Comments (at least all questions responded as "No" or "N/A" need to count with an explanatory comment)</value>
+  </data>
+  <data name="Part3.Confirm.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Part3.Confirmation1" xml:space="preserve">
+    <value>Producing a complete and current list of all customers who &lt;br/&gt;have purchased or consigned products from Third Party</value>
+  </data>
+  <data name="Part3.Confirmation2" xml:space="preserve">
+    <value>keeping the following minimum traceability data?&lt;br/&gt;
+• dates of purchases or consignment, &lt;br/&gt;
+• date of implant/attempted implant of active implantables &lt;br/&gt;and accessories,&lt;br/&gt;
+• quantity, &lt;br/&gt;
+• model number (as identified on the product label), &lt;br/&gt;
+• lot and/or serial numbers (as identified on the product label), &lt;br/&gt;
+• UPNs (as identified on the product label).</value>
+  </data>
+  <data name="Part3.Confirmation3" xml:space="preserve">
+    <value>Keeping current and historical traceability records for &lt;br/&gt;programmers and other equipment locations and movements</value>
+  </data>
+  <data name="Part3.Confirmation4" xml:space="preserve">
+    <value>Reconciling consumed units at accounts with consignment &lt;br/&gt;inventory</value>
+  </data>
+  <data name="Part3.Title" xml:space="preserve">
+    <value>Product Traceability</value>
+  </data>
+  <data name="Part4.Confirm.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Part4.Confirm.NotApplicable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Part4.Confirm.Remarks" xml:space="preserve">
+    <value>Comments (at least all questions responded as "No" or "N/A" need to count with an explanatory comment)</value>
+  </data>
+  <data name="Part4.Confirm.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Part4.Confirmation1" xml:space="preserve">
+    <value>Submitting implant registration forms in a timely fashion to &lt;br/&gt;Boston Scientific for all active implantable medical devices &lt;br/&gt;and their accessories</value>
+  </data>
+  <data name="Part4.Title" xml:space="preserve">
+    <value>Implant Reporting (to be completed by CRM and Neuromodulation Third Parties Only)</value>
+  </data>
+  <data name="Part5.Confirmation1" xml:space="preserve">
+    <value>Keeping programmers in good working order, and returning &lt;br/&gt;those requiring repair to Boston Scientific</value>
+  </data>
+  <data name="Part5.Confirmation2" xml:space="preserve">
+    <value>Updating software for programmers or capital equipment &lt;br/&gt;within the specified timeframe as directed by Boston Scientific</value>
+  </data>
+  <data name="Part5.Title" xml:space="preserve">
+    <value>Equipment Maintenance and Software Updates</value>
+  </data>
+  <data name="Part6.Confirmation1" xml:space="preserve">
+    <value>Reporting complaints to Boston Scientific within &lt;br/&gt; two business days</value>
+  </data>
+  <data name="Part6.Confirmation2" xml:space="preserve">
+    <value>Performing and documenting at least three due diligent &lt;br/&gt;attempts in cases where additional complaint information &lt;br/&gt;from the customer is required</value>
+  </data>
+  <data name="Part6.Confirmation3" xml:space="preserve">
+    <value>Returning complaint products to Boston Scientific</value>
+  </data>
+  <data name="Part6.Confirmation4" xml:space="preserve">
+    <value>Documenting at least three due dilligent attempts to&lt;br/&gt; retrieve a product if the customer indicated the product&lt;br/&gt; is available but has not returned it</value>
+  </data>
+  <data name="Part6.Title" xml:space="preserve">
+    <value>Complaint Reporting</value>
+  </data>
+  <data name="Part7.Confirmation1" xml:space="preserve">
+    <value>Returning active Implantable Medical Devices and their &lt;br&gt;Accessories in biohazard controlled packaging &lt;br&gt;(as these are not to be decontaminated, disinfected or&lt;br&gt; sterilized) and under safe handling controls</value>
+  </data>
+  <data name="Part7.Confirmation2" xml:space="preserve">
+    <value>Accompanying Other Medical Devices by a disinfection &lt;br/&gt;certificate, even if the products have not been used, or &lt;br/returning them in biohazard controlled packaging and under &lt;br/safe handling controls</value>
+  </data>
+  <data name="Part7.Confirmation3" xml:space="preserve">
+    <value>Returning Hazardous Products following Boston Scientific &lt;br&gt;instructions</value>
+  </data>
+  <data name="Part7.Title" xml:space="preserve">
+    <value>Handling Biohazardous or Hazardous Product Returns</value>
+  </data>
+  <data name="Part8.Confirmation1" xml:space="preserve">
+    <value>Submitting Vigilance or other Medical Device Adverse&lt;br/&gt; Event Reports to the Ministry of Health or applicable &lt;br/&gt; authority within the required timeframe</value>
+  </data>
+  <data name="Part8.Confirmation2" xml:space="preserve">
+    <value>Informing Boston Scientific within a reasonable period&lt;br/&gt;  of time of any changes to the vigilance or any other &lt;br/&gt; medical device adverse event reporting requirements&lt;br/&gt; within the Territory</value>
+  </data>
+  <data name="Part8.Title" xml:space="preserve">
+    <value>Vigilance or other Medical Device Adverse Event Reporting</value>
+  </data>
+  <data name="Part9.Confirmation1" xml:space="preserve">
+    <value>Acting immediately upon receiving the notification packet &lt;br/&gt;  for Recalls and other field actions from Boston Scientific?&lt;br/&gt; Sending an acknowledgement of the receipt of the field  &lt;br/&gt;action notice to Boston Scientific</value>
+  </data>
+  <data name="Part9.Confirmation2" xml:space="preserve">
+    <value>Following the instructions contained in the notification&lt;br/&gt;  packet and ensuring that actions are carried out in &lt;br/&gt; accordance with the timeframe specified</value>
+  </data>
+  <data name="Part9.Confirmation3" xml:space="preserve">
+    <value>Retrieving products from the following applicable locations?&lt;br/&gt;
+• Third Party warehouse(s) inventories&lt;br/&gt;
+• In-transit shipments from Boston Scientific to Third Party&lt;br/&gt;
+• Thid Party's Sales Reps inventory&lt;br/&gt;
+• Customer locations:  whether sold, consigned or samples</value>
+  </data>
+  <data name="Part9.Confirmation4" xml:space="preserve">
+    <value>Performing at least three due diligent attempts to document &lt;br/&gt; that the customer has received the notification and  &lt;br/&gt;has actioned upon instructions given by Boston Scientific</value>
+  </data>
+  <data name="Part9.Confirmation5" xml:space="preserve">
+    <value>Reporting recalled stock to Boston Scientific using the  verification &lt;br/&gt; form contained in the notification packet once  all product &lt;br/&gt; retrieval actions have been completed? Matching  quantities &lt;br/&gt; documented on the verification forms with the units physically &lt;br/&gt;returned to Boston Scientific?</value>
+  </data>
+  <data name="Part9.Confirmation6" xml:space="preserve">
+    <value>Returning products to Boston Scientific following the  instructions&lt;br/&gt; contained in the notification packet</value>
+  </data>
+  <data name="Part9.Title" xml:space="preserve">
+    <value>Recalls and Other Field Actions</value>
+  </data>
+</root>

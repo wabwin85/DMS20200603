@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="FileVersionMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="FileVersion" assembly="DMS.Signature.dll" type="DMS.Signature.Model.FileVersion" />
+  </alias>
+  <resultMaps>
+    <resultMap id="FileVersionResult" class="FileVersion">
+      <result property="Id" column="FV_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApplyId" column="FV_ApplyId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="FileId" column="FV_FileId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="FileUrl" column="FV_FileUrl" type="string" dbType="nvarchar"/>
+      <result property="FileName" column="FV_FileName" type="string" dbType="nvarchar"/>
+      <result property="Extension" column="FV_Extension" type="string" dbType="nvarchar"/>
+      <result property="Version" column="FV_Version" type="string" dbType="nvarchar"/>
+      <result property="IsCurrent" column="FV_IsCurrent" type="int" dbType="int"/>
+      <result property="SignServiceId" column="FV_SignServiceId" type="string" dbType="nvarchar"/>
+      <result property="FilePath" column="FV_FilePath" type="string" dbType="nvarchar"/>
+      <result property="Stream" column="FV_Stream" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="FV_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="FV_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="FV_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="Rev1" column="FV_REV1" type="string" dbType="nvarchar"/>
+      <result property="Rev2" column="FV_REV2" type="string" dbType="nvarchar"/>
+      <result property="Rev3" column="FV_REV3" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectFileVersion" parameterClass="string" resultClass="FileVersion">
+      SELECT FV_ID AS Id,FV_ApplyId AS ApplyId,FV_FileId AS FileId,FV_FileUrl AS FileUrl,FV_FileName AS FileName,FV_Extension AS Extension,FV_Version AS Version,FV_IsCurrent AS IsCurrent,FV_CreateUser AS CreateUser,FV_CreateUserName AS CreateUserName,FV_CreateDate AS CreateDate,FV_REV1 AS Rev1,FV_REV2 AS Rev2,FV_REV3 AS Rev3
+      FROM ESign.FileVersion
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FV_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterFileVersion" parameterClass="FileVersion" resultClass="FileVersion">
+      SELECT FV_ID AS Id,FV_ApplyId AS ApplyId,FV_FileId AS FileId,FV_FileUrl AS FileUrl,FV_FileName AS FileName,FV_Extension AS Extension,FV_Version AS Version,FV_IsCurrent AS IsCurrent,FV_CreateUser AS CreateUser,FV_CreateUserName AS CreateUserName,FV_CreateDate AS CreateDate,FV_REV1 AS Rev1,FV_REV2 AS Rev2,FV_REV3 AS Rev3
+      FROM ESign.FileVersion
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">FV_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyId">FV_ApplyId=#ApplyId#</isNotNull>
+        <isNotNull prepend="AND" property="FileUrl">FV_FileUrl=#FileUrl#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">FV_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="Extension">FV_Extension=#Extension#</isNotNull>
+        <isNotNull prepend="AND" property="Version">FV_Version=#Version#</isNotNull>
+        <isNotNull prepend="AND" property="IsCurrent">FV_IsCurrent=#IsCurrent#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">FV_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="Rev1">FV_REV1=#Rev1#</isNotNull>
+        <isNotNull prepend="AND" property="Rev2">FV_REV2=#Rev2#</isNotNull>
+        <isNotNull prepend="AND" property="Rev3">FV_REV3=#Rev3#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertFileVersion" parameterClass="FileVersion">
+      UPDATE ESign.FileVersion SET FV_IsCurrent = 0
+      WHERE FV_ApplyId=#ApplyId#
+      AND FV_FileId=#FileId#
+
+      INSERT INTO ESign.FileVersion
+      (FV_ID,FV_ApplyId,FV_FileId,FV_FileUrl,FV_FileName,FV_Extension,FV_Version,FV_IsCurrent,FV_SignServiceId,FV_FilePath,FV_Stream,FV_CreateUser,FV_CreateUserName,FV_CreateDate,FV_REV1,FV_REV2,FV_REV3)
+      SELECT #Id#,#ApplyId#,#FileId#,#FileUrl#,#FileName#,#Extension#,ISNULL(MAX(CONVERT(INT,FV_Version)),0)+1,#IsCurrent#,#SignServiceId#,#FilePath#,#Stream#,#CreateUser#,#CreateUserName#,GETDATE(),#Rev1#,#Rev2#,#Rev3#
+      FROM ESign.FileVersion
+      WHERE FV_ApplyId=#ApplyId#
+      AND FV_FileId=#FileId#
+    </insert>
+    <update id="UpdateFileVersion" parameterClass="FileVersion">
+      UPDATE ESign.FileVersion
+      SET FV_ID=#Id#,FV_ApplyId=#ApplyId#,FV_FileId=#FileId#,FV_FileUrl=#FileUrl#,FV_FileName=#FileName#,FV_Extension=#Extension#,FV_Version=#Version#,FV_IsCurrent=#IsCurrent#,FV_CreateUserName=#CreateUserName#,FV_REV1=#Rev1#,FV_REV2=#Rev2#,FV_REV3=#Rev3#
+      WHERE FV_ID = #Id#
+    </update>
+    <delete id="DeleteFileVersion" parameterClass="string">
+      DELETE FROM ESign.FileVersion
+      WHERE FV_ID = #value#
+    </delete>
+
+    <select id="QueryFileVersionByFilter" parameterClass="FileVersion" resultClass="FileVersion">
+      SELECT FV_ID AS Id,FV_ApplyId AS ApplyId,FV_FileId AS FileId,FV_FileUrl AS FileUrl,FV_FileName AS FileName,FV_Extension AS Extension,FV_Version AS Version,FV_IsCurrent AS IsCurrent,FV_CreateUser AS CreateUser,FV_CreateUserName AS CreateUserName,FV_CreateDate AS CreateDate,FV_REV1 AS Rev1,FV_REV2 AS Rev2,FV_REV3 AS Rev3
+      FROM ESign.FileVersion
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ApplyId">FV_ApplyId=#ApplyId#</isNotNull>
+        <isNotNull prepend="AND" property="FileId">FV_FileId=#FileId#</isNotNull>
+      </dynamic>
+      ORDER BY FV_Version DESC
+    </select>
+  </statements>
+</sqlMap>

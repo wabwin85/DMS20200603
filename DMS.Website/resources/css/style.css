@@ -1,0 +1,448 @@
+#main
+{
+	background-image: url(../images/bg.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	width: 1280px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	height: 687px;
+}
+#divExtend {
+    background-image: url(../images/bg_di.png);
+    background-repeat: repeat-x;
+    background-position: center top;
+    width: auto;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    height: 687px;
+}
+#PwRebackMain
+{
+	background-image: url(../images/bg_2.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	width: 1280px;
+	margin-top: -70px;
+	margin-right: auto;
+	margin-left: auto;
+	height: 687px;
+}
+.divMsg
+{
+	background-image: url(../images/msgbg.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	position: absolute;
+	margin: 0 auto;
+	top: 170px;
+	width: 650px;
+	height: 330px;
+	z-index: 20002;
+}
+.divMsg p
+{
+	margin-left: 43px;
+	padding: 0px;
+}
+
+#divLoadingMask
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 20000;
+	background-color: gray;
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+	background-color: #000;
+}
+
+.text_resetpw
+{
+	margin-bottom: 5px;
+	margin-top: 5px;
+	vertical-align: middle;
+}
+.red
+{
+	color: #DF6F53;
+	font-family: "方正兰亭黑简体" , "Open Sans";
+	font-size: 12px;
+	float: right;
+	height: 138px;
+	width: 1215px;
+	text-align: right;
+	line-height: 138px;
+	margin-right: 65px;
+	margin-top: 17px;
+}
+#foot
+{
+	color: #000000;
+	font-family: "方正兰亭黑简体" , "Open Sans";
+	font-size: 12px;
+	float: left;
+	height: 165px;
+	width: 1200px;
+	text-align: left;
+	line-height: 165px;
+	margin-right: 45px;
+	margin-left: 25px;
+	padding: 0px;
+	margin-top: 33px;
+}
+.red2
+{
+	color: darkred !important;
+	font-family: "方正兰亭黑简体" , "Open Sans";
+	font-size: 12px;
+	text-align: right;
+}
+.layer-mid
+{
+	position: absolute;
+	top: 5px;
+	width: 305px;
+	right: 450px;
+	height: 30px;
+	background-position: -357px 0;
+	padding: 5px 20px 7px;
+	background-repeat: repeat-y;
+	padding: 5px 20px 7px;
+	background-image: url(../images/error_bg.png);
+}
+.btn
+{
+	background-image: url(../images/btn.png);
+	background-position: 0px 45px;
+	background-repeat: repeat-y;
+	border: 0;
+	height: 45px;
+	width: 281px;
+	float: left;
+}
+
+.btn:hover
+{
+	background-image: url(../images/btn.png);
+	background-repeat: no-repeat;
+	height: 45px;
+	width: 281px;
+	background-position: 0px top;
+	float: left;
+	cursor: pointer;
+}
+.btnSubmit
+{
+	background-image: url(../images/btn_2.png);
+	background-position: 0px 45px;
+	background-repeat: repeat-y;
+	border: 0;
+	height: 45px;
+	width: 281px;
+	float: left;
+}
+
+.btnSubmit:hover
+{
+	background-image: url(../images/btn_2.png);
+	background-repeat: no-repeat;
+	height: 45px;
+	width: 281px;
+	background-position: 0px top;
+	float: left;
+	cursor: pointer;
+}
+
+#denglu
+{
+	height: 242px;
+	width: 281px;
+	float: right;
+	margin-right: 90px;
+	margin-top: 157px;
+}
+.EditTitle
+{
+	height: 39px;
+	vertical-align: middle;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 40px;
+}
+.EditText
+{
+	border-bottom: #7f9db9 1px solid;
+	text-align: left;
+	vertical-align: middle;
+	line-height: 35px;
+	border-left: #7f9db9 1px solid;
+	padding-left: 2px;
+	padding-right: 2px;
+	display: inline;
+	font-size: 14pt;
+	border-top: #7f9db9 1px solid;
+	border-right: #7f9db9 1px solid;
+}
+.STYLE9
+{
+	color: Red;
+}
+
+
+.layer-hd, .layer-ft
+{
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0;
+}
+
+.bubbleLayer-show
+{
+	display: block;
+	-webkit-animation: shake 0.6s ease-in-out 0.3s;
+	-moz-animation: shake 0.6s ease-in-out 0.3s;
+	-o-animation: shake 0.6s ease-in-out 0.3s;
+	animation: shake 0.6s ease-in-out 0.3s;
+}
+.layer-mid
+{
+	padding: 5px 20px 7px;
+	background-position: -357px 0;
+	background-repeat: repeat-y;
+}
+.layer-arrow
+{
+	position: absolute;
+	top: 15.5px;
+	right: 442px;
+	width: 10px;
+	height: 19px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.layer-arrow, .error-tt p
+{
+	background-image: url(../images/error_bg.png);
+}
+
+.msg
+{
+	position: relative;
+}
+
+.layer-hd
+{
+	position: absolute;
+	right: 450px;
+	width: 345px;
+	height: 8px;
+	background-position: -10px 0;
+	background-repeat: no-repeat;
+	background-image: url(../images/error_bg.png);
+}
+.layer-ft
+{
+	position: absolute;
+	top: 43.5px;
+	right: 450px;
+	width: 345px;
+	height: 10px;
+	background-position: -10px -8px;
+	background-repeat: no-repeat;
+	background-image: url(../images/error_bg.png);
+}
+a:hover
+{
+	cursor: pointer;
+}
+
+.layer-mid p
+{
+	padding: 5px 10px 8px 50px;
+	line-height: 22px;
+	font-weight: bold;
+	top: 320px;
+	right: 450px;
+	width: 345px;
+	font-size: 14px;
+	background-position: -714px -8px;
+	background-repeat: no-repeat;
+	background-image: url(../images/error_bg.png);
+}
+
+input:-ms-input-placeholder
+{
+	color: #D6D0CA !important;
+}
+input:-moz-placeholder
+{
+	color: #D6D0CA !important;
+}
+input::-moz-placeholder
+{
+	color: #D6D0CA !important;
+}
+.bottom
+{
+	font-family: "微软雅黑";
+	font-size: 12px;
+	font-weight: normal;
+	color: #999999;
+    margin-top: 10px;
+}
+.cplabel
+{
+	margin-left: 10px;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	text-align: left;
+	vertical-align: middle;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-size: 13px;
+	line-height: normal;
+	font-family: helvetica;
+	line-height: 18px;
+	vertical-align: middle;
+}
+.cptext
+{
+	border-bottom: #7f9db9 1px solid;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	margin-left: 5px;
+	text-align: left;
+	vertical-align: middle;
+	border-left: #7f9db9 1px solid;
+	font-size: 12.5pt;
+	border-top: #7f9db9 1px solid;
+	border-right: #7f9db9 1px solid;
+}
+.cphint
+{
+	margin-bottom: 2px;
+	margin-top: 2px;
+	margin-left: 10px; 
+	vertical-align: middle;
+	font-size: 9pt;
+	color:Gray;
+	padding-left:5px;
+}
+.cphintforlogin
+{
+	margin-bottom: 2px;
+	margin-top: 2px;
+	margin-left: 10px; 
+	vertical-align: middle;
+	font-size: 9pt;
+	color:red;
+    padding-right: 30px;
+}
+.cpbtn_resetpw
+{
+	background-image: url(../images/btn6.png);
+	background-repeat: no-repeat;
+	margin-top: 20px;
+	width: 79px;
+	height: 26px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: transparent;
+	font-size: 12px;
+	font-family: @微软雅黑;
+	cursor: pointer;
+	border: 0px;
+}
+.cpbtn_resetpw:hover
+{
+	background-image: url(../images/btn6_2.png);
+	background-repeat: no-repeat;
+}
+
+.cpbtn_cancelpw
+{
+	background-image: url(../images/btn7.png);
+	background-repeat: no-repeat;
+	margin-left: 5px;
+	margin-top: 20px;
+	width: 79px;
+	height: 26px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: transparent;
+	font-size: 12px;
+	font-family: @微软雅黑;
+	cursor: pointer;
+	border: 0px;
+}
+.cpbtn_cancelpw:hover
+{
+	background-image: url(../images/btn7_2.png);
+	background-repeat: no-repeat;
+}
+.top {
+	font-family: "方正兰亭黑简体" , "Open Sans";
+	font-size: 12px;
+	float: right;
+	height: 100px;
+	width: 1215px;
+	text-align: right;
+	margin-right: 65px;
+	margin-top: 17px;
+}
+
+/*多行文本固定高度垂直居中*/
+.wrap {
+    display: table;
+    *position: relative;
+    overflow: hidden;
+}
+
+.subwrap {
+    vertical-align: bottom;
+    text-align: right;
+    display: table-cell;
+    *position: absolute;
+    *top: 50%;
+}
+
+.content {
+    *position: relative;
+    *top: -50%;
+}
+
+.divResetpwMsg {
+    position: relative;
+    top: 20%;
+    /*left: 32%;*/
+    z-index: 20002;
+    height: 100%;
+    line-height: 100%;
+}
+
+#ChangePassword1 {
+    margin: 0 auto;
+    border-radius: 5px;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000); /*IE8支持*/
+    -webkit-box-shadow: 0px 0px 56px 8px rgba(112,112,112,1);
+    -moz-box-shadow: 0px 0px 56px 8px rgba(112,112,112,1);
+    box-shadow: 0px 0px 56px 8px rgba(112,112,112,1);
+}
+
+/*修改密码成功样式*/
+.ChangePasswordSuccess table {
+    width: 100%;
+}
+
+    .ChangePasswordSuccess table td {
+        text-align: center !important;
+    }

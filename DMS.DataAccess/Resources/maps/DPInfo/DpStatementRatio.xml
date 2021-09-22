@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DpStatementRatioMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DpStatementRatio" assembly="DMS.Model.dll" type="DMS.Model.DpStatementRatio" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DpStatementRatioResult" class="DpStatementRatio">
+      <result property="Id" column="STR_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SthId" column="STR_STH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Key" column="STR_Key" type="string" dbType="nvarchar"/>
+      <result property="Value" column="STR_Value" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDpStatementRatio" parameterClass="string" resultClass="DpStatementRatio">
+      SELECT STR_ID AS Id,STR_STH_ID AS SthId,STR_Key AS [Key],STR_Value AS Value
+      FROM DPStatementRatio
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STR_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDpStatementRatio" parameterClass="DpStatementRatio" resultClass="DpStatementRatio">
+      SELECT STR_ID AS Id,STR_STH_ID AS SthId,STR_Key AS [Key],STR_Value AS Value
+      FROM DPStatementRatio
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STR_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SthId">STR_STH_ID=#SthId#</isNotNull>
+        <isNotNull prepend="AND" property="Key">STR_Key=#Key#</isNotNull>
+        <isNotNull prepend="AND" property="Value">STR_Value=#Value#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDpStatementRatio" parameterClass="DpStatementRatio">
+      INSERT INTO DPStatementRatio
+      (STR_ID,STR_STH_ID,STR_Key,STR_Value)
+      VALUES(#Id#,#SthId#,#Key#,#Value#)
+    </insert>
+    <update id="UpdateDpStatementRatio" parameterClass="DpStatementRatio">
+      UPDATE DPStatementRatio
+      SET STR_ID=#Id#,STR_STH_ID=#SthId#,STR_Key=#Key#,STR_Value=#Value#
+      WHERE STR_ID = #Id#
+    </update>
+    <delete id="DeleteDpStatementRatio" parameterClass="string">
+      DELETE FROM DPStatementRatio
+      WHERE STR_ID = #value#
+    </delete>
+
+    <!--added by bozhenfei on 20151211-->
+    <delete id="DeleteDpStatementRatioByHeaderId" parameterClass="string">
+      DELETE FROM DPStatementRatio
+      WHERE STR_STH_ID = #value#
+    </delete>
+
+    <select id="SelectDealerFinanceStatementRatioByDealer" parameterClass="System.Collections.Hashtable" resultClass="DpStatementRatio">
+      SELECT STR_ID AS Id,STR_STH_ID AS SthId,STR_Key AS [Key],STR_Value AS Value
+      FROM DPStatementRatio
+      INNER JOIN DPStatementHeader ON STH_ID = STR_STH_ID
+      WHERE STH_DMA_ID = #DealerId#
+      AND STH_Year + STH_Month = #YearMonth#
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

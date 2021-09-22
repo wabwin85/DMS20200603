@@ -1,0 +1,17 @@
+﻿SET QUOTED_IDENTIFIER ON
+SET ANSI_NULLS ON
+GO
+
+
+CREATE VIEW [dbo].[View_Lafite_IDENTITY_MAP_Position_Valid]
+AS
+    SELECT  *
+    FROM    dbo.Lafite_IDENTITY_MAP
+    WHERE   DATEDIFF(DAY, VALID_DATE_BEGIN, GETDATE()) >= 0
+            AND DATEDIFF(DAY, GETDATE(), VALID_DATE_END) >= 0
+            AND MAP_TYPE = 'Position';
+
+
+GO
+
+

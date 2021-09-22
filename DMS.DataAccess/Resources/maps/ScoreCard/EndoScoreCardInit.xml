@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EndoScoreCardInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EndoScoreCardInit" assembly="DMS.Model.dll" type="DMS.Model.EndoScoreCardInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EndoScoreCardInitResult" class="EndoScoreCardInit">
+      <result property="Id" column="ESCI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="ESCI_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="ESCI_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="ESCI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ESCI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="ESCI_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="ESCI_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="DealerName" column="ESCI_DealerName" type="string" dbType="nvarchar"/>
+      <result property="No" column="ESCI_No" type="string" dbType="nvarchar"/>
+      <result property="Year" column="ESCI_Year" type="string" dbType="nvarchar"/>
+      <result property="Quarter" column="ESCI_Quarter" type="string" dbType="nvarchar"/>
+      <result property="Score1" column="ESCI_Score1" type="string" dbType="nvarchar"/>
+      <result property="Score2" column="ESCI_Score2" type="string" dbType="nvarchar"/>
+      <result property="Dmaid" column="ESCI_DMAID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Remark" column="ESCI_Remark" type="string" dbType="nvarchar"/>
+      <result property="DealerNameErrMsg" column="ESCI_DealerName_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="NoErrMsg" column="ESCI_No_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QuarterErrMsg" column="ESCI_Quarter_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="Score1ErrMsg" column="ESCI_Score1_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="Score2ErrMsg" column="ESCI_Score2_ErrMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="EndoScoreCardInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectEndoScoreCardInit" parameterClass="string" resultClass="EndoScoreCardInit">
+      SELECT ESCI_ID AS Id,ESCI_USER AS User,ESCI_UploadDate AS UploadDate,ESCI_LineNbr AS LineNbr,ESCI_FileName AS FileName,ESCI_ErrorFlag AS ErrorFlag,ESCI_ErrorDescription AS ErrorDescription,ESCI_DealerName AS DealerName,ESCI_No AS No,ESCI_Year AS Year,ESCI_Quarter AS Quarter,ESCI_Score1 AS Score1,ESCI_Score2 AS Score2,ESCI_DMAID AS Dmaid,ESCI_Remark AS Remark,ESCI_DealerName_ErrMsg AS DealerNameErrMsg,ESCI_No_ErrMsg AS NoErrMsg,ESCI_Quarter_ErrMsg AS QuarterErrMsg,ESCI_Score1_ErrMsg AS Score1ErrMsg,ESCI_Score2_ErrMsg AS Score2ErrMsg
+      FROM EndoScoreCardInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ESCI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEndoScoreCardInit" parameterClass="EndoScoreCardInit" resultClass="EndoScoreCardInit">
+      SELECT ESCI_ID AS Id,ESCI_USER AS User,ESCI_UploadDate AS UploadDate,ESCI_LineNbr AS LineNbr,ESCI_FileName AS FileName,ESCI_ErrorFlag AS ErrorFlag,ESCI_ErrorDescription AS ErrorDescription,ESCI_DealerName AS DealerName,ESCI_No AS No,ESCI_Year AS Year,ESCI_Quarter AS Quarter,ESCI_Score1 AS Score1,ESCI_Score2 AS Score2,ESCI_DMAID AS Dmaid,ESCI_Remark AS Remark,ESCI_DealerName_ErrMsg AS DealerNameErrMsg,ESCI_No_ErrMsg AS NoErrMsg,ESCI_Quarter_ErrMsg AS QuarterErrMsg,ESCI_Score1_ErrMsg AS Score1ErrMsg,ESCI_Score2_ErrMsg AS Score2ErrMsg
+      FROM EndoScoreCardInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESCI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">ESCI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">ESCI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ESCI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileNmae">ESCI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ESCI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">ESCI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">ESCI_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="No">ESCI_No=#No#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ESCI_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Quarter">ESCI_Quarter=#Quarter#</isNotNull>
+        <isNotNull prepend="AND" property="Score1">ESCI_Score1=#Score1#</isNotNull>
+        <isNotNull prepend="AND" property="Score2">ESCI_Score2=#Score2#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">ESCI_DMAID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="DealerNameErrMsg">ESCI_DealerName_ErrMsg=#DealerNameErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="NoErrMsg">ESCI_No_ErrMsg=#NoErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QuarterErrMsg">ESCI_Quarter_ErrMsg=#QuarterErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Score1ErrMsg">ESCI_Score1_ErrMsg=#Score1ErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Score2ErrMsg">ESCI_Score2_ErrMsg=#Score2ErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEndoScoreCardInit" parameterClass="EndoScoreCardInit">
+      INSERT INTO EndoScoreCardInit
+      (ESCI_ID,ESCI_USER,ESCI_UploadDate,ESCI_LineNbr,ESCI_FileName,ESCI_ErrorFlag,ESCI_ErrorDescription,ESCI_DealerName,ESCI_No,ESCI_Year,ESCI_Quarter,ESCI_Score1,ESCI_Score2,ESCI_DMAID,ESCI_Remark,ESCI_DealerName_ErrMsg,ESCI_No_ErrMsg,ESCI_Quarter_ErrMsg,ESCI_Score1_ErrMsg,ESCI_Score2_ErrMsg)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#DealerName#,#No#,#Year#,#Quarter#,#Score1#,#Score2#,#Dmaid#,#Remark#,#DealerNameErrMsg#,#NoErrMsg#,#QuarterErrMsg#,#Score1ErrMsg#,#Score2ErrMsg#)
+    </insert>
+    <update id="UpdateEndoScoreCardInit" parameterClass="EndoScoreCardInit">
+      UPDATE EndoScoreCardInit
+      SET ESCI_ID=#Id#,ESCI_USER=#User#,ESCI_UploadDate=#UploadDate#,ESCI_LineNbr=#LineNbr#,ESCI_FileName=#FileName#,ESCI_ErrorFlag=#ErrorFlag#,ESCI_ErrorDescription=#ErrorDescription#,ESCI_DealerName=#DealerName#,ESCI_No=#No#,ESCI_Year=#Year#,ESCI_Quarter=#Quarter#,ESCI_Score1=#Score1#,ESCI_Score2=#Score2#,ESCI_DMAID=#Dmaid#,ESCI_Remark =#Remark#,ESCI_DealerName_ErrMsg=#DealerNameErrMsg#,ESCI_No_ErrMsg = #NoErrMsg#,ESCI_Quarter_ErrMsg=#QuarterErrMsg#,ESCI_Score1_ErrMsg=#Score1ErrMsg#,ESCI_Score2_ErrMsg=#Score2ErrMsg#
+      WHERE ESCI_ID = #Id#
+    </update>
+    <delete id="DeleteEndoScoreCardInit" parameterClass="string">
+      DELETE FROM EndoScoreCardInit
+      WHERE ESCI_ID = #value#
+    </delete>
+    
+    <delete id="DeleteEndoScoreCardInitByUser" parameterClass="string">
+      DELETE FROM EndoScoreCardInit
+      WHERE ESCI_USER = #value#
+    </delete>
+    <select id="SelectByFilterEndoScoreCardInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="EndoScoreCardInit">
+      SELECT ESCI_ID AS Id,ESCI_USER AS [User],ESCI_UploadDate AS UploadDate,ESCI_LineNbr AS LineNbr,ESCI_FileName AS FileName,ESCI_ErrorFlag AS ErrorFlag,ESCI_ErrorDescription AS ErrorDescription,ESCI_DealerName AS DealerName,ESCI_No AS No,ESCI_Year AS Year,ESCI_Quarter AS Quarter,ESCI_Score1 AS Score1,ESCI_Score2 AS Score2,ESCI_DMAID AS Dmaid,ESCI_Remark AS Remark,ESCI_DealerName_ErrMsg AS DealerNameErrMsg,ESCI_No_ErrMsg AS NoErrMsg,ESCI_Quarter_ErrMsg AS QuarterErrMsg,ESCI_Score1_ErrMsg AS Score1ErrMsg,ESCI_Score2_ErrMsg AS Score2ErrMsg,
+      ROW_NUMBER () OVER (ORDER BY ESCI_ErrorFlag DESC,ESCI_LineNbr ASC) AS row_number
+      FROM EndoScoreCardInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESCI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">ESCI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">ESCI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ESCI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileNmae">ESCI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ESCI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">ESCI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">ESCI_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="No">ESCI_No=#No#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ESCI_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Quarter">ESCI_Quarter=#Quarter#</isNotNull>
+        <isNotNull prepend="AND" property="Score1">ESCI_Score1=#Score1#</isNotNull>
+        <isNotNull prepend="AND" property="Score2">ESCI_Score2=#Score2#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">ESCI_DMAID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="DealerNameErrMsg">ESCI_DealerName_ErrMsg=#DealerNameErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="NoErrMsg">ESCI_No_ErrMsg=#NoErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QuarterErrMsg">ESCI_Quarter_ErrMsg=#QuarterErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Score1ErrMsg">ESCI_Score1_ErrMsg=#Score1ErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Score2ErrMsg">ESCI_Score2_ErrMsg=#Score2ErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateEndoScoreCardInitForEdit" parameterClass="EndoScoreCardInit">
+      UPDATE EndoScoreCardInit
+      SET ESCI_DealerName=#DealerName#,ESCI_No=#No#,ESCI_Year=#Year#,ESCI_Quarter=#Quarter#,ESCI_Score1=#Score1#,ESCI_Score2=#Score2#,ESCI_Remark =#Remark#,
+      ESCI_Quarter_ErrMsg=null,ESCI_Score1_ErrMsg=null,ESCI_Score2_ErrMsg=null,ESCI_No_ErrMsg =null
+      WHERE ESCI_ID = #Id#
+    </update>
+    <procedure id="GC_EndoScoreCardInit" parameterMap="EndoScoreCardInitParameterMap">
+      dbo.GC_EndoScoreCardInit
+    </procedure>
+  </statements>
+</sqlMap>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CompanyStockholderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="CompanyStockholder" assembly="DMS.Model.dll" type="DMS.Model.CompanyStockholder" />
+    </alias>
+    <resultMaps>
+        <resultMap id="CompanyStockholderResult" class="CompanyStockholder">
+            <result property="Id" column="CS_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CmId" column="CS_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Name" column="CS_Name" type="string" dbType="nvarchar"/>
+            <result property="Ownership" column="CS_Ownership" type="int" dbType="int"/>
+            <result property="BusinessAddress" column="CS_Business_Address" type="string" dbType="nvarchar"/>
+            <result property="Telephone" column="CS_Telephone" type="string" dbType="nvarchar"/>
+            <result property="Fax" column="CS_Fax" type="string" dbType="nvarchar"/>
+            <result property="Email" column="CS_Email" type="string" dbType="nvarchar"/>
+            <result property="HomeAddress" column="CS_Home_Address" type="string" dbType="nvarchar"/>
+            <result property="Pbumport" column="CS_Pbumport" type="string" dbType="nvarchar"/>
+            <result property="IdentityCard" column="CS_IdentityCard" type="string" dbType="nvarchar"/>
+            <result property="Birthday" column="CS_Birthday" type="DateTime" dbType="datetime"/>
+            <result property="Birthplace" column="CS_Birthplace" type="string" dbType="nvarchar"/>
+            <result property="Country" column="CS_Country" type="string" dbType="nvarchar"/>
+            <result property="Register" column="CS_Register" type="string" dbType="nvarchar"/>
+            <result property="Possessor" column="CS_Possessor" type="string" dbType="nvarchar"/>
+            <result property="MiddleEntity" column="CS_Middle_Entity" type="string" dbType="nvarchar"/>
+            <result property="CreateDate" column="CS_Create_Date" type="DateTime" dbType="datetime"/>
+            <result property="CreateUser" column="CS_Create_User" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateDate" column="CS_Update_Date" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="CS_Update_User" type="Guid" dbType="uniqueidentifier"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectCompanyStockholder" parameterClass="string" resultClass="CompanyStockholder">
+            SELECT CS_ID AS Id,CS_CM_ID AS CmId,CS_Name AS Name,CS_Ownership AS Ownership,CS_Business_Address AS BusinessAddress,CS_Telephone AS Telephone,CS_Fax AS Fax,CS_Email AS Email,CS_Home_Address AS HomeAddress,CS_Pbumport AS Pbumport,CS_IdentityCard AS IdentityCard,CS_Birthday AS Birthday,CS_Birthplace AS Birthplace,CS_Country AS Country,CS_Register AS Register,CS_Possessor AS Possessor,CS_Middle_Entity AS MiddleEntity,CS_Create_Date AS CreateDate,CS_Create_User AS CreateUser,CS_Update_Date AS UpdateDate,CS_Update_User AS UpdateUser
+            FROM CompanyStockholder
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    CS_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterCompanyStockholder" parameterClass="CompanyStockholder" resultClass="CompanyStockholder">
+            SELECT CS_ID AS Id,CS_CM_ID AS CmId,CS_Name AS Name,CS_Ownership AS Ownership,CS_Business_Address AS BusinessAddress,CS_Telephone AS Telephone,CS_Fax AS Fax,CS_Email AS Email,CS_Home_Address AS HomeAddress,CS_Pbumport AS Pbumport,CS_IdentityCard AS IdentityCard,CS_Birthday AS Birthday,CS_Birthplace AS Birthplace,CS_Country AS Country,CS_Register AS Register,CS_Possessor AS Possessor,CS_Middle_Entity AS MiddleEntity,CS_Create_Date AS CreateDate,CS_Create_User AS CreateUser,CS_Update_Date AS UpdateDate,CS_Update_User AS UpdateUser
+            FROM CompanyStockholder
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">CS_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CmId">CS_CM_ID=#CmId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">CS_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Ownership">CS_Ownership=#Ownership#</isNotNull>
+                <isNotNull prepend="AND" property="BusinessAddress">CS_Business_Address=#BusinessAddress#</isNotNull>
+                <isNotNull prepend="AND" property="Telephone">CS_Telephone=#Telephone#</isNotNull>
+                <isNotNull prepend="AND" property="Fax">CS_Fax=#Fax#</isNotNull>
+                <isNotNull prepend="AND" property="Email">CS_Email=#Email#</isNotNull>
+                <isNotNull prepend="AND" property="HomeAddress">CS_Home_Address=#HomeAddress#</isNotNull>
+                <isNotNull prepend="AND" property="Pbumport">CS_Pbumport=#Pbumport#</isNotNull>
+                <isNotNull prepend="AND" property="IdentityCard">CS_IdentityCard=#IdentityCard#</isNotNull>
+                <isNotNull prepend="AND" property="Birthday">CS_Birthday=#Birthday#</isNotNull>
+                <isNotNull prepend="AND" property="Birthplace">CS_Birthplace=#Birthplace#</isNotNull>
+                <isNotNull prepend="AND" property="Country">CS_Country=#Country#</isNotNull>
+                <isNotNull prepend="AND" property="Register">CS_Register=#Register#</isNotNull>
+                <isNotNull prepend="AND" property="Possessor">CS_Possessor=#Possessor#</isNotNull>
+                <isNotNull prepend="AND" property="MiddleEntity">CS_Middle_Entity=#MiddleEntity#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">CS_Update_Date=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">CS_Update_User=#UpdateUser#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertCompanyStockholder" parameterClass="CompanyStockholder">
+            INSERT INTO CompanyStockholder
+            (CS_ID,CS_CM_ID,CS_Name,CS_Ownership,CS_Business_Address,CS_Telephone,CS_Fax,CS_Email,CS_Home_Address,CS_Pbumport,CS_IdentityCard,CS_Birthday,CS_Birthplace,CS_Country,CS_Register,CS_Possessor,CS_Middle_Entity,CS_Create_Date,CS_Create_User,CS_Update_Date,CS_Update_User)
+            VALUES(#Id#,#CmId#,#Name#,#Ownership#,#BusinessAddress#,#Telephone#,#Fax#,#Email#,#HomeAddress#,#Pbumport#,#IdentityCard#,#Birthday:DateTime:1/1/0001 12:00:00 AM#,#Birthplace#,#Country#,#Register#,#Possessor#,#MiddleEntity#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#)
+        </insert>
+        <update id="UpdateCompanyStockholder" parameterClass="CompanyStockholder">
+            UPDATE CompanyStockholder
+            SET CS_ID=#Id#,CS_CM_ID=#CmId#,CS_Name=#Name#,CS_Ownership=#Ownership#,CS_Business_Address=#BusinessAddress#,CS_Telephone=#Telephone#,CS_Fax=#Fax#,CS_Email=#Email#,CS_Home_Address=#HomeAddress#,CS_Pbumport=#Pbumport#,CS_IdentityCard=#IdentityCard#,CS_Birthday=#Birthday#,CS_Birthplace=#Birthplace#,CS_Country=#Country#,CS_Register=#Register#,CS_Possessor=#Possessor#,CS_Middle_Entity=#MiddleEntity#,CS_Update_Date=#UpdateDate#,CS_Update_User=#UpdateUser#
+            WHERE CS_ID = #Id#
+        </update>
+        <delete id="DeleteCompanyStockholder" parameterClass="string">
+            DELETE FROM CompanyStockholder
+            WHERE CS_ID = #value#
+        </delete>
+
+        <select id="SelectCompanyStockholderByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            SELECT CS_ID AS Id,CS_CM_ID AS CmId,CS_Name AS Name,CS_Ownership AS Ownership,CS_Business_Address AS BusinessAddress,CS_Telephone AS Telephone,CS_Fax AS Fax,CS_Email AS Email,CS_Home_Address AS HomeAddress,CS_Pbumport AS Pbumport,CS_IdentityCard AS IdentityCard,CS_Birthday AS Birthday,CS_Birthplace AS Birthplace,CS_Country AS Country,CS_Register AS Register,CS_Possessor AS Possessor,CS_Middle_Entity AS MiddleEntity,CS_Create_Date AS CreateDate,CS_Create_User AS CreateUser,CS_Update_Date AS UpdateDate,CS_Update_User AS UpdateUser
+            FROM CompanyStockholder
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">CS_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CmId">CS_CM_ID=#CmId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">CS_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Ownership">CS_Ownership=#Ownership#</isNotNull>
+                <isNotNull prepend="AND" property="BusinessAddress">CS_Business_Address=#BusinessAddress#</isNotNull>
+                <isNotNull prepend="AND" property="Telephone">CS_Telephone=#Telephone#</isNotNull>
+                <isNotNull prepend="AND" property="Fax">CS_Fax=#Fax#</isNotNull>
+                <isNotNull prepend="AND" property="Email">CS_Email=#Email#</isNotNull>
+                <isNotNull prepend="AND" property="HomeAddress">CS_Home_Address=#HomeAddress#</isNotNull>
+                <isNotNull prepend="AND" property="Pbumport">CS_Pbumport=#Pbumport#</isNotNull>
+                <isNotNull prepend="AND" property="IdentityCard">CS_IdentityCard=#IdentityCard#</isNotNull>
+                <isNotNull prepend="AND" property="Birthday">CS_Birthday=#Birthday#</isNotNull>
+                <isNotNull prepend="AND" property="Birthplace">CS_Birthplace=#Birthplace#</isNotNull>
+                <isNotNull prepend="AND" property="Country">CS_Country=#Country#</isNotNull>
+                <isNotNull prepend="AND" property="Register">CS_Register=#Register#</isNotNull>
+                <isNotNull prepend="AND" property="Possessor">CS_Possessor=#Possessor#</isNotNull>
+                <isNotNull prepend="AND" property="MiddleEntity">CS_Middle_Entity=#MiddleEntity#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">CS_Update_Date=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">CS_Update_User=#UpdateUser#</isNotNull>
+            </dynamic>
+            Order By CS_Ownership
+        </select>
+
+        <update id="UpdateCompanyStockholderByFilter" parameterClass="CompanyStockholder">
+          UPDATE CompanyStockholder
+          SET CS_Name=#Name#,CS_Ownership=#Ownership#,CS_Business_Address=#BusinessAddress#,CS_Telephone=#Telephone#,CS_Fax=#Fax#,CS_Email=#Email#,CS_Home_Address=#HomeAddress#,CS_Pbumport=#Pbumport#,CS_IdentityCard=#IdentityCard#,CS_Birthday=#Birthday:DateTime:1/1/0001 12:00:00 AM#,CS_Birthplace=#Birthplace#,CS_Country=#Country#,CS_Register=#Register#,CS_Possessor=#Possessor#,CS_Middle_Entity=#MiddleEntity#,CS_Update_Date=#UpdateDate#,CS_Update_User=#UpdateUser#
+          WHERE CS_ID = #Id#
+        </update>
+        
+    </statements>
+</sqlMap>

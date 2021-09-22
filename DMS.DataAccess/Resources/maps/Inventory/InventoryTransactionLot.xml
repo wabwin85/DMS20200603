@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryTransactionLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryTransactionLot" assembly="DMS.Model.dll" type="DMS.Model.InventoryTransactionLot" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryTransactionLotResult" class="InventoryTransactionLot">
+      <result property="Quantity" column="ITL_Quantity" type="double" dbType="Real"/>
+      <result property="Id" column="ITL_ID" type="Guid" dbType="Guid"/>
+      <result property="ItrId" column="ITL_ITR_ID" type="Guid" dbType="Guid"/>
+      <result property="LtmId" column="ITL_LTM_ID" type="Guid" dbType="Guid"/>
+      <result property="LotNumber" column="ITL_LotNumber" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectInventoryTransactionLot" parameterClass="string" resultClass="InventoryTransactionLot">
+      SELECT ITL_Quantity AS Quantity,ITL_ID AS Id,ITL_ITR_ID AS ItrId,ITL_LTM_ID AS LtmId,ITL_LotNumber AS LotNumber
+      FROM InventoryTransactionLot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ITL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryTransactionLot" parameterClass="string" resultClass="InventoryTransactionLot">
+      SELECT ITL_Quantity AS Quantity,ITL_ID AS Id,ITL_ITR_ID AS ItrId,ITL_LTM_ID AS LtmId,ITL_LotNumber AS LotNumber
+      FROM InventoryTransactionLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Quantity">ITL_Quantity=#Quantity#</isNotNull>
+        <isNotNull prepend="AND" property="Id">ITL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ItrId">ITL_ITR_ID=#ItrId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">ITL_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">ITL_LotNumber=#LotNumber#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryTransactionLot" parameterClass="InventoryTransactionLot">
+      INSERT INTO InventoryTransactionLot
+      (ITL_Quantity,ITL_ID,ITL_ITR_ID,ITL_LTM_ID,ITL_LotNumber)
+      VALUES(#Quantity#,#Id#,#ItrId#,#LtmId#,#LotNumber#)
+    </insert>
+    <update id="UpdateInventoryTransactionLot" parameterClass="InventoryTransactionLot">
+      UPDATE InventoryTransactionLot
+      SET ITL_Quantity=#Quantity#,ITL_ID=#Id#,ITL_ITR_ID=#ItrId#,ITL_LTM_ID=#LtmId#,ITL_LotNumber=#LotNumber#
+      WHERE ITL_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryTransactionLot" parameterClass="string">
+      DELETE FROM InventoryTransactionLot
+      WHERE ITL_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

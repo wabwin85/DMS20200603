@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ClassificationQuotaMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ClassificationQuota" assembly="DMS.Model.dll" type="DMS.Model.ClassificationQuota" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ClassificationQuotaResult" class="ClassificationQuota">
+      <result property="Id" column="CQ_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentCode" column="CQ_ParentCode" type="string" dbType="varchar"/>
+      <result property="Code" column="CQ_Code" type="string" dbType="varchar"/>
+      <result property="Namecn" column="CQ_NameCN" type="string" dbType="varchar"/>
+      <result property="Nameen" column="CQ_NameEN" type="string" dbType="varchar"/>
+      <result property="Year" column="CQ_Year" type="int" dbType="int"/>
+      <result property="Rv1" column="CQ_RV1" type="string" dbType="varchar"/>
+      <result property="Rv2" column="CQ_RV2" type="string" dbType="varchar"/>
+      <result property="Rv3" column="CQ_RV3" type="string" dbType="varchar"/>
+      <result property="Rv4" column="CQ_RV4" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectClassificationQuota" parameterClass="string" resultClass="ClassificationQuota">
+      SELECT CQ_ID AS Id,CQ_ParentCode AS ParentCode,CQ_Code AS Code,CQ_NameCN AS Namecn,CQ_NameEN AS Nameen,CQ_Year AS Year,CQ_RV1 AS Rv1,CQ_RV2 AS Rv2,CQ_RV3 AS Rv3,CQ_RV4 AS Rv4
+      FROM interface.ClassificationQuota
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CQ_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterClassificationQuota" parameterClass="ClassificationQuota" resultClass="ClassificationQuota">
+      SELECT CQ_ID AS Id,CQ_ParentCode AS ParentCode,CQ_Code AS Code,CQ_NameCN AS Namecn,CQ_NameEN AS Nameen,CQ_Year AS Year,CQ_RV1 AS Rv1,CQ_RV2 AS Rv2,CQ_RV3 AS Rv3,CQ_RV4 AS Rv4
+      FROM interface.ClassificationQuota
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CQ_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ParentCode">CQ_ParentCode=#ParentCode#</isNotNull>
+        <isNotNull prepend="AND" property="Code">CQ_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="Namecn">CQ_NameCN=#Namecn#</isNotNull>
+        <isNotNull prepend="AND" property="Nameen">CQ_NameEN=#Nameen#</isNotNull>
+        <isNotNull prepend="AND" property="Year">CQ_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Rv1">CQ_RV1=#Rv1#</isNotNull>
+        <isNotNull prepend="AND" property="Rv2">CQ_RV2=#Rv2#</isNotNull>
+        <isNotNull prepend="AND" property="Rv3">CQ_RV3=#Rv3#</isNotNull>
+        <isNotNull prepend="AND" property="Rv4">CQ_RV4=#Rv4#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertClassificationQuota" parameterClass="ClassificationQuota">
+      INSERT INTO interface.ClassificationQuota
+      (CQ_ID,CQ_ParentCode,CQ_Code,CQ_NameCN,CQ_NameEN,CQ_Year,CQ_RV1,CQ_RV2,CQ_RV3,CQ_RV4)
+      VALUES(#Id#,#ParentCode#,#Code#,#Namecn#,#Nameen#,#Year#,#Rv1#,#Rv2#,#Rv3#,#Rv4#)
+    </insert>
+    <update id="UpdateClassificationQuota" parameterClass="ClassificationQuota">
+      UPDATE interface.ClassificationQuota
+      SET CQ_ID=#Id#,CQ_ParentCode=#ParentCode#,CQ_Code=#Code#,CQ_NameCN=#Namecn#,CQ_NameEN=#Nameen#,CQ_Year=#Year#,CQ_RV1=#Rv1#,CQ_RV2=#Rv2#,CQ_RV3=#Rv3#,CQ_RV4=#Rv4#
+      WHERE CQ_ID = #Id#
+    </update>
+    <delete id="DeleteClassificationQuota" parameterClass="string">
+      DELETE FROM interface.ClassificationQuota
+      WHERE CQ_ID = #value#
+    </delete>
+
+    <select id="SelectClassificationQuotaByQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT CQ_ID,CQ_Code,CQ_NameCN from V_ProductClassificationStructure
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CQ_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ParentCode">CQ_ParentCode=#ParentCode#</isNotNull>
+        <isNotNull prepend="AND" property="Code">CQ_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="Namecn">CQ_NameCN=#Namecn#</isNotNull>
+        <isNotNull prepend="AND" property="Nameen">CQ_NameEN=#Nameen#</isNotNull>
+        <isNotNull prepend="AND" property="Year">CQ_Year=#Year#</isNotNull>
+        
+        <isNotNull prepend="AND" property="ProductLineID">CC_ProductLineID=#ProductLineID#</isNotNull>
+        <isNotNull prepend="AND" property="DivisionId">CC_Division=#DivisionId#</isNotNull>
+        <isNotNull prepend="AND" property="CCCode">CC_Code=#CCCode#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectAuthorizationClassificationQuotaByQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.AOPDH_PCT_ID CQ_ID,B.CQ_NameCN CQ_NameCN FROM (
+      SELECT AOPDH_Contract_ID,AOPDH_PCT_ID FROM V_AOPDealerHospital_Temp
+      UNION
+      SELECT AOPICH_Contract_ID,AOPICH_PCT_ID FROM V_AOPICDealerHospital_Temp )
+      A
+      LEFT JOIN (SELECT DISTINCT CQ_ID,CQ_NameCN  FROM interface.ClassificationQuota ) B ON A.AOPDH_PCT_ID=B.CQ_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.AOPDH_Contract_ID=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

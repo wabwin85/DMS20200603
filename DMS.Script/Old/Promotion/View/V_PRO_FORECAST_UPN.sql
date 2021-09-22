@@ -1,0 +1,13 @@
+
+DROP VIEW [Promotion].[V_PRO_FORECAST_UPN]
+GO
+
+
+CREATE VIEW [Promotion].[V_PRO_FORECAST_UPN]
+AS 
+SELECT B.DLid,B.UPN
+FROM Promotion.PRO_FORECAST A,Promotion.PRO_FORECAST_UPN B 
+WHERE largessAmount <>0 AND A.DLID = B.DLID
+GO
+
+

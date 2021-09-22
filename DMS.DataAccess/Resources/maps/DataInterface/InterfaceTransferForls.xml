@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceTransferForlsMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceTransferForls" assembly="DMS.Model.dll" type="DMS.Model.InterfaceTransferForls" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceTransferForlsResult" class="InterfaceTransferForls">
+      <result property="Id" column="ITR_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerSapCode" column="ITR_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="TransferNumber" column="ITR_TransferNumber" type="string" dbType="nvarchar"/>
+      <result property="OutWarehouseCode" column="ITR_OutWarehouseCode" type="string" dbType="nvarchar"/>
+      <result property="InWarehouseCode" column="ITR_InWarehouseCode" type="string" dbType="nvarchar"/>
+      <result property="TransferDate" column="ITR_TransferDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="ITR_Remark" type="string" dbType="nvarchar"/>
+      <result property="Upn" column="ITR_UPN" type="string" dbType="nvarchar"/>
+      <result property="LotMasterLotNumber" column="ITR_LotMasterLotNumber" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="ITR_Lot" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="ITR_QRCode" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="ITR_Qty" type="decimal" dbType="decimal"/>
+      <result property="TransferType" column="ITR_TransferType" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="ITR_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ITR_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="ITR_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="ITR_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="ITR_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="ITR_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="ITR_ErrorDescription" type="string" dbType="nchar"/>
+      <result property="DmaId" column="ITR_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="ITR_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="ITR_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmFromId" column="ITR_WHMFrom_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmToId" column="ITR_WHMTo_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmTypeFrom" column="ITR_WHMTypeFrom" type="string" dbType="nvarchar"/>
+      <result property="WhmTypeTo" column="ITR_WHMTypeTo" type="string" dbType="nvarchar"/>
+      <result property="UpnErrMsg" column="ITR_UPN_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="TransferQtyErrMsg" column="ITR_TransferQty_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseFromErrMsg" column="ITR_WarehouseFrom_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseToErrMsg" column="ITR_WarehouseTo_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="ITR_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QrCodeErrMsg" column="ITR_QRCode_ErrMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_TransferForls_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceTransferForls" parameterClass="string" resultClass="InterfaceTransferForls">
+      SELECT ITR_ID AS Id,ITR_Dealer_SapCode AS DealerSapCode,ITR_TransferNumber AS TransferNumber,ITR_OutWarehouseCode AS OutWarehouseCode,ITR_InWarehouseCode AS InWarehouseCode,ITR_TransferDate AS TransferDate,ITR_Remark AS Remark,ITR_UPN AS Upn,ITR_LotMasterLotNumber AS LotMasterLotNumber,ITR_Lot AS Lot,ITR_QRCode AS QrCode,ITR_Qty AS Qty,ITR_TransferType AS TransferType,ITR_LineNbr AS LineNbr,ITR_FileName AS FileName,ITR_ImportDate AS ImportDate,ITR_ClientID AS Clientid,ITR_BatchNbr AS BatchNbr,ITR_ErrorFlag AS ErrorFlag,ITR_ErrorDescription AS ErrorDescription,ITR_DMA_ID AS DmaId,ITR_CFN_ID AS CfnId,ITR_BUM_ID AS BumId,ITR_WHMFrom_ID AS WhmFromId,ITR_WHMTo_ID AS WhmToId,ITR_WHMTypeFrom AS WhmTypeFrom,ITR_WHMTypeTo AS WhmTypeTo,ITR_UPN_ErrMsg AS UpnErrMsg,ITR_TransferQty_ErrMsg AS TransferQtyErrMsg,ITR_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,ITR_WarehouseTo_ErrMsg AS WarehouseToErrMsg,ITR_LotNumber_ErrMsg AS LotNumberErrMsg,ITR_QRCode_ErrMsg AS QrCodeErrMsg
+      FROM InterfaceTransferForLS
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ITR_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceTransferForls" parameterClass="InterfaceTransferForls" resultClass="InterfaceTransferForls">
+      SELECT ITR_ID AS Id,ITR_Dealer_SapCode AS DealerSapCode,ITR_TransferNumber AS TransferNumber,ITR_OutWarehouseCode AS OutWarehouseCode,ITR_InWarehouseCode AS InWarehouseCode,ITR_TransferDate AS TransferDate,ITR_Remark AS Remark,ITR_UPN AS Upn,ITR_LotMasterLotNumber AS LotMasterLotNumber,ITR_Lot AS Lot,ITR_QRCode AS QrCode,ITR_Qty AS Qty,ITR_TransferType AS TransferType,ITR_LineNbr AS LineNbr,ITR_FileName AS FileName,ITR_ImportDate AS ImportDate,ITR_ClientID AS Clientid,ITR_BatchNbr AS BatchNbr,ITR_ErrorFlag AS ErrorFlag,ITR_ErrorDescription AS ErrorDescription,ITR_DMA_ID AS DmaId,ITR_CFN_ID AS CfnId,ITR_BUM_ID AS BumId,ITR_WHMFrom_ID AS WhmFromId,ITR_WHMTo_ID AS WhmToId,ITR_WHMTypeFrom AS WhmTypeFrom,ITR_WHMTypeTo AS WhmTypeTo,ITR_UPN_ErrMsg AS UpnErrMsg,ITR_TransferQty_ErrMsg AS TransferQtyErrMsg,ITR_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,ITR_WarehouseTo_ErrMsg AS WarehouseToErrMsg,ITR_LotNumber_ErrMsg AS LotNumberErrMsg,ITR_QRCode_ErrMsg AS QrCodeErrMsg
+      FROM InterfaceTransferForLS
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ITR_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">ITR_Dealer_SapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="TransferNumber">ITR_TransferNumber=#TransferNumber#</isNotNull>
+        <isNotNull prepend="AND" property="OutWarehouseCode">ITR_OutWarehouseCode=#OutWarehouseCode#</isNotNull>
+        <isNotNull prepend="AND" property="InWarehouseCode">ITR_InWarehouseCode=#InWarehouseCode#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDate">ITR_TransferDate=#TransferDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">ITR_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">ITR_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotMasterLotNumber">ITR_LotMasterLotNumber=#LotMasterLotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">ITR_Lot=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">ITR_QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">ITR_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="TransferType">ITR_TransferType=#TransferType#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ITR_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ITR_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">ITR_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">ITR_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">ITR_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ITR_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">ITR_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ITR_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">ITR_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">ITR_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmFromId">ITR_WHMFrom_ID=#WhmFromId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmToId">ITR_WHMTo_ID=#WhmToId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmTypeFrom">ITR_WHMTypeFrom=#WhmTypeFrom#</isNotNull>
+        <isNotNull prepend="AND" property="WhmTypeTo">ITR_WHMTypeTo=#WhmTypeTo#</isNotNull>
+        <isNotNull prepend="AND" property="UpnErrMsg">ITR_UPN_ErrMsg=#UpnErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="TransferQtyErrMsg">ITR_TransferQty_ErrMsg=#TransferQtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseFromErrMsg">ITR_WarehouseFrom_ErrMsg=#WarehouseFromErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseToErrMsg">ITR_WarehouseTo_ErrMsg=#WarehouseToErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">ITR_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QrCodeErrMsg">ITR_QRCode_ErrMsg=#QrCodeErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceTransferForls" parameterClass="InterfaceTransferForls">
+      INSERT INTO InterfaceTransferForLS
+      (ITR_ID,ITR_Dealer_SapCode,ITR_TransferNumber,ITR_OutWarehouseCode,ITR_InWarehouseCode,ITR_TransferDate,ITR_Remark,ITR_UPN,ITR_LotMasterLotNumber,ITR_Lot,ITR_QRCode,ITR_Qty,ITR_TransferType,ITR_LineNbr,ITR_FileName,ITR_ImportDate,ITR_ClientID,ITR_BatchNbr,ITR_ErrorFlag,ITR_ErrorDescription,ITR_DMA_ID,ITR_CFN_ID,ITR_BUM_ID,ITR_WHMFrom_ID,ITR_WHMTo_ID,ITR_WHMTypeFrom,ITR_WHMTypeTo,ITR_UPN_ErrMsg,ITR_TransferQty_ErrMsg,ITR_WarehouseFrom_ErrMsg,ITR_WarehouseTo_ErrMsg,ITR_LotNumber_ErrMsg,ITR_QRCode_ErrMsg)
+      VALUES(#Id#,#DealerSapCode#,#TransferNumber#,#OutWarehouseCode#,#InWarehouseCode#,#TransferDate:DateTime:1/1/0001 12:00:00 AM#,#Remark#,#Upn#,#LotMasterLotNumber#,#Lot#,#QrCode#,#Qty#,#TransferType#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ErrorFlag#,#ErrorDescription#,#DmaId#,#CfnId#,#BumId#,#WhmFromId#,#WhmToId#,#WhmTypeFrom#,#WhmTypeTo#,#UpnErrMsg#,#TransferQtyErrMsg#,#WarehouseFromErrMsg#,#WarehouseToErrMsg#,#LotNumberErrMsg#,#QrCodeErrMsg#)
+    </insert>
+    <update id="UpdateInterfaceTransferForls" parameterClass="InterfaceTransferForls">
+      UPDATE InterfaceTransferForLS
+      SET ITR_ID=#Id#,ITR_Dealer_SapCode=#DealerSapCode#,ITR_TransferNumber=#TransferNumber#,ITR_OutWarehouseCode=#OutWarehouseCode#,ITR_InWarehouseCode=#InWarehouseCode#,ITR_TransferDate=#TransferDate#,ITR_Remark=#Remark#,ITR_UPN=#Upn#,ITR_LotMasterLotNumber=#LotMasterLotNumber#,ITR_Lot=#Lot#,ITR_QRCode=#QrCode#,ITR_Qty=#Qty#,ITR_TransferType=#TransferType#,ITR_LineNbr=#LineNbr#,ITR_FileName=#FileName#,ITR_ImportDate=#ImportDate#,ITR_ClientID=#Clientid#,ITR_BatchNbr=#BatchNbr#,ITR_ErrorFlag=#ErrorFlag#,ITR_ErrorDescription=#ErrorDescription#,ITR_DMA_ID=#DmaId#,ITR_CFN_ID=#CfnId#,ITR_BUM_ID=#BumId#,ITR_WHMFrom_ID=#WhmFromId#,ITR_WHMTo_ID=#WhmToId#,ITR_WHMTypeFrom=#WhmTypeFrom#,ITR_WHMTypeTo=#WhmTypeTo#,ITR_UPN_ErrMsg=#UpnErrMsg#,ITR_TransferQty_ErrMsg=#TransferQtyErrMsg#,ITR_WarehouseFrom_ErrMsg=#WarehouseFromErrMsg#,ITR_WarehouseTo_ErrMsg=#WarehouseToErrMsg#,ITR_LotNumber_ErrMsg=#LotNumberErrMsg#,ITR_QRCode_ErrMsg=#QrCodeErrMsg#
+      WHERE ITR_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceTransferForls" parameterClass="string">
+      DELETE FROM InterfaceTransferForLS
+      WHERE ITR_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_TransferForls" parameterMap="GC_Interface_TransferForls_ParameterMap">
+      dbo.GC_Interface_TransferForLS
+    </procedure>
+    <select id="SelectTransferForLsByBatchNbrErrorOnly" parameterClass="string" resultClass="TransferNote">
+      SELECT ITR_ID AS Id,ITR_Dealer_SapCode AS DealerSapCode,ITR_TransferNumber AS TransferNumber,ITR_OutWarehouseCode AS OutWarehouseCode,ITR_InWarehouseCode AS InWarehouseCode,ITR_TransferDate AS TransferDate,ITR_Remark AS Remark,ITR_UPN AS Upn,ITR_LotMasterLotNumber AS LotMasterLotNumber,ITR_Lot AS Lot,ITR_QRCode AS QrCode,ITR_Qty AS Qty,ITR_TransferType AS TransferType,ITR_LineNbr AS LineNbr,ITR_FileName AS FileName,ITR_ImportDate AS ImportDate,ITR_ClientID AS Clientid,ITR_BatchNbr AS BatchNbr,ITR_ErrorFlag AS ErrorFlag,ITR_ErrorDescription AS ErrorDescription,ITR_DMA_ID AS DmaId,ITR_CFN_ID AS CfnId,ITR_BUM_ID AS BumId,ITR_WHMFrom_ID AS WhmFromId,ITR_WHMTo_ID AS WhmToId,ITR_WHMTypeFrom AS WhmTypeFrom,ITR_WHMTypeTo AS WhmTypeTo,ITR_UPN_ErrMsg AS UpnErrMsg,ITR_TransferQty_ErrMsg AS TransferQtyErrMsg,ITR_WarehouseFrom_ErrMsg AS WarehouseFromErrMsg,ITR_WarehouseTo_ErrMsg AS WarehouseToErrMsg,ITR_LotNumber_ErrMsg AS LotNumberErrMsg,ITR_QRCode_ErrMsg AS QrCodeErrMsg
+      FROM InterfaceTransferForLS
+      WHERE ITR_BatchNbr = #value# AND ITR_ErrorFlag=1
+      ORDER BY ITR_LineNbr
+    </select>
+  </statements>
+</sqlMap>

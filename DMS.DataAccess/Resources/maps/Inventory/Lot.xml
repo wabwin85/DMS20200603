@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="LotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Lot" assembly="DMS.Model.dll" type="DMS.Model.Lot" />
+  </alias>
+  <resultMaps>
+    <resultMap id="LotResult" class="Lot">
+      <result property="Id" column="LOT_ID" type="Guid" dbType="Guid"/>
+      <result property="LtmId" column="LOT_LTM_ID" type="Guid" dbType="Guid"/>
+      <result property="OnHandQty" column="LOT_OnHandQty" type="double" dbType="double"/>
+      <result property="InvId" column="LOT_INV_ID" type="Guid" dbType="Guid"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    //****************修改批次数量变动**********************
+    <update id="UpdateLotWithQty" parameterClass="System.Collections.Hashtable">
+      UPDATE Lot
+      SET LOT_OnHandQty=Convert(decimal(18,2),LOT_OnHandQty)+Convert(decimal(18,2),#OnHandQty#),LOT_CreateDate=#CreateDate#
+      WHERE LOT_ID = #Id#
+    </update>
+    //******************************************************
+
+    //****************根据批次和仓库修改批次数量变动**********************
+    <update id="UpdateLotWithLotMasterWarehouseAndQty" parameterClass="System.Collections.Hashtable">
+      UPDATE Lot
+      SET LOT_OnHandQty=Convert(decimal(18,2),LOT_OnHandQty)+Convert(decimal(18,2),#OnHandQty#)
+      WHERE LOT_LTM_ID = #LtmId# AND LOT_INV_ID = #InvId#
+    </update>
+    //******************************************************
+
+    //****************根据批次和仓库获得批次数据**********************
+    <select id="SelectLotsByLotMasterAndWarehouse" parameterClass="System.Collections.Hashtable" resultClass="Lot">
+      SELECT LOT_ID AS Id,
+      LOT_LTM_ID AS LtmId,
+      LOT_OnHandQty AS OnHandQty,
+      LOT_INV_ID AS InvId,
+      LOT_WHM_ID AS WhmId,
+      LOT_CFN_ID AS Cfnid,
+      LOT_LTM_ExpiredDate AS ExpiredDate,
+      LOT_LTM_Lot AS Lot,
+      LOT_LTM_QRCode AS QRCode,
+      LOT_LTM_DOM AS dom
+      FROM Lot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">LOT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">LOT_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="OnHandQty">LOT_OnHandQty=#OnHandQty#</isNotNull>
+        <isNotNull prepend="AND" property="InvId">LOT_INV_ID=#InvId#</isNotNull>
+      </dynamic>
+    </select>
+    //******************************************************
+
+    <select id="SelectLotForReturn" parameterClass="System.Collections.Hashtable" resultClass="Lot">
+      SELECT TOP 1 LOT_ID AS Id,LOT_LTM_ID AS LtmId,LOT_OnHandQty AS OnHandQty,LOT_INV_ID AS InvId
+      FROM Lot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">LOT_WHM_ID=#WHMID#</isNotNull>
+        <isNotNull prepend="AND" property="Id">LOT_CFN_ID=#CFNID#</isNotNull>
+        <isNotNull prepend="AND" property="Id">LOT_LTM_Lot=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Id">LOT_LTM_QRCode=#QRCode#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectLot" parameterClass="string" resultClass="Lot">
+      SELECT LOT_ID AS Id,LOT_LTM_ID AS LtmId,LOT_OnHandQty AS OnHandQty,LOT_INV_ID AS InvId
+      FROM Lot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          LOT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterLot" parameterClass="Lot" resultClass="Lot">
+      SELECT LOT_ID AS Id,LOT_LTM_ID AS LtmId,LOT_OnHandQty AS OnHandQty,LOT_INV_ID AS InvId
+      FROM Lot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">LOT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">LOT_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="OnHandQty">LOT_OnHandQty=#OnHandQty#</isNotNull>
+        <isNotNull prepend="AND" property="InvId">LOT_INV_ID=#InvId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertLot" parameterClass="Lot">
+      INSERT INTO Lot
+      (LOT_ID,LOT_LTM_ID,LOT_OnHandQty,LOT_INV_ID,LOT_WHM_ID,	LOT_CFN_ID,	LOT_LTM_ExpiredDate,	LOT_LTM_Lot	,LOT_LTM_QRCode,	 LOT_LTM_DOM,LOT_CreateDate)
+      VALUES(#Id#,#LtmId#,convert(decimal(18,2),#OnHandQty#),#InvId#,#WhmId#,#CfnId#,#ExpiredDate#,#LotNumber#,#QRCode#,#Dom#,#CreateDate#)
+    </insert>
+    <update id="UpdateLot" parameterClass="Lot">
+      UPDATE Lot
+      SET LOT_ID=#Id#,LOT_LTM_ID=#LtmId#,LOT_OnHandQty=convert(decimal(18,2),#OnHandQty#),LOT_INV_ID=#InvId#  LOT_WHM_ID=#WhmId#,	LOT_CFN_ID=#CfnId#,	LOT_LTM_ExpiredDate=#ExpiredDate#,	LOT_LTM_Lot=#LotNumber#	,LOT_LTM_QRCode=#QRCode#,	LOT_LTM_DOM=#Dom#,LOT_CreateDate=#CreateDate#
+      WHERE LOT_ID = #Id#
+    </update>
+    <delete id="DeleteLot" parameterClass="string">
+      DELETE FROM Lot
+      WHERE LOT_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

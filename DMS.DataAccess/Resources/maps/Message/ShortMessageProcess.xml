@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShortMessageProcessMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShortMessageProcess" assembly="DMS.Model.dll" type="DMS.Model.ShortMessageProcess" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShortMessageProcessResult" class="ShortMessageProcess">
+      <result property="Id" column="SMP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Code" column="SMP_Code" type="string" dbType="nvarchar"/>
+      <result property="ProcessId" column="SMP_ProcessId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Status" column="SMP_Status" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="SMP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateDate" column="SMP_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="SelectShortMessageProcess" parameterClass="string" resultClass="ShortMessageProcess">
+      SELECT SMP_ID AS Id,SMP_Code AS Code,SMP_ProcessId AS ProcessId,SMP_Status AS Status,SMP_CreateDate AS CreateDate,SMP_UpdateDate AS UpdateDate
+      FROM ShortMessageProcess
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SMP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShortMessageProcess" parameterClass="ShortMessageProcess" resultClass="ShortMessageProcess">
+      SELECT SMP_ID AS Id,SMP_Code AS Code,SMP_ProcessId AS ProcessId,SMP_Status AS Status,SMP_CreateDate AS CreateDate,SMP_UpdateDate AS UpdateDate
+      FROM ShortMessageProcess
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SMP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">SMP_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="ProcessId">SMP_ProcessId=#ProcessId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">SMP_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">SMP_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShortMessageProcess" parameterClass="ShortMessageProcess">
+      INSERT INTO ShortMessageProcess
+      (SMP_ID,SMP_Code,SMP_ProcessId,SMP_Status,SMP_CreateDate,SMP_UpdateDate)
+      VALUES(#Id#,#Code#,#ProcessId#,#Status#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateShortMessageProcess" parameterClass="ShortMessageProcess">
+      UPDATE ShortMessageProcess
+      SET SMP_ID=#Id#,SMP_Code=#Code#,SMP_ProcessId=#ProcessId#,SMP_Status=#Status#,SMP_UpdateDate=#UpdateDate#
+      WHERE SMP_ID = #Id#
+    </update>
+    <delete id="DeleteShortMessageProcess" parameterClass="string">
+      DELETE FROM ShortMessageProcess
+      WHERE SMP_ID = #value#
+    </delete>
+    <!--added by bozhenfei on 20110402-->
+    <select id="GetShortMessageProcess" parameterClass="string" resultClass="ShortMessageProcess">
+      SELECT SMP_ID AS Id,SMP_Code AS Code,SMP_ProcessId AS ProcessId,SMP_Status AS Status,SMP_CreateDate AS CreateDate,SMP_UpdateDate AS UpdateDate
+      FROM ShortMessageProcess WHERE SMP_Status = 'Waiting' ORDER BY SMP_CreateDate,SMP_Code
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

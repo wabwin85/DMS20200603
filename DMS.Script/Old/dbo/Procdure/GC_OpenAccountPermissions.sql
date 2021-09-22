@@ -1,0 +1,123 @@
+DROP PROCEDURE [dbo].[GC_OpenAccountPermissions]
+GO
+
+/*
+分类经销商页面权限
+*/
+CREATE PROCEDURE [dbo].[GC_OpenAccountPermissions]
+@DealerId nvarchar(36),  @RtnVal nvarchar(20) OUTPUT, @RtnMsg nvarchar(4000) OUTPUT
+WITH EXEC AS CALLER
+AS
+DECLARE @DealerName NVARCHAR(500)
+DECLARE @DealerType NVARCHAR(100)
+DECLARE @CheckDefaultWH INT
+DECLARE @WHCode NVARCHAR(100)
+
+SET NOCOUNT ON
+
+BEGIN TRY
+
+BEGIN TRAN
+	SET @RtnVal = 'Success'
+	SET @RtnMsg = ''
+	
+		SELECT @DealerType=DMA_DealerType,@DealerName=DMA_ChineseName FROM DealerMaster WHERE DMA_ID=@DealerId;
+		
+		--3.1 删除原有权限
+		DELETE dbo.Lafite_IDENTITY_MAP WHERE Lafite_IDENTITY_MAP.Id IN (
+		SELECT MAP.Id FROM dbo.Lafite_IDENTITY IDENT INNER JOIN dbo.Lafite_IDENTITY_MAP MAP ON IDENT.Id=MAP.IDENTITY_ID  WHERE IDENT.Corp_ID=@DealerId)
+		
+		--3.2分配现有权限
+		IF (@DealerType='T1')
+		BEGIN
+			DECLARE @T1Copy uniqueidentifier;
+			select top 1 @T1Copy=  id From Lafite_IDENTITY 
+			WHERE Corp_ID in (select top 1 DMA_ID from DealerMaster where DMA_ActiveFlag='1' and DMA_DeletedFlag='0' and DMA_DealerType='T1')
+			order by IDENTITY_CODE asc;
+			
+			insert into Lafite_IDENTITY_MAP
+				select newid(),a.Id,
+				b.MAP_TYPE, b.MAP_ID, b.APP_ID, b.DELETE_FLAG, b.CREATE_USER, 
+				b.CREATE_DATE, b.LAST_UPDATE_USER, b.LAST_UPDATE_DATE
+				from Lafite_IDENTITY a,
+				(select MAP_TYPE, MAP_ID, APP_ID, DELETE_FLAG, CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE 
+				from Lafite_IDENTITY_MAP where MAP_TYPE = 'Role' and IDENTITY_ID = @T1Copy
+				) b
+				where a.IDENTITY_TYPE = 'Dealer'
+				and a.Corp_ID =@DealerId
+		END
+		ELSE IF(@DealerType='T2')
+		BEGIN
+			DECLARE @T2Copy uniqueidentifier;
+			select top 1 @T2Copy=  id From Lafite_IDENTITY 
+			WHERE Corp_ID in (select top 1 DMA_ID from DealerMaster where DMA_ActiveFlag='1' and DMA_DeletedFlag='0' and DMA_DealerType='T2')
+			order by IDENTITY_CODE asc;
+			
+			insert into Lafite_IDENTITY_MAP
+				select newid(),a.Id,
+				b.MAP_TYPE, b.MAP_ID, b.APP_ID, b.DELETE_FLAG, b.CREATE_USER, 
+				b.CREATE_DATE, b.LAST_UPDATE_USER, b.LAST_UPDATE_DATE
+				from Lafite_IDENTITY a,
+				(select MAP_TYPE, MAP_ID, APP_ID, DELETE_FLAG, CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE 
+				from Lafite_IDENTITY_MAP where MAP_TYPE = 'Role' and IDENTITY_ID = @T2Copy
+				) b
+				where a.IDENTITY_TYPE = 'Dealer'
+				and a.Corp_ID =@DealerId
+		END
+		ELSE IF(@DealerType='LP')
+		BEGIN
+			
+			DECLARE @LPCopy uniqueidentifier;
+			select top 1 @LPCopy=  id From Lafite_IDENTITY 
+			WHERE Corp_ID in (select top 1 DMA_ID from DealerMaster where DMA_ActiveFlag='1' and DMA_DeletedFlag='0' and DMA_DealerType='LP')
+			order by IDENTITY_CODE asc;
+			
+			insert into Lafite_IDENTITY_MAP
+				select newid(),a.Id,
+				b.MAP_TYPE, b.MAP_ID, b.APP_ID, b.DELETE_FLAG, b.CREATE_USER, 
+				b.CREATE_DATE, b.LAST_UPDATE_USER, b.LAST_UPDATE_DATE
+				from Lafite_IDENTITY a,
+				(select MAP_TYPE, MAP_ID, APP_ID, DELETE_FLAG, CREATE_USER, CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE 
+				from Lafite_IDENTITY_MAP where MAP_TYPE = 'Role' and IDENTITY_ID = @LPCopy
+				) b
+				where a.IDENTITY_TYPE = 'Dealer'
+				and a.Corp_ID =@DealerId
+		END
+		
+		--维护经销商主仓库
+		SELECT @CheckDefaultWH=COUNT(*) FROM Warehouse a WHERE WHM_DMA_ID=@DealerId and WHM_Type='DefaultWH'
+		IF @CheckDefaultWH=0
+		BEGIN
+			SET @WHCode=N''
+			EXEC dbo.GC_GetNextAutoNumberForCode @Setting=N'Next_WarehouseNbr',@NextAutoNbr=@WHCode OUTPUT
+			INSERT INTO  Warehouse
+			(WHM_DMA_ID,WHM_Name,WHM_Province,WHM_ID,WHM_City,WHM_Type,WHM_CON_ID,WHM_PostalCode,WHM_Address,WHM_HoldWarehouse,WHM_Town,WHM_District,WHM_Phone,WHM_Fax,WHM_ActiveFlag,WHM_Hospital_HOS_ID,WHM_Code)
+			values(@DealerId,@DealerName+'主仓库','',NEWID(),'','DefaultWH',null,'','','0','','','','','1',null,@WHCode)
+		END
+	
+COMMIT TRAN
+
+SET NOCOUNT OFF
+return 1
+
+END TRY
+
+BEGIN CATCH 
+    SET NOCOUNT OFF
+    ROLLBACK TRAN
+    SET @RtnVal = 'Failure'
+    --记录错误日志开始
+	declare @error_line int
+	declare @error_number int
+	declare @error_message nvarchar(256)
+	declare @vError nvarchar(1000)
+	set @error_line = ERROR_LINE()
+	set @error_number = ERROR_NUMBER()
+	set @error_message = ERROR_MESSAGE()
+	set @vError = '行'+convert(nvarchar(10),@error_line)+'出错[错误号'+convert(nvarchar(10),@error_number)+'],'+@error_message	
+	SET @RtnMsg = @vError
+    return -1
+END CATCH
+GO
+
+

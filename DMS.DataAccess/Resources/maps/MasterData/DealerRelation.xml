@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerRelationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DealerRelation" assembly="DMS.Model.dll" type="DMS.Model.DealerRelation" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerRelationResult" class="DealerRelation">
+            <result property="Id" column="DRL_ID" type="Guid" dbType="Guid"/>
+            <result property="DmaId" column="DRL_DMA_ID" type="Guid" dbType="Guid"/>
+            <result property="DmaName" column="DMA_ChineseName" type="string" dbType="string"/>
+            <result property="DmaRelationid" column="DRL_DMA_RelationID" type="Guid" dbType="Guid"/>
+            <result property="DmaRelationName" column="DRL_DMA_RelationName" type="string" dbType="varchar"/>
+            <result property="Remark" column="DRL_Remark" type="string" dbType="varchar"/>
+            <result property="CreateUser" column="DRL_CreateUser" type="Guid" dbType="Guid"/>
+            <result property="CreateDate" column="DRL_CreateDate" type="DateTime" dbType="DateTime"/>
+            <result property="UpdateUser" column="DRL_UpdateUser" type="Guid" dbType="Guid"/>
+            <result property="UpdateDate" column="DRL_UpdateDate" type="DateTime" dbType="DateTime"/>
+            <result property="IsDMSDealer" column="IsDMSDealer" type="bool" dbType="bool"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectDealerRelation" parameterClass="string" resultClass="DealerRelation">
+            SELECT DRL_ID AS Id,DRL_DMA_ID AS DmaId,DRL_DMA_RelationID AS DmaRelationid,DRL_DMA_RelationName AS DmaRelationName,DRL_Remark AS Remark,DRL_CreateUser AS CreateUser,DRL_CreateDate AS CreateDate,DRL_UpdateUser AS UpdateUser,DRL_UpdateDate AS UpdateDate
+            FROM DealerRelation
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DRL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        
+        <select id="SelectByFilterDealerRelation" parameterClass="DealerRelation" resultClass="DealerRelation">
+          SELECT * FROM ( SELECT DRL_ID AS Id,DRL_DMA_ID AS DmaId,b.DMA_ChineseName AS DmaName,
+          (CASE WHEN (DRL_DMA_RelationName = '' or DRL_DMA_RelationName IS NULL)THEN c.DMA_ChineseName
+          ELSE DRL_DMA_RelationName END) AS DmaRelationName,
+          DRL_Remark AS Remark,DRL_CreateUser AS CreateUser,DRL_CreateDate AS CreateDate,DRL_UpdateUser AS UpdateUser,DRL_UpdateDate AS UpdateDate,
+          (CASE WHEN (DRL_DMA_RelationName = '' or DRL_DMA_RelationName IS NULL) THEN 1 ELSE 0 END ) AS IsDMSDealer,
+          row_number() OVER (ORDER BY [DRL_ID] ASC) AS [row_number]
+          from DealerRelation a(nolock) inner join DealerMaster b(nolock) on a.DRL_DMA_ID = b.DMA_ID left join DealerMaster c on a.DRL_DMA_RelationID = c.DMA_ID ) a
+          <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DmaId">DmaId=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="DmaRelationName">DmaRelationName like N'%$DmaRelationName$%'</isNotNull>
+            </dynamic>
+        </select>
+
+        <select id="SelectByFilterDealerRelationVerify" parameterClass="DealerRelation" resultClass="DealerRelation">
+            SELECT DRL_ID AS Id,DRL_DMA_ID AS DmaId,DRL_DMA_RelationID AS DmaRelationid,DRL_DMA_RelationName AS DmaRelationName,DRL_Remark AS Remark,DRL_CreateUser AS CreateUser,DRL_CreateDate AS CreateDate,DRL_UpdateUser AS UpdateUser,DRL_UpdateDate AS UpdateDate
+            FROM DealerRelation
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DmaId">DRL_DMA_ID=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="DmaRelationid">DRL_DMA_RelationID=#DmaRelationid#</isNotNull>
+                <isNotNull prepend="AND" property="DmaRelationName">DRL_DMA_RelationName=#DmaRelationName#</isNotNull>
+            </dynamic>
+        </select>
+        
+        <insert id="InsertDealerRelation" parameterClass="DealerRelation">
+            INSERT INTO DealerRelation
+            (DRL_ID,DRL_DMA_ID,DRL_DMA_RelationID,DRL_DMA_RelationName,DRL_Remark,DRL_CreateUser,DRL_CreateDate,DRL_UpdateUser,DRL_UpdateDate)
+            VALUES(#Id#,#DmaId#,#DmaRelationid#,#DmaRelationName#,#Remark#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateDealerRelation" parameterClass="DealerRelation">
+            UPDATE DealerRelation
+            SET DRL_ID=#Id#,DRL_DMA_ID=#DmaId#,DRL_DMA_RelationID=#DmaRelationid#,DRL_DMA_RelationName=#DmaRelationName#,DRL_Remark=#Remark#,DRL_UpdateUser=#UpdateUser#,DRL_UpdateDate=#UpdateDate#
+            WHERE DRL_ID = #Id#
+        </update>
+        <delete id="DeleteDealerRelation" parameterClass="string">
+            DELETE FROM DealerRelation
+            WHERE DRL_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

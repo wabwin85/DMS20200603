@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ReportSalesMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="ReportSales" assembly="DMS.Model.dll" type="DMS.Model.ReportSales" />
+    </alias>
+    <resultMaps>
+        <resultMap id="ReportSalesResult" class="ReportSales">
+            <result property="Id" column="RS_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="PmaId" column="RS_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CfnId" column="RS_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Quantity" column="RS_Quantity" type="int" dbType="int"/>
+            <result property="ExpiredDate" column="RS_ExpiredDate" type="DateTime" dbType="datetime"/>
+            <result property="Upn" column="RS_UPN" type="string" dbType="nvarchar"/>
+            <result property="LotNumber" column="RS_LotNumber" type="string" dbType="nvarchar"/>
+            <result property="LmId" column="RS_LM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateUser" column="RS_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateDate" column="RS_CreateDate" type="DateTime" dbType="datetime"/>
+            <result property="CreateWeChat" column="RS_CreateWeChat" type="string" dbType="nvarchar"/>
+            <result property="IsActive" column="RS_IsActive" type="bool" dbType="bit"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectReportSales" parameterClass="string" resultClass="ReportSales">
+            SELECT RS_ID AS Id,RS_PMA_ID AS PmaId,RS_CFN_ID AS CfnId,RS_Quantity AS Quantity,RS_ExpiredDate AS ExpiredDate,RS_UPN AS Upn,RS_LotNumber AS LotNumber,RS_LM_ID AS LmId,RS_CreateUser AS CreateUser,RS_CreateDate AS CreateDate,RS_CreateWeChat AS CreateWeChat,RS_IsActive AS IsActive
+            FROM ReportSales
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    RS_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterReportSales" parameterClass="ReportSales" resultClass="ReportSales">
+            SELECT RS_ID AS Id,RS_PMA_ID AS PmaId,RS_CFN_ID AS CfnId,RS_Quantity AS Quantity,RS_ExpiredDate AS ExpiredDate,RS_UPN AS Upn,RS_LotNumber AS LotNumber,RS_LM_ID AS LmId,RS_CreateUser AS CreateUser,RS_CreateDate AS CreateDate,RS_CreateWeChat AS CreateWeChat,RS_IsActive AS IsActive
+            FROM ReportSales
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">RS_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="PmaId">RS_PMA_ID=#PmaId#</isNotNull>
+                <isNotNull prepend="AND" property="CfnId">RS_CFN_ID=#CfnId#</isNotNull>
+                <isNotNull prepend="AND" property="Quantity">RS_Quantity=#Quantity#</isNotNull>
+                <isNotNull prepend="AND" property="ExpiredDate">RS_ExpiredDate=#ExpiredDate#</isNotNull>
+                <isNotNull prepend="AND" property="Upn">RS_UPN=#Upn#</isNotNull>
+                <isNotNull prepend="AND" property="LotNumber">RS_LotNumber=#LotNumber#</isNotNull>
+                <isNotNull prepend="AND" property="LmId">RS_LM_ID=#LmId#</isNotNull>
+                <isNotNull prepend="AND" property="CreateWeChat">RS_CreateWeChat=#CreateWeChat#</isNotNull>
+                <isNotNull prepend="AND" property="IsActive">RS_IsActive=#IsActive#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertReportSales" parameterClass="ReportSales">
+            INSERT INTO ReportSales
+            (RS_ID,RS_PMA_ID,RS_CFN_ID,RS_Quantity,RS_ExpiredDate,RS_UPN,RS_LotNumber,RS_LM_ID,RS_CreateUser,RS_CreateDate,RS_CreateWeChat,RS_IsActive)
+            VALUES(#Id#,#PmaId#,#CfnId#,#Quantity#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#Upn#,#LotNumber#,#LmId#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateWeChat#,#IsActive#)
+        </insert>
+        <update id="UpdateReportSales" parameterClass="ReportSales">
+            UPDATE ReportSales
+            SET RS_ID=#Id#,RS_PMA_ID=#PmaId#,RS_CFN_ID=#CfnId#,RS_Quantity=#Quantity#,RS_ExpiredDate=#ExpiredDate#,RS_UPN=#Upn#,RS_LotNumber=#LotNumber#,RS_LM_ID=#LmId#,RS_CreateWeChat=#CreateWeChat#,RS_IsActive=#IsActive#
+            WHERE RS_ID = #Id#
+        </update>
+        <delete id="DeleteReportSales" parameterClass="string">
+            DELETE FROM ReportSales
+            WHERE RS_ID = #value#
+        </delete>
+        <select id="GetCountByFilter" parameterClass="string" resultClass="System.Data.DataSet">
+            SELECT COUNT(1) WeChatCount
+            FROM ReportSales
+            WHERE RS_CreateWeChat=#value#
+            UNION ALL
+            SELECT COUNT(1) WeChatCount
+            FROM HospitalReportUser H LEFT JOIN ReportSales R
+            ON CHARINDEX(R.RS_CreateWeChat,H.HRU_WeChat) > 0
+            WHERE R.RS_CreateWeChat=#value#
+        </select>
+    </statements>
+</sqlMap>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Interface.TIQvSalesRepMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="Interface.TIQvSalesRepMap.SelectFilterListBu" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT TOP 10 RIGHT('0000000' + CONVERT(NVARCHAR, SalesRep.EID), 7) UserAccount,
+               SalesRep.Name UserName
+        FROM   interface.MDM_EmployeeMaster SalesRep
+               INNER JOIN V_DivisionProductLineRelation ProductLine
+                    ON  ProductLine.DivisionCode = SalesRep.DepID
+        WHERE  1 = 1
+      ]]>
+      <isNotEmpty prepend="AND" property="Bu">
+        ProductLine.ProductLineID = #Bu#
+      </isNotEmpty>
+      <![CDATA[
+               AND SalesRep.Name LIKE '%' + #Filter# + '%'
+        ORDER BY
+               SalesRep.Name
+      ]]>
+    </select>
+    <select id="Interface.TIQvSalesRepMap.SelectSalesByHosID" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT DISTINCT li.Identity_code AS UserAccount,
+        li.IDENTITY_NAME AS UserName
+        FROM Lafite_Identity li
+		    INNER JOIN  dbo.View_PositionSalesRepHospital vpsr ON li.ID=vpsr.IDENTITY_ID
+        WHERE  1 = 1
+      ]]>
+      <isNotEmpty prepend="AND" property="Bu">
+        vpsr.ProductLineID = #ProductLine#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Bu">
+        vpsr.HospitalID = #HospitalID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Filter">
+        li.IDENTITY_NAME LIKE '%' + #Filter# + '%'
+      </isNotEmpty>
+      <![CDATA[               
+        ORDER BY
+               li.IDENTITY_NAME
+      ]]>
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerInventoryDataMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerInventoryData" assembly="DMS.Model.dll" type="DMS.Model.DealerInventoryData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerInventoryDataResult" class="DealerInventoryData">
+      <result property="Id" column="DID_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Period" column="DID_Period" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="DID_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="DID_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="DID_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="DID_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Qty" column="DID_Qty" type="decimal" dbType="decimal"/>
+      <result property="UploadUser" column="DID_UploadUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="DID_UploadDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDealerInventoryData" parameterClass="string" resultClass="DealerInventoryData">
+      SELECT DID_ID AS Id,DID_Period AS Period,DID_DMA_ID AS DmaId,DID_PMA_ID AS PmaId,DID_WHM_ID AS WhmId,DID_LTM_ID AS LtmId,DID_Qty AS Qty,DID_UploadUser AS UploadUser,DID_UploadDate AS UploadDate
+      FROM DealerInventoryData
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DID_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealerInventoryData" parameterClass="DealerInventoryData" resultClass="DealerInventoryData">
+      SELECT DID_ID AS Id,DID_Period AS Period,DID_DMA_ID AS DmaId,DID_PMA_ID AS PmaId,DID_WHM_ID AS WhmId,DID_LTM_ID AS LtmId,DID_Qty AS Qty,DID_UploadUser AS UploadUser,DID_UploadDate AS UploadDate
+      FROM DealerInventoryData
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">DID_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Period">DID_Period=#Period#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">DID_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">DID_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">DID_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">DID_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">DID_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="UploadUser">DID_UploadUser=#UploadUser#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">DID_UploadDate=#UploadDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDealerInventoryData" parameterClass="DealerInventoryData">
+      INSERT INTO DealerInventoryData
+      (DID_ID,DID_Period,DID_DMA_ID,DID_PMA_ID,DID_WHM_ID,DID_LTM_ID,DID_Qty,DID_UploadUser,DID_UploadDate)
+      VALUES(#Id#,#Period#,#DmaId#,#PmaId#,#WhmId#,#LtmId#,#Qty#,#UploadUser#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateDealerInventoryData" parameterClass="DealerInventoryData">
+      UPDATE DealerInventoryData
+      SET DID_ID=#Id#,DID_Period=#Period#,DID_DMA_ID=#DmaId#,DID_PMA_ID=#PmaId#,DID_WHM_ID=#WhmId#,DID_LTM_ID=#LtmId#,DID_Qty=#Qty#,DID_UploadUser=#UploadUser#,DID_UploadDate=#UploadDate#
+      WHERE DID_ID = #Id#
+    </update>
+    <delete id="DeleteDealerInventoryData" parameterClass="string">
+      DELETE FROM DealerInventoryData
+      WHERE DID_ID = #value#
+    </delete>
+    <select id="SelectDIDByHashTable" parameterClass="System.Collections.Hashtable" resultClass="DealerInventoryData">
+      SELECT DID_ID AS Id,DID_Period AS Period,DID_DMA_ID AS DmaId,DID_PMA_ID AS PmaId,
+      DID_WHM_ID AS WhmId,DID_LTM_ID AS LtmId,DID_Qty AS Qty,DID_UploadUser AS UploadUser,
+      Convert(nvarchar(19),DID_UploadDate,121)AS UploadDate, WHM_Name As Warehouse,DMA_SAP_Code DealerSapCode,
+      DMA_ChineseName as DealerName,LTM_LotNumber LotNumber,
+      case WHM_Type
+      when 'Borrow' then '借货仓库'
+      when 'Consignment' then '寄售仓库'
+      when 'DefaultWH' then '缺省仓库'
+      when 'LP_Borrow' then '平台借货库'
+      when 'LP_Consignment' then '平台寄售库'
+      when 'Normal' then '普通仓库'
+      when 'SystemHold' then '在途'
+      else '' end
+      WarehouseType,
+      Convert(nvarchar(10),LTM_ExpiredDate,121) as ExpiredDate,CFN_CustomerFaceNbr ArticleNumber,
+      ROW_NUMBER () over (order by DID_UploadUser,DID_Period Desc,DID_DMA_ID ) as row_number
+      FROM DealerInventoryData(nolock)
+      left join DealerMaster(nolock) on DID_DMA_ID=DMA_ID
+      left join Warehouse(nolock) on DID_WHM_ID=WHM_ID
+      left join LotMaster(nolock) on DID_LTM_ID=LTM_ID
+      left join Product(nolock) on PMA_ID=DID_PMA_ID
+      left join CFN(nolock) on CFN_ID=Product.PMA_CFN_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DMA_ID">DMA_ID=#DMA_ID#</isNotNull>
+        <isNotNull prepend="AND" property="DID_Period">DID_Period=#DID_Period#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectDIDRecordsByHashTable" parameterClass="System.Collections.Hashtable" resultClass="DealerInventoryData">
+      select  COUNT(1) as TotalCount,Sum(DID_Qty) AS TotalQty from DealerInventoryData
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DMA_ID">DID_DMA_ID=#DMA_ID#</isNotNull>
+        <isNotNull prepend="AND" property="DID_Period">DID_Period=#DID_Period#</isNotNull>
+      </dynamic>
+      <!--group by DID_DMA_ID,DID_Period-->
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<oExcel fileName="平台及一级经销商订单申请明细_yyyymmdd" moduleName="">
+  <oSheets>
+    <oSheet Name="平台及一级经经销商订单申请明细 ">
+      <oMains>
+        <oMain>
+          <oItems>
+          </oItems>
+        </oMain>
+      </oMains>
+      <oDetails>
+        <oDetail keyPos="1,A" valuePos="2,A">
+          <oRecords>
+          </oRecords>
+        </oDetail>
+      </oDetails>
+    </oSheet>
+  </oSheets>
+</oExcel>

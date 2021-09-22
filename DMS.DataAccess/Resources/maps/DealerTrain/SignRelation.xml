@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SignRelationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SignRelation" assembly="DMS.Model.dll" type="DMS.Model.SignRelation" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SignRelationResult" class="SignRelation">
+            <result property="SignRelationId" column="SignRelationId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SignId" column="SignId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DealerSalesId" column="DealerSalesId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertSignRelation" parameterClass="SignRelation">
+            INSERT INTO Commando.SignRelation
+            (SignRelationId,SignId,DealerSalesId,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            SELECT #SignRelationId#,#SignId#,#DealerSalesId#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#
+            WHERE NOT EXISTS (SELECT 1 FROM Commando.SignRelation WHERE SignId=#SignId# AND DealerSalesId=#DealerSalesId#)
+        </insert>
+        <delete id="DeleteSignRelation" parameterClass="string">
+            DELETE FROM Commando.SignRelation
+            WHERE SignRelationId = #value#
+        </delete>
+        <delete id="DeleteSignRelationBySignId" parameterClass="string">
+            DELETE FROM Commando.SignRelation
+            WHERE SignId = #value#
+        </delete>
+        <select id="SelectSignRelationListBySignId" parameterClass="string" resultClass="System.Data.DataSet">
+            SELECT SignRelationId AS SignRelationId,SignId AS SignId,RelationType AS RelationType,RelationKey AS RelationKey,CreateUser AS CreateUser,CreateTime AS CreateTime,UpdateUser AS UpdateUser,UpdateTime AS UpdateTime
+            ,row_number() OVER (ORDER BY CreateTime DESC) AS [row_number]
+            FROM Commando.SignRelation
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="SignId">SignId=#value#</isNotNull>
+            </dynamic>
+        </select>
+        <select id="SelectDelaerSalesRecordCount" parameterClass="string" resultClass="int">
+            <![CDATA[
+            SELECT COUNT(*)
+            FROM   Commando.SignRelation A,
+                   Commando.SalesTrainMaster B,
+                   Commando.SalesTrainDetail C
+            WHERE  A.SignId = B.SignId
+                   AND B.SalesTrainId = C.SalesTrainId
+                   AND A.DealerSalesId = B.DealerSalesId
+                   AND A.SignRelationId = #value#
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

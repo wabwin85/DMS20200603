@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TrainMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="TrainMaster" assembly="DMS.Model.dll" type="DMS.Model.TrainMaster" />
+    </alias>
+    <resultMaps>
+        <resultMap id="TrainMasterResult" class="TrainMaster">
+            <result property="TrainId" column="TrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TrainName" column="TrainName" type="string" dbType="nvarchar"/>
+            <result property="TrainDesc" column="TrainDesc" type="string" dbType="nvarchar"/>
+            <result property="TrainBu" column="TrainBu" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TrainStartTime" column="TrainStartTime" type="DateTime" dbType="datetime"/>
+            <result property="TrainEndTime" column="TrainEndTime" type="DateTime" dbType="datetime"/>
+            <result property="TrainStatus" column="TrainStatus" type="string" dbType="nvarchar"/>
+            <result property="TrainArea" column="TrainArea" type="string" dbType="nvarchar"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertTrainMaster" parameterClass="TrainMaster">
+            INSERT INTO Commando.TrainMaster
+            (TrainId,TrainName,TrainDesc,TrainBu,TrainStartTime,TrainEndTime,TrainStatus,TrainArea,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            VALUES(#TrainId#,#TrainName#,#TrainDesc#,#TrainBu#,#TrainStartTime:DateTime:1/1/0001 12:00:00 AM#,#TrainEndTime:DateTime:1/1/0001 12:00:00 AM#,#TrainStatus#,#TrainArea#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateTrainMaster" parameterClass="TrainMaster">
+            UPDATE Commando.TrainMaster
+            SET TrainName=#TrainName#,TrainDesc=#TrainDesc#,TrainBu=#TrainBu#,TrainStartTime=#TrainStartTime#,TrainEndTime=#TrainEndTime#,TrainStatus=#TrainStatus#,TrainArea=#TrainArea#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE TrainId = #TrainId#
+        </update>
+        <update id="UpdateTrainMasterStatus" parameterClass="TrainMaster">
+            UPDATE Commando.TrainMaster
+            SET TrainStatus=#TrainStatus#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE TrainId = #TrainId#
+        </update>
+        <delete id="DeleteTrainMaster" parameterClass="string">
+            DELETE FROM Commando.TrainMaster
+            WHERE TrainId = #value#
+        </delete>
+
+        <select id="SelectTrainMasterList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+                SELECT TrainId AS TrainId,
+                       TrainName AS TrainName,
+                       TrainDesc AS TrainDesc,
+                       TrainBu AS TrainBu,
+                       CONVERT(NVARCHAR(10), TrainStartTime, 121) AS TrainStartTime,
+                       CONVERT(NVARCHAR(10), TrainEndTime, 121) AS TrainEndTime,
+                       TrainStatus AS TrainStatus,
+                       TrainArea AS TrainArea,
+                       CreateUser AS CreateUser,
+                       CreateTime AS CreateTime,
+                       UpdateUser AS UpdateUser,
+                       UpdateTime AS UpdateTime,
+                       CASE 
+                            WHEN EXISTS(
+                                     SELECT 1
+                                     FROM   Commando.SalesTrainMaster B
+                                     WHERE  A.TrainId = B.TrainId
+                                            AND B.IsActive = 1
+                                 ) THEN 1
+                            ELSE 0
+                       END AS IsSign,
+                       B.ProductLineName TrainBuValue,
+                       B.DivisionName,
+                       C.VALUE1 AS TrainAreaValue,
+                       N.Identity_Name AS CreateUserName,
+                       O.Identity_Name AS UpdateUserName,
+                       ROW_NUMBER() OVER(ORDER BY CreateTime ASC) AS [row_number]
+                FROM   Commando.TrainMaster A
+                       INNER JOIN V_DivisionProductLineRelation B
+                            ON  A.TrainBu = B.ProductLineID
+                       LEFT JOIN Lafite_DICT C
+                            ON  C.DICT_TYPE = 'Train_Area'
+                            AND C.DICT_KEY = A.TrainArea
+                       LEFT JOIN Lafite_Identity N
+                            ON  A.CreateUser = N.Id
+                       LEFT JOIN Lafite_Identity O
+                            ON  A.UpdateUser = O.Id
+                WHERE  A.TrainStatus = 'Active'
+                       AND A.TrainBu IN (SELECT Id
+                                         FROM   View_ProductLine AA
+                                         WHERE  EXISTS (
+                                                    SELECT 1
+                                                    FROM   Lafite_IDENTITY_MAP BB,
+                                                           Cache_OrganizationUnits CC
+                                                    WHERE  BB.MAP_TYPE = 'Organization'
+                                                           AND BB.IDENTITY_ID = #UserId#
+                                                           AND BB.MAP_ID = CC.RootID
+                                                           AND CC.AttributeID = AA.Id
+                                                ))
+            ]]>
+            <dynamic>
+                <isNotNull prepend="AND" property="TrainBu">TrainBu=#TrainBu#</isNotNull>
+                <isNotNull prepend="AND" property="TrainName">TrainName like '%' + #TrainName# + '%'</isNotNull>
+                <isNotNull prepend="AND" property="ProductLineId">TrainBu=#TrainBu#</isNotNull>
+                <isNotNull prepend="AND" property="StartBeginDate">
+                    CONVERT(NVARCHAR(10), TrainStartTime, 112) >= #TrainStartBeginTime#
+                </isNotNull>
+                <isNotNull prepend="AND" property="StartEndDate">
+                    CONVERT(NVARCHAR(10), TrainStartTime, 112) &lt; = #TrainStartEndTime#
+                </isNotNull>
+                <isNotNull prepend="AND" property="StopBeginDate">
+                    CONVERT(NVARCHAR(10), TrainEndTime, 112) >= #TrainEndBeginTime#
+                </isNotNull>
+                <isNotNull prepend="AND" property="StopEndDate">
+                    CONVERT(NVARCHAR(10), TrainEndTime, 112) &lt; = #TrainEndEndTime#
+                </isNotNull>
+                <isNotNull prepend="AND" property="TrainArea">TrainArea=#TrainArea#</isNotNull>
+            </dynamic>
+        </select>
+
+        <select id="SelectTrainMasterInfo" parameterClass="string" resultClass="TrainMaster">
+            <![CDATA[
+                SELECT TrainId AS TrainId,
+                       TrainName AS TrainName,
+                       TrainDesc AS TrainDesc,
+                       TrainBu AS TrainBu,
+                       TrainStartTime,
+                       TrainEndTime,
+                       TrainStatus AS TrainStatus,
+                       TrainArea AS TrainArea,
+                       CreateUser AS CreateUser,
+                       CreateTime AS CreateTime,
+                       UpdateUser AS UpdateUser,
+                       UpdateTime AS UpdateTime
+                FROM   Commando.TrainMaster A
+                WHERE  A.TrainStatus = 'Active'
+                       AND A.TrainId = #value#
+            ]]>
+        </select>
+
+        <select id="SelectProductLineAreaList" parameterClass="string">
+            <![CDATA[
+                SELECT DICT_Key AreaId,
+                       A.VALUE1 AreaName
+                FROM   Lafite_DICT A,
+                       ProductLineAreaRelation B
+                WHERE  A.DICT_Key = B.AreaId
+                       AND A.DICT_TYPE = 'Train_Area'
+                       AND CONVERT(NVARCHAR(100), B.ProductLineId) = #value#
+                ORDER BY A.SORT_COL
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>蓝威 DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">申请信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;" colspan="2"><!--平台和一级经销商，请用英文输入！<br />-->若申请原因选择新经销商，指该公司之前与蓝威无任何形式的经销业务往来。</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请单号：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ContractNo}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商类型：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.DealerTypeShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">产品线：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.DepIdShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">员工号：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.EId}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请人：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.EName}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请日期：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.RequestDate}</td>
+                </tr>
+               <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请部门：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ApplicantDepShow}</td>
+                </tr>
+                <tr style="#{Display.Display_ReagionRSM}">
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">RSM：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ReagionRSMShow}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">新经销商基本信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司中文名称：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.CompanyName}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司英文名称：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.CompanyEName}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司负责人：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.Contact}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">公司负责人邮件地址：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.EMail}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">公司负责人手机号码：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.Mobile}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">商务负责人：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.BusinessContact}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">商务负责人邮件地址：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.BusinessEMail}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">商务负责人手机号码：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.BusinessMobile}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">办公室电话号码：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.OfficeNumber}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">手机号码：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.Mobile}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all; word-wrap: break-word; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">办公室地址：</td>
+                    <td style="word-break: break-all; word-wrap: break-word; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.OfficeAddress}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">邮寄地址：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.EmailAddress}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司成立日期：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.EstablishedTime}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司注册资本：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.Capital}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否境外公司：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">  #{Candidate.IsForeignShow}</td>
+                </tr>
+                <tr style="#{Display.Display_ForeignRemark}">
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">境外公司备注：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">  #{Candidate.ForeignRemark}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">支持文件：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否三证合一：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.IsThreeLicenseShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(1)营业执照<br />(请不要继续推荐，如果经销商没有通过当地工商管理局年度检验。)：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.BA}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(2)对外贸易经营者备案登记表<br />(请不要继续推荐，如果外贸公司没有对外贸易经营者备案登记表。)：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.RA}</td>
+                </tr>
+                <tr style="#{Display.Display_TA}">
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(3)税务登记证<br />(请不要继续推荐，如果经销商没有通过当地税务局年度检验。)：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.TA}</td>
+                </tr>
+                <tr style="#{Display.Display_OA}">
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(4)组织机构代码证<br />(请不要继续推荐，如果经销商没有通过当地质量技术监督局年度检验。) ：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.OA}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+   
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">初步的业务计划书：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">开户申请表：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">#{Proposals.AccountForm}</td>
+                </tr>
+        	</table>
+        </div>
+    </div>
+</body>
+</html>

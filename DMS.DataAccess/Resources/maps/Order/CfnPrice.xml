@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnPriceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="CfnPrice" assembly="DMS.Model.dll" type="DMS.Model.CfnPrice" />
+  </alias>
+  <resultMaps>
+    <resultMap id="CfnPriceResult" class="CfnPrice">
+      <result property="Id" column="CFNP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="CFNP_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PriceType" column="CFNP_PriceType" type="string" dbType="nvarchar"/>
+      <result property="GroupId" column="CFNP_Group_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CanOrder" column="CFNP_CanOrder" type="bool" dbType="bit"/>
+      <result property="Price" column="CFNP_Price" type="decimal" dbType="decimal"/>
+      <result property="MarketPrice" column="CFNP_Market_Price" type="decimal" dbType="decimal"/>
+      <result property="Currency" column="CFNP_Currency" type="string" dbType="nvarchar"/>
+      <result property="Uom" column="CFNP_UOM" type="string" dbType="nvarchar"/>
+      <result property="UomInventory" column="CFNP_UOM_Inventory" type="string" dbType="nvarchar"/>
+      <result property="ValidDateFrom" column="CFNP_ValidDateFrom" type="DateTime" dbType="datetime"/>
+      <result property="ValidDateTo" column="CFNP_ValidDateTo" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="CFNP_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="CFNP_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="CFNP_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="CFNP_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="DeletedFlag" column="CFNP_DeletedFlag" type="bool" dbType="bit"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DealerPriceParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectCfnPrice" parameterClass="string" resultClass="CfnPrice">
+      SELECT CFNP_ID AS Id,CFNP_CFN_ID AS CfnId,CFNP_PriceType AS PriceType,CFNP_Group_ID AS GroupId,CFNP_CanOrder AS CanOrder,dbo.fn_GetCfnPriceByDealer(CFNP_Group_ID, CFNP_CFN_ID, #SubCompanyId#, #BrandId#, CFNP_PriceType, 0) AS Price,CFNP_Market_Price AS MarketPrice,CFNP_Currency AS Currency,CFNP_UOM AS Uom,CFNP_UOM_Inventory AS UomInventory,CFNP_ValidDateFrom AS ValidDateFrom,CFNP_ValidDateTo AS ValidDateTo,CFNP_CreateUser AS CreateUser,CFNP_CreateDate AS CreateDate,CFNP_UpdateUser AS UpdateUser,CFNP_UpdateDate AS UpdateDate,CFNP_DeletedFlag AS DeletedFlag
+      FROM CFNPrice
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CFNP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterCfnPrice" parameterClass="CfnPrice" resultClass="CfnPrice">
+      SELECT CFNP_ID AS Id,CFNP_CFN_ID AS CfnId,CFNP_PriceType AS PriceType,CFNP_Group_ID AS GroupId,CFNP_CanOrder AS CanOrder,dbo.fn_GetCfnPriceByDealer(isnull(#GroupId#,CFNP_Group_ID), isnull(#CfnId#,CFNP_CFN_ID), #SubCompanyId#, #BrandId#, isnull(#PriceType#,CFNP_PriceType), 0) AS Price,CFNP_Market_Price AS MarketPrice,CFNP_Currency AS Currency,CFNP_UOM AS Uom,CFNP_UOM_Inventory AS UomInventory,CFNP_ValidDateFrom AS ValidDateFrom,CFNP_ValidDateTo AS ValidDateTo,CFNP_CreateUser AS CreateUser,CFNP_CreateDate AS CreateDate,CFNP_UpdateUser AS UpdateUser,CFNP_UpdateDate AS UpdateDate,CFNP_DeletedFlag AS DeletedFlag
+      FROM CFNPrice
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CFNP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">CFNP_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PriceType">CFNP_PriceType=#PriceType#</isNotNull>
+        <isNotNull prepend="AND" property="GroupId">CFNP_Group_ID=#GroupId#</isNotNull>
+        <isNotNull prepend="AND" property="CanOrder">CFNP_CanOrder=#CanOrder#</isNotNull>
+        <isNotNull prepend="AND" property="Price">CFNP_Price=#Price#</isNotNull>
+        <isNotNull prepend="AND" property="MarketPrice">CFNP_Market_Price=#MarketPrice#</isNotNull>
+        <isNotNull prepend="AND" property="Currency">CFNP_Currency=#Currency#</isNotNull>
+        <isNotNull prepend="AND" property="Uom">CFNP_UOM=#Uom#</isNotNull>
+        <isNotNull prepend="AND" property="UomInventory">CFNP_UOM_Inventory=#UomInventory#</isNotNull>
+        <isNotNull prepend="AND" property="ValidDateFrom">CFNP_ValidDateFrom=#ValidDateFrom#</isNotNull>
+        <isNotNull prepend="AND" property="ValidDateTo">CFNP_ValidDateTo=#ValidDateTo#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">CFNP_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">CFNP_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertCfnPrice" parameterClass="CfnPrice">
+      INSERT INTO CFNPrice
+      (CFNP_ID,CFNP_CFN_ID,CFNP_PriceType,CFNP_Group_ID,CFNP_CanOrder,CFNP_Price,CFNP_Market_Price,CFNP_Currency,CFNP_UOM,CFNP_UOM_Inventory,CFNP_ValidDateFrom,CFNP_ValidDateTo,CFNP_CreateUser,CFNP_CreateDate,CFNP_UpdateUser,CFNP_UpdateDate,CFNP_DeletedFlag)
+      VALUES(#Id#,#CfnId#,#PriceType#,#GroupId#,#CanOrder#,#Price#,#MarketPrice#,#Currency#,#Uom#,#UomInventory#,#ValidDateFrom:DateTime:1/1/0001 12:00:00 AM#,#ValidDateTo:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#DeletedFlag#)
+    </insert>
+    <update id="UpdateCfnPrice" parameterClass="CfnPrice">
+      UPDATE CFNPrice
+      SET CFNP_ID=#Id#,CFNP_CFN_ID=#CfnId#,CFNP_PriceType=#PriceType#,CFNP_Group_ID=#GroupId#,CFNP_CanOrder=#CanOrder#,CFNP_Price=#Price#,CFNP_Market_Price=#MarketPrice#,CFNP_Currency=#Currency#,CFNP_UOM=#Uom#,CFNP_UOM_Inventory=#UomInventory#,CFNP_ValidDateFrom=#ValidDateFrom#,CFNP_ValidDateTo=#ValidDateTo#,CFNP_UpdateUser=#UpdateUser#,CFNP_UpdateDate=#UpdateDate#,CFNP_DeletedFlag=#DeletedFlag#
+      WHERE CFNP_ID = #Id#
+    </update>
+    <delete id="DeleteCfnPrice" parameterClass="string">
+      DELETE FROM CFNPrice
+      WHERE CFNP_ID = #value#
+    </delete>
+    <update id="FakeDeleteCfnPrice" parameterClass="CfnPrice">
+      UPDATE CFNPrice
+      SET CFNP_DeletedFlag=#DeletedFlag#
+      WHERE CFNP_ID = #Id#
+    </update>
+
+    <select id="SelectDealerPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT CFNPrice.CFNP_ID AS Id,
+      CFNPrice.CFNP_Group_ID AS GroupId,
+      DealerMaster.DMA_SAP_Code AS SapCode,
+      DealerMaster.DMA_ChineseName AS DmaName,
+      pdm.DMA_ChineseName AS ParentDmaName,
+      CFNPrice.CFNP_CFN_ID AS CfnId,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_Description AS CfnDescription,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLineBumId,
+      CFNPrice.CFNP_PriceType AS PriceType,
+      Lafite_DICT.VALUE1 AS PriceTypeValue,
+      CFNPrice.CFNP_Price AS Price,
+      <!--导入价格原始页面，显示原始数据dbo.fn_GetCfnPriceByDealer(isnull(#DmaId#,CFNP_Group_ID), CFN.CFN_ID, #SubCompanyId#, #BrandId#, isnull(#PriceType#,CFNP_PriceType), 0) AS Price,-->
+      CFNPrice.CFNP_Currency AS Currency,
+      CFNPrice.CFNP_UOM AS Uom,
+      pv.TER_Description AS Province,
+      ct.TER_Description AS City,
+      CFNPrice.CFNP_ValidDateFrom AS BeginDate,
+      CFNPrice.CFNP_ValidDateTo AS EndDate,
+      CFNPrice.CFNP_DealerType AS DealerType,
+      ROW_NUMBER () OVER (ORDER BY CFNPrice.CFNP_Group_ID, CFN.CFN_ProductLine_BUM_ID ASC) AS [row_number]
+      FROM CFNPrice(nolock)
+      LEFT JOIN DealerMaster(nolock) ON  CFNPrice.CFNP_Group_ID=DealerMaster.DMA_ID
+      INNER JOIN Lafite_DICT(nolock) ON CFNPrice.CFNP_PriceType=Lafite_DICT.DICT_KEY AND Lafite_DICT.DICT_TYPE='CONST_CFN_PriceType'
+      INNER JOIN CFN(nolock) ON CFNPrice.CFNP_CFN_ID=CFN.CFN_ID
+      LEFT JOIN DealerMaster pdm(nolock) ON pdm.DMA_ID=DealerMaster.DMA_Parent_DMA_ID
+      LEFT JOIN Territory pv ON pv.TER_ID=CFNPrice.CFNP_Province AND pv.TER_Type='Province'
+      LEFT JOIN Territory ct ON ct.TER_ID=CFNPrice.CFNP_City AND ct.TER_Type='City'
+      WHERE CFNPrice.CFNP_SubCompanyId= #SubCompanyId# AND CFNPrice.CFNP_BrandId= #BrandId#
+      AND ISNULL(CFNP_DeletedFlag,0)=0
+      <isNotNull prepend="AND" property="ProductLineBumId">CFN.CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">CFNPrice.CFNP_Group_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="PriceType">CFNPrice.CFNP_PriceType=#PriceType#</isNotNull>
+      <isNotNull prepend="AND" property="CfnCode">CFN.CFN_CustomerFaceNbr= #CfnCode#</isNotNull>
+      <isNotNull prepend="AND" property="Province">CFNPrice.CFNP_Province= #Province#</isNotNull>
+      <isNotNull prepend="AND" property="City">CFNPrice.CFNP_City= #City#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        <!--EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = CFNPrice.CFNP_Group_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR-->
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = CFNPrice.CFNP_Group_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        OR CFNPrice.CFNP_Group_ID IS NULL
+        )
+
+      </isEqual>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (CFNPrice.CFNP_Group_ID in
+        (select dm.DMA_ID from DealerMaster dm(nolock) where dm.DMA_Parent_DMA_ID =#OwnerCorpId# or dm.DMA_ID=#OwnerCorpId#)
+        OR CFNPrice.CFNP_Group_ID IS NULL
+        )
+      </isEqual>
+    </select>
+
+    <select id="ExportDealerPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      DealerMaster.DMA_ChineseName AS '经销商',
+      DealerMaster.DMA_SAP_Code AS 'ERPCode',
+      pdm.DMA_ChineseName AS '上级经销商',
+      CFN.CFN_CustomerFaceNbr AS '产品代码',
+      CFN.CFN_ChineseName AS '产品中文名称',
+      CFN.CFN_Description AS '产品英文名称',
+      pv.TER_Description AS '省份',
+      ct.TER_Description AS '地区',
+      ldLevel.Value1 AS '价格类型',
+      <!--CFNPrice.CFNP_Price AS '产品价格',-->
+      dbo.fn_GetCfnPriceByDealer(isnull(#DmaId#,CFNP_Group_ID), CFN.CFN_ID, #SubCompanyId#, #BrandId#, isnull(#PriceType#,CFNP_PriceType), 0) AS '产品价格',
+      CFNPrice.CFNP_ValidDateFrom AS '开始时间',
+      CFNPrice.CFNP_ValidDateTo AS '终止时间'
+      FROM CFNPrice(nolock)
+      LEFT JOIN DealerMaster(nolock) ON  CFNPrice.CFNP_Group_ID=DealerMaster.DMA_ID
+      INNER JOIN Lafite_DICT(nolock) ON CFNPrice.CFNP_PriceType=Lafite_DICT.DICT_KEY AND Lafite_DICT.DICT_TYPE='CONST_CFN_PriceType'
+      INNER JOIN CFN(nolock) ON CFNPrice.CFNP_CFN_ID=CFN.CFN_ID
+      INNER JOIN View_ProductLine ON View_ProductLine.Id=CFN.CFN_ProductLine_BUM_ID
+      LEFT JOIN DealerMaster pdm(nolock) ON pdm.DMA_ID=DealerMaster.DMA_Parent_DMA_ID
+      LEFT JOIN Territory pv ON pv.TER_ID=CFNPrice.CFNP_Province AND pv.TER_Type='Province'
+      LEFT JOIN Territory ct ON ct.TER_ID=CFNPrice.CFNP_City AND ct.TER_Type='City'
+      LEFT JOIN Lafite_DICT(nolock) ldLevel ON CFNPrice.CFNP_PriceType=ldLevel.DICT_KEY AND ldLevel.DICT_TYPE='CONST_CFN_PriceType'
+      WHERE 1=1<!--[dbo].[GC_Fn_CFN_CheckDealerAuth](DealerMaster.DMA_ID,CFNPrice.CFNP_CFN_ID)=1-->
+      AND ISNULL(CFNP_DeletedFlag,0)=0
+      AND CFNPrice.CFNP_SubCompanyId= #SubCompanyId# AND CFNPrice.CFNP_BrandId= #BrandId#
+      <isNotNull prepend="AND" property="ProductLineBumId">CFN.CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">CFNPrice.CFNP_Group_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="PriceType">CFNPrice.CFNP_PriceType=#PriceType#</isNotNull>
+      <isNotNull prepend="AND" property="CfnCode">CFN.CFN_CustomerFaceNbr= #CfnCode#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        <!--EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = CFNPrice.CFNP_Group_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR-->
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = CFNPrice.CFNP_Group_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        OR CFNPrice.CFNP_Group_ID IS NULL
+        )
+
+      </isEqual>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (CFNPrice.CFNP_Group_ID in
+        (select dm.DMA_ID from DealerMaster dm(nolock) where dm.DMA_Parent_DMA_ID =#OwnerCorpId# or dm.DMA_ID=#OwnerCorpId#)
+        OR CFNPrice.CFNP_Group_ID IS NULL
+        )
+      </isEqual>
+
+    </select>
+
+    <select id="SelectDealerPriceQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <!--SELECT tab.*,ROW_NUMBER () OVER (ORDER BY tab.GroupId, tab.ProductLineBumId ASC) AS [row_number]
+      FROM(-->
+      SELECT CFNPrice.CFNP_ID AS Id,
+      CFNPrice.CFNP_Group_ID AS GroupId,
+      DealerMaster.DMA_SAP_Code AS SapCode,
+      DealerMaster.DMA_ChineseName AS DmaName,
+      CFNPrice.CFNP_CFN_ID AS CfnId,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_Description AS CfnDescription,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLineBumId,
+      vp.Attribute_Name AS ProductLineBumName,
+      CFNPrice.CFNP_PriceType AS PriceType,
+      Lafite_DICT.VALUE1 AS PriceTypeValue,
+      CFNPrice.CFNP_Price AS Price,
+      <!--dbo.fn_GetCfnPriceByDealer(isnull(#DmaId#,CFNP_Group_ID), CFN.CFN_ID, #SubCompanyId#, #BrandId#, isnull(#PriceType#,CFNP_PriceType), 0) AS Price,-->
+      CFNPrice.CFNP_Currency AS Currency,
+      CFNPrice.CFNP_UOM AS Uom,
+      <!--pv.TER_Description AS Province,
+      ct.TER_Description AS City,-->
+      dbo.CFNPrice.CFNP_SubCompanyId AS SubCompanyId,
+      dbo.CFNPrice.CFNP_BrandId AS BrandId,
+      CFNPrice.CFNP_ValidDateFrom AS BeginDate,
+      CFNPrice.CFNP_ValidDateTo AS EndDate,
+      CFNPrice.CFNP_DealerType AS DealerType,
+      ROW_NUMBER () OVER (ORDER BY CFNPrice.CFNP_CreateDate DESC) AS [row_number]
+      FROM CFNPrice(nolock)
+      LEFT JOIN DealerMaster(nolock) ON  CFNPrice.CFNP_Group_ID=DealerMaster.DMA_ID
+      INNER JOIN Lafite_DICT(nolock) ON CFNPrice.CFNP_PriceType=Lafite_DICT.DICT_KEY AND Lafite_DICT.DICT_TYPE='CONST_CFN_PriceType'
+      INNER JOIN CFN(nolock) ON CFNPrice.CFNP_CFN_ID=CFN.CFN_ID
+      LEFT JOIN View_ProductLine vp ON CFN_ProductLine_BUM_ID = vp.Id
+      <!--LEFT JOIN Territory pv ON pv.TER_ID=CFNPrice.CFNP_Province AND pv.TER_Type='Province'
+      LEFT JOIN Territory ct ON ct.TER_ID=CFNPrice.CFNP_City AND ct.TER_Type='City'-->
+      WHERE 1=1<!--CFNPrice.CFNP_SubCompanyId= #SubCompanyId# AND CFNPrice.CFNP_BrandId= #BrandId#-->
+      AND (CFNP_ValidDateFrom IS NULL OR CFNP_ValidDateFrom &lt;= GETDATE())
+      AND (CFNP_ValidDateTo IS NULL OR CFNP_ValidDateTo > GETDATE())
+      AND (CFNP_DeletedFlag IS NULL OR CFNP_DeletedFlag=0)
+      <!--) AS tab
+      WHERE tab.rn=1-->
+      <isNotNull prepend="AND" property="ProductLineBumId">vp.Id=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">CFNPrice.CFNP_SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">CFNPrice.CFNP_BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">CFNPrice.CFNP_Group_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="PriceType">CFNPrice.CFNP_PriceType=#PriceType#</isNotNull>
+      <isNotNull prepend="AND" property="CfnCode">CFN.CFN_CustomerFaceNbr= #CfnCode#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = CFNPrice.CFNP_Group_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = CFNPrice.CFNP_Group_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        OR CFNPrice.CFNP_Group_ID IS NULL
+        )
+
+      </isEqual>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (CFNPrice.CFNP_Group_ID in
+        (select dm.DMA_ID from DealerMaster dm(nolock) where dm.DMA_Parent_DMA_ID =#OwnerCorpId# or dm.DMA_ID=#OwnerCorpId#)
+        OR CFNPrice.CFNP_Group_ID IS NULL
+        )
+      </isEqual>
+    </select>
+
+    <select id="ExportDealerPriceQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  tab.ProductLineBumName AS '产品线',
+      tab.DmaName AS '经销商',
+      tab.SapCode AS 'ERPCode',
+      <!--tab.ParentDmaName AS '上级经销商',-->
+
+      tab.CustomerFaceNbr AS '产品代码',
+      <!--tab.CfnChineseName AS '产品中文名称',
+                tab.CfnDescription AS '产品英文名称',-->
+      tab.Province AS '省份',
+      tab.City AS '地区',
+      tab.PriceTypeValue AS '价格类型',
+      tab.Price AS '产品价格'
+      FROM(
+      SELECT CFNPrice.CFNP_ID AS Id,
+      CFNPrice.CFNP_Group_ID AS GroupId,
+      DealerMaster.DMA_SAP_Code AS SapCode,
+      DealerMaster.DMA_ChineseName AS DmaName,
+      pdm.DMA_ChineseName AS ParentDmaName,
+      CFNPrice.CFNP_CFN_ID AS CfnId,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_ChineseName AS CfnChineseName,
+      CFN.CFN_Description AS CfnDescription,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLineBumId,
+      vp.Attribute_Name AS ProductLineBumName,
+      vp.SubCompanyId,
+      vp.BrandId,
+      CFNPrice.CFNP_PriceType AS PriceType,
+      Lafite_DICT.VALUE1 AS PriceTypeValue,
+      CFNPrice.CFNP_Price AS Price,
+      <!--dbo.fn_GetCfnPriceByDealer(isnull(#DmaId#,CFNP_Group_ID), CFN.CFN_ID, #SubCompanyId#, #BrandId#, isnull(#PriceType#,CFNP_PriceType), 0) AS Price,-->
+      CFNPrice.CFNP_Currency AS Currency,
+      CFNPrice.CFNP_UOM AS Uom,
+      pv.TER_Description AS Province,
+      ct.TER_Description AS City,
+      CFNPrice.CFNP_ValidDateFrom AS BeginDate,
+      CFNPrice.CFNP_ValidDateTo AS EndDate,
+      ROW_NUMBER () OVER (partition BY CFNPrice.CFNP_CFN_ID,CFNPrice.CFNP_Group_ID,CFNPrice.CFNP_PriceType ORDER BY
+      CFNPrice.CFNP_Province,CFNPrice.CFNP_City,CFNPrice.CFNP_CreateDate DESC) as rn
+      FROM CFNPrice(nolock)
+      LEFT JOIN DealerMaster(nolock) ON  CFNPrice.CFNP_Group_ID=DealerMaster.DMA_ID
+      INNER JOIN Lafite_DICT(nolock) ON CFNPrice.CFNP_PriceType=Lafite_DICT.DICT_KEY AND Lafite_DICT.DICT_TYPE='CONST_CFN_PriceType'
+      INNER JOIN CFN(nolock) ON CFNPrice.CFNP_CFN_ID=CFN.CFN_ID
+      LEFT JOIN View_ProductLine vp ON CFN_ProductLine_BUM_ID = vp.Id
+      LEFT JOIN DealerMaster pdm(nolock) ON pdm.DMA_ID=DealerMaster.DMA_Parent_DMA_ID
+      LEFT JOIN Territory pv ON pv.TER_ID=CFNPrice.CFNP_Province AND pv.TER_Type='Province'
+      LEFT JOIN Territory ct ON ct.TER_ID=CFNPrice.CFNP_City AND ct.TER_Type='City'
+      WHERE CFNPrice.CFNP_SubCompanyId= #SubCompanyId# AND CFNPrice.CFNP_BrandId= #BrandId#
+      AND (CFNP_ValidDateFrom IS NULL OR CFNP_ValidDateFrom &lt;= GETDATE())
+      AND (CFNP_ValidDateTo IS NULL OR CFNP_ValidDateTo > GETDATE())
+      AND ISNULL(CFNP_DeletedFlag,0)=0
+      ) AS tab
+      WHERE tab.rn=1
+
+      <isNotNull prepend="AND" property="ProductLineBumId">tab.ProductLineBumId=#ProductLineBumId#</isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">tab.GroupId=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="PriceType">tab.PriceType=#PriceType#</isNotNull>
+      <isNotNull prepend="AND" property="CfnCode">tab.CustomerFaceNbr= #CfnCode#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = tab.GroupId AND SD.BUM_ID =tab.ProductLineBumId AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = tab.GroupId AND SD.BUM_ID = tab.ProductLineBumId)
+        OR tab.GroupId IS NULL
+        )
+
+      </isEqual>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (GroupId in
+        (select dm.DMA_ID from DealerMaster dm(nolock) where dm.DMA_Parent_DMA_ID =#OwnerCorpId# or dm.DMA_ID=#OwnerCorpId#)
+        OR tab.GroupId IS NULL
+        )
+      </isEqual>
+
+    </select>
+  </statements>
+</sqlMap>

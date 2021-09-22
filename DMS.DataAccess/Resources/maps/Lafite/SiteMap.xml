@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Lafite.SiteMapMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="Lafite.SiteMapMap.SelectUserMenu" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT SiteMap.MenuId MenuId,
+               SiteMap.MenuTitle MenuName,
+               SiteMap.ParentId ParentMenu,
+               REPLACE(SiteMap.[Url], '~/', '') MenuUrl,
+               SiteMap.PowerKey,
+               SiteMap.ResourceKey,
+               SiteMap.MenuLevel,
+               SiteMap.OrderBy
+        FROM   Lafite_SiteMap SiteMap
+        WHERE  SiteMap.IsEnabled = 1
+               AND SiteMap.PowerKey IN (SELECT [Resource].FUNCTION_CODE
+                                        FROM   Lafite_FUNCTION [Resource]
+                                               INNER JOIN Lafite_STRATEGY_MAP StrategyResource
+                                                    ON  StrategyResource.MAP_ID = [Resource].Id
+                                               INNER JOIN Lafite_STRATEGY Strategy
+                                                    ON  Strategy.Id = StrategyResource.STRATEGY_ID
+                                                    AND Strategy.DELETE_FLAG = 0
+                                               INNER JOIN Lafite_ATTRIBUTE_MAP RoleStrategy
+                                                    ON  RoleStrategy.MAP_ID = Strategy.Id
+                                                    AND RoleStrategy.DELETE_FLAG = 0
+                                               INNER JOIN Lafite_IDENTITY_MAP UserRole
+                                                    ON  UserRole.MAP_ID = RoleStrategy.ATTRIBUTE_ID
+                                                    AND UserRole.DELETE_FLAG = 0
+                                                    AND UserRole.IDENTITY_ID = #value#
+                                        WHERE  [Resource].FUNCTION_TYPE = 'Menu'
+                                               AND [Resource].APP_ID = '4028931b0f0fc135010f0fc1356a0001'
+                                               AND [Resource].DELETE_FLAG = '0'
+                                               AND [Resource].BOOLEAN_FLAG = '1')
+        ORDER BY
+               SiteMap.OrderBy
+      ]]>
+    </select>
+  </statements>
+</sqlMap>

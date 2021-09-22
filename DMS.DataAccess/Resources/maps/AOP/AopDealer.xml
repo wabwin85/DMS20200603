@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AopDealerMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="AopDealer" assembly="DMS.Model.dll" type="DMS.Model.AopDealer" />
+	</alias>
+	<resultMaps>
+		<resultMap id="AopDealerResult" class="AopDealer">
+			<result property="Id" column="AOPD_ID" type="Guid" dbType="Guid"/>
+			<result property="DealerDmaId" column="AOPD_Dealer_DMA_ID" type="Guid" dbType="Guid"/>
+			<result property="ProductLineBumId" column="AOPD_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+			<result property="Year" column="AOPD_Year" type="string" dbType="varchar"/>
+			<result property="Month" column="AOPD_Month" type="string" dbType="varchar"/>
+			<result property="Amount" column="AOPD_Amount" type="double" dbType="Real"/>
+			<result property="UpdateUserId" column="AOPD_Update_User_ID" type="Guid" dbType="Guid"/>
+			<result property="UpdateDate" column="AOPD_Update_Date" type="DateTime" dbType="DateTime"/>
+		</resultMap>
+	</resultMaps>
+	<statements>
+
+		<select id="SelectAopDealer" parameterClass="string" resultClass="AopDealer">
+            SELECT AOPD_ID AS Id,AOPD_Dealer_DMA_ID AS DealerDmaId,AOPD_ProductLine_BUM_ID AS ProductLineBumId,AOPD_Year AS Year,AOPD_Month AS Month,AOPD_Amount AS Amount,AOPD_Update_User_ID AS UpdateUserId,AOPD_Update_Date AS UpdateDate
+            FROM AOPDealer
+            <dynamic prepend="WHERE">
+				<isParameterPresent>
+					AOPD_ID = #value#
+				</isParameterPresent>
+			</dynamic>
+		</select>
+		<select id="SelectByFilterAopDealer" parameterClass="string" resultClass="AopDealer">
+            SELECT AOPD_ID AS Id,AOPD_Dealer_DMA_ID AS DealerDmaId,AOPD_ProductLine_BUM_ID AS ProductLineBumId,AOPD_Year AS Year,AOPD_Month AS Month,AOPD_Amount AS Amount,AOPD_Update_User_ID AS UpdateUserId,AOPD_Update_Date AS UpdateDate
+            FROM AOPDealer
+            <dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="Id">AOPD_ID=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="DealerDmaId">AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+				<isNotNull prepend="AND" property="ProductLineBumId">AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+				<isNotNull prepend="AND" property="Year">AOPD_Year=#Year#</isNotNull>
+				<isNotNull prepend="AND" property="Month">AOPD_Month=#Month#</isNotNull>
+				<isNotNull prepend="AND" property="Amount">AOPD_Amount=#Amount#</isNotNull>
+				<isNotNull prepend="AND" property="UpdateUserId">AOPD_Update_User_ID=#UpdateUserId#</isNotNull>
+				<isNotNull prepend="AND" property="UpdateDate">AOPD_Update_Date=#UpdateDate#</isNotNull>
+			</dynamic>
+		</select>
+		<select id="SelectAopDealerByQuery" parameterClass="System.Collections.Hashtable" resultClass="AopDealer">
+			SELECT AOPD_Dealer_DMA_ID as Dealer_DMA_ID,
+			AOPD_ProductLine_BUM_ID as ProductLine_BUM_ID,
+			AOPD_Year as Year,
+			AOPD_Amount_1 as Amount_1,
+			AOPD_Amount_2 as Amount_2,
+			AOPD_Amount_3 as Amount_3,
+			AOPD_Amount_4 as Amount_4,
+			AOPD_Amount_5 as Amount_5,
+			AOPD_Amount_6 as Amount_6,
+			AOPD_Amount_7 as Amount_7,
+			AOPD_Amount_8 as Amount_8,
+			AOPD_Amount_9 as Amount_9,
+			AOPD_Amount_10 as Amount_10,
+			AOPD_Amount_11 as Amount_11,
+			AOPD_Amount_12 as Amount_12,
+			AOPD_Amount_Y as Amount_Y,
+			row_number() OVER (ORDER BY [AOPD_Dealer_DMA_ID] ASC,[AOPD_ProductLine_BUM_ID] ASC,[AOPD_Year] ASC) AS [row_number]
+			FROM V_AOPDealer
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="DealerDmaId">AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+				<isNotNull prepend="AND" property="ProductLineBumId">AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+				<isNotNull prepend="AND" property="Year">AOPD_Year=#Year#</isNotNull>
+			</dynamic>
+		</select>
+
+    <select id="SelectAopDealersByFiller" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT AOPD_Dealer_DMA_ID AS DmaId,
+      DM.DMA_ChineseName AS DealerName,
+      AOPD_ProductLine_BUM_ID as ProductLine_BUM_ID,
+      VP.ATTRIBUTE_NAME AS ProductLineName,
+      CC.CC_NameCN AS SubBUName,
+      CASE(ISNULL(AOP.AOPD_Market_Type,'0')) WHEN '0' THEN '普通市场' WHEN '1' THEN '新兴市场' WHEN '2' THEN '全部市场' End AS MarketType,
+      AOPD_Year AS Year, VP.SubCompanyName, VP.BrandName,
+      dbo.GetFormatString(AOPD_Amount_1,'2') AS Amount_1,
+      dbo.GetFormatString(AOPD_Amount_2,'2') AS Amount_2,
+      dbo.GetFormatString(AOPD_Amount_3,'2') AS Amount_3,
+      dbo.GetFormatString(AOPD_Amount_4,'2') AS Amount_4,
+      dbo.GetFormatString(AOPD_Amount_5,'2') AS Amount_5,
+      dbo.GetFormatString(AOPD_Amount_6,'2') AS Amount_6,
+      dbo.GetFormatString(AOPD_Amount_7,'2') AS Amount_7,
+      dbo.GetFormatString(AOPD_Amount_8,'2') AS Amount_8,
+      dbo.GetFormatString(AOPD_Amount_9,'2') AS Amount_9,
+      dbo.GetFormatString(AOPD_Amount_10,'2') AS Amount_10,
+      dbo.GetFormatString(AOPD_Amount_11,'2') AS Amount_11,
+      dbo.GetFormatString(AOPD_Amount_12,'2') AS Amount_12,
+      dbo.GetFormatString(AOPD_Amount_Y,'2') AS Amount_Y,
+      row_number() OVER (ORDER BY VP.ATTRIBUTE_NAME,DM.DMA_ChineseName ,AOP.AOPD_Market_Type,AOP.AOPD_Year) AS [row_number]
+      FROM V_AOPDealer AOP
+      LEFT JOIN View_ProductLine VP (nolock) on VP.Id = AOP.AOPD_ProductLine_BUM_ID
+      LEFT JOIN interface.ClassificationContract CC(nolock) ON CC.CC_ID=AOP.AOPD_CC_ID
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID=AOP.AOPD_Dealer_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerDmaId">AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">AOPD_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="MarketType">ISNULL(AOP.AOPD_Market_Type,'0')=#MarketType#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VP.BrandId = #BrandId#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (DM.DMA_Parent_DMA_ID=#OwnerCorpId# OR DM.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="ExporAopDealersByFiller" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DM.DMA_ChineseName AS N'经销商名称',
+      VP.ATTRIBUTE_NAME AS N'产品线',
+      VP.SubCompanyName AS N'分子公司', 
+      VP.BrandName AS N'品牌',
+      CC.CC_NameCN AS N'产品分类',
+      CASE(ISNULL(AOP.AOPD_Market_Type,'0')) WHEN '0' THEN '普通市场' WHEN '1' THEN '新兴市场' End AS N'市场类型',
+      AOPD_Year AS N'年份',
+      AOPD_Amount_1 AS N'一月',
+      AOPD_Amount_2 AS N'二月',
+      AOPD_Amount_3 AS N'三月',
+      AOPD_Amount_4 AS N'四月',
+      AOPD_Amount_5 AS N'五月',
+      AOPD_Amount_6 AS N'六月',
+      AOPD_Amount_7 AS N'七月',
+      AOPD_Amount_8 AS N'八月',
+      AOPD_Amount_9 AS N'九月',
+      AOPD_Amount_10 AS N'十月',
+      AOPD_Amount_11 AS N'十一月',
+      AOPD_Amount_12 AS N'十二月',
+      AOPD_Amount_Y AS N'合计'
+      FROM V_AOPDealer AOP
+      LEFT JOIN View_ProductLine VP (nolock) on VP.Id = AOP.AOPD_ProductLine_BUM_ID
+      LEFT JOIN DealerMaster DM(nolock) ON DM.DMA_ID=AOP.AOPD_Dealer_DMA_ID
+      LEFT JOIN interface.ClassificationContract CC(nolock) ON CC.CC_ID=AOP.AOPD_CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerDmaId">AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">AOPD_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="MarketType">ISNULL(AOP.AOPD_Market_Type,'0')=#MarketType#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VP.BrandId = #BrandId#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (DM.DMA_Parent_DMA_ID=#OwnerCorpId# OR DM.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+      ORDER BY VP.ATTRIBUTE_NAME,DM.DMA_ChineseName ,AOP.AOPD_Market_Type,AOP.AOPD_Year
+    </select>
+    
+    
+		<select id="SelectCurrentAopDealer" parameterClass="System.Collections.Hashtable" resultClass="AopDealer">
+			select AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Year,quarter,sum(AOPD_Amount) as Amount
+			from (
+			select AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Year,
+			(case when (AOPD_Month='01M' or AOPD_Month='02M' or AOPD_Month='03M') then 'Q1'
+			when (AOPD_Month='04M' or AOPD_Month='05M' or AOPD_Month='06M') then 'Q2'
+			when (AOPD_Month='07M' or AOPD_Month='08M' or AOPD_Month='09M') then 'Q3'
+			when (AOPD_Month='10M' or AOPD_Month='11M' or AOPD_Month='12M') then 'Q4'
+			end
+			) as quarter,
+			AOPD_Amount
+			FROM AOPDealer
+
+			) t1 inner join
+			(select COP_Year,COP_Period
+			from  COP where COP_Type='Q' and CURRENT_TIMESTAMP BETWEEN COP_StartDate and COP_EndDate) t2
+			on t1.AOPD_Year = t2.COP_Year and t1.quarter = t2.COP_Period
+			where AOPD_Dealer_DMA_ID=#DealerDmaId#
+			and AOPD_ProductLine_BUM_ID=#ProductLineBumId#
+			group by AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Year,quarter
+		</select>
+		
+		<insert id="InsertAopDealer" parameterClass="AopDealer">
+			INSERT INTO AOPDealer
+			(AOPD_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Year,AOPD_Month,AOPD_Amount,AOPD_Update_User_ID,AOPD_Update_Date)
+			VALUES(#Id#,#DealerDmaId#,#ProductLineBumId#,#Year#,#Month#,#Amount#,#UpdateUserId#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+		</insert>
+		<update id="UpdateAopDealer" parameterClass="AopDealer">
+			UPDATE AOPDealer
+			SET AOPD_ID=#Id#,AOPD_Dealer_DMA_ID=#DealerDmaId#,AOPD_ProductLine_BUM_ID=#ProductLineBumId#,AOPD_Year=#Year#,AOPD_Month=#Month#,AOPD_Amount=#Amount#,AOPD_Update_User_ID=#UpdateUserId#,AOPD_Update_Date=#UpdateDate#
+			WHERE AOPD_ID = #Id#
+		</update>
+		<delete id="DeleteAopDealer" parameterClass="System.Collections.Hashtable">
+			DELETE FROM AOPDealer
+			WHERE AOPD_Dealer_DMA_ID=#DealerDmaId#
+			and AOPD_ProductLine_BUM_ID=#ProductLineBumId#
+			and AOPD_Year=#Year#
+		</delete>
+
+    <select id="ExportAop" parameterClass="System.Collections.Hashtable" resultClass="AopDealer">
+      SELECT dm.DMA_ChineseName as N'经销商名称',
+      dm.DMA_DealerType as N'经销商类型' ,
+      div.ProductLineName as N'产品线',
+      aop.AOPD_Year as N'年份',
+      aop.AOPD_Amount_1 as N'1月',
+      aop.AOPD_Amount_2 as N'2月',
+      aop.AOPD_Amount_3 as N'3月',
+      aop.AOPD_Amount_4 as N'4月',
+      aop.AOPD_Amount_5 as N'5月',
+      aop.AOPD_Amount_6 as N'6月',
+      aop.AOPD_Amount_7 as N'7月',
+      aop.AOPD_Amount_8 as N'8月',
+      aop.AOPD_Amount_9 as N'9月',
+      aop.AOPD_Amount_10 as N'10月',
+      aop.AOPD_Amount_11 as N'11月',
+      aop.AOPD_Amount_12 as N'12月',
+      aop.AOPD_Amount_Y as N'合计'
+      FROM V_AOPDealer aop
+      left join DealerMaster dm(nolock) on aop.AOPD_Dealer_DMA_ID=dm.DMA_ID
+      left join V_DivisionProductLineRelation div on div.ProductLineID=aop.AOPD_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">aop.AOPD_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">aop.AOPD_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">aop.AOPD_Year=#Year#</isNotNull>
+      </dynamic>
+      ORDER BY dm.DMA_DealerType,dm.DMA_ChineseName
+    </select>
+
+    <select id="ExportHospitalAop" parameterClass="System.Collections.Hashtable" resultClass="AopDealer">
+      SELECT dm.DMA_ChineseName as N'经销商名称',
+      dm.DMA_DealerType as N'经销商类型' ,
+      div.ProductLineName as N'产品线',
+      hos.HOS_HospitalName as N'医院名称',
+      aop.AOPDH_Year as N'年份',
+      aop.AOPDH_Amount_1 as N'1月',
+      aop.AOPDH_Amount_2 as N'2月',
+      aop.AOPDH_Amount_3 as N'3月',
+      aop.AOPDH_Amount_4 as N'4月',
+      aop.AOPDH_Amount_5 as N'5月',
+      aop.AOPDH_Amount_6 as N'6月',
+      aop.AOPDH_Amount_7 as N'7月',
+      aop.AOPDH_Amount_8 as N'8月',
+      aop.AOPDH_Amount_9 as N'9月',
+      aop.AOPDH_Amount_10 as N'10月',
+      aop.AOPDH_Amount_11 as N'11月',
+      aop.AOPDH_Amount_12 as N'12月',
+      aop.AOPDH_Amount_Y as N'合计'
+      FROM dbo.V_AOPDealerHospital aop
+      left join DealerMaster dm(nolock)  on aop.AOPDH_Dealer_DMA_ID=dm.DMA_ID
+      left join V_DivisionProductLineRelation div on div.ProductLineID=aop.AOPDH_ProductLine_BUM_ID
+      left join Hospital hos(nolock) on hos.HOS_ID=aop.AOPDH_Hospital_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">aop.AOPDH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">aop.AOPDH_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">aop.AOPDH_Year=#Year#</isNotNull>
+      </dynamic>
+      ORDER BY dm.DMA_DealerType,dm.DMA_ChineseName
+    </select>
+
+    <select id="ExportHospitalProductAop" parameterClass="System.Collections.Hashtable" resultClass="AopDealer">
+      SELECT dm.DMA_ChineseName as N'经销商名称',
+      dm.DMA_DealerType as N'经销商类型' ,
+      div.ProductLineName as N'产品线',
+      hos.HOS_HospitalName as N'医院名称',
+      pf.PCT_NameCN as N'产品分类',
+      aop.AOPICH_Year as N'年份',
+      aop.AOPICH_Unit_1 as N'1月',
+      aop.AOPICH_Unit_2 as N'2月',
+      aop.AOPICH_Unit_3 as N'3月',
+      aop.AOPICH_Unit_4 as N'4月',
+      aop.AOPICH_Unit_5 as N'5月',
+      aop.AOPICH_Unit_6 as N'6月',
+      aop.AOPICH_Unit_7 as N'7月',
+      aop.AOPICH_Unit_8 as N'8月',
+      aop.AOPICH_Unit_9 as N'9月',
+      aop.AOPICH_Unit_10 as N'10月',
+      aop.AOPICH_Unit_11 as N'11月',
+      aop.AOPICH_Unit_12 as N'12月',
+      aop.AOPICH_Unit_Y as N'合计'
+      FROM dbo.V_AOPICDealerHospital aop
+      left join DealerMaster dm(nolock) on aop.AOPICH_DMA_ID=dm.DMA_ID
+      left join V_DivisionProductLineRelation div on div.ProductLineID=aop.AOPICH_ProductLine_ID
+      left join Hospital hos(nolock) on hos.HOS_ID=aop.AOPICH_Hospital_ID
+      inner JOIN AOPHospitalProductMapping mp(nolock) on mp.AOPHPM_Hos_Id=aop.AOPICH_Hospital_ID and mp.AOPHPM_Dma_id=aop.AOPICH_DMA_ID
+      and aop.AOPICH_PCT_ID=mp.AOPHPM_PCT_ID  and mp.AOPHPM_ActiveFlag='1'
+      left join ProductClassification pf(nolock) on pf.PCT_ID=aop.AOPICH_PCT_ID
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">aop.AOPICH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">aop.AOPICH_ProductLine_ID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">aop.AOPICH_Year=#Year#</isNotNull>
+      </dynamic>
+      ORDER BY dm.DMA_DealerType,dm.DMA_ChineseName
+    </select>
+
+
+    <select id="SelectHospitalProductFiller" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT   A.DMA_Id DmaId,b.DMA_SAP_Code AS SAPCode,B.DMA_ChineseName DealerName,ProductLineId,	ProductLineName,	DivisionCode,	DivisionName,	CC_Code,	CC_NameCN,	PCTId,	PCTCode	,PCTName,	Year,	HospitalId,	HospitalCode,	HOS_HospitalName,	AOPType,
+      Month1,	Month2,	Month3,	Month4,	Month5,	Month6,	Month7,	Month8,	Month9,	Month10	,Month11,	Month12,	Price, VP.SubCompanyName,
+      VP.BrandName
+      ,row_number() OVER (ORDER BY A.ProductLineName,A.HOS_HospitalName,A.Year) AS [row_number]
+      FROM interface.V_I_QV_AOPHospitalProduct A
+      INNER JOIN DealerMaster B(nolock) ON A.DMA_Id=B.DMA_ID
+      LEFT JOIN View_ProductLine VP (nolock) on VP.Id = A.ProductLineId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerDmaId">A.DMA_Id=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">A.ProductLineId=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="SubProductCode"> A.CC_Code=#SubProductCode#</isNotNull>
+        <isNotNull prepend="AND" property="QtSubProductCode"> A.PCTCode=#QtSubProductCode#</isNotNull>
+        <isNotNull prepend="AND" property="AOPType"> A.AOPType=#AOPType#</isNotNull>
+        <isNotNull prepend="AND" property="Year"> A.Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VP.BrandId = #BrandId#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (B.DMA_Parent_DMA_ID=#OwnerCorpId# OR B.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="ExportHospitalProductFiller" parameterClass="System.Collections.Hashtable" resultClass="AopDealer">
+      SELECT   B.DMA_ChineseName as N'经销商名称',
+      ProductLineName as N'产品线',
+      VP.SubCompanyName as N'分子公司',
+      VP.BrandName as N'品牌',
+      CC_NameCN as N'合同分类',
+      PCTName as N'指标分类',
+      Year as N'年份',
+      HospitalCode as N'医院Code',
+      HOS_HospitalName as N'医院名称',
+      AOPType as N'指标类型',
+      Month1 as N'一月',
+      Month2 as N'二月',
+      Month3 as N'三月',
+      Month4 as N'四月',
+      Month5 as N'五月',
+      Month6 as N'六月',
+      Month7 as N'七月',
+      Month8 as N'八月',
+      Month9 as N'九月',
+      Month10 as N'十月',
+      Month11 as N'十一月',
+      Month12 as N'十二月'
+      FROM interface.V_I_QV_AOPHospitalProduct A
+      INNER JOIN DealerMaster B(nolock) ON A.DMA_Id=B.DMA_ID
+      LEFT JOIN View_ProductLine VP (nolock) on VP.Id = A.ProductLineId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerDmaId">A.DMA_Id=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">A.ProductLineId=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="SubProductCode"> A.CC_Code=#SubProductCode#</isNotNull>
+        <isNotNull prepend="AND" property="QtSubProductCode"> A.PCTCode=#QtSubProductCode#</isNotNull>
+        <isNotNull prepend="AND" property="AOPType"> A.AOPType=#AOPType#</isNotNull>
+        <isNotNull prepend="AND" property="Year"> A.Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VP.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VP.BrandId = #BrandId#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (B.DMA_Parent_DMA_ID=#OwnerCorpId# OR B.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+      ORDER BY A.ProductLineName,A.HOS_HospitalName,A.Year
+    </select>
+  </statements>
+</sqlMap>

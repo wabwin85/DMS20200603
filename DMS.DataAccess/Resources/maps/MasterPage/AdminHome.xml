@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MasterPage.AdminHome" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="MasterPage.AdminHome.SelectAdminPageSum" parameterClass="System.Collections.Hashtable">
+      EXEC dbo.[GC_AdminPageSum_List] #YearCode#
+    </select>
+    <select id="MasterPage.AdminHome.SelectYearList" resultClass="System.Collections.Hashtable">
+      select substring(convert(varchar(32),DATEADD(year,number,'2016-01-01'),21),1,4) as YearCode
+      from master..spt_values WHERE TYPE = 'P'
+      AND DATEADD(YEAR,number,'2016-01-01') &lt;  getdate()
+      order by substring(convert(varchar(32),DATEADD(year,number,'2016-01-01'),21),1,4) desc
+    </select>
+  </statements>
+</sqlMap>

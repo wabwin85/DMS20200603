@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TransferNoteMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TransferNote" assembly="DMS.Model.dll" type="DMS.Model.TransferNote" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TransferNoteResult" class="TransferNote">
+      <result property="Id" column="TNL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerSapCode" column="TNL_Dealer_SapCode" type="string" dbType="nvarchar"/>
+      <result property="TransferDate" column="TNL_TransferDate" type="DateTime" dbType="datetime"/>
+      <result property="ArticleNumber" column="TNL_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="TNL_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="TNL_ExpiredDate" type="DateTime" dbType="datetime"/>
+      <result property="LotTransferQty" column="TNL_LotTransferQty" type="decimal" dbType="decimal"/>
+      <result property="Remark" column="TNL_Remark" type="string" dbType="nvarchar"/>
+      <result property="TransferType" column="TNL_TransferType" type="string" dbType="nvarchar"/>
+      <result property="ToDealerType" column="TNL_ToDealerType" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="TNL_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="TNL_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="TNL_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="TNL_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="TNL_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="FromDealerDmaId" column="TNL_FromDealer_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ToDealerDmaId" column="TNL_ToDealer_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="FromWarehouseWhmId" column="TNL_FromWarehouse_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ToWarehouseWhmId" column="TNL_ToWarehouse_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="TNL_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="TNL_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="TNL_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PctId" column="TNL_PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="TNL_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PrlId" column="TNL_PRL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TltId" column="TNL_TLT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Authorized" column="TNL_Authorized" type="bool" dbType="bit"/>
+      <result property="ProblemDescription" column="TNL_ProblemDescription" type="string" dbType="nvarchar"/>
+      <result property="HandleDate" column="TNL_HandleDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectTransferNote" parameterClass="string" resultClass="TransferNote">
+      SELECT TNL_ID AS Id,TNL_Dealer_SapCode AS DealerSapCode,TNL_TransferDate AS TransferDate,TNL_ArticleNumber AS ArticleNumber,TNL_LotNumber AS LotNumber,TNL_ExpiredDate AS ExpiredDate,TNL_LotTransferQty AS LotTransferQty,TNL_Remark AS Remark,TNL_TransferType AS TransferType,TNL_ToDealerType AS ToDealerType,TNL_LineNbr AS LineNbr,TNL_FileName AS FileName,TNL_ImportDate AS ImportDate,TNL_ClientID AS Clientid,TNL_BatchNbr AS BatchNbr,TNL_FromDealer_DMA_ID AS FromDealerDmaId,TNL_ToDealer_DMA_ID AS ToDealerDmaId,TNL_FromWarehouse_WHM_ID AS FromWarehouseWhmId,TNL_ToWarehouse_WHM_ID AS ToWarehouseWhmId,TNL_CFN_ID AS CfnId,TNL_PMA_ID AS PmaId,TNL_BUM_ID AS BumId,TNL_PCT_ID AS PctId,TNL_LTM_ID AS LtmId,TNL_PRL_ID AS PrlId,TNL_TLT_ID AS TltId,TNL_Authorized AS Authorized,TNL_ProblemDescription AS ProblemDescription,TNL_HandleDate AS HandleDate
+      FROM TransferNote
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TNL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTransferNote" parameterClass="TransferNote" resultClass="TransferNote">
+      SELECT TNL_ID AS Id,TNL_Dealer_SapCode AS DealerSapCode,TNL_TransferDate AS TransferDate,TNL_ArticleNumber AS ArticleNumber,TNL_LotNumber AS LotNumber,TNL_ExpiredDate AS ExpiredDate,TNL_LotTransferQty AS LotTransferQty,TNL_Remark AS Remark,TNL_TransferType AS TransferType,TNL_ToDealerType AS ToDealerType,TNL_LineNbr AS LineNbr,TNL_FileName AS FileName,TNL_ImportDate AS ImportDate,TNL_ClientID AS Clientid,TNL_BatchNbr AS BatchNbr,TNL_FromDealer_DMA_ID AS FromDealerDmaId,TNL_ToDealer_DMA_ID AS ToDealerDmaId,TNL_FromWarehouse_WHM_ID AS FromWarehouseWhmId,TNL_ToWarehouse_WHM_ID AS ToWarehouseWhmId,TNL_CFN_ID AS CfnId,TNL_PMA_ID AS PmaId,TNL_BUM_ID AS BumId,TNL_PCT_ID AS PctId,TNL_LTM_ID AS LtmId,TNL_PRL_ID AS PrlId,TNL_TLT_ID AS TltId,TNL_Authorized AS Authorized,TNL_ProblemDescription AS ProblemDescription,TNL_HandleDate AS HandleDate
+      FROM TransferNote
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">TNL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">TNL_Dealer_SapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="TransferDate">TNL_TransferDate=#TransferDate#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">TNL_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">TNL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">TNL_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="LotTransferQty">TNL_LotTransferQty=#LotTransferQty#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">TNL_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="TransferType">TNL_TransferType=#TransferType#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerType">TNL_ToDealerType=#ToDealerType#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">TNL_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">TNL_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">TNL_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">TNL_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">TNL_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FromDealerDmaId">TNL_FromDealer_DMA_ID=#FromDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ToDealerDmaId">TNL_ToDealer_DMA_ID=#ToDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="FromWarehouseWhmId">TNL_FromWarehouse_WHM_ID=#FromWarehouseWhmId#</isNotNull>
+        <isNotNull prepend="AND" property="ToWarehouseWhmId">TNL_ToWarehouse_WHM_ID=#ToWarehouseWhmId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">TNL_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">TNL_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">TNL_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="PctId">TNL_PCT_ID=#PctId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">TNL_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="PrlId">TNL_PRL_ID=#PrlId#</isNotNull>
+        <isNotNull prepend="AND" property="TltId">TNL_TLT_ID=#TltId#</isNotNull>
+        <isNotNull prepend="AND" property="Authorized">TNL_Authorized=#Authorized#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">TNL_ProblemDescription=#ProblemDescription#</isNotNull>
+        <isNotNull prepend="AND" property="HandleDate">TNL_HandleDate=#HandleDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTransferNote" parameterClass="TransferNote">
+      INSERT INTO TransferNote
+      (TNL_ID,TNL_Dealer_SapCode,TNL_TransferDate,TNL_ArticleNumber,TNL_LotNumber,TNL_ExpiredDate,TNL_LotTransferQty,TNL_Remark,TNL_TransferType,TNL_ToDealerType,TNL_LineNbr,TNL_FileName,TNL_ImportDate,TNL_ClientID,TNL_BatchNbr,TNL_FromDealer_DMA_ID,TNL_ToDealer_DMA_ID,TNL_FromWarehouse_WHM_ID,TNL_ToWarehouse_WHM_ID,TNL_CFN_ID,TNL_PMA_ID,TNL_BUM_ID,TNL_PCT_ID,TNL_LTM_ID,TNL_PRL_ID,TNL_TLT_ID,TNL_Authorized,TNL_ProblemDescription,TNL_HandleDate)
+      VALUES(#Id#,#DealerSapCode#,#TransferDate:DateTime:1/1/0001 12:00:00 AM#,#ArticleNumber#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#LotTransferQty#,#Remark#,#TransferType#,#ToDealerType#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#FromDealerDmaId#,#ToDealerDmaId#,#FromWarehouseWhmId#,#ToWarehouseWhmId#,#CfnId#,#PmaId#,#BumId#,#PctId#,#LtmId#,#PrlId#,#TltId#,#Authorized#,#ProblemDescription#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateTransferNote" parameterClass="TransferNote">
+      UPDATE TransferNote
+      SET TNL_ID=#Id#,TNL_Dealer_SapCode=#DealerSapCode#,TNL_TransferDate=#TransferDate#,TNL_ArticleNumber=#ArticleNumber#,TNL_LotNumber=#LotNumber#,TNL_ExpiredDate=#ExpiredDate#,TNL_LotTransferQty=#LotTransferQty#,TNL_Remark=#Remark#,TNL_TransferType=#TransferType#,TNL_ToDealerType=#ToDealerType#,TNL_LineNbr=#LineNbr#,TNL_FileName=#FileName#,TNL_ImportDate=#ImportDate#,TNL_ClientID=#Clientid#,TNL_BatchNbr=#BatchNbr#,TNL_FromDealer_DMA_ID=#FromDealerDmaId#,TNL_ToDealer_DMA_ID=#ToDealerDmaId#,TNL_FromWarehouse_WHM_ID=#FromWarehouseWhmId#,TNL_ToWarehouse_WHM_ID=#ToWarehouseWhmId#,TNL_CFN_ID=#CfnId#,TNL_PMA_ID=#PmaId#,TNL_BUM_ID=#BumId#,TNL_PCT_ID=#PctId#,TNL_LTM_ID=#LtmId#,TNL_PRL_ID=#PrlId#,TNL_TLT_ID=#TltId#,TNL_Authorized=#Authorized#,TNL_ProblemDescription=#ProblemDescription#,TNL_HandleDate=#HandleDate#
+      WHERE TNL_ID = #Id#
+    </update>
+    <delete id="DeleteTransferNote" parameterClass="string">
+      DELETE FROM TransferNote
+      WHERE TNL_ID = #value#
+    </delete>
+    <select id="SelectTransferNoteByBatchNbrErrorOnly" parameterClass="string" resultClass="TransferNote">
+      SELECT TNL_ID AS Id,TNL_Dealer_SapCode AS DealerSapCode,TNL_TransferDate AS TransferDate,TNL_ArticleNumber AS ArticleNumber,TNL_LotNumber AS LotNumber,TNL_ExpiredDate AS ExpiredDate,TNL_LotTransferQty AS LotTransferQty,TNL_Remark AS Remark,TNL_TransferType AS TransferType,TNL_ToDealerType AS ToDealerType,TNL_LineNbr AS LineNbr,TNL_FileName AS FileName,TNL_ImportDate AS ImportDate,TNL_ClientID AS Clientid,TNL_BatchNbr AS BatchNbr,TNL_FromDealer_DMA_ID AS FromDealerDmaId,TNL_ToDealer_DMA_ID AS ToDealerDmaId,TNL_FromWarehouse_WHM_ID AS FromWarehouseWhmId,TNL_ToWarehouse_WHM_ID AS ToWarehouseWhmId,TNL_CFN_ID AS CfnId,TNL_PMA_ID AS PmaId,TNL_BUM_ID AS BumId,TNL_PCT_ID AS PctId,TNL_LTM_ID AS LtmId,TNL_PRL_ID AS PrlId,TNL_TLT_ID AS TltId,TNL_Authorized AS Authorized,TNL_ProblemDescription AS ProblemDescription,TNL_HandleDate AS HandleDate
+      FROM TransferNote
+      WHERE TNL_BatchNbr = #value# AND TNL_ProblemDescription IS NOT NULL
+      ORDER BY TNL_LineNbr
+    </select>
+  </statements>
+</sqlMap>

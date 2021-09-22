@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MasterData.ProductLineMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ViewProductLine" assembly="DMS.Model.dll" type="DMS.Model.ViewProductLine" />
+  </alias>
+  <resultMaps>
+    <resultMap id="MasterData.ProductLineMap.SelectViewProductLine" class="ViewProductLine">
+      <result property="Id" column="Id" type="string" dbType="string"/>
+      <result property="AttributeName" column="ATTRIBUTE_NAME" type="string" dbType="varchar"/>
+      <result property="AttributeType" column="ATTRIBUTE_TYPE" type="string" dbType="varchar"/>
+      <result property="BooleanFlag" column="BOOLEAN_FLAG" type="string" dbType="varchar"/>
+      <result property="Description" column="DESCRIPTION" type="string" dbType="varchar"/>
+      <result property="Level" column="ATTRIBUTE_LEVEL" type="int" dbType="int"/>
+      <result property="AttributeField1" column="ATTRIBUTE_FIELD1" type="string" dbType="varchar"/>
+      <result property="AttributeField2" column="ATTRIBUTE_FIELD2" type="string" dbType="varchar"/>
+      <result property="AttributeField3" column="ATTRIBUTE_FIELD3" type="string" dbType="varchar"/>
+      <result property="AttributeField4" column="ATTRIBUTE_FIELD4" type="string" dbType="varchar"/>
+      <result property="Rev1" column="REV1" type="string" dbType="varchar"/>
+      <result property="Rev2" column="REV2" type="string" dbType="varchar"/>
+      <result property="Rev3" column="REV3" type="string" dbType="varchar"/>
+      <result property="AppId" column="APP_ID" type="string" dbType="varchar"/>
+      <result property="SortField" column="SORT_COL" type="string" dbType="varchar"/>
+      <result property="DeleteFlag" column="DELETE_FLAG" type="string" dbType="varchar"/>
+      <result property="CreateUser" column="CREATE_USER" type="string" dbType="varchar"/>
+      <result property="CreateDate" column="CREATE_DATE" type="DateTime" dbType="datetime"/>
+      <result property="LastUpdateUser" column="LAST_UPDATE_USER" type="string" dbType="varchar"/>
+      <result property="LastUpdateDate" column="LAST_UPDATE_DATE" type="DateTime" dbType="datetime"/>
+      <result property="SubCompanyId" column="SubCompanyId" type="string" dbType="varchar"/>
+      <result property="SubCompanyName" column="SubCompanyName" type="string" dbType="varchar"/>
+      <result property="BrandId" column="BrandId" type="string" dbType="varchar"/>
+      <result property="BrandName" column="BrandName" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="MasterData.ProductLineMap.SelectProductLineName" parameterClass="Guid" resultClass="String">
+      <![CDATA[
+        SELECT ATTRIBUTE_NAME
+        FROM   View_ProductLine(nolock)
+        WHERE  Id = #value#
+      ]]>
+    </select>
+
+    <select id="MasterData.ProductLineMap.SelectViewProductLine" parameterClass="System.Collections.Hashtable" resultClass="ViewProductLine">
+      SELECT Id,
+      ATTRIBUTE_NAME,
+      ATTRIBUTE_TYPE,
+      BOOLEAN_FLAG,
+      DESCRIPTION,
+      ATTRIBUTE_LEVEL,
+      ATTRIBUTE_FIELD1,
+      ATTRIBUTE_FIELD2,
+      ATTRIBUTE_FIELD3,
+      ATTRIBUTE_FIELD4,
+      REV1,
+      REV2,
+      REV3,
+      APP_ID,
+      SORT_COL,
+      DELETE_FLAG,
+      CREATE_USER,
+      CREATE_DATE,
+      LAST_UPDATE_USER,
+      LAST_UPDATE_DATE,
+      SubCompanyId,
+      SubCompanyName,
+      BrandId,
+      BrandName
+      FROM View_ProductLine
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId=#BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+      </dynamic>
+    </select>
+
+  </statements>
+</sqlMap>

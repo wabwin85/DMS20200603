@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerProductPriceHistoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerProductPriceHistory" assembly="DMS.Model.dll" type="DMS.Model.DealerProductPriceHistory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerProductPriceHistoryResult" class="DealerProductPriceHistory">
+      <result property="Id" column="DPH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="DPH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="DPH_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SltId" column="DPH_SLT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UnitPrice" column="DPH_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="CreateDate" column="DPH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateDate" column="DPH_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDealerProductPriceHistory" parameterClass="string" resultClass="DealerProductPriceHistory">
+      SELECT DPH_ID AS Id,DPH_DMA_ID AS DmaId,DPH_PMA_ID AS PmaId,DPH_UnitPrice AS UnitPrice,DPH_CreateDate AS CreateDate,DPH_UpdateDate AS UpdateDate,DPH_SLT_ID as SltId
+      FROM DealerProductPriceHistory
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DPH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealerProductPriceHistory" parameterClass="DealerProductPriceHistory" resultClass="DealerProductPriceHistory">
+      SELECT DPH_ID AS Id,DPH_DMA_ID AS DmaId,DPH_PMA_ID AS PmaId,DPH_UnitPrice AS UnitPrice,DPH_CreateDate AS CreateDate,DPH_UpdateDate AS UpdateDate,DPH_SLT_ID as SltId
+      FROM DealerProductPriceHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">DPH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">DPH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">DPH_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="SltId">DPH_SLT_ID=#SltId#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">DPH_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">DPH_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDealerProductPriceHistory" parameterClass="DealerProductPriceHistory">
+      INSERT INTO DealerProductPriceHistory
+      (DPH_ID,DPH_DMA_ID,DPH_PMA_ID,DPH_SLT_ID,DPH_UnitPrice,DPH_CreateDate,DPH_UpdateDate)
+      VALUES(#Id#,#DmaId#,#PmaId#,#SltId#,#UnitPrice#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateDealerProductPriceHistory" parameterClass="DealerProductPriceHistory">
+      UPDATE DealerProductPriceHistory
+      SET DPH_ID=#Id#,DPH_DMA_ID=#DmaId#,DPH_PMA_ID=#PmaId#,DPH_SLT_ID=#SltId#,DPH_UnitPrice=#UnitPrice#,DPH_UpdateDate=#UpdateDate#
+      WHERE DPH_ID = #Id#
+    </update>
+    <delete id="DeleteDealerProductPriceHistory" parameterClass="string">
+      DELETE FROM DealerProductPriceHistory
+      WHERE DPH_ID = #value#
+    </delete>
+
+    <select id="CheckDealerTypeById" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT ISNULL(DMA_Taxpayer,'') AS Taxpayer FROM DealerMaster A(nolock)  WHERE A.DMA_ID=#value#
+    </select>
+
+    <select id="SelectByFilterPMADMA" parameterClass="Hashtable" resultClass="DealerProductPriceHistory">
+      SELECT TOP 1 DPH_ID AS Id,DPH_DMA_ID AS DmaId,DPH_PMA_ID AS PmaId,CAST(ISNULL(DPH_UnitPrice,0) AS DECIMAL(18,6))AS UnitPrice,DPH_CreateDate AS CreateDate,DPH_UpdateDate AS UpdateDate,DPH_SLT_ID AS SltId
+      FROM DealerProductPriceHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">DPH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">DPH_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="SltId">DPH_SLT_ID=#SltId#</isNotNull>
+      </dynamic>
+      ORDER BY DPH_CreateDate DESC
+    </select>
+
+    <select id="SelectByFilterPMADMATaxpayer" parameterClass="Hashtable" resultClass="DealerProductPriceHistory">
+      SELECT <!--a.CFNP_Price--> dbo.fn_GetCfnPriceByDealer(ISNULL(#DmaId#,CFNP_Group_ID),A.CFNP_CFN_ID,#SubCompanyId#,#BrandId#,A.CFNP_PriceType,0) UnitPrice
+      FROM CFNPrice A
+      INNER JOIN Product B ON A.CFNP_CFN_ID=B.PMA_CFN_ID
+      WHERE A.CFNP_PriceType='Dealer'
+      <isNotNull prepend="AND" property="DmaId">A.CFNP_Group_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">B.PMA_ID=#PmaId#</isNotNull>
+    </select>
+    
+    
+    <!--<select id="SelectByFilterPMADMA" parameterClass="Hashtable" resultClass="DealerProductPriceHistory">
+      IF NOT EXISTS(SELECT 1 FROM DealerMaster WHERE DMA_ID=#DmaId# AND DMA_Taxpayer='直销医院')
+      BEGIN
+      SELECT TOP 1 DPH_ID AS Id,DPH_DMA_ID AS DmaId,DPH_PMA_ID AS PmaId,CAST(ISNULL(DPH_UnitPrice,0) AS DECIMAL(18,6))AS UnitPrice,DPH_CreateDate AS CreateDate,DPH_UpdateDate AS UpdateDate,DPH_SLT_ID AS SltId
+      FROM DealerProductPriceHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">DPH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">DPH_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="SltId">DPH_SLT_ID=#SltId#</isNotNull>
+      </dynamic>
+      ORDER BY DPH_CreateDate DESC
+      END
+      ELSE
+      BEGIN
+        SELECT a.CFNP_Price UnitPrice
+        FROM CFNPrice A
+        INNER JOIN Product B ON A.CFNP_CFN_ID=B.PMA_CFN_ID
+        WHERE A.CFNP_PriceType='Dealer'
+        <isNotNull prepend="AND" property="DmaId">A.CFNP_Group_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">B.PMA_ID=#PmaId#</isNotNull>
+      END
+    </select>-->
+
+    <!--Added By Song Yuqi Begin-->
+    <select id="SelectByFilterPmaDmaLtm" parameterClass="Hashtable" resultClass="DealerProductPriceHistory">
+      IF NOT EXISTS(SELECT 1 FROM DealerMaster(nolock) WHERE DMA_ID=#DmaId# AND DMA_Taxpayer='直销医院')
+      BEGIN
+      SELECT DPH_ID AS Id,DPH_DMA_ID AS DmaId,DPH_PMA_ID AS PmaId,ISNULL(DPH_UnitPrice,0)AS UnitPrice,DPH_CreateDate AS CreateDate,DPH_UpdateDate AS UpdateDate,DPH_SLT_ID AS SltId
+      FROM DealerProductPriceHistory(nolock),Lot(nolock)
+      WHERE DPH_SLT_ID = LOT_ID
+      <dynamic prepend="">
+          <isNotNull prepend="AND" property="DmaId">DPH_DMA_ID=#DmaId#</isNotNull>
+          <isNotNull prepend="AND" property="PmaId">DPH_PMA_ID=#PmaId#</isNotNull>
+          <isNotNull prepend="AND" property="SltId">DPH_SLT_ID=#SltId#</isNotNull>
+          <isNotNull prepend="AND" property="LtmId">LOT_LTM_ID=#LtmId#</isNotNull>
+      </dynamic>
+      END
+      ELSE
+      BEGIN
+      <!--SELECT a.CFNP_Price UnitPrice-->
+      SELECT
+      isnull(dbo.fn_GetCfnPriceByDealer(B.PMA_ID,A.CFNP_CFN_ID,#SubCompanyId#,#BrandId#,A.CFNP_PriceType,0),0) UnitPrice
+      FROM CFNPrice A
+      INNER JOIN Product B ON A.CFNP_CFN_ID=B.PMA_CFN_ID
+      WHERE A.CFNP_PriceType='Dealer'
+      <isNotNull prepend="AND" property="DmaId">A.CFNP_Group_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="PmaId">B.PMA_ID=#PmaId#</isNotNull>
+      END
+    </select>
+      <!--Added By Song Yuqi End-->
+  </statements>
+</sqlMap>

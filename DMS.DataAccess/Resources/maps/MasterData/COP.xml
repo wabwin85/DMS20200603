@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WarehouseMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  
+  <statements>
+
+    <select id="SelectCOP_FY" parameterClass="string" resultClass="">
+      SELECT DISTINCT COP_Period
+      FROM COP
+      WHERE COP_Type = 'Y'
+    </select>
+
+    <select id="SelectCOP_FQ" parameterClass="string" resultClass="">
+      SELECT DISTINCT COP_Period
+      FROM COP
+      WHERE COP_Type = 'Q'
+    </select>
+
+    <select id="SelectCOP_FM" parameterClass="string" resultClass="">
+      SELECT DISTINCT COP_Period
+      FROM COP
+      WHERE COP_Type = 'M'
+    </select>
+
+    <select id="SelectCOP_CurrentFY" parameterClass="string" resultClass="">
+      SELECT COP_Period
+      FROM COP
+      WHERE COP_Type = 'Y'
+      AND GetDate() >= COP.COP_StartDate
+      AND GetDate() &lt; DateAdd(day, 1, COP.COP_EndDate)
+    </select>
+
+    <select id="SelectCOP_CurrentFQ" parameterClass="string" resultClass="">
+      SELECT COP_Period
+      FROM COP
+      WHERE COP_Type = 'Q'
+      AND GetDate() >= COP.COP_StartDate
+      AND GetDate() &lt; DateAdd(day, 1, COP.COP_EndDate)
+    </select>
+
+	<select id="SelectCOP_CurrentFM" parameterClass="string" resultClass="">
+		SELECT COP_Period
+		FROM COP
+		WHERE COP_Type = 'M'
+		AND GetDate() >= COP.COP_StartDate
+		AND GetDate() &lt; DateAdd(day, 1, COP.COP_EndDate)
+	</select>
+
+  </statements>
+</sqlMap>

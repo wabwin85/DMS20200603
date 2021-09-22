@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="From3.Btn.Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="From3.Btn.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="From3.Processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="From3.Title" xml:space="preserve">
+    <value>Third Party Disclosure Form  Form3</value>
+  </data>
+  <data name="Part1.Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Part1.Charter" xml:space="preserve">
+    <value>Business license</value>
+  </data>
+  <data name="Part1.ContactEmail" xml:space="preserve">
+    <value>Principal Contact E-mail</value>
+  </data>
+  <data name="Part1.ContactPerson" xml:space="preserve">
+    <value>Principal Contact</value>
+  </data>
+  <data name="Part1.Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Part1.DealerName" xml:space="preserve">
+    <value>Company Name（CN） (referred to in this form as “Company”)</value>
+  </data>
+  <data name="Part1.DealerName.BlankText" xml:space="preserve">
+    <value>Company name must be filled</value>
+  </data>
+  <data name="Part1.Exchange" xml:space="preserve">
+    <value>If “yes,” on what exchange</value>
+  </data>
+  <data name="Part1.Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Part1.Notes1" xml:space="preserve">
+    <value>For new Boston Scientific Third Parties, attach Company financial statements for the last two fiscal years.</value>
+  </data>
+  <data name="Part1.Notes2" xml:space="preserve">
+    <value>if you are a current Boston Scientific Third Party (Agent, Distributor or Dealer), your contract is being renewed, and none of the relevant information below (including principal owners, shareholders, directors, bank information, etc.) has changed since the previous Third Party Disclosure Form you completed.  In this case, certify that there have been no changes by signing below, and do not fill out the rest of this form.  If any of the relevant information has changed from the last submission, fill in only the information that has changed.</value>
+  </data>
+  <data name="Part1.Notes3" xml:space="preserve">
+    <value>**IMPORTANT NOTE**:  Sections 2 – 11 are ONLY for NEW Third Party contracts, or renewals where information has changed from a prior submission.  Please fill out ALL required sections completely.  Please write “N/A” or “None” in ALL sections not-applicable.</value>
+  </data>
+  <data name="Part1.PubliclyTraded" xml:space="preserve">
+    <value>Is the Company &lt;br/&gt; publicly traded</value>
+  </data>
+  <data name="Part1.PubliclyTradedNo" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Part1.PubliclyTradedYes" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Part1.Telephony" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="Part1.Title" xml:space="preserve">
+    <value>1.Company Information</value>
+  </data>
+  <data name="Part1.Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Part10.Notes1" xml:space="preserve">
+    <value>Notice is hereby given that in connection with your application to act as a Third Party, Boston Scientific may order due diligence verification reports and/or investigative due diligence reports seeking information on various matters, including without limitation company structure, ownership, business practices, banking records, credit, bankruptcy proceedings, criminal records, civil records, and general reputation and personal characteristics (including any of the aforementioned items as well as individual educational accomplishment, employment history, etc.).  We require you to sign the following release authorization.</value>
+  </data>
+  <data name="Part10.Notes2" xml:space="preserve">
+    <value>Release Authorization:</value>
+  </data>
+  <data name="Part10.Notes3" xml:space="preserve">
+    <value>I hereby authorize, without reservation, any person, company, agency, educational or other organization to furnish the above-mentioned information.  I also authorize Boston Scientific or its agents to order due diligence verification reports and/or investigative due diligence reports from any agency for the purpose of ascertaining my character and creditworthiness.  I further acknowledge that a photographic copy or fax of this release authorization shall be as valid as the original.  I agree to release and hold harmless all persons and entities from any liability on account of such disclosures and from any liability arising from any errors in information provided.</value>
+  </data>
+  <data name="Part10.Title" xml:space="preserve">
+    <value>8. Release of Information</value>
+  </data>
+  <data name="Part2.BtnAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Part2.Header.Describe" xml:space="preserve">
+    <value>Description of Business</value>
+  </data>
+  <data name="Part2.Header.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Part2.Header.Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Part2.Notes1" xml:space="preserve">
+    <value>Please list names and descriptions of other medical device or pharmaceutical companies that you/your Company represents.  If the answer is none, please state “None” in this Section.</value>
+  </data>
+  <data name="Part2.Operation.ConfirmDelete" xml:space="preserve">
+    <value>Are you sure to delete?</value>
+  </data>
+  <data name="Part2.Operation.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Part2.Operation.Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Part2.Operation.Processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="Part2.Title" xml:space="preserve">
+    <value>2. Medical Device or Pharmaceutical Companies</value>
+  </data>
+  <data name="Part2.Window.Btn.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Part2.Window.Btn.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Part2.Window.Describe" xml:space="preserve">
+    <value>Description of Business</value>
+  </data>
+  <data name="Part2.Window.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Part2.Window.Title" xml:space="preserve">
+    <value>Medical Device or Pharmaceutical Companies</value>
+  </data>
+  <data name="Part3.BtnAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Part3.Header.AuthOrg" xml:space="preserve">
+    <value>Licensing Authority</value>
+  </data>
+  <data name="Part3.Header.Country" xml:space="preserve">
+    <value>Country of issue</value>
+  </data>
+  <data name="Part3.Header.Name" xml:space="preserve">
+    <value>Name of License, Permit or Registration</value>
+  </data>
+  <data name="Part3.Header.Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Part3.Header.RegisterDate" xml:space="preserve">
+    <value>Date of Registration</value>
+  </data>
+  <data name="Part3.Header.RegisterNumber" xml:space="preserve">
+    <value>Registration Number</value>
+  </data>
+  <data name="Part3.Notes1" xml:space="preserve">
+    <value>Please provide the following detail regarding any business licenses, permits or registrations held by your Company.</value>
+  </data>
+  <data name="Part3.Operation.ConfirmDelete" xml:space="preserve">
+    <value>Are you sure to delete?</value>
+  </data>
+  <data name="Part3.Operation.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Part3.Operation.Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Part3.Operation.Processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="Part3.Title" xml:space="preserve">
+    <value>3. Business Licenses, Permits or Registrations（Required）</value>
+  </data>
+  <data name="Part3.Window.AuthOrg" xml:space="preserve">
+    <value>Licensing Authority</value>
+  </data>
+  <data name="Part3.Window.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Part3.Window.Country" xml:space="preserve">
+    <value>Country of issue:&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part3.Window.Date" xml:space="preserve">
+    <value>Date of Registration</value>
+  </data>
+  <data name="Part3.Window.Name" xml:space="preserve">
+    <value>Name of License, Permit or Registration:&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part3.Window.Number" xml:space="preserve">
+    <value>Registration Number:&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part3.Window.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Part3.Window.Title" xml:space="preserve">
+    <value>Business Licenses, Permits or Registrations</value>
+  </data>
+  <data name="Part4.BtnAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Part4.Header.Birthday" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="Part4.Header.Birthplace" xml:space="preserve">
+    <value>Place of Birth</value>
+  </data>
+  <data name="Part4.Header.BusinessAddress" xml:space="preserve">
+    <value>Office Address &lt;br/&gt;（if different from Section 1）</value>
+  </data>
+  <data name="Part4.Header.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Part4.Header.Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Part4.Header.HomeAddress" xml:space="preserve">
+    <value>Residential Address</value>
+  </data>
+  <data name="Part4.Header.IdentityCard" xml:space="preserve">
+    <value>National Residential ID#</value>
+  </data>
+  <data name="Part4.Header.Name" xml:space="preserve">
+    <value>Full Name (Family and Given)</value>
+  </data>
+  <data name="Part4.Header.Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Part4.Header.Pbumport" xml:space="preserve">
+    <value>Passport#</value>
+  </data>
+  <data name="Part4.Header.Position" xml:space="preserve">
+    <value>Position / Title</value>
+  </data>
+  <data name="Part4.Header.Telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="Part4.Notes1" xml:space="preserve">
+    <value>Provide the following data for Directors and each principal officer (President, General Manager, Chief Financial Officer, etc.) of the Company. (Please fill in the above 2 main leaders)</value>
+  </data>
+  <data name="Part4.Operation.ConfirmDelete" xml:space="preserve">
+    <value>Are you sure to delete?</value>
+  </data>
+  <data name="Part4.Operation.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Part4.Operation.Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Part4.Operation.Processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="Part4.Title" xml:space="preserve">
+    <value>4. Background Information on Company Directors and Principal Officers（Required）</value>
+  </data>
+  <data name="Part4.Window.Birthday" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="Part4.Window.Birthplace" xml:space="preserve">
+    <value>Place of Birth</value>
+  </data>
+  <data name="Part4.Window.BusinessAddress" xml:space="preserve">
+    <value>Office Address</value>
+  </data>
+  <data name="Part4.Window.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Part4.Window.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Part4.Window.Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Part4.Window.HomeAddress" xml:space="preserve">
+    <value>Residential Address</value>
+  </data>
+  <data name="Part4.Window.IdentityCard" xml:space="preserve">
+    <value>National Residential ID#</value>
+  </data>
+  <data name="Part4.Window.IdentityCard.BlankText" xml:space="preserve">
+    <value>Please fill in the resident ID</value>
+  </data>
+  <data name="Part4.Window.Name" xml:space="preserve">
+    <value>Full Name (Family and Given):&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part4.Window.Pbumport" xml:space="preserve">
+    <value>Passport #</value>
+  </data>
+  <data name="Part4.Window.Position" xml:space="preserve">
+    <value>Position / Title:&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part4.Window.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Part4.Window.Telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="Part4.Window.Title" xml:space="preserve">
+    <value>Background Information on Company Directors and Principal Officers</value>
+  </data>
+  <data name="Part5.BtnAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Part5.Header.Birthday" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="Part5.Header.Birthplace" xml:space="preserve">
+    <value>Place of Birth</value>
+  </data>
+  <data name="Part5.Header.BusinessAddress" xml:space="preserve">
+    <value>Office Address</value>
+  </data>
+  <data name="Part5.Header.Country" xml:space="preserve">
+    <value>Country of Incorporation</value>
+  </data>
+  <data name="Part5.Header.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Part5.Header.Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Part5.Header.HomeAddress" xml:space="preserve">
+    <value>Residential Address</value>
+  </data>
+  <data name="Part5.Header.IdentityCard" xml:space="preserve">
+    <value>National Residential ID#</value>
+  </data>
+  <data name="Part5.Header.MiddleEntity" xml:space="preserve">
+    <value>Intermediate Entities</value>
+  </data>
+  <data name="Part5.Header.Name" xml:space="preserve">
+    <value>Full Name (Family and Given)</value>
+  </data>
+  <data name="Part5.Header.Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Part5.Header.Ownership" xml:space="preserve">
+    <value>Relationship / % Ownership</value>
+  </data>
+  <data name="Part5.Header.Pbumport" xml:space="preserve">
+    <value>Passport #</value>
+  </data>
+  <data name="Part5.Header.Possessor" xml:space="preserve">
+    <value>Ultimate Beneficial Owner</value>
+  </data>
+  <data name="Part5.Header.Register" xml:space="preserve">
+    <value>Registry #</value>
+  </data>
+  <data name="Part5.Header.Telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="Part5.Operation.ConfirmDelete" xml:space="preserve">
+    <value>Are you sure to delete?</value>
+  </data>
+  <data name="Part5.Operation.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Part5.Operation.Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Part5.Operation.Processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="Part5.Title" xml:space="preserve">
+    <value>5. Background Information on Company Owners and Shareholders（Required）</value>
+  </data>
+  <data name="Part5.Window.Birthday" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="Part5.Window.Birthplace" xml:space="preserve">
+    <value>Place of Birth</value>
+  </data>
+  <data name="Part5.Window.BusinessAddress" xml:space="preserve">
+    <value>Office Address</value>
+  </data>
+  <data name="Part5.Window.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Part5.Window.Compary" xml:space="preserve">
+    <value>If shareholder Is a company:</value>
+  </data>
+  <data name="Part5.Window.Country" xml:space="preserve">
+    <value>Country of Incorporation</value>
+  </data>
+  <data name="Part5.Window.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Part5.Window.Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Part5.Window.HomeAddress" xml:space="preserve">
+    <value>Residential Address</value>
+  </data>
+  <data name="Part5.Window.IdentityCard" xml:space="preserve">
+    <value>National Residential ID#</value>
+  </data>
+  <data name="Part5.Window.MiddleEntity" xml:space="preserve">
+    <value>Intermediate Entities</value>
+  </data>
+  <data name="Part5.Window.Name" xml:space="preserve">
+    <value>Full Name (Family and Given):&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part5.Window.Ownership" xml:space="preserve">
+    <value>Relationship / % Ownership:&lt;span style="color:red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/span&gt;</value>
+  </data>
+  <data name="Part5.Window.Pbumport" xml:space="preserve">
+    <value>Passport #</value>
+  </data>
+  <data name="Part5.Window.Person" xml:space="preserve">
+    <value>If shareholder Is a natural person:</value>
+  </data>
+  <data name="Part5.Window.Possessor" xml:space="preserve">
+    <value>Ultimate Beneficial Owner</value>
+  </data>
+  <data name="Part5.Window.Register" xml:space="preserve">
+    <value>Registry #</value>
+  </data>
+  <data name="Part5.Window.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Part5.Window.Telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="Part5.Window.Title" xml:space="preserve">
+    <value>Background Information on Company Owners and Shareholders</value>
+  </data>
+  <data name="Part6.BankAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Part6.BankAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Part6.BankCountry" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Part6.BankName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Part6.BankSwift" xml:space="preserve">
+    <value>Swift </value>
+  </data>
+  <data name="Part6.Title" xml:space="preserve">
+    <value>6. 	Bank Account</value>
+  </data>
+  <data name="Part9.Confirmation.Detail" xml:space="preserve">
+    <value>If “yes,” provide details</value>
+  </data>
+  <data name="Part9.Confirmation1" xml:space="preserve">
+    <value>Has the Company or any of its principal officers, directors or shareholders &lt;br/&gt; been involved in a civil or criminal action during the past five years (excluding minor traffic infractions and domestic settlements)</value>
+  </data>
+  <data name="Part9.Confirmation2" xml:space="preserve">
+    <value>Has the Company or any of its principal officers, directors or shareholders &lt;br/&gt;  been involved in any governmental/ regulatory body investigation or administrative action, or had sanctions imposed on it, within the past five years</value>
+  </data>
+  <data name="Part9.Confirmation3" xml:space="preserve">
+    <value>Has the Company or any of its principal officers, directors or shareholders &lt;br/&gt;  filed or been involved in any action related to bankruptcy, insolvency, or reorganization within the past five years</value>
+  </data>
+  <data name="Part9.ConfirmationNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Part9.ConfirmationYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Part9.Title" xml:space="preserve">
+    <value>7. Additional Information</value>
+  </data>
+  <data name="Title.Remind" xml:space="preserve">
+    <value>Fill in the information English</value>
+  </data>
+</root>

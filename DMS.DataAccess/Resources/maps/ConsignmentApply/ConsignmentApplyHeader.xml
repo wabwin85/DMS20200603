@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentApplyHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentApplyHeader" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentApplyHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentApplyHeaderResult" class="ConsignmentApplyHeader">
+      <result property="Id" column="CAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="CAH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductLineId" column="CAH_ProductLine_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmId" column="CAH_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmConsignmentName" column="CAH_CM_ConsignmentName" type="string" dbType="nvarchar"/>
+      <result property="CmConsignmentDay" column="CAH_CM_ConsignmentDay" type="int" dbType="int"/>
+      <result property="CmDelayNumber" column="CAH_CM_DelayNumber" type="int" dbType="int"/>
+      <result property="CmStartDate" column="CAH_CM_StartDate" type="DateTime" dbType="datetime"/>
+      <result property="CmEndDate" column="CAH_CM_EndDate" type="DateTime" dbType="datetime"/>
+      <result property="CmType" column="CAH_CM_Type" type="string" dbType="nvarchar"/>
+      <result property="CmRemark" column="CAH_CM_Remark" type="string" dbType="nvarchar"/>
+      <result property="CmReturnTime" column="CAH_CM_ReturnTime" type="int" dbType="int"/>
+      <result property="CmDailyFines" column="CAH_CM_DailyFines" type="decimal" dbType="decimal"/>
+      <result property="CmLowestMargin" column="CAH_CM_LowestMargin" type="decimal" dbType="decimal"/>
+      <result property="CmTotalAmount" column="CAH_CM_TotalAmount" type="decimal" dbType="decimal"/>
+      <result property="CaAuthStartDate" column="CAH_CA_AuthStartDate" type="DateTime" dbType="datetime"/>
+      <result property="CaAuthEndDate" column="CAH_CA_AuthEndDate" type="DateTime" dbType="datetime"/>
+      <result property="OrderNo" column="CAH_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="OrderType" column="CAH_OrderType" type="string" dbType="nvarchar"/>
+      <result property="OrderStatus" column="CAH_OrderStatus" type="string" dbType="nvarchar"/>
+      <result property="ConsignmentFrom" column="CAH_ConsignmentFrom" type="string" dbType="nvarchar"/>
+      <result property="ConsignmentId" column="CAH_ConsignmentId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SubmitDate" column="CAH_SubmitDate" type="DateTime" dbType="datetime"/>
+      <result property="ApproveUser" column="CAH_ApproveUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApproveDate" column="CAH_ApproveDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="CAH_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="CAH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="CAH_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="CAH_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="SalesName" column="CAH_SalesName" type="string" dbType="nvarchar"/>
+      <result property="SalesEmail" column="CAH_SalesEmail" type="string" dbType="nvarchar"/>
+      <result property="SalesPhone" column="CAH_SalesPhone" type="string" dbType="nvarchar"/>
+      <result property="Consignee" column="CAH_Consignee" type="string" dbType="nvarchar"/>
+      <result property="ShipToAddress" column="CAH_ShipToAddress" type="string" dbType="nvarchar"/>
+      <result property="ConsigneePhone" column="CAH_ConsigneePhone" type="string" dbType="nvarchar"/>
+      <result property="HospitalId" column="CAH_Hospital_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HospitalName" column="CAH_Hospital_Name" type="string" dbType="nvarchar"/>
+      <result property="Reason" column="CAH_Reason" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="CAH_Remark" type="string" dbType="nvarchar"/>
+      <result property="FromDmaId" column="CAH_From_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CahId" column="CAH_CAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DelayOrderNo" column="CAH_Delay_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="DelayOrderType" column="CAH_Delay_OrderType" type="string" dbType="nvarchar"/>
+      <result property="DelayOrderStatus" column="CAH_Delay_OrderStatus" type="string" dbType="nvarchar"/>
+      <result property="DelayDelayTime" column="CAH_Delay_DelayTime" type="int" dbType="int"/>
+      <result property="DelaySubmitUser" column="CAH_Delay_SubmitUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DelaySubmitDate" column="CAH_Delay_SubmitDate" type="DateTime" dbType="datetime"/>
+      <result property="DelayApproveUser" column="CAH_Delay_ApproveUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DelayApproveDate" column="CAH_Delay_ApproveDate" type="DateTime" dbType="datetime"/>
+      <result property="ConsignmentStartDate" column="CAH_ConsignmentStartDate" type="DateTime" dbType="datetime"/>
+      <result property="ConsignmenEndDate" column="CAH_ConsignmenEndDate" type="DateTime" dbType="datetime"/>
+      <result property="PohOrderNo" column="CAH_POH_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="IahId" column="CAH_IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Rdd" column="CAH_RDD" type="DateTime" dbType="datetime"/>
+      <result property="IsFixedMoney" column="CAH_IsFixedMoney" type="bool" dbType="bit"/>
+      <result property="IsFixedQty" column="CAH_IsFixedQty" type="bool" dbType="bit"/>
+      <result property="Iskb" column="CAH_IsKB" type="bool" dbType="bit"/>
+      <result property="IsUseDiscount" column="CAH_IsUseDiscount" type="bool" dbType="bit"/>
+      <result property="SendHospital" column="CAH_SendHospital" type="string" dbType="nvarchar"/>
+      <result property="SendAddress" column="CAH_SendAddress" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectConsignmentApplyHeader" parameterClass="string" resultClass="ConsignmentApplyHeader">
+      SELECT CAH_ID AS Id,CAH_DMA_ID AS DmaId,CAH_ProductLine_Id AS ProductLineId,CAH_CM_ID AS CmId,CAH_CM_ConsignmentName AS CmConsignmentName,CAH_CM_ConsignmentDay AS CmConsignmentDay,CAH_CM_DelayNumber AS CmDelayNumber,
+      CAH_CM_StartDate AS CmStartDate,CAH_SendHospital AS SendHospital,CAH_SendAddress AS SendAddress,
+      CAH_CM_EndDate AS CmEndDate,CAH_CM_Type AS CmType,CAH_CM_Remark AS CmRemark,CAH_CM_ReturnTime AS CmReturnTime,CAH_CM_DailyFines AS CmDailyFines,CAH_CM_LowestMargin AS CmLowestMargin,CAH_CM_TotalAmount AS CmTotalAmount,
+      (select top 1 CA_StartDate from  ConsignmentAuthorization where CA_CM_ID =(select CAH_CM_ID ConsignmentApplyHeader where CAH_ID=#value#) and CA_DMA_ID =(select CA_DMA_ID ConsignmentApplyHeader where CAH_ID=#value#) and CA_ProductLine_Id =(select CA_ProductLine_Id ConsignmentApplyHeader where CAH_ID=#value#)) AS CaAuthStartDate,
+      (select top 1 CA_EndDate from  ConsignmentAuthorization where CA_CM_ID =(select CAH_CM_ID ConsignmentApplyHeader where CAH_ID=#value#) and CA_DMA_ID =(select CA_DMA_ID ConsignmentApplyHeader where CAH_ID=#value#) and CA_ProductLine_Id = (select CA_ProductLine_Id ConsignmentApplyHeader where CAH_ID=#value#)) AS CaAuthEndDate,CAH_OrderNo AS OrderNo,CAH_OrderType AS OrderType,CAH_OrderStatus AS OrderStatus,CAH_ConsignmentFrom AS ConsignmentFrom,CAH_ConsignmentId AS ConsignmentId,CAH_SubmitDate AS SubmitDate,CAH_ApproveUser AS ApproveUser,CAH_ApproveDate AS ApproveDate,CAH_CreateUser AS CreateUser,CAH_CreateDate AS CreateDate,CAH_UpdateUser AS UpdateUser,CAH_UpdateDate AS UpdateDate,CAH_SalesName AS SalesName,CAH_SalesEmail AS SalesEmail,CAH_SalesPhone AS SalesPhone,CAH_Consignee AS Consignee,CAH_ShipToAddress AS ShipToAddress,CAH_ConsigneePhone AS ConsigneePhone,CAH_Hospital_Id AS HospitalId,CAH_Hospital_Name AS HospitalName,CAH_Reason AS Reason,CAH_Remark AS Remark,CAH_From_DMA_ID AS FromDmaId,CAH_CAH_ID AS CahId,CAH_Delay_OrderNo AS DelayOrderNo,CAH_Delay_OrderType AS DelayOrderType,CAH_Delay_OrderStatus AS DelayOrderStatus,CAH_Delay_DelayTime AS DelayDelayTime,CAH_Delay_SubmitUser AS DelaySubmitUser,CAH_Delay_SubmitDate AS DelaySubmitDate,CAH_Delay_ApproveUser AS DelayApproveUser,CAH_Delay_ApproveDate AS DelayApproveDate,CAH_ConsignmentStartDate AS ConsignmentStartDate,CAH_ConsignmenEndDate AS ConsignmenEndDate,CAH_POH_OrderNo AS PohOrderNo,CAH_IAH_ID AS IahId,CAH_RDD AS Rdd,CAH_IsFixedMoney AS IsFixedMoney,CAH_IsFixedQty AS IsFixedQty,CAH_IsKB AS Iskb,CAH_IsUseDiscount AS IsUseDiscount
+      FROM ConsignmentApplyHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CAH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentApplyHeader" parameterClass="ConsignmentApplyHeader" resultClass="ConsignmentApplyHeader">
+      SELECT CAH_ID AS Id,CAH_DMA_ID AS DmaId,CAH_ProductLine_Id AS ProductLineId,CAH_CM_ID AS CmId,CAH_CM_ConsignmentName AS CmConsignmentName,CAH_CM_ConsignmentDay AS CmConsignmentDay,
+      CAH_CM_DelayNumber AS CmDelayNumber,CAH_CM_StartDate AS CmStartDate,CAH_CM_EndDate AS CmEndDate,CAH_CM_Type AS CmType,CAH_CM_Remark AS CmRemark,CAH_CM_ReturnTime AS CmReturnTime,
+      CAH_CM_DailyFines AS CmDailyFines,CAH_CM_LowestMargin AS CmLowestMargin,CAH_CM_TotalAmount AS CmTotalAmount,CAH_CA_AuthStartDate AS CaAuthStartDate,CAH_CA_AuthEndDate AS CaAuthEndDate,
+      CAH_OrderNo AS OrderNo,CAH_OrderType AS OrderType,CAH_OrderStatus AS OrderStatus,CAH_ConsignmentFrom AS ConsignmentFrom,CAH_ConsignmentId AS ConsignmentId,CAH_SubmitDate AS SubmitDate,
+      CAH_ApproveUser AS ApproveUser,CAH_ApproveDate AS ApproveDate,CAH_CreateUser AS CreateUser,CAH_CreateDate AS CreateDate,CAH_UpdateUser AS UpdateUser,CAH_UpdateDate AS UpdateDate,
+      CAH_SalesName AS SalesName,CAH_SalesEmail AS SalesEmail,CAH_SalesPhone AS SalesPhone,CAH_Consignee AS Consignee,CAH_ShipToAddress AS ShipToAddress,CAH_ConsigneePhone AS ConsigneePhone,
+      CAH_Hospital_Id AS HospitalId,CAH_Hospital_Name AS HospitalName,CAH_Reason AS Reason,CAH_Remark AS Remark,CAH_From_DMA_ID AS FromDmaId,CAH_CAH_ID AS CahId,CAH_Delay_OrderNo AS DelayOrderNo,
+      CAH_Delay_OrderType AS DelayOrderType,CAH_Delay_OrderStatus AS DelayOrderStatus,CAH_Delay_DelayTime AS DelayDelayTime,CAH_Delay_SubmitUser AS DelaySubmitUser,CAH_Delay_SubmitDate AS DelaySubmitDate,
+      CAH_Delay_ApproveUser AS DelayApproveUser,CAH_Delay_ApproveDate AS DelayApproveDate,CAH_ConsignmentStartDate AS ConsignmentStartDate,CAH_ConsignmenEndDate AS ConsignmenEndDate,CAH_POH_OrderNo AS PohOrderNo,
+      CAH_IAH_ID AS IahId,CAH_RDD AS Rdd,CAH_IsFixedMoney AS IsFixedMoney,CAH_IsFixedQty AS IsFixedQty,CAH_IsKB AS Iskb,CAH_IsUseDiscount AS IsUseDiscount,CAH_SendHospital AS SendHospital,CAH_SendAddress AS SendAddress,
+      FROM ConsignmentApplyHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CAH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">CAH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">CAH_ProductLine_Id=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="CmId">CAH_CM_ID=#CmId#</isNotNull>
+        <isNotNull prepend="AND" property="CmConsignmentName">CAH_CM_ConsignmentName=#CmConsignmentName#</isNotNull>
+        <isNotNull prepend="AND" property="CmConsignmentDay">CAH_CM_ConsignmentDay=#CmConsignmentDay#</isNotNull>
+        <isNotNull prepend="AND" property="CmDelayNumber">CAH_CM_DelayNumber=#CmDelayNumber#</isNotNull>
+        <isNotNull prepend="AND" property="CmStartDate">CAH_CM_StartDate=#CmStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="CmEndDate">CAH_CM_EndDate=#CmEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="CmType">CAH_CM_Type=#CmType#</isNotNull>
+        <isNotNull prepend="AND" property="CmRemark">CAH_CM_Remark=#CmRemark#</isNotNull>
+        <isNotNull prepend="AND" property="CmReturnTime">CAH_CM_ReturnTime=#CmReturnTime#</isNotNull>
+        <isNotNull prepend="AND" property="CmDailyFines">CAH_CM_DailyFines=#CmDailyFines#</isNotNull>
+        <isNotNull prepend="AND" property="CmLowestMargin">CAH_CM_LowestMargin=#CmLowestMargin#</isNotNull>
+        <isNotNull prepend="AND" property="CmTotalAmount">CAH_CM_TotalAmount=#CmTotalAmount#</isNotNull>
+        <isNotNull prepend="AND" property="CaAuthStartDate">CAH_CA_AuthStartDate=#CaAuthStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="CaAuthEndDate">CAH_CA_AuthEndDate=#CaAuthEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">CAH_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">CAH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">CAH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentFrom">CAH_ConsignmentFrom=#ConsignmentFrom#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentId">CAH_ConsignmentId=#ConsignmentId#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDate">CAH_SubmitDate=#SubmitDate#</isNotNull>
+        <isNotNull prepend="AND" property="ApproveUser">CAH_ApproveUser=#ApproveUser#</isNotNull>
+        <isNotNull prepend="AND" property="ApproveDate">CAH_ApproveDate=#ApproveDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">CAH_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">CAH_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="SalesName">CAH_SalesName=#SalesName#</isNotNull>
+        <isNotNull prepend="AND" property="SalesEmail">CAH_SalesEmail=#SalesEmail#</isNotNull>
+        <isNotNull prepend="AND" property="SalesPhone">CAH_SalesPhone=#SalesPhone#</isNotNull>
+        <isNotNull prepend="AND" property="Consignee">CAH_Consignee=#Consignee#</isNotNull>
+        <isNotNull prepend="AND" property="ShipToAddress">CAH_ShipToAddress=#ShipToAddress#</isNotNull>
+        <isNotNull prepend="AND" property="ConsigneePhone">CAH_ConsigneePhone=#ConsigneePhone#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalId">CAH_Hospital_Id=#HospitalId#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">CAH_Hospital_Name=#HospitalName#</isNotNull>
+        <isNotNull prepend="AND" property="Reason">CAH_Reason=#Reason#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">CAH_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="FromDmaId">CAH_From_DMA_ID=#FromDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CahId">CAH_CAH_ID=#CahId#</isNotNull>
+        <isNotNull prepend="AND" property="DelayOrderNo">CAH_Delay_OrderNo=#DelayOrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="DelayOrderType">CAH_Delay_OrderType=#DelayOrderType#</isNotNull>
+        <isNotNull prepend="AND" property="DelayOrderStatus">CAH_Delay_OrderStatus=#DelayOrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="DelayDelayTime">CAH_Delay_DelayTime=#DelayDelayTime#</isNotNull>
+        <isNotNull prepend="AND" property="DelaySubmitUser">CAH_Delay_SubmitUser=#DelaySubmitUser#</isNotNull>
+        <isNotNull prepend="AND" property="DelaySubmitDate">CAH_Delay_SubmitDate=#DelaySubmitDate#</isNotNull>
+        <isNotNull prepend="AND" property="DelayApproveUser">CAH_Delay_ApproveUser=#DelayApproveUser#</isNotNull>
+        <isNotNull prepend="AND" property="DelayApproveDate">CAH_Delay_ApproveDate=#DelayApproveDate#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentStartDate">CAH_ConsignmentStartDate=#ConsignmentStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmenEndDate">CAH_ConsignmenEndDate=#ConsignmenEndDate#</isNotNull>
+        <isNotNull prepend="AND" property="PohOrderNo">CAH_POH_OrderNo=#PohOrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="IahId">CAH_IAH_ID=#IahId#</isNotNull>
+        <isNotNull prepend="AND" property="SendHospital">CAH_SendHospital=#SendHospital#</isNotNull>
+        <isNotNull prepend="AND" property="SendAddress">CAH_SendAddress=#SendAddress#</isNotNull>
+
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentApplyHeader" parameterClass="ConsignmentApplyHeader">
+      INSERT INTO ConsignmentApplyHeader
+      (CAH_ID,CAH_DMA_ID,CAH_ProductLine_Id,CAH_CM_ID,CAH_CM_ConsignmentName,CAH_CM_ConsignmentDay,CAH_CM_DelayNumber,CAH_CM_StartDate,CAH_CM_EndDate,CAH_CM_Type,CAH_CM_Remark,CAH_CM_ReturnTime,CAH_CM_DailyFines,CAH_CM_LowestMargin,CAH_CM_TotalAmount,CAH_CA_AuthStartDate,CAH_CA_AuthEndDate,CAH_OrderNo,CAH_OrderType,CAH_OrderStatus,CAH_ConsignmentFrom,CAH_ConsignmentId,CAH_SubmitDate,CAH_ApproveUser,CAH_ApproveDate,CAH_CreateUser,CAH_CreateDate,CAH_UpdateUser,CAH_UpdateDate,CAH_SalesName,CAH_SalesEmail,CAH_SalesPhone,CAH_Consignee,CAH_ShipToAddress,CAH_ConsigneePhone,CAH_Hospital_Id,CAH_Hospital_Name,CAH_Reason,CAH_Remark,CAH_From_DMA_ID,CAH_CAH_ID,CAH_Delay_OrderNo,CAH_Delay_OrderType,CAH_Delay_OrderStatus,CAH_Delay_DelayTime,CAH_Delay_SubmitUser,CAH_Delay_SubmitDate,CAH_Delay_ApproveUser,CAH_Delay_ApproveDate,CAH_ConsignmentStartDate,CAH_ConsignmenEndDate,CAH_POH_OrderNo,CAH_IAH_ID,CAH_RDD,CAH_IsFixedMoney,CAH_IsFixedQty,CAH_IsKB,CAH_IsUseDiscount ,CAH_SendHospital,CAH_SendAddress)
+      VALUES(#Id#,#DmaId#,#ProductLineId#,#CmId#,#CmConsignmentName#,#CmConsignmentDay#,#CmDelayNumber#,#CmStartDate:DateTime:1/1/0001 12:00:00 AM#,#CmEndDate:DateTime:1/1/0001 12:00:00 AM#,#CmType#,#CmRemark#,#CmReturnTime#,#CmDailyFines#,#CmLowestMargin#,#CmTotalAmount#,#CaAuthStartDate:DateTime:1/1/0001 12:00:00 AM#,#CaAuthEndDate:DateTime:1/1/0001 12:00:00 AM#,#OrderNo#,#OrderType#,#OrderStatus#,#ConsignmentFrom#,#ConsignmentId#,#SubmitDate:DateTime:1/1/0001 12:00:00 AM#,#ApproveUser#,#ApproveDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#SalesName#,#SalesEmail#,#SalesPhone#,#Consignee#,#ShipToAddress#,#ConsigneePhone#,#HospitalId#,#HospitalName#,#Reason#,#Remark#,#FromDmaId#,#CahId#,#DelayOrderNo#,#DelayOrderType#,#DelayOrderStatus#,#DelayDelayTime#,#DelaySubmitUser#,#DelaySubmitDate:DateTime:1/1/0001 12:00:00 AM#,#DelayApproveUser#,#DelayApproveDate:DateTime:1/1/0001 12:00:00 AM#,#ConsignmentStartDate:DateTime:1/1/0001 12:00:00 AM#,#ConsignmenEndDate:DateTime:1/1/0001 12:00:00 AM#,#PohOrderNo#,#IahId#,#Rdd:DateTime:1/1/0001 12:00:00 AM#,#IsFixedMoney#,#IsFixedQty#,#Iskb#,#IsUseDiscount#,#SendHospital#,#SendAddress#)
+    </insert>
+
+    <update id="UpdateConsignmentApplyHeader" parameterClass="ConsignmentApplyHeader">
+      UPDATE ConsignmentApplyHeader
+      SET CAH_ID=#Id#,CAH_DMA_ID=#DmaId#,CAH_ProductLine_Id=#ProductLineId#,CAH_CM_ID=#CmId#,CAH_CM_ConsignmentName=#CmConsignmentName#,CAH_CM_ConsignmentDay=#CmConsignmentDay#,CAH_CM_DelayNumber=#CmDelayNumber#,CAH_CM_StartDate=#CmStartDate#,CAH_CM_EndDate=#CmEndDate#,CAH_CM_Type=#CmType#,CAH_CM_Remark=#CmRemark#,CAH_CM_ReturnTime=#CmReturnTime#,CAH_CM_DailyFines=#CmDailyFines#,CAH_CM_LowestMargin=#CmLowestMargin#,CAH_CM_TotalAmount=#CmTotalAmount#,CAH_CA_AuthStartDate=#CaAuthStartDate#,CAH_CA_AuthEndDate=#CaAuthEndDate#,CAH_OrderNo=#OrderNo#,CAH_OrderType=#OrderType#,CAH_OrderStatus=#OrderStatus#,CAH_ConsignmentFrom=#ConsignmentFrom#,CAH_ConsignmentId=#ConsignmentId#,CAH_SubmitDate=#SubmitDate#,CAH_ApproveUser=#ApproveUser#,CAH_ApproveDate=#ApproveDate#,CAH_UpdateUser=#UpdateUser#,CAH_UpdateDate=#UpdateDate#,CAH_SalesName=#SalesName#,CAH_SalesEmail=#SalesEmail#,CAH_SalesPhone=#SalesPhone#,CAH_Consignee=#Consignee#,CAH_ShipToAddress=#ShipToAddress#,CAH_ConsigneePhone=#ConsigneePhone#,CAH_Hospital_Id=#HospitalId#,CAH_Hospital_Name=#HospitalName#,CAH_Reason=#Reason#,CAH_Remark=#Remark#,CAH_From_DMA_ID=#FromDmaId#,CAH_CAH_ID=#CahId#,CAH_Delay_OrderNo=#DelayOrderNo#,CAH_Delay_OrderType=#DelayOrderType#,CAH_Delay_OrderStatus=#DelayOrderStatus#,CAH_Delay_DelayTime=#DelayDelayTime#,CAH_Delay_SubmitUser=#DelaySubmitUser#,CAH_Delay_SubmitDate=#DelaySubmitDate#,CAH_Delay_ApproveUser=#DelayApproveUser#,CAH_Delay_ApproveDate=#DelayApproveDate#,CAH_ConsignmentStartDate=#ConsignmentStartDate#,CAH_ConsignmenEndDate=#ConsignmenEndDate#,CAH_POH_OrderNo=#PohOrderNo#,CAH_IAH_ID=#IahId#,CAH_RDD=#Rdd#,CAH_IsFixedMoney=#IsFixedMoney#,CAH_IsFixedQty=#IsFixedQty#,CAH_IsKB=#Iskb#,CAH_IsUseDiscount=#IsUseDiscount#,CAH_SendHospital=#SendHospital#,CAH_SendAddress=#SendAddress#
+      WHERE CAH_ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentApplyHeader" parameterClass="string">
+      DELETE FROM ConsignmentApplyHeader
+      WHERE CAH_ID = #value#
+    </delete>
+
+    <update id="UpdateConsignmentApplyHeaderOrderStatus" parameterClass="ConsignmentApplyHeader">
+      UPDATE ConsignmentApplyHeader
+      SET CAH_OrderStatus=#OrderStatus#
+      WHERE CAH_ID = #Id#
+    </update>
+
+    <update id="UpdateConsignmentApplyHeaderDelayOrderStatus" parameterClass="ConsignmentApplyHeader">
+      UPDATE ConsignmentApplyHeader
+      SET CAH_Delay_OrderStatus=#DelayOrderStatus#
+      WHERE CAH_ID = #Id#
+    </update>
+
+    <!--add-->
+    <select id="GetSaleCodeByFilter" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT DISTINCT li.IDENTITY_CODE AS Code,li.IDENTITY_NAME AS Name,li.EMAIL1 AS Email,li.PHONE AS Mobile,li.Id AS Id
+      from View_SalesOfDealer vsd
+      INNER JOIN Lafite_Identity li ON vsd.SalesID=li.Id
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Name">li.IDENTITY_NAME=#Name#</isNotNull>
+        <isNotNull prepend="AND" property="Email">li.EMAIL1=#Email#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="GetProductLineVsDealerSale" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT *,UserAccount AS Id from interface.T_I_QV_SalesRep
+      WHERE UserAccount IS NOT NULL AND UserAccount != '' AND UserAccount != 'NULL'
+      AND Email IS NOT NULL AND Email != '' AND Email != 'NULL'
+
+      <iterate prepend="AND" property="BuList" open="(" close=")" conjunction="OR">
+        DivisionID = #BuList[]#
+      </iterate>
+    </select>
+
+    <select id="GetDealerSaleByPL" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DISTINCT li.IDENTITY_CODE AS Code,li.IDENTITY_NAME AS Name,li.EMAIL1 AS Email,li.PHONE AS Mobile,li.Id AS Id,BUM_ID,DealerId
+      from View_SalesOfDealer vsd
+      INNER JOIN Lafite_Identity li ON vsd.SalesID=li.Id
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PL">vsd.BUM_ID=#PL#</isNotNull>
+        <isNotNull prepend="AND" property="DMAID">vsd.DealerId=#DMAID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="GetProductLineVsDivisionCode" parameterClass="string" resultClass="System.Data.DataSet">
+      select ProductLineID,DivisionCode ,ProductLineName from dbo.V_DivisionProductLineRelation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ProductLineID = #ProductLineID#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="QueryConsignmentApplyHeaderDealer" parameterClass="System.Collections.Hashtable" resultClass="ConsignmentApplyHeader">
+      SELECT ConsignmentApplyHeader.CAH_ID AS Id,
+      (SELECT DMA_SAP_Code FROM DealerMaster DM(nolock) WHERE DM.DMA_ID=ConsignmentApplyHeader.CAH_DMA_ID) AS DmaSapCode,
+      ConsignmentApplyHeader.CAH_CM_ID AS CM_ID,ConsignmentApplyHeader.CAH_CM_ConsignmentName AS ConsignmentName,
+      ConsignmentApplyHeader.CAH_CM_ConsignmentDay AS ConsignmentDay,
+      ConsignmentApplyHeader.CAH_CM_StartDate  AS StartDate,
+      ConsignmentApplyHeader.CAH_CM_EndDate  AS EndDate,
+      ConsignmentApplyHeader.CAH_CM_Type  AS CM_Type,
+      ConsignmentApplyHeader.CAH_CM_Remark  AS CM_Remark,
+      ConsignmentApplyHeader.CAH_ProductLine_Id AS ProductLineBumId,
+      ConsignmentApplyHeader.CAH_CM_ReturnTime  AS CM_ReturnTime,
+      ConsignmentApplyHeader.CAH_OrderNo  AS OrderNo,
+      (SELECT ISNULL(SUM(ConsignmentApplyDetails.CAD_Qty),0) FROM ConsignmentApplyDetails WHERE
+      ConsignmentApplyHeader.CAH_ID=ConsignmentApplyDetails.CAD_CAH_ID
+      )
+      AS TotalQty,
+      (SELECT ISNULL(SUM(ConsignmentApplyDetails.CAD_Price+ConsignmentApplyDetails.CAD_Amount),0)FROM  ConsignmentApplyDetails WHERE
+      ConsignmentApplyHeader.CAH_ID=ConsignmentApplyDetails.CAD_CAH_ID) AS Amount,
+      ConsignmentApplyHeader.CAH_SubmitDate AS SubmitDate,
+      ConsignmentApplyHeader.CAH_Consignee AS Consignee,
+
+      ConsignmentApplyHeader.CAH_SendHospital AS SendHospital,
+      ConsignmentApplyHeader.CAH_SendAddress AS SendAddress,
+
+      ConsignmentApplyHeader.CAH_ShipToAddress AS ShipToAddress,
+      ConsignmentApplyHeader.CAH_Remark AS Remark,
+      ConsignmentApplyHeader.CAH_OrderType AS OrderType,
+      ConsignmentApplyHeader.CAH_OrderStatus AS OrderStatus,
+      ConsignmentApplyHeader.CAH_DMA_ID AS DmaId,
+      (select top 1 DMA_ChineseName from DealerMaster where DealerMaster.DMA_ID=ConsignmentApplyHeader.CAH_DMA_ID) DealerName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=ConsignmentApplyHeader.CAH_OrderType and DICT_TYPE='ConsignmentApply_Order_Type') OrderTypeName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=ConsignmentApplyHeader.CAH_OrderStatus and DICT_TYPE='ConsignmentApply_Order_Status') OrderStatusName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=ConsignmentApplyHeader.CAH_Delay_OrderStatus and DICT_TYPE='CONST_Delay_Status') DelayOrderStatusName,
+      ConsignmentApplyHeader.CAH_CreateUser AS SubmitUser,
+      ConsignmentApplyHeader.CAH_Delay_OrderStatus AS DelayOrderStatus,
+      ConsignmentApplyHeader.CAH_Delay_DelayTime AS DelayDelayTime,
+      ROW_NUMBER ()OVER (ORDER BY isnull((select 1 ConsignmentApplyHeader where ConsignmentApplyHeader.CAH_OrderStatus='Draft'),0)desc ,isnull(ConsignmentApplyHeader.CAH_SubmitDate,ConsignmentApplyHeader.CAH_CreateDate)desc)   AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+
+      FROM  ConsignmentApplyHeader
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=ConsignmentApplyHeader.CAH_ProductLine_Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">ConsignmentApplyHeader.CAH_OrderNo LIKE  N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">ConsignmentApplyHeader.CAH_ProductLine_Id=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ConsignmentApplyHeader.CAH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">ConsignmentApplyHeader.CAH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">ConsignmentApplyHeader.CAH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDate">CONVERT(varchar(100),ConsignmentApplyHeader.CAH_SubmitDate,112)>#SubmitDate#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100),ConsignmentApplyHeader.CAH_SubmitDate,112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">ConsignmentApplyHeader.CAH_Remark like N'%$Remark$%'</isNotNull>
+        <isNotNull prepend="AND" property="DelayStatus">ConsignmentApplyHeader.CAH_Delay_OrderStatus=#DelayStatus#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM ConsignmentApplyDetails, CFN WHERE ConsignmentApplyDetails.CAD_CAH_ID = ConsignmentApplyHeader.CAH_ID
+          AND ConsignmentApplyDetails.CAD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          ConsignmentApplyHeader.CAH_OrderStatus  != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = ConsignmentApplyHeader.CAH_DMA_ID AND SD.BUM_ID = ConsignmentApplyHeader.CAH_ProductLine_Id AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+               open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = ConsignmentApplyHeader.CAH_DMA_ID AND SD.BUM_ID = ConsignmentApplyHeader.CAH_ProductLine_Id)
+          ) AND CAH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryInventoryAdjustHeaderList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT InvHead.IAH_ID AS Id, InvHead.IAH_DMA_ID AS IahDmaId ,InvHead.IAH_Inv_Adj_Nbr AS AdjNbr,InvHead.IAH_ProductLine_BUM_ID AS ProductLineId,InvHead.IAH_CreatedDate AS CreatedDate,InvHead.IAH_ApprovalDate AS ApprovalDate, ROW_NUMBER ()OVER (ORDER BY InvHead.IAH_CreatedDate ASC ) AS row_number FROM
+      InventoryAdjustHeader InvHead
+      INNER JOIN InventoryAdjustDetail InvDt ON InvHead.IAH_ID = InvDt.IAD_IAH_ID
+      INNER JOIN InventoryAdjustLot InvLot ON InvDt.IAD_ID = InvLot.IAL_IAD_ID INNER JOIN
+      ConsignmentApplyHeader ConHead ON InvLot.IAL_PRH_ID=ConHead.CAH_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          InvHead.IAH_DMA_ID=#IAHDMAId# AND InvLot.IAL_DMA_ID=#LOTDMAId#
+          AND InvHead.IAH_Reason='Transfer'
+          AND InvHead.IAH_WarehouseType='Borrow'
+          AND InvHead.IAH_ProductLine_BUM_ID=#ProductLineId#
+          AND InvHead.IAH_Status='Accept'
+          AND
+          EXISTS( SELECT 1 FROM ConsignmentAuthorization Ca WHERE InvLot.IAL_DMA_ID=Ca.CA_DMA_ID AND CA_IsActive='1' AND Ca.CA_ProductLine_Id=InvHead.IAH_ProductLine_BUM_ID AND Ca.CA_CM_ID=#CMID#)
+        </isParameterPresent>
+      </dynamic>
+      group by InvHead.IAH_ID,InvHead.IAH_DMA_ID,InvHead.IAH_Inv_Adj_Nbr,InvHead.IAH_ProductLine_BUM_ID,InvHead.IAH_CreatedDate,InvHead.IAH_ApprovalDate
+    </select>
+    <select id="QueryInventoryAdjustCfnList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT CFN.CFN_ID AS Id,CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN.CFN_ChineseName AS ChineseName,CFN_EnglishName AS EnglishName,CFN.CFN_Property1 AS Property1,InventoryAdjustLot.IAL_LotNumber AS LotNumber,InventoryAdjustLot.IAL_LotQty AS Qty,  ROW_NUMBER ()OVER (ORDER BY InventoryAdjustHeader.IAH_CreatedDate ASC )   AS row_number FROM
+      InventoryAdjustHeader
+      INNER JOIN InventoryAdjustDetail ON IAH_ID = IAD_IAH_ID
+      INNER JOIN InventoryAdjustLot ON IAD_ID = IAL_IAD_ID
+      INNER JOIN Product ON PMA_ID = IAD_PMA_ID
+      INNER JOIN CFN ON CFN_ID = PMA_CFN_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IAH_ID=#Id#
+
+          AND Product.PMA_DeletedFlag='0'
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelecPOReceiptPriceSum" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT SUM(ISNULL(LOT_OnHandQty,0)*ISNULL(CAD_Price,0)) AS TotalAmount FROM (
+      SELECT DISTINCT LOT_ID,LOT_OnHandQty,CAD_Price FROM POReceiptHeader
+      INNER JOIN ConsignmentApplyHeader ON POReceiptHeader.PRH_PurchaseOrderNbr LIKE + '%' + ConsignmentApplyHeader.CAH_POH_OrderNo + '%'
+      INNER JOIN ConsignmentApplyDetails ON ConsignmentApplyHeader.CAH_ID = ConsignmentApplyDetails.CAD_CAH_ID
+      INNER JOIN POReceipt ON POReceiptHeader.PRH_ID = POReceipt.POR_PRH_ID
+      INNER JOIN POReceiptLot ON POR_ID = PRL_POR_ID
+      INNER JOIN Product A ON A.PMA_ID = POR_SAP_PMA_ID
+      INNER JOIN CFN B ON B.CFN_ID = A.PMA_CFN_ID
+      INNER JOIN CFN C ON C.CFN_ID = CAD_CFN_ID AND C.CFN_Property1 = B.CFN_Property1
+      INNER JOIN LotMaster ON LotMaster.LTM_Product_PMA_ID = POReceipt.POR_SAP_PMA_ID AND LotMaster.LTM_LotNumber = POReceiptLot.PRL_LotNumber
+      INNER JOIN Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID
+      INNER JOIN Inventory ON Lot.LOT_INV_ID = Inventory.INV_ID AND POReceiptLot.PRL_WHM_ID = Inventory.INV_WHM_ID
+      INNER JOIN Warehouse ON WHM_ID = Inventory.INV_WHM_ID
+      WHERE PRH_Status !='Cancelled'
+      AND PRH_Type = 'PurchaseOrder'
+      AND WHM_Type = 'Borrow'
+      AND ConsignmentApplyHeader.CAH_ID=#CAID#
+      ) T
+    </select>
+    <select id="QueryConsignmentTrackByOrderId" parameterClass="string" resultClass="System.Data.DataSet">
+      EXEC GC_ConsignmentProductTrack #OrderId#,#RtnVal# OUT,#RtnMsg# OUT
+    </select>
+    <select id="SelectHospitSale" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select top 1 b.DealerCode,b.DivisionID,(Name+','+REPLACE(Email,'@bsci.com',''))As Id  ,a.HOS_HospitalName
+      from Hospital as a inner join interface.T_I_QV_SalesRepDealer as b
+      on a.HOS_Key_Account=b.HospitalCode
+      <dynamic prepend="WHERE">
+        b.DivisionID=#DivisionID#
+        and a.HOS_ID=#hospitId#
+      </dynamic>
+    </select>
+    <select id="SelectSalesSing" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select COUNT(*) as Cnt from Lafite_Identity
+      where IDENTITY_NAME=#Name# and EMAIL1=#Email#
+    </select>
+
+    <select id="QueryConsignmentApplyProSumList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT  CAH_RDD,CAH_SalesName,CAH_SalesPhone,CAH_SalesEmail,CAH_OrderNo,CAH_CM_Type
+      ,ROW_NUMBER ()OVER (ORDER BY B.POH_CreateDate ASC )   AS row_number
+      FROM
+      dbo.ConsignmentApplyHeader A
+      INNER JOIN PurchaseOrderHeader B ON A.CAH_OrderNo=B.POH_Remark
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          B.POH_ID=#Id#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

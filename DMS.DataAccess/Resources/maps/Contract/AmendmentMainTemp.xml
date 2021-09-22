@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AmendmentMainTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AmendmentMainTemp" assembly="DMS.Model.dll" type="DMS.Model.AmendmentMainTemp" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AmendmentMainTempResult" class="AmendmentMainTemp">
+      <result property="TempId" column="TempId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractId" column="ContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AmendEffectiveDate" column="AmendEffectiveDate" type="DateTime" dbType="datetime"/>
+      <result property="Purpose" column="Purpose" type="string" dbType="nvarchar"/>
+      <result property="IsEquipment" column="IsEquipment" type="int" dbType="int"/>
+      <result property="Assessment" column="Assessment" type="string" dbType="nvarchar"/>
+      <result property="AssessmentStart" column="AssessmentStart" type="DateTime" dbType="datetime"/>
+      <result property="AssessmentEnd" column="AssessmentEnd" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAmendmentMainTemp" parameterClass="string" resultClass="AmendmentMainTemp">
+      SELECT TempId AS TempId,ContractId AS ContractId,AmendEffectiveDate AS AmendEffectiveDate,Purpose AS Purpose,IsEquipment AS IsEquipment,Assessment AS Assessment,AssessmentStart AS AssessmentStart,AssessmentEnd AS AssessmentEnd,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate
+      FROM Contract.AmendmentMainTemp
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TempId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAmendmentMainTemp" parameterClass="AmendmentMainTemp" resultClass="AmendmentMainTemp">
+      SELECT TempId AS TempId,ContractId AS ContractId,AmendEffectiveDate AS AmendEffectiveDate,Purpose AS Purpose,IsEquipment AS IsEquipment,Assessment AS Assessment,AssessmentStart AS AssessmentStart,AssessmentEnd AS AssessmentEnd,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate
+      FROM Contract.AmendmentMainTemp
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TempId">TempId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractId">ContractId=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="AmendEffectiveDate">AmendEffectiveDate=#AmendEffectiveDate#</isNotNull>
+        <isNotNull prepend="AND" property="Purpose">Purpose=#Purpose#</isNotNull>
+        <isNotNull prepend="AND" property="IsEquipment">IsEquipment=#IsEquipment#</isNotNull>
+        <isNotNull prepend="AND" property="Assessment">Assessment=#Assessment#</isNotNull>
+        <isNotNull prepend="AND" property="AssessmentStart">AssessmentStart=#AssessmentStart#</isNotNull>
+        <isNotNull prepend="AND" property="AssessmentEnd">AssessmentEnd=#AssessmentEnd#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAmendmentMainTemp" parameterClass="AmendmentMainTemp">
+      INSERT INTO Contract.AmendmentMainTemp
+      (TempId,ContractId,AmendEffectiveDate,Purpose,IsEquipment,Assessment,AssessmentStart,AssessmentEnd,UpdateUser,UpdateDate)
+      VALUES(#TempId#,#ContractId#,#AmendEffectiveDate:DateTime:1/1/0001 12:00:00 AM#,#Purpose#,#IsEquipment#,#Assessment#,#AssessmentStart:DateTime:1/1/0001 12:00:00 AM#,#AssessmentEnd:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateAmendmentMainTemp" parameterClass="AmendmentMainTemp">
+      UPDATE Contract.AmendmentMainTemp
+      SET TempId=#TempId#,ContractId=#ContractId#,AmendEffectiveDate=#AmendEffectiveDate#,Purpose=#Purpose#,IsEquipment=#IsEquipment#,Assessment=#Assessment#,AssessmentStart=#AssessmentStart#,AssessmentEnd=#AssessmentEnd#,UpdateUser=#UpdateUser#,UpdateDate=#UpdateDate#
+      WHERE TempId = #TempId#
+    </update>
+    <delete id="DeleteAmendmentMainTemp" parameterClass="string">
+      DELETE FROM Contract.AmendmentMainTemp
+      WHERE TempId = #value#
+    </delete>
+  </statements>
+</sqlMap>

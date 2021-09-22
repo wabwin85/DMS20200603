@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerqaMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="Dealerqa" assembly="DMS.Model.dll" type="DMS.Model.Dealerqa" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerqaResult" class="Dealerqa">
+            <result property="Id" column="DQA_ID" type="Guid" dbType="Guid"/>
+            <result property="DealerId" column="DQA_Dealer_ID" type="Guid" dbType="Guid"/>
+            <result property="Type" column="DQA_Type" type="string" dbType="varchar"/>
+            <result property="Status" column="DQA_Status" type="string" dbType="varchar"/>
+            <result property="QuestionDate" column="DQA_QuestionDate" type="DateTime" dbType="DateTime"/>
+            <result property="QuestionUserId" column="DQA_Question_User_ID" type="Guid" dbType="Guid"/>
+            <result property="AnswerDate" column="DQA_AnswerDate" type="DateTime" dbType="DateTime"/>
+            <result property="AnswerUserId" column="DQA_Answer_User_ID" type="Guid" dbType="Guid"/>
+            <result property="Title" column="DQA_Title" type="string" dbType="varchar"/>
+            <result property="Body" column="DQA_Body" type="string" dbType="varchar"/>
+            <result property="Answer" column="DQA_Answer" type="string" dbType="varchar"/>
+            <result property="Category" column="DQA_Category" type="string" dbType="varchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectDealerqa" parameterClass="string" resultClass="Dealerqa">
+            SELECT DQA_ID AS Id,DQA_Dealer_ID AS DealerId,DQA_Type AS Type,DQA_Status AS Status,DQA_QuestionDate AS QuestionDate,DQA_Question_User_ID AS QuestionUserId,DQA_AnswerDate AS AnswerDate,DQA_Answer_User_ID AS AnswerUserId,DQA_Title AS Title,DQA_Body AS Body,DQA_Answer AS Answer
+            FROM DealerQA
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DQA_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterDealerqa" parameterClass="Dealerqa" resultClass="Dealerqa">
+            SELECT DQA_ID AS Id,DQA_Dealer_ID AS DealerId,DQA_Type AS Type,DQA_Status AS Status,DQA_QuestionDate AS QuestionDate,DQA_Question_User_ID AS QuestionUserId,DQA_AnswerDate AS AnswerDate,DQA_Answer_User_ID AS AnswerUserId,DQA_Title AS Title,DQA_Body AS Body,DQA_Answer AS Answer
+            FROM DealerQA
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">DQA_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="DealerId">DQA_Dealer_ID=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="Type">DQA_Type=#Type#</isNotNull>
+                <isNotNull prepend="AND" property="Status">DQA_Status=#Status#</isNotNull>
+                <isNotNull prepend="AND" property="QuestionDate">DQA_QuestionDate=#QuestionDate#</isNotNull>
+                <isNotNull prepend="AND" property="QuestionUserId">DQA_Question_User_ID=#QuestionUserId#</isNotNull>
+                <isNotNull prepend="AND" property="AnswerDate">DQA_AnswerDate=#AnswerDate#</isNotNull>
+                <isNotNull prepend="AND" property="AnswerUserId">DQA_Answer_User_ID=#AnswerUserId#</isNotNull>
+                <isNotNull prepend="AND" property="Title">DQA_Title=#Title#</isNotNull>
+                <isNotNull prepend="AND" property="Body">DQA_Body=#Body#</isNotNull>
+                <isNotNull prepend="AND" property="Answer">DQA_Answer=#Answer#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertDealerqa" parameterClass="Dealerqa">
+            INSERT INTO DealerQA
+            (DQA_ID,DQA_Dealer_ID,DQA_Type,DQA_Status,DQA_QuestionDate,DQA_Question_User_ID,DQA_AnswerDate,DQA_Answer_User_ID,DQA_Title,DQA_Body,DQA_Answer,DQA_Category)
+            VALUES(#Id#,#DealerId#,#Type#,#Status#,#QuestionDate:DateTime:1/1/0001 12:00:00 AM#,#QuestionUserId#,#AnswerDate:DateTime:1/1/0001 12:00:00 AM#,#AnswerUserId#,#Title#,#Body#,#Answer#,#Category#)
+        </insert>
+        <update id="UpdateDealerqa" parameterClass="Dealerqa">
+            UPDATE DealerQA
+            SET DQA_ID=#Id#,DQA_Dealer_ID=#DealerId#,DQA_Type=#Type#,DQA_Status=#Status#,DQA_QuestionDate=#QuestionDate#,DQA_Question_User_ID=#QuestionUserId#,DQA_AnswerDate=#AnswerDate#,DQA_Answer_User_ID=#AnswerUserId#,DQA_Title=#Title#,DQA_Body=#Body#,DQA_Answer=#Answer#
+            WHERE DQA_ID = #Id#
+        </update>
+        <delete id="DeleteDealerqa" parameterClass="string">
+            DELETE FROM DealerQA
+            WHERE DQA_ID = #value#
+        </delete>
+
+        <!--added by songyuqi on 20100607-->
+        <select id="QuerySelectByFilterDealerqa" parameterClass="System.Collections.Hashtable" resultClass="Dealerqa">
+            SELECT DQA_ID AS Id,DQA_Dealer_ID AS DealerId,DQA_Type AS Type,DQA_Status AS Status,CONVERT(varchar(10), DQA_QuestionDate, 120) AS QuestionDate,DQA_Question_User_ID AS QuestionUserId,t1.IDENTITY_NAME AS QusetionUserName,CONVERT(varchar(10), DQA_AnswerDate, 120) AS AnswerDate,DQA_Answer_User_ID AS AnswerUserId,t2.IDENTITY_NAME AS AnswerUserName,DQA_Title AS Title,DQA_Body AS Body,DQA_Answer AS Answer
+            ,row_number() OVER (ORDER BY DQA_QuestionDate DESC) AS row_number
+            FROM DealerQA
+            LEFT OUTER JOIN Lafite_IDENTITY t1 ON t1.id = DealerQA.DQA_Question_User_ID
+            LEFT OUTER JOIN Lafite_IDENTITY t2 ON t2.id = DealerQA.DQA_Answer_User_ID
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DealerId">DQA_Dealer_ID=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="Type">DQA_Type=#Type#</isNotNull>
+                <isNotNull prepend="AND" property="Status">DQA_Status=#Status#</isNotNull>
+                <isNull prepend="AND" property="Status">DQA_Status!='Draft'</isNull>
+                <isNotNull prepend="AND" property="QuestionBeginDate">CONVERT(varchar(100), DQA_QuestionDate, 112) >= #QuestionBeginDate#</isNotNull>
+                <isNotNull prepend="AND" property="QuestionEndDate">CONVERT(varchar(100), DQA_QuestionDate, 112) &lt;= #QuestionEndDate#</isNotNull>
+                <isNotNull prepend="AND" property="AnswerBeginDate">CONVERT(varchar(100), DQA_AnswerDate, 112) >= #AnswerBeginDate#</isNotNull>
+                <isNotNull prepend="AND" property="AnswerEndDate">CONVERT(varchar(100), DQA_AnswerDate, 112) &lt;= #AnswerEndDate#</isNotNull>
+                <isNotNull prepend="AND" property="Title">DQA_Title LIKE '%$Title$%'</isNotNull>
+                <!--Edited By Song Yuqi on 2013-9-2 Begin-->
+                <isNotNull prepend="AND" property="QAType">DQA_Type=#QAType#</isNotNull>
+                <isNotNull prepend="AND" property="Category">DQA_Category=#Category#</isNotNull>
+                <!--Edited By Song Yuqi on 2013-9-2 End-->
+            </dynamic>
+        </select>
+        <select id="QuerySelectByFilterDealerqaForDealer" parameterClass="System.Collections.Hashtable" resultClass="Dealerqa">
+            SELECT DQA_ID AS Id,DQA_Dealer_ID AS DealerId,DQA_Type AS Type,DQA_Status AS Status,CONVERT(varchar(10), DQA_QuestionDate, 120) AS QuestionDate,DQA_Question_User_ID AS QuestionUserId,t1.IDENTITY_NAME AS QusetionUserName,CONVERT(varchar(10), DQA_AnswerDate, 120) AS AnswerDate,DQA_Answer_User_ID AS AnswerUserId,t2.IDENTITY_NAME AS AnswerUserName,DQA_Title AS Title,DQA_Body AS Body,DQA_Answer AS Answer
+            ,row_number() OVER (ORDER BY DQA_AnswerDate DESC,DQA_QuestionDate DESC) AS row_number
+            FROM DealerQA
+            LEFT OUTER JOIN Lafite_IDENTITY t1 ON t1.id = DealerQA.DQA_Question_User_ID
+            LEFT OUTER JOIN Lafite_IDENTITY t2 ON t2.id = DealerQA.DQA_Answer_User_ID
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="QuestionUserId">DQA_Question_User_ID=#QuestionUserId#</isNotNull>
+                <isNotNull prepend="AND" property="DealerId">DQA_Dealer_ID=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="Type">DQA_Type=#Type#</isNotNull>
+                <isNotNull prepend="AND" property="Status">DQA_Status=#Status#</isNotNull>
+                <isNotNull prepend="AND" property="QuestionBeginDate">CONVERT(varchar(100), DQA_QuestionDate, 112) >= #QuestionBeginDate#</isNotNull>
+                <isNotNull prepend="AND" property="QuestionEndDate">CONVERT(varchar(100), DQA_QuestionDate, 112) &lt;= #QuestionEndDate#</isNotNull>
+                <isNotNull prepend="AND" property="AnswerBeginDate">CONVERT(varchar(100), DQA_AnswerDate, 112) >= #AnswerBeginDate#</isNotNull>
+                <isNotNull prepend="AND" property="AnswerEndDate">CONVERT(varchar(100), DQA_AnswerDate, 112) &lt;= #AnswerEndDate#</isNotNull>
+                <isNotNull prepend="AND" property="Title">DQA_Title LIKE '%$Title$%'</isNotNull>
+                <!--Edited By Song Yuqi on 2013-9-2 Begin-->
+                <isNotNull prepend="AND" property="Category">DQA_Category=#Category#</isNotNull>
+                <!--Edited By Song Yuqi on 2013-9-2 End-->
+            </dynamic>
+        </select>
+
+        <insert id="InsertDealerqaQuestion" parameterClass="Dealerqa">
+            INSERT INTO DealerQA
+            (DQA_ID,DQA_Dealer_ID,DQA_Type,DQA_Status,DQA_QuestionDate,DQA_Question_User_ID,DQA_AnswerDate,DQA_Answer_User_ID,DQA_Title,DQA_Body,DQA_Answer,DQA_Category)
+            VALUES(#Id#,#DealerId#,#Type#,#Status#,#QuestionDate:DateTime:1/1/0001 12:00:00 AM#,#QuestionUserId#,#AnswerDate:DateTime:1/1/0001 12:00:00 AM#,#AnswerUserId#,#Title#,#Body#,#Answer#,#Category#)
+        </insert>
+        <update id="UpdateDealerqaAnswer" parameterClass="Dealerqa">
+            UPDATE DealerQA SET
+            DQA_Answer=#Answer#,DQA_Status=#Status#,DQA_AnswerDate=#AnswerDate:DateTime:1/1/0001 12:00:00 AM#,DQA_Answer_User_ID=#AnswerUserId#
+            WHERE DQA_ID = #Id#
+        </update>
+
+        <select id="QuerySelectByFilterDealerqaCount" parameterClass="System.Collections.Hashtable" resultClass="Dealerqa">
+            SELECT COUNT(*) num FROM DealerQA
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Status">DQA_Status=#Status#</isNotNull>
+                <isNotNull prepend="AND" property="DealerId">DQA_Dealer_ID=#DealerId#</isNotNull>
+            </dynamic>
+        </select>
+
+        <!--end-->
+        
+        <!--Edited By Song Yuqi on 2013-9-5 Begin-->
+        <select id="QueryDealerQAOnLogin" parameterClass="System.Collections.Hashtable" resultClass="Dealerqa">
+            SELECT TOP 10 DQA_ID AS Id,DQA_Dealer_ID AS DealerId,DQA_Type AS Type,DQA_Status AS Status,CONVERT(varchar(10), DQA_QuestionDate, 120) AS QuestionDate,DQA_Question_User_ID AS QuestionUserId,t1.IDENTITY_NAME AS QusetionUserName,CONVERT(varchar(10), DQA_AnswerDate, 120) AS AnswerDate,DQA_Answer_User_ID AS AnswerUserId,t2.IDENTITY_NAME AS AnswerUserName,DQA_Title AS Title,DQA_Body AS Body,DQA_Answer AS Answer
+            FROM DealerQA
+            LEFT OUTER JOIN Lafite_IDENTITY t1 ON t1.id = DealerQA.DQA_Question_User_ID
+            LEFT OUTER JOIN Lafite_IDENTITY t2 ON t2.id = DealerQA.DQA_Answer_User_ID
+            WHERE DQA_Status!='Draft'
+            <dynamic prepend="">
+                <isNotNull prepend="AND" property="QAType">DQA_Type=#QAType#</isNotNull>
+                <isNotNull prepend="AND" property="Category">DQA_Category=#Category#</isNotNull>
+            </dynamic>
+        </select>
+        <select id="QueryDealerQAOnLoginForDealer" parameterClass="System.Collections.Hashtable" resultClass="Dealerqa">
+            SELECT TOP 10 DQA_ID AS Id,DQA_Dealer_ID AS DealerId,DQA_Type AS Type,DQA_Status AS Status,CONVERT(varchar(10), DQA_QuestionDate, 120) AS QuestionDate,DQA_Question_User_ID AS QuestionUserId,t1.IDENTITY_NAME AS QusetionUserName,CONVERT(varchar(10), DQA_AnswerDate, 120) AS AnswerDate,DQA_Answer_User_ID AS AnswerUserId,t2.IDENTITY_NAME AS AnswerUserName,DQA_Title AS Title,DQA_Body AS Body,DQA_Answer AS Answer
+            FROM DealerQA
+            LEFT OUTER JOIN Lafite_IDENTITY t1 ON t1.id = DealerQA.DQA_Question_User_ID
+            LEFT OUTER JOIN Lafite_IDENTITY t2 ON t2.id = DealerQA.DQA_Answer_User_ID
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="DealerId">DQA_Dealer_ID=#DealerId#</isNotNull>
+                <isNotNull prepend="AND" property="QAType">DQA_Type=#QAType#</isNotNull>
+                <isNotNull prepend="AND" property="Category">DQA_Category=#Category#</isNotNull>
+            </dynamic>
+        </select>
+
+        <!--<procedure id="GC_WaitForProcessTaskByDealer" parameterMap="DealerQaParameterMap" resultClass="DealerQaParameterResult">
+            GC_WaitForProcessTaskByDealer
+        </procedure>
+        Edited By Song Yuqi on 2013-9-5 End-->
+    </statements>
+</sqlMap>

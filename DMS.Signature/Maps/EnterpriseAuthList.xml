@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterpriseAuthListMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterpriseAuthList" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterpriseAuthList" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterpriseAuthListResult" class="EnterpriseAuthList">
+      <result property="Id" column="EL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerId" column="EL_DealerId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerName" column="EL_DealerName" type="string" dbType="nvarchar"/>
+      <result property="IsActive" column="EL_IsActive" type="int" dbType="int"/>
+      <result property="Remark1" column="EL_Remark1" type="string" dbType="nvarchar"/>
+      <result property="Remark2" column="EL_Remark2" type="string" dbType="nvarchar"/>
+      <result property="Remark3" column="EL_Remark3" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="EL_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="EL_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="EL_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="EL_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="EL_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="EL_UpdateUserName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterpriseAuthList" parameterClass="string" resultClass="EnterpriseAuthList">
+      SELECT EL_ID AS Id,EL_DealerId AS DealerId,EL_DealerName AS DealerName,EL_IsActive AS IsActive,EL_Remark1 AS Remark1,EL_Remark2 AS Remark2,EL_Remark3 AS Remark3,EL_CreateDate AS CreateDate,EL_CreateUser AS CreateUser,EL_CreateUserName AS CreateUserName,EL_UpdateDate AS UpdateDate,EL_UpdateUser AS UpdateUser,EL_UpdateUserName AS UpdateUserName
+      FROM ESign.EnterpriseAuthList
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          EL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterpriseAuthList" parameterClass="EnterpriseAuthList" resultClass="EnterpriseAuthList">
+      SELECT EL_ID AS Id,EL_DealerId AS DealerId,EL_DealerName AS DealerName,EL_IsActive AS IsActive,EL_Remark1 AS Remark1,EL_Remark2 AS Remark2,EL_Remark3 AS Remark3,EL_CreateDate AS CreateDate,EL_CreateUser AS CreateUser,EL_CreateUserName AS CreateUserName,EL_UpdateDate AS UpdateDate,EL_UpdateUser AS UpdateUser,EL_UpdateUserName AS UpdateUserName
+      FROM ESign.EnterpriseAuthList
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">EL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">EL_DealerId=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">EL_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">EL_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">EL_Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="Remark2">EL_Remark2=#Remark2#</isNotNull>
+        <isNotNull prepend="AND" property="Remark3">EL_Remark3=#Remark3#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">EL_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">EL_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">EL_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">EL_UpdateUserName=#UpdateUserName#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterpriseAuthList" parameterClass="EnterpriseAuthList">
+      INSERT INTO ESign.EnterpriseAuthList
+      (EL_ID,EL_DealerId,EL_DealerName,EL_IsActive,EL_Remark1,EL_Remark2,EL_Remark3,EL_CreateDate,EL_CreateUser,EL_CreateUserName,EL_UpdateDate,EL_UpdateUser,EL_UpdateUserName)
+      VALUES(#Id#,#DealerId#,#DealerName#,#IsActive#,#Remark1#,#Remark2#,#Remark3#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#)
+    </insert>
+    <update id="UpdateEnterpriseAuthList" parameterClass="EnterpriseAuthList">
+      UPDATE ESign.EnterpriseAuthList
+      SET EL_ID=#Id#,EL_DealerId=#DealerId#,EL_DealerName=#DealerName#,EL_IsActive=#IsActive#,EL_Remark1=#Remark1#,EL_Remark2=#Remark2#,EL_Remark3=#Remark3#,EL_CreateUserName=#CreateUserName#,EL_UpdateDate=#UpdateDate#,EL_UpdateUser=#UpdateUser#,EL_UpdateUserName=#UpdateUserName#
+      WHERE EL_ID = #Id#
+    </update>
+    <delete id="DeleteEnterpriseAuthList" parameterClass="string">
+      DELETE FROM ESign.EnterpriseAuthList
+      WHERE EL_ID = #value#
+    </delete>
+
+  </statements>
+</sqlMap>

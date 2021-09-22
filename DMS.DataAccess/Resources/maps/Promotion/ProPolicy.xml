@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProPolicyMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProPolicy" assembly="DMS.Model.dll" type="DMS.Model.ProPolicy" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProPolicyResult" class="ProPolicy">
+      <result property="PolicyId" column="PolicyId" type="int" dbType="int"/>
+      <result property="PolicyNo" column="PolicyNo" type="string" dbType="nvarchar"/>
+      <result property="PolicyName" column="PolicyName" type="string" dbType="nvarchar"/>
+      <result property="Description" column="Description" type="string" dbType="nvarchar"/>
+      <result property="Period" column="Period" type="string" dbType="nvarchar"/>
+      <result property="StartDate" column="StartDate" type="string" dbType="nvarchar"/>
+      <result property="EndDate" column="EndDate" type="string" dbType="nvarchar"/>
+      <result property="Bu" column="BU" type="string" dbType="nvarchar"/>
+      <result property="TopType" column="TopType" type="string" dbType="nvarchar"/>
+      <result property="TopValue" column="TopValue" type="decimal" dbType="decimal"/>
+      <result property="CalType" column="CalType" type="string" dbType="nvarchar"/>
+      <result property="IsPrePrice" column="IsPrePrice" type="string" dbType="nvarchar"/>
+      <result property="PrePriceValue" column="PrePriceValue" type="decimal" dbType="decimal"/>
+      <result property="Status" column="Status" type="string" dbType="nvarchar"/>
+      <result property="ReportTableName" column="ReportTableName" type="string" dbType="nvarchar"/>
+      <result property="TempTableName" column="TempTableName" type="string" dbType="nvarchar"/>
+      <result property="PreTableName" column="PreTableName" type="string" dbType="nvarchar"/>
+      <result property="CurrentPeriod" column="CurrentPeriod" type="string" dbType="nvarchar"/>
+      <result property="ApproveStatus" column="ApproveStatus" type="string" dbType="nvarchar"/>
+      <result property="PolicyType" column="PolicyType" type="string" dbType="nvarchar"/>
+      <result property="ifConvert" column="ifConvert" type="string" dbType="nvarchar"/>
+      <result property="ifMinusLastGift" column="ifMinusLastGift" type="string" dbType="nvarchar"/>
+      <result property="ifAddLastLeft" column="ifAddLastLeft" type="string" dbType="nvarchar"/>
+      <result property="ifCalPurchaseAR" column="ifCalPurchaseAR" type="string" dbType="nvarchar"/>
+      <result property="ifCalSalesAR" column="ifCalSalesAR" type="string" dbType="nvarchar"/>
+      <result property="ifCalRebateAR" column="ifCalRebateAR" type="string" dbType="nvarchar"/>
+      <result property="CalModule" column="CalModule" type="string" dbType="nvarchar"/>
+      <result property="CalStatus" column="CalStatus" type="string" dbType="nvarchar"/>
+      <result property="CalPeriod" column="CalPeriod" type="string" dbType="nvarchar"/>
+      <result property="StartTime" column="StartTime" type="DateTime" dbType="datetime"/>
+      <result property="EndTime" column="EndTime" type="DateTime" dbType="datetime"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="Remark2" column="Remark2" type="string" dbType="nvarchar"/>
+      <result property="Remark3" column="Remark3" type="string" dbType="nvarchar"/>
+      <result property="SubBu" column="SubBu" type="string" dbType="nvarchar"/>
+      <result property="CarryType" column="CarryType" type="string" dbType="nvarchar"/>
+      <result property="ifIncrement" column="ifIncrement" type="string" dbType="nvarchar"/>
+      <result property="PolicyGroupName" column="PolicyGroupName" type="string" dbType="nvarchar"/>
+      <result property="PolicyClass" column="PolicyClass" type="string" dbType="nvarchar"/>
+      <result property="CurrUser" column="CurrUser" type="string" dbType="nvarchar"/>
+      <result property="ProductLineId" column="ProductLineId" type="string" dbType="nvarchar"/>
+      <result property="ProDealerType" column="ProDealerType" type="string" dbType="nvarchar"/>
+      <result property="StartDateTime" column="StartDateTime" type="DateTime" dbType="datetime"/>
+      <result property="EndDateTime" column="EndDateTime" type="DateTime" dbType="datetime"/>
+      <result property="PointValidDateType" column="PointValidDateType" type="string" dbType="nvarchar"/>
+      <result property="PointValidDateDuration" column="PointValidDateDuration" type="int" dbType="int"/>
+      <result property="PointValidDateAbsolute" column="PointValidDateAbsolute" type="DateTime" dbType="datetime"/>
+      <result property="PointValidDateType2" column="PointValidDateType2" type="string" dbType="nvarchar"/>
+      <result property="PointValidDateDuration2" column="PointValidDateDuration2" type="int" dbType="int"/>
+      <result property="PointValidDateAbsolute2" column="PointValidDateAbsolute2" type="DateTime" dbType="datetime"/>
+
+      <result property="PolicyStyle" column="PolicyStyle" type="string" dbType="nvarchar"/>
+      <result property="PolicySubStyle" column="PolicySubStyle" type="string" dbType="nvarchar"/>
+      <result property="PointUseRange" column="PointUseRange" type="string" dbType="nvarchar"/>
+      <result property="YTDOption" column="YTDOption" type="string" dbType="nvarchar"/>
+      <result property="MjRatio" column="MjRatio" type="decimal" dbType="decimal"/>
+      <result property="IsTemplate" column="IsTemplate"/>
+      <result property="PolicyMode" column="PolicyMode"/>
+    </resultMap>
+  </resultMaps>
+  <!--<parameterMaps>
+    <parameterMap id="GC_NewPromotionPolicy_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="PolicyId" column="PolicyId" direction="Output" />
+    </parameterMap>
+  </parameterMaps>-->
+  <parameterMaps>
+    <parameterMap id="TopValueInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="TopValueType" column="TopValueType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="NextAutoNumberForPromotionMap" class="System.Collections.Hashtable" >
+      <parameter property="DeptCode" column="DeptCode" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="nextnbr" column="nextnbr" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="ProductIndexInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="FactType" column="FactType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+    <parameterMap id="PolicySaveParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="Command" column="Command" />
+      <parameter property="Result" column="Result" direction="Output" />
+    </parameterMap>
+    <parameterMap id="PolicySubmitCheckParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="Result" column="Result" direction="Output" />
+    </parameterMap>
+    <parameterMap id="PolicyTempCopyParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PolicyId" column="PolicyId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="Mode" column="Mode" />
+      <parameter property="NewId" column="NewId" direction="Output" />
+      <parameter property="Result" column="Result" direction="Output" />
+    </parameterMap>
+    <parameterMap id="ProDealersInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ProductLinId" column="ProductLinId" />
+      <parameter property="SubBU" column="SubBU" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+    <parameterMap id="CheckPolicyHospitalCodeParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="HospitalHas" column="HospitalHas" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="CheckPointRatioInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="CheckStandardPriceInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+
+  </parameterMaps>
+  <statements>
+
+
+    <select id="SelectProPolicy" parameterClass="string" resultClass="ProPolicy">
+      SELECT PolicyId AS PolicyId,PolicyNo AS PolicyNo,PolicyName AS PolicyName,Description AS Description,Period AS Period,StartDate AS StartDate,EndDate AS EndDate,BU AS Bu,TopType AS TopType,TopValue AS TopValue,CalType AS CalType,IsPrePrice AS IsPrePrice,PrePriceValue AS PrePriceValue,Status AS Status,ReportTableName AS ReportTableName,TempTableName AS TempTableName,PreTableName AS PreTableName,CurrentPeriod AS CurrentPeriod,ApproveStatus AS ApproveStatus,PolicyType AS PolicyType,ifConvert AS ifConvert,ifMinusLastGift AS ifMinusLastGift,ifAddLastLeft AS ifAddLastLeft,ifCalPurchaseAR AS ifCalPurchaseAR,ifCalSalesAR AS ifCalSalesAR,CalModule AS CalModule,CalStatus AS CalStatus,CalPeriod AS CalPeriod,StartTime AS StartTime,EndTime AS EndTime,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,Remark2 AS Remark2,Remark3 AS Remark3,SubBu AS SubBu,CarryType AS CarryType,ifIncrement AS ifIncrement,PolicyGroupName AS PolicyGroupName,PolicyClass AS PolicyClass,YTDOption AS YTDOption,MJRatio AS MjRatio
+      FROM Promotion.PRO_POLICY
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PolicyId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectPolicyFormal" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT PolicyId AS PolicyId,PolicyNo AS PolicyNo,PolicyName AS PolicyName,Description AS Description,Period AS Period,StartDate AS StartDate,EndDate AS EndDate,BU AS Bu,TopType AS TopType,TopValue AS TopValue,CalType AS CalType,IsPrePrice AS IsPrePrice,PrePriceValue AS PrePriceValue,Status AS Status,ReportTableName AS ReportTableName,TempTableName AS TempTableName,PreTableName AS PreTableName,CurrentPeriod AS CurrentPeriod,ApproveStatus AS ApproveStatus,PolicyType AS PolicyType,ifConvert AS ifConvert,ifMinusLastGift AS ifMinusLastGift,ifAddLastLeft AS ifAddLastLeft,ifCalPurchaseAR AS ifCalPurchaseAR,ifCalSalesAR AS ifCalSalesAR,CalModule AS CalModule,CalStatus AS CalStatus,CalPeriod AS CalPeriod,StartTime AS StartTime,EndTime AS EndTime,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,Remark2 AS Remark2,Remark3 AS Remark3,SubBu AS SubBu,CarryType AS CarryType,ifIncrement AS ifIncrement,PolicyGroupName AS PolicyGroupName,PolicyClass AS PolicyClass,YTDOption AS YTDOption ,MJRatio AS MjRatio
+      FROM Promotion.PRO_POLICY
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectProPolicyByHash" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyId AS PolicyId,PolicyNo AS PolicyNo,PolicyName AS PolicyName,Description AS Description,Period AS Period,StartDate AS StartDate,EndDate AS EndDate,BU AS Bu,TopType AS TopType,TopValue AS TopValue,CalType AS CalType,IsPrePrice AS IsPrePrice,PrePriceValue AS PrePriceValue,Status AS Status,ReportTableName AS ReportTableName,TempTableName AS TempTableName,PreTableName AS PreTableName,CurrentPeriod AS CurrentPeriod,ApproveStatus AS ApproveStatus,PolicyType AS PolicyType,ifConvert AS ifConvert,ifMinusLastGift AS ifMinusLastGift,ifAddLastLeft AS ifAddLastLeft,ifCalPurchaseAR AS ifCalPurchaseAR,ifCalSalesAR AS ifCalSalesAR,CalModule AS CalModule,CalStatus AS CalStatus,CalPeriod AS CalPeriod,StartTime AS StartTime,EndTime AS EndTime,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,Remark2 AS Remark2,Remark3 AS Remark3,SubBu AS SubBu,CarryType AS CarryType,ifIncrement AS ifIncrement,PolicyGroupName AS PolicyGroupName,PolicyClass AS PolicyClass,YTDOption AS YTDOption ,MJRatio AS MjRatio
+      FROM Promotion.PRO_POLICY
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyNo">PolicyNo=#PolicyNo#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyName">PolicyName=#PolicyName#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectPolicyhtml" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT Promotion.func_Pro_PolicyToHtml(#value#)  AS PolicyXML
+    </select>
+
+    <select id="SelectByFilterProPolicy" parameterClass="ProPolicy" resultClass="ProPolicy">
+      SELECT PolicyId AS PolicyId,PolicyNo AS PolicyNo,PolicyName AS PolicyName,Description AS Description,Period AS Period,StartDate AS StartDate,EndDate AS EndDate,BU AS Bu,TopType AS TopType,TopValue AS TopValue,CalType AS CalType,IsPrePrice AS IsPrePrice,PrePriceValue AS PrePriceValue,Status AS Status,ReportTableName AS ReportTableName,TempTableName AS TempTableName,PreTableName AS PreTableName,CurrentPeriod AS CurrentPeriod,ApproveStatus AS ApproveStatus,PolicyType AS PolicyType,ifConvert AS ifConvert,ifMinusLastGift AS ifMinusLastGift,ifAddLastLeft AS ifAddLastLeft,ifCalPurchaseAR AS ifCalPurchaseAR,ifCalSalesAR AS ifCalSalesAR,CalModule AS CalModule,CalStatus AS CalStatus,CalPeriod AS CalPeriod,StartTime AS StartTime,EndTime AS EndTime,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,Remark2 AS Remark2,Remark3 AS Remark3,SubBu AS SubBu,CarryType AS CarryType,ifIncrement AS ifIncrement,PolicyGroupName AS PolicyGroupName,PolicyClass AS PolicyClass,YTDOption AS YTDOption ,MJRatio AS MjRatio
+      FROM Promotion.PRO_POLICY
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyNo">PolicyNo=#PolicyNo#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyName">PolicyName=#PolicyName#</isNotNull>
+        <isNotNull prepend="AND" property="Description">Description=#Description#</isNotNull>
+        <isNotNull prepend="AND" property="Period">Period=#Period#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">StartDate=#StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">BU=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="TopType">TopType=#TopType#</isNotNull>
+        <isNotNull prepend="AND" property="TopValue">TopValue=#TopValue#</isNotNull>
+        <isNotNull prepend="AND" property="CalType">CalType=#CalType#</isNotNull>
+        <isNotNull prepend="AND" property="IsPrePrice">IsPrePrice=#IsPrePrice#</isNotNull>
+        <isNotNull prepend="AND" property="PrePriceValue">PrePriceValue=#PrePriceValue#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ReportTableName">ReportTableName=#ReportTableName#</isNotNull>
+        <isNotNull prepend="AND" property="TempTableName">TempTableName=#TempTableName#</isNotNull>
+        <isNotNull prepend="AND" property="PreTableName">PreTableName=#PreTableName#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentPeriod">CurrentPeriod=#CurrentPeriod#</isNotNull>
+        <isNotNull prepend="AND" property="ApproveStatus">ApproveStatus=#ApproveStatus#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyType">PolicyType=#PolicyType#</isNotNull>
+        <isNotNull prepend="AND" property="ifConvert">ifConvert=#ifConvert#</isNotNull>
+        <isNotNull prepend="AND" property="ifMinusLastGift">ifMinusLastGift=#ifMinusLastGift#</isNotNull>
+        <isNotNull prepend="AND" property="ifAddLastLeft">ifAddLastLeft=#ifAddLastLeft#</isNotNull>
+        <isNotNull prepend="AND" property="ifCalPurchaseAR">ifCalPurchaseAR=#ifCalPurchaseAR#</isNotNull>
+        <isNotNull prepend="AND" property="ifCalSalesAR">ifCalSalesAR=#ifCalSalesAR#</isNotNull>
+        <isNotNull prepend="AND" property="CalModule">CalModule=#CalModule#</isNotNull>
+        <isNotNull prepend="AND" property="CalStatus">CalStatus=#CalStatus#</isNotNull>
+        <isNotNull prepend="AND" property="CalPeriod">CalPeriod=#CalPeriod#</isNotNull>
+        <isNotNull prepend="AND" property="StartTime">StartTime=#StartTime#</isNotNull>
+        <isNotNull prepend="AND" property="EndTime">EndTime=#EndTime#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="Remark2">Remark2=#Remark2#</isNotNull>
+        <isNotNull prepend="AND" property="Remark3">Remark3=#Remark3#</isNotNull>
+        <isNotNull prepend="AND" property="SubBu">SubBu=#SubBu#</isNotNull>
+        <isNotNull prepend="AND" property="CarryType">CarryType=#CarryType#</isNotNull>
+        <isNotNull prepend="AND" property="ifIncrement">ifIncrement=#ifIncrement#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertPolicyOperationLog" parameterClass="string">
+      INSERT INTO Promotion.PRO_Operation_LOG (OperId,PolicyNo,OperDate,OperType,OperNote)
+      VALUES(NEWID(),null,GETDATE(),'Log',#value#)
+    </insert>
+
+    <procedure id="GC_PolicySave" parameterMap="PolicySaveParameterMap">
+      PROMOTION.Proc_Interface_PolicySave
+    </procedure>
+
+    <procedure id="GC_PolicySubmitCheck" parameterMap="PolicySubmitCheckParameterMap">
+      PROMOTION.Proc_Interface_PolicySubmitCheck
+    </procedure>
+
+    <procedure id="GC_PolicyTempCopy" parameterMap="PolicyTempCopyParameterMap">
+      PROMOTION.Proc_Interface_PolicyTempCopy
+    </procedure>
+
+    <insert id="InsertProPolicy" parameterClass="ProPolicy">
+      INSERT INTO Promotion.PRO_POLICY
+      (PolicyNo,PolicyName,Description,Period,StartDate,EndDate,BU,TopType,TopValue,CalType,IsPrePrice,PrePriceValue,Status,ReportTableName,TempTableName,PreTableName,CurrentPeriod,ApproveStatus,PolicyType,ifConvert,ifMinusLastGift,ifAddLastLeft,ifCalPurchaseAR,ifCalSalesAR,CalModule,CalStatus,CalPeriod,StartTime,EndTime,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,Remark2,Remark3,SubBu,CarryType,ifIncrement,PolicyGroupName,PolicyClass,ifCalRebateAR)
+      VALUES(#PolicyNo#,#PolicyName#,#Description#,#Period#,#StartDate#,#EndDate#,#Bu#,#TopType#,#TopValue#,#CalType#,#IsPrePrice#,#PrePriceValue#,#Status#,#ReportTableName#,#TempTableName#,#PreTableName#,#CurrentPeriod#,#ApproveStatus#,#PolicyType#,#ifConvert#,#ifMinusLastGift#,#ifAddLastLeft#,#ifCalPurchaseAR#,#ifCalSalesAR#,#CalModule#,#CalStatus#,#CalPeriod#,#StartTime:DateTime:1/1/0001 12:00:00 AM#,#EndTime:DateTime:1/1/0001 12:00:00 AM#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#Remark2#,#Remark3#,#SubBu#,#CarryType#,#ifIncrement#,#PolicyGroupName#,#PolicyClass#,#ifCalRebateAR#)
+      <selectKey resultClass="int" type="post" property="PolicyId">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+    <update id="UpdateProPolicyUi" parameterClass="ProPolicy">
+      UPDATE Promotion.PRO_POLICY_UI
+      SET PolicyNo=#PolicyNo#,PolicyName=#PolicyName#,Description=#Description#,Period=#Period#,StartDate=#StartDate#,EndDate=#EndDate#,
+      BU=(SELECT DivisionName FROM V_DivisionProductLineRelation WHERE IsEmerging='0' AND ProductLineID=#ProductLineId#),
+      TopType=#TopType#,TopValue=#TopValue#,CalType=#CalType#,IsPrePrice=#IsPrePrice#,PrePriceValue=#PrePriceValue#,Status=#Status#,ReportTableName=#ReportTableName#,
+      TempTableName=#TempTableName#,PreTableName=#PreTableName#,CurrentPeriod=#CurrentPeriod#,ApproveStatus=#ApproveStatus#,PolicyType=#PolicyType#,
+      ifConvert=#ifConvert#,ifMinusLastGift=#ifMinusLastGift#,ifAddLastLeft=#ifAddLastLeft#,ifCalPurchaseAR=#ifCalPurchaseAR#,ifCalSalesAR=#ifCalSalesAR#,
+      CalModule=#CalModule#,CalStatus=#CalStatus#,CalPeriod=#CalPeriod#,StartTime=#StartTime#,EndTime=#EndTime#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,Remark1=#Remark1#,
+      Remark2=#Remark2#,Remark3=#Remark3#,SubBu=#SubBu#,CarryType=#CarryType#,ifIncrement=#ifIncrement#,PolicyClass=#PolicyClass#,ifCalRebateAR=#ifCalRebateAR#,PolicyGroupName=#PolicyGroupName#,
+      PointValidDateType=#PointValidDateType#,PointValidDateDuration=#PointValidDateDuration#,PointValidDateAbsolute=#PointValidDateAbsolute#,
+      PointValidDateType2=#PointValidDateType2#,PointValidDateDuration2=#PointValidDateDuration2#,PointValidDateAbsolute2=#PointValidDateAbsolute2#,
+      PointUseRange=#PointUseRange#,
+      YTDOption=#YTDOption#,
+      MJRatio =#MjRatio#
+      WHERE PolicyId = #PolicyId#
+    </update>
+
+    <delete id="DeleteProPolicy" parameterClass="string">
+      DELETE FROM Promotion.PRO_POLICY
+      WHERE PolicyId = #value#
+    </delete>
+
+    <select id="SelectPolicyList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select * into ##Tmp from [Promotion].[func_Interface_Policy_List] ((SELECT TOP 1 D.DivisionName FROM V_DivisionProductLineRelation D WHERE D.IsEmerging='0' AND D.ProductLineID=#BU#),#PolicyNo#,#PolicyName#,#Status#,#TimeStatus#,#Year#,#PolicyStyle#)
+
+      SELECT w.PolicyId as PolicyId, w.PolicyNo as PolicyNo,w.PolicyName as PolicyName,w.BU as BU,w.StartDate as StartDate,w.EndDate as EndDate,w.[Status] as [Status],w.TimeStatus as TimeStatus,w.CalPeriod as CalPeriod,w.UserId as UserId,w.canModify as canModify,w.canDelete as canDelete,w.canView as canView,w.PolicyStyle as PolicyStyle,t.InstanceID as InstanceID,r.processId as processId,t.PolicyMode,
+      case when exists (select 1 from Workflow.FormInstanceMaster w where w.ApplyId=t.InstanceID) then '1' else '0' end as remark, ROW_NUMBER () OVER (ORDER BY w.PolicyId DESC)
+      AS [row_number]
+      FROM ##Tmp w
+      left join Promotion.PRO_POLICY t on t.PolicyNo=w.PolicyNo
+      left join Workflow.FormInstanceMaster r on r.ApplyId=t.InstanceID
+      WHERE t.IsTemplate=0
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD,V_DivisionProductLineRelation DP
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND DP.DivisionName=w.BU AND DP.IsEmerging='0' AND  SD.BUM_ID = DP.ProductLineID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS (SELECT 1 FROM Lafite_IDENTITY_MAP A
+        INNER JOIN V_DivisionProductLineRelation C ON C.IsEmerging='0' AND w.BU=C.DivisionName
+        INNER JOIN Lafite_ATTRIBUTE B
+        ON A.MAP_ID = B.Id AND B.DELETE_FLAG ='0' AND A.IDENTITY_ID=#UserId# AND C.ProductLineID=B.Id)
+        )
+      </isEqual>
+    </select>
+
+    <select id="SelectPolicyTemplateList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Policy.PolicyId,
+      Policy.PolicyName + CASE ISNULL(Policy.PolicyGroupName, '') WHEN '' THEN '' ELSE '[' + Policy.PolicyGroupName + ']' END PolicyName,
+      Policy.BU,
+      Policy.[Status],
+      Policy.PolicyStyle,
+      Policy.CreateBy UserId
+      FROM   Promotion.PRO_POLICY Policy
+      WHERE  Policy.IsTemplate = 1
+      AND (ISNULL(#BU#, '') = '' OR Policy.BU = (SELECT TOP 1 D.DivisionName FROM V_DivisionProductLineRelation D WHERE D.IsEmerging='0' AND D.ProductLineID = #BU#))
+      AND (ISNULL(#PolicyName#, '') = '' OR Policy.PolicyName LIKE '%' + #PolicyName# + '%' OR Policy.PolicyGroupName LIKE '%'+ #PolicyName# +'%')
+      AND (ISNULL(#PolicyStyle#, '') = '' OR Policy.PolicyStyle = #PolicyStyle#)
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD,V_DivisionProductLineRelation DP
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND DP.DivisionName=Policy.BU AND DP.IsEmerging='0' AND  SD.BUM_ID = DP.ProductLineID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS (SELECT 1 FROM Lafite_IDENTITY_MAP A
+        INNER JOIN V_DivisionProductLineRelation C ON C.IsEmerging='0' AND Policy.BU=C.DivisionName
+        INNER JOIN Lafite_ATTRIBUTE B
+        ON A.MAP_ID = B.Id AND B.DELETE_FLAG ='0' AND A.IDENTITY_ID=#UserId# AND C.ProductLineID=B.Id)
+        )
+      </isEqual>
+    </select>
+    <select id="SelectTermainationList" parameterClass="string" resultClass="System.Data.DataSet">
+
+      select T.id,P.PolicyNo as PolicyNo,P.PolicyName as PolicyName,P.BU as BU,p.PolicyStyle as PolicyStyle,p.StartDate as StartDate,
+      p.EndDate as EndDate,T.[Status] as [Status],T.BeginDate,T.TemainationType,T.TermainationNo,T.Remark,T.TemainationType,C.ProductLineName,T.TermainationNo as TermainationNo
+      from Promotion.PRO_POLICY_Termaination T
+      left join Promotion.PRO_POLICY P on P.PolicyId=T.PolicyId
+      left join V_DivisionProductLineRelation C on T.BU=C.Divisionname
+      where (isnull(#Status#,'')='' or T.[Status]=#Status#)
+      and (isnull(#PromotionNo#,'')='' or p.PolicyNo like '%'+#PromotionNo#+'%')
+      and (isnull(#TermainationNo#,'')='' or T.TermainationNo like '%'+#TermainationNo#+'%')
+      and (isnull(#PromotionType#,'')='' or p.PolicyStyle=#PromotionType#)
+      and (isnull(#CP#,'')='' or T.BU=#CP#)
+      and (isnull(#ZZ#,'')='' or T.TemainationType=#ZZ#)
+      and C.IsEmerging=0
+      order by CreateDate desc
+      <!--exec [Commando].[GetTermainationList] #Status#,#PromotionNo#,#PromotionName#,#PromotionType#-->
+
+    </select>
+    <select id="SelectPolicyNo" parameterClass="string" resultClass="System.Data.DataSet">
+
+      select  policyid as Id,(PolicyNo+'-'+PolicyName) as No from Promotion.PRO_POLICY
+      where [status]='有效' and EndDate>=cast(YEAR(GETDATE())as nvarchar(50))+
+      (case when (cast(MONTH(GETDATE())as nvarchar(50)))>=10 then (cast(MONTH(GETDATE())as nvarchar(50)))
+      else '0'+(cast(MONTH(GETDATE())as nvarchar(50))) end)
+      and PolicyId not in (select PolicyId from Promotion.PRO_POLICY_Termaination where [Status]!='草稿')
+    </select>
+    <select id="SelectPolicyNoView" parameterClass="string" resultClass="System.Data.DataSet">
+
+      select  policyid as Id,(PolicyNo+'-'+PolicyName) as No from Promotion.PRO_POLICY
+      where [status]='有效' and EndDate>=cast(YEAR(GETDATE())as nvarchar(50))+
+      (case when (cast(MONTH(GETDATE())as nvarchar(50)))>=10 then (cast(MONTH(GETDATE())as nvarchar(50)))
+      else '0'+(cast(MONTH(GETDATE())as nvarchar(50))) end)
+    </select>
+    <select id="SelectPromotion_PRO_POLICY_Termaination" parameterClass="string" resultClass="System.Data.DataSet">
+      select Po.PolicyId as id,po.PolicyName,Po.PolicyNo+po.PolicyName as Policy,po.PolicyGroupName,Te.BU,(SUBSTRING( CONVERT( nvarchar(50),CAST(Po.StartDate+'01' as datetime),120),0,8)) as StartDate,
+      (SUBSTRING( CONVERT( nvarchar(50),CAST(Po.EndDate+'01' as datetime),120),0,8)) as EndDate,CC.CC_NameCN as SubBu,Te.TemainationType,(SUBSTRING( CONVERT( nvarchar(50),CAST(Te.BeginDate+'01' as datetime),120),0,8)) as BeginDate,
+      Te.TermainationNo,Te.Remark
+      from  Promotion.PRO_POLICY_Termaination Te
+      left join  Promotion.PRO_POLICY Po on Po.PolicyId=Te.PolicyId
+      left join interface.ClassificationContract CC on CC.CC_Code=Po.SubBu
+      where Te.Id=#id#
+
+    </select>
+
+
+
+    <select id="SelectConsignApplyList" parameterClass="string" resultClass="System.Data.DataSet">
+
+
+    </select>
+
+
+
+
+    <select id="SelectPolicyInfo" parameterClass="string" resultClass="System.Data.DataSet">
+
+      select PolicyName,BU,PolicyGroupName,(SUBSTRING( CONVERT( nvarchar(50),CAST(StartDate+'01' as datetime),120),0,8)) as StartDate,(SUBSTRING( CONVERT( nvarchar(50),CAST(EndDate+'01' as datetime),120),0,8)) as EndDate,CC.CC_NameCN as SubBu
+      from Promotion.PRO_POLICY
+      left join interface.ClassificationContract CC on CC.CC_Code=PRO_POLICY.SubBu
+      where PolicyId=#PolicyNo#
+
+    </select>
+
+    <select id="SelectPolicyTemplateListByProductLine" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT PolicyId,
+      PolicyName,
+      [Description]
+      FROM   Promotion.PRO_POLICY
+      WHERE  IsTemplate = 1
+      AND BU = (
+      SELECT TOP 1 D.DivisionName
+      FROM   V_DivisionProductLineRelation D
+      WHERE  D.IsEmerging = '0'
+      AND D.ProductLineID = #value#
+      )
+      ORDER BY PolicyName
+    </select>
+
+
+    <select id="SelectPolicyFactorList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT FactId,FactName,Description,FactSP,FactType,DataType,
+      ROW_NUMBER () OVER (ORDER BY SortNo ) AS [row_number]
+      FROM Promotion.PRO_FACTOR
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FactType">FactType=#FactType#</isNotNull>
+        <isNotNull prepend="AND" property="IsJMJZ">((#IsJMJZ#='Y' and FactId IN (1,9,13)) or #IsJMJZ# &lt;>'Y')</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="UpdateProlicyInit" parameterClass="System.Collections.Hashtable">
+      EXEC PROMOTION.Proc_Interface_PolicyTempLoad #PolicyId#,#PolicyStyle#,#PolicyStyleSub#,#UserId#,#IsTemplate#,#PolicyMode#
+    </select>
+
+    <select id="SelectUIPolicyHeader" parameterClass="string" resultClass="ProPolicy">
+      SELECT PolicyId,PolicyNo,PolicyName,Description,PolicyGroupName,Period,StartDate,EndDate
+
+      ,CONVERT(datetime, (SUBSTRING(StartDate,0,5)+'-'+ SUBSTRING(StartDate,5,2)+'-01')) AS StartDateTime
+      ,dateadd(d,-day(SUBSTRING(EndDate,0,5)+'-'+ SUBSTRING(EndDate,5,2)+'-01'),dateadd(m,1,SUBSTRING(EndDate,0,5)+'-'+ SUBSTRING(EndDate,5,2)+'-01')) AS EndDateTime
+      ,BU,ProductLineId=(SELECT B.ProductLineID FROM V_DivisionProductLineRelation B WHERE B.IsEmerging='0' AND B.DivisionName=A.BU)
+      ,SubBu,TopType,TopValue,CalType,IsPrePrice,PrePriceValue,Status,ReportTableName,TempTableName,PreTableName
+      ,CurrentPeriod,ApproveStatus,PolicyType,ifConvert,ifMinusLastGift,ifAddLastLeft,ifIncrement,CarryType
+      ,ifCalPurchaseAR,ifCalSalesAR,CalModule,CalStatus,CalPeriod,StartTime,EndTime,CreateBy,CreateTime
+      ,ModifyBy,ModifyDate,Remark1,Remark2,Remark3,PolicyClass,CurrUser,
+      CASE WHEN (SELECT COUNT(*) FROM Promotion.PRO_DEALER_UI C WHERE WithType='ByAuth' AND C.CurrUser=A.CurrUser)=0
+      THEN 'ByDealer' ELSE 'ByAuth' END AS  ProDealerType,ifCalRebateAR,
+      PointValidDateType,PointValidDateDuration,PointValidDateAbsolute,
+      PointValidDateType2,PointValidDateDuration2,PointValidDateAbsolute2,
+      PolicyStyle,PolicySubStyle,PointUseRange,YTDOption,MJRatio AS MjRatio
+      FROM Promotion.PRO_POLICY_UI A
+      WHERE  CurrUser= #value#
+    </select>
+
+    <select id="SelectUIPolicyFactor" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyFactorId,	PolicyId,	FactId,	FactDesc,	DataType, FactType,	FactValue,	CreateBy,	CreateTime,	ModifyBy,	ModifyDate,	Remark1	,CurrUser
+      ,ROW_NUMBER () OVER (ORDER BY PolicyFactorId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_FACTOR_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="FactId">FactId=#FactId#</isNotNull>
+        <isNotNull prepend="AND" property="DataType">DataType=#DataType#</isNotNull>
+        <isNotNull prepend="AND" property="FactType">FactType=#FactType#</isNotNull>
+        <isNotNull prepend="AND" property="FactValue">FactValue=#FactValue#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectDealerCan" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  TAB.*,ROW_NUMBER () OVER (ORDER BY TAB.DmaId ) AS [row_number]
+      FROM (
+      SELECT DISTINCT A.DMA_ID AS DmaId,A.DMA_ChineseName AS DealerName,(A.DMA_SAP_Code+'-'+A.DMA_ChineseName) AS DealerFullName
+      FROM DealerMaster A
+      INNER JOIN V_DealerContractMaster B ON A.DMA_ID=B.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation C ON CONVERT(NVARCHAR(10),B.Division)=C.DivisionCode AND C.IsEmerging='0'
+      INNER JOIN interface.ClassificationContract D ON D.CC_Division=C.DivisionCode AND D.CC_ID=B.CC_ID
+      WHERE B.ActiveFlag='1'
+      AND A.DMA_ActiveFlag='1' AND A.DMA_DeletedFlag='0'
+      AND NOT EXISTS(SELECT * FROM Promotion.PRO_DEALER_UI E WHERE E.DEALERID=A.DMA_ID AND E.CurrUser=#CurrUser# AND E.PolicyId=#PolicyId#)
+      <isNotNull prepend="AND" property="ProductLineId">C.ProductLineID=#ProductLineId#</isNotNull>
+      <isNotNull prepend="AND" property="SubBU">D.CC_Code=#SubBU#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">A.DMA_ChineseName like N'%$DealerName$%'</isNotNull>
+      ) TAB
+    </select>
+
+    <select id="SelectDealerSelected" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyId,WithType,OperType,DEALERID,B.DMA_ChineseName AS DealerName,Remark1,(b.DMA_SAP_Code+'-'+b.DMA_ChineseName) AS DealerFullName
+      ,ROW_NUMBER () OVER (ORDER BY A.ModifyDate ) AS [row_number]
+      FROM Promotion.PRO_DEALER_UI A
+      INNER JOIN DealerMaster B ON A.DEALERID=B.DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="WithType">A.WithType=#WithType#</isNotNull>
+      </dynamic>
+    </select>
+
+    <delete id="DeleteSelectedDealer" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.PRO_DEALER_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="DEALERID">DEALERID=#DEALERID#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <delete id="DeleteTopValueByUserId" parameterClass="string">
+      DELETE Promotion.PRO_POLICY_TOPVALUE_UI WHERE CurrUser=#value#
+    </delete>
+
+    <select id="SelectTopValue" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT a.SAPCode AS SAPCode,B.DMA_ChineseName AS DealerName,A.HospitalId AS HospitalCode,C.HOS_HospitalName AS HospitalName,A.Period,A.TopValue ,A.ErrMsg, CASE WHEN ISNULL(A.ErrMsg,'')='' THEN 0 ELSE 1 END AS ISErr
+      ,ROW_NUMBER () OVER (ORDER BY A.ErrMsg DESC ) AS [row_number]
+      FROM Promotion.PRO_POLICY_TOPVALUE_UI A
+      LEFT JOIN DealerMaster B ON A.SAPCode=B.DMA_SAP_Code
+      LEFT JOIN Hospital C ON C.HOS_Key_Account=A.HospitalId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <procedure id="GC_TopValueInit" parameterMap="TopValueInitParameterMap">
+      Promotion.Proc_Interface_TopValueInit
+    </procedure>
+
+    <insert id="InsertPolicyDealer" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.PRO_DEALER_UI(PolicyId,WithType,OperType,DEALERID,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,CurrUser)
+      VALUES(#PolicyId#,#WithType#,#OperType#,#DealerId#,#CorrUser#,GETDATE(),#CorrUser#,GETDATE(),#Remark1#,#CorrUser#)
+    </insert>
+
+    <insert id="InsertTermainationInfo" parameterClass="System.Collections.Hashtable">
+      insert into Promotion.PRO_POLICY_Termaination(Id,TermainationNo,PolicyId,BeginDate,[Status],CreateUser,CreateDate,BU,Remark,TemainationType)
+      values(#Id#,#TermainationNo#,#PolicyId#,SUBSTRING( CONVERT(varchar(50),cast(#BeginDate# as datetime),112),0,7),#Status#,#CreateUser#,#CreateDate#,#BU#,#Remark#,#TemainationType#)
+    </insert>
+
+    <insert id="UpdateTermainationInfo" parameterClass="System.Collections.Hashtable">
+      update Promotion.PRO_POLICY_Termaination set TermainationNo=#TermainationNo#
+      ,PolicyId=#PolicyId#
+      ,BeginDate=SUBSTRING( CONVERT(varchar(50),cast(#BeginDate# as datetime),112),0,7)
+      ,[Status]=#Status#
+      ,CreateUser=#CreateUser#
+      ,CreateDate=#CreateDate#
+      ,BU=#BU#
+      ,Remark=#Remark#
+      ,TemainationType=#TemainationType#
+      where id=#TermainationId#
+    </insert>
+    
+    <insert id="InsertPolicyDealerByAuth" parameterClass="System.Collections.Hashtable">
+      IF NOT EXISTS(SELECT 1 FROM Promotion.PRO_DEALER_UI WHERE PolicyId=#PolicyId# AND CurrUser=#CurrUser# AND WithType='ByAuth')
+      BEGIN
+      INSERT INTO Promotion.PRO_DEALER_UI(PolicyId,WithType,OperType,CreateBy,CreateTime,ModifyBy,ModifyDate,CurrUser)
+      VALUES(#PolicyId#,#WithType#,#OperType#,#CreateBy#,#CreateTime#,#ModifyBy#,#ModifyDate#,#CurrUser#)
+      END
+    </insert>
+
+    <!--删除临时表中根据授权选择使用经销商-->
+    <delete id="DeletePolicyDealerByAuth" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.PRO_DEALER_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="WithType">WithType=#WithType#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <!--获取指定产品商业采购指标-->
+    <select id="SelectBSCSalesProductIndxUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,B.DMA_SAP_Code AS SAPCode,A.Period,A.TargetLevel,A.TargetValue,B.DMA_ChineseName AS DealerName,
+      CASE WHEN ISNULL(A.ErrMsg,'')='' THEN 0 ELSE 1 END AS IsErr ,A.ErrMsg
+      ,ROW_NUMBER () OVER (ORDER BY A.ErrMsg DESC ) AS [row_number]
+      FROM Promotion.Pro_Dealer_PrdPurchase_Taget_UI A
+      LEFT JOIN DealerMaster B ON A.DealerId=B.DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取指定产品医院植入指标-->
+    <select id="SelectInHospitalProductIndxUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,B.DMA_SAP_Code AS SAPCode,C.HOS_Key_Account AS HospitalId,C.HOS_HospitalName AS HospitalName,A.Period,A.TargetLevel,A.TargetValue,B.DMA_ChineseName AS DealerName,
+      CASE WHEN ISNULL(A.ErrMsg,'')='' THEN 0 ELSE 1 END AS IsErr ,A.ErrMsg
+      ,ROW_NUMBER () OVER (ORDER BY A.ErrMsg DESC ) AS [row_number]
+      FROM Promotion.Pro_Hospital_PrdSalesTaget_UI A
+      LEFT JOIN DealerMaster B ON A.DealerId=B.DMA_ID
+      LEFT JOIN Hospital C ON C.HOS_Key_Account=A.HospitalId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--删除临时表中经销商采购指标-->
+    <delete id="DeleteBSCSalesProductIndxUi" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.Pro_Dealer_PrdPurchase_Taget_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <!--删除临时表中经销商植入指标-->
+    <delete id="DeleteInHospitalProductIndxUi" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.Pro_Hospital_PrdSalesTaget_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <procedure id="GC_ProductIndexInit" parameterMap="ProductIndexInitParameterMap">
+      Promotion.Proc_Interface_ProductIndexInit
+    </procedure>
+
+    <!--获取能够选择的关联因素-->
+    <select id="SelectFactorRelationeUiCan" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,A.FactId,B.FactName+'('+A.FactDesc +')' AS FactName,A.FactDesc FROM Promotion.PRO_POLICY_FACTOR_UI A
+      INNER JOIN Promotion.PRO_FACTOR B ON A.FactId=B.FactId
+      WHERE A.FactId IN ('1','2','3')
+      AND NOT EXISTS (SELECT 1 FROM Promotion.PRO_POLICY_FACTOR_RELATION_UI C WHERE C.CurrUser=A.CurrUser  AND C.ConditionPolicyFactorId=A.PolicyFactorId AND C.PolicyFactorId=#PolicyFactorId#)
+      AND A.CurrUser=#CurrUser#
+    </select>
+
+    <!--新增因素关联关系-->
+    <insert id="InsertPolicyFactorRelation" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.PRO_POLICY_FACTOR_RELATION_UI (PolicyFactorId,ConditionPolicyFactorId,CurrUser)
+      VALUES(#PolicyFactorId#,#ConditionPolicyFactorId#,#CurrUser#)
+    </insert>
+
+    <!--删除临时表中关联因素-->
+    <delete id="DeletePolicyFactorRelation" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.PRO_POLICY_FACTOR_RELATION_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="ConditionPolicyFactorId">ConditionPolicyFactorId=#ConditionPolicyFactorId#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <!--获取已经设定的因素关联关系-->
+    <select id="SelectFactorRelationUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,A.ConditionPolicyFactorId,B.FactId,C.FactName,B.FactDesc
+      ,ROW_NUMBER () OVER (ORDER BY A.PolicyFactorId DESC ) AS [row_number]
+      FROM Promotion.PRO_POLICY_FACTOR_RELATION_UI A
+      INNER JOIN Promotion.PRO_POLICY_FACTOR_UI B ON A.ConditionPolicyFactorId=B.PolicyFactorId AND A.CurrUser=B.CurrUser
+      INNER JOIN Promotion.PRO_FACTOR C ON B.FactId=C.FactId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectFactorHasRelationUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyFactorId,ConditionPolicyFactorId,CurrUser FROM Promotion.PRO_POLICY_FACTOR_RELATION_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="ConditionPolicyFactorId">ConditionPolicyFactorId=#ConditionPolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectSubBU" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT A.CC_Code AS SubBUCode,A.CC_ID AS SubBUId,A.CC_NameCN AS SubBUName  FROM interface.ClassificationContract A
+      INNER JOIN V_DivisionProductLineRelation B ON A.CC_Division=B.DivisionCode AND B.IsEmerging='0'
+      WHERE B.ProductLineID= #value#
+      AND A.CC_Code NOT IN ('C1000','C1700','C1890','C1891','C1900','C2200','C3290','C3291','C3400','C3500')
+      ORDER BY CC_Code
+    </select>
+
+    <procedure id="GC_ProDealersInit" parameterMap="ProDealersInitParameterMap">
+      Promotion.Proc_Interface_ProDealersInit
+    </procedure>
+
+    <delete id="DeleteDealersUiByUserId" parameterClass="string">
+      DELETE Promotion.PRO_DEALER_Input_UI
+      WHERE CurrUser=#value#
+    </delete>
+
+    <insert id="InsertDealersUiSuccess" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.PRO_DEALER_UI (PolicyId,WithType,OperType,DEALERID,CreateBy,CreateTime,Remark1,CurrUser)
+      SELECT A.PolicyId,'ByDealer',#OperType#,B.DMA_ID,A.CurrUser,GETDATE(),NULL, A.CurrUser
+      FROM Promotion.PRO_DEALER_Input_UI  A INNER JOIN DealerMaster B ON A.SAPCode=B.DMA_SAP_Code
+      WHERE A.ErrMsg='' AND A.CurrUser=#UserId#
+      AND NOT EXISTS (SELECT 1 FROM Promotion.PRO_DEALER_UI C WHERE A.CurrUser=C.CurrUser AND B.DMA_ID=C.DEALERID)
+    </insert>
+    <insert id="InsertDealersUi" parameterClass="string">
+      INSERT INTO Promotion.PRO_DEALER_UI (PolicyId,WithType,OperType,DEALERID,CreateBy,CreateTime,Remark1,CurrUser)
+      SELECT A.PolicyId,'ByDealer','包含',B.DMA_ID,A.CurrUser,GETDATE(),NULL, A.CurrUser
+      FROM Promotion.PRO_DEALER_Input_UI  A INNER JOIN DealerMaster B ON A.SAPCode=B.DMA_SAP_Code
+      WHERE A.CurrUser=#value#
+      AND NOT EXISTS (SELECT 1 FROM Promotion.PRO_DEALER_UI C WHERE A.CurrUser=C.CurrUser AND B.DMA_ID=C.DEALERID)
+    </insert>
+
+    <select id="SelectPolicyDealerUpload" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyId,SAPCode,DealerName,CASE WHEN ISNULL(ErrMsg,'')='' THEN 0 ELSE 1 END AS ISErr ,ErrMsg
+      ,ROW_NUMBER () OVER (ORDER BY ErrMsg DESC ) AS [row_number]
+      FROM Promotion.PRO_DEALER_Input_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectEWorkflowAccount" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT UserAccount,substring(a.Email,0,charindex('@',a.Email)) AS UserId
+      FROM  interface.T_I_QV_SalesRep A
+      WHERE substring(a.Email,0,charindex('@',a.Email))=#value#
+    </select>
+
+    <select id="SelectPromotionPolicyAttachment" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PAT_ID AS Id,PAT_PolicyId AS PolicyId,PAT_Name AS Name,PAT_Url AS Url,PAT_UploadUser AS UploadUser,Convert(NVARCHAR(10),PAT_UploadDate,120) AS UploadDate
+      ,li.Identity_Name,row_number() OVER (ORDER BY PAT_UploadDate DESC) AS row_number
+      FROM Promotion.PRO_Attachment a
+      INNER JOIN Lafite_Identity li ON a.PAT_UploadUser = li.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">PAT_PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="GiftId">PAT_GiftId=#GiftId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">PAT_Type=#Type#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertPolicyAttachment" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.PRO_Attachment(PAT_PolicyId,PAT_Name,PAT_Url,PAT_UploadUser,PAT_UploadDate,PAT_Type,PAT_GiftId)
+      VALUES(#PolicyId#,#Name#,#Url#,#UploadUser#,#UploadDate#,#Type#,#GiftId#)
+    </insert>
+
+    <delete id="DeletePolicyAttachment" parameterClass="string">
+      DELETE Promotion.PRO_Attachment WHERE PAT_Id=#value#
+    </delete>
+
+    <delete id="DeletePolicyHospitalUIByConditionId" parameterClass="System.Collections.Hashtable">
+      DELETE Promotion.PRO_POLICY_FACTOR_CONDITION_UI WHERE PolicyFactorConditionId=#PolicyFactorConditionId# AND CurrUser=#CurrUser#
+    </delete>
+
+    <procedure id="CheckPolicyHospitalCode" parameterMap="CheckPolicyHospitalCodeParameterMap">
+      Promotion.Proc_CheckPolicyHospitalCode
+    </procedure>
+
+    <update id="UpdatePolicyHospitalUi" parameterClass="System.Collections.Hashtable">
+      UPDATE  Promotion.PRO_POLICY_FACTOR_CONDITION_UI
+      SET ConditionValue=#ConditionValue# WHERE CurrUser=#CurrUser# AND PolicyFactorConditionId=#PolicyFactorConditionId#
+    </update>
+
+    <procedure id="GC_PointRatioInit" parameterMap="CheckPointRatioInitParameterMap">
+      Promotion.Proc_Interface_ProPointRatioInit
+    </procedure>
+
+    <select id="SelectPointRatio" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT a.SAPCode AS SAPCode,B.DMA_ChineseName AS DealerName,A.AccountMonth,
+      CASE WHEN b.DMA_DealerType='LP' THEN '平台' WHEN b.DMA_DealerType='T1' THEN '一级经销商' WHEN b.DMA_DealerType='T2' THEN '二级经销商' END AS DealerType,
+      a.Ratio ,A.ErrMsg, CASE WHEN ISNULL(A.ErrMsg,'')='' THEN 0 ELSE 1 END AS ISErr
+      ,ROW_NUMBER () OVER (ORDER BY A.ErrMsg DESC ) AS [row_number]
+      FROM Promotion.PRO_POLICY_POINTRATIO_UI A
+      LEFT JOIN DealerMaster B ON A.SAPCode=B.DMA_SAP_Code
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <delete id="DeletePolicyPointRatioByUserId" parameterClass="string">
+      DELETE Promotion.PRO_POLICY_POINTRATIO_UI WHERE CurrUser=#value#
+    </delete>
+
+    <delete id="DeleteProductStandardPriceByUserId" parameterClass="string">
+      DELETE Promotion.Pro_Dealer_Std_Point_UI WHERE CurrUser=#value#
+    </delete>
+
+    <procedure id="GC_StandardPriceInit" parameterMap="CheckStandardPriceInitParameterMap">
+      Promotion.Proc_Interface_StandardPriceInit
+    </procedure>
+
+    <select id="SelectStandardPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT a.SAPCode AS SAPCode,B.DMA_ChineseName AS DealerName,A.Points ,A.ErrMsg, CASE WHEN ISNULL(A.ErrMsg,'')='' THEN 0 ELSE 1 END AS ISErr
+      ,ROW_NUMBER () OVER (ORDER BY A.ErrMsg DESC ) AS [row_number]
+      FROM Promotion.Pro_Dealer_Std_Point_UI A
+      LEFT JOIN DealerMaster B ON A.DealerId=B.DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectLargesslotType" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT distinct DLFrom AS Id,DLFrom Name FROM Promotion.PRO_DEALER_LARGESS_LOG
+    </select>
+    <select id="SelectPointlogType" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT distinct DLFrom AS Id,DLFrom Name FROM Promotion.PRO_DEALER_POINT_LOG
+    </select>
+    <select id="QueryLargesslogByDmabu" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT T.*,CASE WHEN #Type#='Point' THEN '积分' ELSE '赠品' END AS LtyPE,ROW_NUMBER () OVER (ORDER BY T.LogDate DESC ) AS [row_number] FROM( SELECT A.LogId as Id,A.DLFrom AS DLFrom, A.Period AS Period,C.DMA_ChineseName as DmaName,C.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,NULL AS OrderNo,D.ProductLineName as ProductLineName,A.Remark AS Remark FROM Promotion.PRO_DEALER_LARGESS_LOG A INNER JOIN Promotion.PRO_DEALER_LARGESS B
+      ON A.DLid=B.DLid INNER JOIN DealerMaster C ON B.DEALERID=C.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation D ON B.BU=D.DivisionName
+      WHERE A.MXID IS NULL AND D.IsEmerging=0
+      <isNotNull prepend="AND" property="Dma">C.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">D.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (C.DMA_Parent_DMA_ID=#OwnerCorpId# OR C.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      union
+      SELECT A.LogId as Id,A.DLFrom AS DLFrom,A.Period AS Period,C.DMA_ChineseName as DmaName,c.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,E.POH_OrderNo AS OrderNo,F.ProductLineName as ProductLineName,PlLog.Remark AS Remark
+      FROM Promotion.PRO_DEALER_LARGESS_LOG A INNER JOIN Promotion.PRO_DEALER_LARGESS B
+      ON A.DLid=B.DLid
+      INNER JOIN DealerMaster C ON B.DEALERID=C.DMA_ID
+      INNER JOIN PurchaseOrderDetail D ON D.POD_ID=A.MXID INNER JOIN PurchaseOrderHeader E
+      ON D.POD_POH_ID=E.POH_ID INNER JOIN V_DivisionProductLineRelation F ON  B.BU=F.DivisionName
+      LEFT JOIN (SELECT DLid,Remark FROM  Promotion.PRO_DEALER_LARGESS_LOG WHERE ISNULL(Remark,'')  &lt;>'' ) PlLog ON PlLog.DLid=A.DLid
+      WHERE A.MXID IS NOT NULL  AND F.IsEmerging=0
+      <isNotNull prepend="AND" property="Dma">C.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">F.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (C.DMA_Parent_DMA_ID=#OwnerCorpId# OR C.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      )T
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">T.OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="EwfNo">T.Remark=#EwfNo#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="QueryPointlogByDmabu" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT T.*,CASE WHEN #Type#='Point' THEN '积分' ELSE '赠品' END AS LtyPE,ROW_NUMBER () OVER (ORDER BY T.LogDate DESC ) AS [row_number]
+      FROM(
+      SELECT A.LogId as Id,A.DLFrom AS DLFrom,A.Period AS Period, D.DMA_ChineseName as DmaName,D.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,NULL AS OrderNo ,E.ProductLineName as ProductLineName,A.Remark AS Remark
+      FROM Promotion.PRO_DEALER_POINT_LOG A INNER JOIN Promotion.PRO_DEALER_POINT B
+      ON A.DLid=B.DLid INNER JOIN Promotion.PRO_DEALER_POINT_SUB C ON C.DLid=B.DLid
+      INNER JOIN DealerMaster D ON D.DMA_ID=B.DEALERID INNER JOIN V_DivisionProductLineRelation E
+      ON B.BU=E.DivisionName AND E.IsEmerging=0
+      WHERE A.MXID IS NULL
+      <isNotNull prepend="AND" property="Dma">D.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">E.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (D.DMA_Parent_DMA_ID=#OwnerCorpId# OR D.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      union
+      SELECT A.LogId as Id, A.DLFrom AS DLFrom,A.Period AS Period,D.DMA_ChineseName as DmaName,D.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,e.POH_OrderNo AS OrderNo,f.ProductLineName as ProductLineName,PlLog.Remark AS Remark
+      FROM  Promotion.PRO_DEALER_POINT_LOG a
+      inner join Promotion.PRO_DEALER_POINT_SUB b on b.id=a.DLid
+      inner join Promotion.PRO_DEALER_POINT c on c.DLid=b.DLid
+      inner join DealerMaster d on d.DMA_ID=c.DEALERID
+      inner join PurchaseOrderHeader e on e.POH_ID=a.MXID
+      INNER JOIN V_DivisionProductLineRelation f  ON c.BU=f.DivisionName AND f.IsEmerging=0
+      left join (SELECT DLid,Remark FROM  Promotion.PRO_DEALER_POINT_LOG WHERE ISNULL(Remark,'')  &lt;>'' ) PlLog ON PlLog.DLid=b.DLid
+      where
+      a.MXID IS NOT NULL
+      <isNotNull prepend="AND" property="Dma">D.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">f.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">a.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (D.DMA_Parent_DMA_ID=#OwnerCorpId# OR D.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      )T
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">T.OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="EwfNo">T.Remark=#EwfNo#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectPointlogByDmabuExportExcel" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT CASE WHEN #Type#='Point' THEN '积分' ELSE '赠品' END AS N'类型',T.Code AS N'经销商编号', T.DmaName AS N'经销商名称', T.DLFrom AS N'操作类型',T.ProductLineName AS N'产品线',T.Amount AS N'变更额度',T.LogDate AS N'变更日期'
+      ,T.OrderNo AS N'订单编号',T.Remark AS N'E-workflow审批编号',T.OtherMemo AS N'备注' FROM( SELECT A.LogId as Id,A.DLFrom AS DLFrom,A.Period AS Period, D.DMA_ChineseName as DmaName,D.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,NULL AS OrderNo ,E.ProductLineName as ProductLineName,A.Remark AS Remark  FROM Promotion.PRO_DEALER_POINT_LOG A INNER JOIN Promotion.PRO_DEALER_POINT B
+      ON A.DLid=B.DLid INNER JOIN Promotion.PRO_DEALER_POINT_SUB C ON C.DLid=B.DLid
+      INNER JOIN DealerMaster D ON D.DMA_ID=B.DEALERID INNER JOIN V_DivisionProductLineRelation E
+      ON B.BU=E.DivisionName AND E.IsEmerging=0
+      WHERE A.MXID IS NULL
+      <isNotNull prepend="AND" property="Dma">D.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">E.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (D.DMA_Parent_DMA_ID=#OwnerCorpId# OR D.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      union
+      SELECT A.LogId as Id, A.DLFrom AS DLFrom,A.Period AS Period,D.DMA_ChineseName as DmaName,D.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,e.POH_OrderNo AS OrderNo,f.ProductLineName as ProductLineName,PlLog.Remark AS Remark
+      FROM  Promotion.PRO_DEALER_POINT_LOG a
+      inner join Promotion.PRO_DEALER_POINT_SUB b on b.id=a.DLid
+      inner join Promotion.PRO_DEALER_POINT c on c.DLid=b.DLid
+      inner join DealerMaster d on d.DMA_ID=c.DEALERID
+      inner join PurchaseOrderHeader e on e.POH_ID=a.MXID
+      INNER JOIN V_DivisionProductLineRelation f  ON c.BU=f.DivisionName AND f.IsEmerging=0
+      left join (SELECT DLid,Remark FROM  Promotion.PRO_DEALER_POINT_LOG WHERE ISNULL(Remark,'')  &lt;>'' ) PlLog ON PlLog.DLid=b.DLid
+      WHERE A.MXID IS NOT NULL
+      <isNotNull prepend="AND" property="Dma">D.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">F.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (D.DMA_Parent_DMA_ID=#OwnerCorpId# OR D.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      )T
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">T.OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="EwfNo">T.Remark=#EwfNo#</isNotNull>
+      </dynamic>
+      ORDER BY T.LogDate DESC
+    </select>
+    <select id="SelectargesslogByExportExcel" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT CASE WHEN #Type#='Point' THEN '积分' ELSE '赠品'END AS  N'类型',T.Code AS N'经销商编号', T.DmaName AS N'经销商名称', T.DLFrom AS N'操作类型',T.ProductLineName AS N'产品线',T.Amount AS N'变更额度',T.LogDate AS N'变更日期'
+      ,T.OrderNo AS N'订单编号',T.Remark AS N'E-workflow审批编号',T.OtherMemo AS N'备注' FROM( SELECT A.LogId as Id,A.DLFrom AS DLFrom, A.Period AS Period,C.DMA_ChineseName as DmaName,C.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,NULL AS OrderNo,D.ProductLineName as ProductLineName,A.Remark AS Remark
+      FROM Promotion.PRO_DEALER_LARGESS_LOG A(nolock)
+      INNER JOIN Promotion.PRO_DEALER_LARGESS B(nolock)
+      ON A.DLid=B.DLid INNER JOIN DealerMaster C(nolock) ON B.DEALERID=C.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation D(nolock) ON B.BU=D.DivisionName
+      WHERE A.MXID IS NULL AND D.IsEmerging=0
+      <isNotNull prepend="AND" property="Dma">C.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">D.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (C.DMA_Parent_DMA_ID=#OwnerCorpId# OR C.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      union
+      SELECT A.LogId as Id,A.DLFrom AS DLFrom,A.Period AS Period,C.DMA_ChineseName as DmaName,c.DMA_SAP_Code as Code,A.Amount as Amount,A.LogDate as LogDate,A.OtherMemo as OtherMemo,E.POH_OrderNo AS OrderNo,F.ProductLineName as ProductLineName,PlLog.Remark AS Remark   FROM Promotion.PRO_DEALER_LARGESS_LOG A INNER JOIN Promotion.PRO_DEALER_LARGESS B
+      ON A.DLid=B.DLid INNER JOIN DealerMaster C(nolock) ON B.DEALERID=C.DMA_ID
+      INNER JOIN PurchaseOrderDetail D(nolock) ON D.POD_ID=A.MXID INNER JOIN PurchaseOrderHeader E(nolock)
+      ON D.POD_POH_ID=E.POH_ID INNER JOIN V_DivisionProductLineRelation F ON  B.BU=F.DivisionName
+      LEFT JOIN (SELECT DLid,Remark FROM  Promotion.PRO_DEALER_LARGESS_LOG(nolock) WHERE ISNULL(Remark,'')  &lt;>'' ) PlLog ON PlLog.DLid=A.DLid
+      WHERE A.MXID IS NOT NULL  AND F.IsEmerging=0
+      <isNotNull prepend="AND" property="Dma">C.DMA_ID=#Dma#</isNotNull>
+      <isNotNull prepend="AND" property="Bu">F.ProductLineID=#Bu#</isNotNull>
+      <isNotNull prepend="AND" property="DlFrom">A.DLFrom=#DlFrom#</isNotNull>
+      <isNotNull prepend="AND" property="StarData">CONVERT(varchar(100),A.LogDate,112) >=#StarData#</isNotNull>
+      <isNotNull prepend="AND" property="EndData">CONVERT(varchar(100),A.LogDate,112) &lt;=#EndData#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (C.DMA_Parent_DMA_ID=#OwnerCorpId# OR C.DMA_ID=#OwnerCorpId#)
+      </isEqual>
+      )T
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">T.OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="EwfNo">T.Remark=#EwfNo#</isNotNull>
+      </dynamic>
+      ORDER BY T.LogDate DESC
+    </select>
+
+    <update id="UpdatePromotionPolicyInstanceID" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_POLICY SET InstanceID=#InstanceID# WHERE PolicyId=#PolicyId#
+    </update>
+
+    <select id="SelectPromotionPolicyNo" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT  A.PolicyNo,A.BU FROM Promotion.PRO_POLICY A WHERE A.PolicyId=#value#
+    </select>
+    <update id="ConvertAdvance" parameterClass="string">
+      UPDATE Promotion.PRO_POLICY SET PolicyMode='Advance' WHERE PolicyId=#value#
+    </update>
+    <select id="SelectPromotionSummary" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Promotion.func_Pro_PolicyToHtml_Summary(#PolicyId#, #HtmlType#) AS SummaryStr
+    </select>
+    <select id="SelectPromotion" parameterClass="string" resultClass="System.Data.DataSet">
+      select t.Status,t.CalType, v.ProductLineID,t.PolicyId   from Promotion.PRO_POLICY t
+      inner join  V_DivisionProductLineRelation v on v.DivisionName=t.BU and IsEmerging !=1
+      where t.PolicyNo=#value#
+    </select>
+
+    <select id="SelectPromotionPOLICY_RULE" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT c.PolicyStyle,A.RuleId,A.PolicyId,A.RuleDesc,A.JudgePolicyFactorId,B.FactDesc,A.JudgeValue,A.GiftValue,A.CreateBy,A.CreateTime,A.ModifyBy,A.ModifyDate,A.Remark1,A.PointsValue,A.PointsType
+      ,ROW_NUMBER () OVER (ORDER BY A.RuleId ) AS [row_number]
+      FROM  Promotion.PRO_POLICY_RULE A
+      INNER JOIN Promotion.PRO_POLICY_FACTOR B ON A.JudgePolicyFactorId=B.PolicyFactorId
+      inner join Promotion.PRO_POLICY c on c.PolicyId=a.PolicyId
+      where A.PolicyId=#PolicyId#
+    </select>
+
+    <select id="GetPromotionPOLICY_RULE" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.RuleId,A.PolicyId,A.RuleDesc,A.JudgePolicyFactorId,B.FactDesc,A.JudgeValue,A.GiftValue,A.CreateBy,A.CreateTime,A.ModifyBy,A.ModifyDate,A.Remark1,A.PointsValue,A.PointsType
+      ,ROW_NUMBER () OVER (ORDER BY A.RuleId ) AS [row_number]
+      FROM  Promotion.PRO_POLICY_RULE A
+      INNER JOIN Promotion.PRO_POLICY_FACTOR B ON A.JudgePolicyFactorId=B.PolicyFactorId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleId">A.RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="JudgePolicyFactorId">A.JudgePolicyFactorId=#JudgePolicyFactorId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="UpdatePolicy" parameterClass="System.Collections.Hashtable">
+      update Promotion.PRO_POLICY_RULE set JudgeValue= CAST (#txtFactorValueX# AS DECIMAL(18,4)) ,GiftValue=CAST(#txtFactorValueY# AS DECIMAL(18,4)),RuleDesc=#RuleDesc# where RuleId=#RuleId#
+    </update>
+
+    <select id="SelectPolicyFactor" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,A.PolicyId,A.FactId,A.FactDesc,A.DataType,A.FactType,A.FactValue,A.CreateBy,A.CreateTime,A.ModifyBy,A.ModifyDate,A.Remark1,B.FactName
+      FROM Promotion.PRO_POLICY_FACTOR A
+      INNER JOIN Promotion.PRO_FACTOR B ON A.FactId=B.FactId
+      WHERE
+      B.ValueType IN ('QUANTITY','MONEY')
+      <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+    </select>
+
+    <update id="StatusUpdate" parameterClass="System.Collections.Hashtable">
+      update Promotion.PRO_POLICY set Status=#NewStatus# where PolicyNo=#PolicyNo#
+    </update>
+    <select id="SelectPolicyFactorall" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId AS PolicyFactorId,A.PolicyId AS PolicyId,A.FactId AS FactId,C.FactName AS FactName,A.FactDesc AS FactDesc,A.DataType AS DataType,A.FactType AS FactType,A.FactValue AS FactValue,A.CreateBy AS CreateBy,A.CreateTime AS CreateTime,A.ModifyBy AS ModifyBy,A.ModifyDate AS ModifyDate,A.Remark1 AS Remark1
+      ,B.GiftType,s.PolicyStyle
+      ,CASE WHEN B.PolicyId IS NULL THEN 'N' ELSE 'Y' END AS IsGift
+      ,CASE WHEN D.PolicyId IS NULL THEN 'N' ELSE 'Y' END AS IsPoint
+      ,CASE WHEN B.PolicyId IS NULL AND D.PolicyId IS NULL THEN A.FactDesc
+      WHEN B.PolicyId IS NOT NULL AND D.PolicyId IS NULL THEN A.FactDesc +'【赠品】'
+      WHEN B.PolicyId IS NULL AND D.PolicyId IS NOT NULL THEN A.FactDesc +'【积分可购产品范围】'
+      WHEN B.PolicyId IS NOT NULL AND D.PolicyId IS NOT NULL THEN A.FactDesc +'【赠品且是积分可购产品范围】'
+      END IsGiftName
+      ,B.PointsValue AS PointsValue
+      ,ROW_NUMBER () OVER (ORDER BY A.PolicyFactorId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_FACTOR A
+      INNER JOIN Promotion.PRO_FACTOR C ON C.FactId=A.FactId
+      left join Promotion.PRO_POLICY s on s.PolicyId=a.PolicyId
+      LEFT JOIN Promotion.PRO_POLICY_LARGESS B ON A.PolicyFactorId=B.GiftPolicyFactorId  AND A.PolicyId=B.PolicyId
+      LEFT JOIN Promotion.PRO_POLICY_LARGESS D ON A.PolicyFactorId=D.UseRangePolicyFactorId  AND A.PolicyId=D.PolicyId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="FactId">A.FactId=#FactId#</isNotNull>
+        <isNotNull prepend="AND" property="FactDesc">A.FactDesc=#FactDesc#</isNotNull>
+        <isNotNull prepend="AND" property="DataType">A.DataType=#DataType#</isNotNull>
+        <isNotNull prepend="AND" property="FactType">A.FactType=#FactType#</isNotNull>
+        <isNotNull prepend="AND" property="FactValue">A.FactValue=#FactValue#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectOrderOperationLog" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select * from  OrderOperationLog o
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">o.OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="OperationType">o.OperationType=#OperationType#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="GetAttachment" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from  Attachment a  where a.AT_Main_ID=#MainID#
+    </select>
+    <select id="SelectConditionRule" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT B.ConditionName,A.PolicyFactorId,A.ConditionId,A.OperTag,Promotion.func_Pro_Utility_getFactorRuleValue(A.ConditionId,A.ConditionValue) AS ConditionValue,A.PolicyFactorConditionId
+      ,ROW_NUMBER () OVER (ORDER BY A.PolicyFactorConditionId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_FACTOR_CONDITION A
+      INNER JOIN promotion.PRO_CONDTION B ON A.ConditionId=B.ConditionId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectPolicyFactorCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyFactorId,ConditionId,OperTag,ConditionValue,PolicyFactorConditionId FROM Promotion.PRO_POLICY_FACTOR_CONDITION
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FactConditionId">PolicyFactorConditionId=#FactConditionId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="FactorConditionRuleSet" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_POLICY_FACTOR_CONDITION SET ConditionValue=(ISNULL(ConditionValue,'')+#ConditionValueAdd#) WHERE  PolicyFactorConditionId=#FactConditionId# AND PolicyFactorId=#FactorId#
+      AND NOT EXISTS(SELECT 1 FROM Promotion.func_Pro_Utility_getStringSplit(ConditionValue) B WHERE B.ColA+'|'=#ConditionValueAdd#)
+    </update>
+
+    <select id="FactorConditionRuleDelete" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC [Promotion].[Proc_Interface_PolicyFactorRuleDeleteAll] #FactConditionId#,#ConditionValueDelete#
+    </select>
+
+    <select id="SelectFactorConditionRuleSeletedALL" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Id,Name
+      ,ROW_NUMBER () OVER (ORDER BY Id ) AS [row_number]
+      FROM [Promotion].[func_Interface_FactorConditionSeleted_ListAll](#FactConditionId#,#CurrUser#)
+    </select>
+
+    <select id="SelectFactorConditionRuleCanAll" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Code,Id,Name
+      ,ROW_NUMBER () OVER (ORDER BY Id ) AS [row_number]
+      FROM [Promotion].[func_Interface_FactorCondition_ListAll](#FactConditionId#,#ProductLineId#,#SubBU#,#KeyValue#,#CurrUser#)
+    </select>
+
+    <procedure id="SelectNextAutoNumberForPromotion" parameterMap="NextAutoNumberForPromotionMap">
+      [Promotion].[GC_GetNextAutoNumberForPromotion]
+    </procedure>
+
+    <select id="SelectProductLine" parameterClass="string" resultClass="System.Data.DataSet">
+      select ProductLineName as Name,DivisionName as Id from V_DivisionProductLineRelation
+      where IsEmerging=0
+    </select>
+  </statements>
+</sqlMap>

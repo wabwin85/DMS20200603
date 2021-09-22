@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProLargessFort2InitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProLargessFort2Init" assembly="DMS.Model.dll" type="DMS.Model.ProLargessFort2Init" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProLargessFort2InitResult" class="ProLargessFort2Init">
+      <result property="Id" column="Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PolicyType" column="PolicyType" type="string" dbType="nvarchar"/>
+      <result property="PolicyTypeErrmsg" column="PolicyTypeErrmsg" type="string" dbType="nvarchar"/>
+      <result property="PolicyNo" column="PolicyNo" type="string" dbType="nvarchar"/>
+      <result property="PolicyNoErrMsg" column="PolicyNoErrMsg" type="string" dbType="nvarchar"/>
+      <result property="SapCode" column="SAPCode" type="string" dbType="nvarchar"/>
+      <result property="SapCodeErrMsg" column="SAPCodeErrMsg" type="string" dbType="nvarchar"/>
+      <result property="Bu" column="BU" type="string" dbType="nvarchar"/>
+      <result property="BuErrMsg" column="BUErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ValidDate" column="ValidDate" type="string" dbType="nvarchar"/>
+      <result property="ValidDateErrMsg" column="ValidDateErrMsg" type="string" dbType="nvarchar"/>
+      <result property="PointType" column="PointType" type="string" dbType="nvarchar"/>
+      <result property="PointTypeErrMsg" column="PointTypeErrMsg" type="string" dbType="nvarchar"/>
+      <result property="FreeGoods" column="FreeGoods" type="string" dbType="nvarchar"/>
+      <result property="FreeGoodsErrMsg" column="FreeGoodsErrMsg" type="string" dbType="nvarchar"/>
+      <result property="CurrentPeriod" column="CurrentPeriod" type="string" dbType="nvarchar"/>
+      <result property="CurrentPeriodErrMsg" column="CurrentPeriodErrMsg" type="string" dbType="nvarchar"/>
+      <result property="AuthProductType" column="AuthProductType" type="string" dbType="nvarchar"/>
+      <result property="AuthProductTypeErrMsg" column="AuthProductTypeErrMsg" type="string" dbType="nvarchar"/>
+      <result property="PL5" column="PL5" type="string" dbType="nvarchar"/>
+      <result property="PL5ErrMsg" column="PL5ErrMsg" type="string" dbType="nvarchar"/>     
+      <result property="RemarMag" column="RemarMag" type="string" dbType="nvarchar"/>
+      <result property="UserId" column="UserId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LineNbr" column="LineNbr" type="int" dbType="int"/>
+      <result property="ErrorFlag" column="ErrorFlag" type="bool" dbType="bit"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="LargessForT2InitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  
+  <statements>
+
+    <select id="SelectProLargessFort2Init" parameterClass="string" resultClass="ProLargessFort2Init">
+      SELECT Id AS Id,PolicyType AS PolicyType,PolicyTypeErrmsg AS PolicyTypeErrmsg,PolicyNo AS PolicyNo,PolicyNoErrMsg AS PolicyNoErrMsg,SAPCode AS SapCode,SAPCodeErrMsg AS SapCodeErrMsg,BU AS Bu,BUErrMsg AS BuErrMsg,ValidDate AS ValidDate,ValidDateErrMsg AS ValidDateErrMsg,PointType AS PointType,PointTypeErrMsg AS PointTypeErrMsg,FreeGoods AS FreeGoods,FreeGoodsErrMsg AS FreeGoodsErrMsg,CurrentPeriod AS CurrentPeriod,CurrentPeriodErrMsg AS CurrentPeriodErrMsg,RemarMag AS RemarMag,UserId AS UserId,LineNbr AS LineNbr,ErrorFlag AS ErrorFlag
+      FROM Pro_LargessForT2_Init
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Id = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProLargessFort2Init" parameterClass="ProLargessFort2Init" resultClass="ProLargessFort2Init">
+      SELECT Id AS Id,PolicyType AS PolicyType,PolicyTypeErrmsg AS PolicyTypeErrmsg,PolicyNo AS PolicyNo,PolicyNoErrMsg AS PolicyNoErrMsg,SAPCode AS SapCode,SAPCodeErrMsg AS SapCodeErrMsg,BU AS Bu,BUErrMsg AS BuErrMsg,ValidDate AS ValidDate,ValidDateErrMsg AS ValidDateErrMsg,PointType AS PointType,PointTypeErrMsg AS PointTypeErrMsg,FreeGoods AS FreeGoods,FreeGoodsErrMsg AS FreeGoodsErrMsg,CurrentPeriod AS CurrentPeriod,CurrentPeriodErrMsg AS CurrentPeriodErrMsg,RemarMag AS RemarMag,UserId AS UserId,LineNbr AS LineNbr,ErrorFlag AS ErrorFlag
+      FROM Pro_LargessForT2_Init
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyType">PolicyType=#PolicyType#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyTypeErrmsg">PolicyTypeErrmsg=#PolicyTypeErrmsg#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyNo">PolicyNo=#PolicyNo#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyNoErrMsg">PolicyNoErrMsg=#PolicyNoErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">SAPCode=#SapCode#</isNotNull>
+        <isNotNull prepend="AND" property="SapCodeErrMsg">SAPCodeErrMsg=#SapCodeErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">BU=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="BuErrMsg">BUErrMsg=#BuErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ValidDate">ValidDate=#ValidDate#</isNotNull>
+        <isNotNull prepend="AND" property="ValidDateErrMsg">ValidDateErrMsg=#ValidDateErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="PointType">PointType=#PointType#</isNotNull>
+        <isNotNull prepend="AND" property="PointTypeErrMsg">PointTypeErrMsg=#PointTypeErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="FreeGoods">FreeGoods=#FreeGoods#</isNotNull>
+        <isNotNull prepend="AND" property="FreeGoodsErrMsg">FreeGoodsErrMsg=#FreeGoodsErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentPeriod">CurrentPeriod=#CurrentPeriod#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentPeriodErrMsg">CurrentPeriodErrMsg=#CurrentPeriodErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="RemarMag">RemarMag=#RemarMag#</isNotNull>
+        <isNotNull prepend="AND" property="UserId">UserId=#UserId#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ErrorFlag=#ErrorFlag#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProLargessFort2Init" parameterClass="ProLargessFort2Init">
+      INSERT INTO Pro_LargessForT2_Init
+      (Id,PolicyType,PolicyTypeErrmsg,PolicyNo,PolicyNoErrMsg,SAPCode,SAPCodeErrMsg,BU,BUErrMsg,ValidDate,ValidDateErrMsg,PointType,PointTypeErrMsg,FreeGoods,FreeGoodsErrMsg,CurrentPeriod,CurrentPeriodErrMsg,AuthProductType,AuthProductTypeErrMsg,PL5,PL5ErrMsg,RemarMag,UserId,LineNbr,ErrorFlag)
+      VALUES(#Id#,#PolicyType#,#PolicyTypeErrmsg#,#PolicyNo#,#PolicyNoErrMsg#,#SapCode#,#SapCodeErrMsg#,#Bu#,#BuErrMsg#,#ValidDate#,#ValidDateErrMsg#,#PointType#,#PointTypeErrMsg#,#FreeGoods#,#FreeGoodsErrMsg#,#CurrentPeriod#,#CurrentPeriodErrMsg#,#AuthProductType#,#AuthProductTypeErrMsg#,#PL5#,#PL5ErrMsg#,#RemarMag#,#UserId#,#LineNbr#,#ErrorFlag#)
+    </insert>
+    <update id="UpdateProLargessFort2Init" parameterClass="ProLargessFort2Init">
+      UPDATE Pro_LargessForT2_Init
+      SET Id=#Id#,PolicyType=#PolicyType#,PolicyTypeErrmsg=#PolicyTypeErrmsg#,PolicyNo=#PolicyNo#,PolicyNoErrMsg=#PolicyNoErrMsg#,SAPCode=#SapCode#,SAPCodeErrMsg=#SapCodeErrMsg#,BU=#Bu#,BUErrMsg=#BuErrMsg#,ValidDate=#ValidDate#,ValidDateErrMsg=#ValidDateErrMsg#,PointType=#PointType#,PointTypeErrMsg=#PointTypeErrMsg#,FreeGoods=#FreeGoods#,FreeGoodsErrMsg=#FreeGoodsErrMsg#,CurrentPeriod=#CurrentPeriod#,CurrentPeriodErrMsg=#CurrentPeriodErrMsg#,AuthProductType=#AuthProductType#,AuthProductTypeErrMsg=#AuthProductTypeErrMsg#,PL5=#PL5#,PL5ErrMsg=#PL5ErrMsg#,RemarMag=#RemarMag#,UserId=#UserId#,LineNbr=#LineNbr#,ErrorFlag=#ErrorFlag#
+      WHERE Id = #Id#
+    </update>
+    <delete id="DeleteProLargessFort2Init" parameterClass="string">
+      DELETE FROM Pro_LargessForT2_Init
+      WHERE Id = #value#
+    </delete>
+    
+    <!--业务逻辑-->
+    <delete id="DeleteLargessForT2Init" parameterClass="string">
+      DELETE FROM Pro_LargessForT2_Init
+      WHERE UserId = #value#
+    </delete>
+
+    <!--促销额度导入验证-->
+    <procedure id="GC_LargessForT2Init" parameterMap="LargessForT2InitParameterMap">
+      dbo.GC_LargessForT2Init
+    </procedure>
+
+    <!--获取导入信息列表-->
+    <select id="SelectLargessForT2InitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT Id AS Id,PolicyType AS PolicyType,PolicyTypeErrmsg AS PolicyTypeErrMsg,PolicyNo AS PolicyNo,PolicyNoErrMsg AS PolicyNoErrMsg,SAPCode AS SapCode,SAPCodeErrMsg AS SapCodeErrMsg,BU AS Bu,BUErrMsg AS BuErrMsg,AuthProductType AS AuthProductType,AuthProductTypeErrMsg AS AuthProductTypeErrMsg,PL5 AS PL5,PL5ErrMsg AS PL5ErrMsg,ValidDate AS ValidDate,ValidDateErrMsg AS ValidDateErrMsg,PointType AS PointType,PointTypeErrMsg AS PointTypeErrMsg,FreeGoods AS FreeGoods,FreeGoodsErrMsg AS FreeGoodsErrMsg,CurrentPeriod AS CurrentPeriod,CurrentPeriodErrMsg AS CurrentPeriodErrMsg,RemarMag AS RemarMag,UserId AS UserId,LineNbr AS LineNbr,ErrorFlag AS ErrorFlag
+      ,ROW_NUMBER () OVER (ORDER BY LineNbr ) AS [row_number]
+      FROM Pro_LargessForT2_Init
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserId">UserId=#UserId#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ErrorFlag=#ErrorFlag#</isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="SelectLargessForT2InitSumString" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT ISNULL((SELECT SUM(CONVERT(decimal(18,4),A.FreeGoods)) FROM Pro_LargessForT2_Init A WHERE UserId=#value# AND A.PolicyType='赠品' AND ISNULL(A.ErrorFlag,0)=0),0) AS FreeGoods
+      ,ISNULL((SELECT SUM(CONVERT(decimal(18,4),A.FreeGoods)) FROM Pro_LargessForT2_Init A WHERE UserId=#value# AND A.PolicyType='积分' AND ISNULL(A.ErrorFlag,0)=0),0) Point
+    </select>
+    
+  </statements>
+</sqlMap>

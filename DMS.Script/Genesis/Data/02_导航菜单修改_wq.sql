@@ -1,0 +1,5 @@
+﻿update dbo.Lafite_SiteMap set Url='~/Revolution/Pages/ChangePassword.aspx' WHERE  MenuTitle = '密码修改'
+update dbo.Lafite_SiteMap set Url='~/Revolution/Pages/DealerTrain/SalesUserManage.aspx' WHERE  MenuTitle = '经销商销售维护'
+update dbo.Lafite_SiteMap set Url='~/Revolution/Pages/MasterDatas/OrderDiscountRule.aspx' WHERE  MenuTitle = '近效期折扣规则'
+update dbo.Lafite_SiteMap set Url='~/Revolution/Pages/MasterDatas/CfnSetList.aspx' WHERE  MenuTitle = '成套产品维护'
+update dbo.Lafite_SiteMap set Url='~/Revolution/Pages/MyInfo.aspx ' where MenuTitle = '个人信息'

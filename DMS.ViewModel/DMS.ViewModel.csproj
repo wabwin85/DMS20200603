@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A217C2B-0108-4A0F-BF0B-463F259B255D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.ViewModel</RootNamespace>
+    <AssemblyName>DMS.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Lafite.RoleModel.Security">
+      <HintPath>..\..\References\Lafite.RoleModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\References\Esign\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\References\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AOP\DealerAOPSearchVO.cs" />
+    <Compile Include="AOP\HospitalAOPSearchVO.cs" />
+    <Compile Include="BaseBusinessVO.cs" />
+    <Compile Include="BaseQueryVO.cs" />
+    <Compile Include="BaseVO.cs" />
+    <Compile Include="Common\ChangeRecords.cs" />
+    <Compile Include="Consignment\ConsignmentApplyHeaderInfoVO.cs" />
+    <Compile Include="Consignment\ConsignmentApplyHeaderListVO.cs" />
+    <Compile Include="Consignment\ConsignmentPickerVO.cs" />
+    <Compile Include="Consignment\ConsignmentReturnsPickerVO.cs" />
+    <Compile Include="Consignment\ConsignmentUpnPickerVO.cs" />
+    <Compile Include="Consignment\HospitalPickerVO.cs" />
+    <Compile Include="Consignment\ReturnUpnPickerVO.cs" />
+    <Compile Include="Consign\Common\ConsignContract.cs" />
+    <Compile Include="Common\ApplyBasic.cs" />
+    <Compile Include="Common\DatePickerRange.cs" />
+    <Compile Include="Common\KendoColumn.cs" />
+    <Compile Include="Common\KeyValue.cs" />
+    <Compile Include="Common\YearMonth.cs" />
+    <Compile Include="Consign\Common\ContractTransferConfirmList.cs" />
+    <Compile Include="Consign\Common\ContractTransferConfirmItem.cs" />
+    <Compile Include="Consign\Common\ConsignContractUPN.cs" />
+    <Compile Include="Consign\Common\ContractTransferUpnItem.cs" />
+    <Compile Include="Consign\ConsignApplyListVO.cs" />
+    <Compile Include="Consign\ConsignmentTransferInitVO.cs" />
+    <Compile Include="Consign\ConsignTransferConfirmVO.cs" />
+    <Compile Include="Consign\ConsignTransferInfoVO.cs" />
+    <Compile Include="Consign\ConsignContractInfoVO.cs" />
+    <Compile Include="Consign\ConsignTransferListVO.cs" />
+    <Compile Include="Consign\ConsignContractListVO.cs" />
+    <Compile Include="Consign\ConsignInventoryAdjustHeaderInfoVO.cs" />
+    <Compile Include="Consign\ConsignInventoryAdjustPickerVO.cs" />
+    <Compile Include="Consign\ContractUpnPickerVO.cs" />
+    <Compile Include="Consign\ConsignCountManageVO.cs" />
+    <Compile Include="Contract\ContractMainVO.cs" />
+    <Compile Include="Contract\ContractThirdPartyV2VO.cs" />
+    <Compile Include="Contract\HospitalPickerVO.cs" />
+    <Compile Include="Contract\MergeAttachmentVO.cs" />
+    <Compile Include="Contract\TenderAuthorizationInfoVO.cs" />
+    <Compile Include="Contract\TenderAuthorizationVO.cs" />
+    <Compile Include="Contract\ThirdPartyQueryForGenesisVO.cs" />
+    <Compile Include="Dashboard\AdminPageVO.cs" />
+    <Compile Include="Dashboard\DealerPageVO.cs" />
+    <Compile Include="Consign\ConsignInventoryAdjustHeaderListVO.cs" />
+    <Compile Include="Consign\ConsignmentTerminationInfoVO.cs" />
+    <Compile Include="Consign\ConsignmentTerminationListVO.cs" />
+    <Compile Include="Consign\ConsignUpnPickerVO.cs" />
+    <Compile Include="ChangePasswordVO.cs" />
+    <Compile Include="DataInterface\InterfaceDataListVO.cs" />
+    <Compile Include="DataInterface\InterfaceLogListVO.cs" />
+    <Compile Include="DCM\BulletinManageVO.cs" />
+    <Compile Include="DCM\DealerProductSearchVO.cs" />
+    <Compile Include="DealerTrain\SalesUserImportVO.cs" />
+    <Compile Include="DealerTrain\SalesUserManageVO.cs" />
+    <Compile Include="HCPPassport\DealerAccountResetPWDVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustAuditVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustListMtrPickerVO.cs" />
+    <Compile Include="Inventory\InventoryImportVO.cs" />
+    <Compile Include="Inventory\InventoryInitVO.cs" />
+    <Compile Include="Inventory\InventoryQROperationVO.cs" />
+    <Compile Include="Inventory\InventoryReturnConsignmentImportVO.cs" />
+    <Compile Include="Inventory\InventoryReturnImportVO.cs" />
+    <Compile Include="Inventory\InventoryReturnInfoPickerVO.cs" />
+    <Compile Include="Inventory\InventoryReturnInfoVO.cs" />
+    <Compile Include="Inventory\InventoryReturnVO.cs" />
+    <Compile Include="Inventory\ReturnResultImportVO.cs" />
+    <Compile Include="Inventory\QueryInventoryPriceVO.cs" />
+    <Compile Include="Inventory\ReturnPositionSearchVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentCfnSetCFNVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentCfnSetInfoVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentCfnSetListVO.cs" />
+    <Compile Include="Log\Lafite_LogListVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentMasterDealerPickerVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentMasterListInfoVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentMasterListVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentMasterSetUpnPickerVO.cs" />
+    <Compile Include="MasterDatas\ConsignmentMasterUpnPickerVO.cs" />
+    <Compile Include="MasterDatas\DealerAttachDetailForDDVO.cs" />
+    <Compile Include="MasterDatas\DealerAttachDetailVO.cs" />
+    <Compile Include="MasterDatas\DealerContractEditorVO.cs" />
+    <Compile Include="MasterDatas\DealerContractListVO.cs" />
+    <Compile Include="MasterDatas\DealerLicenseChangeVO.cs" />
+    <Compile Include="MasterDatas\DealerMaintainListForDDVO.cs" />
+    <Compile Include="MasterDatas\DealerMaintainListVO.cs" />
+    <Compile Include="MasterDatas\DealerMasterEditorVO.cs" />
+    <Compile Include="MasterDatas\MasterDatasInfoVo.cs" />
+    <Compile Include="MasterDatas\MasterDatasListVo.cs" />
+    <Compile Include="MasterDatas\OperationManualManageVO.cs" />
+    <Compile Include="MasterDatas\HospitalBaseAopVO.cs" />
+    <Compile Include="MasterDatas\HospitalBaseAopImportVO.cs" />
+    <Compile Include="MasterDatas\TerritoryEditorVO.cs" />
+    <Compile Include="MasterDatas\HospitalEditorVO.cs" />
+    <Compile Include="MasterDatas\TerritoryListVO.cs" />
+    <Compile Include="MasterDatas\UserListVO.cs" />
+    <Compile Include="MasterDatas\HospitalListVO.cs" />
+    <Compile Include="MasterDatas\InventoryInitVO.cs" />
+    <Compile Include="MasterDatas\OrderDealerPriceImportVO.cs" />
+    <Compile Include="MasterDatas\OrderDealerPriceVO.cs" />
+    <Compile Include="MasterDatas\HospitalPickerVO.cs" />
+    <Compile Include="MasterDatas\PositionHospitalVO.cs" />
+    <Compile Include="MasterDatas\OrderDiscountRuleImportVO.cs" />
+    <Compile Include="MasterDatas\OrderDiscountRuleVO.cs" />
+    <Compile Include="MasterDatas\CfnSetListVO.cs" />
+    <Compile Include="MasterDatas\CfnSetInfoVO.cs" />
+    <Compile Include="MasterDatas\CfnSetCFNVO.cs" />
+    <Compile Include="Inventory\WarehouseEditorVO.cs" />
+    <Compile Include="Inventory\WHSearchHospitalVO.cs" />
+    <Compile Include="MasterDatas\PartsClsfcListVO.cs" />
+    <Compile Include="MyInfoVO.cs" />
+    <Compile Include="HCPPassport\DealerAccountInfoVO.cs" />
+    <Compile Include="HCPPassport\DealerAccountListVO.cs" />
+    <Compile Include="HCPPassport\DealerAccountPickerVO.cs" />
+    <Compile Include="HomeVO.cs" />
+    <Compile Include="Inventory\DealerComplainForGoodsRetrunCRMVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustAuditImportVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustConsignmentInfoVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustConsignmentVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustListVO.cs" />
+    <Compile Include="Inventory\InventoryAdjustList_NewVO.cs" />
+    <Compile Include="Inventory\QueryInventoryPageVO.cs" />
+    <Compile Include="Inventory\WarehouseMaintVO.cs" />
+    <Compile Include="LogAttribute.cs" />
+    <Compile Include="LogContractResolver.cs" />
+    <Compile Include="MasterDatas\ConsignmentAuthorizationListVO.cs" />
+    <Compile Include="MasterPage\DealerSpecialUPNInfoVO.cs" />
+    <Compile Include="MasterPage\DealerSpecialUPNListVO.cs" />
+    <Compile Include="MasterPage\DealerSpecialUPNPickerVO.cs" />
+    <Compile Include="OBORESign\OBORContractWindowVO.cs" />
+    <Compile Include="OBORESign\OBORESignInfoVO.cs" />
+    <Compile Include="OBORESign\OBORESignListVO.cs" />
+    <Compile Include="OBORESign\OBORVerificationCodeVO.cs" />
+    <Compile Include="Order\BatchOrderInitVO.cs" />
+    <Compile Include="Order\CfnnotorderInfoVO.cs" />
+    <Compile Include="Order\OrderApplyInfoVO.cs" />
+    <Compile Include="Order\OrderApplyLPImportVO.cs" />
+    <Compile Include="Order\OrderApplyLPInfoVO.cs" />
+    <Compile Include="Order\OrderApplyLPVO.cs" />
+    <Compile Include="Order\OrderApplyVO.cs" />
+    <Compile Include="Order\OrderCfnDialogLPPickerVO.cs" />
+    <Compile Include="Order\OrderCfnDialogLPPROPickerVO.cs" />
+    <Compile Include="Order\OrderCfnDialogPickerVO.cs" />
+    <Compile Include="Order\OrderCfnDialogT2PROPickerVO.cs" />
+    <Compile Include="Order\OrderCfnSetDialogLPPickerVO.cs" />
+    <Compile Include="Order\OrderHospitalPickerVO.cs" />
+    <Compile Include="Order\OrderImportVO.cs" />
+    <Compile Include="Order\OrderT2CfnSetDialogPickerVO.cs" />
+    <Compile Include="Platform\BulletinReadVO.cs" />
+    <Compile Include="POReceipt\DeliveryNoteListVO.cs" />
+    <Compile Include="POReceipt\POReceiptDeliveryImportVO.cs" />
+    <Compile Include="POReceipt\POReceiPtImportVO.cs" />
+    <Compile Include="POReceipt\POReceiptListInfoVO.cs" />
+    <Compile Include="POReceipt\POReceiptListVO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\AOPDealerReportVO.cs" />
+    <Compile Include="Report\DealerAuthCate_NewVO.cs" />
+    <Compile Include="Report\DealerHospitalQuotaVO.cs" />
+    <Compile Include="Report\DealerContractVO.cs" />
+    <Compile Include="Report\DealerQuotaVO.cs" />
+    <Compile Include="Report\ProductOperationLogVO.cs" />
+    <Compile Include="Report\DealerHistoryInvDetailVO.cs" />
+    <Compile Include="Report\DealerJXCSummaryVO.cs" />
+    <Compile Include="Report\DealerOperationDaysVO.cs" />
+    <Compile Include="Report\DealerOrderDetailReport_NewVO.cs" />
+    <Compile Include="Report\DealerBuyInReport_NewVO.cs" />
+    <Compile Include="Report\DealerInventoryHistoryReport_NewVO.cs" />
+    <Compile Include="Report\DealerBuyInVO.cs" />
+    <Compile Include="Report\DealerTransferOutVO.cs" />
+    <Compile Include="Report\DealerTransferInVO.cs" />
+    <Compile Include="Report\DealerOrderDetailVO.cs" />
+    <Compile Include="Report\DealerInvAdjustVO.cs" />
+    <Compile Include="Report\DealerTransferVO.cs" />
+    <Compile Include="Report\ProductOperationLogReport_NewVO.cs" />
+    <Compile Include="Report\DealerSalesStatistics_NewVO.cs" />
+    <Compile Include="Report\DealerTransferReport_NewVO.cs" />
+    <Compile Include="Report\OrderStatusReport_NewVO.cs" />
+    <Compile Include="Report\HospitalReport_NewVO.cs" />
+    <Compile Include="Report\OrderSalesSummaryInMonthReport_NewVO.cs" />
+    <Compile Include="Report\DealerSalesReport_NewVO.cs" />
+    <Compile Include="Report\SalesAOPVO.cs" />
+    <Compile Include="Report\SalesHospitalReportVO.cs" />
+    <Compile Include="Shipment\ShipmentInitListVO.cs" />
+    <Compile Include="Shipment\ShipmentListVO.cs" />
+    <Compile Include="Shipment\ShipmentPrintSettingVO.cs" />
+    <Compile Include="SimpleVO.cs" />
+    <Compile Include="Transfer\TransferDistributionListVO.cs" />
+    <Compile Include="Transfer\TransferEditorImportVO.cs" />
+    <Compile Include="Transfer\TransferEditorInfoVO.cs" />
+    <Compile Include="Transfer\TransferEditorPickerVO.cs" />
+    <Compile Include="Transfer\TransferEditorVO.cs" />
+    <Compile Include="Transfer\TransferInfoReasonVO.cs" />
+    <Compile Include="Transfer\TransferListImportVO.cs" />
+    <Compile Include="Transfer\TransferListInfoVO.cs" />
+    <Compile Include="Transfer\TransferListVO.cs" />
+    <Compile Include="Transfer\TransferUnfreezeVO.cs" />
+    <Compile Include="Util\DataImport\DataImportDetailDownloadVO.cs" />
+    <Compile Include="Util\DataImport\DataImportDetailListVO.cs" />
+    <Compile Include="Util\DataImport\DataImportErrorListVO.cs" />
+    <Compile Include="Util\DataImport\DataImportTemplateVO.cs" />
+    <Compile Include="Util\DataImport\DataImportUploadVO.cs" />
+    <Compile Include="Util\DealerScreenFilterVO.cs" />
+    <Compile Include="Util\FilterVO.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

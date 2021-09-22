@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceDealerConsignmentSalesPriceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceDealerConsignmentSalesPrice" assembly="DMS.Model.dll" type="DMS.Model.InterfaceDealerConsignmentSalesPrice" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceDealerConsignmentSalesPriceResult" class="InterfaceDealerConsignmentSalesPrice">
+      <result property="Id" column="IDP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SalesNo" column="IDP_SalesNo" type="string" dbType="nvarchar"/>
+      <result property="OrderNo" column="IDP_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="IDP_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="IDP_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="IDP_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IDP_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="IDP_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IDP_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IDP_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="Upn" column="IDP_UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="IDP_Lot" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="IDP_Qty" type="decimal" dbType="decimal"/>
+      <result property="UnitPrice" column="IDP_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="ProblemDescription" column="IDP_ProblemDescription" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_DealerConsignmentSalesPrice_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceDealerConsignmentSalesPrice" parameterClass="string" resultClass="InterfaceDealerConsignmentSalesPrice">
+      SELECT IDP_ID AS Id,IDP_SalesNo AS SalesNo,IDP_OrderNo AS OrderNo,IDP_ConfirmDate AS ConfirmDate,IDP_Remark AS Remark,IDP_LineNbr AS LineNbr,IDP_FileName AS FileName,IDP_ImportDate AS ImportDate,IDP_ClientID AS Clientid,IDP_BatchNbr AS BatchNbr,IDP_UPN AS Upn,IDP_Lot AS Lot,IDP_Qty AS Qty,IDP_UnitPrice AS UnitPrice,IDP_ProblemDescription AS ProblemDescription
+      FROM InterfaceDealerConsignmentSalesPrice
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IDP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceDealerConsignmentSalesPrice" parameterClass="InterfaceDealerConsignmentSalesPrice" resultClass="InterfaceDealerConsignmentSalesPrice">
+      SELECT IDP_ID AS Id,IDP_SalesNo AS SalesNo,IDP_OrderNo AS OrderNo,IDP_ConfirmDate AS ConfirmDate,IDP_Remark AS Remark,IDP_LineNbr AS LineNbr,IDP_FileName AS FileName,IDP_ImportDate AS ImportDate,IDP_ClientID AS Clientid,IDP_BatchNbr AS BatchNbr,IDP_UPN AS Upn,IDP_Lot AS Lot,IDP_Qty AS Qty,IDP_UnitPrice AS UnitPrice,IDP_ProblemDescription AS ProblemDescription
+      FROM InterfaceDealerConsignmentSalesPrice
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IDP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SalesNo">IDP_SalesNo=#SalesNo#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">IDP_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">IDP_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IDP_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IDP_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IDP_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IDP_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IDP_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IDP_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">IDP_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">IDP_Lot=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">IDP_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">IDP_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">IDP_ProblemDescription=#ProblemDescription#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceDealerConsignmentSalesPrice" parameterClass="InterfaceDealerConsignmentSalesPrice">
+      INSERT INTO InterfaceDealerConsignmentSalesPrice
+      (IDP_ID,IDP_SalesNo,IDP_OrderNo,IDP_ConfirmDate,IDP_Remark,IDP_LineNbr,IDP_FileName,IDP_ImportDate,IDP_ClientID,IDP_BatchNbr,IDP_UPN,IDP_Lot,IDP_Qty,IDP_UnitPrice,IDP_ProblemDescription)
+      VALUES(#Id#,#SalesNo#,#OrderNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#Upn#,#Lot#,#Qty#,#UnitPrice#,#ProblemDescription#)
+    </insert>
+    <update id="UpdateInterfaceDealerConsignmentSalesPrice" parameterClass="InterfaceDealerConsignmentSalesPrice">
+      UPDATE InterfaceDealerConsignmentSalesPrice
+      SET IDP_ID=#Id#,IDP_SalesNo=#SalesNo#,IDP_OrderNo=#OrderNo#,IDP_ConfirmDate=#ConfirmDate#,IDP_Remark=#Remark#,IDP_LineNbr=#LineNbr#,IDP_FileName=#FileName#,IDP_ImportDate=#ImportDate#,IDP_ClientID=#Clientid#,IDP_BatchNbr=#BatchNbr#,IDP_UPN=#Upn#,IDP_Lot=#Lot#,IDP_Qty=#Qty#,IDP_UnitPrice=#UnitPrice#,IDP_ProblemDescription=#ProblemDescription#
+      WHERE IDP_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceDealerConsignmentSalesPrice" parameterClass="string">
+      DELETE FROM InterfaceDealerConsignmentSalesPrice
+      WHERE IDP_ID = #value#
+    </delete>
+    <select id="SelectDataByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceDealerConsignmentSalesPrice">
+      SELECT IDP_ID AS Id,IDP_SalesNo AS SalesNo,IDP_OrderNo AS OrderNo,IDP_ConfirmDate AS ConfirmDate,IDP_Remark AS Remark,IDP_LineNbr AS LineNbr,IDP_FileName AS FileName,IDP_ImportDate AS ImportDate,IDP_ClientID AS Clientid,IDP_BatchNbr AS BatchNbr,IDP_UPN AS Upn,IDP_Lot AS Lot,IDP_Qty AS Qty,IDP_UnitPrice AS UnitPrice,IDP_ProblemDescription AS ProblemDescription
+      FROM InterfaceDealerConsignmentSalesPrice
+      WHERE IDP_BatchNbr = #value# AND IDP_ProblemDescription IS NOT NULL
+      ORDER BY IDP_LineNbr
+    </select>
+    <procedure id="GC_Interface_DealerConsignmentSalesPrice" parameterMap="GC_Interface_DealerConsignmentSalesPrice_ParameterMap">
+      dbo.GC_Interface_DealerConsignmentSalesPrice
+    </procedure>
+  </statements>
+</sqlMap>

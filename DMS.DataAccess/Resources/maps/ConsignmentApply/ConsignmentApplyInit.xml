@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentApplyInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentApplyInit" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentApplyInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentApplyInitResult" class="ConsignmentApplyInit">
+      <result property="Id" column="CAI_ID" type="string" dbType="varchar"/>
+      <result property="Dealersap" column="CAI_DealerSAP" type="string" dbType="varchar"/>
+      <result property="No" column="CAI_No" type="string" dbType="varchar"/>
+      <result property="ProductLineName" column="CAI_ProductLineName" type="string" dbType="varchar"/>
+      <result property="Upn" column="CAI_UPN" type="string" dbType="varchar"/>
+      <result property="CchNo" column="CAI_CCH_No" type="string" dbType="varchar"/>
+      <result property="Qty" column="CAI_Qty" type="decimal" dbType="decimal"/>
+      <result property="HospitalName" column="CAI_HospitalName" type="string" dbType="varchar"/>
+      <result property="InputUserId" column="CAI_InputUserId" type="string" dbType="varchar"/>
+      <result property="InputDate" column="CAI_InputDate" type="DateTime" dbType="datetime"/>
+      <result property="DmaId" column="CAI_DMA_ID" type="string" dbType="varchar"/>
+      <result property="ProductLineBumId" column="CAI_ProductLine_BUM_ID" type="string" dbType="varchar"/>
+      <result property="CfnId" column="CAI_CFN_ID" type="string" dbType="varchar"/>
+      <result property="HospitalId" column="CAI_HospitalId" type="string" dbType="varchar"/>
+      <result property="CchId" column="CAI_CCH_ID" type="string" dbType="varchar"/>
+      <result property="ErrorFlg" column="CAI_ErrorFlg" type="bool" dbType="bit"/>
+      <result property="ErrorMessage" column="CAI_ErrorMessage" type="string" dbType="varchar"/>
+      <result property="CahId" column="CAI_CAH_ID" type="string" dbType="varchar"/>
+      <result property="LineNbr" column="CAI_LineNbr" type="int" dbType="int"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ConsignmentApplyInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectConsignmentApplyInit" parameterClass="string" resultClass="ConsignmentApplyInit">
+      SELECT CAI_ID AS Id,CAI_DealerSAP AS Dealersap,CAI_No AS No,CAI_ProductLineName AS ProductLineName,CAI_UPN AS Upn,CAI_CCH_No AS CchNo,CAI_Qty AS Qty,CAI_HospitalName AS HospitalName,CAI_InputUserId AS InputUserId,CAI_InputDate AS InputDate,CAI_DMA_ID AS DmaId,CAI_ProductLine_BUM_ID AS ProductLineBumId,CAI_CFN_ID AS CfnId,CAI_HospitalId AS HospitalId,CAI_CCH_ID AS CchId,CAI_ErrorFlg AS ErrorFlg,CAI_ErrorMessage AS ErrorMessage,CAI_CAH_ID AS CahId,CAI_LineNbr AS LineNbr
+      FROM ConsignmentApplyInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CAI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentApplyInit" parameterClass="ConsignmentApplyInit" resultClass="ConsignmentApplyInit">
+      SELECT CAI_ID AS Id,CAI_DealerSAP AS Dealersap,CAI_No AS No,CAI_ProductLineName AS ProductLineName,CAI_UPN AS Upn,CAI_CCH_No AS CchNo,CAI_Qty AS Qty,CAI_HospitalName AS HospitalName,CAI_InputUserId AS InputUserId,CAI_InputDate AS InputDate,CAI_DMA_ID AS DmaId,CAI_ProductLine_BUM_ID AS ProductLineBumId,CAI_CFN_ID AS CfnId,CAI_HospitalId AS HospitalId,CAI_CCH_ID AS CchId,CAI_ErrorFlg AS ErrorFlg,CAI_ErrorMessage AS ErrorMessage,CAI_CAH_ID AS CahId,CAI_LineNbr AS LineNbr
+      FROM ConsignmentApplyInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CAI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Dealersap">CAI_DealerSAP=#Dealersap#</isNotNull>
+        <isNotNull prepend="AND" property="No">CAI_No=#No#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineName">CAI_ProductLineName=#ProductLineName#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">CAI_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="CchNo">CAI_CCH_No=#CchNo#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">CAI_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">CAI_HospitalName=#HospitalName#</isNotNull>
+        <isNotNull prepend="AND" property="InputUserId">CAI_InputUserId=#InputUserId#</isNotNull>
+        <isNotNull prepend="AND" property="InputDate">CAI_InputDate=#InputDate#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">CAI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">CAI_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">CAI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalId">CAI_HospitalId=#HospitalId#</isNotNull>
+        <isNotNull prepend="AND" property="CchId">CAI_CCH_ID=#CchId#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlg">CAI_ErrorFlg=#ErrorFlg#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorMessage">CAI_ErrorMessage=#ErrorMessage#</isNotNull>
+        <isNotNull prepend="AND" property="CahId">CAI_CAH_ID=#CahId#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">CAI_LineNbr=#LineNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentApplyInit" parameterClass="ConsignmentApplyInit">
+      INSERT INTO ConsignmentApplyInit
+      (CAI_ID,CAI_DealerSAP,CAI_No,CAI_ProductLineName,CAI_UPN,CAI_CCH_No,CAI_Qty,CAI_HospitalName,CAI_InputUserId,CAI_InputDate,CAI_DMA_ID,CAI_ProductLine_BUM_ID,CAI_CFN_ID,CAI_HospitalId,CAI_CCH_ID,CAI_ErrorFlg,CAI_ErrorMessage,CAI_CAH_ID,CAI_LineNbr)
+      VALUES(#Id#,#Dealersap#,#No#,#ProductLineName#,#Upn#,#CchNo#,#Qty#,#HospitalName#,#InputUserId#,#InputDate:DateTime:1/1/0001 12:00:00 AM#,#DmaId#,#ProductLineBumId#,#CfnId#,#HospitalId#,#CchId#,#ErrorFlg#,#ErrorMessage#,#CahId#,#LineNbr#)
+    </insert>
+    <update id="UpdateConsignmentApplyInit" parameterClass="ConsignmentApplyInit">
+      UPDATE ConsignmentApplyInit
+      SET CAI_ID=#Id#,CAI_DealerSAP=#Dealersap#,CAI_No=#No#,CAI_ProductLineName=#ProductLineName#,CAI_UPN=#Upn#,CAI_CCH_No=#CchNo#,CAI_Qty=#Qty#,CAI_HospitalName=#HospitalName#,CAI_InputUserId=#InputUserId#,CAI_InputDate=#InputDate#,CAI_DMA_ID=#DmaId#,CAI_ProductLine_BUM_ID=#ProductLineBumId#,CAI_CFN_ID=#CfnId#,CAI_HospitalId=#HospitalId#,CAI_CCH_ID=#CchId#,CAI_ErrorFlg=#ErrorFlg#,CAI_ErrorMessage=#ErrorMessage#,CAI_CAH_ID=#CahId#,CAI_LineNbr=#LineNbr#
+      WHERE CAI_ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentApplyInit" parameterClass="string">
+      DELETE FROM ConsignmentApplyInit
+      WHERE CAI_ID = #value#
+    </delete>
+
+    <select id="SelectConsignmentApplyInitList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT CAI_ID AS Id,CAI_DealerSAP AS DealerSAP,CAI_No AS No,CAI_ProductLineName AS ProductLineName,CAI_UPN AS UPN,CAI_CCH_No AS ApplyNo,CAI_Qty AS Qty,CAI_HospitalName AS HospitalCode,E.HOS_HospitalName AS HospitalName,CAI_InputUserId AS CreateUser,CAI_InputDate AS CreateDate
+      ,A.CAI_ErrorFlg AS ErrorFlg,A.CAI_ErrorMessage AS ErrorMessage
+      ,B.DMA_ChineseName AS DealerName,C.DivisionName,CFN.CFN_ChineseName AS CFNChineseName,CFN.CFN_EnglishName AS CFNEnglishName,CAI_LineNbr AS LineNbr
+      ,ROW_NUMBER ()OVER (ORDER BY CAI_ErrorFlg desc)   AS row_number
+      FROM ConsignmentApplyInit A
+      LEFT JOIN DealerMaster B ON A.CAI_DMA_ID=B.DMA_ID
+      LEFT JOIN V_DivisionProductLineRelation C ON C.IsEmerging='0' AND C.ProductLineID=A.CAI_ProductLine_BUM_ID
+      LEFT JOIN CFN ON CFN.CFN_ID=A.CAI_CFN_ID
+      LEFT JOIN Consignment.ContractHeader D ON D.CCH_ID=A.CAI_CCH_ID
+      LEFT JOIN Hospital E ON E.HOS_Key_Account=A.CAI_HospitalName
+      WHERE CAI_InputUserId=#value#
+    </select>
+    
+    <!--删除导入历史-->
+    <delete id="DeleteConsignmentApplyInitByUser" parameterClass="string">
+      DELETE FROM ConsignmentApplyInit
+      WHERE CAI_InputUserId = #value#
+    </delete>
+
+    <procedure id="GC_ConsignmentApplyInit" parameterMap="ConsignmentApplyInitParameterMap">
+      Consignment.GC_ConsignmentApplyInit
+    </procedure>
+  </statements>
+</sqlMap>

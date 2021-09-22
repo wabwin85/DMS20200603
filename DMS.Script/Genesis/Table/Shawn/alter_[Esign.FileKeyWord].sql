@@ -1,0 +1,1 @@
+﻿ALTER TABLE ESign.FileKeyWord ADD [FK_EdgesYPosition] FLOAT;

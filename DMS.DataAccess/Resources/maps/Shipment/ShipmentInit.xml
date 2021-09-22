@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentInit" assembly="DMS.Model.dll" type="DMS.Model.ShipmentInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentInitResult" class="ShipmentInit">
+      <result property="Id" column="SPI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="SPI_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="SPI_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="SPI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="SPI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="SPI_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="SPI_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="SaleType" column="SPI_SaleType" type="string" dbType="nvarchar"/>
+      <result property="HospitalCode" column="SPI_HospitalCode" type="string" dbType="nvarchar"/>
+      <result property="HospitalName" column="SPI_HospitalName" type="string" dbType="nvarchar"/>
+      <result property="HospitalOffice" column="SPI_HospitalOffice" type="string" dbType="nvarchar"/>
+      <result property="InvoiceNumber" column="SPI_InvoiceNumber" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDate" column="SPI_InvoiceDate" type="string" dbType="nvarchar"/>
+      <result property="InvoiceTitle" column="SPI_InvoiceTitle" type="string" dbType="nvarchar"/>
+      <result property="ShipmentDate" column="SPI_ShipmentDate" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="SPI_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="ChineseName" column="SPI_ChineseName" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="SPI_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="Price" column="SPI_Price" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="SPI_ExpiredDate" type="string" dbType="nvarchar"/>
+      <result property="Uom" column="SPI_UOM" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="SPI_Qty" type="string" dbType="nvarchar"/>
+      <result property="Warehouse" column="SPI_Warehouse" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="SPI_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="SPI_HOS_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="SPI_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="SPI_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="SPI_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="SPI_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="SPI_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HospitalCodeErrMsg" column="SPI_HospitalCode_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ShipmentDateErrMsg" column="SPI_ShipmentDate_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumberErrMsg" column="SPI_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="SPI_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QtyErrMsg" column="SPI_Qty_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="PriceErrMsg" column="SPI_Price_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseErrMsg" column="SPI_Warehouse_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDateErrMsg" column="SPI_InvoiceDate_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="HospitalNameErrMsg" column="SPI_HospitalName_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotShipmentDate" column="SPI_LotShipmentDate" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="SPI_Remark" type="string" dbType="nvarchar"/>
+      <result property="LotShipmentDateErrMsg" column="SPI_LotShipmentDate_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="RemarkErrMsg" column="SPI_Remark_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ConsignmentNbr" column="SPI_ConsignmentNbr" type="string" dbType="nvarchar"/>
+      <result property="ConsignmentNbrErrMsg" column="SPI_ConsignmentNbr_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="CahId" column="SPI_CAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrCodeErrMsg" column="SPI_QrCode_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="SPI_QrCode" type="string" dbType="nvarchar"/>
+      <result property="No" column="SPI_NO" type="string" dbType="nvarchar"/>
+      <result property="OperType" column="SPI_OperType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ShipmentInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsImport" column="IsImport" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+    <parameterMap id="ShipmentInitParameterMap2" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID"/>
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectShipmentInit" parameterClass="string" resultClass="ShipmentInit">
+      SELECT SPI_ID AS Id,SPI_USER AS [User],SPI_UploadDate AS UploadDate,SPI_LineNbr AS LineNbr,SPI_FileName AS FileName,SPI_ErrorFlag AS ErrorFlag,SPI_ErrorDescription AS ErrorDescription,SPI_SaleType AS SaleType,SPI_HospitalCode AS HospitalCode,SPI_HospitalName AS HospitalName,SPI_HospitalOffice AS HospitalOffice,SPI_InvoiceNumber AS InvoiceNumber,SPI_InvoiceDate AS InvoiceDate,SPI_InvoiceTitle AS InvoiceTitle,SPI_ShipmentDate AS ShipmentDate,SPI_ArticleNumber AS ArticleNumber,SPI_ChineseName AS ChineseName,SPI_LotNumber AS LotNumber,SPI_Price AS Price,SPI_ExpiredDate AS ExpiredDate,SPI_UOM AS Uom,SPI_Qty AS Qty,SPI_Warehouse AS Warehouse,SPI_DMA_ID AS DmaId,SPI_HOS_ID AS HosId,SPI_CFN_ID AS CfnId,SPI_PMA_ID AS PmaId,SPI_BUM_ID AS BumId,SPI_WHM_ID AS WhmId,SPI_LTM_ID AS LtmId,SPI_HospitalCode_ErrMsg AS HospitalCodeErrMsg,SPI_ShipmentDate_ErrMsg AS ShipmentDateErrMsg,SPI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,SPI_LotNumber_ErrMsg AS LotNumberErrMsg,SPI_Qty_ErrMsg AS QtyErrMsg,SPI_Price_ErrMsg AS PriceErrMsg,SPI_Warehouse_ErrMsg AS WarehouseErrMsg,SPI_InvoiceDate_ErrMsg AS InvoiceDateErrMsg,SPI_HospitalName_ErrMsg AS HospitalNameErrMsg,SPI_LotShipmentDate AS LotShipmentDate,SPI_Remark AS Remark,SPI_LotShipmentDate_ErrMsg AS LotShipmentDateErrMsg,SPI_Remark_ErrMsg AS RemarkErrMsg,SPI_ConsignmentNbr AS ConsignmentNbr,SPI_ConsignmentNbr_ErrMsg AS ConsignmentNbrErrMsg,SPI_CAH_ID AS CahId,SPI_QrCode_ErrMsg AS QrCodeErrMsg,SPI_QrCode AS QrCode
+      ,SPI_NO AS No
+      FROM ShipmentInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentInit" parameterClass="ShipmentInit" resultClass="ShipmentInit">
+      SELECT SPI_ID AS Id,SPI_USER AS User,SPI_UploadDate AS UploadDate,SPI_LineNbr AS LineNbr,SPI_FileName AS FileName,SPI_ErrorFlag AS ErrorFlag,SPI_ErrorDescription AS ErrorDescription,SPI_SaleType AS SaleType,SPI_HospitalCode AS HospitalCode,SPI_HospitalName AS HospitalName,SPI_HospitalOffice AS HospitalOffice,SPI_InvoiceNumber AS InvoiceNumber,SPI_InvoiceDate AS InvoiceDate,SPI_InvoiceTitle AS InvoiceTitle,SPI_ShipmentDate AS ShipmentDate,SPI_ArticleNumber AS ArticleNumber,SPI_ChineseName AS ChineseName,SPI_LotNumber AS LotNumber,SPI_Price AS Price,SPI_ExpiredDate AS ExpiredDate,SPI_UOM AS Uom,SPI_Qty AS Qty,SPI_Warehouse AS Warehouse,SPI_DMA_ID AS DmaId,SPI_HOS_ID AS HosId,SPI_CFN_ID AS CfnId,SPI_PMA_ID AS PmaId,SPI_BUM_ID AS BumId,SPI_WHM_ID AS WhmId,SPI_LTM_ID AS LtmId,SPI_HospitalCode_ErrMsg AS HospitalCodeErrMsg,SPI_ShipmentDate_ErrMsg AS ShipmentDateErrMsg,SPI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,SPI_LotNumber_ErrMsg AS LotNumberErrMsg,SPI_Qty_ErrMsg AS QtyErrMsg,SPI_Price_ErrMsg AS PriceErrMsg,SPI_Warehouse_ErrMsg AS WarehouseErrMsg,SPI_InvoiceDate_ErrMsg AS InvoiceDateErrMsg,SPI_HospitalName_ErrMsg AS HospitalNameErrMsg,SPI_LotShipmentDate AS LotShipmentDate,SPI_Remark AS Remark,SPI_LotShipmentDate_ErrMsg AS LotShipmentDateErrMsg,SPI_Remark_ErrMsg AS RemarkErrMsg,SPI_ConsignmentNbr AS ConsignmentNbr,SPI_ConsignmentNbr_ErrMsg AS ConsignmentNbrErrMsg,SPI_CAH_ID AS CahId,SPI_QrCode_ErrMsg AS QrCodeErrMsg,SPI_QrCode AS QrCode
+      ,SPI_NO AS No
+      FROM ShipmentInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SPI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">SPI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">SPI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">SPI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">SPI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">SPI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">SPI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="SaleType">SPI_SaleType=#SaleType#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalCode">SPI_HospitalCode=#HospitalCode#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">SPI_HospitalName=#HospitalName#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalOffice">SPI_HospitalOffice=#HospitalOffice#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNumber">SPI_InvoiceNumber=#InvoiceNumber#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceDate">SPI_InvoiceDate=#InvoiceDate#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceTitle">SPI_InvoiceTitle=#InvoiceTitle#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">SPI_ShipmentDate=#ShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">SPI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">SPI_ChineseName=#ChineseName#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">SPI_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Price">SPI_Price=#Price#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">SPI_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="Uom">SPI_UOM=#Uom#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">SPI_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="Warehouse">SPI_Warehouse=#Warehouse#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">SPI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">SPI_HOS_ID=#HosId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">SPI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">SPI_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">SPI_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">SPI_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">SPI_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalCodeErrMsg">SPI_HospitalCode_ErrMsg=#HospitalCodeErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateErrMsg">SPI_ShipmentDate_ErrMsg=#ShipmentDateErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumberErrMsg">SPI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">SPI_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QtyErrMsg">SPI_Qty_ErrMsg=#QtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="PriceErrMsg">SPI_Price_ErrMsg=#PriceErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseErrMsg">SPI_Warehouse_ErrMsg=#WarehouseErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceDateErrMsg">SPI_InvoiceDate_ErrMsg=#InvoiceDateErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalNameErrMsg">SPI_HospitalName_ErrMsg=#HospitalNameErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotShipmentDate">SPI_LotShipmentDate=#LotShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">SPI_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LotShipmentDateErrMsg">SPI_LotShipmentDate_ErrMsg=#LotShipmentDateErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="RemarkErrMsg">SPI_Remark_ErrMsg=#RemarkErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentNbr">SPI_ConsignmentNbr=#ConsignmentNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentNbrErrMsg">SPI_ConsignmentNbr_ErrMsg=#ConsignmentNbrErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="CahId">SPI_CAH_ID=#CahId#</isNotNull>
+        <isNotNull prepend="AND" property="QrCodeErrMsg">SPI_QrCode_ErrMsg=#QrCodeErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">SPI_QrCode=#QrCode#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentInit" parameterClass="ShipmentInit">
+      INSERT INTO ShipmentInit
+      (SPI_ID,SPI_USER,SPI_UploadDate,SPI_LineNbr,SPI_FileName,SPI_ErrorFlag,SPI_ErrorDescription,SPI_SaleType,SPI_HospitalCode,SPI_HospitalName,SPI_HospitalOffice,SPI_InvoiceNumber,SPI_InvoiceDate,SPI_InvoiceTitle,SPI_ShipmentDate,SPI_ArticleNumber,SPI_ChineseName,SPI_LotNumber,SPI_Price,SPI_ExpiredDate,SPI_UOM,SPI_Qty,SPI_Warehouse,SPI_DMA_ID,SPI_HOS_ID,SPI_CFN_ID,SPI_PMA_ID,SPI_BUM_ID,SPI_WHM_ID,SPI_LTM_ID,SPI_HospitalCode_ErrMsg,SPI_ShipmentDate_ErrMsg,SPI_ArticleNumber_ErrMsg,SPI_LotNumber_ErrMsg,SPI_Qty_ErrMsg,SPI_Price_ErrMsg,SPI_Warehouse_ErrMsg,SPI_InvoiceDate_ErrMsg,SPI_HospitalName_ErrMsg,SPI_LotShipmentDate,SPI_Remark,SPI_LotShipmentDate_ErrMsg,SPI_Remark_ErrMsg,SPI_ConsignmentNbr,SPI_ConsignmentNbr_ErrMsg,SPI_CAH_ID,SPI_QrCode_ErrMsg,SPI_QrCode,SPI_NO,SPI_OperType)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#SaleType#,#HospitalCode#,#HospitalName#,#HospitalOffice#,#InvoiceNumber#,#InvoiceDate#,#InvoiceTitle#,#ShipmentDate#,#ArticleNumber#,#ChineseName#,#LotNumber#,#Price#,#ExpiredDate#,#Uom#,#Qty#,#Warehouse#,#DmaId#,#HosId#,#CfnId#,#PmaId#,#BumId#,#WhmId#,#LtmId#,#HospitalCodeErrMsg#,#ShipmentDateErrMsg#,#ArticleNumberErrMsg#,#LotNumberErrMsg#,#QtyErrMsg#,#PriceErrMsg#,#WarehouseErrMsg#,#InvoiceDateErrMsg#,#HospitalNameErrMsg#,#LotShipmentDate#,#Remark#,#LotShipmentDateErrMsg#,#RemarkErrMsg#,#ConsignmentNbr#,#ConsignmentNbrErrMsg#,#CahId#,#QrCodeErrMsg#,#QrCode#,#No#,#OperType#)
+    </insert>
+    <update id="UpdateShipmentInit" parameterClass="ShipmentInit">
+      UPDATE ShipmentInit
+      SET SPI_ID=#Id#,SPI_USER=#User#,SPI_UploadDate=#UploadDate#,SPI_LineNbr=#LineNbr#,SPI_FileName=#FileName#,SPI_ErrorFlag=#ErrorFlag#,SPI_ErrorDescription=#ErrorDescription#,SPI_SaleType=#SaleType#,SPI_HospitalCode=#HospitalCode#,SPI_HospitalName=#HospitalName#,SPI_HospitalOffice=#HospitalOffice#,SPI_InvoiceNumber=#InvoiceNumber#,SPI_InvoiceDate=#InvoiceDate#,SPI_InvoiceTitle=#InvoiceTitle#,SPI_ShipmentDate=#ShipmentDate#,SPI_ArticleNumber=#ArticleNumber#,SPI_ChineseName=#ChineseName#,SPI_LotNumber=#LotNumber#,SPI_Price=#Price#,SPI_ExpiredDate=#ExpiredDate#,SPI_UOM=#Uom#,SPI_Qty=#Qty#,SPI_Warehouse=#Warehouse#,SPI_DMA_ID=#DmaId#,SPI_HOS_ID=#HosId#,SPI_CFN_ID=#CfnId#,SPI_PMA_ID=#PmaId#,SPI_BUM_ID=#BumId#,SPI_WHM_ID=#WhmId#,SPI_LTM_ID=#LtmId#,SPI_HospitalCode_ErrMsg=#HospitalCodeErrMsg#,SPI_ShipmentDate_ErrMsg=#ShipmentDateErrMsg#,SPI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,SPI_LotNumber_ErrMsg=#LotNumberErrMsg#,SPI_Qty_ErrMsg=#QtyErrMsg#,SPI_Price_ErrMsg=#PriceErrMsg#,SPI_Warehouse_ErrMsg=#WarehouseErrMsg#,SPI_InvoiceDate_ErrMsg=#InvoiceDateErrMsg#,SPI_HospitalName_ErrMsg=#HospitalNameErrMsg#,SPI_LotShipmentDate=#LotShipmentDate#,SPI_Remark=#Remark#,SPI_LotShipmentDate_ErrMsg=#LotShipmentDateErrMsg#,SPI_Remark_ErrMsg=#RemarkErrMsg#,SPI_ConsignmentNbr=#ConsignmentNbr#,SPI_ConsignmentNbr_ErrMsg=#ConsignmentNbrErrMsg#,SPI_CAH_ID=#CahId#,SPI_QrCode_ErrMsg=#QrCodeErrMsg#,SPI_QrCode=#QrCode#,SPI_NO=#No#
+      WHERE SPI_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentInit" parameterClass="string">
+      DELETE FROM ShipmentInit
+      WHERE SPI_ID = #value#
+    </delete>
+    <delete id="DeleteShipmentInitByUser" parameterClass="string">
+      DELETE FROM ShipmentInit
+      WHERE SPI_USER = #value#
+    </delete>
+    <!--销售导入验证-->
+    <procedure id="GC_ShipmentInit" parameterMap="ShipmentInitParameterMap">
+      dbo.GC_ShipmentInit
+    </procedure>
+    <!--写入表中-->
+    <procedure id="GC_Interface_Sales" parameterMap="ShipmentInitParameterMap2">
+      dbo.GC_Interface_Sales
+    </procedure>
+    <select id="SelectShipmentInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="ShipmentInit">
+      SELECT SPI_ID AS Id,SPI_USER AS [User],SPI_UploadDate AS
+      UploadDate,SPI_LineNbr AS LineNbr,SPI_FileName AS FileName,SPI_ErrorFlag AS ErrorFlag,
+      SPI_ErrorDescription AS ErrorDescription,SPI_SaleType AS SaleType,SPI_HospitalCode AS HospitalCode,
+      SPI_HospitalName AS HospitalName,SPI_HospitalOffice AS HospitalOffice,SPI_InvoiceNumber AS InvoiceNumber,SPI_InvoiceTitle AS InvoiceTitle,SPI_ShipmentDate AS ShipmentDate,SPI_ArticleNumber AS ArticleNumber,SPI_ChineseName AS ChineseName,
+      SPI_LotNumber AS LotNumber,
+      SPI_QrCode AS QrCode,
+      SPI_Price AS Price,SPI_UOM AS Uom,SPI_Qty AS Qty,SPI_DMA_ID AS DmaId,SPI_HOS_ID AS HosId,SPI_CFN_ID AS CfnId,SPI_PMA_ID AS PmaId,SPI_BUM_ID AS BumId,SPI_HospitalCode_ErrMsg AS HospitalCodeErrMsg,SPI_ShipmentDate_ErrMsg AS ShipmentDateErrMsg,SPI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,SPI_LotNumber_ErrMsg AS LotNumberErrMsg,SPI_Qty_ErrMsg AS QtyErrMsg,SPI_Price_ErrMsg AS PriceErrMsg,SPI_Warehouse AS Warehouse,SPI_Warehouse_ErrMsg AS WarehouseErrMsg,SPI_CAH_ID AS CahId,SPI_ConsignmentNbr as ConsignmentNbr,SPI_ConsignmentNbr_ErrMsg as ConsignmentNbrErrMsg,
+      ROW_NUMBER() OVER(order by SPI_USER,SPI_ErrorFlag desc,SPI_LineNbr) as row_number,Convert(nvarchar(10),SPI_InvoiceDate,121) AS InvoiceDate,SPI_InvoiceDate_ErrMsg AS InvoiceDateErrMsg,
+      SPI_QrCode_ErrMsg AS QrCodeErrMsg,
+      Case when CFN_Property6=0 then Convert(nvarchar(7),SPI_ExpiredDate,121)
+      else Convert(nvarchar(10),SPI_ExpiredDate,121) end AS ExpiredDate,SPI_HospitalName_ErrMsg AS HospitalNameErrMsg,
+      SPI_LotShipmentDate AS LotShipmentDate,SPI_Remark AS Remark,SPI_LotShipmentDate_ErrMsg AS LotShipmentDateErrMsg,SPI_Remark_ErrMsg AS RemarkErrMsg
+      FROM ShipmentInit
+      left join CFN on CFN.CFN_ID=SPI_CFN_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserId">SPI_USER=#UserId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="Error">SPI_ErrorFlag=#Error#</isNotNull>-->
+      </dynamic>
+    </select>
+    <update id="UpdateShipmentInitForEdit" parameterClass="ShipmentInit">
+      UPDATE ShipmentInit
+      SET SPI_HospitalName=#HospitalName#,SPI_ShipmentDate=#ShipmentDate#,SPI_ArticleNumber=#ArticleNumber#,SPI_LotNumber=#LotNumber#,SPI_Price=#Price#,SPI_Qty=#Qty#,SPI_HospitalCode_ErrMsg=null,SPI_ShipmentDate_ErrMsg=null,SPI_ArticleNumber_ErrMsg=null,SPI_LotNumber_ErrMsg=null,SPI_Qty_ErrMsg=#QtyErrMsg#,SPI_Price_ErrMsg=null,
+      SPI_Warehouse=#Warehouse#,SPI_Warehouse_ErrMsg=#WarehouseErrMsg#,SPI_InvoiceDate=#InvoiceDate#,SPI_InvoiceDate_ErrMsg=null,SPI_HospitalName_ErrMsg=null,SPI_LotShipmentDate_ErrMsg = NULL,SPI_Remark_ErrMsg =NULL,
+      SPI_HospitalCode=#HospitalCode#,SPI_HospitalOffice=#HospitalOffice#,SPI_InvoiceNumber=#InvoiceNumber#,SPI_InvoiceTitle=#InvoiceTitle#,SPI_LotShipmentDate=#LotShipmentDate#,SPI_Remark=#Remark#,SPI_ConsignmentNbr=#ConsignmentNbr#,SPI_ConsignmentNbr_ErrMsg =NULL,
+      SPI_QrCode=#QrCode#,SPI_QrCode_ErrMsg=NULL
+      WHERE SPI_ID = #Id#
+    </update>
+    <select id="SelectShipmentCount" parameterClass="string" resultClass="ShipmentInit">
+      Select COUNT(*) as LineNbr,convert(nvarchar(50),SUM(convert(decimal(18,6),SPI_Qty))) as Qty,
+      convert(nvarchar(50),SUM(convert(decimal(18,2),SPI_Price)*convert(decimal(18,2),SPI_Qty))) as Price from ShipmentInit
+      where SPI_USER= #value#
+    </select>
+    <select id="CheckShipmentInit" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT * FROM ShipmentInit A WHERE A.SPI_DMA_ID=#value# AND A.SPI_NO IS NOT NULL
+    </select>
+
+    <select id="SelectShipmentInitResult" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT SRD_LineNbr LineNbr,C.DMA_SAP_Code AS SapCode,a.SRH_Dealer_DMA_ID AS DmaId,c.DMA_ChineseName AS DealerName,SRH_SubmitDate AS SubmitDate
+      , SRD_TypeFlg AS TypeFlg
+      ,SRD_HospitalName AS HospitalName,SRD_HospitalOffice AS HospitalOffice
+      ,SRD_ShipmentDate AS ShipmentDate,SRD_UPN AS UPN,SRD_ExpiredDate AS ExpiredDate,SRI_UOM AS UOM, SRI_UOMQty AS UOMQty
+      ,SRD_InvoiceNo AS InvoiceNo,SRD_InvoiceTitle AS InvoiceTitle,SRD_InvoiceDate AS InvoiceDate
+      ,SRD_LotShippedQty AS ShipmentQty,SRD_InvQty AS InvQty,SRD_InvRemnantQty AS InvRemnantQty,SRD_UnitPrice AS UnitPrice
+      ,SRD_QrCode AS QrCode,SRD_LotNumber AS LotNumber,SRD_Warehouse AS Warehouse
+      ,SRD_ConsignmentNbr AS ConsignmentNbr
+      ,SRD_ErrorType AS ErrorType,SRD_ErrorMassage AS ErrorMassage,SRD_ProposedMassage AS ProposedMassage
+      ,ROW_NUMBER() OVER(order by SRD_ErrorType desc,SRD_LineNbr) AS row_number
+      FROM ShipmentResultHeader A(nolock)
+      INNER JOIN ShipmentResultDetail B(nolock) ON A.SRH_ID=B.SRD_SRH_ID
+      LEFT JOIN DealerMaster C(nolock) ON C.DMA_ID=A.SRH_Dealer_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="No"> A.SRH_SPI_NO=#No#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="ExportShipmentInitResult" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.SRH_SPI_NO AS '申请编号',C.DMA_SAP_Code AS N'SAPCode',c.DMA_ChineseName AS N'经销商名称'
+      ,SRD_HospitalName AS N'医院名称'
+      ,SRD_ShipmentDate AS N'销售日期'
+      ,SRD_Warehouse AS N'仓库名称'
+      ,SRD_UPN AS N'产品编号'
+      ,SRD_LotNumber AS N'批号'
+      ,SRD_QrCode AS N'二维码'
+      ,SRD_LotShippedQty AS N'数量'
+      ,SRD_UnitPrice AS N'销售价格'
+      ,SRD_HospitalOffice AS N'医院科室'
+      ,SRD_InvoiceNo AS N'发票编号'
+      ,SRD_InvoiceDate AS N'发票日期'
+      ,SRD_InvoiceTitle AS N'发票抬头'
+      ,SRD_ConsignmentNbr AS N'寄售单编号'
+      ,SRD_ErrorMassage AS N'错误原因'
+      ,SRD_ProposedMassage AS N'建议修改'
+      FROM ShipmentResultHeader A
+      INNER JOIN ShipmentResultDetail B(nolock) ON A.SRH_ID=B.SRD_SRH_ID
+      LEFT JOIN DealerMaster C(nolock) ON C.DMA_ID=A.SRH_Dealer_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="No"> A.SRH_SPI_NO=#No#</isNotNull>
+        <isNotNull prepend="AND" property="IsErr"> B.SRD_TypeFlg=#IsErr#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId"> A.SRH_Dealer_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentStatus"> A.SRH_Status=#ShipmentStatus#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">
+          CONVERT(NVARCHAR(8), A.SRH_SubmitDate, 112) >= CONVERT(NVARCHAR(8), #SubmitDateStart#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">
+          CONVERT(NVARCHAR(8), A.SRH_SubmitDate, 112) &lt;= CONVERT(NVARCHAR(8), #SubmitDateEnd#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsErr"> B.SRD_TypeFlg=#IsErr#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectShipmentInitProcessing" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT SPI_LineNbr LineNbr,B.DMA_SAP_Code AS SapCode,A.SPI_DMA_ID AS DmaId,B.DMA_ChineseName AS DealerName,a.SPI_UploadDate AS SubmitDate
+      ,'' AS TypeFlg
+      ,SPI_HospitalName AS HospitalName,SPI_HospitalOffice AS HospitalOffice
+      ,SPI_ShipmentDate AS ShipmentDate,SPI_ArticleNumber AS UPN,NULL AS ExpiredDate,NULL AS UOM, NULL AS UOMQty
+      ,SPI_InvoiceNumber AS InvoiceNo,SPI_InvoiceTitle AS InvoiceTitle,SPI_InvoiceDate AS InvoiceDate
+      ,SPI_Qty AS ShipmentQty,NULL AS InvQty,NULL AS InvRemnantQty,SPI_Price AS UnitPrice
+      ,SPI_QrCode AS QrCode,SPI_LotNumber AS LotNumber,SPI_Warehouse AS Warehouse
+      ,SPI_ConsignmentNbr AS ConsignmentNbr
+      ,NULL AS ErrorType,NULL AS ErrorMassage,NULL AS ProposedMassage
+      ,ROW_NUMBER() OVER(order by SPI_LineNbr) AS row_number
+      FROM ShipmentInit A(nolock)
+      LEFT JOIN DealerMaster B(nolock) ON B.DMA_ID=A.SPI_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="No">  A.SPI_NO=#No#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectDealerAuthorizationListByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT CFN.CFN_CustomerFaceNbr AS UPN,D.CA_NameCN AS ProductName,c.HOS_HospitalName AS HospitalName,c.HOS_Key_Account AS HospitalCode
+      ,CASE WHEN a.DAT_Type='Normal' THEN '正式授权'
+      WHEN a.DAT_Type='Shipment' THEN '临时销售授权'
+      WHEN a.DAT_Type='Transfer' THEN '临时移库授权'
+      WHEN a.DAT_Type='Return' THEN '临时退货授权'
+      WHEN a.DAT_Type='Temp' THEN '临时授权' End AS AuthorType
+      ,CASE WHEN B.HLA_StartDate IS NULL THEN A.DAT_StartDate ELSE B.HLA_StartDate END StartDate
+      ,CASE WHEN B.HLA_EndDate IS NULL THEN A.DAT_EndDate ELSE B.HLA_EndDate END EndDate
+      ,ROW_NUMBER() OVER(order by B.HLA_EndDate DESC) AS row_number
+      FROM DealerAuthorizationTable A
+      INNER JOIN (SELECT DISTINCT CA_ID,CA_Code,CA_NameCN FROM V_ProductClassificationStructure WHERE ActiveFlag=1) D ON D.CA_ID=A.DAT_PMA_ID
+      INNER JOIN CfnClassification E ON E.ClassificationId=D.CA_ID
+      INNER JOIN CFN ON CFN.CFN_CustomerFaceNbr=E.CfnCustomerFaceNbr
+      LEFT JOIN HospitalList B ON A.DAT_ID=B.HLA_DAT_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HLA_HOS_ID
+      WHERE A.DAT_StartDate IS NOT NULL
+      <isNotNull prepend="AND" property="DmaId"> A.DAT_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="AutUpn"> CFN.CFN_CustomerFaceNbr=#AutUpn# </isNotNull>
+      <isNotNull prepend="AND" property="AutHospital">  C.HOS_HospitalName like N'%$AutHospital$%'</isNotNull>
+      <isNotNull prepend="AND" property="AutDate">
+        CONVERT(NVARCHAR(8),#AutDate#,112)>= CONVERT(NVARCHAR(8),CASE WHEN B.HLA_StartDate IS NULL THEN A.DAT_StartDate ELSE B.HLA_StartDate END,112)
+        AND CONVERT(NVARCHAR(8),#AutDate#,112)  &lt;= CONVERT(NVARCHAR(8),CASE WHEN B.HLA_EndDate IS NULL THEN A.DAT_EndDate ELSE B.HLA_EndDate END,112)
+      </isNotNull>
+    </select>
+    <select id="SelectShipmentInitSum" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT SuccessQuantity,FailQuantity,ProcessingQuantity,SumAmount,SumQuantity
+      FROM dbo.GC_Fn_ShipmentInit_Sum(#No#,#Status#)
+    </select>
+    <select id="SelectShipmentInitNoConfirm" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT TOP 1 SRH_SPI_NO AS InitNo,SRH_Status AS InitStatus
+      FROM ShipmentResultHeader A
+      WHERE ISNULL(SRH_IsCheck,'1')='0'
+      AND A.SRH_Dealer_DMA_ID=#dealerId#
+      ORDER BY SRH_SubmitDate DESC
+    </select>
+    <update id="ConfirmShipmenInit" parameterClass="string">
+      UPDATE ShipmentResultHeader SET SRH_IsCheck='1'
+      WHERE SRH_SPI_NO = #value#
+    </update>
+  </statements>
+</sqlMap>

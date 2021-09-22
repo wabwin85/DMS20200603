@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SampleUpnMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="SampleUpn" assembly="DMS.Model.dll" type="DMS.Model.SampleUpn" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SampleUpnResult" class="SampleUpn">
+      <result property="SampleUpnId" column="SampleUpnId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SampleHeadId" column="SampleHeadId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApplyNo" column="ApplyNo" type="string" dbType="nvarchar"/>
+      <result property="UpnNo" column="UpnNo" type="string" dbType="nvarchar"/>
+      <result property="ProductName" column="ProductName" type="string" dbType="nvarchar"/>
+      <result property="ProductDesc" column="ProductDesc" type="string" dbType="nvarchar"/>
+      <result property="ApplyQuantity" column="ApplyQuantity" type="decimal" dbType="decimal"/>
+      <result property="ConfirmQuantity" column="ConfirmQuantity" type="decimal" dbType="decimal"/>
+      <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+      <result property="LotReuqest" column="LotReuqest" type="string" dbType="nvarchar"/>
+      <result property="ProductMemo" column="ProductMemo" type="string" dbType="nvarchar"/>
+      <result property="SortNo" column="SortNo" type="int" dbType="int"/>
+      <result property="CreateUser" column="CreateUser" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="UpdateUser" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="Cost" column="Cost" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectSampleUpn" parameterClass="string" resultClass="SampleUpn">
+      SELECT SampleUpnId AS SampleUpnId,SampleHeadId AS SampleHeadId,ApplyNo AS ApplyNo,UpnNo AS UpnNo,Lot AS Lot,ProductName AS ProductName,ProductDesc AS ProductDesc,ApplyQuantity AS ApplyQuantity,ConfirmQuantity AS ConfirmQuantity,LotReuqest AS LotReuqest,ProductMemo AS ProductMemo,SortNo AS SortNo,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate,Cost AS Cost
+      FROM SampleUpn
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SampleUpnId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterSampleUpn" parameterClass="SampleUpn" resultClass="SampleUpn">
+      SELECT SampleUpnId AS SampleUpnId,SampleHeadId AS SampleHeadId,ApplyNo AS ApplyNo,UpnNo AS UpnNo,Lot AS Lot,ProductName AS ProductName,ProductDesc AS ProductDesc,ApplyQuantity AS ApplyQuantity,ConfirmQuantity AS ConfirmQuantity,LotReuqest AS LotReuqest,ProductMemo AS ProductMemo,SortNo AS SortNo,CreateUser AS CreateUser,CreateDate AS CreateDate,UpdateUser AS UpdateUser,UpdateDate AS UpdateDate,Cost AS Cost
+      FROM SampleUpn
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SampleUpnId">SampleUpnId=#SampleUpnId#</isNotNull>
+        <isNotNull prepend="AND" property="SampleHeadId">SampleHeadId=#SampleHeadId#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyNo">ApplyNo=#ApplyNo#</isNotNull>
+        <isNotNull prepend="AND" property="UpnNo">UpnNo=#UpnNo#</isNotNull>
+        <isNotNull prepend="AND" property="ProductName">ProductName=#ProductName#</isNotNull>
+        <isNotNull prepend="AND" property="ProductDesc">ProductDesc=#ProductDesc#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyQuantity">ApplyQuantity=#ApplyQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmQuantity">ConfirmQuantity=#ConfirmQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">Lot=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="LotReuqest">LotReuqest=#LotReuqest#</isNotNull>
+        <isNotNull prepend="AND" property="ProductMemo">ProductMemo=#ProductMemo#</isNotNull>
+        <isNotNull prepend="AND" property="SortNo">SortNo=#SortNo#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="Cost">Cost=#Cost#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertSampleUpn" parameterClass="SampleUpn">
+      INSERT INTO SampleUpn
+      (SampleUpnId,SampleHeadId,ApplyNo,UpnNo,Lot,ProductName,ProductDesc,ApplyQuantity,ConfirmQuantity,LotReuqest,ProductMemo,SortNo,CreateUser,CreateDate,UpdateUser,UpdateDate,Cost)
+      VALUES(#SampleUpnId#,#SampleHeadId#,#ApplyNo#,#UpnNo#,#Lot#,#ProductName#,#ProductDesc#,#ApplyQuantity#,#ConfirmQuantity#,#LotReuqest#,#ProductMemo#,#SortNo#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Cost#)
+    </insert>
+    <update id="UpdateSampleUpn" parameterClass="SampleUpn">
+      UPDATE SampleUpn
+      SET SampleUpnId=#SampleUpnId#,SampleHeadId=#SampleHeadId#,ApplyNo=#ApplyNo#,UpnNo=#UpnNo#,Lot=#Lot#,ProductName=#ProductName#,ProductDesc=#ProductDesc#,ApplyQuantity=#ApplyQuantity#,ConfirmQuantity=#ConfirmQuantity#,LotReuqest=#LotReuqest#,ProductMemo=#ProductMemo#,SortNo=#SortNo#,UpdateUser=#UpdateUser#,UpdateDate=#UpdateDate#,Cost=#Cost#
+      WHERE SampleUpnId = #SampleUpnId#
+    </update>
+    <delete id="DeleteSampleUpn" parameterClass="string">
+      DELETE FROM SampleUpn
+      WHERE SampleUpnId = #value#
+    </delete>
+    <!--LIJIE ADD2016-03-07-->
+    <select id="SelectSampleUpnList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM SampleUpn WHERE SampleHeadId=#value# ORDER BY SortNo
+    </select>
+    
+    <!--根据申请单ID取TOTALAMOUNTUSD-->
+    <select id="GetTotalAmountUsdBySamplyApplyId" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT ISNULL(SUM(ISNULL(Amount / PriceUnit, 0)),0) AS TotalAmtUsd FROM SampleUpn, md.upncost
+      WHERE SampleHeadId = #value#
+      AND UpnNo = UPN
+      AND [Year] = DATEPART(YEAR, GETDATE())
+      AND Currency = 'USD'
+    </select>
+  </statements>
+</sqlMap>

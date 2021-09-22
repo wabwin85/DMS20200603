@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerInventoryInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerInventoryInit" assembly="DMS.Model.dll" type="DMS.Model.DealerInventoryInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerInventoryInitResult" class="DealerInventoryInit">
+      <result property="Id" column="DII_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="DII_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="DII_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="DII_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="DII_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="DII_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="DII_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="DealerSapCode" column="DII_DealerSapCode" type="string" dbType="nvarchar"/>
+      <result property="Warehouse" column="DII_Warehouse" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="DII_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotNumber" column="DII_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="PmaId" column="DII_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="DII_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="DII_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Qty" column="DII_Qty" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="DII_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="DealerSapCodeErrMsg" column="DII_DealerSapCode_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WarehouseErrMsg" column="DII_Warehouse_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumberErrMsg" column="DII_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="DII_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QtyErrMsg" column="DII_Qty_ErrMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DIIParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsImport" column="IsImport" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectDealerInventoryInit" parameterClass="string" resultClass="DealerInventoryInit">
+      SELECT DII_ID AS Id,DII_USER AS User,DII_UploadDate AS UploadDate,DII_LineNbr AS LineNbr,DII_FileName AS FileName,DII_ErrorFlag AS ErrorFlag,DII_ErrorDescription AS ErrorDescription,DII_DealerSapCode AS DealerSapCode,DII_Warehouse AS Warehouse,DII_DMA_ID AS DmaId,DII_LotNumber AS LotNumber,DII_PMA_ID AS PmaId,DII_WHM_ID AS WhmId,DII_LTM_ID AS LtmId,DII_Qty AS Qty,DII_ArticleNumber AS ArticleNumber,DII_DealerSapCode_ErrMsg AS DealerSapCodeErrMsg,DII_Warehouse_ErrMsg AS WarehouseErrMsg,DII_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,DII_LotNumber_ErrMsg AS LotNumberErrMsg,DII_Qty_ErrMsg AS QtyErrMsg,DII_Period AS Period,DII_Period_ErrMsg AS PeriodErrMsg
+      FROM DealerInventoryInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DII_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealerInventoryInit" parameterClass="DealerInventoryInit" resultClass="DealerInventoryInit">
+      SELECT DII_ID AS Id,DII_USER AS User,DII_UploadDate AS UploadDate,DII_LineNbr AS LineNbr,DII_FileName AS FileName,DII_ErrorFlag AS ErrorFlag,DII_ErrorDescription AS ErrorDescription,DII_DealerSapCode AS DealerSapCode,DII_Warehouse AS Warehouse,DII_DMA_ID AS DmaId,DII_LotNumber AS LotNumber,DII_PMA_ID AS PmaId,DII_WHM_ID AS WhmId,DII_LTM_ID AS LtmId,DII_Qty AS Qty,DII_ArticleNumber AS ArticleNumber,DII_DealerSapCode_ErrMsg AS DealerSapCodeErrMsg,DII_Warehouse_ErrMsg AS WarehouseErrMsg,DII_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,DII_LotNumber_ErrMsg AS LotNumberErrMsg,DII_Qty_ErrMsg AS QtyErrMsg,DII_Period AS Period,DII_Period_ErrMsg AS PeriodErrMsg
+      FROM DealerInventoryInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">DII_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">DII_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">DII_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">DII_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">DII_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">DII_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">DII_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">DII_DealerSapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="Warehouse">DII_Warehouse=#Warehouse#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">DII_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">DII_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">DII_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">DII_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">DII_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">DII_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">DII_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCodeErrMsg">DII_DealerSapCode_ErrMsg=#DealerSapCodeErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseErrMsg">DII_Warehouse_ErrMsg=#WarehouseErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumberErrMsg">DII_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">DII_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="QtyErrMsg">DII_Qty_ErrMsg=#QtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="Period">DII_Period=#Period#</isNotNull>
+        <isNotNull prepend="AND" property="PeriodErrMsg">DII_Period_ErrMsg=#PeriodErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDealerInventoryInit" parameterClass="DealerInventoryInit">
+      INSERT INTO DealerInventoryInit
+      (DII_ID,DII_USER,DII_UploadDate,DII_LineNbr,DII_FileName,DII_ErrorFlag,DII_ErrorDescription,DII_DealerSapCode,DII_Warehouse,DII_DMA_ID,DII_LotNumber,DII_PMA_ID,DII_WHM_ID,DII_LTM_ID,DII_Qty,DII_ArticleNumber,DII_DealerSapCode_ErrMsg,DII_Warehouse_ErrMsg,DII_ArticleNumber_ErrMsg,DII_LotNumber_ErrMsg,DII_Qty_ErrMsg,DII_Period,DII_Period_ErrMsg)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#DealerSapCode#,#Warehouse#,#DmaId#,#LotNumber#,#PmaId#,#WhmId#,#LtmId#,#Qty#,#ArticleNumber#,#DealerSapCodeErrMsg#,#WarehouseErrMsg#,#ArticleNumberErrMsg#,#LotNumberErrMsg#,#QtyErrMsg#,#Period#,#PeriodErrMsg#)
+    </insert>
+    <update id="UpdateDealerInventoryInit" parameterClass="DealerInventoryInit">
+      UPDATE DealerInventoryInit
+      SET DII_ID=#Id#,DII_USER=#User#,DII_UploadDate=#UploadDate#,DII_LineNbr=#LineNbr#,DII_FileName=#FileName#,DII_ErrorFlag=#ErrorFlag#,DII_ErrorDescription=#ErrorDescription#,DII_DealerSapCode=#DealerSapCode#,DII_Warehouse=#Warehouse#,DII_DMA_ID=#DmaId#,DII_LotNumber=#LotNumber#,DII_PMA_ID=#PmaId#,DII_WHM_ID=#WhmId#,DII_LTM_ID=#LtmId#,DII_Qty=#Qty#,DII_ArticleNumber=#ArticleNumber#,DII_DealerSapCode_ErrMsg=#DealerSapCodeErrMsg#,DII_Warehouse_ErrMsg=#WarehouseErrMsg#,DII_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,DII_LotNumber_ErrMsg=#LotNumberErrMsg#,DII_Qty_ErrMsg=#QtyErrMsg#,DII_Period=#Period#,DII_Period_ErrMsg=#PeriodErrMsg#
+      WHERE DII_ID = #Id#
+    </update>
+    <delete id="DeleteDealerInventoryInit" parameterClass="string">
+      DELETE FROM DealerInventoryInit
+      WHERE DII_ID = #value#
+    </delete>
+    <!--根据上传人显示上传数据-->
+    <select id="SelectDealerInventoryInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="DealerInventoryInit">
+      SELECT DII_ID AS Id,DII_USER AS [User],DII_UploadDate AS UploadDate,DII_LineNbr AS LineNbr,
+      DII_FileName AS FileName,DII_ErrorFlag AS ErrorFlag,DII_ErrorDescription AS ErrorDescription,
+      DMA_SAP_Code AS DealerSapCode,DII_Warehouse AS Warehouse,DII_DMA_ID AS DmaId,
+      DII_LotNumber AS LotNumber,DII_PMA_ID AS PmaId,DII_WHM_ID AS WhmId,DII_LTM_ID AS LtmId,DII_Qty AS Qty,DII_ArticleNumber AS ArticleNumber,DII_DealerSapCode_ErrMsg AS DealerSapCodeErrMsg,DII_Warehouse_ErrMsg AS WarehouseErrMsg,DII_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,DII_LotNumber_ErrMsg AS LotNumberErrMsg,DII_Qty_ErrMsg AS QtyErrMsg
+      ,ROW_NUMBER () over (order by DII_USER,DII_ErrorFlag desc,DII_LineNbr)  as row_number
+      ,DMA_ChineseName as DealerName,
+      case WHM_Type
+      when 'Borrow' then '借货仓库'
+      when 'Consignment' then '寄售仓库'
+      when 'DefaultWH' then '缺省仓库'
+      when 'LP_Borrow' then '平台借货库'
+      when 'LP_Consignment' then '平台寄售库'
+      when 'Normal' then '普通仓库'
+      when 'SystemHold' then '在途'
+      else '' end
+      WarehouseType,
+      Convert(nvarchar(10),LTM_ExpiredDate,121) as ExpiredDate,
+      DII_Period as Period,
+      DII_Period_ErrMsg as PeriodErrMsg
+      FROM DealerInventoryInit(nolock)
+      left join DealerMaster(nolock) on DII_DMA_ID=DMA_ID
+      left join Warehouse(nolock) on DII_Warehouse=WHM_Name and DII_ErrorFlag=0
+      left join LotMaster(nolock) on DII_LotNumber=LTM_LotNumber
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserId">DII_USER=#UserId#</isNotNull>
+        <isNotNull prepend="AND" property="Error">DII_ErrorFlag=#Error#</isNotNull>
+      </dynamic>
+    </select>
+    <delete id="DeleteDealerInventoryInitByUser" parameterClass="string">
+      DELETE FROM DealerInventoryInit
+      WHERE DII_USER = #value#
+    </delete>
+    <procedure id="GC_DealerInventoryInit" parameterMap="DIIParameterMap">
+      dbo.GC_DealerInventoryInit
+    </procedure>
+    <update id="UpdateDealerInveInit" parameterClass="DealerInventoryInit">
+      UPDATE DealerInventoryInit
+      SET DII_UploadDate=#UploadDate#,DII_Warehouse=#Warehouse#,DII_LotNumber=#LotNumber#,DII_Qty=#Qty#,DII_ArticleNumber=#ArticleNumber#,DII_Warehouse_ErrMsg=null,DII_ArticleNumber_ErrMsg=null,DII_LotNumber_ErrMsg=null,DII_Qty_ErrMsg=null,DII_Period=#Period#,DII_Period_ErrMsg=null
+      WHERE DII_ID = #Id#
+    </update>
+  </statements>
+</sqlMap>

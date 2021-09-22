@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerContractMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DealerContract" assembly="DMS.Model.dll" type="DMS.Model.DealerContract" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerContractResult" class="DealerContract">
+            <result property="Id" column="DCL_ID" type="Guid" dbType="Guid"/>
+            <result property="StartDate" column="DCL_StartDate" type="DateTime" dbType="DateTime"/>
+            <result property="ApprovedBy" column="DCL_ApprovedBy" type="Guid" dbType="Guid"/>
+            <result property="StopDate" column="DCL_StopDate" type="DateTime" dbType="DateTime"/>
+            <result property="ContractNumber" column="DCL_ContractNumber" type="string" dbType="varchar"/>
+            <result property="ContractYears" column="DCL_ContractYears" type="int" dbType="Int"/>
+            <result property="DmaId" column="DCL_DMA_ID" type="Guid" dbType="Guid"/>
+            <result property="ApprovalId" column="DCL_Approval_ID" type="Guid" dbType="Guid"/>
+            <result property="CreateDate" column="DCL_CreatedDate" type="DateTime" dbType="DateTime"/>
+            <result property="CreateUser" column="DCL_CreatedBy" type="Guid" dbType="Guid"/>
+            <result property="CcId" column="DCL_CC_ID" type="Guid" dbType="Guid"/>
+            <result property="BuName" column="BuName" type="string" dbType="varchar"/>
+            <result property="SubBuName" column="SubBuName" type="string" dbType="varchar"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectDealerContract" parameterClass="string" resultClass="DealerContract">
+            SELECT DCL_ID AS Id,DCL_StartDate AS StartDate,DCL_ApprovedBy AS ApprovedBy,DCL_StopDate AS StopDate,DCL_ContractNumber AS ContractNumber,DCL_ContractYears AS ContractYears,DCL_DMA_ID AS DmaId,DCL_Approval_ID AS ApprovalId,DCL_CreatedDate AS CreateDate,DCL_CreatedBy AS CreateUser
+            FROM DealerContract
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DCL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterDealerContract" parameterClass="DealerContract" resultClass="DealerContract">
+          SELECT DCL_ID AS Id,DCL_StartDate AS StartDate,DCL_ApprovedBy AS ApprovedBy,DCL_StopDate AS StopDate,DCL_ContractNumber AS ContractNumber,DCL_ContractYears AS ContractYears,DCL_DMA_ID AS DmaId,DCL_Approval_ID AS ApprovalId,DCL_CreatedDate AS CreateDate,DCL_CreatedBy AS CreateUser
+          ,ProductLineName BuName,CC_NameCN  SubBuName,DealerMaster.DMA_ChineseName,DealerMaster.DMA_ChineseShortName
+          ,row_number() OVER (ORDER BY [DCL_ID] ASC) AS [row_number]
+          FROM DealerContract(nolock)
+          INNER JOIN DealerMaster(nolock) ON DMA_ID = DCL_DMA_ID AND DMA_DeletedFlag = 0
+          LEFT JOIN INTERFACE.ClassificationContract(nolock) ON CC_ID=DCL_CC_ID
+          LEFT JOIN V_DivisionProductLineRelation(nolock) ON CC_Division =DivisionCode AND IsEmerging='0'
+           WHERE 1=1
+          <isNotNull prepend="AND" property="Id">DCL_ID=#Id#</isNotNull>
+            <isNotNull prepend="AND" property="StartDate">DCL_StartDate=#StartDate#</isNotNull>
+            <isNotNull prepend="AND" property="ApprovedBy">DCL_ApprovedBy=#ApprovedBy#</isNotNull>
+            <isNotNull prepend="AND" property="StopDate">DCL_StopDate=#StopDate#</isNotNull>
+            <isNotEmpty prepend="AND" property="ContractNumber">DCL_ContractNumber like '%$ContractNumber$%'</isNotEmpty>
+            <isNotNull prepend="AND" property="ContractYears">DCL_ContractYears=#ContractYears#</isNotNull>
+            <isNotNull prepend="AND" property="DmaId">DCL_DMA_ID=#DmaId#</isNotNull>
+            <isNotNull prepend="AND" property="ApprovalId">DCL_Approval_ID=#ApprovalId#</isNotNull>
+        </select>
+        <insert id="InsertDealerContract" parameterClass="DealerContract">
+            INSERT INTO DealerContract
+            (DCL_ID,DCL_StartDate,DCL_ApprovedBy,DCL_StopDate,DCL_ContractNumber,DCL_ContractYears,DCL_DMA_ID,DCL_Approval_ID,DCL_CreatedDate,DCL_CreatedBy)
+            VALUES(#Id#,#StartDate#,#ApprovedBy#,#StopDate#,#ContractNumber#,#ContractYears#,#DmaId#,#ApprovalId#,#CreateDate#,#CreateUser#)
+        </insert>
+        <update id="UpdateDealerContract" parameterClass="DealerContract">
+            UPDATE DealerContract
+            SET DCL_ID=#Id#,DCL_StartDate=#StartDate#,DCL_ApprovedBy=#ApprovedBy#,DCL_StopDate=#StopDate#,DCL_ContractNumber=#ContractNumber#,DCL_ContractYears=#ContractYears#,DCL_DMA_ID=#DmaId#,DCL_Approval_ID=#ApprovalId#
+            WHERE DCL_ID = #Id#
+        </update>
+        <delete id="DeleteDealerContract" parameterClass="string">
+            IF (NOT EXISTS (SELECT 1 FROM  dbo.DealerAuthorizationTable m WITH ( UPDLOCK, HOLDLOCK )
+            WHERE m.DAT_DCL_ID = #value# ))
+            BEGIN
+                DELETE FROM DealerContract
+                WHERE DCL_ID = #value#
+            END
+        </delete>
+        
+        <!--added by songyuqi on 20100901-->
+        <select id="SelectByDealerDealerContract" parameterClass="string" resultClass="DealerContract">
+            SELECT DCL_ID AS Id,DCL_StartDate AS StartDate,DCL_ApprovedBy AS ApprovedBy,DCL_StopDate AS StopDate,DCL_ContractNumber AS ContractNumber,DCL_ContractYears AS ContractYears,DCL_DMA_ID AS DmaId,DCL_Approval_ID AS ApprovalId,DCL_CreatedDate AS CreateDate,DCL_CreatedBy AS CreateUser
+            FROM DealerContract
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DCL_DMA_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+      
+      <select id="SelectByDealerDealerContractActiveFlag" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+        SELECT A.* FROM V_DealerContractMaster A
+        INNER JOIN DealerMaster B ON A.DMA_ID=B.DMA_ID
+        WHERE 1=1
+        AND B.DMA_Parent_DMA_ID NOT IN ('A54ADD15-CB13-4850-9848-6DA4576207CB','84C83F71-93B4-4EFD-AB51-12354AFABAC3')
+        <isNotNull prepend="AND" property="ActiveFlag">A.ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">A.DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Division">A.Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="SubBuId">A.CC_ID=#SubBuId#</isNotNull>
+      </select>
+    </statements>
+</sqlMap>

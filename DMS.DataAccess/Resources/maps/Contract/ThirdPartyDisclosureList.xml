@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ThirdPartyDisclosureListMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ThirdPartyDisclosureList" assembly="DMS.Model.dll" type="DMS.Model.ThirdPartyDisclosureList" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ThirdPartyDisclosureListResult" class="ThirdPartyDisclosureList">
+      <result property="Id" column="TDL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="TDL_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="TDL_HOS_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductNameString" column="TDL_ProductNameString" type="string" dbType="nvarchar"/>
+      <result property="CompanyName" column="TDL_CompanyName" type="string" dbType="nvarchar"/>
+      <result property="Rsm" column="TDL_RSM" type="string" dbType="nvarchar"/>
+      <result property="Nottp" column="TDL_NotTP" type="bool" dbType="bit"/>
+      <result property="CreatDate" column="TDL_CreatDate" type="DateTime" dbType="datetime"/>
+      <result property="CreatUser" column="TDL_CreatUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BeginDate" column="TDL_BeginDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="TDL_EndDate" type="DateTime" dbType="datetime"/>
+      <result property="TerminationDate" column="TDL_TerminationDate" type="DateTime" dbType="datetime"/>
+      <result property="ApprovalStatus" column="TDL_ApprovalStatus" type="string" dbType="nvarchar"/>
+      <result property="ApprovalRemark" column="TDL_ApprovalRemark" type="string" dbType="nvarchar"/>
+      <result property="ApprovalUser" column="TDL_ApprovalUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApprovalDate" column="TDL_ApprovalDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="GetThirdPartyDisclosureListById" parameterClass="string" resultClass="ThirdPartyDisclosureList">
+      select t.TDL_CompanyName as CompanyName,i.HOS_HospitalName as HospitalName,t.TDL_RSM as Rsm,t.TDL_DMA_ID as DMA_ID,
+      t.TDL_ApprovalStatus as ApprovalStatus,t.TDL_HOS_ID as HosId,d.DMA_DealerType as DealerType,
+      t.TDL_ApprovalRemark as ApprovalRemark,
+      t.TDL_BeginDate as BeginDate ,t.TDL_EndDate as EndDate,
+      t.TDL_TerminationDate as TerminationDate,
+      t.TDL_ProductNameString as ProductNameString,
+      t.TDL_ApplicationNote as ApplicationNote,
+      t.TDL_Position as Position,
+      t.TDL_SubmitterName as SubmitterName
+      from ThirdPartyDisclosureList t(nolock)
+      left join Hospital i(nolock) on t.TDL_HOS_ID= i.HOS_ID
+      left join DealerMaster d(nolock) on d.DMA_ID=t.TDL_DMA_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TDL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <insert id="InsertThirdPartyDisclosureList" parameterClass="ThirdPartyDisclosureList">
+    INSERT INTO ThirdPartyDisclosureList
+    (TDL_ID,TDL_DMA_ID,TDL_HOS_ID,TDL_ProductNameString,TDL_CompanyName,TDL_RSM,TDL_CreatUser,TDL_CreatDate,
+    TDL_ApprovalStatus,TDL_ApplicationNote,TDL_SubmitterName,TDL_Position)
+    VALUES(#Id#,#DmaId#,#HosId#,#ProductNameString#,#CompanyName#,#Rsm#,#CreatUser#,#CreatDate#,#ApprovalStatus#,#ApplicationNote#,#SubmitterName#,#Position#)
+    </insert>
+    <update id="UpdateThirdPartyDisclosureList" parameterClass="ThirdPartyDisclosureList">
+      UPDATE ThirdPartyDisclosureList
+      SET TDL_ID=#Id#,TDL_DMA_ID=#DmaId#,TDL_HOS_ID=#HosId#,TDL_ProductNameString=#ProductNameString#,TDL_CompanyName=#CompanyName#,TDL_RSM=#Rsm#,TDL_NotTP=#Nottp#,TDL_CreatDate=#CreatDate#,TDL_CreatUser=#CreatUser#,TDL_BeginDate=#BeginDate#,TDL_EndDate=#EndDate#,TDL_TerminationDate=#TerminationDate#,TDL_ApprovalStatus=#ApprovalStatus#,TDL_ApprovalRemark=#ApprovalRemark#,TDL_ApprovalUser=#ApprovalUser#,TDL_ApprovalDate=#ApprovalDate#
+      WHERE TDL_ID = #Id#
+    </update>
+    <delete id="DeleteThirdPartyDisclosureList" parameterClass="string">
+      DELETE FROM ThirdPartyDisclosureList
+      WHERE TDL_ID = #value#
+    </delete>
+
+    <select id="DealerAuthorizationHospital" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT  t.DAT_DMA_ID DealerId,t.HOS_ID HospitalId,t.HOS_Key_Account as HospitalCode ,
+      t.HOS_HospitalName  HospitalName ,ROW_NUMBER () OVER (ORDER BY HOS_Key_Account  DESC) AS [row_number]
+      from (SELECT DISTINCT A.DAT_DMA_ID ,C.HOS_ID ,C.HOS_Key_Account ,
+      C.HOS_HospitalName
+      FROM DealerAuthorizationTable A
+      INNER JOIN HospitalList B on A.DAT_ID=B.HLA_DAT_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HLA_HOS_ID
+      where GETDATE() BETWEEN A.DAT_StartDate AND A.DAT_EndDate
+      <isNotNull prepend="AND" property="DmaId">A.DAT_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="HospitalName">c.HOS_HospitalName like N'%$HospitalName$%'</isNotNull>
+      ) t
+    </select>
+
+    <select id="SelectThirdPartyDisclosureList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT TDL_ID AS Id,TDL_DMA_ID AS DmaId,TDL_HOS_ID AS HospitalId ,B.HOS_HospitalName AS HospitalName,TDL_NotTP AS NotTP
+      ,TDL_CompanyName AS CompanyName,TDL_RSM AS Rsm,
+      CONVERT(varchar(100),TDL_BeginDate, 20)  AS BeginDate,
+      CONVERT(varchar(100),TDL_EndDate, 20)   AS EndDate
+      ,TDL_ApprovalStatus AS ApprovalStatus
+      ,CONVERT(varchar(100),TDL_ApprovalDate, 20) AS ApprovalDate
+      ,D.IDENTITY_NAME AS ApprovalName,
+      CONVERT(varchar(100),TDL_TerminationDate, 20) as TerminationDate
+      ,TDL_ProductNameString AS ProductNameString, TPD.TDL_ApprovalRemark as ApprovalRemark
+      ,ROW_NUMBER () OVER (ORDER BY  TDL_CreatDate ,TDL_ApprovalDate DESC) AS [row_number]
+      FROM  ThirdPartyDisclosureList TPD
+      LEFT JOIN Hospital B ON TPD.TDL_HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_IDENTITY D ON D.Id=TPD.TDL_ApprovalUser
+      WHERE TDL_DMA_ID =#DmaId#
+      <isNotNull prepend="AND" property="HospitalName">B.HOS_HospitalName like N'%$HospitalName$%'</isNotNull>
+    </select>
+
+    <update id="ApprovalThirdPartyDisclosureList" parametrClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosureList
+      set TDL_ApprovalStatus=#ApprovalStatus# ,TDL_ApprovalDate=#ApprovalDate# ,TDL_ApprovalUser=#ApprovalName#,TDL_ApprovalRemark=#ApprovalRemark#
+      ,TDL_BeginDate=getdate(),TDL_EndDate=dateadd(d, 365, getdate()) ,TDL_TerminationDate=#TerminationDate# where TDL_Id=#Id#
+    </update>
+
+    <update id="RefuseThirdPartyDisclosureList" parameterClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosureList
+      set TDL_ApprovalStatus=#ApprovalStatus# ,TDL_ApprovalDate=#ApprovalDate# ,TDL_ApprovalUser=#ApprovalName#,TDL_ApprovalRemark=#ApprovalRemark#
+      ,TDL_TerminationDate=#TerminationDate#,TDL_ApplicationNote=#ApplicationNote#
+      where TDL_Id=#Id#
+    </update>
+
+    <select id="ThirdPartyDisclosureListByBU" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select h.HOS_HospitalName,TDL_ProductNameString
+      from ThirdPartyDisclosureList t(nolock) 
+      inner join Hospital h(nolock) on h.HOS_ID=t.TDL_HOS_ID
+      inner join DealerMaster d(nolock) on d.DMA_ID= t.TDL_DMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">TDL_ID=#Id#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="GetThirdPartyDisclosureListBuType" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      STUFF(REPLACE(REPLACE((
+      SELECT DISTINCT TAB.DivisionName RESULT FROM (
+      SELECT DISTINCT c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      AND EXISTS(SELECT 1 FROM ThirdPartyDisclosureList H WHERE H.TDL_HOS_ID=E.HLA_HOS_ID AND H.TDL_DMA_ID=A.DMA_ID )
+      AND A.DMA_ID=#DmaId#
+      UNION
+      SELECT DISTINCT c.DivisionName+'-'+F.MarketName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)&lt;>2
+      AND EXISTS(SELECT 1 FROM ThirdPartyDisclosureList H WHERE H.TDL_HOS_ID=E.HLA_HOS_ID AND H.TDL_DMA_ID=A.DMA_ID)
+      AND A.DMA_ID= #DmaId#
+      ) AS TAB
+      FOR XML AUTO
+      ), '&lt;TAB RESULT="', ','), '"/>', ''), 1, 1, '') AS  BuType
+    </select>
+
+    <select id="SelectThirdPartyDisclosureListHospitBU" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT TDL_ID AS Id,TDL_DMA_ID AS DmaId,TDL_HOS_ID AS HospitalId ,B.HOS_HospitalName AS HospitalName,TDL_NotTP AS NotTP
+      ,TDL_CompanyName AS CompanyName,TDL_RSM AS Rsm
+      ,TDL_ApprovalStatus AS ApprovalStatus
+      ,TDL_ApprovalDate AS ApprovalDate
+      ,D.IDENTITY_NAME AS ApprovalName,
+      P.DMA_ChineseName
+      <!--,[ProductNameString]=  STUFF (
+      (SELECT ',' + tt1.DivisionName
+      FROM  (SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      AND A.DMA_ID=#DmaId#
+      UNION
+      SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0) &lt;>2
+      AND A.DMA_ID= #DmaId#) tt1
+      WHERE TDL.TDL_DMA_ID = tt1.DMA_ID
+      AND TDL.TDL_HOS_ID=tt1.HLA_HOS_ID
+      FOR XML PATH ('')),
+      1,
+      1,
+      '')-->
+      ,TDL_ProductNameString AS ProductNameString
+      FROM ThirdPartyDisclosureList TDL(nolock)
+      LEFT JOIN Hospital B(nolock) ON TDL.TDL_HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_IDENTITY D(nolock) ON D.Id=TDL.TDL_ApprovalUser
+      LEFT join DealerMaster p(nolock) on p.DMA_ID= tdl.TDL_DMA_ID
+      WHERE TDL_DMA_ID =#DmaId#
+      <isNotNull prepend="AND" property="ApprovalStatus">TDL_ApprovalStatus=#ApprovalStatus#</isNotNull>
+      <isNotNull prepend="AND" property="Rsm">TDL.TDL_RSM=#Rsm#</isNotNull>
+      <isNotNull prepend="AND" property="MainId">TDL_ID=#MainId#</isNotNull>
+    </select>
+
+
+
+    <update id="UpdateThirdPartyDisclosureListend" parameterClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosureList
+      set TDL_ApprovalStatus=#ApprovalStatus# ,TDL_ApprovalDate=#ApprovalDate# ,TDL_ApprovalUser=#ApprovalName#,TDL_ApprovalRemark=#ApprovalRemark#
+      , TDL_TerminationDate=#TerminationDate#,TDL_ApplicationNote=#ApplicationNote# where TDL_Id=#Id#
+    </update>
+
+
+    <insert id="InsertThirdPartyDisclosureListLp" parameterClass="ThirdPartyDisclosureList">
+
+      INSERT INTO ThirdPartyDisclosureList
+      (TDL_ID,TDL_DMA_ID,TDL_HOS_ID,TDL_ProductNameString,TDL_CompanyName,TDL_RSM,TDL_CreatUser,TDL_CreatDate,TDL_BeginDate,TDL_EndDate,TDL_ApprovalStatus,TDL_ApprovalRemark,TDL_ApprovalUser,TDL_ApprovalDate,TDL_ApplicationNote,TDL_SubmitterName ,TDL_Position)
+      VALUES(#Id#,#DmaId#,#HosId#,#ProductNameString#,#CompanyName#,#Rsm#,#CreatUser#,#CreatDate#,getdate(),dateadd(d, 365, getdate()),#ApprovalStatus#,#ApprovalRemark#,#ApprovalUser#,#ApprovalDate#,#ApplicationNote#,#SubmitterName#,#Position#)
+    </insert>
+
+    <select id="SelectThirdPartylist" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select * from ThirdPartyDisclosureList  where TDL_HOS_ID=#hosid#
+      and TDL_CompanyName=#CompanyName# and TDL_ProductNameString=#productline#
+      and TDL_ApprovalStatus=#ApprovalStatus# and TDL_DMA_ID=#dmaid#
+      and TDL_RSM=#rsm#
+    </select>
+
+    <select id="ThirdPartylist" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+   select Id, DmaId,CompanyName, ThirdType ,Rsm,BeginDate,ApprovalDate ,HospitalId,EndDate,HospitalName,NotTP,ApprovalStatus,ApprovalName,ApprovalRemark,TerminationDate,ProductNameString,  
+     ROW_NUMBER () OVER (ORDER BY case when (DATEDIFF ( DD,GETDATE(),TDL_EndDate) &lt;=30) then '1' end  DESC, TDL_CreatDate  desc ,TDL_ApprovalDate desc ) AS [row_number]   
+     from (select TDL_ID AS Id,TDL_DMA_ID AS DmaId,TDL_HOS_ID AS HospitalId ,h.HOS_HospitalName AS HospitalName,TDL_NotTP AS NotTP
+      ,TDL_CompanyName AS CompanyName,TDL_RSM AS Rsm,
+      CONVERT(varchar(100),TDL_BeginDate, 20)  AS BeginDate,
+      CONVERT(varchar(100),TDL_EndDate, 20)   AS EndDate
+      ,TDL_ApprovalStatus AS ApprovalStatus
+      ,CONVERT(varchar(100),TDL_ApprovalDate, 20) AS ApprovalDate
+      ,D.IDENTITY_NAME AS ApprovalName,
+      CONVERT(varchar(100),TDL_TerminationDate, 20) as TerminationDate
+      ,TDL_ProductNameString AS ProductNameString, A.TDL_ApprovalRemark as ApprovalRemark
+      ,
+      CASE WHEN exists ( SELECT * FROM (SELECT DMA_ID,HOS_ID,ProductNameString,CompanyName,TAB.RSM,
+      CASE WHEN GETDATE() BETWEEN BeginDate AND EndDate
+      THEN '已生效' ELSE '未生效' END  ThirdType
+      FROM (
+      SELECT TDL_DMA_ID AS DMA_ID ,TDL_HOS_ID AS HOS_ID,TDL_ProductNameString ProductNameString,TDL_CompanyName CompanyName,TDL_RSM RSM,
+      TDL_BeginDate BeginDate,
+      CASE WHEN TDL_TerminationDate IS NOT NULL AND TDL_ApprovalStatus IN ('终止申请审批通过')
+       THEN TDL_TerminationDate 
+      WHEN TDL_ApprovalStatus IN ('申请审批通过','终止申请审批中','终止申请审批拒绝')
+       THEN TDL_EndDate END EndDate
+      FROM ThirdPartyDisclosureList WHERE TDL_ApprovalStatus IN ('终止申请审批通过','申请审批通过','终止申请审批中','终止申请审批拒绝')
+      ) TAB ) TAB3
+      WHERE TAB3.CompanyName=A.TDL_CompanyName
+      AND TAB3.ProductNameString=A.TDL_ProductNameString
+      AND TAB3.RSM=A.TDL_RSM AND TAB3.ThirdType='已生效'
+      and TAB3.DMA_ID=a.TDL_DMA_ID
+      and TAB3.HOS_ID=a.TDL_HOS_ID
+      ) THEN '已生效' else '未生效' end   ThirdType   
+      from
+      ThirdPartyDisclosureList A
+      inner join
+      (SELECT * FROM (
+      select TDL_DMA_ID DMA_ID,TDL_HOS_ID HOS_ID,TDL_ProductNameString ProductNameString,TDL_CompanyName CompanyName,TDL_RSM RSM,MAX(TDL_CreatDate) CreatDate
+      from ThirdPartyDisclosureList    
+      GROUP BY TDL_ProductNameString,TDL_CompanyName,TDL_RSM,TDL_DMA_ID,TDL_HOS_ID) TAB4) B
+      ON A.TDL_ProductNameString=B.ProductNameString
+      AND A.TDL_CompanyName=B.CompanyName AND A.TDL_RSM=B.RSM AND A.TDL_CreatDate=B.CreatDate
+      and A.TDL_DMA_ID=b.DMA_ID
+      and a.TDL_HOS_ID=b.HOS_ID
+      left join  Hospital h on h.HOS_ID=a.TDL_HOS_ID
+      left join  Lafite_IDENTITY D ON D.Id=A.TDL_ApprovalUser )e
+      inner join ThirdPartyDisclosureList on e.Id=TDL_ID
+      where TDL_DMA_ID=#DmaId#
+      <isNotNull prepend="AND" property="HospitalName">e.HospitalName like N'%$HospitalName$%'</isNotNull>
+      <isNotNull prepend="AND" property="type">e.ThirdType=#type#</isNotNull>
+    </select>
+
+    <update id="updateThirdPartyList" parametrClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosureList
+      set TDL_ApprovalStatus=#ApprovalStatus# ,TDL_ApprovalDate=#ApprovalDate# ,TDL_ApprovalUser=#ApprovalName#
+      ,TDL_TerminationDate=getdate()  where TDL_Id=#Id#
+    </update>
+    <update id="updateendThirdPartyList" parametrClass="System.Collections.Hashtable">    
+     UPDATE ThirdPartyDisclosureList
+      set  TDL_EndDate=GETDATE()
+      where  TDL_ID=( select top 1  TDL_ID
+      from ThirdPartyDisclosureList where 
+      TDL_HOS_ID=#hosid#
+      and TDL_CompanyName=#CompanyName# and TDL_ProductNameString=#productline#
+      and TDL_ApprovalStatus=#ApprovalStatus# and TDL_DMA_ID=#dmaid#
+      and TDL_RSM=#rsm#  order by TDL_CreatDate desc)
+
+    </update>
+
+   <update id="endThirdPartyList" parameterClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosureList
+      set TDL_ApprovalStatus=#ApprovalStatus# ,TDL_ApprovalDate=#ApprovalDate# ,TDL_ApprovalUser=#ApprovalName#,TDL_ApprovalRemark=#ApprovalRemark#
+       ,TDL_ApplicationNote=#ApplicationNote#
+      where TDL_Id=#Id#
+    </update>
+  <select id="Authorinformation" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+    select top 1  t.TDL_SubmitterName,t.TDL_Position from  
+    ThirdPartyDisclosureList t where TDL_DMA_ID=#DmaId# and TDL_ApprovalStatus='申请审批通过' 
+    order by t.TDL_CreatDate desc
+    </select>
+    
+   <select id="ThirdPartyDisclosureListALL" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+    select t.TDL_ProductNameString,h.HOS_HospitalName,t.TDL_CompanyName from ThirdPartyDisclosureList t 
+   inner join Hospital h on h.HOS_ID=t.TDL_HOS_ID
+   where t.TDL_ID=#ID#
+    </select>
+   
+  
+<select id="ExportThirdPartylist" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+  select d.DMA_ChineseName as 经销商名称,t.TDL_ProductNameString as 披露产品线,t.TDL_CompanyName as 披露公司,
+  t.TDL_RSM as  与贵司或者医院关系 ,t.TDL_BeginDate as 披露开始时间 ,t.TDL_EndDate as 披露结束时间,
+  TDL_ApprovalDate as 披露审批时间 ,h.HOS_HospitalName  as 披露医院名称,t.TDL_ApprovalStatus as 披露审批状态,
+  c.IDENTITY_NAME as 审批人,t.TDL_ApprovalRemark as 审批备注,t.TDL_TerminationDate as 终止披露时间 ,
+  t.TDL_ApplicationNote as 披露备注,t.TDL_SubmitterName as '提交人姓名/职务',t. TDL_Position as 提交人手机
+  from ThirdPartyDisclosureList t(nolock)
+  inner join DealerMaster d(nolock) on d.DMA_ID= t.TDL_DMA_ID
+  inner join Hospital h(nolock) on h.HOS_ID=t.TDL_HOS_ID
+  left join  Lafite_IDENTITY c(nolock) ON c.Id=t.TDL_ApprovalUser
+  where TDL_DMA_ID=#DmaId#
+  <isNotNull prepend="AND" property="HospitalName">e.HospitalName like N'%$HospitalName$%'</isNotNull>
+     
+    </select>
+  
+
+<update id="TerminationThirdPartyList" parametrClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosureList
+       set  TDL_EndDate=GETDATE()
+       where  TDL_ID=#Id#
+    </update>
+  </statements>
+</sqlMap>

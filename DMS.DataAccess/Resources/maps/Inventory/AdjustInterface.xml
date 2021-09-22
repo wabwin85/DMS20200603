@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AdjustInterfaceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AdjustInterface" assembly="DMS.Model.dll" type="DMS.Model.AdjustInterface" />
+    <typeAlias alias="LpReturnData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.LpReturnData" />
+    <typeAlias alias="T2ReturnData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.T2ReturnData" />
+    <typeAlias alias="T2ConsignToSellingData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.T2ConsignToSellingData" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AdjustInterfaceResult" class="AdjustInterface">
+      <result property="Id" column="AI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BatchNbr" column="AI_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="RecordNbr" column="AI_RecordNbr" type="string" dbType="nvarchar"/>
+      <result property="IahId" column="AI_IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IahAdjustNo" column="AI_IAH_AdjustNo" type="string" dbType="nvarchar"/>
+      <result property="Status" column="AI_Status" type="string" dbType="nvarchar"/>
+      <result property="ProcessType" column="AI_ProcessType" type="string" dbType="nvarchar"/>
+      <result property="FileName" column="AI_FileName" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="AI_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="AI_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="AI_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="AI_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="AI_ClientID" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="LpReturnDataResult" class="LpReturnData">
+      <result property="ReturnNo" column="ReturnNo" type="string" dbType="nvarchar"/>
+      <result property="ReturnDate" column="ReturnDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+      <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="T2ReturnDataResult" class="T2ReturnData">
+      <result property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+      <result property="ReturnType" column="ReturnType" type="string" dbType="nvarchar"/>
+      <result property="OrderNo" column="OrderNo" type="string" dbType="nvarchar"/>
+      <result property="WarehouseType" column="WarehouseType" type="string" dbType="nvarchar"/>
+      <result property="ReturnNo" column="ReturnNo" type="string" dbType="nvarchar"/>
+      <result property="ReturnDate" column="ReturnDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+      <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+      <result property="WarehouseCode" column="WarehouseCode" type="string" dbType="nvarchar"/>
+    </resultMap>
+    <resultMap id="T2ConsignToSellingDataResult" class="T2ConsignToSellingData">
+      <result property="AdjustNo" column="AdjustNo" type="string" dbType="nvarchar"/>
+      <result property="AdjustDate" column="AdjustDate" type="DateTime" dbType="datetime"/>
+      <result property="Type" column="Type" type="string" dbType="nvarchar"/>
+      <result property="DealerCode" column="DealerCode" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <result property="WhmCode" column="WhmCode" type="string" dbType="nvarchar"/>
+      <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+      <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_LPReturn_AfterDownload_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="Success" column="Success" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectAdjustInterface" parameterClass="string" resultClass="AdjustInterface">
+      SELECT AI_ID AS Id,AI_BatchNbr AS BatchNbr,AI_RecordNbr AS RecordNbr,AI_IAH_ID AS IahId,AI_IAH_AdjustNo AS IahAdjustNo,AI_Status AS Status,AI_ProcessType AS ProcessType,AI_FileName AS FileName,AI_CreateUser AS CreateUser,AI_CreateDate AS CreateDate,AI_UpdateUser AS UpdateUser,AI_UpdateDate AS UpdateDate,AI_ClientID AS Clientid
+      FROM AdjustInterface
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          AI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAdjustInterface" parameterClass="AdjustInterface" resultClass="AdjustInterface">
+      SELECT AI_ID AS Id,AI_BatchNbr AS BatchNbr,AI_RecordNbr AS RecordNbr,AI_IAH_ID AS IahId,AI_IAH_AdjustNo AS IahAdjustNo,AI_Status AS Status,AI_ProcessType AS ProcessType,AI_FileName AS FileName,AI_CreateUser AS CreateUser,AI_CreateDate AS CreateDate,AI_UpdateUser AS UpdateUser,AI_UpdateDate AS UpdateDate,AI_ClientID AS Clientid
+      FROM AdjustInterface
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">AI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">AI_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="RecordNbr">AI_RecordNbr=#RecordNbr#</isNotNull>
+        <isNotNull prepend="AND" property="IahId">AI_IAH_ID=#IahId#</isNotNull>
+        <isNotNull prepend="AND" property="IahAdjustNo">AI_IAH_AdjustNo=#IahAdjustNo#</isNotNull>
+        <isNotNull prepend="AND" property="Status">AI_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ProcessType">AI_ProcessType=#ProcessType#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">AI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">AI_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">AI_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">AI_ClientID=#Clientid#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAdjustInterface" parameterClass="AdjustInterface">
+      INSERT INTO AdjustInterface
+      (AI_ID,AI_BatchNbr,AI_RecordNbr,AI_IAH_ID,AI_IAH_AdjustNo,AI_Status,AI_ProcessType,AI_FileName,AI_CreateUser,AI_CreateDate,AI_UpdateUser,AI_UpdateDate,AI_ClientID)
+      VALUES(#Id#,#BatchNbr#,#RecordNbr#,#IahId#,#IahAdjustNo#,#Status#,#ProcessType#,#FileName#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#)
+    </insert>
+    <update id="UpdateAdjustInterface" parameterClass="AdjustInterface">
+      UPDATE AdjustInterface
+      SET AI_ID=#Id#,AI_BatchNbr=#BatchNbr#,AI_RecordNbr=#RecordNbr#,AI_IAH_ID=#IahId#,AI_IAH_AdjustNo=#IahAdjustNo#,AI_Status=#Status#,AI_ProcessType=#ProcessType#,AI_FileName=#FileName#,AI_UpdateUser=#UpdateUser#,AI_UpdateDate=#UpdateDate#,AI_ClientID=#Clientid#
+      WHERE AI_ID = #Id#
+    </update>
+    <delete id="DeleteAdjustInterface" parameterClass="string">
+      DELETE FROM AdjustInterface
+      WHERE AI_ID = #value#
+    </delete>
+    <delete id="DeleteAdjustInterfaceByIahId" parameterClass="string">
+      DELETE FROM AdjustInterface
+      WHERE AI_IAH_ID = #value#
+    </delete>
+    <select id="QueryReturnDetailInfoByBatchNbrForLp" parameterClass="string" resultClass="LpReturnData">
+      SELECT * FROM (
+      SELECT
+      ISNULL(IAH.IAH_Inv_Adj_Nbr,'') AS ReturnNo,
+      (select VPL.DivisionName from  V_DivisionProductLineRelation VPL where VPL.ProductLineID = IAH.IAH_ProductLine_BUM_ID ) AS ProductLine,
+      IAH.IAH_ApprovalDate AS ReturnDate,
+      ISNULL(IAH.IAH_UserDescription,'') AS Remark,
+      ISNULL(CFN.CFN_CustomerFaceNbr,'') AS UPN,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      ISNULL(IAL_Lot,'') AS Lot,
+      ISNULL(IAL_QRCode,'') AS QRCode,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      Convert(decimal(18,6),IAL.IAL_LotQty) AS Qty,
+      ISNULL(DM.DMA_SAP_Code,'') AS DealerCode
+      FROM AdjustInterface AI(nolock)
+      INNER JOIN InventoryAdjustHeader IAH(nolock) ON AI.AI_IAH_ID = IAH.IAH_ID
+      INNER JOIN InventoryAdjustDetail IAD(nolock) ON IAD.IAD_IAH_ID = IAH.IAH_ID
+      INNER JOIN InventoryAdjustLot IAL(nolock) ON IAL.IAL_IAD_ID = IAD.IAD_ID
+      INNER JOIN Product PMA(nolock) ON IAD.IAD_PMA_ID = PMA.PMA_ID
+      INNER JOIN CFN(nolock) ON CFN.CFN_ID = PMA.PMA_CFN_ID
+      INNER JOIN (SELECT DICT_KEY, REV1, REV2 FROM Lafite_DICT(nolock) WHERE DICT_TYPE = 'CONST_AdjustQty_Type') AS ORDERTYPE ON ORDERTYPE.DICT_KEY = IAH.IAH_Reason
+      LEFT JOIN DealerMaster DM(nolock) on IAL_DMA_ID = DMA_ID
+      WHERE AI.AI_BatchNbr = #BatchNbr#
+      AND IAH.IAH_Reason in ('Return','Exchange','Transfer')
+      UNION
+      SELECT
+      ISNULL(TH.TH_No,'') AS ReturnNo,
+      (select VPL.DivisionName from  V_DivisionProductLineRelation VPL where VPL.ProductLineID = TH.TH_ProductLine_BUM_ID ) AS ProductLine,
+      TH.TH_CreateDate AS ReturnDate,
+      ISNULL(TH.TH_Remark,'') AS Remark,
+      ISNULL(CFN.CFN_CustomerFaceNbr,'') AS UPN,
+      ISNULL(LOT_LTM_Lot,'') AS Lot,
+      ISNULL(LOT_LTM_QRCode,'') AS QRCode,
+      Convert(decimal(18,6),TC.TC_QTY) AS Qty,
+      ISNULL(DM.DMA_SAP_Code,'') AS DealerCode
+      FROM AdjustInterface AI(nolock)
+      INNER JOIN Consignment.TransferHeader TH(nolock) ON AI.AI_IAH_ID = TH.TH_ID
+      INNER JOIN Consignment.TransferDetail TD(nolock) ON TD.TD_TH_ID = TH.TH_ID
+      INNER JOIN Consignment.TransferConfirm TC(nolock) ON TC.TC_TD_ID = TD.TD_ID
+      INNER JOIN Lot(nolock) ON LOT.LOT_ID=TC.TC_LOT_ID
+      INNER JOIN LotMaster (nolock) ON LOT.LOT_LTM_ID=LotMaster.LTM_ID
+      INNER JOIN Product PMA(nolock) ON TC.TC_PMA_ID = PMA.PMA_ID
+      INNER JOIN CFN(nolock) ON CFN.CFN_ID = PMA.PMA_CFN_ID
+
+      LEFT JOIN DealerMaster DM(nolock) on TH.TH_DMA_ID_From = DMA_ID
+      WHERE AI.AI_BatchNbr = #BatchNbr#
+      ) UN
+      ORDER BY ReturnNo, UPN
+
+    </select>
+    <!--根据批处理号得到二级经销商退货明细数据-->
+    <select id="QueryReturnDetailInfoByBatchNbrForT2" parameterClass="string" resultClass="T2ReturnData">
+      SELECT
+      ISNULL(D.DMA_SAP_Code,'') AS DistributorID,
+      ISNULL(IAH.IAH_Inv_Adj_Nbr,'') AS ReturnNo,
+      (select VPL.DivisionName from  V_DivisionProductLineRelation VPL where VPL.ProductLineID = IAH.IAH_ProductLine_BUM_ID ) AS ProductLine,
+      IAH.IAH_ApprovalDate AS ReturnDate,
+      ISNULL(IAH.IAH_UserDescription,'') AS Remark,
+      ISNULL(CFN.CFN_CustomerFaceNbr,'') AS UPN,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      ISNULL(IAL_Lot,'') AS Lot,
+      ISNULL(IAL_QRCode,'') AS QRCode,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      Convert(decimal(18,6),IAL.IAL_LotQty) AS Qty,
+      ISNULL(IAH_Reason,'') as ReturnType,
+      ISNULL(PRH_PurchaseOrderNbr,'') AS OrderNo,
+      ISNULL(IAH_WarehouseType,'') AS WarehouseType,
+      WH.WHM_Code AS WarehouseCode
+      FROM AdjustInterface AI(nolock)
+      INNER JOIN InventoryAdjustHeader IAH(nolock) ON AI.AI_IAH_ID = IAH.IAH_ID
+      INNER JOIN InventoryAdjustDetail IAD(nolock) ON IAD.IAD_IAH_ID = IAH.IAH_ID
+      INNER JOIN InventoryAdjustLot IAL(nolock) ON IAL.IAL_IAD_ID = IAD.IAD_ID
+      INNER JOIN Product PMA(nolock) ON IAD.IAD_PMA_ID = PMA.PMA_ID
+      INNER JOIN DealerMaster D(nolock) ON D.DMA_ID = IAH.IAH_DMA_ID
+      INNER JOIN CFN(nolock) ON CFN.CFN_ID = PMA.PMA_CFN_ID
+      INNER JOIN (SELECT DICT_KEY, REV1, REV2 FROM Lafite_DICT(nolock) WHERE DICT_TYPE = 'CONST_AdjustQty_Type') AS ORDERTYPE ON ORDERTYPE.DICT_KEY = IAH.IAH_Reason
+      INNER JOIN Warehouse WH(nolock) ON (WH.WHM_ID = IAL.IAL_WHM_ID )
+      LEFT JOIN POReceiptHeader PRH(nolock) ON IAL.IAL_PRH_ID= prh.PRH_ID
+      WHERE AI.AI_BatchNbr = #BatchNbr#
+      AND IAH.IAH_Reason in ('Return','Exchange')
+      ORDER BY IAH.IAH_Inv_Adj_Nbr, CFN.CFN_CustomerFaceNbr
+    </select>
+    <!--根据客户端ID初始化LP自己的退货数据-->
+    <update id="UpdateAdjustReturnInterfaceForLpInitByClientID" parameterClass="System.Collections.Hashtable">
+      <!--WITH AI (AI_ID, RECORD_NBR) AS
+      (SELECT AI_ID,ROW_NUMBER() OVER (ORDER BY AI_IAH_AdjustNo) AS RECORD_NBR from AdjustInterface
+      INNER JOIN InventoryAdjustHeader ON IAH_ID = AI_IAH_ID
+      INNER JOIN Client ON CLT_ID = AI_ClientID
+      WHERE AI_ClientID=#Clientid# AND AI_Status='Pending' AND IAH_DMA_ID = CLT_Corp_Id
+      AND IAH_Reason in ('Return','Exchange','Transfer'))
+      UPDATE AdjustInterface SET AI_BatchNbr=#BatchNbr#, AI_RecordNbr = AI.RECORD_NBR, AI_Status='Processing', AI_UpdateDate = #UpdateDate#
+      FROM AI WHERE AI.AI_ID = AdjustInterface.AI_ID-->
+      WITH AI (AI_ID, RECORD_NBR) AS
+      (SELECT AI_ID,ROW_NUMBER() OVER (ORDER BY AI_IAH_AdjustNo) AS RECORD_NBR
+      from AdjustInterface
+      INNER JOIN
+      (
+      SELECT IAH_ID,IAH_DMA_ID FROM InventoryAdjustHeader WHERE IAH_Reason in ('Return','Exchange','Transfer')
+      UNION
+      SELECT TH_ID,TH_DMA_ID_From FROM Consignment.TransferHeader
+      ) TAB
+      ON IAH_ID = AI_IAH_ID
+      INNER JOIN Client ON CLT_ID = AI_ClientID
+      WHERE AI_ClientID=#Clientid# AND
+      AI_Status='Pending' AND IAH_DMA_ID = CLT_Corp_Id
+      )
+      UPDATE AdjustInterface SET AI_BatchNbr=#BatchNbr#, AI_RecordNbr = AI.RECORD_NBR, AI_Status='Processing', AI_UpdateDate = #UpdateDate#
+      FROM AI WHERE AI.AI_ID = AdjustInterface.AI_ID
+    </update>
+    <!--根据客户端ID初始化LP下二级经销商的退货数据-->
+    <update id="UpdateAdjustReturnInterfaceForT2InitByClientID" parameterClass="System.Collections.Hashtable">
+      WITH AI (AI_ID, RECORD_NBR) AS
+      (SELECT AI_ID,ROW_NUMBER() OVER (ORDER BY AI_IAH_AdjustNo) AS RECORD_NBR from AdjustInterface
+      INNER JOIN InventoryAdjustHeader(nolock) ON IAH_ID = AI_IAH_ID
+      INNER JOIN Client(nolock) ON CLT_ID = AI_ClientID
+      INNER JOIN DealerMaster(nolock) ON IAH_DMA_ID = DMA_ID
+      WHERE AI_ClientID=#Clientid# AND AI_Status='Pending' AND DMA_Parent_DMA_ID = CLT_Corp_Id
+      AND IAH_Reason in ('Return','Exchange','Transfer'))
+      UPDATE AdjustInterface SET AI_BatchNbr=#BatchNbr#, AI_RecordNbr = AI.RECORD_NBR, AI_Status='Processing', AI_UpdateDate = #UpdateDate#
+      FROM AI WHERE AI.AI_ID = AdjustInterface.AI_ID
+    </update>
+    <!--根据客户端ID初始化LP下二级经销商的寄售转销售数据-->
+    <update id="UpdateAdjustCTOSInterfaceForT2InitByClientID" parameterClass="System.Collections.Hashtable">
+      WITH AI (AI_ID, RECORD_NBR) AS
+      (SELECT AI_ID,ROW_NUMBER() OVER (ORDER BY AI_IAH_AdjustNo) AS RECORD_NBR
+      from AdjustInterface(nolock)
+      INNER JOIN InventoryAdjustHeader(nolock) ON IAH_ID = AI_IAH_ID
+      INNER JOIN Client(nolock) ON CLT_ID = AI_ClientID
+      INNER JOIN DealerMaster(nolock) ON IAH_DMA_ID = DMA_ID
+      WHERE AI_ClientID=#Clientid# AND AI_Status='Pending' AND (DMA_Parent_DMA_ID = CLT_Corp_Id OR DMA_ID = CLT_Corp_Id)
+      AND IAH_Reason in ('CTOS','ForceCTOS','SalesOut'))
+      UPDATE AdjustInterface SET AI_BatchNbr=#BatchNbr#, AI_RecordNbr = AI.RECORD_NBR, AI_Status='Processing', AI_UpdateDate = #UpdateDate#
+      FROM AI WHERE AI.AI_ID = AdjustInterface.AI_ID
+    </update>
+    <!--根据批处理号得到二级经销商寄售转销售明细数据-->
+    <select id="QueryCTOSDetailInfoByBatchNbr" parameterClass="string" resultClass="T2ConsignToSellingData">
+      SELECT
+      ISNULL(D.DMA_SAP_Code,'') AS DealerCode,
+      ISNULL(IAH.IAH_Inv_Adj_Nbr,'') AS AdjustNo,
+      (select VPL.DivisionName from  V_DivisionProductLineRelation VPL where VPL.ProductLineID = IAH.IAH_ProductLine_BUM_ID) AS ProductLine,
+      IAH.IAH_CreatedDate AS AdjustDate,
+      ISNULL(IAH_Reason,'') as Type,
+      ISNULL(IAH.IAH_UserDescription,'') AS Remark,
+      ISNULL(CFN.CFN_CustomerFaceNbr,'') AS UPN,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      IAL_Lot AS Lot,
+      IAL_QRCode AS QRCode,
+      <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+      Convert(decimal(18,6),IAL.IAL_LotQty) AS Qty,
+      ISNULL(WHM_Code,'') AS WhmCode
+      FROM AdjustInterface AI(nolock)
+      INNER JOIN InventoryAdjustHeader IAH(nolock) ON AI.AI_IAH_ID = IAH.IAH_ID
+      INNER JOIN InventoryAdjustDetail IAD(nolock) ON IAD.IAD_IAH_ID = IAH.IAH_ID
+      INNER JOIN InventoryAdjustLot IAL(nolock) ON IAL.IAL_IAD_ID = IAD.IAD_ID
+      INNER JOIN Product PMA(nolock) ON IAD.IAD_PMA_ID = PMA.PMA_ID
+      INNER JOIN DealerMaster D(nolock) ON D.DMA_ID = IAH.IAH_DMA_ID
+      INNER JOIN CFN(nolock) ON CFN.CFN_ID = PMA.PMA_CFN_ID
+      INNER JOIN (SELECT DICT_KEY, REV1, REV2 FROM Lafite_DICT(nolock) WHERE DICT_TYPE = 'CONST_AdjustQty_Type') AS ORDERTYPE ON ORDERTYPE.DICT_KEY = IAH.IAH_Reason
+      LEFT JOIN POReceiptHeader PRH(nolock) ON IAL.IAL_PRH_ID= prh.PRH_ID
+      INNER JOIN Warehouse whm(nolock) on IAL_WHM_ID = whm.WHM_ID
+      WHERE AI.AI_BatchNbr = #BatchNbr#
+      AND IAH.IAH_Reason in ( 'CTOS','ForceCTOS','SalesOut')
+      ORDER BY IAH.IAH_Inv_Adj_Nbr, CFN.CFN_CustomerFaceNbr
+    </select>
+    <procedure id="GC_LPReturn_AfterDownload" parameterMap="GC_LPReturn_AfterDownload_ParameterMap">
+      dbo.GC_LPReturn_AfterDownload
+    </procedure>
+  </statements>
+</sqlMap>

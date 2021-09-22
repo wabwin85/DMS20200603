@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="form1.BasicForm.Title" xml:space="preserve">
+    <value>发货数据上传</value>
+  </data>
+  <data name="form1.DownloadButton.Text" xml:space="preserve">
+    <value>下载模板</value>
+  </data>
+  <data name="form1.FileUploadField1.EmptyText" xml:space="preserve">
+    <value>选择发货数据导入文件(Excel格式)</value>
+  </data>
+  <data name="form1.FileUploadField1.FieldLabel" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="form1.ImportButton.Text" xml:space="preserve">
+    <value>2.生成收货单</value>
+  </data>
+  <data name="form1.ImportButton.Wait.Body" xml:space="preserve">
+    <value>初始化库存</value>
+  </data>
+  <data name="form1.ImportButton.Wait.Title" xml:space="preserve">
+    <value>正在处理数据...</value>
+  </data>
+  <data name="form1.ResetButton.Text" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="form1.SaveButton.Alert.Body" xml:space="preserve">
+    <value>上传中发生错误</value>
+  </data>
+  <data name="form1.SaveButton.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="form1.SaveButton.Text" xml:space="preserve">
+    <value>1.上传文件</value>
+  </data>
+  <data name="form1.SaveButton.Wait.Body" xml:space="preserve">
+    <value>文件上传</value>
+  </data>
+  <data name="form1.SaveButton.Wait.Title" xml:space="preserve">
+    <value>正在上传文件...</value>
+  </data>
+  <data name="GeneratePOReceipt.Alert.Body" xml:space="preserve">
+    <value>生成收货数据异常，请联系管理员！</value>
+  </data>
+  <data name="GeneratePOReceipt.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="GeneratePOReceipt.IsValid.Alert.Body" xml:space="preserve">
+    <value>生成收货数据异常，请联系管理员！</value>
+  </data>
+  <data name="GeneratePOReceipt.IsValid.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="GeneratePOReceipt.IsValid.Success.Alert.Body" xml:space="preserve">
+    <value>生成收货数据成功！</value>
+  </data>
+  <data name="GeneratePOReceipt.IsValid.Success.Alert.Title" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.Carrier.Header" xml:space="preserve">
+    <value>承运方</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.DeliveryQty.Header" xml:space="preserve">
+    <value>发货数量</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ErrorDescription.Header" xml:space="preserve">
+    <value>错误描述</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.LineNbr.Header" xml:space="preserve">
+    <value>行号</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.LotNumber.Header" xml:space="preserve">
+    <value>批号/序列号</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.Note.Header" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.OrderNo.Header" xml:space="preserve">
+    <value>订单编号</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.SapCode.Header" xml:space="preserve">
+    <value>ERP帐号</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.SapDeliveryNo.Header" xml:space="preserve">
+    <value>ERP发货单号</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ShippingDate.Header" xml:space="preserve">
+    <value>ERP发货日期</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.ShipType.Header" xml:space="preserve">
+    <value>运输方式</value>
+  </data>
+  <data name="GridPanel1.ColumnModel1.TrackingNo.Header" xml:space="preserve">
+    <value>运单号</value>
+  </data>
+  <data name="GridPanel1.LoadMask.Msg" xml:space="preserve">
+    <value>处理中...</value>
+  </data>
+  <data name="GridPanel1.Title" xml:space="preserve">
+    <value>出错信息</value>
+  </data>
+  <data name="ImportClick.Alert.Body" xml:space="preserve">
+    <value>请使用正确的模板！</value>
+  </data>
+  <data name="ImportClick.Alert.Body1" xml:space="preserve">
+    <value>数据校验通过，开始生成收货数据</value>
+  </data>
+  <data name="ImportClick.Alert.Body2" xml:space="preserve">
+    <value>数据校验未通过！</value>
+  </data>
+  <data name="ImportClick.Alert.Body3" xml:space="preserve">
+    <value>没有数据可导入！</value>
+  </data>
+  <data name="ImportClick.Alert.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ImportClick.Alert.Title1" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="ImportClick.Alert.Title2" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ImportClick.Alert.Title3" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="UploadClick.fileExtention.Msg.Show.Message" xml:space="preserve">
+    <value>请使用正确的模板文件，模板文件为EXCEL文件！</value>
+  </data>
+  <data name="UploadClick.fileExtention.Msg.Show.Title" xml:space="preserve">
+    <value>文件错误</value>
+  </data>
+  <data name="UploadClick.Msg.Show.Message" xml:space="preserve">
+    <value>已成功上传文件！</value>
+  </data>
+  <data name="UploadClick.Msg.Show.Message1" xml:space="preserve">
+    <value>文件未被成功上传！</value>
+  </data>
+  <data name="UploadClick.Msg.Show.Title" xml:space="preserve">
+    <value>上传成功</value>
+  </data>
+  <data name="UploadClick.Msg.Show.Title1" xml:space="preserve">
+    <value>上传失败</value>
+  </data>
+  <data name="ImportClick.Ok.Text" xml:space="preserve">
+    <value>确定</value>
+  </data>
+</root>

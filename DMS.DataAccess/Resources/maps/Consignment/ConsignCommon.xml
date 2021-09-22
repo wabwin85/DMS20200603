@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.ConsignCommonMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Consignment.ConsignCountManagePO" assembly="DMS.Model.dll" type="DMS.Model.Consignment.ConsignCountManagePO" />
+  </alias>
+  <parameterMaps>
+    <parameterMap id="Consignment.ConsignCommon.ProcGetNextAutoNumberParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="DeptCode" column="DeptCode" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="ClientId" column="ClientId" />
+      <parameter property="Settings" column="Settings" />
+      <parameter property="NextNum" column="NextNum" direction="Output" />
+    </parameterMap>
+    <parameterMap id="Consignment.ConsignCommonMap.PurchaseOrderCreateParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="OrderType" column="OrderType" />
+      <parameter property="BillType" column="BillType" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="BillNo" column="BillNo" />
+      <parameter property="IsActiveImmediately" column="IsActiveImmediately" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="Consignment.ConsignCommonMap.ConsignmentInvBuyOffParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BillType" column="BillType" />
+      <parameter property="BillNo" column="BillNo" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <!-- Start Select -->
+    <select id="Consignment.ConsignCommonMap.SelectConsignmentQuotaList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT TOP 1000 [CQ_ID]
+      ,[CQ_DMA_SAP_Code]
+      ,[CQ_DivisionCode]
+      ,[CQ_UPN]
+      ,[CQ_Amount]
+      ,[CQ_Qty]
+      ,[CQ_BeginDate]
+      ,[CQ_EndDate]
+      ,[CQ_CreateDate]
+      ,[DMA_ChineseName]
+      ,[DMA_ID]
+      ,row_number() OVER (ORDER BY cq_createdate DESC ) AS row_number
+      FROM [interface].[T_MDS_ConsignmentQuota] itmcq
+      LEFT JOIN DealerMaster dm ON itmcq.CQ_DMA_SAP_Code=dm.DMA_SAP_Code
+      where 1=1
+      <isNotEmpty prepend="AND" property="QryDealer">
+        DMA_ChineseName like '%'+#QryDealer#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryUpn">
+        CQ_Upn like '%'+#QryUpn#+'%'
+      </isNotEmpty>      
+      order by cq_createdate desc
+    </select>
+    
+    <select id="Consignment.ConsignCommonMap.SelectUpnByDealerID" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT  DISTINCT Product.PMA_UPN AS Upn
+      FROM Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      Lafite_ATTRIBUTE(nolock) ON CFN.CFN_ProductLine_BUM_ID = Lafite_ATTRIBUTE.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DMA_ID">WHM_DMA_ID=#DMA_ID#</isNotNull>
+      </dynamic>
+    </select>
+    <!-- End   Select -->
+
+    <!-- Start Insert -->
+    <insert id="Consignment.ConsignCommonMap.InsertConsignCountManage" parameterClass="Consignment.ConsignCountManagePO">
+      <![CDATA[
+      INSERT INTO [interface].[T_MDS_ConsignmentQuota]
+        (CQ_ID, CQ_DMA_SAP_Code, CQ_DivisionCode, CQ_UPN, CQ_Amount, CQ_Qty, CQ_BeginDate, CQ_EndDate, CQ_CreateDate)
+      VALUES
+        (#CQ_ID#, #CQ_DMA_SAP_Code#, #CQ_DivisionCode#, #CQ_Upn#, #CQ_Amount#, #CQ_Qty#, #CQ_BeginDate#, #CQ_EndDate#, #CQ_CreateDate#)
+
+      ]]>
+    </insert>
+    <!-- End   Insert -->
+
+    <!-- Start Update -->
+    <update id="Consignment.ConsignCommonMap.UpdateConsignCountManage" parameterClass="Consignment.ConsignCountManagePO">
+      <![CDATA[
+      update [interface].[T_MDS_ConsignmentQuota] set CQ_Amount=#CQ_Amount#,
+      CQ_DMA_SAP_Code=#CQ_DMA_SAP_Code#,CQ_DivisionCode=#CQ_DivisionCode#,CQ_UPN=#CQ_Upn#,
+      CQ_Qty=#CQ_Qty#,CQ_BeginDate=#CQ_BeginDate#,CQ_EndDate=#CQ_EndDate#
+      where CQ_ID=#CQ_ID#
+      ]]>
+    </update>
+    <!-- End   Update -->
+
+    <!-- Start Delete -->
+    <delete id="Consignment.ConsignCommonMap.Delete" parameterClass="string">
+      DELETE FROM [interface].[T_MDS_ConsignmentQuota]
+      WHERE CQ_ID = #value#
+    </delete>
+    <!-- End   Delete -->
+
+    <!-- Start Procdure -->
+    <procedure id="Consignment.ConsignCommonMap.ProcGetNextAutoNumber" parameterMap="Consignment.ConsignCommon.ProcGetNextAutoNumberParameterMap">
+      Consignment.Proc_GetNextAutoNumber
+    </procedure>
+    
+    <procedure id="Consignment.ConsignCommonMap.PurchaseOrderCreate" parameterMap="Consignment.ConsignCommonMap.PurchaseOrderCreateParameterMap">
+      Consignment.Proc_CreateOrder 
+    </procedure>
+    
+    <procedure id="Consignment.ConsignCommonMap.ConsignmentInvBuyOff" parameterMap="Consignment.ConsignCommonMap.ConsignmentInvBuyOffParameterMap">
+      Consignment.Proc_ConsignmentInv_BuyOff
+    </procedure>
+    <!-- End   Procdure -->
+  </statements>
+</sqlMap>

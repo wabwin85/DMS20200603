@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D190E97A-3A97-4C3D-9939-B16D222C9CA4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.UploadSalesToBSC</RootNamespace>
+    <AssemblyName>DMS.UploadSalesToBSC</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\BSCPlatformService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UploadSales.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadBSCInvoiceDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadDealerOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadDealerReturnResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadDealerSalesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadDMSCalculatedPointsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownLoadLPComplainResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadLpDistributorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadLpHospitalResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadLpOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadLPRentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadLpReturnResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadLpShipmentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadProductDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadT2AuthorizationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadT2CommercialIndexResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.DownloadT2DealerConsignmentToSellingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadBSCDeliveryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadConsignmentWarehouseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerConsignmentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerConsignmentSalesPriceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerOrderConfirmationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerReturnConfirmDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerSalesWritebackDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerShipmentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDealerTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadDMSFilesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadFilesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadJYQRCodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadLpAdjustResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadLpBorrowResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadLpReturnConfirmResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadLpSalesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadLpShipmentConfirmResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadLpTransferResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadT2ContactInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadT2CreditMemoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\DMS.UploadSalesToBSC.BSCPlatformService.UploadT2PointsAdjustmentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BSCPlatformService\platform.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BSCPlatformService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BSCPlatformService\platform.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BSCPlatformService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BSCPlatformService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BSCPlatformService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.Business\DMS.Business.csproj">
+      <Project>{3ca1033f-aefb-414a-ae2e-58fa4533f374}</Project>
+      <Name>DMS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.DataAccess\DMS.DataAccess.csproj">
+      <Project>{03a4a80f-98b9-40c7-a3dd-804d7901f0dc}</Project>
+      <Name>DMS.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.DataService\DMS.DataService.csproj">
+      <Project>{5efa666a-adf8-4cf7-adb7-8fe64a2d2cca}</Project>
+      <Name>DMS.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Model\DMS.Model.csproj">
+      <Project>{25ea2c8a-56fd-446f-b3f6-d9a7cfa11c77}</Project>
+      <Name>DMS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

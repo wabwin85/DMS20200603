@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.ContractDetail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Consignment.ContractDetailPO" assembly="DMS.Model.dll" type="DMS.Model.Consignment.ContractDetailPO" />
+  </alias>
+
+  <statements>
+    <insert id="Consignment.ContractDetail.Insert" parameterClass="Consignment.ContractDetailPO">
+      <![CDATA[
+       Insert into Consignment.ContractDetail (CCD_ID,CCD_CCH_ID,CCD_CfnShortNumber,CCD_CfnType,CCD_Remark)
+       Values
+       (#CCH_ID#,#CCD_CCH_ID#,#CCD_CfnShortNumber#,#CCD_CfnType#,'')
+      ]]>
+    </insert>
+
+  <select id="Consignment.ContractDetail.QueryConsignmentContractDetail" parameterClass="string" resultClass="System.Data.DataSet">
+    select distinct CCD_CfnShortNumber as CFN_CustomerFaceNbr,CCD_CfnType as [Type],CFN_Property1,Product.PMA_ConvertFactor,CFN_Property3,
+    (select top 1 CFN_ChineseName from CFN where CFN.CFN_Property1=C.CCD_CfnShortNumber) as CFN_ChineseName
+    from Consignment.ContractDetail C
+    left join CFN on CFN.CFN_Property1=C.CCD_CfnShortNumber
+    left join Product on CFN.CFN_ID=Product.PMA_CFN_ID
+    where CCD_CCH_ID=#CCD_CCH_ID#
+  </select>
+
+    <delete id="Consignment.ContractDetail.Delete" parameterClass="string">
+      DELETE FROM Consignment.ContractDetail
+      WHERE CCD_CCH_ID = #value#
+    </delete>
+
+
+    <select id="Consignment.ContractDetail.SelectContractUpnList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT CFN.CFN_ID Id,
+               CFN.CFN_CustomerFaceNbr UpnNo,
+               CFN.CFN_Property1 UpnShortNo,
+               CFN.CFN_ChineseName UpnName,
+               CFN.CFN_EnglishName UpnEngName,
+               CFN.CFN_Property3 Unit
+        FROM   Consignment.ContractDetail AS ContractDetail
+               INNER JOIN CFN AS CFN
+                    ON  CFN.CFN_Property1 = ContractDetail.CCD_CfnShortNumber
+        WHERE  ContractDetail.CCD_CCH_ID = #ContractId#
+               AND ISNULL(dbo.fn_GetCfnPriceByDealer(#DealerId#,CFN.CFN_ID,#SubCompanyId#,#BrandId#,'DealerConsignment',0),0)>0
+      ]]>
+      <isNotEmpty prepend="AND" property="Filter">
+        <![CDATA[
+                   (
+                       CFN.CFN_Property1 LIKE '%' + #Filter# + '%'
+                       OR CFN.CFN_CustomerFaceNbr LIKE '%' + #Filter# + '%'
+                       OR CFN.CFN_ChineseName LIKE '%' + #Filter# + '%'
+                   )
+      ]]>
+      </isNotEmpty>
+      <![CDATA[
+        ORDER BY
+               CFN.CFN_CustomerFaceNbr
+      ]]>
+    </select>
+    <select id="Consignment.ContractDetail.SelectContractUpnPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT CFN.CFN_ID UpnId,
+               CFN.CFN_CustomerFaceNbr UpnNo,
+               CFN.CFN_Property1 UpnShortNo,
+               CFN.CFN_ChineseName UpnName,
+               CFN.CFN_EnglishName UpnEngName,
+               CFN.CFN_Property3 Unit,
+               0 Quantity,
+               dbo.fn_GetCfnPriceByDealer(#DealerId#, CFN.CFN_ID, #SubCompanyId#, #BrandId#, 'DealerConsignment', 0) as Price,
+               0 Total
+        FROM   CFN AS CFN
+        WHERE  
+               CFN.CFN_ID IN
+      ]]>
+      <iterate property="UpnList" open="(" close=")" conjunction=",">
+        #UpnList[]#
+      </iterate>
+      <![CDATA[
+        ORDER BY
+               CFN.CFN_CustomerFaceNbr
+      ]]>
+    </select>
+
+    <select id="Consignment.ContractDetail.SelectUPN" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+       select CFN_ID,Product.PMA_UPN,CFN.CFN_Property1,CFN_ChineseName,PMA_ConvertFactor,CFN_Property3,'UPN' as Type from CFN
+       left join Product on Product.PMA_CFN_ID=CFN.CFN_ID
+        WHERE 1=1 and CFN.CFN_Property1 IN
+      ]]>
+      <iterate property="UpnList" open="(" close=")" conjunction=",">
+        #UpnList[]#
+      </iterate>
+      <![CDATA[
+        ORDER BY
+               CFN.CFN_CustomerFaceNbr
+      ]]>
+    </select>
+
+    <select id="Consignment.ContractDetail.SelectSet" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+      select distinct CFN_ID,Product.PMA_UPN,CFN.CFN_Property1,CFNS_ChineseName,PMA_ConvertFactor,CFN_Property3,'UPN' as Type,CFN.CFN_CustomerFaceNbr from CFNSet
+      left join CFNSetDetail on CFNSet.CFNS_ID=CFNSetDetail.CSD_CFNS_ID
+      left join CFN on CFN.CFN_ID=CFNSetDetail.CSD_CFN_ID
+      left join Product on Product.PMA_CFN_ID=CFN.CFN_ID
+        WHERE 1=1 and CFNSet.CFNS_ID IN
+      ]]>
+      <iterate property="SetList" open="(" close=")" conjunction=",">
+        #SetList[]#
+      </iterate>
+      <![CDATA[
+        ORDER BY
+               CFN.CFN_CustomerFaceNbr
+      ]]>
+    </select>
+
+    <select id="Consignment.ContractDetail.SelectProductDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+     
+      select distinct CFN.CFN_Property1,PMA_ConvertFactor,CFN_Property3,'UPN' as [Type],'' as CFN_ID,'' as PMA_UPN,CFN.CFN_CustomerFaceNbr
+      from Consignment.ContractDetail
+      left join CFN on CFN.CFN_Property1=Consignment.ContractDetail.CCD_CfnShortNumber
+      left join Product on Product.PMA_CFN_ID=CFN.CFN_ID
+      where CCD_CCH_ID=#ID#
+      ]]>
+      <![CDATA[
+        ORDER BY
+               CFN.CFN_CustomerFaceNbr
+      ]]>
+    </select>
+  </statements>
+</sqlMap>

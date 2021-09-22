@@ -1,0 +1,1424 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PurchaseOrderHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PurchaseOrderHeader" assembly="DMS.Model.dll" type="DMS.Model.PurchaseOrderHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PurchaseOrderHeaderResult" class="PurchaseOrderHeader">
+      <result property="Id" column="POH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="OrderNo" column="POH_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="ProductLineBumId" column="POH_ProductLine_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="POH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Vendorid" column="POH_VendorID" type="string" dbType="nvarchar"/>
+      <result property="TerritoryCode" column="POH_TerritoryCode" type="string" dbType="nvarchar"/>
+      <result property="Rdd" column="POH_RDD" type="DateTime" dbType="datetime"/>
+      <result property="ContactPerson" column="POH_ContactPerson" type="string" dbType="nvarchar"/>
+      <result property="Contact" column="POH_Contact" type="string" dbType="nvarchar"/>
+      <result property="ContactMobile" column="POH_ContactMobile" type="string" dbType="nvarchar"/>
+      <result property="Consignee" column="POH_Consignee" type="string" dbType="nvarchar"/>
+      <result property="ShipToAddress" column="POH_ShipToAddress" type="string" dbType="nvarchar"/>
+      <result property="ConsigneePhone" column="POH_ConsigneePhone" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="POH_Remark" type="string" dbType="nvarchar"/>
+      <result property="InvoiceComment" column="POH_InvoiceComment" type="string" dbType="nvarchar"/>
+      <result property="CreateType" column="POH_CreateType" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="POH_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="POH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="POH_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="POH_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="SubmitUser" column="POH_SubmitUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SubmitDate" column="POH_SubmitDate" type="DateTime" dbType="datetime"/>
+      <result property="LastBrowseUser" column="POH_LastBrowseUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LastBrowseDate" column="POH_LastBrowseDate" type="DateTime" dbType="datetime"/>
+      <result property="OrderStatus" column="POH_OrderStatus" type="string" dbType="nvarchar"/>
+      <result property="LatestAuditDate" column="POH_LatestAuditDate" type="DateTime" dbType="datetime"/>
+      <result property="IsLocked" column="POH_IsLocked" type="bool" dbType="bit"/>
+      <result property="SapOrderNo" column="POH_SAP_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="SapConfirmDate" column="POH_SAP_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="LastVersion" column="POH_LastVersion" type="int" dbType="int"/>
+      <result property="OrderType" column="POH_OrderType" type="string" dbType="nvarchar"/>
+      <result property="Virtualdc" column="POH_VirtualDC" type="string" dbType="nvarchar"/>
+      <result property="SpecialPriceid" column="POH_SpecialPriceID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="POH_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PohId" column="POH_POH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SalesAccount" column="POH_SalesAccount" type="string" dbType="nvarchar"/>
+      <result property="PointType" column="POH_PointType" type="string" dbType="nvarchar"/>
+      <result property="IsUsePro" column="POH_IsUsePro" type="string" dbType="nvarchar"/>
+      <result property="SendwmsFlg" column="POH_SendWMSFlg" type="int" dbType="int"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_PurchaseOrderBSC_ActiveTemporaryOrder_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_OrderPointCheck_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="POH_ID" column="POH_ID" />
+      <parameter property="DMA_ID" column="DMA_ID" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="PointType" column="PointType" />
+      <parameter property="RetValue" column="RetValue" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_AfterClearBorrowSubmitMap" class="System.Collections.Hashtable" >
+      <parameter property="POH_ID" column="POH_ID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PurchaseOrder_AfterClearBorrowConfirmMap" class="System.Collections.Hashtable" >
+      <parameter property="POH_ID" column="POH_ID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_PRODealerRedInvoicesCheckedCheckedMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="PlineId" column="PlineId"  />
+      <parameter property="PointType" column="PointType"  />
+      <parameter property="OrderType" column="OrderType"  />
+      <parameter property="RtnVal" column="RtnVal" direction="Output"  />
+      <parameter property="RtnMessing" column="RtnMessing" direction="Output"  />
+    </parameterMap>
+    <parameterMap id="GC_PRODealerRedInvoice_UpdateMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="OrderSubType" column="OrderSubType" />
+      <parameter property="DealerId" column="DealerId"  />
+      <parameter property="BUId" column="BUId"  />
+      <parameter property="RtnVal" column="RtnVal" direction="Output"  />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output"  />
+    </parameterMap>
+    <parameterMap id="GC_Interface_RedInvoicesCheckMap" class="System.Collections.Hashtable" >
+      <parameter property="PohId" column="PohId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="PlineId" column="PlineId"  />
+      <parameter property="RtnVal" column="RtnVal" direction="Output"  />
+      <parameter property="RtnMessing" column="RtnMessing" direction="Output"  />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectPurchaseOrderHeader" parameterClass="string" resultClass="PurchaseOrderHeader">
+      SELECT POH_ID AS Id,POH_OrderNo AS OrderNo,POH_ProductLine_BUM_ID AS ProductLineBumId,POH_DMA_ID AS DmaId,POH_VendorID AS Vendorid,POH_TerritoryCode AS TerritoryCode,POH_RDD AS Rdd,POH_ContactPerson AS ContactPerson,POH_Contact AS Contact,POH_ContactMobile AS ContactMobile,POH_Consignee AS Consignee,POH_ShipToAddress AS ShipToAddress,POH_ConsigneePhone AS ConsigneePhone,POH_Remark AS Remark,POH_InvoiceComment AS InvoiceComment,POH_CreateType AS CreateType,POH_CreateUser AS CreateUser,POH_CreateDate AS CreateDate,POH_UpdateUser AS UpdateUser,POH_UpdateDate AS UpdateDate,POH_SubmitUser AS SubmitUser,POH_SubmitDate AS SubmitDate,POH_LastBrowseUser AS LastBrowseUser,POH_LastBrowseDate AS LastBrowseDate,POH_OrderStatus AS OrderStatus,POH_LatestAuditDate AS LatestAuditDate,POH_IsLocked AS IsLocked,POH_SAP_OrderNo AS SapOrderNo,POH_SAP_ConfirmDate AS SapConfirmDate,POH_LastVersion AS LastVersion,POH_OrderType AS OrderType,POH_VirtualDC AS Virtualdc,POH_SpecialPriceID AS SpecialPriceid,POH_WHM_ID AS WhmId,POH_POH_ID AS PohId,POH_SalesAccount as SalesAccount,POH_PointType AS PointType,POH_IsUsePro AS IsUsePro,POH_DcType as DcType,POH_SendAddress as SendAddress,POH_SendHospital as SendHospital
+      FROM PurchaseOrderHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          POH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectPurchaseOrderHeaderByNO" parameterClass="string" resultClass="PurchaseOrderHeader">
+      SELECT POH_ID AS Id,POH_OrderNo AS OrderNo,POH_ProductLine_BUM_ID AS ProductLineBumId,POH_DMA_ID AS DmaId,POH_VendorID AS Vendorid,POH_TerritoryCode AS TerritoryCode,POH_RDD AS Rdd,POH_ContactPerson AS ContactPerson,POH_Contact AS Contact,POH_ContactMobile AS ContactMobile,POH_Consignee AS Consignee,POH_ShipToAddress AS ShipToAddress,POH_ConsigneePhone AS ConsigneePhone,POH_Remark AS Remark,POH_InvoiceComment AS InvoiceComment,POH_CreateType AS CreateType,POH_CreateUser AS CreateUser,POH_CreateDate AS CreateDate,POH_UpdateUser AS UpdateUser,POH_UpdateDate AS UpdateDate,POH_SubmitUser AS SubmitUser,POH_SubmitDate AS SubmitDate,POH_LastBrowseUser AS LastBrowseUser,POH_LastBrowseDate AS LastBrowseDate,POH_OrderStatus AS OrderStatus,POH_LatestAuditDate AS LatestAuditDate,POH_IsLocked AS IsLocked,POH_SAP_OrderNo AS SapOrderNo,POH_SAP_ConfirmDate AS SapConfirmDate,POH_LastVersion AS LastVersion,POH_OrderType AS OrderType,POH_VirtualDC AS Virtualdc,POH_SpecialPriceID AS SpecialPriceid,POH_WHM_ID AS WhmId,POH_POH_ID AS PohId,POH_SalesAccount as SalesAccount,POH_PointType AS PointType,POH_IsUsePro AS IsUsePro,POH_DcType as DcType,POH_SendAddress as SendAddress,POH_SendHospital as SendHospital
+      FROM PurchaseOrderHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          POH_OrderNo = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterPurchaseOrderHeader" parameterClass="PurchaseOrderHeader" resultClass="PurchaseOrderHeader">
+      SELECT POH_ID AS Id,POH_OrderNo AS OrderNo,POH_ProductLine_BUM_ID AS ProductLineBumId,POH_DMA_ID AS DmaId,POH_VendorID AS Vendorid,POH_TerritoryCode AS TerritoryCode,POH_RDD AS Rdd,POH_ContactPerson AS ContactPerson,POH_Contact AS Contact,POH_ContactMobile AS ContactMobile,POH_Consignee AS Consignee,POH_ShipToAddress AS ShipToAddress,POH_ConsigneePhone AS ConsigneePhone,POH_Remark AS Remark,POH_InvoiceComment AS InvoiceComment,POH_CreateType AS CreateType,POH_CreateUser AS CreateUser,POH_CreateDate AS CreateDate,POH_UpdateUser AS UpdateUser,POH_UpdateDate AS UpdateDate,POH_SubmitUser AS SubmitUser,POH_SubmitDate AS SubmitDate,POH_LastBrowseUser AS LastBrowseUser,POH_LastBrowseDate AS LastBrowseDate,POH_OrderStatus AS OrderStatus,POH_LatestAuditDate AS LatestAuditDate,POH_IsLocked AS IsLocked,POH_SAP_OrderNo AS SapOrderNo,POH_SAP_ConfirmDate AS SapConfirmDate,POH_LastVersion AS LastVersion,POH_OrderType AS OrderType,POH_VirtualDC AS Virtualdc,POH_SpecialPriceID AS SpecialPriceid,POH_WHM_ID AS WhmId,POH_POH_ID AS PohId,POH_SalesAccount as SalesAccount,POH_PointType AS PointType,POH_IsUsePro AS IsUsePro
+      FROM PurchaseOrderHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">POH_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Vendorid">POH_VendorID=#Vendorid#</isNotNull>
+        <isNotNull prepend="AND" property="TerritoryCode">POH_TerritoryCode=#TerritoryCode#</isNotNull>
+        <isNotNull prepend="AND" property="Rdd">POH_RDD=#Rdd#</isNotNull>
+        <isNotNull prepend="AND" property="ContactPerson">POH_ContactPerson=#ContactPerson#</isNotNull>
+        <isNotNull prepend="AND" property="Contact">POH_Contact=#Contact#</isNotNull>
+        <isNotNull prepend="AND" property="ContactMobile">POH_ContactMobile=#ContactMobile#</isNotNull>
+        <isNotNull prepend="AND" property="Consignee">POH_Consignee=#Consignee#</isNotNull>
+        <isNotNull prepend="AND" property="ShipToAddress">POH_ShipToAddress=#ShipToAddress#</isNotNull>
+        <isNotNull prepend="AND" property="ConsigneePhone">POH_ConsigneePhone=#ConsigneePhone#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">POH_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceComment">POH_InvoiceComment=#InvoiceComment#</isNotNull>
+        <isNotNull prepend="AND" property="CreateType">POH_CreateType=#CreateType#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">POH_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">POH_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitUser">POH_SubmitUser=#SubmitUser#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDate">POH_SubmitDate=#SubmitDate#</isNotNull>
+        <isNotNull prepend="AND" property="LastBrowseUser">POH_LastBrowseUser=#LastBrowseUser#</isNotNull>
+        <isNotNull prepend="AND" property="LastBrowseDate">POH_LastBrowseDate=#LastBrowseDate#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="LatestAuditDate">POH_LatestAuditDate=#LatestAuditDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsLocked">POH_IsLocked=#IsLocked#</isNotNull>
+        <isNotNull prepend="AND" property="SapOrderNo">POH_SAP_OrderNo=#SapOrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="SapConfirmDate">POH_SAP_ConfirmDate=#SapConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="LastVersion">POH_LastVersion=#LastVersion#</isNotNull>
+        <isNotNull prepend="AND" property="LastVersion">POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="LastVersion">POH_VirtualDC=#Virtualdc#</isNotNull>
+        <isNotNull prepend="AND" property="LastVersion">POH_SpecialPriceID=#SpecialPriceid#</isNotNull>
+        <isNotNull prepend="AND" property="LastVersion">POH_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LastVersion">POH_POH_ID=#PohId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertPurchaseOrderHeader" parameterClass="PurchaseOrderHeader">
+      INSERT INTO PurchaseOrderHeader
+      (POH_ID,POH_OrderNo,POH_ProductLine_BUM_ID,POH_DMA_ID,POH_VendorID,POH_TerritoryCode,POH_RDD,POH_ContactPerson,POH_Contact,POH_ContactMobile,POH_Consignee,POH_ShipToAddress,POH_ConsigneePhone,POH_Remark,POH_InvoiceComment,POH_CreateType,POH_CreateUser,POH_CreateDate,POH_UpdateUser,POH_UpdateDate,POH_SubmitUser,POH_SubmitDate,POH_LastBrowseUser,POH_LastBrowseDate,POH_OrderStatus,POH_LatestAuditDate,POH_IsLocked,POH_SAP_OrderNo,POH_SAP_ConfirmDate,POH_LastVersion,POH_OrderType,POH_VirtualDC,POH_SpecialPriceID,POH_WHM_ID,POH_POH_ID,POH_SalesAccount,POH_PointType,POH_IsUsePro)
+      VALUES(#Id#,#OrderNo#,#ProductLineBumId#,#DmaId#,#Vendorid#,#TerritoryCode#,#Rdd:DateTime:1/1/0001 12:00:00 AM#,#ContactPerson#,#Contact#,#ContactMobile#,#Consignee#,#ShipToAddress#,#ConsigneePhone#,#Remark#,#InvoiceComment#,#CreateType#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#SubmitUser#,#SubmitDate:DateTime:1/1/0001 12:00:00 AM#,#LastBrowseUser#,#LastBrowseDate:DateTime:1/1/0001 12:00:00 AM#,#OrderStatus#,#LatestAuditDate:DateTime:1/1/0001 12:00:00 AM#,#IsLocked#,#SapOrderNo#,#SapConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#LastVersion#,#OrderType#,#Virtualdc#,#SpecialPriceid#,#WhmId#,#PohId#,#SalesAccount#,#PointType#,#IsUsePro#)
+    </insert>
+    <update id="UpdatePurchaseOrderHeader" parameterClass="PurchaseOrderHeader">
+      UPDATE PurchaseOrderHeader
+      SET POH_ID=#Id#,POH_OrderNo=#OrderNo#,POH_ProductLine_BUM_ID=#ProductLineBumId#,POH_DMA_ID=#DmaId#,POH_VendorID=#Vendorid#,POH_TerritoryCode=#TerritoryCode#,POH_RDD=#Rdd#,POH_ContactPerson=#ContactPerson#,POH_Contact=#Contact#,POH_ContactMobile=#ContactMobile#,POH_Consignee=#Consignee#,POH_ShipToAddress=#ShipToAddress#,POH_ConsigneePhone=#ConsigneePhone#,POH_Remark=#Remark#,POH_InvoiceComment=#InvoiceComment#,POH_CreateType=#CreateType#,POH_UpdateUser=#UpdateUser#,POH_UpdateDate=#UpdateDate#,POH_SubmitUser=#SubmitUser#,POH_SubmitDate=#SubmitDate#,POH_LastBrowseUser=#LastBrowseUser#,POH_LastBrowseDate=#LastBrowseDate#,POH_OrderStatus=#OrderStatus#,POH_LatestAuditDate=#LatestAuditDate#,POH_IsLocked=#IsLocked#,POH_SAP_OrderNo=#SapOrderNo#,POH_SAP_ConfirmDate=#SapConfirmDate#,POH_LastVersion=#LastVersion#,POH_OrderType=#OrderType#,POH_VirtualDC=#Virtualdc#,POH_SpecialPriceID=#SpecialPriceid#,POH_WHM_ID=#WhmId#,POH_POH_ID=#PohId#,POH_SalesAccount=#SalesAccount#,POH_PointType=#PointType#,POH_IsUsePro=#IsUsePro#,POH_DcType=#DcType#,POH_SendAddress=#SendAddress#,POH_SendHospital=#SendHospital#,POH_SendWMSFlg=#SendwmsFlg#
+      WHERE POH_ID = #Id#
+    </update>
+
+    <update id="UpdateClearBorrowPurchaseOrderStatus" parameterClass="System.Collections.Hashtable">
+      update PurchaseOrderHeader set POH_OrderStatus=#orderStatus# where POH_Remark = #shipmentNo# and POH_OrderType in ('ClearBorrow','ConsignmentSales')
+    </update>
+    <delete id="DeletePurchaseOrderHeader" parameterClass="string">
+      DELETE FROM PurchaseOrderHeader
+      WHERE POH_ID = #value#
+    </delete>
+    <select id="GetClearBorrowPurchaseOrderHeader" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT PurchaseOrderHeader.POH_ID AS Id
+      FROM PurchaseOrderHeader
+      where POH_Remark = #shipmentNo# and POH_OrderType in ('ClearBorrow','ConsignmentSales')
+    </select>
+
+
+    <!--added by bozhenfei on 20110212-->
+    <!--经销商订单查询-->
+    <select id="QueryPurchaseOrderHeaderByFilterForDealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      PurchaseOrderHeader.POH_ID AS Id,
+      PurchaseOrderHeader.POH_OrderNo AS OrderNo,
+      PurchaseOrderHeader.POH_ProductLine_BUM_ID AS ProductLineBumId,
+      PurchaseOrderHeader.POH_DMA_ID AS DmaId,
+      PurchaseOrderHeader.POH_SubmitUser AS SubmitUser,
+      PurchaseOrderHeader.POH_SubmitDate AS SubmitDate,
+      PurchaseOrderHeader.POH_OrderStatus AS OrderStatus,
+      PurchaseOrderHeader.POH_IsLocked AS IsLocked,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalQty,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalAmount,
+      ROW_NUMBER () OVER (ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC)
+      AS row_number
+      FROM PurchaseOrderHeader
+      WHERE POH_CreateType not in ('Temporary')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          )
+        </isEqual>
+      </dynamic>
+    </select>
+    <!--LP及一级经销商订单查询-->
+    <select id="QueryPurchaseOrderHeaderByFilterForLPDealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      PurchaseOrderHeader.POH_ID AS Id,
+      (select DMA_SAP_Code from DealerMaster AS DM(nolock) where DM.DMA_ID=PurchaseOrderHeader.POH_DMA_ID) AS DmaSapCode,
+      PurchaseOrderHeader.POH_OrderNo AS OrderNo,
+      PurchaseOrderHeader.POH_ProductLine_BUM_ID AS ProductLineBumId,
+      PurchaseOrderHeader.POH_DMA_ID AS DmaId,
+      PurchaseOrderHeader.POH_SubmitUser AS SubmitUser,
+      PurchaseOrderHeader.POH_SubmitDate AS SubmitDate,
+      PurchaseOrderHeader.POH_OrderStatus AS OrderStatus,
+      PurchaseOrderHeader.POH_OrderType AS OrderType,
+      PurchaseOrderHeader.POH_IsLocked AS IsLocked,
+      PurchaseOrderHeader.POH_ShipToAddress AS ShipToAddress,
+      PurchaseOrderHeader.POH_Remark AS Remark,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalQty,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_ReceiptQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalReceiptQty,
+      CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','PRO','Return','Consignment') then 0
+      WHEN PurchaseOrderHeader.POH_OrderType in ('CRPO')
+      THEN
+      (SELECT TB1.PHAmount- TB2.PTAmount FROM
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0) AS PHAmount
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) TB1,
+      (SELECT ISNULL(SUM(PT.Amount),0) AS PTAmount
+      FROM PurchaseOrderDetail DT(nolock) INNER JOIN Promotion.PurchaseOrderPoint PT(nolock)  ON DT.POD_POH_ID=PurchaseOrderHeader.POH_ID
+      AND DT.POD_ID=PT.POD_ID ) AS TB2
+      )
+      else
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) END
+      AS TotalAmount,
+      (SELECT ISNULL (SUM (POD_CFN_Price*POD_ReceiptQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS TotalReceiptAmount,
+      isnull((select 1 from PurchaseOrderHeader_AutoGenLog AS AGL(nolock) where AGL.POH_ID =PurchaseOrderHeader.POH_ID and PurchaseOrderHeader.POH_OrderStatus='Draft'),0) AS IsAutoGenClearBorrow,
+      ROW_NUMBER () OVER (ORDER BY isnull((select 1 from PurchaseOrderHeader_AutoGenLog AS AGL where AGL.POH_ID =PurchaseOrderHeader.POH_ID and PurchaseOrderHeader.POH_OrderStatus='Draft'),0) DESC ,ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC)
+      AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM PurchaseOrderHeader(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=PurchaseOrderHeader.POH_ProductLine_BUM_ID
+      WHERE POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">PurchaseOrderHeader.POH_Remark like N'%$Remark$%'</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail(nolock), CFN(nolock) WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <!--LP及一级经销商订单日志记录导出-->
+    <select id="ExportPurchaseOrderLogForLPDealer_New" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      <!--SELECT
+      ROW_NUMBER () OVER (ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,PurchaseOrderLog.POL_OperDate ASC) AS row_number,
+      PurchaseOrderHeader.POH_OrderNo AS '订单编号-OrderNo',
+      dealermaster.DMA_ChineseName AS '经销商中文名-DealerName',
+      dealermaster.DMA_SAP_Code AS '经销商编号-DealerCode',
+      PurchaseOrderHeader.POH_SubmitDate AS '订单提交日期-SubmitDate',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Type' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderType) AS '订单类型-OrderType',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Status' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderStatus) AS '订单状态-OrderStatus',
+      (select ATTRIBUTE_NAME from Lafite_ATTRIBUTE LA where LA.ATTRIBUTE_TYPE='Product_Line' and LA.Id = PurchaseOrderHeader.POH_ProductLine_BUM_ID) AS '产品线-ProductLine',
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS '订单总数量-TotalQty',
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS '订单总金额-TotalAmount',
+      (select IDENTITY_NAME from Lafite_IDENTITY AS LI where LI.Id=PurchaseOrderLog.POL_OperUser) AS '操作人员-OperateUser',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_OperType' and LD.Dict_Key = PurchaseOrderLog.POL_OperType) AS '操作类型-OperType',
+      POL_OperDate AS '操作日期-OperateDate',
+      POL_OperNote AS '操作备注说明-OperateRemark'-->
+
+      SELECT  PurchaseOrderHeader.POH_OrderNo AS '订单编号',
+      dealermaster.DMA_ChineseName AS '经销商中文名',
+      dealermaster.DMA_SAP_Code AS '经销商编号',
+      View_ProductLine.SubCompanyName '分子公司',
+      View_ProductLine.BrandName  '品牌',
+      CONVERT(char(11),PurchaseOrderHeader.POH_SubmitDate,120)+CONVERT(char(12),PurchaseOrderHeader.POH_SubmitDate,114) AS '订单提交日期',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Type' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderType) AS '订单类型',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Status' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderStatus) AS '订单状态',
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) LA where LA.ATTRIBUTE_TYPE='Product_Line' and LA.Id = PurchaseOrderHeader.POH_ProductLine_BUM_ID) AS '产品线',
+      (SELECT Convert(nvarchar(20),Convert(decimal(18,2),ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0))) FROM PurchaseOrderDetail WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS '订单总数量',
+      CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then '0' else (SELECT Convert(nvarchar(20),Convert(decimal(18,2),ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0))) FROM PurchaseOrderDetail WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) END AS '订单总金额',
+      (select IDENTITY_NAME from Lafite_IDENTITY AS LI where LI.Id=PurchaseOrderLog.POL_OperUser) AS '操作人员',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_OperType' and LD.Dict_Key = PurchaseOrderLog.POL_OperType) AS '操作类型',
+      CONVERT(char(11),POL_OperDate,120)+CONVERT(char(12),POL_OperDate,114) AS '操作日期',
+      isnull(POL_OperNote,' ')  AS '操作备注说明'
+      FROM PurchaseOrderHeader(nolock),PurchaseOrderLog(nolock),dealermaster(nolock),View_ProductLine(nolock)
+      WHERE PurchaseOrderHeader.POH_ID =PurchaseOrderLog.POL_POH_ID
+      AND View_ProductLine.Id=PurchaseOrderHeader.POH_ProductLine_BUM_ID
+      AND PurchaseOrderHeader.POH_DMA_ID = dealermaster.DMA_ID
+      AND POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      AND PurchaseOrderHeader.POH_OrderStatus != 'Draft'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+        ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,PurchaseOrderLog.POL_OperDate ASC
+      </dynamic>
+    </select>
+
+    <!--LP及一级经销商订单发票记录导出-->
+    <select id="ExportPurchaseOrderInvoiceForLPDealer_New" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+
+      SELECT  PurchaseOrderHeader.POH_OrderNo AS '订单编号',
+      dealermaster.DMA_ChineseName AS '经销商中文名',
+      dealermaster.DMA_SAP_Code AS '经销商编号',
+      View_ProductLine.SubCompanyName '分子公司',
+      View_ProductLine.BrandName  '品牌',
+      <!--isnull(Invoice.InvoiceNo,'') AS '发票号',
+      ISNULL(CONVERT (NVARCHAR(11), Invoice.InvoiceDate, 120),'') AS '发票日期',
+      isnull(Invoice.InvoiceStatus,'') AS '发票状态',
+      CONVERT (NVARCHAR (20), isnull(Invoice.InvoiceAmount,0)) AS '发票金额',
+      isnull(Invoice.ID733,'') AS '733发票号',-->
+      isnull(Invoice.DeliveryNo,'') AS '发货单号'
+      FROM PurchaseOrderHeader(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=PurchaseOrderHeader.POH_ProductLine_BUM_ID
+      left join interface.T_I_IF_Invoice AS Invoice(nolock) on (Invoice.OrderNo=PurchaseOrderHeader.POH_OrderNo)
+      inner join dealermaster(nolock) on (PurchaseOrderHeader.POH_DMA_ID = dealermaster.DMA_ID)
+      WHERE POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      AND PurchaseOrderHeader.POH_OrderStatus != 'Draft'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+        ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,Invoice.InvoiceDate ASC
+      </dynamic>
+    </select>
+
+    <!--LP及一级经销商订单日志记录导出-->
+    <select id="ExportPurchaseOrderLogForLPDealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      <!--SELECT
+      ROW_NUMBER () OVER (ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,PurchaseOrderLog.POL_OperDate ASC) AS row_number,
+      PurchaseOrderHeader.POH_OrderNo AS '订单编号-OrderNo',
+      dealermaster.DMA_ChineseName AS '经销商中文名-DealerName',
+      dealermaster.DMA_SAP_Code AS '经销商编号-DealerCode',
+      PurchaseOrderHeader.POH_SubmitDate AS '订单提交日期-SubmitDate',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Type' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderType) AS '订单类型-OrderType',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Status' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderStatus) AS '订单状态-OrderStatus',
+      (select ATTRIBUTE_NAME from Lafite_ATTRIBUTE LA where LA.ATTRIBUTE_TYPE='Product_Line' and LA.Id = PurchaseOrderHeader.POH_ProductLine_BUM_ID) AS '产品线-ProductLine',
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS '订单总数量-TotalQty',
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS '订单总金额-TotalAmount',
+      (select IDENTITY_NAME from Lafite_IDENTITY AS LI where LI.Id=PurchaseOrderLog.POL_OperUser) AS '操作人员-OperateUser',
+      (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_OperType' and LD.Dict_Key = PurchaseOrderLog.POL_OperType) AS '操作类型-OperType',
+      POL_OperDate AS '操作日期-OperateDate',
+      POL_OperNote AS '操作备注说明-OperateRemark'-->
+
+      SELECT  '&lt;td&gt;' + PurchaseOrderHeader.POH_OrderNo + '&lt;/td&gt;' +
+      '&lt;td&gt;' + dealermaster.DMA_ChineseName + '&lt;/td&gt;' +
+      '&lt;td&gt;' + dealermaster.DMA_SAP_Code + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CONVERT(char(11),PurchaseOrderHeader.POH_SubmitDate,120)+CONVERT(char(12),PurchaseOrderHeader.POH_SubmitDate,114) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Type' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderType) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Status' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderStatus) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select ATTRIBUTE_NAME from View_ProductLine LA where LA.ATTRIBUTE_TYPE='Product_Line' and LA.Id = PurchaseOrderHeader.POH_ProductLine_BUM_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (SELECT Convert(nvarchar(20),Convert(decimal(18,2),ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0))) FROM PurchaseOrderDetail WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then '0' else (SELECT Convert(nvarchar(20),Convert(decimal(18,2),ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0))) FROM PurchaseOrderDetail WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) END + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select IDENTITY_NAME from Lafite_IDENTITY AS LI where LI.Id=PurchaseOrderLog.POL_OperUser) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_OperType' and LD.Dict_Key = PurchaseOrderLog.POL_OperType) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CONVERT(char(11),POL_OperDate,120)+CONVERT(char(12),POL_OperDate,114) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + isnull(POL_OperNote,' ')  '&lt;/td&gt;'
+      FROM PurchaseOrderHeader(nolock),PurchaseOrderLog(nolock),dealermaster(nolock)
+      WHERE PurchaseOrderHeader.POH_ID =PurchaseOrderLog.POL_POH_ID
+      AND PurchaseOrderHeader.POH_DMA_ID = dealermaster.DMA_ID
+      AND POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      AND PurchaseOrderHeader.POH_OrderStatus != 'Draft'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,PurchaseOrderLog.POL_OperDate ASC
+      </dynamic>
+    </select>
+
+    <!--LP及一级经销商订单发票记录导出-->
+    <select id="ExportPurchaseOrderInvoiceForLPDealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+
+      SELECT  '&lt;td&gt;' + PurchaseOrderHeader.POH_OrderNo + '&lt;/td&gt;' +
+      '&lt;td&gt;' + dealermaster.DMA_ChineseName + '&lt;/td&gt;' +
+      '&lt;td&gt;' + dealermaster.DMA_SAP_Code + '&lt;/td&gt;' +
+      '&lt;td&gt;' + isnull(Invoice.InvoiceNo,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + ISNULL(CONVERT (NVARCHAR(11), Invoice.InvoiceDate, 120),'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + isnull(Invoice.InvoiceStatus,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CONVERT (NVARCHAR (20), isnull(Invoice.InvoiceAmount,0)) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + isnull(Invoice.ID733,'') + '&lt;/td&gt;' +
+      '&lt;td&gt;' + isnull(Invoice.DeliveryNo,'') + '&lt;/td&gt;'
+      FROM PurchaseOrderHeader(nolock)
+      left join interface.T_I_IF_Invoice AS Invoice(nolock) on (Invoice.OrderNo=PurchaseOrderHeader.POH_OrderNo)
+      inner join dealermaster(nolock) on (PurchaseOrderHeader.POH_DMA_ID = dealermaster.DMA_ID)
+      WHERE POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      AND PurchaseOrderHeader.POH_OrderStatus != 'Draft'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,Invoice.InvoiceDate ASC
+      </dynamic>
+    </select>
+
+    <!--LP及一级经销商订单日志记录导出，For 订单审核-->
+    <select id="ExportPurchaseOrderLogForLPDealerForAudit" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT  '&lt;td&gt;' + PurchaseOrderHeader.POH_OrderNo + '&lt;/td&gt;' +
+      '&lt;td&gt;' + dealermaster.DMA_ChineseName + '&lt;/td&gt;' +
+      '&lt;td&gt;' + dealermaster.DMA_SAP_Code + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CONVERT(char(11),PurchaseOrderHeader.POH_SubmitDate,120)+CONVERT(char(12),PurchaseOrderHeader.POH_SubmitDate,114) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Type' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderType) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_Status' and LD.Dict_Key = PurchaseOrderHeader.POH_OrderStatus) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select ATTRIBUTE_NAME from View_ProductLine LA where LA.ATTRIBUTE_TYPE='Product_Line' and LA.Id = PurchaseOrderHeader.POH_ProductLine_BUM_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (SELECT Convert(nvarchar(20),Convert(decimal(18,2),ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0))) FROM PurchaseOrderDetail WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then '0' else (SELECT Convert(nvarchar(20),Convert(decimal(18,2),ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0))) FROM PurchaseOrderDetail WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) END + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select IDENTITY_NAME from Lafite_IDENTITY AS LI where LI.Id=PurchaseOrderLog.POL_OperUser) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + (select Value1 from Lafite_DICT LD where LD.DICT_TYPE='CONST_Order_OperType' and LD.Dict_Key = PurchaseOrderLog.POL_OperType) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + CONVERT(char(11),POL_OperDate,120)+CONVERT(char(12),POL_OperDate,114) + '&lt;/td&gt;' +
+      '&lt;td&gt;' + isnull(POL_OperNote,' ')  '&lt;/td&gt;'
+      FROM PurchaseOrderHeader(nolock),PurchaseOrderLog(nolock),dealermaster(nolock)
+      WHERE PurchaseOrderHeader.POH_ID =PurchaseOrderLog.POL_POH_ID
+      AND PurchaseOrderHeader.POH_DMA_ID = dealermaster.DMA_ID
+      AND PurchaseOrderHeader.POH_OrderStatus IN ('Submitted','Approved','ApplyComplete','Uploaded','Confirmed','Delivering','Completed','Revoked','Revoking')
+      AND PurchaseOrderHeader.POH_OrderType NOT IN ('ConsignmentSales','ClearBorrow')
+      AND POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          )
+        </isEqual>
+        ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC,PurchaseOrderLog.POL_OperDate ASC
+      </dynamic>
+    </select>
+    <!--LP及一级经销商订单明细导出-->
+    <select id="ExportPurchaseOrderDetailByFilterForLPDealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      DealerMaster.DMA_ChineseName AS '经销商名称',
+      DealerMaster.DMA_SAP_Code AS '经销商SAP账号',
+      View_ProductLine.SubCompanyName '分子公司',
+      View_ProductLine.BrandName '品牌',
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and [Id]=PurchaseOrderHeader.POH_ProductLine_BUM_ID ) AS '产品线',
+      PurchaseOrderHeader.POH_OrderNo AS '订单编号',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='CONST_Order_Type' and DICT_KEY = PurchaseOrderHeader.POH_OrderType ) AS '订单类型',
+      convert(nvarchar(50),PurchaseOrderHeader.POH_SubmitDate,20) AS '提交日期',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='CONST_Order_Status' and DICT_KEY = PurchaseOrderHeader.POH_OrderStatus ) AS '订单状态',
+      CFN.CFN_CustomerFaceNbr AS '产品型号',
+      CFN.CFN_ChineseName AS '产品中文名',
+      CFN.CFN_EnglishName AS '产品规格',
+      PurchaseOrderDetail.POD_LotNumber AS '批号',
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), Convert(datetime,PurchaseOrderDetail.POD_Field1), 112) else CONVERT(varchar(100), Convert(datetime,PurchaseOrderDetail.POD_Field1), 112) END AS '产品有效期',
+      Convert(decimal(18,2),PurchaseOrderDetail.POD_RequiredQty) AS '订购数量',
+      Convert(decimal(18,2),CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then 0 else ISNULL (PurchaseOrderDetail.POD_CFN_Price, 0) end) AS '单价',
+      Convert(decimal(18,2),CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then 0 else ISNULL (PurchaseOrderDetail.POD_CFN_Price, 0)*PurchaseOrderDetail.POD_RequiredQty end) AS '订单金额小计',
+      Convert(decimal(18,2),PurchaseOrderDetail.POD_ReceiptQty) AS '已发数量',
+      PurchaseOrderDetail.POD_ShipmentNbr AS '对应销售单号',
+      (select HOS_Key_Account + '-' +  HOS_HospitalName from Hospital(nolock) where HOS_ID = PurchaseOrderDetail.POD_HOS_ID) AS '对应销售单医院',
+      (select WHM_Code + '-' + WHM_Name from Warehouse(nolock) where WHM_ID = PurchaseOrderDetail.POD_WH_ID) AS '对应销售单仓库',
+      PurchaseOrderHeader.POH_ShipToAddress AS '订单发货地址',
+      PurchaseOrderHeader.POH_Remark AS '订单备注',
+      (select max(ISH_SapDeliveryNo) from interfaceshipment(nolock) where ISH_OrderNo=PurchaseOrderHeader.POH_OrderNo and PurchaseOrderHeader.POH_OrderType in ('ClearBorrow','ClearBorrowManual')) AS '清指定批号发货单',
+      (select Convert(nvarchar(20),max(ISH_SapDeliveryDate),20) from interfaceshipment(nolock) where ISH_OrderNo=PurchaseOrderHeader.POH_OrderNo and PurchaseOrderHeader.POH_OrderType in ('ClearBorrow','ClearBorrowManual')) AS '清指定批号发货日期'
+      FROM PurchaseOrderHeader(nolock), PurchaseOrderDetail(nolock), DealerMaster(nolock), cfn(nolock),
+      View_ProductLine(nolock)
+      WHERE POH_ID = POD_POH_ID and POH_DMA_ID = DMA_ID and POD_CFN_ID=CFN_ID
+      and View_ProductLine.Id=PurchaseOrderHeader.POH_ProductLine_BUM_ID
+      AND POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">PurchaseOrderHeader.POH_Remark like N'%$Remark$%'</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <!--二级经销商订单明细导出-->
+    <select id="ExportPurchaseOrderDetailByFilterForT2Dealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      DealerMaster.DMA_ChineseName AS '经销商名称',
+      DealerMaster.DMA_SAP_Code AS '经销商SAP账号',
+      View_ProductLine.SubCompanyName '分子公司',
+      View_ProductLine.BrandName '品牌',
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and [Id]=PurchaseOrderHeader.POH_ProductLine_BUM_ID ) AS '产品线',
+      PurchaseOrderHeader.POH_OrderNo AS '订单编号',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='CONST_Order_Type' and DICT_KEY = PurchaseOrderHeader.POH_OrderType ) AS '订单类型',
+      convert(nvarchar(20),PurchaseOrderHeader.POH_SubmitDate,20) AS '订单日期',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='CONST_Order_Status' and DICT_KEY = PurchaseOrderHeader.POH_OrderStatus ) AS '订单状态',
+      CFN.CFN_CustomerFaceNbr AS '产品型号',
+      CFN.CFN_ChineseName AS '产品中文名',
+      CFN.CFN_EnglishName AS '产品规格',
+      PurchaseOrderDetail.POD_LotNumber AS '批号',
+      case when CFN_Property6 = '0' then CASE WHEN ISDATE(PurchaseOrderDetail.POD_Field1)=1 THEN CONVERT(varchar(6), Convert(datetime,PurchaseOrderDetail.POD_Field1), 112) end else CASE WHEN ISDATE(PurchaseOrderDetail.POD_Field1)=1 THEN CONVERT(varchar(100), Convert(datetime,PurchaseOrderDetail.POD_Field1), 112) end  END AS '产品有效期',
+      Convert(decimal(18,2),PurchaseOrderDetail.POD_RequiredQty) AS '订购数量',
+      Convert(decimal(18,2),CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then 0 else ISNULL (PurchaseOrderDetail.POD_CFN_Price, 0) end) AS '单价',
+      Convert(decimal(18,2),CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','Return') then 0 else ISNULL (PurchaseOrderDetail.POD_CFN_Price, 0)*PurchaseOrderDetail.POD_RequiredQty end) AS '订单金额小计',
+      Convert(decimal(18,2),PurchaseOrderDetail.POD_ReceiptQty) AS '已发数量',
+      PurchaseOrderDetail.POD_ShipmentNbr AS '对应销售单号',
+      (select HOS_Key_Account + '-' +  HOS_HospitalName from Hospital(nolock) where HOS_ID = PurchaseOrderDetail.POD_HOS_ID) AS '对应销售单医院',
+      (select WHM_Code + '-' + WHM_Name from Warehouse(nolock) where WHM_ID = PurchaseOrderDetail.POD_WH_ID) AS '对应销售单仓库',
+      PurchaseOrderHeader.POH_ShipToAddress AS '订单发货地址',
+      PurchaseOrderHeader.POH_Remark AS '订单备注'
+      FROM PurchaseOrderHeader(nolock) , PurchaseOrderDetail(nolock), DealerMaster(nolock), cfn(nolock)
+      ,View_ProductLine(nolock)
+      WHERE POH_ID = POD_POH_ID and POH_DMA_ID = DMA_ID and POD_CFN_ID=CFN_ID
+      and View_ProductLine.Id=PurchaseOrderHeader.POH_ProductLine_BUM_ID
+      AND POH_CreateType not in ('Temporary')
+      AND exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">PurchaseOrderHeader.POH_Remark like N'%$Remark$%'</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail(nolock), CFN(nolock) WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE DM.dma_parent_dma_id = #LPId# AND POH_DMA_ID=DM.DMA_ID)
+          AND POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--二级经销商订单查询-->
+    <select id="QueryPurchaseOrderHeaderByFilterForT2Dealer" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      PurchaseOrderHeader.POH_ID AS Id,
+      PurchaseOrderHeader.POH_OrderNo AS OrderNo,
+      PurchaseOrderHeader.POH_ProductLine_BUM_ID AS ProductLineBumId,
+      PurchaseOrderHeader.POH_DMA_ID AS DmaId,
+      PurchaseOrderHeader.POH_SubmitUser AS SubmitUser,
+      PurchaseOrderHeader.POH_SubmitDate AS SubmitDate,
+      PurchaseOrderHeader.POH_OrderStatus AS OrderStatus,
+      PurchaseOrderHeader.POH_OrderType AS OrderType,
+      PurchaseOrderHeader.POH_IsLocked AS IsLocked,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalQty,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_ReceiptQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalReceiptQty,
+      CASE when PurchaseOrderHeader.POH_OrderType in ('CRPO')
+      THEN  (SELECT TB1.PHAmount- TB2.PTAmount FROM
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0) AS PHAmount
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) TB1,
+      (SELECT ISNULL(SUM(PT.Amount),0) AS PTAmount
+      FROM PurchaseOrderDetail DT(nolock) INNER JOIN Promotion.PurchaseOrderPoint PT(nolock)  ON DT.POD_POH_ID=PurchaseOrderHeader.POH_ID
+      AND DT.POD_ID=PT.POD_ID ) AS TB2
+      )
+      ELSE(SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) END
+      AS TotalAmount,
+      (SELECT ISNULL (SUM (POD_CFN_Price*POD_ReceiptQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) AS TotalReceiptAmount,
+      POH_Remark AS Remark,
+      ROW_NUMBER () OVER (ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC)
+      AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM PurchaseOrderHeader(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=PurchaseOrderHeader.POH_ProductLine_BUM_ID
+      WHERE POH_CreateType not in ('Temporary')
+      AND exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">PurchaseOrderHeader.POH_Remark like N'%$Remark$%'</isNotNull>
+        <!--<isNotNull prepend="AND" property="CreateUser">POH_CreateUser=#CreateUser#</isNotNull>-->
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail(nolock), CFN(nolock) WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE DM.dma_parent_dma_id = #LPId# AND POH_DMA_ID=DM.DMA_ID)
+          AND POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHQ">
+          POH_OrderStatus != 'Draft'
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          ) AND POH_OrderStatus != 'Draft'
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--BSC用户订单审核查询-->
+    <select id="QueryPurchaseOrderHeaderByFilterForAudit" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      PurchaseOrderHeader.POH_ID AS Id,
+      PurchaseOrderHeader.POH_OrderNo AS OrderNo,
+      PurchaseOrderHeader.POH_ProductLine_BUM_ID AS ProductLineBumId,
+      PurchaseOrderHeader.POH_DMA_ID AS DmaId,
+      PurchaseOrderHeader.POH_SubmitUser AS SubmitUser,
+      PurchaseOrderHeader.POH_SubmitDate AS SubmitDate,
+      PurchaseOrderHeader.POH_OrderStatus AS OrderStatus,
+      PurchaseOrderHeader.POH_OrderType AS OrderType,
+      PurchaseOrderHeader.POH_IsLocked AS IsLocked,
+      PurchaseOrderHeader.POH_ShipToAddress AS ShipToAddress,
+      PurchaseOrderHeader.POH_Remark AS Remark,
+      (select DMA_SAP_Code from DealerMaster AS DM(nolock) where DM.DMA_ID=PurchaseOrderHeader.POH_DMA_ID) AS DmaSapCode,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalQty,
+      CASE when PurchaseOrderHeader.POH_OrderType in ('PEGoodsReturn','EEGoodsReturn','PRO','Return') then 0
+      WHEN PurchaseOrderHeader.POH_OrderType in ('CRPO')
+      THEN
+      (SELECT TB1.PHAmount- TB2.PTAmount FROM
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0) AS PHAmount
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) TB1,
+      (SELECT ISNULL(SUM(PT.Amount),0) AS PTAmount
+      FROM PurchaseOrderDetail DT(nolock) INNER JOIN Promotion.PurchaseOrderPoint PT(nolock)  ON DT.POD_POH_ID=PurchaseOrderHeader.POH_ID
+      AND DT.POD_ID=PT.POD_ID ) AS TB2
+      )
+      else (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail(nolock)
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID) END
+      AS TotalAmount,
+      ROW_NUMBER () OVER (ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC)
+      AS row_number
+      FROM PurchaseOrderHeader(nolock)
+      WHERE PurchaseOrderHeader.POH_OrderStatus IN ('Submitted','Approved','ApplyComplete','Uploaded','Confirmed','Delivering','Completed','Revoked','Revoking')
+      <!--AND PurchaseOrderHeader.POH_OrderType NOT IN ('ConsignmentSales','ClearBorrow')-->
+      AND POH_CreateType not in ('Temporary')
+      AND not exists (select 1 from DealerMaster AS DM(nolock) where DM.DMA_ID =  PurchaseOrderHeader.POH_DMA_ID and DM.DMA_DealerType='T2')
+      AND POH_IsLocked = 0
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">PurchaseOrderHeader.POH_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <!--<isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          )
+        </isEqual>-->
+        <isNotNull prepend="AND" property="Remark">PurchaseOrderHeader.POH_Remark like N'%$Remark$%'</isNotNull>
+      </dynamic>
+    </select>
+    <!--BSC用户订单处理查询-->
+    <select id="QueryPurchaseOrderHeaderByFilterForMake" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      PurchaseOrderHeader.POH_ID AS Id,
+      PurchaseOrderHeader.POH_OrderNo AS OrderNo,
+      PurchaseOrderHeader.POH_ProductLine_BUM_ID AS ProductLineBumId,
+      PurchaseOrderHeader.POH_DMA_ID AS DmaId,
+      PurchaseOrderHeader.POH_SubmitUser AS SubmitUser,
+      PurchaseOrderHeader.POH_SubmitDate AS SubmitDate,
+      PurchaseOrderHeader.POH_OrderStatus AS OrderStatus,
+      PurchaseOrderHeader.POH_IsLocked AS IsLocked,
+      (CASE WHEN PurchaseOrderHeader.POH_IsLocked = 0 AND PurchaseOrderHeader.POH_OrderStatus = 'Submitted' AND PurchaseOrderHeader.POH_LatestAuditDate &lt; GETDATE() THEN 1
+      WHEN PurchaseOrderHeader.POH_IsLocked = 0 AND PurchaseOrderHeader.POH_OrderStatus = 'Approved' THEN 1
+      ELSE 0 END
+      ) AS CanMake,
+      (CASE WHEN PurchaseOrderHeader.POH_OrderStatus IN ('Submitted','Approved') THEN 1
+      ELSE 0 END
+      ) AS CanLock,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalQty,
+      (SELECT ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0)
+      FROM PurchaseOrderDetail
+      WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID)
+      AS TotalAmount,
+      ROW_NUMBER () OVER (ORDER BY ISNULL(PurchaseOrderHeader.POH_SubmitDate,PurchaseOrderHeader.POH_CreateDate) DESC)
+      AS row_number
+      FROM PurchaseOrderHeader
+      WHERE PurchaseOrderHeader.POH_OrderStatus NOT IN ('Draft','Rejected')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="OrderNo">PurchaseOrderHeader.POH_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PurchaseOrderHeader.POH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">PurchaseOrderHeader.POH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">PurchaseOrderHeader.POH_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="IsLocked">PurchaseOrderHeader.POH_IsLocked=#IsLocked#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), PurchaseOrderHeader.POH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM PurchaseOrderDetail, CFN WHERE PurchaseOrderDetail.POD_POH_ID = PurchaseOrderHeader.POH_ID
+          AND PurchaseOrderDetail.POD_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = PurchaseOrderHeader.POH_DMA_ID AND SD.BUM_ID = PurchaseOrderHeader.POH_ProductLine_BUM_ID)
+          )
+        </isEqual>
+      </dynamic>
+    </select>
+    <!--计算订单金额汇总和总数量-->
+    <select id="SumPurchaseOrderByHeaderId" parameterClass="string" resultClass="PurchaseOrderHeader">
+      SELECT
+      ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty), 0) AS TotalQty,
+      ISNULL (SUM (PurchaseOrderDetail.POD_ReceiptQty), 0) AS TotalReceiptQty,
+      ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0) AS TotalAmount,
+      ISNULL (convert(decimal(18,6),SUM ((PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax)/dbo.Func_GetTaxRate(null,POH_CreateDate))),0) AS TotalAmountNoTax
+      ,ISNULL(SUM(A.PointAmount),0) AS PointAmount
+      ,ISNULL(SUM(A.PointAmount/dbo.Func_GetTaxRate(null,POH_CreateDate)),0) AS PointAmountNoTax
+      FROM PurchaseOrderDetail(nolock)
+      INNER JOIN PurchaseOrderHeader(nolock) ON PurchaseOrderHeader.POH_ID=PurchaseOrderDetail.POD_POH_ID
+      LEFT JOIN (SELECT B.POD_ID,SUM(B.Amount) PointAmount FROM Promotion.PurchaseOrderPoint B GROUP BY B.POD_ID) A  ON A.POD_ID=PurchaseOrderDetail.POD_ID
+      WHERE POD_POH_ID = #value#
+    </select>
+    <!--临时订单修改为正式订单，并将原有订单状态修改为无效订单-->
+    <procedure id="GC_PurchaseOrderBSC_ActiveTemporaryOrder" parameterMap="GC_PurchaseOrderBSC_ActiveTemporaryOrder_ParameterMap">
+      dbo.GC_PurchaseOrderBSC_ActiveTemporaryOrder
+    </procedure>
+    <!--end-->
+
+    <!--获取下单人员-->
+    <select id="SelectSubmintUserByUserID" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      SELECT * FROM dbo.Lafite_IDENTITY WHERE Id= #value#
+    </select>
+    <!--end-->
+    <!--获取经销商对应销售人员-->
+    <select id="SelectSalesByDealerAndProductLine" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select it.* from interface.T_I_RV_DealerSalesRep it,V_DivisionProductLineRelation
+      where DivisionID = DivisionCode
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLineBumId">ProductLineID=#ProductLineBumId#</isNotNull>
+      </dynamic>
+    </select>
+    <!--获取需要Webservice同步到EW的单据-->
+    <select id="SelectInterfaceOrderByBatchNo" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select distinct POH_ID,POC_OrderNo,isnull(POH_SalesAccount,'') as POH_SalesAccount
+      from PurchaseOrderConfirmation,PurchaseOrderHeader
+      where POC_OrderNo = POH_OrderNo
+      and POC_BUM_ID='8f15d92a-47e4-462f-a603-f61983d61b7b'
+      and POH_VendorID in ('84c83f71-93b4-4efd-ab51-12354afabac3','a00fcd75-951d-4d91-8f24-a29900da5e85')
+      and not exists(
+      select 1 from PurchaseOrderLog where POL_POH_ID = POH_ID
+      and POL_OperType = 'Confirm'
+      and POL_OperNote in ('RSM审批确认','RSM审批拒绝')
+      )
+      and POC_BatchNbr = #value#
+    </select>
+
+    <!--删除当前使用积分信息-->
+    <delete id="DeleteOrderPointByOrderHeaderId" parameterClass="string">
+      DELETE  A FROM Promotion.PurchaseOrderPoint A INNER JOIN PurchaseOrderDetail B ON A.POD_ID=B.POD_ID WHERE B.POD_POH_ID= #value#
+    </delete>
+    <!--删除当前使用额度信息-->
+    <delete id="DeleteOrderRedInvoicesByOrderHeaderId" parameterClass="string">
+      DELETE  A FROM Promotion.PurchaseOrderRedInvoices A INNER JOIN PurchaseOrderDetail B ON A.POD_ID=B.POD_ID WHERE B.POD_POH_ID= #value#
+    </delete>
+    <!--计算总额度使用情况-->
+    <select id="SumPurchaseOrderByRedInvoicesHeaderId" parameterClass="string" resultClass="PurchaseOrderHeader">
+      SELECT ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty*PurchaseOrderDetail.POD_CFN_Price), 0) AS TotalQty,
+      ISNULL (SUM (PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax), 0) AS TotalAmount,
+      ISNULL (convert(decimal(18,6),SUM ((PurchaseOrderDetail.POD_Amount + PurchaseOrderDetail.POD_Tax)/dbo.Func_GetTaxRate(null,POH_CreateDate))),0) AS TotalAmountNoTax
+      ,CASE WHEN  ISNULL(SUM(A.PointAmount),0)&lt;=ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty*PurchaseOrderDetail.POD_CFN_Price),0) THEN ISNULL(SUM(A.PointAmount),0)
+      ELSE ISNULL (SUM (PurchaseOrderDetail.POD_RequiredQty*PurchaseOrderDetail.POD_CFN_Price),0) END
+      AS PointAmount
+      ,ISNULL(SUM(A.PointAmount/dbo.Func_GetTaxRate(null,POH_CreateDate)),0) AS PointAmountNoTax
+      FROM PurchaseOrderDetail
+      INNER JOIN PurchaseOrderHeader(nolock) ON PurchaseOrderHeader.POH_ID=PurchaseOrderDetail.POD_POH_ID
+      LEFT JOIN (SELECT B.POD_ID,SUM(B.Amount) PointAmount
+      FROM Promotion.PurchaseOrderRedInvoices B GROUP BY B.POD_ID) A
+      ON A.POD_ID=PurchaseOrderDetail.POD_ID
+      WHERE POD_POH_ID = #value#
+    </select>
+    <procedure id="GC_OrderPointCheck" parameterMap="GC_OrderPointCheck_ParameterMap">
+      PROMOTION.Proc_Interface_PointOrderCheck
+    </procedure>
+    <!--根据仓库获取收货地址-->
+    <select id="SelectSAPWarehouseAddressByWhmId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select TOP 1 SWA_WH_Address from SAPWarehouseAddress where swa_name = (select top 1 whm_Name from warehouse where WHM_ID=#value#)
+    </select>
+    <procedure id="GC_PurchaseOrder_AfterClearBorrowSubmit" parameterMap="GC_PurchaseOrder_AfterClearBorrowSubmitMap">
+      dbo.GC_PurchaseOrder_AfterClearBorrowSubmit
+    </procedure>
+    <procedure id="GC_PurchaseOrder_AfterClearBorrowConfirm" parameterMap="GC_PurchaseOrder_AfterClearBorrowConfirmMap">
+      dbo.GC_PurchaseOrder_AfterClearBorrowConfirm
+    </procedure>
+    <select id="GetCfnIsorderByUpn" parameterClass="System.Collections.Hashtable"  resultClass="System.Data.DataSet">
+      EXEC [dbo].GC_GetDealerPurchaseOrderCfn_Info #DealerId#,#Upn#,#SubCompanyId#,#BrandId#
+    </select>
+    <select id="GetOrderByOrderNo" parameterClass="string" resultClass="PurchaseOrderHeader">
+      SELECT POH_ID AS Id,POH_OrderNo AS OrderNo,POH_ProductLine_BUM_ID AS ProductLineBumId,POH_DMA_ID AS DmaId,POH_VendorID AS Vendorid,POH_TerritoryCode AS TerritoryCode,POH_RDD AS Rdd,POH_ContactPerson AS ContactPerson,POH_Contact AS Contact,POH_ContactMobile AS ContactMobile,POH_Consignee AS Consignee,POH_ShipToAddress AS ShipToAddress,POH_ConsigneePhone AS ConsigneePhone,POH_Remark AS Remark,POH_InvoiceComment AS InvoiceComment,POH_CreateType AS CreateType,POH_CreateUser AS CreateUser,POH_CreateDate AS CreateDate,POH_UpdateUser AS UpdateUser,POH_UpdateDate AS UpdateDate,POH_SubmitUser AS SubmitUser,POH_SubmitDate AS SubmitDate,POH_LastBrowseUser AS LastBrowseUser,POH_LastBrowseDate AS LastBrowseDate,POH_OrderStatus AS OrderStatus,POH_LatestAuditDate AS LatestAuditDate,POH_IsLocked AS IsLocked,POH_SAP_OrderNo AS SapOrderNo,POH_SAP_ConfirmDate AS SapConfirmDate,POH_LastVersion AS LastVersion,POH_OrderType AS OrderType,POH_VirtualDC AS Virtualdc,POH_SpecialPriceID AS SpecialPriceid,POH_WHM_ID AS WhmId,POH_POH_ID AS PohId,POH_SalesAccount as SalesAccount,POH_PointType AS PointType
+      FROM PurchaseOrderHeader WHERE POH_OrderNo=#value#
+    </select>
+    <select id="GetOrderByOrderNoManual" parameterClass="string" resultClass="PurchaseOrderHeader">
+      SELECT POH_ID AS Id,POH_OrderNo AS OrderNo,POH_ProductLine_BUM_ID AS ProductLineBumId,POH_DMA_ID AS DmaId,POH_VendorID AS Vendorid,POH_TerritoryCode AS TerritoryCode,POH_RDD AS Rdd,POH_ContactPerson AS ContactPerson,POH_Contact AS Contact,POH_ContactMobile AS ContactMobile,POH_Consignee AS Consignee,POH_ShipToAddress AS ShipToAddress,POH_ConsigneePhone AS ConsigneePhone,POH_Remark AS Remark,POH_InvoiceComment AS InvoiceComment,POH_CreateType AS CreateType,POH_CreateUser AS CreateUser,POH_CreateDate AS CreateDate,POH_UpdateUser AS UpdateUser,POH_UpdateDate AS UpdateDate,POH_SubmitUser AS SubmitUser,POH_SubmitDate AS SubmitDate,POH_LastBrowseUser AS LastBrowseUser,POH_LastBrowseDate AS LastBrowseDate,POH_OrderStatus AS OrderStatus,POH_LatestAuditDate AS LatestAuditDate,POH_IsLocked AS IsLocked,POH_SAP_OrderNo AS SapOrderNo,POH_SAP_ConfirmDate AS SapConfirmDate,POH_LastVersion AS LastVersion,POH_OrderType AS OrderType,POH_VirtualDC AS Virtualdc,POH_SpecialPriceID AS SpecialPriceid,POH_WHM_ID AS WhmId,POH_POH_ID AS PohId,POH_SalesAccount as SalesAccount,POH_PointType AS PointType
+      FROM PurchaseOrderHeader WHERE POH_OrderNo=#value# AND POH_CreateType='Manual' 
+    </select>
+    <insert id="InsertOrderOperationLog" parameterClass="System.Collections.Hashtable">
+      INSERT INTO OrderOperationLog(ID,ContractUser,OperationType,ContractDate,Remarks,OrderNo)
+      VALUES(NEWID(),#ContractUser#,#OperationType#,GETDATE(),#Remarks#,#OrderNo#)
+    </insert>
+    <procedure id="GC_PRODealerRedInvoicesChecked" parameterMap="GC_PRODealerRedInvoicesCheckedCheckedMap">
+      [dbo].[GC_PRODealerRedInvoices_Checked]
+    </procedure>
+    <procedure id="GC_PRODealerRedInvoice_Update" parameterMap="GC_PRODealerRedInvoice_UpdateMap">
+      [Promotion].[GC_PRODealerRedInvoice_Update]
+    </procedure>
+    <procedure id="GC_Interface_RedInvoicesCheck" parameterMap="GC_Interface_RedInvoicesCheckMap">
+      [dbo].[GC_Interface_RedInvoicesCheck]
+    </procedure>
+    <!--查询有哪些经销商需要选择付款方式-->
+    <select id="SelectDealerPaymentTypBYDmaId" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM FinancingQualificationDealerList WHERE FQD_DMA_ID=#value# AND FQD_IsActive=1
+    </select>
+    <!--获取订单类型权限-->
+    <select id="SelectDealerPermissions" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  [dbo].[GC_Fn_CheckDealerPermissions] (#DMA_ID#,#PermissionsType#)  CheckData
+    </select>
+
+
+
+    <select id="SelectPurchasingForecastReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+      select PFA_ID,PFA_ForecastVersion,DMA_SAP_Code,DMA_ChineseName,DivisionName,PFA_UPN,PFA_UPNDescription,PFA_ProductGroup,PFA_ProductSubGroup,PFA_PurchaseUnitPrice,
+      PFA_HisPurchase_M1,PFA_HisPurchase_M2,PFA_HisPurchase_M3,PFA_HisPurchase_M4,PFA_HisPurchase_M5,PFA_HisPurchase_M6,PFA_HisPurchase_M7,PFA_HisPurchase_M8,PFA_HisPurchase_M9,
+      PFA_HisPurchase_M10,PFA_HisPurchase_M11,PFA_HisPurchase_M12,PFA_YearlyPurchase,PFA_InventoryQty,PFA_HisForecastMM3,PFA_HisForecastMM2,PFA_HisForecastMM1,PFA_HisForecastAccuMM3,PFA_HisForecastAccuMM2,
+      PFA_HisForecastAccuMM1,PFA_HisForecastAdjAccuMM3,PFA_HisForecastAdjAccuMM2,PFA_HisForecastAdjAccuMM1,PFA_Forecast_M1,PFA_Forecast_M2,PFA_Forecast_M3,PFA_ForecastAdj_M1,PFA_ForecastAdj_M2,PFA_ForecastAdj_M3,PFA_ForecastAdj_Remark,
+      PFA_IndexForecastRate_M1,PFA_IndexForecastRate_M2,PFA_IndexForecastRate_M3,PFA_IndexAdjustRate_M1,PFA_IndexAdjustRate_M2,PFA_IndexAdjustRate_M3,PFA_CreateDate,CONVERT(varchar(10),PFA_UpdateDate,120) as PFA_UpdateDate,PFA_UpdateUser,PFA_Status,PFA_Note,
+      ROW_NUMBER () OVER (ORDER BY case when PFA_YearlyPurchase = 0 then 1 else 0 end ,DivisionName,PFA_YearlyPurchase Desc)AS row_number
+      from dbo.DealerPurchaseForecastAdjust A(nolock)
+      INNER JOIN DealerMaster B(nolock) ON  A.PFA_DMA_ID=B.DMA_ID
+      inner join V_DivisionProductLineRelation v on a.PFA_BU=v.DivisionCode AND v.IsEmerging='0'
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PFA_ForecastVersion">A.PFA_ForecastVersion=#PFA_ForecastVersion# </isNotNull>
+        <isNotNull prepend="AND" property="PFA_UPN">A.PFA_UPN =#PFA_UPN#</isNotNull>
+        <isNotNull prepend="AND" property="cbProductLine">v.ProductLineID =#cbProductLine#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS(
+          SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD,DealerPurchaseForecastAdjust d
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization'
+          AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = d.PFA_DMA_ID
+          AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD, DealerPurchaseForecastAdjust d WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = d.PFA_DMA_ID
+          ) )
+        </isEqual>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (B.DMA_ID =#DealerId# or B.DMA_Parent_DMA_ID=#DealerId#)
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="SelectPurchaseOrderCarrierById" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT TOP 1 DC_ID Id,DC_DMA_ID DmaId,DC_Currency Currency,DC_ExchangeRate ExchangeRate,DC_BeginDate BeginDate,DC_EndDate EndDate
+      FROM  dbo.DealerCurrency
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">DC_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="SubmintDate"> #SubmintDate# BETWEEN DC_BeginDate AND DC_EndDate</isNotNull>
+      </dynamic>
+      ORDER BY DC_BeginDate DESC
+    </select>
+    <select id="CheckBomOrderQty" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT [dbo].[Func_CheckBOMCanOrderQty](#PohId#) AS CheckDate
+    </select>
+    
+    <update id="UpdateOrderWmsSendflg" parameterClass="System.Collections.Hashtable">
+      UPDATE PurchaseOrderHeader SET POH_SendWMSFlg=#UpdateFlg# WHERE POH_CreateType not in ('Temporary') AND ISNULL(POH_SendWMSFlg,0)=#FromFlg#
+      AND EXISTS (SELECT 1 FROM DealerMaster WHERE DMA_ID=POH_DMA_ID AND DMA_DealerType NOT IN ('T2'))
+      AND POH_OrderStatus NOT IN ('Draft','Revoking','Rejected','Revoked','ApplyComplete')
+    </update>
+
+    <select id="SelectPurchaseOrderWmsInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT POH_OrderNo AS PO,B.DMA_SAP_Code AS CustomerID,ISNULL(POH_DcType,'Deliver') AS DeliveryType,
+      CASE WHEN ISNULL(POH_SendAddress,'')='' THEN 'Y' ELSE 'N' END AS IsStdShipto,
+      CASE WHEN ISNULL(POH_SendAddress,'')='' THEN POH_ShipToAddress ELSE POH_SendAddress END AS ShipToAddress,
+      ISNULL(POH_Consignee,'') AS Consignee,ISNULL(POH_ConsigneePhone,'') AS Tel,ISNULL(POH_TerritoryCode,'') AS Carrier
+      ,C.DivisionName
+      FROM dbo.PurchaseOrderHeader a
+      INNER JOIN dbo.DealerMaster b ON A.POH_DMA_ID=B.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.IsEmerging='0' AND C.ProductLineID=A.POH_ProductLine_BUM_ID
+      WHERE POH_CreateType not in ('Temporary')
+      AND POH_SendWMSFlg=1
+    </select>
+
+    <!--经销商订单明细报表-->
+    <select id="SelectDealerOrderDetailReport" parameterClass="System.Collections.Hashtable">
+      select TOP 300 DM.DMA_ChineseName as  ChineseName,
+      dm.DMA_SAP_Code as SAPCode,
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and id=POH_ProductLine_BUM_ID) as ProductLineName,
+      POH_OrderNo as OrderNo,
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_KEY=POH.POH_OrderType  and DICT_TYPE='CONST_Order_Type') AS Order_Type,
+      CONVERT(VARCHAR(10),POH_SubmitDate,121) as SubmitDate,
+      CONVERT(VARCHAR(10),POH_RDD,121) as RDD,
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE = 'CONST_Order_Status' and DICT_KEY=POH_OrderStatus) as OrderStatus,
+      POH_SAP_ConfirmDate as ConfirmDate,
+      POH_Remark as Remark,
+      POH_InvoiceComment as InvoiceComment,
+      CFN_CustomerFaceNbr as ArticleNumber,
+      CFN.CFN_ChineseName as CFNChineseName,
+      CFN.CFN_EnglishName as CFNEnglishName,
+      convert(int,POD_RequiredQty) as 'RequiredQty',
+      POD_Amount + POD_Tax as 'Amount',
+      convert(int,POD_ReceiptQty)  as 'ReceiptQty',
+      POD_ReceiptQty * POD_CFN_Price  as 'ReceiptAmount',
+      CFN_Property1,
+      CFN_Property2,
+      CFN_Property3,
+      CFN_Property4,
+      CFN_Property5,
+      CFN_Property6,
+      CFN_Property7,
+      CFN_Property8,
+      CFN_Level1Code,
+      CFN_Level1Desc,
+      CFN_Level2Code,
+      CFN_Level2Desc,
+      CFN_Level3Code,
+      CFN_Level3Desc,
+      CFN_Level4Code,
+      CFN_Level4Desc,
+      CFN_Level5Code,
+      CFN_Level5Desc,
+      POH.POH_SubmitUser,
+      li.IDENTITY_NAME,
+      POD.POD_CurRegNo,
+      POD.POD_CurManuName,
+      POD.POD_LastRegNo,
+      POD.POD_LastManuName,
+      POD.POD_LotNumber,
+      POD.POD_QRCode
+      from dbo.PurchaseOrderHeader AS POH(nolock)
+      inner join DealerMaster DM(nolock) on POH_DMA_ID=dm.DMA_ID
+      left join PurchaseOrderDetail as POD(nolock) on POH.POH_ID=POD.POD_POH_ID
+      left join CFN(nolock) on POD.POD_CFN_ID=CFN.CFN_ID
+      left join Lafite_IDENTITY li(nolock) on li.Id = POH.POH_SubmitUser
+      where POH_OrderStatus &lt;> 'Draft'
+      AND POH.POH_CreateType = 'Manual'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">POH_ProductLine_BUM_ID = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">POH_SubmitDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">POH_SubmitDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="CorpId">DM.DMA_ID = #CorpId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">dbo.GC_FilterByDealer(#UserId#,#CorpId#,POH_ProductLine_BUM_ID) = 1</isNotNull>-->
+        <isNotNull prepend="AND" property="CfnNumber">CFN.CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+      </dynamic>
+      ORDER BY DM.DMA_ChineseName,POH_SubmitDate DESC
+    </select>
+
+    <select id="ExportDealerOrderDetailReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select DM.DMA_ChineseName as '经销商名称',
+      dm.DMA_SAP_Code as '经销商ERP Account',
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and id=POH_ProductLine_BUM_ID) as '产品线',
+      POH_OrderNo as '订单编号',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_KEY=POH.POH_OrderType  and DICT_TYPE='CONST_Order_Type') AS '订单类型',
+      li.IDENTITY_NAME AS '操作人',
+      CONVERT(VARCHAR(10),POH_SubmitDate,121) as '订单日期',
+      CONVERT(VARCHAR(10),POH_RDD,121) as '期望到货日期',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE = 'CONST_Order_Status' and DICT_KEY=POH_OrderStatus) as '订单状态',
+      POH_SAP_ConfirmDate as '订单处理时间',
+      POH_Remark as '订单备注',
+      POH_InvoiceComment as '发票备注',
+      CFN_CustomerFaceNbr as '产品编号',
+      CFN.CFN_ChineseName as '产品中文名称',
+      CFN.CFN_EnglishName as '产品英文名称',
+      POD.POD_LotNumber AS '批号',
+      POD.POD_QRCode AS '二维码',
+      convert(int,POD_RequiredQty) as '订购数量',
+      POD_Amount + POD_Tax as '订单金额小计',
+      convert(int,POD_ReceiptQty)  as '已发货数量',
+      POD_ReceiptQty * POD_CFN_Price  as '已发货金额小计',
+      POD.POD_CurRegNo AS '注册证编号-1',
+      POD.POD_CurManuName AS '生产企业（注册证-1）',
+      POD.POD_LastRegNo AS '注册证编号-2',
+      POD.POD_LastManuName AS '生产企业（注册证-2）'
+      from dbo.PurchaseOrderHeader AS POH(nolock)
+      inner join DealerMaster DM(nolock) on POH_DMA_ID=dm.DMA_ID
+      left join PurchaseOrderDetail as POD(nolock) on POH.POH_ID=POD.POD_POH_ID
+      left join CFN(nolock) on POD.POD_CFN_ID=CFN.CFN_ID
+      left join Lafite_IDENTITY li(nolock) on li.Id = POH.POH_SubmitUser
+      where POH_OrderStatus &lt;> 'Draft'
+      AND POH.POH_CreateType = 'Manual'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">POH_ProductLine_BUM_ID = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">POH_SubmitDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">POH_SubmitDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="CorpId">DM.DMA_ID = #CorpId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">dbo.GC_FilterByDealer(#UserId#,#CorpId#,POH_ProductLine_BUM_ID) = 1</isNotNull>-->
+        <isNotNull prepend="AND" property="CfnNumber">CFN.CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+      </dynamic>
+      ORDER BY DM.DMA_ChineseName,POH_SubmitDate DESC
+    </select>
+    <!--End 经销商订单明细报表-->
+
+    <!--订单状态报表-->
+    <select id="SelectOrderStatusReport" parameterClass="System.Collections.Hashtable">
+      select POH_ProductLine_BUM_ID AS BUMID,
+      VPL.ATTRIBUTE_NAME,
+      dm.DMA_ChineseName as ChineseName, dm.DMA_SAP_Code as SAPCode ,
+      year(POH_SubmitDate) as year,
+      MONTH(POH_SubmitDate)as month,
+      POH_OrderNo as OrderNo,
+      POH_SAP_OrderNo as SAPOrderNo,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CONVERT(VARCHAR(10),POH_SubmitDate,121) AS SubmitDate,
+      POH_SAP_ConfirmDate,
+      POH_RDD AS RDD,
+      SapDeliveryDate=null,
+      DeliveryDate=null,
+      PlanDeliveryDate=null,
+      ArrivalDate=null,
+      POD.POD_CFN_Price*(SUM(POD.POD_RequiredQty)-SUM(POD.POD_ReceiptQty)) as waitAmount,
+      POD.POD_CFN_Price*SUM(POD.POD_ReceiptQty) as receiptAmount,
+      SUM(POD.POD_RequiredQty)-SUM(POD.POD_ReceiptQty) as ReceiptQty,
+      SUM(POD.POD_RequiredQty) AS POD_RequiredQty,
+      SUM(POD.POD_ReceiptQty) AS POD_ReceiptQty,
+      POD.POD_CFN_Price,
+      (select VALUE1 from Lafite_DICT where DICT_TYPE = 'CONST_Order_Type' and DICT_KEY = POH.POH_OrderType) as OrderType,
+      (select VALUE1 from Lafite_DICT where DICT_TYPE = 'CONST_Order_Status' and DICT_KEY = POH.POH_OrderStatus) as OrderStatus,isnull(POD.POD_LotNumber,'') AS LotNumber,
+      isnull(POD.POD_QRCode ,'') AS QRCode
+      from PurchaseOrderHeader POH(nolock)
+      left join DealerMaster dm(nolock) on POH.POH_DMA_ID=dm.DMA_ID
+      inner join PurchaseOrderDetail POD(nolock) on POD.POD_POH_ID=POH.POH_ID
+      inner join CFN(nolock) ON POD.POD_CFN_ID=CFN.CFN_ID
+      inner join View_ProductLine VPL(nolock) ON VPL.Id = POH_ProductLine_BUM_ID
+      where POH_OrderStatus not in ('Draft','Rejected','Revoked')
+      and POH_OrderType not in ('ClearBorrow')
+      and POH_CreateType = 'Manual'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">VPL.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VPL.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">POH.POH_ProductLine_BUM_ID = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">POH_SubmitDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">POH_SubmitDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">DM.DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">dbo.GC_FilterByDealer(#UserId#,POH.POH_DMA_ID,POH_ProductLine_BUM_ID) = 1</isNotNull>-->
+        <isNotNull prepend="AND" property="IsInclude">
+          (1=#IsInclude# or (POD.POD_RequiredQty-POD.POD_ReceiptQty>0 AND POH.POH_OrderStatus &lt;> 'Completed'))
+        </isNotNull>
+      </dynamic>   
+       group by POH_ProductLine_BUM_ID,DMA_ChineseName,DMA_SAP_Code,POH_SubmitDate,
+       POH_SAP_ConfirmDate,POH_OrderNo,POH_SAP_OrderNo,CFN_CustomerFaceNbr,POH_RDD,
+       POD.POD_CFN_Price,POH.POH_OrderType,POH.POH_OrderStatus,VPL.ATTRIBUTE_NAME,POD.POD_LotNumber,POD.POD_QRCode
+     </select>
+
+    <select id="ExportOrderStatusReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select
+      VPL.ATTRIBUTE_NAME AS '产品线',
+      dm.DMA_ChineseName as '经销商名称',
+      dm.DMA_SAP_Code as '经销商ERP Account',
+      year(POH_SubmitDate) as '年度',
+      MONTH(POH_SubmitDate)as '月度',
+      POH_OrderNo as '订单编号',
+      (select VALUE1 from Lafite_DICT where DICT_TYPE = 'CONST_Order_Type' and DICT_KEY = POH.POH_OrderType) as '订单类型',
+      (select VALUE1 from Lafite_DICT where DICT_TYPE = 'CONST_Order_Status' and DICT_KEY = POH.POH_OrderStatus) as '订单状态',
+      CFN.CFN_CustomerFaceNbr AS '产品编号',
+      isnull(POD.POD_LotNumber,'') AS '批号',
+      isnull(POD.POD_QRCode ,'') AS '二维码',
+      SUM(POD.POD_RequiredQty) AS '订购数量',
+      SUM(POD.POD_ReceiptQty) AS '已发货数量',
+      SUM(POD.POD_RequiredQty)-SUM(POD.POD_ReceiptQty) as '未发货数量',
+      POD.POD_CFN_Price AS '未发货单价',
+      POD.POD_CFN_Price*(SUM(POD.POD_RequiredQty)-SUM(POD.POD_ReceiptQty)) as '未发货金额',
+      CONVERT(VARCHAR(10),POH_SubmitDate,121) AS '订单日期'
+      from PurchaseOrderHeader POH(nolock)
+      left join DealerMaster dm(nolock) on POH.POH_DMA_ID=dm.DMA_ID
+      inner join PurchaseOrderDetail POD(nolock) on POD.POD_POH_ID=POH.POH_ID
+      inner join CFN(nolock) ON POD.POD_CFN_ID=CFN.CFN_ID
+      inner join View_ProductLine VPL(nolock) ON VPL.Id = POH_ProductLine_BUM_ID
+      where POH_OrderStatus not in ('Draft','Rejected','Revoked')
+      and POH_OrderType not in ('ClearBorrow')
+      and POH_CreateType = 'Manual'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">POH.POH_ProductLine_BUM_ID = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VPL.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VPL.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">POH_SubmitDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">POH_SubmitDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">DM.DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">dbo.GC_FilterByDealer(#UserId#,POH.POH_DMA_ID,POH_ProductLine_BUM_ID) = 1</isNotNull>-->
+        <isNotNull prepend="AND" property="IsInclude">
+          (1=#IsInclude# or (POD.POD_RequiredQty-POD.POD_ReceiptQty>0 AND POH.POH_OrderStatus &lt;> 'Completed'))
+        </isNotNull>
+      </dynamic>
+      group by POH_ProductLine_BUM_ID,DMA_ChineseName,DMA_SAP_Code,POH_SubmitDate,
+      POH_SAP_ConfirmDate,POH_OrderNo,POH_SAP_OrderNo,CFN_CustomerFaceNbr,POH_RDD,
+      POD.POD_CFN_Price,POH.POH_OrderType,POH.POH_OrderStatus,VPL.ATTRIBUTE_NAME,POD.POD_LotNumber,POD.POD_QRCode
+    </select>
+    <!--End 订单状态报表-->
+  </statements>
+</sqlMap>

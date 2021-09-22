@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryReturnConsignmentInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryReturnConsignmentInit" assembly="DMS.Model.dll" type="DMS.Model.InventoryReturnConsignmentInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryReturnConsignmentInitResult" class="InventoryReturnConsignmentInit">
+      <result property="Id" column="IRC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="IRC_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="IRC_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="IRC_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IRC_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="IRC_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="IRC_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="PurchaseOrderNbr" column="IRC_PurchaseOrderNbr" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="IRC_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="IRC_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ReturnQty" column="IRC_ReturnQty" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="IRC_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="IRC_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="IRC_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PrhId" column="IRC_PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ArticleNumberErrMsg" column="IRC_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="ReturnQtyErrMsg" column="IRC_ReturnQty_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="PurchaseOrderNbrErrMsg" column="IRC_PurchaseOrderNbr_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="LotNumberErrMsg" column="IRC_LotNumber_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="IRC_QrCode" type="string" dbType="nvarchar"/>
+      <result property="Warehouse" column="IRC_Warehouse" type="string" dbType="nvarchar"/>
+      <result property="WarehouseErrMsg" column="IRC_Warehouse_ErrMsg" type="string" dbType="nvarchar"/>
+      <result property="WhmId" column="IRC_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InventoryReturnConsignmentInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInventoryReturnConsignmentInit" parameterClass="string" resultClass="InventoryReturnConsignmentInit">
+      SELECT IRC_ID AS Id,IRC_USER AS [User],IRC_UploadDate AS UploadDate,IRC_LineNbr AS LineNbr,IRC_FileName AS FileName,IRC_ErrorFlag AS ErrorFlag,IRC_ErrorDescription AS ErrorDescription,IRC_PurchaseOrderNbr AS PurchaseOrderNbr,IRC_ArticleNumber AS ArticleNumber,IRC_LotNumber AS LotNumber,IRC_ReturnQty AS ReturnQty,IRC_DMA_ID AS DmaId,IRC_CFN_ID AS CfnId,IRC_BUM_ID AS BumId,IRC_PRH_ID AS PrhId,IRC_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IRC_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IRC_PurchaseOrderNbr_ErrMsg AS PurchaseOrderNbrErrMsg,IRC_LotNumber_ErrMsg AS LotNumberErrMsg,IRC_QrCode as QrCode,IRC_Warehouse AS Warehouse,IRC_Warehouse_ErrMsg AS  WarehouseErrMsg,IRC_WHM_ID AS WhmId
+      FROM InventoryReturnConsignmentInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IRC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryReturnConsignmentInit" parameterClass="InventoryReturnConsignmentInit" resultClass="InventoryReturnConsignmentInit">
+      SELECT IRC_ID AS Id,IRC_USER AS [User],IRC_UploadDate AS UploadDate,IRC_LineNbr AS LineNbr,IRC_FileName AS FileName,IRC_ErrorFlag AS ErrorFlag,IRC_ErrorDescription AS ErrorDescription,IRC_PurchaseOrderNbr AS PurchaseOrderNbr,IRC_ArticleNumber AS ArticleNumber,IRC_LotNumber AS LotNumber,IRC_ReturnQty AS ReturnQty,IRC_DMA_ID AS DmaId,IRC_CFN_ID AS CfnId,IRC_BUM_ID AS BumId,IRC_PRH_ID AS PrhId,IRC_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IRC_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IRC_PurchaseOrderNbr_ErrMsg AS PurchaseOrderNbrErrMsg,IRC_LotNumber_ErrMsg AS LotNumberErrMsg,IRC_QrCode as QrCode,IRC_Warehouse AS Warehouse,IRC_Warehouse_ErrMsg AS  WarehouseErrMsg,IRC_WHM_ID AS WhmId
+      FROM InventoryReturnConsignmentInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IRC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">IRC_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">IRC_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IRC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IRC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">IRC_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">IRC_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbr">IRC_PurchaseOrderNbr=#PurchaseOrderNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IRC_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IRC_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQty">IRC_ReturnQty=#ReturnQty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IRC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IRC_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">IRC_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="PrhId">IRC_PRH_ID=#PrhId#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumberErrMsg">IRC_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQtyErrMsg">IRC_ReturnQty_ErrMsg=#ReturnQtyErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbrErrMsg">IRC_PurchaseOrderNbr_ErrMsg=#PurchaseOrderNbrErrMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumberErrMsg">IRC_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryReturnConsignmentInit" parameterClass="InventoryReturnConsignmentInit">
+      INSERT INTO InventoryReturnConsignmentInit
+      (IRC_ID,IRC_USER,IRC_UploadDate,IRC_LineNbr,IRC_FileName,IRC_ErrorFlag,IRC_ErrorDescription,IRC_PurchaseOrderNbr,IRC_ArticleNumber,IRC_LotNumber,IRC_ReturnQty,IRC_DMA_ID,IRC_CFN_ID,IRC_BUM_ID,IRC_PRH_ID,IRC_ArticleNumber_ErrMsg,IRC_ReturnQty_ErrMsg,IRC_PurchaseOrderNbr_ErrMsg,IRC_LotNumber_ErrMsg,IRC_QrCode,IRC_Warehouse,IRC_Warehouse_ErrMsg,IRC_WHM_ID)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#PurchaseOrderNbr#,#ArticleNumber#,#LotNumber#,#ReturnQty#,#DmaId#,#CfnId#,#BumId#,#PrhId#,#ArticleNumberErrMsg#,#ReturnQtyErrMsg#,#PurchaseOrderNbrErrMsg#,#LotNumberErrMsg#,#QrCode#,#Warehouse#,#WarehouseErrMsg#,#WhmId#)
+    </insert>
+    <update id="UpdateInventoryReturnConsignmentInit" parameterClass="InventoryReturnConsignmentInit">
+      UPDATE InventoryReturnConsignmentInit
+      SET IRC_ID=#Id#,IRC_USER=#User#,IRC_UploadDate=#UploadDate#,IRC_LineNbr=#LineNbr#,IRC_FileName=#FileName#,IRC_ErrorFlag=#ErrorFlag#,IRC_ErrorDescription=#ErrorDescription#,IRC_PurchaseOrderNbr=#PurchaseOrderNbr#,IRC_ArticleNumber=#ArticleNumber#,IRC_LotNumber=#LotNumber#,IRC_ReturnQty=#ReturnQty#,IRC_DMA_ID=#DmaId#,IRC_CFN_ID=#CfnId#,IRC_BUM_ID=#BumId#,IRC_PRH_ID=#PrhId#,IRC_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,IRC_ReturnQty_ErrMsg=#ReturnQtyErrMsg#,IRC_PurchaseOrderNbr_ErrMsg=#PurchaseOrderNbrErrMsg#,IRC_LotNumber_ErrMsg=#LotNumberErrMsg#,IRC_QrCode=#QrCode#,IRC_Warehouse=#Warehouse#,IRC_Warehouse_ErrMsg = #WarehouseErrMsg#,IRC_WHM_ID = #WhmId#
+      WHERE IRC_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryReturnConsignmentInit" parameterClass="string">
+      DELETE FROM InventoryReturnConsignmentInit
+      WHERE IRC_ID = #value#
+    </delete>
+
+    <delete id="DeleteInventoryReturnConsignmentInitByUser" parameterClass="string">
+      DELETE FROM InventoryReturnConsignmentInit
+      WHERE IRC_USER = #value#
+    </delete>
+    <select id="SelectInventoryReturnConsignmentInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="InventoryReturnConsignmentInit">
+      SELECT IRC_ID AS Id,IRC_USER AS [User],IRC_UploadDate AS UploadDate,IRC_LineNbr AS LineNbr,IRC_FileName AS FileName,IRC_ErrorFlag AS ErrorFlag,IRC_ErrorDescription AS ErrorDescription,IRC_PurchaseOrderNbr AS PurchaseOrderNbr,IRC_ArticleNumber AS ArticleNumber,
+      case when CHARINDEX('@@',IRC_LotNumber,0) = 0 then '' else substring(IRC_LotNumber,1,CHARINDEX('@@',IRC_LotNumber,0)-1) end AS LotNumber,IRC_ReturnQty AS ReturnQty,IRC_DMA_ID AS DmaId,IRC_CFN_ID AS CfnId,IRC_BUM_ID AS BumId,IRC_PRH_ID AS PrhId,IRC_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,IRC_ReturnQty_ErrMsg AS ReturnQtyErrMsg,IRC_PurchaseOrderNbr_ErrMsg AS PurchaseOrderNbrErrMsg,IRC_LotNumber_ErrMsg AS LotNumberErrMsg,IRC_QrCode as QrCode,IRC_Warehouse AS Warehouse,IRC_Warehouse_ErrMsg AS  WarehouseErrMsg,
+      ROW_NUMBER () OVER (ORDER BY IRC_ErrorFlag DESC,IRC_LineNbr ASC) AS row_number
+      FROM InventoryReturnConsignmentInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IRC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">IRC_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">IRC_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IRC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IRC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">IRC_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">IRC_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IRC_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnQty">IRC_ReturnQty=#ReturnQty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IRC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IRC_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">IRC_BUM_ID=#BumId#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateInventoryReturnConsignmentInitForEdit" parameterClass="InventoryReturnConsignmentInit">
+      UPDATE InventoryReturnConsignmentInit
+      SET IRC_ArticleNumber=#ArticleNumber#,IRC_ReturnQty=#ReturnQty#,IRC_LotNumber=#LotNumber#,IRC_PurchaseOrderNbr=#PurchaseOrderNbr#,
+      IRC_CFN_ID = null,IRC_BUM_ID = null,IRC_ArticleNumber_ErrMsg=null,IRC_ReturnQty_ErrMsg=null,IRC_LotNumber_ErrMsg=null,IRC_PurchaseOrderNbr_ErrMsg=null,IRC_QrCode=#QrCode#,IRC_Warehouse=#Warehouse#,IRC_Warehouse_ErrMsg=null,IRC_WHM_ID=null
+      WHERE IRC_ID = #Id#
+    </update>
+    <procedure id="GC_InventoryReturnConsignmentInit" parameterMap="InventoryReturnConsignmentInitParameterMap">
+      dbo.GC_InventoryReturnConsignmentInit
+    </procedure>
+  </statements>
+</sqlMap>

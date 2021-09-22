@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="FormInstanceMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <parameterMaps>
+    <parameterMap id="ParamCheckFormData" class="System.Collections.Hashtable" >
+      <parameter property="InstanceId" column="InstanceId" />
+      <parameter property="ModelId" column="ModelId" />
+      <parameter property="TemplateFormId" column="TemplateFormId" />
+      <parameter property="NodeIds" column="NodeIds" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <select id="SelectFormInstanceMasterListByFilter" parameterClass="System.Collections.Hashtable" resultClass="DMS.Model.EKPWorkflow.FormInstanceMaster">
+      SELECT [Id]
+      ,[ApplyId]
+      ,[ApplyNo]
+      ,[ApplyType]
+      ,[ApplySubject]
+      ,[sysId]
+      ,[modelId]
+      ,[templateFormId]
+      ,[language]
+      ,[processId]
+      ,[taskId]
+      ,[nodeId]
+      ,[nodeName]
+      ,[approverUser]
+      ,[desc]
+      ,[Rev1]
+      ,[Rev2]
+      ,[Rev3]
+      ,[CreateDate]
+      ,[CreateUser]
+      ,[UpdateDate]
+      ,[UpdateUser]
+      ,[fdTemplateFormId]
+      ,[docCreator]
+      FROM [Workflow].[FormInstanceMaster]
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ApplyId">ApplyId=#ApplyId#</isNotNull>
+        <isNotNull prepend="AND" property="processId">processId=#processId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertFormInstanceMaster" parameterClass="DMS.Model.EKPWorkflow.FormInstanceMaster">
+      INSERT INTO [Workflow].[FormInstanceMaster] (Id,ApplyId,ApplyNo,ApplyType,ApplySubject,sysId,modelId,templateFormId,language,processId,taskId,nodeId,nodeName,approverUser,[desc],Rev1,Rev2,Rev3,CreateDate,CreateUser,UpdateDate,UpdateUser,fdTemplateFormId,docCreator)
+      VALUES (#Id#, #ApplyId#, #ApplyNo#, #ApplyType#, #ApplySubject#, #sysId#, #modelId#, #templateFormId#, #language#, #processId#, #taskId#, #nodeId#, #nodeName#, #approverUser#, #desc#, #Rev1#, #Rev2#, #Rev3#, #CreateDate#, #CreateUser#,#UpdateDate#, #UpdateUser#,#fdTemplateFormId#,#docCreator#)
+    </insert>
+
+    <update id="UpdateFormInstanceMaster" parameterClass="DMS.Model.EKPWorkflow.FormInstanceMaster">
+      UPDATE [Workflow].[FormInstanceMaster] SET ApplyNo=#ApplyNo#, ApplyType=#ApplyType#, ApplySubject=#ApplySubject#, sysId=#sysId#, modelId=#modelId#, templateFormId=#templateFormId#, language=#language#, processId=#processId#, taskId=#taskId#, nodeId=#nodeId#, nodeName=#nodeName#, approverUser=#approverUser#, desc=#desc#, Rev1=#Rev1#, Rev2=#Rev2#, Rev3=#Rev3#, CreateDate=#CreateDate#, CreateUser=#CreateUser#, UpdateDate=#UpdateDate#, UpdateUser=#UpdateUser#,fdTemplateFormId=#fdTemplateFormId#,docCreator=#docCreator#
+      WHERE ApplyId = #ApplyId#
+    </update>
+
+    <select id="GetEkpWorkflowCommonFormData" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC Workflow.Proc_Common_GetFormData #FormInstanceId#,#ModelId#,#TemplateFormId#,#SubCompanyId#,#BrandId#
+    </select>
+
+    <select id="UpdateCommonFormStatus" parameterClass="System.Collections.Hashtable">
+      EXEC Workflow.Proc_Common_UpdateFormStatus #FormInstanceId#,#ModelId#,#TemplateFormId#,#NodeId#,#OperType#,#OperName#,#UserAccount#,#AuditNote#
+    </select>
+
+    <select id="UpdateCurrentApprover" parameterClass="System.Collections.Hashtable">
+      EXEC Workflow.UpdateCurrentApprover #FormInstanceId#,#ModelId#,#TemplateFormId#,#UserAccount#
+    </select>
+  
+    <select id="GetCommonHtmlData" parameterClass="System.Collections.Hashtable">
+      EXEC Workflow.Proc_Common_GetHtmlData #FormInstanceId#,#ModelId#,#TemplateFormId#,#OptionListXml#
+    </select>
+    
+    <procedure id="ProcCheckFormData" parameterMap="ParamCheckFormData">
+      [Workflow].[Proc_Common_CheckFormData]
+    </procedure>
+
+    <select id="ExecutiveCommonFormBusiness" parameterClass="System.Collections.Hashtable">
+      EXEC [Workflow].[Proc_Common_ExecutiveFormBusiness] #FormInstanceId#,#ModelId#,#TemplateFormId#,#OperName#,#UserAccount#,#AuditNote#
+    </select>
+  </statements>
+</sqlMap>

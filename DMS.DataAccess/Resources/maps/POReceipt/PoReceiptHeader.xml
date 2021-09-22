@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PoReceiptHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PoReceiptHeader" assembly="DMS.Model.dll" type="DMS.Model.PoReceiptHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PoReceiptHeaderResult" class="PoReceiptHeader">
+      <result property="Id" column="PRH_ID" type="Guid" dbType="Guid"/>
+      <result property="PoNumber" column="PRH_PONumber" type="string" dbType="varchar"/>
+      <result property="SapShipmentid" column="PRH_SAPShipmentID" type="string" dbType="varchar"/>
+      <result property="DealerDmaId" column="PRH_Dealer_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="ReceiptDate" column="PRH_ReceiptDate" type="DateTime" dbType="DateTime"/>
+      <result property="SapShipmentDate" column="PRH_SAPShipmentDate" type="DateTime" dbType="DateTime"/>
+      <result property="Status" column="PRH_Status" type="string" dbType="varchar"/>
+      <result property="VendorDmaId" column="PRH_Vendor_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="Type" column="PRH_Type" type="string" dbType="varchar"/>
+      <result property="ProductLineBumId" column="PRH_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="PurchaseOrderNbr" column="PRH_PurchaseOrderNbr" type="string" dbType="varchar"/>
+      <result property="ReceiptUsrUserID" column="PRH_Receipt_USR_UserID" type="Guid" dbType="Guid"/>
+      <result property="Carrier" column="PRH_Carrier" type="string" dbType="varchar"/>
+      <result property="TrackingNo" column="PRH_TrackingNo" type="string" dbType="varchar"/>
+      <result property="ShipType" column="PRH_ShipType" type="string" dbType="varchar"/>
+      <result property="Note" column="PRH_Note" type="string" dbType="varchar"/>
+      <result property="ArrivalDate" column="PRH_ArrivalDate" type="DateTime" dbType="datetime"/>
+      <result property="DeliveryDate" column="PRH_DeliveryDate" type="DateTime" dbType="datetime"/>
+      <result property="SapDeliveryDate" column="PRH_SapDeliveryDate" type="DateTime" dbType="datetime"/>
+      <result property="WhmId" column="PRH_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_POReceipt_CancelReceive_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="PRHId" column="PRHId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectPoReceiptHeader" parameterClass="string" resultClass="PoReceiptHeader">
+      SELECT PRH_ID AS Id,PRH_PONumber AS PoNumber,PRH_SAPShipmentID AS SapShipmentid,PRH_Dealer_DMA_ID AS DealerDmaId,PRH_ReceiptDate AS ReceiptDate,PRH_SAPShipmentDate AS SapShipmentDate,PRH_Status AS Status,PRH_Vendor_DMA_ID AS VendorDmaId,PRH_Type AS Type,PRH_ProductLine_BUM_ID AS ProductLineBumId,PRH_PurchaseOrderNbr AS PurchaseOrderNbr,PRH_Receipt_USR_UserID AS ReceiptUsrUserID,PRH_Carrier AS Carrier,PRH_TrackingNo AS TrackingNo,PRH_ShipType AS ShipType,PRH_Note AS Note,PRH_ArrivalDate AS ArrivalDate,PRH_DeliveryDate AS DeliveryDate,PRH_SapDeliveryDate AS SapDeliveryDate,PRH_WHM_ID AS WhmId
+      FROM POReceiptHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PRH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterPoReceiptHeader" parameterClass="PoReceiptHeader" resultClass="PoReceiptHeader">
+      SELECT PRH_ID AS Id,PRH_PONumber AS PoNumber,PRH_SAPShipmentID AS SapShipmentid,PRH_Dealer_DMA_ID AS DealerDmaId,PRH_ReceiptDate AS ReceiptDate,PRH_SAPShipmentDate AS SapShipmentDate,PRH_Status AS Status,PRH_Vendor_DMA_ID AS VendorDmaId,PRH_Type AS Type,PRH_ProductLine_BUM_ID AS ProductLineBumId,PRH_PurchaseOrderNbr AS PurchaseOrderNbr,PRH_Receipt_USR_UserID AS ReceiptUsrUserID,PRH_Carrier AS Carrier,PRH_TrackingNo AS TrackingNo,PRH_ShipType AS ShipType,PRH_Note AS Note,PRH_ArrivalDate AS ArrivalDate,PRH_DeliveryDate AS DeliveryDate,PRH_SapDeliveryDate AS SapDeliveryDate,PRH_WHM_ID AS WhmId
+      FROM POReceiptHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">PRH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PoNumber">PRH_PONumber=#PoNumber#</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentid">PRH_SAPShipmentID=#SapShipmentid#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">PRH_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptDate">PRH_ReceiptDate=#ReceiptDate#</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentDate">PRH_SAPShipmentDate=#SapShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="Status">PRH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="VendorDmaId">PRH_Vendor_DMA_ID=#VendorDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">PRH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">PRH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbr">PRH_PurchaseOrderNbr=#PurchaseOrderNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptUsrUserid">PRH_Receipt_USR_UserID=#ReceiptUsrUserid#</isNotNull>
+        <isNotNull prepend="AND" property="Carrier">PRH_Carrier=#Carrier#</isNotNull>
+        <isNotNull prepend="AND" property="TrackingNo">PRH_TrackingNo=#TrackingNo#</isNotNull>
+        <isNotNull prepend="AND" property="ShipType">PRH_ShipType=#ShipType#</isNotNull>
+        <isNotNull prepend="AND" property="Note">PRH_Note=#Note#</isNotNull>
+        <isNotNull prepend="AND" property="ArrivalDate">PRH_ArrivalDate=#ArrivalDate#</isNotNull>
+        <isNotNull prepend="AND" property="DeliveryDate">PRH_DeliveryDate=#DeliveryDate#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryDate">PRH_SapDeliveryDate=#SapDeliveryDate#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">PRH_WHM_ID=#WhmId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertPoReceiptHeader" parameterClass="PoReceiptHeader">
+      INSERT INTO POReceiptHeader
+      (PRH_ID,PRH_PONumber,PRH_SAPShipmentID,PRH_Dealer_DMA_ID,PRH_ReceiptDate,PRH_SAPShipmentDate,PRH_Status,PRH_Vendor_DMA_ID,PRH_Type,PRH_ProductLine_BUM_ID,PRH_PurchaseOrderNbr,PRH_Receipt_USR_UserID,PRH_Carrier,PRH_TrackingNo,PRH_ShipType,PRH_Note,PRH_ArrivalDate,PRH_DeliveryDate,PRH_SapDeliveryDate,PRH_WHM_ID)
+      VALUES(#Id#,#PoNumber#,#SapShipmentid#,#DealerDmaId#,#ReceiptDate:DateTime:1/1/0001 12:00:00 AM#,#SapShipmentDate:DateTime:1/1/0001 12:00:00 AM#,#Status#,#VendorDmaId#,#Type#,#ProductLineBumId#,#PurchaseOrderNbr#,#ReceiptUsrUserID#,#Carrier#,#TrackingNo#,#ShipType#,#Note#,#ArrivalDate:DateTime:1/1/0001 12:00:00 AM#,#DeliveryDate:DateTime:1/1/0001 12:00:00 AM#,#SapDeliveryDate:DateTime:1/1/0001 12:00:00 AM#,#WhmId#)
+    </insert>
+    <update id="UpdatePoReceiptHeader" parameterClass="PoReceiptHeader">
+      UPDATE POReceiptHeader
+      SET PRH_ID=#Id#,PRH_PONumber=#PoNumber#,PRH_SAPShipmentID=#SapShipmentid#,PRH_Dealer_DMA_ID=#DealerDmaId#,PRH_ReceiptDate=#ReceiptDate#,PRH_SAPShipmentDate=#SapShipmentDate#,PRH_Status=#Status#,PRH_Vendor_DMA_ID=#VendorDmaId#,PRH_Type=#Type#,PRH_ProductLine_BUM_ID=#ProductLineBumId#,PRH_PurchaseOrderNbr=#PurchaseOrderNbr#,PRH_Receipt_USR_UserID=#ReceiptUsrUserID#,PRH_Carrier=#Carrier#,PRH_TrackingNo=#TrackingNo#,PRH_ShipType=#ShipType#,PRH_Note=#Note#,PRH_ArrivalDate=#ArrivalDate#,PRH_DeliveryDate=#DeliveryDate#,PRH_SapDeliveryDate=#SapDeliveryDate#,PRH_WHM_ID=#WhmId#
+      WHERE PRH_ID = #Id#
+    </update>
+    <delete id="DeletePoReceiptHeader" parameterClass="string">
+      DELETE FROM POReceiptHeader
+      WHERE PRH_ID = #value#
+    </delete>
+    <select id="SelectByFilterPoReceiptHeaderAll" parameterClass="System.Collections.Hashtable" resultClass="PoReceiptHeader">
+      SELECT POReceiptHeader.PRH_ID AS Id,
+      POReceiptHeader.PRH_PONumber AS PoNumber,
+      POReceiptHeader.PRH_SAPShipmentID AS SapShipmentid,
+      POReceiptHeader.PRH_PurchaseOrderNbr AS PurchaseOrderNbr,
+      POReceiptHeader.PRH_Dealer_DMA_ID AS DealerDmaId,
+      (select top 1 DMA_ChineseName from DealerMaster where DealerMaster.DMA_ID=POReceiptHeader.PRH_Dealer_DMA_ID) DealerName,
+      CONVERT(varchar(100), POReceiptHeader.PRH_ReceiptDate, 112) AS ReceiptDate,
+      CONVERT(varchar(100), POReceiptHeader.PRH_SAPShipmentDate, 112) AS SapShipmentDate,
+      Lafite_IDENTITY.IDENTITY_NAME AS ReceiptUserName,
+      POReceiptHeader.PRH_Status AS Status,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=POReceiptHeader.PRH_Status and DICT_TYPE='CONST_Receipt_Status') StatusName,
+      POReceiptHeader.PRH_Vendor_DMA_ID AS VendorDmaId,
+      (select top 1 DMA_ChineseName from DealerMaster where DealerMaster.DMA_ID=POReceiptHeader.PRH_Vendor_DMA_ID) VendorName,
+      POReceiptHeader.PRH_Type AS Type,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=POReceiptHeader.PRH_Type and DICT_TYPE='CONST_Receipt_Type') TypeName,
+      (SELECT ISNULL(SUM(POReceipt.POR_ReceiptQty),0)
+      FROM POReceipt(nolock) WHERE POReceipt.POR_PRH_ID = POReceiptHeader.PRH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY POReceiptHeader.PRH_SAPShipmentDate desc,POReceiptHeader.PRH_SAPShipmentID desc) AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+
+      FROM
+      POReceiptHeader(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=POReceiptHeader.PRH_ProductLine_BUM_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = POReceiptHeader.PRH_Receipt_USR_UserID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POReceiptHeader.PRH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PoNumber">POReceiptHeader.PRH_PONumber=#PoNumber#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbr">POReceiptHeader.PRH_PurchaseOrderNbr like N'%$PurchaseOrderNbr$%'</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentid">POReceiptHeader.PRH_SAPShipmentID=#SapShipmentid#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">POReceiptHeader.PRH_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptDate">POReceiptHeader.PRH_ReceiptDate=#ReceiptDate#</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentDateStart">CONVERT(varchar(100), POReceiptHeader.PRH_SAPShipmentDate, 112)>=#SapShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentDateEnd">CONVERT(varchar(100), POReceiptHeader.PRH_SAPShipmentDate, 112)&lt;=#SapShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Status">POReceiptHeader.PRH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="VendorDmaId">POReceiptHeader.PRH_Vendor_DMA_ID=#VendorDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">POReceiptHeader.PRH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">POReceiptHeader.PRH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID FROM POReceipt(nolock) INNER JOIN
+          Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID FROM POReceipt(nolock) INNER JOIN
+          Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID
+          FROM
+          POReceiptLot(nolock) INNER JOIN
+          POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          WHERE     (POReceiptLot.PRL_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERPNbr">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID
+          FROM
+          POReceiptLot(nolock) INNER JOIN
+          POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          WHERE     (POReceiptLot.PRL_ERPNbr like N'%$ERPNbr$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERPLineNbr">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID
+          FROM
+          POReceiptLot(nolock) INNER JOIN
+          POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          WHERE     (POReceiptLot.PRL_ERPLineNbr like N'%$ERPLineNbr$%')))
+        </isNotNull>
+        <!--added by bozhenfei on 20110714-->
+        <isNotNull prepend="AND" property="CanBeReceived">
+          EXISTS (SELECT 1 FROM DealerMaster(nolock) WHERE DealerMaster.DMA_ID = POReceiptHeader.PRH_Dealer_DMA_ID
+          AND ISNULL(DealerMaster.DMA_SystemStartDate,CONVERT(DATETIME,'2999-12-31')) &lt;= POReceiptHeader.PRH_SAPShipmentDate)
+        </isNotNull>
+        <!--end-->
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# AND POReceiptHeader.PRH_Dealer_DMA_ID=DM.DMA_ID) OR (POReceiptHeader.PRH_Dealer_DMA_ID = #LPId#))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = POReceiptHeader.PRH_Dealer_DMA_ID AND SD.BUM_ID = POReceiptHeader.PRH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = POReceiptHeader.PRH_Dealer_DMA_ID AND SD.BUM_ID = POReceiptHeader.PRH_ProductLine_BUM_ID)
+          )
+          )
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="SelectPoReceiptHeaderByTransferNumber" parameterClass="System.Collections.Hashtable" resultClass="PoReceiptHeader">
+      SELECT PRH_ID AS Id,PRH_PONumber AS PoNumber,PRH_SAPShipmentID AS SapShipmentid,PRH_Dealer_DMA_ID AS DealerDmaId,PRH_ReceiptDate AS ReceiptDate,PRH_SAPShipmentDate AS SapShipmentDate,PRH_Status AS Status,PRH_Vendor_DMA_ID AS VendorDmaId,PRH_Type AS Type,PRH_ProductLine_BUM_ID AS ProductLineBumId,PRH_PurchaseOrderNbr AS PurchaseOrderNbr,PRH_Receipt_USR_UserID AS ReceiptUsrUserID
+      FROM POReceiptHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TransferNumber">POReceiptHeader.PRH_SAPShipmentID=#TransferNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Type">POReceiptHeader.PRH_Type=#Type#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--added by bozhenfei on 20100709 @为经销商在收货单模块中显示可选择的产品线列表-->
+    <select id="GetPoReceiptProductLine" parameterClass="System.Collections.Hashtable" resultClass="PoReceiptHeader">
+      select Id,Attribute_Name as AttributeName
+      from View_ProductLine
+      where ATTRIBUTE_TYPE = 'Product_Line'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+      </dynamic>
+      and Id in (
+      select DAT_ProductLine_BUM_ID from DealerAuthorizationTable where DAT_DMA_ID = #value#
+      AND EXISTS (SELECT 1 FROM DealerContract
+      WHERE DealerContract.DCL_ID = DealerAuthorizationTable.DAT_DCL_ID
+      <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DealerContract.DCL_StartDate, 112) AND CONVERT(varchar(100), DealerContract.DCL_StopDate, 112)-->)
+      union
+      select distinct PRH_ProductLine_BUM_ID from POReceiptHeader where PRH_Dealer_DMA_ID = #value#
+      )
+    </select>
+
+    <select id="SelectPoReceiptHeaderAddWareHouse" parameterClass="string" resultClass="PoReceiptHeader">
+      SELECT PRH_ID AS Id,PRH_PONumber AS PoNumber,PRH_SAPShipmentID AS SapShipmentid,PRH_Dealer_DMA_ID AS DealerDmaId,PRH_ReceiptDate AS ReceiptDate,PRH_SAPShipmentDate AS SapShipmentDate,PRH_Status AS Status,PRH_Vendor_DMA_ID AS VendorDmaId,PRH_Type AS Type,PRH_ProductLine_BUM_ID AS ProductLineBumId,PRH_PurchaseOrderNbr AS PurchaseOrderNbr,PRH_Receipt_USR_UserID AS ReceiptUsrUserID,PRH_Carrier AS Carrier,PRH_TrackingNo AS TrackingNo,PRH_ShipType AS ShipType,PRH_Note AS Note,PRH_ArrivalDate AS ArrivalDate,PRH_DeliveryDate AS DeliveryDate,PRH_SapDeliveryDate AS SapDeliveryDate,PRH_WHM_ID AS WhmId,w.WHM_Name as WHMName,w2.WHM_Name as FromWHMName
+      FROM POReceiptHeader p
+      left join Warehouse w
+      on p.PRH_WHM_ID=w.WHM_ID
+      left join Warehouse w2
+      on p.PRH_FromWHM_ID=w2.WHM_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PRH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <!--查询导出-->
+    <select id="SelectByFilterPoReceiptHeaderForExport" parameterClass="PoReceiptHeader" resultClass="PoReceiptHeader">
+      SELECT
+      d.DMA_ChineseName as N'经销商名称',
+      POReceiptHeader.PRH_SAPShipmentID  as N'SAP发货单号',
+      POReceiptHeader.PRH_PurchaseOrderNbr AS N'经销商采购单号',
+      POReceiptHeader.PRH_PONumber AS N'收货单号',
+      ld1.VALUE1  N'类型',
+      dm.DMA_ChineseName AS N'发货方',
+      View_ProductLine.SubCompanyName AS '分子公司',
+      View_ProductLine.BrandName AS '品牌',
+      (SELECT ISNULL(SUM(POReceipt.POR_ReceiptQty),0)
+      FROM POReceipt WHERE POReceipt.POR_PRH_ID = POReceiptHeader.PRH_ID) AS N'总数量',
+      CONVERT(varchar(100), POReceiptHeader.PRH_SAPShipmentDate, 112) AS N'发货时间',
+      CONVERT(varchar(100), POReceiptHeader.PRH_ReceiptDate, 112) AS N'收货时间',
+      Lafite_IDENTITY.IDENTITY_NAME AS N'收货方',
+      ld.VALUE1
+      AS N'状态',
+      PRH_Carrier as N'承运方',
+      PRH_TrackingNo as N'运单号',
+      PRH_ShipType as N'运输方式',
+      WHM_Name as N'仓库',
+      Product.PMA_UPN AS N'产品型号',
+      CASE WHEN CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0) > 0 THEN substring(POReceiptLot.PRL_LotNumber,1,CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0)-1) ELSE POReceiptLot.PRL_LotNumber END   AS N'产品序列号/批号',
+      CASE WHEN CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0) > 0 THEN substring(POReceiptLot.PRL_LotNumber,CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0)+2,LEN(POReceiptLot.PRL_LotNumber)-CHARINDEX('@@',POReceiptLot.PRL_LotNumber,0)) ELSE 'NoQR' END  AS N'二维码',
+      case CFN_Property6
+      when '0' then CONVERT(nvarchar(8), POReceiptLot.PRL_ExpiredDate, 112)
+      when '1' then CONVERT(nvarchar(8), POReceiptLot.PRL_ExpiredDate, 112)
+      else
+      CONVERT(varchar(100), POReceiptLot.PRL_ExpiredDate, 112) end AS N'有效期',
+      Product.PMA_UnitOfMeasure AS N'单位',
+      POReceiptLot.PRL_ReceiptQty AS N'数量',
+      (select LTM_Type from lotmaster lm where lm.LTM_LotNumber = POReceiptLot.PRL_LotNumber and lm.LTM_Product_PMA_ID =POReceipt.POR_SAP_PMA_ID ) AS N'产品生产日期'
+      FROM
+      POReceiptHeader(nolock)
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = POReceiptHeader.PRH_Receipt_USR_UserID
+      left join DealerMaster d(nolock) on d.DMA_ID=POReceiptHeader.PRH_Dealer_DMA_ID
+      left join Lafite_DICT ld(nolock) on  ld.DICT_KEY=PRH_Status and  ld.DICT_TYPE='CONST_Receipt_Status'
+      left join Lafite_DICT ld1(nolock) on ld1.DICT_KEY=PRH_Type and ld1.DICT_TYPE='CONST_Receipt_Type'
+      left join DealerMaster dm(nolock) on dm.DMA_ID=PRH_Vendor_DMA_ID
+      left join POReceipt(nolock) on POR_PRH_ID = PRH_ID
+      left join POReceiptLot(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+      left join Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+      left JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      left JOIN Warehouse(nolock) ON PRH_WHM_ID = WHM_ID
+      <!--left JOIN CFNPrice(nolock) ON CFN_ID = CFNP_CFN_ID
+      AND CFNP_Group_ID = PRH_Dealer_DMA_ID
+      AND CFNP_PriceType = (CASE WHEN WHM_Type
+      in ('Consignment','LP_Consignment') then 'DealerConsignment' else 'Dealer' end)-->
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=POReceiptHeader.PRH_ProductLine_BUM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POReceiptHeader.PRH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PoNumber">POReceiptHeader.PRH_PONumber=#PoNumber#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseOrderNbr">POReceiptHeader.PRH_PurchaseOrderNbr like N'%$PurchaseOrderNbr$%'</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentid">POReceiptHeader.PRH_SAPShipmentID=#SapShipmentid#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">POReceiptHeader.PRH_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ReceiptDate">POReceiptHeader.PRH_ReceiptDate=#ReceiptDate#</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentDateStart">CONVERT(varchar(100), POReceiptHeader.PRH_SAPShipmentDate, 112)>=#SapShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SapShipmentDateEnd">CONVERT(varchar(100), POReceiptHeader.PRH_SAPShipmentDate, 112)&lt;=#SapShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Status">POReceiptHeader.PRH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="VendorDmaId">POReceiptHeader.PRH_Vendor_DMA_ID=#VendorDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">POReceiptHeader.PRH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">POReceiptHeader.PRH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">View_ProductLine.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">View_ProductLine.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="ERPNbr">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID
+          FROM
+          POReceiptLot(nolock) INNER JOIN
+          POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          WHERE     (POReceiptLot.PRL_ERPNbr like N'%$ERPNbr$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERPLineNbr">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID
+          FROM
+          POReceiptLot(nolock) INNER JOIN
+          POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          WHERE     (POReceiptLot.PRL_ERPLineNbr like N'%$ERPLineNbr$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID FROM POReceipt(nolock) INNER JOIN
+          Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID FROM POReceipt(nolock) INNER JOIN
+          Product(nolock) ON POReceipt.POR_SAP_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (POReceiptHeader.PRH_ID IN(
+          SELECT DISTINCT POReceipt.POR_PRH_ID
+          FROM
+          POReceiptLot(nolock) INNER JOIN
+          POReceipt(nolock) ON POReceiptLot.PRL_POR_ID = POReceipt.POR_ID
+          WHERE     (POReceiptLot.PRL_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <!--added by bozhenfei on 20110714-->
+        <isNotNull prepend="AND" property="CanBeReceived">
+          EXISTS (SELECT 1 FROM DealerMaster(nolock) WHERE DealerMaster.DMA_ID = POReceiptHeader.PRH_Dealer_DMA_ID
+          AND ISNULL(DealerMaster.DMA_SystemStartDate,CONVERT(DATETIME,'2999-12-31')) &lt;= POReceiptHeader.PRH_SAPShipmentDate)
+        </isNotNull>
+        <!--end-->
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE (DM.dma_parent_dma_id = #LPId# AND POReceiptHeader.PRH_Dealer_DMA_ID=DM.DMA_ID) OR (POReceiptHeader.PRH_Dealer_DMA_ID = #LPId#))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = POReceiptHeader.PRH_Dealer_DMA_ID AND SD.BUM_ID = POReceiptHeader.PRH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = POReceiptHeader.PRH_Dealer_DMA_ID AND SD.BUM_ID = POReceiptHeader.PRH_ProductLine_BUM_ID)
+          )
+          )
+        </isEqual>
+      </dynamic>
+      ORDER BY POReceiptHeader.PRH_SAPShipmentDate desc
+    </select>
+
+    <!--取消发货单、调整库存、调整订单的数量、修改收货单状态、写日志-->
+    <procedure id="CancelPOReceiptByHeaderId" parameterMap="GC_POReceipt_CancelReceive_ParameterMap">
+      dbo.GC_POReceipt_CancelReceive
+    </procedure>
+    <!--end-->
+    
+    <!--Added By Song Yuqi On 20140320 Begin-->
+    <select id="SelectByFilterPoReceiptHeaderForPurchaseOrderNbr" parameterClass="PoReceiptHeader" resultClass="PoReceiptHeader">
+        SELECT DISTINCT PH.PRH_ID AS Id,PH.PRH_PurchaseOrderNbr AS PurchaseOrderNbr
+        FROM POReceiptHeader PH
+        INNER JOIN POReceipt PR ON PH.PRH_ID = PR.POR_PRH_ID
+        INNER JOIN POReceiptLot PL ON PL.PRL_POR_ID = PR.POR_ID
+        INNER JOIN LotMaster LM ON LM.LTM_Product_PMA_ID = PR.POR_SAP_PMA_ID AND PL.PRL_LotNumber = LM.LTM_LotNumber
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="DealerId">PH.PRH_Dealer_DMA_ID=#DealerId#</isNotNull>
+            <isNotNull prepend="AND" property="ProductLineId">PH.PRH_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+            <isNotNull prepend="AND" property="LotNumber">PL.PRL_LotNumber=#LotNumber#</isNotNull>
+            <isNotNull prepend="AND" property="PmaId">PR.POR_SAP_PMA_ID=#PmaId#</isNotNull>
+        </dynamic>
+        ORDER BY PH.PRH_PurchaseOrderNbr desc
+    </select>
+    <!--Added By Song Yuqi On 20140320 Begin-->
+    <!--lijie add 20160511-->
+    <select id="SelectInterfaceShipmentBYBatchNbr"  parameterClass="string" resultClass="System.Data.DataSet">
+      select ISH_ID as Id,ISH_Dealer_SapCode as SapCode,ISH_OrderNo as OrderNo,ISH_SapDeliveryNo as SapDeliveryNo,
+      CONVERT(VARCHAR(10), ISH_SapDeliveryDate,120) as SapDeliveryDate,  CONVERT(VARCHAR(10),ISH_ShippingDate,120) as ShippingDate ,ISH_ToWhmCode as ToWhmCode,
+      ISH_ArticleNumber as ArticleNumber, ISH_SapDeliveryLineNbr as SapDeliveryLineNbr,ISH_LotNumber as  LotNumber,
+      CONVERT(VARCHAR(10),ISH_ExpiredDate,120) as ExpiredDate,ISH_DeliveryQty as DeliveryQty,ISH_LineNbr as LineNbr,ISH_FileName as  IFileName,
+      ISH_ImportDate as ImportDate,ISH_ClientID as ClientID,ISH_BatchNbr as BatchNbr,ISH_ShipmentType as ShipmentType,
+      ISH_UnitPrice as UnitPrice,ISH_ToWhmCode as WHMCode,WHM_Name as WHMName,ISH_QRCode as QRCode,DeliveryNote.DNL_ProblemDescription as ProblemDescription,
+      row_number() OVER (ORDER BY InterfaceShipment.ISH_LineNbr) AS row_number
+      from InterfaceShipment left join Warehouse on InterfaceShipment.ISH_ToWhmCode=Warehouse.WHM_Code inner join  DeliveryNote on InterfaceShipment.ISH_ID=DeliveryNote.DNL_ID
+      where ISH_BatchNbr=#value#
+    </select>
+    <select id="DistinctInterfaceShipmentBYBatchNbr" parameterClass="string" resultClass="System.Data.DataSet">
+      <!--select Distinct  isnull(ISH_OrderNo,0) from InterfaceShipment where ISH_BatchNbr=#value#-->
+      select ISH_SapDeliveryNo from( select ISH_OrderNo,ISH_SapDeliveryNo from InterfaceShipment
+      where ISH_BatchNbr=#value#
+      group by ISH_OrderNo,ISH_SapDeliveryNo) A group by A.ISH_SapDeliveryNo  having COUNT(ISH_SapDeliveryNo)>1
+    </select>
+    <select id="SelectInterfaceShipmentBYBatchNbrQtyUnprice" parameterClass="string" resultClass="System.Data.DataSet">
+      <!--select case when isnull(ISH_DeliveryQty,0) &lt;=0 then '批次号'+ISH_LotNumber+'二维码'+ISH_QRCode+'发货数量必须大于0' end as qtyMessinge,
+    case when isnull(ISH_UnitPrice,0) &lt;=0 then '批次号'+ISH_LotNumber+'二维码'+ISH_QRCode+'产品单价必须大于0' end as PricMessinge
+      from InterfaceShipment where ISH_BatchNbr=#value# and (ISH_DeliveryQty &lt;=0 or ISH_UnitPrice &lt;=0)-->
+
+      select case when isnull(ISH_DeliveryQty,0) &lt;=0 then '批次号'+ISH_LotNumber+'二维码'+ISH_QRCode+'发货数量必须大于0' end as qtyMessinge
+      from InterfaceShipment where ISH_BatchNbr=#value# and ISH_DeliveryQty &lt;=0
+    </select>
+    <select id="SelectPoreCeExistsDma" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select '订单号:'+A.ISH_OrderNo+'不属于该平台审批,行号'+A.ISH_LineNbr from
+      (
+      select InterfaceShipment.ISH_OrderNo,CONVERT(nvarchar(10),InterfaceShipment.ISH_LineNbr)as ISH_LineNbr
+      from InterfaceShipment(nolock) inner join PurchaseOrderHeader(nolock) on InterfaceShipment.ISH_OrderNo=PurchaseOrderHeader.POH_OrderNo
+      inner join DealerMaster(nolock) on PurchaseOrderHeader.POH_DMA_ID=DealerMaster.DMA_ID
+      where DealerMaster.DMA_Parent_DMA_ID !=#DmaId#
+      and  DealerMaster.DMA_Parent_DMA_ID is not null
+      and InterfaceShipment.ISH_BatchNbr=#BatchNbr#
+      ) A
+    </select>
+    <select id="GetPoReceiptHeaderByOrderNo" parameterClass="string" resultClass="PoReceiptHeader">
+      SELECT PRH_ID AS Id,PRH_PONumber AS PoNumber,PRH_SAPShipmentID AS SapShipmentid,PRH_Dealer_DMA_ID AS DealerDmaId,PRH_ReceiptDate AS ReceiptDate,PRH_SAPShipmentDate AS SapShipmentDate,PRH_Status AS Status,PRH_Vendor_DMA_ID AS VendorDmaId,PRH_Type AS Type,PRH_ProductLine_BUM_ID AS ProductLineBumId,PRH_PurchaseOrderNbr AS PurchaseOrderNbr,PRH_Receipt_USR_UserID AS ReceiptUsrUserID,PRH_Carrier AS Carrier,PRH_TrackingNo AS TrackingNo,PRH_ShipType AS ShipType,PRH_Note AS Note,PRH_ArrivalDate AS ArrivalDate,PRH_DeliveryDate AS DeliveryDate,PRH_SapDeliveryDate AS SapDeliveryDate,PRH_WHM_ID AS WhmId
+      FROM POReceiptHeader(nolock)
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PRH_SAPShipmentID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <delete id="DeletePoReceiptAll" parameterClass="string">
+      delete POReceiptHeader from POReceiptHeader,
+      POReceipt, POReceiptLot where PRH_ID=POR_PRH_ID
+      and PRL_POR_ID=POR_ID and  PRH_SAPShipmentID = #value#
+    </delete>
+    <delete id="DeleteDeliveryNoteBSCSLC" parameterClass="string">
+      delete from DeliveryNoteBSCSLC where DNB_DeliveryNoteNbr=#value#
+    </delete>
+    <select id="GetPOReceiptHeader_SAPNoQR" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select * from POReceiptHeader_SAPNoQR where PRH_SAPShipmentID=#value#
+    </select>
+    <update id="UpdatePOReceiptHeader_SAPNoQR" resultClass="System.Collections.Hashtable">
+      update POReceiptHeader_SAPNoQR set PRH_InterfaceStatus='UploadSuccess',PRH_Note=null where
+      PRH_SAPShipmentID=#value#
+    </update>
+    <select id="GetDeliveryNoteBSCSLC" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select *  from DeliveryNoteBSCSLC where DNB_DeliveryNoteNbr=#value#
+    </select>
+    <update id="UpdatePOReceiptHeaderByAutoNbr" parameterClass="string">
+      UPDATE POReceiptHeader
+      SET PRH_Status = 'Complete'
+      WHERE PRH_SAPShipmentID IN(
+        SELECT ISH_SapDeliveryNo FROM InterfaceShipment WHERE ISH_BatchNbr=#value#
+      )
+    </update>
+  </statements>
+</sqlMap>

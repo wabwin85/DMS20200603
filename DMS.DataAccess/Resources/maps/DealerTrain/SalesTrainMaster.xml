@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SalesTrainMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SalesTrainMaster" assembly="DMS.Model.dll" type="DMS.Model.SalesTrainMaster" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SalesTrainMasterResult" class="SalesTrainMaster">
+            <result property="SalesTrainId" column="SalesTrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TrainId" column="TrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DealerSalesId" column="DealerSalesId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SalesTrainStatus" column="SalesTrainStatus" type="string" dbType="nvarchar"/>
+            <result property="IsActive" column="IsActive" type="bool" dbType="bit"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+            <result property="IsSendRemind" column="IsSendRemind" type="bool" dbType="bit"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="ProcFillOverdueLessonParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+            <parameter property="TrainId" column="TrainId" />
+            <parameter property="SalesId" column="SalesId" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+        <insert id="InsertSalesTrainMaster" parameterClass="SalesTrainMaster">
+            INSERT INTO Commando.SalesTrainMaster
+            (SalesTrainId,TrainId,DealerSalesId,SalesTrainStatus,IsActive,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            SELECT #SalesTrainId#,#TrainId#,#DealerSalesId#,#SalesTrainStatus#,#IsActive#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#
+            WHERE NOT EXISTS (SELECT 1 FROM Commando.SalesTrainMaster WHERE TrainId=#TrainId# AND DealerSalesId=#DealerSalesId#)
+        </insert>
+        <update id="UpdateSalesTrainActiveById" parameterClass="SalesTrainMaster">
+            UPDATE Commando.SalesTrainMaster
+            SET IsActive=#IsActive#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE SalesTrainId = #SalesTrainId#
+        </update>
+        <update id="UpdateSalesTrainActiveByCondition" parameterClass="SalesTrainMaster">
+            UPDATE Commando.SalesTrainMaster
+            SET IsActive=#IsActive#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE TrainId = #TrainId# AND DealerSalesId = #DealerSalesId#
+        </update>
+        <select id="SelectSalesByTrainId" parameterClass="string" resultClass="int">
+            <![CDATA[
+                SELECT C.SalesTrainId,
+                       A.DealerSalesId SalesId,
+                       B.BWU_DealerId DealerId,
+                       B.BWU_DealerName DealerName,
+                       B.BWU_UserName SalesName,
+                       B.BWU_Phone SalesPhone,
+                       B.BWU_Email SalesEmail,
+                       ROW_NUMBER() OVER(ORDER BY B.BWU_DealerName, B.BWU_UserName) AS 
+                       [row_number]
+                FROM   Commando.DealerSales A,
+                       BusinessWechatUser B,
+                       Commando.SalesTrainMaster C
+                WHERE  A.WeChatUserId = B.BWU_ID
+                       AND A.DealerSalesId = C.DealerSalesId
+                       AND C.IsActive = 1
+                       AND C.TrainId = #value#
+            ]]>
+        </select>
+        <select id="SelectSalesByTrainIdForTemplate" parameterClass="string" resultClass="int">
+            <![CDATA[
+                SELECT D.DMA_SAP_Code,
+                       D.DMA_ChineseName,
+                       B.BWU_UserName,
+                       '' IsPass
+                FROM   Commando.DealerSales A,
+                       BusinessWechatUser B,
+                       Commando.SalesTrainMaster C,
+                       DealerMaster D
+                WHERE  A.WeChatUserId = B.BWU_ID
+                       AND A.DealerSalesId = C.DealerSalesId
+                       AND C.IsActive = 1
+                       AND B.BWU_DealerId = D.DMA_ID
+                       AND C.TrainId = #value#
+            ]]>
+        </select>
+        <select id="SelectSalesTrainCount" parameterClass="SalesTrainMaster" resultClass="int">
+            <![CDATA[
+            SELECT COUNT(*)
+            FROM   Commando.SalesTrainMaster A
+            WHERE  A.TrainId = #TrainId#
+                   AND A.DealerSalesId = #DealerSalesId#
+            ]]>
+        </select>
+        <select id="SelectTrainSignCount" parameterClass="string" resultClass="int">
+            <![CDATA[
+            SELECT COUNT(*)
+            FROM   Commando.SalesTrainMaster A
+            WHERE  A.TrainId = #TrainId#
+                   AND A.IsActive = 1
+            ]]>
+        </select>
+        <select id="SelectDelaerSalesRecordCount" parameterClass="string" resultClass="int">
+            <![CDATA[
+            SELECT COUNT(*)
+            FROM   Commando.SalesTrainMaster B,
+                   Commando.SalesTrainDetail C
+            WHERE  B.SalesTrainId = C.SalesTrainId
+                   AND B.SalesTrainId = #value#
+            ]]>
+        </select>
+        <delete id="DeleteSalesTrainByTrainId" parameterClass="string">
+            DELETE FROM Commando.SalesTrainMaster
+            WHERE TrainId = #value#
+        </delete>
+        <procedure id="ProcFillOverdueLesson" parameterMap="ProcFillOverdueLessonParameterMap">
+            Commando.Proc_FillOverdueLesson
+        </procedure>
+    </statements>
+</sqlMap>

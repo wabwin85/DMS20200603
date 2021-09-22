@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PurchaseQuotasHospitalMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PurchaseQuotasHospital" assembly="DMS.Model.dll" type="DMS.Model.PurchaseQuotasHospital" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PurchaseQuotasHospitalResult" class="PurchaseQuotasHospital">
+      <result property="QuotaId" column="QuotaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractId" column="ContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractType" column="ContractType" type="string" dbType="nvarchar"/>
+      <result property="QuotasType" column="QuotasType" type="string" dbType="nvarchar"/>
+      <result property="PlBumId" column="PlBumId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="HosId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="Year" type="int" dbType="int"/>
+      <result property="January" column="January" type="decimal" dbType="decimal"/>
+      <result property="February" column="February" type="decimal" dbType="decimal"/>
+      <result property="March" column="March" type="decimal" dbType="decimal"/>
+      <result property="April" column="April" type="decimal" dbType="decimal"/>
+      <result property="May" column="May" type="decimal" dbType="decimal"/>
+      <result property="June" column="June" type="decimal" dbType="decimal"/>
+      <result property="July" column="July" type="decimal" dbType="decimal"/>
+      <result property="August" column="August" type="decimal" dbType="decimal"/>
+      <result property="September" column="September" type="decimal" dbType="decimal"/>
+      <result property="October" column="October" type="decimal" dbType="decimal"/>
+      <result property="November" column="November" type="decimal" dbType="decimal"/>
+      <result property="December" column="December" type="decimal" dbType="decimal"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectPurchaseQuotasHospital" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Quo.Quota_ID AS QuotaId,
+      Quo.Contract_ID AS ContractId,
+      Quo.Contract_Type AS ContractType,
+      Quo.Quotas_Type AS QuotasType,
+      Quo.PL_BUM_ID AS PlBumId,
+      Pl.ATTRIBUTE_NAME AS ProductLine,
+      ht.HOS_HospitalName AS HospitalName,
+      Quo.Year AS Year,
+      Quo.January,
+      Quo.February,
+      Quo.March,
+      Quo.April,
+      Quo.May,
+      Quo.June,
+      Quo.July,
+      Quo.August,
+      Quo.September,
+      Quo.October,
+      Quo.November,
+      Quo.December
+      FROM PurchaseQuotasHospital Quo
+      LEFT JOIN View_ProductLine Pl
+      ON Quo.PL_BUM_ID = Pl.Id
+      LEFT JOIN Hospital ht
+      ON ht.HOS_ID = Quo.HOS_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Quo.Contract_ID = #value#
+        </isParameterPresent>
+        <isNotEmpty prepend="AND" property="SubCompanyId">
+          Pl.SubCompanyId=#SubCompanyId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BrandId">
+          Pl.BrandId=#BrandId#
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    
+  </statements>
+</sqlMap>

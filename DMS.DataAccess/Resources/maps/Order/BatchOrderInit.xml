@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="BatchOrderInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+<alias>
+	<typeAlias alias="BatchOrderInit" assembly="DMS.Model.dll" type="DMS.Model.BatchOrderInit" />
+</alias>
+
+  <parameterMaps>
+    <parameterMap id="BatchOrderInitMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+<resultMaps>
+		<resultMap id="BatchOrderInitResult" class="BatchOrderInit"><result property="Id" column="BOI_ID" type="Guid" dbType="uniqueidentifier"/><result property="User" column="BOI_USER" type="Guid" dbType="uniqueidentifier"/><result property="UploadDate" column="BOI_UploadDate" type="DateTime" dbType="datetime"/><result property="LineNbr" column="BOI_LineNbr" type="int" dbType="int"/><result property="FileName" column="BOI_FileName" type="string" dbType="nvarchar"/><result property="ErrorFlag" column="BOI_ErrorFlag" type="bool" dbType="bit"/><result property="ErrorDescription" column="BOI_ErrorDescription" type="string" dbType="nvarchar"/><result property="PohId" column="BOI_POH_ID" type="Guid" dbType="uniqueidentifier"/><result property="PodId" column="BOI_POD_ID" type="Guid" dbType="uniqueidentifier"/><result property="OrderType" column="BOI_OrderType" type="string" dbType="nvarchar"/><result property="ArticleNumber" column="BOI_ArticleNumber" type="string" dbType="nvarchar"/><result property="RequiredQty" column="BOI_RequiredQty" type="string" dbType="nvarchar"/><result property="LotNumber" column="BOI_LotNumber" type="string" dbType="nvarchar"/><result property="SapCode" column="BOI_SAP_Code" type="string" dbType="nvarchar"/><result property="DmaId" column="BOI_DMA_ID" type="Guid" dbType="uniqueidentifier"/><result property="CfnId" column="BOI_CFN_ID" type="Guid" dbType="uniqueidentifier"/><result property="BumId" column="BOI_BUM_ID" type="Guid" dbType="uniqueidentifier"/><result property="TerritoryCode" column="BOI_TerritoryCode" type="string" dbType="nvarchar"/><result property="Warehouse" column="BOI_Warehouse" type="string" dbType="nvarchar"/><result property="WhmId" column="BOI_WHM_ID" type="Guid" dbType="uniqueidentifier"/><result property="OrderTypeName" column="BOI_OrderTypeName" type="string" dbType="nvarchar"/><result property="SapCodeErrMsg" column="BOI_SAP_Code_ErrMsg" type="string" dbType="nvarchar"/><result property="OrderTypeErrMsg" column="BOI_OrderType_ErrMsg" type="string" dbType="nvarchar"/><result property="ArticleNumberErrMsg" column="BOI_ArticleNumber_ErrMsg" type="string" dbType="nvarchar"/><result property="RequiredQtyErrMsg" column="BOI_RequiredQty_ErrMsg" type="string" dbType="nvarchar"/><result property="LotNumberErrMsg" column="BOI_LotNumber_ErrMsg" type="string" dbType="nvarchar"/><result property="Amount" column="BOI_Amount" type="string" dbType="nvarchar"/><result property="AmountErrMsg" column="BOI_Amount_ErrMsg" type="string" dbType="nvarchar"/><result property="ProductLine" column="BOI_ProductLine" type="string" dbType="nvarchar"/><result property="ProductLineErrMsg" column="BOI_ProductLine_ErrMsg" type="string" dbType="nvarchar"/></resultMap>
+</resultMaps>
+<statements>
+	
+<select id="SelectBatchOrderInit" parameterClass="string" resultClass="BatchOrderInit">
+SELECT BOI_ID AS Id,BOI_USER AS User,BOI_UploadDate AS UploadDate,BOI_LineNbr AS LineNbr,BOI_FileName AS FileName,BOI_ErrorFlag AS ErrorFlag,BOI_ErrorDescription AS ErrorDescription,BOI_POH_ID AS PohId,BOI_POD_ID AS PodId,BOI_OrderType AS OrderType,BOI_ArticleNumber AS ArticleNumber,BOI_RequiredQty AS RequiredQty,BOI_LotNumber AS LotNumber,BOI_SAP_Code AS SapCode,BOI_DMA_ID AS DmaId,BOI_CFN_ID AS CfnId,BOI_BUM_ID AS BumId,BOI_TerritoryCode AS TerritoryCode,BOI_Warehouse AS Warehouse,BOI_WHM_ID AS WhmId,BOI_OrderTypeName AS OrderTypeName,BOI_SAP_Code_ErrMsg AS SapCodeErrMsg,BOI_OrderType_ErrMsg AS OrderTypeErrMsg,BOI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,BOI_RequiredQty_ErrMsg AS RequiredQtyErrMsg,BOI_LotNumber_ErrMsg AS LotNumberErrMsg,BOI_Amount AS Amount,BOI_Amount_ErrMsg AS AmountErrMsg,BOI_ProductLine AS ProductLine,BOI_ProductLine_ErrMsg AS ProductLineErrMsg
+FROM BatchOrderInit
+<dynamic prepend="WHERE">
+<isParameterPresent>BOI_ID = #value#
+</isParameterPresent>
+</dynamic>
+</select>
+<select id="SelectByFilterBatchOrderInit" parameterClass="BatchOrderInit" resultClass="BatchOrderInit">
+SELECT BOI_ID AS Id,BOI_USER AS User,BOI_UploadDate AS UploadDate,BOI_LineNbr AS LineNbr,BOI_FileName AS FileName,BOI_ErrorFlag AS ErrorFlag,BOI_ErrorDescription AS ErrorDescription,BOI_POH_ID AS PohId,BOI_POD_ID AS PodId,BOI_OrderType AS OrderType,BOI_ArticleNumber AS ArticleNumber,BOI_RequiredQty AS RequiredQty,BOI_LotNumber AS LotNumber,BOI_SAP_Code AS SapCode,BOI_DMA_ID AS DmaId,BOI_CFN_ID AS CfnId,BOI_BUM_ID AS BumId,BOI_TerritoryCode AS TerritoryCode,BOI_Warehouse AS Warehouse,BOI_WHM_ID AS WhmId,BOI_OrderTypeName AS OrderTypeName,BOI_SAP_Code_ErrMsg AS SapCodeErrMsg,BOI_OrderType_ErrMsg AS OrderTypeErrMsg,BOI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,BOI_RequiredQty_ErrMsg AS RequiredQtyErrMsg,BOI_LotNumber_ErrMsg AS LotNumberErrMsg,BOI_Amount AS Amount,BOI_Amount_ErrMsg AS AmountErrMsg,BOI_ProductLine AS ProductLine,BOI_ProductLine_ErrMsg AS ProductLineErrMsg
+FROM BatchOrderInit
+<dynamic prepend="WHERE"><isNotNull prepend="AND" property="Id">BOI_ID=#Id#</isNotNull><isNotNull prepend="AND" property="User">BOI_USER=#User#</isNotNull><isNotNull prepend="AND" property="UploadDate">BOI_UploadDate=#UploadDate#</isNotNull><isNotNull prepend="AND" property="LineNbr">BOI_LineNbr=#LineNbr#</isNotNull><isNotNull prepend="AND" property="FileName">BOI_FileName=#FileName#</isNotNull><isNotNull prepend="AND" property="ErrorFlag">BOI_ErrorFlag=#ErrorFlag#</isNotNull><isNotNull prepend="AND" property="ErrorDescription">BOI_ErrorDescription=#ErrorDescription#</isNotNull><isNotNull prepend="AND" property="PohId">BOI_POH_ID=#PohId#</isNotNull><isNotNull prepend="AND" property="PodId">BOI_POD_ID=#PodId#</isNotNull><isNotNull prepend="AND" property="OrderType">BOI_OrderType=#OrderType#</isNotNull><isNotNull prepend="AND" property="ArticleNumber">BOI_ArticleNumber=#ArticleNumber#</isNotNull><isNotNull prepend="AND" property="RequiredQty">BOI_RequiredQty=#RequiredQty#</isNotNull><isNotNull prepend="AND" property="LotNumber">BOI_LotNumber=#LotNumber#</isNotNull><isNotNull prepend="AND" property="SapCode">BOI_SAP_Code=#SapCode#</isNotNull><isNotNull prepend="AND" property="DmaId">BOI_DMA_ID=#DmaId#</isNotNull><isNotNull prepend="AND" property="CfnId">BOI_CFN_ID=#CfnId#</isNotNull><isNotNull prepend="AND" property="BumId">BOI_BUM_ID=#BumId#</isNotNull><isNotNull prepend="AND" property="TerritoryCode">BOI_TerritoryCode=#TerritoryCode#</isNotNull><isNotNull prepend="AND" property="Warehouse">BOI_Warehouse=#Warehouse#</isNotNull><isNotNull prepend="AND" property="WhmId">BOI_WHM_ID=#WhmId#</isNotNull><isNotNull prepend="AND" property="OrderTypeName">BOI_OrderTypeName=#OrderTypeName#</isNotNull><isNotNull prepend="AND" property="SapCodeErrMsg">BOI_SAP_Code_ErrMsg=#SapCodeErrMsg#</isNotNull><isNotNull prepend="AND" property="OrderTypeErrMsg">BOI_OrderType_ErrMsg=#OrderTypeErrMsg#</isNotNull><isNotNull prepend="AND" property="ArticleNumberErrMsg">BOI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#</isNotNull><isNotNull prepend="AND" property="RequiredQtyErrMsg">BOI_RequiredQty_ErrMsg=#RequiredQtyErrMsg#</isNotNull><isNotNull prepend="AND" property="LotNumberErrMsg">BOI_LotNumber_ErrMsg=#LotNumberErrMsg#</isNotNull><isNotNull prepend="AND" property="Amount">BOI_Amount=#Amount#</isNotNull><isNotNull prepend="AND" property="AmountErrMsg">BOI_Amount_ErrMsg=#AmountErrMsg#</isNotNull><isNotNull prepend="AND" property="ProductLine">BOI_ProductLine=#ProductLine#</isNotNull><isNotNull prepend="AND" property="ProductLineErrMsg">BOI_ProductLine_ErrMsg=#ProductLineErrMsg#</isNotNull>
+</dynamic>
+</select>
+<insert id="InsertBatchOrderInit" parameterClass="BatchOrderInit">
+	INSERT INTO BatchOrderInit 
+(BOI_ID,BOI_USER,BOI_UploadDate,BOI_LineNbr,BOI_FileName,BOI_ErrorFlag,BOI_ErrorDescription,BOI_POH_ID,BOI_POD_ID,BOI_OrderType,BOI_ArticleNumber,BOI_RequiredQty,BOI_LotNumber,BOI_SAP_Code,BOI_DMA_ID,BOI_CFN_ID,BOI_BUM_ID,BOI_TerritoryCode,BOI_Warehouse,BOI_WHM_ID,BOI_OrderTypeName,BOI_SAP_Code_ErrMsg,BOI_OrderType_ErrMsg,BOI_ArticleNumber_ErrMsg,BOI_RequiredQty_ErrMsg,BOI_LotNumber_ErrMsg,BOI_Amount,BOI_Amount_ErrMsg,BOI_ProductLine,BOI_ProductLine_ErrMsg) 
+	VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#PohId#,#PodId#,#OrderType#,#ArticleNumber#,#RequiredQty#,#LotNumber#,#SapCode#,#DmaId#,#CfnId#,#BumId#,#TerritoryCode#,#Warehouse#,#WhmId#,#OrderTypeName#,#SapCodeErrMsg#,#OrderTypeErrMsg#,#ArticleNumberErrMsg#,#RequiredQtyErrMsg#,#LotNumberErrMsg#,#Amount#,#AmountErrMsg#,#ProductLine#,#ProductLineErrMsg#)
+</insert>
+<update id="UpdateBatchOrderInit" parameterClass="BatchOrderInit">
+UPDATE BatchOrderInit 
+ SET BOI_ID=#Id#,BOI_USER=#User#,BOI_UploadDate=#UploadDate#,BOI_LineNbr=#LineNbr#,BOI_FileName=#FileName#,BOI_ErrorFlag=#ErrorFlag#,BOI_ErrorDescription=#ErrorDescription#,BOI_POH_ID=#PohId#,BOI_POD_ID=#PodId#,BOI_OrderType=#OrderType#,BOI_ArticleNumber=#ArticleNumber#,BOI_RequiredQty=#RequiredQty#,BOI_LotNumber=#LotNumber#,BOI_SAP_Code=#SapCode#,BOI_DMA_ID=#DmaId#,BOI_CFN_ID=#CfnId#,BOI_BUM_ID=#BumId#,BOI_TerritoryCode=#TerritoryCode#,BOI_Warehouse=#Warehouse#,BOI_WHM_ID=#WhmId#,BOI_OrderTypeName=#OrderTypeName#,BOI_SAP_Code_ErrMsg=#SapCodeErrMsg#,BOI_OrderType_ErrMsg=#OrderTypeErrMsg#,BOI_ArticleNumber_ErrMsg=#ArticleNumberErrMsg#,BOI_RequiredQty_ErrMsg=#RequiredQtyErrMsg#,BOI_LotNumber_ErrMsg=#LotNumberErrMsg#,BOI_Amount=#Amount#,BOI_Amount_ErrMsg=#AmountErrMsg#,BOI_ProductLine=#ProductLine#,BOI_ProductLine_ErrMsg=#ProductLineErrMsg#
+WHERE BOI_ID = #Id#
+</update>
+<delete id="DeleteBatchOrderInitByUser" parameterClass="string">
+  DELETE FROM BatchOrderInit
+  WHERE BOI_USER = #value#
+</delete>
+  <select id="SelectBatchOrderInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    SELECT BOI_ID AS Id,BOI_USER AS [User],BOI_UploadDate AS UploadDate,BOI_LineNbr AS LineNbr,BOI_FileName AS FileName,BOI_ErrorFlag AS ErrorFlag,BOI_ErrorDescription AS ErrorDescription,BOI_ArticleNumber AS ArticleNumber,BOI_RequiredQty AS RequiredQty,BOI_LotNumber as LotNumber,BOI_DMA_ID AS DmaId,BOI_CFN_ID AS CfnId,BOI_BUM_ID AS BumId,BOI_TerritoryCode AS TerritoryCode,BOI_OrderType AS OrderType,BOI_OrderTypeName AS OrderTypeName,BOI_OrderType_ErrMsg AS OrderTypeErrMsg,BOI_ArticleNumber_ErrMsg AS ArticleNumberErrMsg,BOI_RequiredQty_ErrMsg AS RequiredQtyErrMsg,BOI_LotNumber_ErrMsg AS LotNumberErrMsg,BOI_Amount AS Amount,BOI_Amount_ErrMsg AS AmountErrMsg,BOI_ProductLine AS ProductLine,BOI_ProductLine_ErrMsg AS ProductLineErrMsg,
+    BOI_SAP_Code AS SapCode,
+    CASE WHEN ISNULL(BOI_ProductLine_ErrMsg,'')='' THEN '' ELSE BOI_ProductLine_ErrMsg +'|' END
+    +CASE WHEN ISNULL([BOI_RequiredQty_ErrMsg],'')='' THEN '' ELSE [BOI_RequiredQty_ErrMsg] +'|' END
+    +CASE WHEN ISNULL([BOI_SAP_Code_ErrMsg],'')='' THEN '' ELSE [BOI_SAP_Code_ErrMsg] +'|' END
+    +CASE WHEN ISNULL([BOI_OrderType_ErrMsg],'')='' THEN '' ELSE [BOI_OrderType_ErrMsg] +'|' END
+    +CASE WHEN ISNULL([BOI_ArticleNumber_ErrMsg],'')='' THEN '' ELSE [BOI_ArticleNumber_ErrMsg] +'|' END
+    +CASE WHEN ISNULL([BOI_LotNumber_ErrMsg],'')='' THEN '' ELSE [BOI_LotNumber_ErrMsg] +'|' END
+    +CASE WHEN ISNULL([BOI_Amount_ErrMsg],'')='' THEN '' ELSE [BOI_Amount_ErrMsg] +'|' END AS ErrMsg,
+    ROW_NUMBER()OVER (ORDER BY BOI_ErrorFlag DESC,BOI_LineNbr ASC) AS row_number
+    From BatchOrderInit
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="Id">BOI_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="User">BOI_USER=#User#</isNotNull>
+      <isNotNull prepend="AND" property="UploadDate">BOI_UploadDate=#UploadDate#</isNotNull>
+      <isNotNull prepend="AND" property="LineNbr">BOI_LineNbr=#LineNbr#</isNotNull>
+      <isNotNull prepend="AND" property="FileName">BOI_FileName=#FileName#</isNotNull>
+      <isNotNull prepend="AND" property="ErrorFlag">BOI_ErrorFlag=#ErrorFlag#</isNotNull>
+      <isNotNull prepend="AND" property="SAPCode">BOI_SAP_Code=#SapCode#</isNotNull>
+      <isNotNull prepend="AND" property="ErrorDescription">BOI_ErrorDescription=#ErrorDescription#</isNotNull>
+      <isNotNull prepend="AND" property="ArticleNumber">BOI_ArticleNumber=#ArticleNumber#</isNotNull>
+      <isNotNull prepend="AND" property="RequiredQty">BOI_RequiredQty=#RequiredQty#</isNotNull>
+      <isNotNull prepend="AND" property="DmaId">BOI_DMA_ID=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="CfnId">BOI_CFN_ID=#CfnId#</isNotNull>
+      <isNotNull prepend="AND" property="BumId">BOI_BUM_ID=#BumId#</isNotNull>
+      <isNotNull prepend="AND" property="TerritoryCode">BOI_TerritoryCode=#TerritoryCode#</isNotNull>
+    </dynamic>
+  </select>
+
+
+  <procedure id="GC_BatchOrderInit" parameterMap="BatchOrderInitMap">
+   dbo.GC_BatchOrderInit
+  </procedure>
+  
+  
+  
+  
+  
+  
+  
+</statements>
+</sqlMap>

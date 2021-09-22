@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProBuPointRatioUiMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProBuPointRatioUi" assembly="DMS.Model.dll" type="DMS.Model.ProBuPointRatioUi" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProBuPointRatioUiResult" class="ProBuPointRatioUi">
+      <result property="Id" column="ID" type="int" dbType="int"/>
+      <result property="Bu" column="BU" type="string" dbType="nvarchar"/>
+      <result property="PlatFormId" column="PlatFormId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Ratio" column="Ratio" type="decimal" dbType="decimal"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="SapCode" column="SAPCode" type="string" dbType="nvarchar"/>
+      <result property="CurrUser" column="CurrUser" type="string" dbType="nvarchar"/>
+      <result property="ErrMsg" column="ErrMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+
+    <parameterMap id="GC_Pro_BU_PointRatioUiInit_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsImport" column="IsImport" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectProBuPointRatioUi" parameterClass="string" resultClass="ProBuPointRatioUi">
+      SELECT ID AS Id,BU AS Bu,PlatFormId AS PlatFormId,Ratio AS Ratio,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,SAPCode AS SapCode,CurrUser AS CurrUser,ErrMsg AS ErrMsg
+      FROM Promotion.Pro_BU_PointRatio_UI
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProBuPointRatioUi" parameterClass="ProBuPointRatioUi" resultClass="ProBuPointRatioUi">
+      SELECT ID AS Id,BU AS Bu,PlatFormId AS PlatFormId,Ratio AS Ratio,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,SAPCode AS SapCode,CurrUser AS CurrUser,ErrMsg AS ErrMsg
+      FROM Promotion.Pro_BU_PointRatio_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">BU=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="PlatFormId">PlatFormId=#PlatFormId#</isNotNull>
+        <isNotNull prepend="AND" property="Ratio">Ratio=#Ratio#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode">SAPCode=#SapCode#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="ErrMsg">ErrMsg=#ErrMsg#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProBuPointRatioUi" parameterClass="ProBuPointRatioUi">
+      INSERT INTO Promotion.Pro_BU_PointRatio_UI
+      (BU,PlatFormId,Ratio,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,SAPCode,CurrUser,ErrMsg)
+      VALUES(#Bu#,#PlatFormId#,#Ratio#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#SapCode#,#CurrUser#,#ErrMsg#)
+      <selectKey resultClass="int" type="post" property="Id">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+    <update id="UpdateProBuPointRatioUi" parameterClass="ProBuPointRatioUi">
+      UPDATE Promotion.Pro_BU_PointRatio_UI
+      SET BU=#Bu#,PlatFormId=#PlatFormId#,Ratio=#Ratio#,CreateBy=#CreateBy#,CreateTime=#CreateTime#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,Remark1=#Remark1#,SAPCode=#SapCode#,CurrUser=#CurrUser#,ErrMsg=#ErrMsg#
+      WHERE ID = #Id#
+    </update>
+    <delete id="DeleteProBuPointRatioUi" parameterClass="string">
+      DELETE FROM Promotion.Pro_BU_PointRatio_UI
+      WHERE ID = #value#
+    </delete>
+    <delete id="DeletePointRatioUIByCurrUser" parameterClass="string">
+      DELETE Promotion.Pro_BU_PointRatio_UI WHERE CurrUser=#value#
+    </delete>
+    <select id="QueryPro_BU_PointRatio_UIByUserId"  parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select Promotion.Pro_BU_PointRatio_UI.SAPCode,Promotion.Pro_BU_PointRatio_UI.BU,Promotion.Pro_BU_PointRatio_UI.Ratio,Promotion.Pro_BU_PointRatio_UI.ErrMsg,
+      V_DivisionProductLineRelation.ProductLineName,DealerMaster.DMA_ChineseName, ROW_NUMBER () OVER (ORDER BY ErrMsg desc) AS [row_number] from Promotion.Pro_BU_PointRatio_UI
+      LEFT join V_DivisionProductLineRelation on Promotion.Pro_BU_PointRatio_UI.BU=V_DivisionProductLineRelation.DivisionName
+      LEFT join DealerMaster on Promotion.Pro_BU_PointRatio_UI.SAPCode=DealerMaster.DMA_SAP_Code
+      where CurrUser=#UserId#
+    </select>
+    <procedure id="GC_Pro_BU_PointRatioUiInit" parameterMap="GC_Pro_BU_PointRatioUiInit_ParameterMap">
+      dbo.GC_Pro_BU_PointRatioUiInit
+    </procedure>
+  </statements>
+</sqlMap>

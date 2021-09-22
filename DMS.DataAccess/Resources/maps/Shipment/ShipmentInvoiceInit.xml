@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentInvoiceInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentInvoiceInit" assembly="DMS.Model.dll" type="DMS.Model.ShipmentInvoiceInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentInvoiceInitResult" class="ShipmentInvoiceInit">
+      <result property="Id" column="SII_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="SII_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ShipmentNbr" column="SII_ShipmentNbr" type="string" dbType="nvarchar"/>
+      <result property="InvoiceNo" column="SII_InvoiceNo" type="string" dbType="nvarchar"/>
+      <result property="IsError" column="SII_IsError" type="bool" dbType="bit"/>
+      <result property="ErrorMsg" column="SII_Error_Msg" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="SII_LineNbr" type="int" dbType="int"/>
+      <result property="ImportUser" column="SII_ImportUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ImportDate" column="SII_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="SphId" column="SII_SPH_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ShipmentInvoiceInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsImport" column="IsImport" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <select id="SelectShipmentInvoiceInit" parameterClass="string" resultClass="ShipmentInvoiceInit">
+      SELECT SII_ID AS Id,SII_DMA_ID AS DmaId,SII_ShipmentNbr AS ShipmentNbr,SII_InvoiceNo AS InvoiceNo,SII_IsError AS IsError,SII_Error_Msg AS ErrorMsg,SII_LineNbr AS LineNbr,SII_ImportUser AS ImportUser,SII_ImportDate AS ImportDate,SII_SPH_ID AS SphId
+      FROM ShipmentInvoiceInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SII_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentInvoiceInit" parameterClass="ShipmentInvoiceInit" resultClass="ShipmentInvoiceInit">
+      SELECT SII_ID AS Id,SII_DMA_ID AS DmaId,SII_ShipmentNbr AS ShipmentNbr,SII_InvoiceNo AS InvoiceNo,SII_IsError AS IsError,SII_Error_Msg AS ErrorMsg,SII_LineNbr AS LineNbr,SII_ImportUser AS ImportUser,SII_ImportDate AS ImportDate,SII_SPH_ID AS SphId
+      FROM ShipmentInvoiceInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SII_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">SII_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentNbr">SII_ShipmentNbr=#ShipmentNbr#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">SII_InvoiceNo=#InvoiceNo#</isNotNull>
+        <isNotNull prepend="AND" property="IsError">SII_IsError=#IsError#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorMsg">SII_Error_Msg=#ErrorMsg#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">SII_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ImportUser">SII_ImportUser=#ImportUser#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">SII_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="SphId">SII_SPH_ID=#SphId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentInvoiceInit" parameterClass="ShipmentInvoiceInit">
+      INSERT INTO ShipmentInvoiceInit
+      (SII_ID,SII_DMA_ID,SII_ShipmentNbr,SII_InvoiceNo,SII_IsError,SII_Error_Msg,SII_LineNbr,SII_ImportUser,SII_ImportDate,SII_SPH_ID)
+      VALUES(#Id#,#DmaId#,#ShipmentNbr#,#InvoiceNo#,#IsError#,#ErrorMsg#,#LineNbr#,#ImportUser#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#SphId#)
+    </insert>
+    <update id="UpdateShipmentInvoiceInit" parameterClass="ShipmentInvoiceInit">
+      UPDATE ShipmentInvoiceInit
+      SET SII_ID=#Id#,SII_DMA_ID=#DmaId#,SII_ShipmentNbr=#ShipmentNbr#,SII_InvoiceNo=#InvoiceNo#,SII_IsError=#IsError#,SII_Error_Msg=#ErrorMsg#,SII_LineNbr=#LineNbr#,SII_ImportUser=#ImportUser#,SII_ImportDate=#ImportDate#,SII_SPH_ID=#SphId#
+      WHERE SII_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentInvoiceInit" parameterClass="string">
+      DELETE FROM ShipmentInvoiceInit
+      WHERE SII_ID = #value#
+    </delete>
+
+    <delete id="DeleteShipmentInvoiceInitByUser" parameterClass="string">
+      DELETE FROM ShipmentInvoiceInit
+      WHERE SII_ImportUser = #value#
+    </delete>
+    
+    <select id="QueryShipmentInvoiceInitErrorData" parameterClass="System.Collections.Hashtable" resultClass="ShipmentInvoiceInit">
+      SELECT SII_ID AS Id,SII_DMA_ID AS DmaId,SII_ShipmentNbr AS ShipmentNbr,SII_InvoiceNo AS InvoiceNo,SII_IsError AS IsError,ISNULL(SII_Error_Msg,'校验通过') AS ErrorMsg,SII_LineNbr AS LineNbr,SII_ImportUser AS ImportUser,SII_ImportDate AS ImportDate,SII_SPH_ID AS SphId
+      ,ROW_NUMBER() OVER(ORDER BY SII_IsError DESC,SII_LineNbr) AS [row_number]
+      FROM ShipmentInvoiceInit
+      WHERE SII_ImportUser = #UserId#
+    </select>
+
+    <procedure id="GC_ShipmentInvoiceInit" parameterMap="ShipmentInvoiceInitParameterMap">
+      dbo.GC_ShipmentInvoiceInit
+    </procedure>
+  </statements>
+</sqlMap>

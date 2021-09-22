@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.TransferHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Consignment.TransferHeader" assembly="DMS.Model.dll" type="DMS.Model.Consignment.TransferHeaderPO" />
+  </alias>
+  <parameterMaps>
+  </parameterMaps>
+  <statements>
+    <!-- Start Select -->
+    <select id="Consignment.TransferHeaderMap.SelectById" parameterClass="Guid" resultClass="Consignment.TransferHeader">
+      <![CDATA[
+        SELECT *
+        FROM   Consignment.TransferHeader
+        WHERE  TH_ID = #value#
+      ]]>
+    </select>
+    <select id="Consignment.TransferHeaderMap.SelectByCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT TransferHeader.TH_ID TransferId,
+               TransferHeader.TH_No TransferNo,
+               CASE WHEN #TransferType# = 'In' THEN '移入' ELSE '移出' END TransferType,
+               PL.ATTRIBUTE_NAME ProductLine,
+               DealerIn.DMA_ChineseShortName DealerInName,
+               DealerOut.DMA_ChineseShortName DealerOutName,
+               TransferStatus.VALUE1 TransferStatus,
+               Users.IDENTITY_NAME ApplyUser,
+               CONVERT(NVARCHAR(19), TransferHeader.TH_CreateDate, 121) ApplyDate,
+               PL.SubCompanyName,PL.BrandName
+        FROM   Consignment.TransferHeader AS TransferHeader
+               LEFT JOIN dbo.DealerMaster AS DealerIn
+                    ON  DealerIn.DMA_ID = TransferHeader.TH_DMA_ID_To
+               LEFT JOIN dbo.DealerMaster AS DealerOut
+                    ON  DealerOut.DMA_ID = TransferHeader.TH_DMA_ID_From
+               LEFT JOIN Lafite_DICT AS TransferStatus
+                    ON  TransferStatus.DICT_KEY = TransferHeader.TH_Status
+                    AND TransferStatus.DICT_TYPE = 'Consignment_ConsignTransfer_Status'
+               LEFT JOIN Lafite_IDENTITY AS Users
+                    ON  Users.Id = TransferHeader.TH_CreateUser
+               left join View_ProductLine PL(nolock) on PL.Id=TransferHeader.TH_ProductLine_BUM_ID
+        WHERE  TransferHeader.TH_Status <> 'Delete'
+      ]]>
+      <isEqual prepend="AND" property="TransferType" compareValue="Out">
+        TransferHeader.TH_Status NOT IN ('Draft')
+      </isEqual>
+      <isEqual property="IsDealer" compareValue="True">
+        <isEqual prepend="AND" property="TransferType" compareValue="In">
+          TransferHeader.TH_DMA_ID_To = #DealerId#
+        </isEqual>
+        <isEqual prepend="AND" property="TransferType" compareValue="Out">
+          TransferHeader.TH_DMA_ID_From = #DealerId#
+        </isEqual>
+      </isEqual>
+      <isNotEmpty prepend="AND" property="ProductLine">
+        TransferHeader.TH_ProductLine_BUM_ID = #ProductLine#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="TransferNo">
+        TransferHeader.TH_No LIKE '%' + #TransferNo# + '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="TransferStatus">
+        TransferHeader.TH_Status = #TransferStatus#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Dealer">
+        (DealerIn.DMA_ChineseShortName LIKE '%' + #Dealer# + '%' OR DealerOut.DMA_ChineseShortName LIKE '%' + #Dealer# + '%')
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+        PL.SubCompanyId=#SubCompanyId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="BrandId">
+        PL.BrandId=#BrandId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Upn">
+        <![CDATA[
+        EXISTS (
+               SELECT 1
+               FROM   Consignment.TransferDetail AS TransferDetail
+                      INNER JOIN dbo.CFN AS CFN
+                           ON  CFN.CFN_ID = TransferDetail.TD_CFN_ID
+               WHERE  TransferDetail.TD_TH_ID = TransferHeader.TH_ID
+                      AND (
+                              CFN.CFN_ChineseName LIKE '%' + #Upn# + '%'
+                              OR CFN.CFN_CustomerFaceNbr LIKE '%' + #Upn# + '%'
+                              OR CFN.CFN_Property1 LIKE '%' + #Upn# + '%'
+                          )
+           )
+      ]]>
+      </isNotEmpty>
+      <![CDATA[
+        ORDER BY TransferHeader.TH_CreateDate DESC
+      ]]>
+    </select>
+    <!-- End   Select -->
+
+    <!-- Start Insert -->
+    <insert id="Consignment.TransferHeaderMap.Insert" parameterClass="Consignment.TransferHeader">
+      <![CDATA[
+        INSERT INTO Consignment.TransferHeader
+          (TH_ID, TH_DMA_ID_To, TH_DMA_ID_From, TH_No, TH_ProductLine_BUM_ID, TH_CCH_ID, TH_Status, TH_HospitalId, TH_Remark, TH_SalesAccount, TH_CreateUser, TH_CreateDate)
+        VALUES
+          (#TH_ID#, #TH_DMA_ID_To#, #TH_DMA_ID_From#, #TH_No#, #TH_ProductLine_BUM_ID#, #TH_CCH_ID#, #TH_Status#, #TH_HospitalId#, #TH_Remark#, #TH_SalesAccount#, #TH_CreateUser#, #TH_CreateDate#)
+      ]]>
+    </insert>
+    <!-- End   Insert -->
+
+    <!-- Start Update -->
+    <update id="Consignment.TransferHeaderMap.Update" parameterClass="Consignment.TransferHeader">
+      <![CDATA[
+        UPDATE Consignment.TransferHeader
+        SET    TH_DMA_ID_From         = #TH_DMA_ID_From#,
+               TH_ProductLine_BUM_ID  = #TH_ProductLine_BUM_ID#,
+               TH_CCH_ID              = #TH_CCH_ID#,
+               TH_Status              = #TH_Status#,
+               TH_HospitalId          = #TH_HospitalId#,
+               TH_Remark              = #TH_Remark#,
+               TH_SalesAccount        = #TH_SalesAccount#
+        WHERE  TH_ID                  = #TH_ID#
+      ]]>
+    </update>
+    <update id="Consignment.TransferHeaderMap.UpdateStatus" parameterClass="Consignment.TransferHeader">
+      <![CDATA[
+        UPDATE Consignment.TransferHeader
+        SET    TH_Status              = #TH_Status#
+        WHERE  TH_ID                  = #TH_ID#
+      ]]>
+    </update>
+    <!-- End   Update -->
+
+    <!-- Start Delete -->
+    <!-- End   Delete -->
+
+    <!-- Start Procdure -->
+    <!-- End   Procdure -->
+  </statements>
+</sqlMap>

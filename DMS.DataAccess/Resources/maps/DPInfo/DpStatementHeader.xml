@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DpStatementHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DpStatementHeader" assembly="DMS.Model.dll" type="DMS.Model.DpStatementHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DpStatementHeaderResult" class="DpStatementHeader">
+      <result property="Id" column="STH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="STH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="STH_Year" type="string" dbType="nvarchar"/>
+      <result property="Month" column="STH_Month" type="string" dbType="nvarchar"/>
+      <result property="Status" column="STH_Status" type="string" dbType="nvarchar"/>
+      <result property="Currency" column="STH_Currency" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="STH_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="STH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="STH_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="STH_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDpStatementHeader" parameterClass="string" resultClass="DpStatementHeader">
+      SELECT STH_ID AS Id,STH_DMA_ID AS DmaId,STH_Year AS Year,STH_Month AS Month,STH_Status AS Status,STH_Currency AS Currency,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_UpdateUser AS UpdateUser,STH_UpdateDate AS UpdateDate
+      FROM DPStatementHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDpStatementHeader" parameterClass="DpStatementHeader" resultClass="DpStatementHeader">
+      SELECT STH_ID AS Id,STH_DMA_ID AS DmaId,STH_Year AS Year,STH_Month AS Month,STH_Status AS Status,STH_Currency AS Currency,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_UpdateUser AS UpdateUser,STH_UpdateDate AS UpdateDate
+      FROM DPStatementHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">STH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">STH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Month">STH_Month=#Month#</isNotNull>
+        <isNotNull prepend="AND" property="Status">STH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Currency">STH_Currency=#Currency#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">STH_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">STH_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDpStatementHeader" parameterClass="DpStatementHeader">
+      INSERT INTO DPStatementHeader
+      (STH_ID,STH_DMA_ID,STH_Year,STH_Month,STH_Status,STH_Currency,STH_CreateUser,STH_CreateDate,STH_UpdateUser,STH_UpdateDate)
+      VALUES(#Id#,#DmaId#,#Year#,#Month#,#Status#,#Currency#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateDpStatementHeader" parameterClass="DpStatementHeader">
+      UPDATE DPStatementHeader
+      SET STH_ID=#Id#,STH_DMA_ID=#DmaId#,STH_Year=#Year#,STH_Month=#Month#,STH_Status=#Status#,STH_Currency=#Currency#,STH_UpdateUser=#UpdateUser#,STH_UpdateDate=#UpdateDate#
+      WHERE STH_ID = #Id#
+    </update>
+    <delete id="DeleteDpStatementHeader" parameterClass="string">
+      DELETE FROM DPStatementHeader
+      WHERE STH_ID = #value#
+    </delete>
+
+    <!--added by bozhenfei on 20151202-->
+    <select id="QueryDealerFinanceStatement" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderHeader">
+      SELECT
+      STH_ID AS Id,
+      STH_DMA_ID AS DealerId,
+      DMA_ChineseName AS DealerName,
+      STH_Year+STH_Month AS [YearMonth],
+      STH_Status AS Status,
+      A.IDENTITY_NAME AS CreateUser,
+      STH_CreateDate AS CreateDate,
+      B.IDENTITY_NAME AS UpdateUser,
+      STH_UpdateDate AS UpdateDate,
+      ROW_NUMBER () OVER (ORDER BY STH_Year+STH_Month,DMA_ChineseName) AS row_number
+      FROM DPStatementHeader(nolock)
+      INNER JOIN DealerMaster(nolock) ON STH_DMA_ID = DMA_ID
+      INNER JOIN Lafite_IDENTITY A(nolock) ON STH_CreateUser = A.Id
+      LEFT OUTER JOIN Lafite_IDENTITY B(nolock) ON STH_UpdateUser = B.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">STH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">STH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Month">STH_Month=#Month#</isNotNull>
+        <isNotNull prepend="AND" property="Status">STH_Status=#Status#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = STH_DMA_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = STH_DMA_ID)
+          )
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="GetDealerFinanceStatementNextYear" parameterClass="System.Collections.Hashtable" resultClass="DpStatementHeader">
+      SELECT STH_ID AS Id,STH_DMA_ID AS DmaId,STH_Year AS Year,STH_Month AS Month,STH_Status AS Status,STH_Currency AS Currency,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_UpdateUser AS UpdateUser,STH_UpdateDate AS UpdateDate
+      FROM DPStatementHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">STH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">CONVERT(NVARCHAR(10),CONVERT(INT,STH_Year)-1)=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Month">STH_Month=#Month#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="GetDealerFinanceStatementYearList" parameterClass="System.Collections.Hashtable" resultClass="DpStatementHeader">
+      SELECT DISTINCT STH_Year AS Year FROM DPStatementHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">STH_DMA_ID=#DealerId#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = STH_DMA_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = STH_DMA_ID)
+          )
+        </isEqual>
+      </dynamic>
+      ORDER BY STH_Year
+    </select>
+
+    <select id="GetDealerFinanceStatementYearMonthList" parameterClass="System.Collections.Hashtable" resultClass="DpStatementHeader">
+      SELECT DISTINCT STH_Year + STH_Month AS YearMonth FROM DPStatementHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">STH_DMA_ID=#DealerId#</isNotNull>
+      </dynamic>
+      ORDER BY STH_Year + STH_Month
+    </select>
+
+    <select id="GetDealerFinanceStatementMonthByYear" parameterClass="System.Collections.Hashtable" resultClass="DpStatementHeader">
+      ;WITH T AS (
+      SELECT '01' AS Month
+      UNION ALL
+      SELECT '02' AS Month
+      UNION ALL
+      SELECT '03' AS Month
+      UNION ALL
+      SELECT '04' AS Month
+      UNION ALL
+      SELECT '05' AS Month
+      UNION ALL
+      SELECT '06' AS Month
+      UNION ALL
+      SELECT '07' AS Month
+      UNION ALL
+      SELECT '08' AS Month
+      UNION ALL
+      SELECT '09' AS Month
+      UNION ALL
+      SELECT '10' AS Month
+      UNION ALL
+      SELECT '11' AS Month
+      UNION ALL
+      SELECT '12' AS Month
+      )
+      SELECT * FROM T
+      WHERE Month NOT IN (
+      SELECT STH_Month FROM DPStatementHeader
+      WHERE STH_DMA_ID = #DealerId# AND STH_Year = #Year#)
+    </select>
+
+    <!--end-->
+  </statements>
+</sqlMap>

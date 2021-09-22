@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SampleTestingMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="SampleTesting" assembly="DMS.Model.dll" type="DMS.Model.SampleTesting" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SampleTestingResult" class="SampleTesting">
+      <result property="SampleTestingId" column="SampleTestingId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SampleHeadId" column="SampleHeadId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Division" column="Division" type="string" dbType="nvarchar"/>
+      <result property="Priority" column="Priority" type="string" dbType="nvarchar"/>
+      <result property="Certificate" column="Certificate" type="string" dbType="nvarchar"/>
+      <result property="CostCenter" column="CostCenter" type="string" dbType="nvarchar"/>
+      <result property="ArrivalDate" column="ArrivalDate" type="string" dbType="nvarchar"/>
+      <result property="Irf" column="Irf" type="string" dbType="nvarchar"/>
+      <result property="Ra" column="Ra" type="string" dbType="nvarchar"/>
+      <result property="SortNo" column="SortNo" type="int" dbType="int"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateDate" column="UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectSampleTesting" parameterClass="string" resultClass="SampleTesting">
+      SELECT SampleTestingId AS SampleTestingId,SampleHeadId AS SampleHeadId,Division AS Division,Priority AS Priority,Certificate AS Certificate,CostCenter AS CostCenter,ArrivalDate AS ArrivalDate,Irf AS Irf,Ra AS Ra,SortNo AS SortNo,CreateDate AS CreateDate,UpdateDate AS UpdateDate
+      FROM SampleTesting
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SampleTestingId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterSampleTesting" parameterClass="SampleTesting" resultClass="SampleTesting">
+      SELECT SampleTestingId AS SampleTestingId,SampleHeadId AS SampleHeadId,Division AS Division,Priority AS Priority,Certificate AS Certificate,CostCenter AS CostCenter,ArrivalDate AS ArrivalDate,Irf AS Irf,Ra AS Ra,SortNo AS SortNo,CreateDate AS CreateDate,UpdateDate AS UpdateDate
+      FROM SampleTesting
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SampleTestingId">SampleTestingId=#SampleTestingId#</isNotNull>
+        <isNotNull prepend="AND" property="SampleHeadId">SampleHeadId=#SampleHeadId#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="Priority">Priority=#Priority#</isNotNull>
+        <isNotNull prepend="AND" property="Certificate">Certificate=#Certificate#</isNotNull>
+        <isNotNull prepend="AND" property="CostCenter">CostCenter=#CostCenter#</isNotNull>
+        <isNotNull prepend="AND" property="ArrivalDate">ArrivalDate=#ArrivalDate#</isNotNull>
+        <isNotNull prepend="AND" property="Irf">Irf=#Irf#</isNotNull>
+        <isNotNull prepend="AND" property="Ra">Ra=#Ra#</isNotNull>
+        <isNotNull prepend="AND" property="SortNo">SortNo=#SortNo#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertSampleTesting" parameterClass="SampleTesting">
+      INSERT INTO SampleTesting
+      (SampleTestingId,SampleHeadId,Division,Priority,Certificate,CostCenter,ArrivalDate,Irf,Ra,SortNo,CreateDate,UpdateDate)
+      VALUES(#SampleTestingId#,#SampleHeadId#,#Division#,#Priority#,#Certificate#,#CostCenter#,#ArrivalDate#,#Irf#,#Ra#,#SortNo#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateSampleTesting" parameterClass="SampleTesting">
+      UPDATE SampleTesting
+      SET SampleTestingId=#SampleTestingId#,SampleHeadId=#SampleHeadId#,Division=#Division#,Priority=#Priority#,Certificate=#Certificate#,CostCenter=#CostCenter#,ArrivalDate=#ArrivalDate#,Irf=#Irf#,Ra=#Ra#,SortNo=#SortNo#,UpdateDate=#UpdateDate#
+      WHERE SampleTestingId = #SampleTestingId#
+    </update>
+    <delete id="DeleteSampleTesting" parameterClass="string">
+      DELETE FROM SampleTesting
+      WHERE SampleTestingId = #value#
+    </delete>
+    <!--lijie add 2016-03-07-->
+    <select id="SelectSampleTestingList" parameterClass="string"  resultClass="SampleTesting">
+      SELECT SampleTestingId AS SampleTestingId,SampleHeadId AS SampleHeadId,Division AS Division,Priority AS Priority,Certificate AS Certificate,CostCenter AS CostCenter,ArrivalDate AS ArrivalDate,Irf AS Irf,Ra AS Ra,SortNo AS SortNo,CreateDate AS CreateDate,UpdateDate AS UpdateDate
+      FROM SampleTesting
+      WHERE SampleHeadId=#value# 
+      ORDER BY SortNo
+    </select>
+  </statements>
+</sqlMap>

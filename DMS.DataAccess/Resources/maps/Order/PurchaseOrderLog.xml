@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PurchaseOrderLogMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PurchaseOrderLog" assembly="DMS.Model.dll" type="DMS.Model.PurchaseOrderLog" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PurchaseOrderLogResult" class="PurchaseOrderLog">
+      <result property="Id" column="POL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PohId" column="POL_POH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="OperUser" column="POL_OperUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="OperDate" column="POL_OperDate" type="DateTime" dbType="datetime"/>
+      <result property="OperType" column="POL_OperType" type="string" dbType="nvarchar"/>
+      <result property="OperNote" column="POL_OperNote" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectPurchaseOrderLog" parameterClass="string" resultClass="PurchaseOrderLog">
+      SELECT POL_ID AS Id,POL_POH_ID AS PohId,POL_OperUser AS OperUser,POL_OperDate AS OperDate,POL_OperType AS OperType,POL_OperNote AS OperNote
+      FROM PurchaseOrderLog
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          POL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterPurchaseOrderLog" parameterClass="PurchaseOrderLog" resultClass="PurchaseOrderLog">
+      SELECT POL_ID AS Id,POL_POH_ID AS PohId,POL_OperUser AS OperUser,POL_OperDate AS OperDate,POL_OperType AS OperType,POL_OperNote AS OperNote
+      FROM PurchaseOrderLog
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POL_POH_ID=#PohId#</isNotNull>
+        <isNotNull prepend="AND" property="OperUser">POL_OperUser=#OperUser#</isNotNull>
+        <isNotNull prepend="AND" property="OperDate">POL_OperDate=#OperDate#</isNotNull>
+        <isNotNull prepend="AND" property="OperType">POL_OperType=#OperType#</isNotNull>
+        <isNotNull prepend="AND" property="OperNote">POL_OperNote=#OperNote#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertPurchaseOrderLog" parameterClass="PurchaseOrderLog">
+      INSERT INTO PurchaseOrderLog
+      (POL_ID,POL_POH_ID,POL_OperUser,POL_OperDate,POL_OperType,POL_OperNote)
+      VALUES(#Id#,#PohId#,#OperUser#,#OperDate:DateTime:1/1/0001 12:00:00 AM#,#OperType#,#OperNote#)
+    </insert>
+    <update id="UpdatePurchaseOrderLog" parameterClass="PurchaseOrderLog">
+      UPDATE PurchaseOrderLog
+      SET POL_ID=#Id#,POL_POH_ID=#PohId#,POL_OperUser=#OperUser#,POL_OperDate=#OperDate#,POL_OperType=#OperType#,POL_OperNote=#OperNote#
+      WHERE POL_ID = #Id#
+    </update>
+    <delete id="DeletePurchaseOrderLog" parameterClass="string">
+      DELETE FROM PurchaseOrderLog
+      WHERE POL_ID = #value#
+    </delete>
+    <!--added by bozhenfei on 20110214-->
+    <select id="QueryPurchaseOrderLogByFilter" parameterClass="PurchaseOrderLog" resultClass="PurchaseOrderLog">
+      SELECT
+      PurchaseOrderLog.POL_ID AS Id,
+      PurchaseOrderLog.POL_POH_ID AS PohId,
+      <!--PurchaseOrderLog.POL_OperUser AS OperUser,-->
+      Lafite_IDENTITY.IDENTITY_CODE AS OperUserId,
+      Lafite_IDENTITY.IDENTITY_CODE AS OperRole,
+      Lafite_IDENTITY.IDENTITY_NAME AS OperUser,
+      Lafite_IDENTITY.IDENTITY_NAME AS OperUserName,
+      PurchaseOrderLog.POL_OperType AS OperType,
+      ISNULL((SELECT VALUE1 FROM Lafite_DICT WHERE DICT_TYPE = 'CONST_Order_OperType' AND DICT_KEY = PurchaseOrderLog.POL_OperType),PurchaseOrderLog.POL_OperType) AS OperTypeName,
+      PurchaseOrderLog.POL_OperDate AS OperDate,
+      PurchaseOrderLog.POL_OperNote AS OperNote,
+      ROW_NUMBER() OVER (ORDER BY PurchaseOrderLog.POL_OperDate DESC) AS [row_number]
+      FROM    PurchaseOrderLog(nolock)
+      INNER JOIN
+      Lafite_IDENTITY(nolock)
+      ON PurchaseOrderLog.POL_OperUser = Lafite_IDENTITY.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">POL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="PohId">POL_POH_ID=#PohId#</isNotNull>
+        <isNotNull prepend="AND" property="OperUser">POL_OperUser=#OperUser#</isNotNull>
+        <isNotNull prepend="AND" property="OperDate">POL_OperDate=#OperDate#</isNotNull>
+        <isNotNull prepend="AND" property="OperType">POL_OperType=#OperType#</isNotNull>
+        <isNotNull prepend="AND" property="OperNote">POL_OperNote=#OperNote#</isNotNull>
+      </dynamic>
+    </select>
+    <delete id="DeletePurchaseOrderLogByHeaderId" parameterClass="string">
+      DELETE FROM PurchaseOrderLog WHERE POL_POH_ID = #value#
+    </delete>
+    <!--end-->
+
+    <select id="QueryLPGoodsReturnApprove" parameterClass="System.Collections.Hashtable" resultClass="PurchaseOrderLog">
+      SELECT POL_ID
+      FROM PurchaseOrderLog
+      WHERE POL_OperType='Submit' and POL_OperNote='eWorkflow提交退货申请'
+      AND POL_POH_ID = #OrderID#
+    </select>
+  </statements>
+</sqlMap>

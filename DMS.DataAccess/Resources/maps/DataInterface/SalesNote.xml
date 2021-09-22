@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SalesNoteMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SalesNote" assembly="DMS.Model.dll" type="DMS.Model.SalesNote" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SalesNoteResult" class="SalesNote">
+            <result property="Id" column="SNL_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="HospitalCode" column="SNL_HospitalCode" type="string" dbType="nvarchar"/>
+            <result property="HospitalName" column="SNL_HospitalName" type="string" dbType="nvarchar"/>
+            <result property="HospitalOffice" column="SNL_HospitalOffice" type="string" dbType="nvarchar"/>
+            <result property="InvoiceNumber" column="SNL_InvoiceNumber" type="string" dbType="nvarchar"/>
+            <result property="InvoiceTitle" column="SNL_InvoiceTitle" type="string" dbType="nvarchar"/>
+            <result property="InvoiceDate" column="SNL_InvoiceDate" type="DateTime" dbType="datetime"/>
+            <result property="SaleType" column="SNL_SaleType" type="string" dbType="nvarchar"/>
+            <result property="SaleDate" column="SNL_SaleDate" type="DateTime" dbType="datetime"/>
+            <result property="ArticleNumber" column="SNL_ArticleNumber" type="string" dbType="nvarchar"/>
+            <result property="LotNumber" column="SNL_LotNumber" type="string" dbType="nvarchar"/>
+            <result property="UnitPrice" column="SNL_UnitPrice" type="decimal" dbType="decimal"/>
+            <result property="Remark" column="SNL_Remark" type="string" dbType="nvarchar"/>
+            <result property="ExpiredDate" column="SNL_ExpiredDate" type="DateTime" dbType="datetime"/>
+            <result property="Uom" column="SNL_UOM" type="string" dbType="nvarchar"/>
+            <result property="LotQty" column="SNL_LotQty" type="decimal" dbType="decimal"/>
+            <result property="Warehouse" column="SNL_Warehouse" type="string" dbType="nvarchar"/>
+            <result property="WriteOff" column="SNL_WriteOff" type="bool" dbType="bit"/>
+            <result property="LineNbr" column="SNL_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="SNL_FileName" type="string" dbType="nvarchar"/>
+            <result property="ImportDate" column="SNL_ImportDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="SNL_ClientID" type="string" dbType="nvarchar"/>
+            <result property="BatchNbr" column="SNL_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="DmaId" column="SNL_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="WhmId" column="SNL_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CfnId" column="SNL_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="PmaId" column="SNL_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="BumId" column="SNL_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="PctId" column="SNL_PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="HosId" column="SNL_HOS_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="LtmId" column="SNL_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="SltId" column="SNL_SLT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Authorized" column="SNL_Authorized" type="bool" dbType="bit"/>
+            <result property="ProblemDescription" column="SNL_ProblemDescription" type="string" dbType="nvarchar"/>
+            <result property="HandleDate" column="SNL_HandleDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectSalesNote" parameterClass="string" resultClass="SalesNote">
+            SELECT SNL_ID AS Id,SNL_HospitalCode AS HospitalCode,SNL_HospitalName AS HospitalName,SNL_HospitalOffice AS HospitalOffice,SNL_InvoiceNumber AS InvoiceNumber,SNL_InvoiceTitle AS InvoiceTitle,SNL_InvoiceDate AS InvoiceDate,SNL_SaleType AS SaleType,SNL_SaleDate AS SaleDate,SNL_ArticleNumber AS ArticleNumber,SNL_LotNumber AS LotNumber,SNL_UnitPrice AS UnitPrice,SNL_Remark AS Remark,SNL_ExpiredDate AS ExpiredDate,SNL_UOM AS Uom,SNL_LotQty AS LotQty,SNL_Warehouse AS Warehouse,SNL_WriteOff AS WriteOff,SNL_LineNbr AS LineNbr,SNL_FileName AS FileName,SNL_ImportDate AS ImportDate,SNL_ClientID AS Clientid,SNL_BatchNbr AS BatchNbr,SNL_DMA_ID AS DmaId,SNL_WHM_ID AS WhmId,SNL_CFN_ID AS CfnId,SNL_PMA_ID AS PmaId,SNL_BUM_ID AS BumId,SNL_PCT_ID AS PctId,SNL_HOS_ID AS HosId,SNL_LTM_ID AS LtmId,SNL_SLT_ID AS SltId,SNL_Authorized AS Authorized,SNL_ProblemDescription AS ProblemDescription,SNL_HandleDate AS HandleDate
+            FROM SalesNote
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    SNL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterSalesNote" parameterClass="SalesNote" resultClass="SalesNote">
+            SELECT SNL_ID AS Id,SNL_HospitalCode AS HospitalCode,SNL_HospitalName AS HospitalName,SNL_HospitalOffice AS HospitalOffice,SNL_InvoiceNumber AS InvoiceNumber,SNL_InvoiceTitle AS InvoiceTitle,SNL_InvoiceDate AS InvoiceDate,SNL_SaleType AS SaleType,SNL_SaleDate AS SaleDate,SNL_ArticleNumber AS ArticleNumber,SNL_LotNumber AS LotNumber,SNL_UnitPrice AS UnitPrice,SNL_Remark AS Remark,SNL_ExpiredDate AS ExpiredDate,SNL_UOM AS Uom,SNL_LotQty AS LotQty,SNL_Warehouse AS Warehouse,SNL_WriteOff AS WriteOff,SNL_LineNbr AS LineNbr,SNL_FileName AS FileName,SNL_ImportDate AS ImportDate,SNL_ClientID AS Clientid,SNL_BatchNbr AS BatchNbr,SNL_DMA_ID AS DmaId,SNL_WHM_ID AS WhmId,SNL_CFN_ID AS CfnId,SNL_PMA_ID AS PmaId,SNL_BUM_ID AS BumId,SNL_PCT_ID AS PctId,SNL_HOS_ID AS HosId,SNL_LTM_ID AS LtmId,SNL_SLT_ID AS SltId,SNL_Authorized AS Authorized,SNL_ProblemDescription AS ProblemDescription,SNL_HandleDate AS HandleDate
+            FROM SalesNote
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">SNL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalCode">SNL_HospitalCode=#HospitalCode#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalName">SNL_HospitalName=#HospitalName#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalOffice">SNL_HospitalOffice=#HospitalOffice#</isNotNull>
+                <isNotNull prepend="AND" property="InvoiceNumber">SNL_InvoiceNumber=#InvoiceNumber#</isNotNull>
+                <isNotNull prepend="AND" property="InvoiceTitle">SNL_InvoiceTitle=#InvoiceTitle#</isNotNull>
+                <isNotNull prepend="AND" property="InvoiceDate">SNL_InvoiceDate=#InvoiceDate#</isNotNull>
+                <isNotNull prepend="AND" property="SaleType">SNL_SaleType=#SaleType#</isNotNull>
+                <isNotNull prepend="AND" property="SaleDate">SNL_SaleDate=#SaleDate#</isNotNull>
+                <isNotNull prepend="AND" property="ArticleNumber">SNL_ArticleNumber=#ArticleNumber#</isNotNull>
+                <isNotNull prepend="AND" property="LotNumber">SNL_LotNumber=#LotNumber#</isNotNull>
+                <isNotNull prepend="AND" property="UnitPrice">SNL_UnitPrice=#UnitPrice#</isNotNull>
+                <isNotNull prepend="AND" property="Remark">SNL_Remark=#Remark#</isNotNull>
+                <isNotNull prepend="AND" property="ExpiredDate">SNL_ExpiredDate=#ExpiredDate#</isNotNull>
+                <isNotNull prepend="AND" property="Uom">SNL_UOM=#Uom#</isNotNull>
+                <isNotNull prepend="AND" property="LotQty">SNL_LotQty=#LotQty#</isNotNull>
+                <isNotNull prepend="AND" property="Warehouse">SNL_Warehouse=#Warehouse#</isNotNull>
+                <isNotNull prepend="AND" property="WriteOff">SNL_WriteOff=#WriteOff#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">SNL_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">SNL_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ImportDate">SNL_ImportDate=#ImportDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">SNL_ClientID=#Clientid#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">SNL_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="DmaId">SNL_DMA_ID=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="WhmId">SNL_WHM_ID=#WhmId#</isNotNull>
+                <isNotNull prepend="AND" property="CfnId">SNL_CFN_ID=#CfnId#</isNotNull>
+                <isNotNull prepend="AND" property="PmaId">SNL_PMA_ID=#PmaId#</isNotNull>
+                <isNotNull prepend="AND" property="BumId">SNL_BUM_ID=#BumId#</isNotNull>
+                <isNotNull prepend="AND" property="PctId">SNL_PCT_ID=#PctId#</isNotNull>
+                <isNotNull prepend="AND" property="HosId">SNL_HOS_ID=#HosId#</isNotNull>
+                <isNotNull prepend="AND" property="LtmId">SNL_LTM_ID=#LtmId#</isNotNull>
+                <isNotNull prepend="AND" property="SltId">SNL_SLT_ID=#SltId#</isNotNull>
+                <isNotNull prepend="AND" property="Authorized">SNL_Authorized=#Authorized#</isNotNull>
+                <isNotNull prepend="AND" property="ProblemDescription">SNL_ProblemDescription=#ProblemDescription#</isNotNull>
+                <isNotNull prepend="AND" property="HandleDate">SNL_HandleDate=#HandleDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertSalesNote" parameterClass="SalesNote">
+            INSERT INTO SalesNote
+            (SNL_ID,SNL_HospitalCode,SNL_HospitalName,SNL_HospitalOffice,SNL_InvoiceNumber,SNL_InvoiceTitle,SNL_InvoiceDate,SNL_SaleType,SNL_SaleDate,SNL_ArticleNumber,SNL_LotNumber,SNL_UnitPrice,SNL_Remark,SNL_ExpiredDate,SNL_UOM,SNL_LotQty,SNL_Warehouse,SNL_WriteOff,SNL_LineNbr,SNL_FileName,SNL_ImportDate,SNL_ClientID,SNL_BatchNbr,SNL_DMA_ID,SNL_WHM_ID,SNL_CFN_ID,SNL_PMA_ID,SNL_BUM_ID,SNL_PCT_ID,SNL_HOS_ID,SNL_LTM_ID,SNL_SLT_ID,SNL_Authorized,SNL_ProblemDescription,SNL_HandleDate)
+            VALUES(#Id#,#HospitalCode#,#HospitalName#,#HospitalOffice#,#InvoiceNumber#,#InvoiceTitle#,#InvoiceDate:DateTime:1/1/0001 12:00:00 AM#,#SaleType#,#SaleDate:DateTime:1/1/0001 12:00:00 AM#,#ArticleNumber#,#LotNumber#,#UnitPrice#,#Remark#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#Uom#,#LotQty#,#Warehouse#,#WriteOff#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#DmaId#,#WhmId#,#CfnId#,#PmaId#,#BumId#,#PctId#,#HosId#,#LtmId#,#SltId#,#Authorized#,#ProblemDescription#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateSalesNote" parameterClass="SalesNote">
+            UPDATE SalesNote
+            SET SNL_ID=#Id#,SNL_HospitalCode=#HospitalCode#,SNL_HospitalName=#HospitalName#,SNL_HospitalOffice=#HospitalOffice#,SNL_InvoiceNumber=#InvoiceNumber#,SNL_InvoiceTitle=#InvoiceTitle#,SNL_InvoiceDate=#InvoiceDate#,SNL_SaleType=#SaleType#,SNL_SaleDate=#SaleDate#,SNL_ArticleNumber=#ArticleNumber#,SNL_LotNumber=#LotNumber#,SNL_UnitPrice=#UnitPrice#,SNL_Remark=#Remark#,SNL_ExpiredDate=#ExpiredDate#,SNL_UOM=#Uom#,SNL_LotQty=#LotQty#,SNL_Warehouse=#Warehouse#,SNL_WriteOff=#WriteOff#,SNL_LineNbr=#LineNbr#,SNL_FileName=#FileName#,SNL_ImportDate=#ImportDate#,SNL_ClientID=#Clientid#,SNL_BatchNbr=#BatchNbr#,SNL_DMA_ID=#DmaId#,SNL_WHM_ID=#WhmId#,SNL_CFN_ID=#CfnId#,SNL_PMA_ID=#PmaId#,SNL_BUM_ID=#BumId#,SNL_PCT_ID=#PctId#,SNL_HOS_ID=#HosId#,SNL_LTM_ID=#LtmId#,SNL_SLT_ID=#SltId#,SNL_Authorized=#Authorized#,SNL_ProblemDescription=#ProblemDescription#,SNL_HandleDate=#HandleDate#
+            WHERE SNL_ID = #Id#
+        </update>
+        <delete id="DeleteSalesNote" parameterClass="string">
+            DELETE FROM SalesNote
+            WHERE SNL_ID = #value#
+        </delete>
+        <select id="SelectSalesNoteByBatchNbrErrorOnly" parameterClass="string" resultClass="SalesNote">
+            SELECT SNL_ID AS Id,SNL_HospitalCode AS HospitalCode,SNL_HospitalName AS HospitalName,SNL_HospitalOffice AS HospitalOffice,SNL_InvoiceNumber AS InvoiceNumber,SNL_InvoiceTitle AS InvoiceTitle,SNL_InvoiceDate AS InvoiceDate,SNL_SaleType AS SaleType,SNL_SaleDate AS SaleDate,SNL_ArticleNumber AS ArticleNumber,SNL_LotNumber AS LotNumber,SNL_UnitPrice AS UnitPrice,SNL_Remark AS Remark,SNL_ExpiredDate AS ExpiredDate,SNL_UOM AS Uom,SNL_LotQty AS LotQty,SNL_Warehouse AS Warehouse,SNL_WriteOff AS WriteOff,SNL_LineNbr AS LineNbr,SNL_FileName AS FileName,SNL_ImportDate AS ImportDate,SNL_ClientID AS Clientid,SNL_BatchNbr AS BatchNbr,SNL_DMA_ID AS DmaId,SNL_WHM_ID AS WhmId,SNL_CFN_ID AS CfnId,SNL_PMA_ID AS PmaId,SNL_BUM_ID AS BumId,SNL_PCT_ID AS PctId,SNL_HOS_ID AS HosId,SNL_LTM_ID AS LtmId,SNL_SLT_ID AS SltId,SNL_Authorized AS Authorized,SNL_ProblemDescription AS ProblemDescription,SNL_HandleDate AS HandleDate
+            FROM SalesNote
+            WHERE SNL_BatchNbr = #value# AND SNL_ProblemDescription IS NOT NULL
+            ORDER BY SNL_LineNbr
+        </select>
+    </statements>
+</sqlMap>

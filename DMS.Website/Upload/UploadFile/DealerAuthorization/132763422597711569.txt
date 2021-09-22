@@ -1,0 +1,22 @@
+---经销商的创建
+
+1.插入dealer主数据 dealer_master,注意导入company id, 注意导入的DMA_Parent_DMA_ID，该字段在表中有父子经销商关系
+2.导入dealer主经销商信息 DealerMasterMain
+3.更新Dealer_Master与dealerMasterMain的主外键 DMM_ID，DMA_DMM_ID 
+4.插入client表信息
+5.更新注册证经营范围
+6.初始化经销商收货地址（SAP）
+7.初始化经销商授权合同信息
+8.更新发送邮件模板（MailMessageQueue）
+
+--Lafite_IDENTITY 添加用户权限
+A.如何创建系统管理员权限
+ 
+1.创建dealer用户，在Lafite_IDENTITY表中创建, 这里corpid是经销商DealerMaster的DMA_ID
+2.初始化登录用户账号以及认证密码 Lafite_Membership，注意跟供应商沟通下Password的初始化值
+3分配权限 Lafite_IDENTITY_MAP 如Position,Role等。注意表中 IDENTITY_ID关联Lafite_Identity中的IDENTITY_ID, MAP_ID关联 T_ATTRIBUTE.Id
+4.设置EmailTemplate?邮件模板怎么跟Role关联
+
+
+
+

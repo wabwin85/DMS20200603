@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TrainDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="TrainDetail" assembly="DMS.Model.dll" type="DMS.Model.TrainDetail" />
+    </alias>
+    <resultMaps>
+        <resultMap id="TrainDetailResult" class="TrainDetail">
+            <result property="TrainDetailId" column="TrainDetailId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TrainId" column="TrainId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TrainType" column="TrainType" type="string" dbType="nvarchar"/>
+            <result property="TrainContent1" column="TrainContent1" type="string" dbType="nvarchar"/>
+            <result property="TrainContent2" column="TrainContent2" type="string" dbType="nvarchar"/>
+            <result property="TrainContent3" column="TrainContent3" type="string" dbType="nvarchar"/>
+            <result property="TrainContent4" column="TrainContent4" type="string" dbType="nvarchar"/>
+            <result property="TrainContent5" column="TrainContent5" type="string" dbType="nvarchar"/>
+            <result property="TrainContent6" column="TrainContent6" type="string" dbType="nvarchar"/>
+            <result property="TrainContent7" column="TrainContent7" type="string" dbType="nvarchar"/>
+            <result property="TrainContent8" column="TrainContent8" type="string" dbType="nvarchar"/>
+            <result property="TrainContent9" column="TrainContent9" type="string" dbType="nvarchar"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectTrainDetail" parameterClass="string" resultClass="TrainDetail">
+            SELECT TrainDetailId AS TrainDetailId,TrainId AS TrainId,TrainType AS TrainType,TrainContent1 AS TrainContent1,TrainContent2 AS TrainContent2,TrainContent3 AS TrainContent3,TrainContent4 AS TrainContent4,TrainContent5 AS TrainContent5,TrainContent6 AS TrainContent6,TrainContent7 AS TrainContent7,TrainContent8 AS TrainContent8,TrainContent9 AS TrainContent9,CreateUser AS CreateUser,CreateTime AS CreateTime,UpdateUser AS UpdateUser,UpdateTime AS UpdateTime
+            FROM Commando.TrainDetail
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    TrainDetailId = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectTrainDetailByCondtition" parameterClass="string" resultClass="TrainDetail">
+            SELECT TrainDetailId AS TrainDetailId,TrainId AS TrainId,TrainType AS TrainType,TrainContent1 AS TrainContent1,TrainContent2 AS TrainContent2,TrainContent3 AS TrainContent3,TrainContent4 AS TrainContent4,TrainContent5 AS TrainContent5,TrainContent6 AS TrainContent6,TrainContent7 AS TrainContent7,TrainContent8 AS TrainContent8,TrainContent9 AS TrainContent9,CreateUser AS CreateUser,CreateTime AS CreateTime,UpdateUser AS UpdateUser,UpdateTime AS UpdateTime
+            FROM Commando.TrainDetail
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="TrainId">TrainId=#TrainId#</isNotNull>
+                <isNotNull prepend="AND" property="TrainType">TrainType=#TrainType#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertTrainDetail" parameterClass="TrainDetail">
+            INSERT INTO Commando.TrainDetail
+            (TrainDetailId,TrainId,TrainType,TrainContent1,TrainContent2,TrainContent3,TrainContent4,TrainContent5,TrainContent6,TrainContent7,TrainContent8,TrainContent9,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            VALUES(#TrainDetailId#,#TrainId#,#TrainType#,#TrainContent1#,#TrainContent2#,#TrainContent3#,#TrainContent4#,#TrainContent5#,#TrainContent6#,#TrainContent7#,#TrainContent8#,#TrainContent9#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateTrainDetail" parameterClass="TrainDetail">
+            UPDATE Commando.TrainDetail
+            SET TrainContent1=#TrainContent1#,TrainContent2=#TrainContent2#,TrainContent3=#TrainContent3#,TrainContent4=#TrainContent4#,TrainContent5=#TrainContent5#,TrainContent6=#TrainContent6#,TrainContent7=#TrainContent7#,TrainContent8=#TrainContent8#,TrainContent9=#TrainContent9#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE TrainDetailId = #TrainDetailId#
+        </update>
+        <delete id="DeleteTrainDetail" parameterClass="string">
+            DELETE FROM Commando.TrainDetail
+            WHERE TrainDetailId = #value#
+        </delete>
+
+        <delete id="DeleteByCondition" parameterClass="TrainDetail">
+            DELETE FROM Commando.TrainDetail
+            <dynamic prepend="WHERE">
+
+                <isNotNull prepend="AND" property="TrainId">TrainId=#TrainId#</isNotNull>
+                <isNotNull prepend="AND" property="TrainType">TrainType=#TrainType#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent1">TrainContent1=#TrainContent1#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent2">TrainContent2=#TrainContent2#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent3">TrainContent3=#TrainContent3#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent4">TrainContent4=#TrainContent4#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent5">TrainContent5=#TrainContent5#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent6">TrainContent6=#TrainContent6#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent7">TrainContent7=#TrainContent7#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent8">TrainContent8=#TrainContent8#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent9">TrainContent9=#TrainContent9#</isNotNull>
+                <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateTime">UpdateTime=#UpdateTime#</isNotNull>
+            </dynamic>
+        </delete>
+
+        <select id="SelectDealerTrainDetailList" parameterClass="System.Data.DataSet" resultClass="System.Data.DataSet">
+            SELECT TrainDetailId AS TrainDetailId,TrainId AS TrainId,TrainType AS TrainType,TrainContent1 AS TrainContent1,TrainContent2 AS TrainContent2,TrainContent3 AS TrainContent3,TrainContent4 AS TrainContent4,TrainContent5 AS TrainContent5,TrainContent6 AS TrainContent6,TrainContent7 AS TrainContent7,TrainContent8 AS TrainContent8,TrainContent9 AS TrainContent9,CreateUser AS CreateUser,CreateTime AS CreateTime,UpdateUser AS UpdateUser,UpdateTime AS UpdateTime
+            ,row_number() OVER (ORDER BY CreateTime desc) AS [row_number]
+            FROM Commando.TrainDetail
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="TrainId">TrainId=#TrainId#</isNotNull>
+                <isNotNull prepend="AND" property="TrainType">TrainType=#TrainType#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent1">TrainContent1=#TrainContent1#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent2">TrainContent2=#TrainContent2#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent3">TrainContent3=#TrainContent3#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent4">TrainContent4=#TrainContent4#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent5">TrainContent5=#TrainContent5#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent6">TrainContent6=#TrainContent6#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent7">TrainContent7=#TrainContent7#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent8">TrainContent8=#TrainContent8#</isNotNull>
+                <isNotNull prepend="AND" property="TrainContent9">TrainContent9=#TrainContent9#</isNotNull>
+            </dynamic>
+        </select>
+    </statements>
+</sqlMap>

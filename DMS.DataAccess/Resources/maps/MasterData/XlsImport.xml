@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="XlsImportMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <parameterMaps>
+    <parameterMap id="Check1Params" class="System.Collections.Hashtable">
+      <parameter property="UserId" column="UserId"/>
+      <parameter property="TableName" column="TableName"/>
+      <parameter property="SettingTable" column="SettingTable"/>
+      <parameter property="IsValid" column="IsValid" direction="Output"/>
+    </parameterMap>
+
+    <parameterMap id="Check2Params" class="System.Collections.Hashtable">
+      <parameter property="UserId" column="UserId"/>
+      <parameter property="ProcedureName" column="ProcedureName"/> 
+      <parameter property="IsValid" column="IsValid" direction="Output"/>
+    </parameterMap>
+
+    <parameterMap id="DeleteParams" class="System.Collections.Hashtable">
+      <parameter property="UserId" column="UserId"/>
+      <parameter property="TableName" column="TableName"/>
+    </parameterMap>
+  </parameterMaps>
+
+  <statements>
+    <procedure id="XlsImportTempTable_Check1" parameterMap="Check1Params">
+      Proc_XlsImportTempTable_Check1
+    </procedure>
+
+    <procedure id="XlsImportTempTable_Check2" parameterMap="Check2Params">
+      Proc_XlsImportTempTable_Check2
+    </procedure>
+
+    <procedure id="XlsImportTempTable_Delete" parameterMap="DeleteParams">
+      Proc_XlsImportTempTable_Delete
+    </procedure>
+
+    <select id="XlsImportTempTable_GetErrorList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC Proc_XlsImportTempTable_GetErrorList #UserId#,#TableName#
+    </select>
+  </statements>
+</sqlMap>

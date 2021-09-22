@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentHeader" assembly="DMS.Model.dll" type="DMS.Model.ShipmentHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentHeaderResult" class="ShipmentHeader">
+      <result property="Id" column="SPH_ID" type="Guid" dbType="Guid"/>
+      <result property="HospitalHosId" column="SPH_Hospital_HOS_ID" type="Guid" dbType="Guid"/>
+      <result property="ShipmentNbr" column="SPH_ShipmentNbr" type="string" dbType="varchar"/>
+      <result property="DealerDmaId" column="SPH_Dealer_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="ShipmentDate" column="SPH_ShipmentDate" type="DateTime" dbType="DateTime"/>
+      <result property="Status" column="SPH_Status" type="string" dbType="varchar"/>
+      <result property="ReverseSphId" column="SPH_Reverse_SPH_ID" type="Guid" dbType="Guid"/>
+      <result property="NoteForPumpSerialNbr" column="SPH_NoteForPumpSerialNbr" type="string" dbType="varchar"/>
+      <result property="Type" column="SPH_Type" type="string" dbType="varchar"/>
+      <result property="ProductLineBumId" column="SPH_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+      <result property="ShipmentUser" column="SPH_Shipment_User" type="Guid" dbType="Guid"/>
+      <result property="InvoiceNo" column="SPH_InvoiceNo" type="string" dbType="varchar"/>
+      <result property="UpdateDate" column="SPH_UpdateDate" type="DateTime" dbType="DateTime"/>
+      <result property="SubmitDate" column="SPH_SubmitDate" type="DateTime" dbType="DateTime"/>
+      <result property="Office" column="SPH_Office" type="string" dbType="nvarchar"/>
+      <result property="InvoiceTitle" column="SPH_InvoiceTitle" type="string" dbType="nvarchar"/>
+      <result property="InvoiceDate" column="SPH_InvoiceDate" type="DateTime" dbType="datetime"/>
+      <result property="IsAuth" column="SPH_IsAuth" type="bool" dbType="bit"/>
+      <result property="AdjType" column="SPH_AdjType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ConsignmentForOrder" class="System.Collections.Hashtable" >
+      <parameter property="ShipmentNbr" column="ShipmentNbr" />
+      <parameter property="ShipmentType" column="ShipmentType" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="ConsignmentForSubmit" class="System.Collections.Hashtable" >
+      <parameter property="ShipmentHeadId" column="ShipmentHeadId" />
+      <parameter property="HospitalId" column="HospitalId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_HospitalShipmentBSC_BeforeSubmit_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="SphId" column="SphId" />
+      <parameter property="ShipmentDate" column="ShipmentDate" />
+      <parameter property="ShipmentUser" column="ShipmentUser" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="HospitalId" column="HospitalId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="ConsignmentClearBorrow" class="System.Collections.Hashtable" >
+      <parameter property="SphId" column="SphId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectShipmentHeader" parameterClass="string" resultClass="ShipmentHeader">
+      SELECT SPH_ID AS Id,SPH_Hospital_HOS_ID AS HospitalHosId,SPH_ShipmentNbr AS ShipmentNbr,SPH_Dealer_DMA_ID AS DealerDmaId,SPH_ShipmentDate AS ShipmentDate,SPH_Status AS Status,SPH_Reverse_SPH_ID AS ReverseSphId,SPH_NoteForPumpSerialNbr AS NoteForPumpSerialNbr,SPH_Type AS Type,SPH_ProductLine_BUM_ID AS ProductLineBumId,SPH_Shipment_User AS ShipmentUser,SPH_InvoiceNo AS InvoiceNo,SPH_UpdateDate AS UpdateDate,SPH_SubmitDate AS SubmitDate,SPH_Office AS Office,SPH_InvoiceTitle AS InvoiceTitle,SPH_InvoiceDate AS InvoiceDate,SPH_IsAuth AS IsAuth,SPH_InvoiceFirstDate AS InvoiceFirstDate
+      FROM ShipmentHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectShipmentHeaderByNbr" parameterClass="string" resultClass="ShipmentHeader">
+      SELECT TOP 1 SPH_ID AS Id,SPH_Hospital_HOS_ID AS HospitalHosId,SPH_ShipmentNbr AS ShipmentNbr,SPH_Dealer_DMA_ID AS DealerDmaId,SPH_ShipmentDate AS ShipmentDate,SPH_Status AS Status,SPH_Reverse_SPH_ID AS ReverseSphId,SPH_NoteForPumpSerialNbr AS NoteForPumpSerialNbr,SPH_Type AS Type,SPH_ProductLine_BUM_ID AS ProductLineBumId,SPH_Shipment_User AS ShipmentUser,SPH_InvoiceNo AS InvoiceNo,SPH_UpdateDate AS UpdateDate,SPH_SubmitDate AS SubmitDate,SPH_Office AS Office,SPH_InvoiceTitle AS InvoiceTitle,SPH_InvoiceDate AS InvoiceDate,SPH_IsAuth AS IsAuth,SPH_InvoiceFirstDate AS InvoiceFirstDate
+      FROM ShipmentHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPH_ShipmentNbr = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentHeader" parameterClass="ShipmentHeader" resultClass="ShipmentHeader">
+      SELECT SPH_ID AS Id,SPH_Hospital_HOS_ID AS HospitalHosId,SPH_ShipmentNbr AS ShipmentNbr,SPH_Dealer_DMA_ID AS DealerDmaId,SPH_ShipmentDate AS ShipmentDate,SPH_Status AS Status,SPH_Reverse_SPH_ID AS ReverseSphId,SPH_NoteForPumpSerialNbr AS NoteForPumpSerialNbr,SPH_Type AS Type,SPH_ProductLine_BUM_ID AS ProductLineBumId,SPH_Shipment_User AS ShipmentUser,SPH_InvoiceNo AS InvoiceNo,SPH_UpdateDate AS UpdateDate,SPH_SubmitDate AS SubmitDate,SPH_Office AS Office,SPH_InvoiceTitle AS InvoiceTitle,SPH_InvoiceDate AS InvoiceDate,SPH_IsAuth AS IsAuth,SPH_InvoiceFirstDate AS InvoiceFirstDate
+      FROM ShipmentHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SPH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalHosId">SPH_Hospital_HOS_ID=#HospitalHosId#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentNbr">SPH_ShipmentNbr=#ShipmentNbr#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">SPH_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">SPH_ShipmentDate=#ShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="Status">SPH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseSphId">SPH_Reverse_SPH_ID=#ReverseSphId#</isNotNull>
+        <isNotNull prepend="AND" property="NoteForPumpSerialNbr">SPH_NoteForPumpSerialNbr=#NoteForPumpSerialNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Type">SPH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">SPH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentUser">SPH_Shipment_User=#ShipmentUser#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">SPH_InvoiceNo=#InvoiceNo#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">SPH_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDate">SPH_SubmitDate=#SubmitDate#</isNotNull>
+        <isNotNull prepend="AND" property="Office">SPH_Office=#Office#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceTitle">SPH_InvoiceTitle=#InvoiceTitle#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceDate">SPH_InvoiceDate=#InvoiceDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsAuth">SPH_IsAuth=#IsAuth#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceFirstDate">SPH_InvoiceFirstDate=#InvoiceFirstDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentHeader" parameterClass="ShipmentHeader">
+      INSERT INTO ShipmentHeader
+      (SPH_ID,SPH_Hospital_HOS_ID,SPH_ShipmentNbr,SPH_Dealer_DMA_ID,SPH_ShipmentDate,SPH_Status,SPH_Reverse_SPH_ID,SPH_NoteForPumpSerialNbr,SPH_Type,SPH_ProductLine_BUM_ID,SPH_Shipment_User,SPH_InvoiceNo,SPH_UpdateDate,SPH_SubmitDate,SPH_Office,SPH_InvoiceTitle,SPH_InvoiceDate,SPH_IsAuth,SPH_InvoiceFirstDate,SPH_AdjType)
+      VALUES(#Id#,#HospitalHosId#,#ShipmentNbr#,#DealerDmaId#,#ShipmentDate:DateTime:1/1/0001 12:00:00 AM#,#Status#,#ReverseSphId#,#NoteForPumpSerialNbr#,#Type#,#ProductLineBumId#,#ShipmentUser#,#InvoiceNo#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#SubmitDate:DateTime:1/1/0001 12:00:00 AM#,#Office#,#InvoiceTitle#,#InvoiceDate:DateTime:1/1/0001 12:00:00 AM#,#IsAuth#,#InvoiceFirstDate:DateTime:1/1/0001 12:00:00 AM#,#AdjType#)
+    </insert>
+    <update id="UpdateShipmentHeader" parameterClass="ShipmentHeader">
+      UPDATE ShipmentHeader
+      SET SPH_ID=#Id#,SPH_Hospital_HOS_ID=#HospitalHosId#,SPH_ShipmentNbr=#ShipmentNbr#,SPH_Dealer_DMA_ID=#DealerDmaId#,SPH_ShipmentDate=#ShipmentDate#,SPH_Status=#Status#,SPH_Reverse_SPH_ID=#ReverseSphId#,SPH_NoteForPumpSerialNbr=#NoteForPumpSerialNbr#,SPH_Type=#Type#,SPH_ProductLine_BUM_ID=#ProductLineBumId#,SPH_Shipment_User=#ShipmentUser#,SPH_InvoiceNo=#InvoiceNo#,SPH_UpdateDate=#UpdateDate#,SPH_SubmitDate=#SubmitDate#,SPH_Office=#Office#,SPH_InvoiceTitle=#InvoiceTitle#,SPH_InvoiceDate=#InvoiceDate#,SPH_IsAuth=#IsAuth#,SPH_InvoiceFirstDate=#InvoiceFirstDate#
+      WHERE SPH_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentHeader" parameterClass="string">
+      DELETE FROM ShipmentHeader
+      WHERE SPH_ID = #value#
+    </delete>
+
+    <select id="SelectByFilterShipmentHeaderAll" parameterClass="System.Collections.Hashtable" resultClass="ShipmentHeader">
+      SELECT
+      ShipmentHeader.SPH_ID AS Id,
+      ShipmentHeader.SPH_Dealer_DMA_ID AS DealerId,
+      ShipmentHeader.SPH_ShipmentNbr AS OrderNumber,
+      ShipmentHeader.SPH_Hospital_HOS_ID AS HospitalId,
+      (SELECT Hospital.HOS_HospitalName FROM Hospital(nolock) WHERE Hospital.HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID) AS HospitalName,
+      CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112) AS ShipmentDate,
+      (SELECT Lafite_IDENTITY.IDENTITY_NAME FROM Lafite_IDENTITY(nolock) WHERE Lafite_IDENTITY.Id = ShipmentHeader.SPH_Shipment_User) AS ShipmentName,
+      ShipmentHeader.SPH_Status AS [Status],
+      ShipmentHeader.SPH_Reverse_SPH_ID AS ReverseId,
+      ShipmentHeader.SPH_ProductLine_BUM_ID AS ProductLine,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLineName,
+      View_ProductLine.SubCompanyName,
+      View_ProductLine.BrandName,
+      (SELECT ISNULL(SUM(convert(decimal(18,1),t2.SLT_LotShippedQty)),0) FROM ShipmentLine t1(nolock), shipmentLot t2(nolock)
+      WHERE t1.SPL_ID =t2.SLT_SPL_ID and ShipmentHeader.SPH_ID = t1.SPL_SPH_ID )  AS TotalQyt,
+      (SELECT ISNULL(SUM(convert(decimal(18,6),ShipmentLot.SLT_LotShippedQty)*ShipmentLot.SLT_UnitPrice),0) FROM
+      ShipmentLot(nolock) inner join ShipmentLine(nolock) on ShipmentLot.SLT_SPL_ID=ShipmentLine.SPL_ID
+      WHERE ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID) AS TotalAmount,
+      row_number() OVER (ORDER BY isnull(ShipmentHeader.SPH_ShipmentDate,ShipmentHeader.SPH_UpdateDate) desc,ShipmentHeader.SPH_UpdateDate desc) AS row_number,
+      ShipmentHeader.SPH_Type as Type,
+      CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112) as SubmitDate,
+      (case when (SPH_InvoiceNo is not null and  SPH_InvoiceDate is not null) then '已填写'
+      when (SPH_InvoiceNo is null and  SPH_InvoiceDate is null) then '未填写' else '不完整' end) AS InvoiceStatus,
+      SPH_SubmitDate,
+      SPH_InvoiceTitle as InvoiceTitle,
+      SPH_InvoiceNo as InvoiceNo,
+      SPH_InvoiceDate as InvoiceDate,
+      case when Valid_SPH_ID is null then convert(nvarchar(10),DATEDIFF(day,SPH_SubmitDate,getdate())) else '' end as SubmitDays
+      ,case when exists (select 1 from Attachment(nolock) a  where a.AT_Main_ID=ShipmentHeader.SPH_ID)
+      then 'DMS销售单附件上传' else  case  when Valid_SPH_ID is not null and SPH_Status &lt;&gt;'Draft'
+      then '二维码发票认证'
+      else ''
+      end
+      end  as 'Annexsource'
+      ,isnull(SPH_AdjType,'') AS AdjType
+      FROM    ShipmentHeader(nolock)
+      INNER JOIN DealerMaster(nolock) DM ON DM.DMA_ID = SPH_Dealer_DMA_ID
+      LEFT JOIN dbo.V_ShipmentWithValidInvoice VI ON (VI.Valid_SPH_ID = SPH_ID)
+      LEFT JOIN View_ProductLine(nolock) on View_ProductLine.Id=ShipmentHeader.SPH_ProductLine_BUM_ID
+      WHERE ShipmentHeader.SPH_Status in ('Complete','Reversed','Draft','Submitted','Cancelled')
+      <dynamic prepend="">
+        <isEqual property="OwnerIdentityType" compareValue="Dealer">
+          <isNotNull prepend="AND" property="OwnerCorpId">
+            EXISTS(
+            SELECT 1 from DealerMaster B(nolock) WHERE (B.DMA_Parent_DMA_ID =#OwnerCorpId#
+            AND ShipmentHeader.SPH_Dealer_DMA_ID=b.DMA_ID) OR (ShipmentHeader.SPH_Dealer_DMA_ID = #OwnerCorpId#)
+            )
+          </isNotNull>
+        </isEqual>
+        <isNotEqual property="OwnerIdentityType" compareValue="Dealer">
+          AND  EXISTS(
+          SELECT DealerID FROM dbo.Cache_SalesOfDealer
+          WHERE SalesID=#OwnerId#
+          <isNotNull prepend="AND" property="ProductLine">BUM_ID=#ProductLine#</isNotNull>
+          AND ShipmentHeader.SPH_Dealer_DMA_ID=DealerID
+          )
+        </isNotEqual>
+        <isNotNull prepend="AND" property="ProductLine">ShipmentHeader.SPH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">ShipmentHeader.SPH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ShipmentHeader.SPH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Type">ShipmentHeader.SPH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNumber">ShipmentHeader.SPH_ShipmentNbr Like N'%$OrderNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)>=#ShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)&lt;=#ShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="txtInvoiceDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_InvoiceDate, 112)>=#txtInvoiceDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="txtInvoiceDateend">CONVERT(varchar(100), ShipmentHeader.SPH_InvoiceDate, 112)&lt;=#txtInvoiceDateend#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceStatus">(case when (SPH_InvoiceNo is not null and  SPH_InvoiceDate is not null) then '已填写' when (SPH_InvoiceNo is null and  SPH_InvoiceDate is null) then '未填写' else '不完整' end)=#InvoiceStatus#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">ShipmentHeader.SPH_InvoiceNo Like N'%$InvoiceNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">
+          ShipmentHeader.SPH_Hospital_HOS_ID IN (SELECT HOS_ID FROM Hospital
+          WHERE HOS_HospitalName like N'%$HospitalName$%'
+          OR HOS_HospitalShortName like N'%$HospitalName$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID
+          FROM ShipmentHeader(nolock) INNER JOIN
+          ShipmentLine(nolock) ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product(nolock) ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID INNER JOIN
+          CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader(nolock) INNER JOIN
+          ShipmentLine(nolock) ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product(nolock) ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          EXISTS (SELECT 1 FROM ShipmentLine(nolock)
+          INNER JOIN ShipmentLot(nolock) ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+          WHERE ShipmentHeader.SPH_ID=ShipmentLine.SPL_SPH_ID
+          AND (ShipmentLot.SLT_Lot = #LotNumber# OR ShipmentLot.SLT_QRCode =#LotNumber#))
+
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId=#SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId=#BrandId#)
+        </isNotNull>
+        <!--<isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , SalesRepHospital SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SRH_USR_UserID) = IM.IDENTITY_ID
+          AND SD.SRN_HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID AND SD.BUM_ID = ShipmentHeader.SPH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM SalesRepHospital SD WHERE SD.SRH_USR_UserID = #OwnerId#
+          AND SD.SRN_HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID AND SD.BUM_ID = ShipmentHeader.SPH_ProductLine_BUM_ID)
+          )
+        </isEqual>-->
+
+        <isEqual prepend="AND" property="InvoiceNocheck" compareValue="1">
+          <isEqual property="InvoiceState" compareValue="未上传">
+            (case when Valid_SPH_ID is null then DATEDIFF(day,SPH_SubmitDate,getdate()) else 0 end)> 0
+          </isEqual>
+          <isEqual property="InvoiceState" compareValue="已上传">
+            (case when Valid_SPH_ID is null then DATEDIFF(day,SPH_SubmitDate,getdate()) else 0 end)&lt; = 0
+          </isEqual>
+        </isEqual>
+      </dynamic>
+    </select>
+
+
+    <select id="SelectShipmentHeaderByLotId" parameterClass="string" resultClass="ShipmentHeader">
+      SELECT  SPH_ID AS Id, SPH_Hospital_HOS_ID AS HospitalHosId,
+      SPH_ShipmentNbr AS ShipmentNbr, SPH_Dealer_DMA_ID AS DealerDmaId,
+      SPH_ShipmentDate AS ShipmentDate, SPH_Status AS Status,
+      SPH_Reverse_SPH_ID AS ReverseSphId,
+      SPH_NoteForPumpSerialNbr AS NoteForPumpSerialNbr, SPH_Type AS Type,
+      SPH_ProductLine_BUM_ID AS ProductLineBumId
+      FROM    ShipmentHeader
+      WHERE   SPH_ID IN (
+      SELECT  SPL_SPH_ID
+      FROM    ShipmentLine
+      WHERE   SPL_ID IN (
+      SELECT  SLT_SPL_ID
+      FROM    ShipmentLot
+      WHERE   SLT_ID = #value# ) )
+    </select>
+
+    <select id="SelectShipmentTotalAmountByHeaderId" parameterClass="string" resultClass="ShipmentHeader">
+      select isnull(sum(isnull(SLT_LotShippedQty,0)*isnull(SLT_UnitPrice,0)),0) as TotalAmount
+      from ShipmentLine
+      inner join ShipmentLot on ShipmentLine.SPL_ID=ShipmentLot.SLT_SPL_ID
+      where SPL_SPH_ID = #value#
+    </select>
+
+    <select id="SelectShipmentTotalQtyByHeaderId" parameterClass="string" resultClass="ShipmentHeader">
+      select isnull(sum(isnull(convert(decimal(18,6),SPL_ShipmentQty),0)),0) as TotalQty from ShipmentLine
+      where SPL_SPH_ID = #value#
+    </select>
+
+    <update id="UpdateShipmentHeaderInvoiceNo" parameterClass="ShipmentHeader">
+      UPDATE ShipmentHeader
+      SET SPH_InvoiceNo=#InvoiceNo#,SPH_UpdateDate = #UpdateDate#,SPH_InvoiceTitle=#InvoiceTitle#,SPH_InvoiceDate=#InvoiceDate#,SPH_InvoiceFirstDate=#InvoiceFirstDate#
+      WHERE SPH_ID = #Id#
+    </update>
+
+    <!--Dealer(LP)-->
+    <select id="SelectByFilterShipmentHeaderForLP" parameterClass="System.Collections.Hashtable" resultClass="ShipmentHeader">
+      SELECT
+      ShipmentHeader.SPH_ID AS Id,
+      ShipmentHeader.SPH_Dealer_DMA_ID AS DealerId,
+      ShipmentHeader.SPH_ShipmentNbr AS OrderNumber,
+      ShipmentHeader.SPH_Hospital_HOS_ID AS HospitalId,
+      (SELECT Hospital.HOS_HospitalName FROM Hospital WHERE Hospital.HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID) AS HospitalName,
+      CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112) AS ShipmentDate,
+      (SELECT Lafite_IDENTITY.IDENTITY_NAME FROM Lafite_IDENTITY WHERE Lafite_IDENTITY.Id = ShipmentHeader.SPH_Shipment_User) AS ShipmentName,
+      ShipmentHeader.SPH_Status AS [Status],
+      ShipmentHeader.SPH_Reverse_SPH_ID AS ReverseId,
+      ShipmentHeader.SPH_ProductLine_BUM_ID AS ProductLine,
+      (SELECT ISNULL(SUM(ShipmentLine.SPL_ShipmentQty),0) FROM ShipmentLine
+      WHERE ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID) AS TotalQyt,
+      (SELECT ISNULL(SUM(convert(decimal(18,6),ShipmentLot.SLT_LotShippedQty)*ShipmentLot.SLT_UnitPrice),0) FROM
+      ShipmentLot inner join ShipmentLine on ShipmentLot.SLT_SPL_ID=ShipmentLine.SPL_ID
+      WHERE ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID) AS TotalAmount,
+      row_number() OVER (ORDER BY isnull(ShipmentHeader.SPH_ShipmentDate,ShipmentHeader.SPH_UpdateDate) desc,ShipmentHeader.SPH_UpdateDate desc) AS row_number,
+      ShipmentHeader.SPH_Type as Type,
+      CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112) as SubmitDate
+      FROM    ShipmentHeader
+      WHERE ShipmentHeader.SPH_Status in ('Complete','Reversed')
+      and ShipmentHeader.SPH_Type in ('Consignment','Borrow')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">ShipmentHeader.SPH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">ShipmentHeader.SPH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ShipmentHeader.SPH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Type">ShipmentHeader.SPH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNumber">ShipmentHeader.SPH_ShipmentNbr Like N'%$OrderNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)>=#ShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)&lt;=#ShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">
+          ShipmentHeader.SPH_Hospital_HOS_ID IN (SELECT HOS_ID FROM Hospital
+          WHERE HOS_HospitalName like N'%$HospitalName$%'
+          OR HOS_HospitalShortName like N'%$HospitalName$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID
+          FROM         LotMaster INNER JOIN
+          Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID INNER JOIN
+          ShipmentLot ON Lot.LOT_ID = ShipmentLot.SLT_LOT_ID INNER JOIN
+          ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+          WHERE     (LotMaster.LTM_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+          and DMA_ID = ShipmentHeader.SPH_Dealer_DMA_ID )
+        </isEqual>
+      </dynamic>
+    </select>
+    <!--Dealer(HQ)-->
+    <select id="SelectByFilterShipmentHeaderForHQ" parameterClass="System.Collections.Hashtable" resultClass="ShipmentHeader">
+      SELECT
+      ShipmentHeader.SPH_ID AS Id,
+      ShipmentHeader.SPH_Dealer_DMA_ID AS DealerId,
+      ShipmentHeader.SPH_ShipmentNbr AS OrderNumber,
+      ShipmentHeader.SPH_Hospital_HOS_ID AS HospitalId,
+      (SELECT Hospital.HOS_HospitalName FROM Hospital WHERE Hospital.HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID) AS HospitalName,
+      CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112) AS ShipmentDate,
+      (SELECT Lafite_IDENTITY.IDENTITY_NAME FROM Lafite_IDENTITY WHERE Lafite_IDENTITY.Id = ShipmentHeader.SPH_Shipment_User) AS ShipmentName,
+      ShipmentHeader.SPH_Status AS [Status],
+      ShipmentHeader.SPH_Reverse_SPH_ID AS ReverseId,
+      ShipmentHeader.SPH_ProductLine_BUM_ID AS ProductLine,
+      (SELECT ISNULL(SUM(ShipmentLine.SPL_ShipmentQty),0) FROM ShipmentLine
+      WHERE ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID) AS TotalQyt,
+      (SELECT ISNULL(SUM(convert(decimal(18,6),ShipmentLot.SLT_LotShippedQty)*ShipmentLot.SLT_UnitPrice),0) FROM
+      ShipmentLot inner join ShipmentLine on ShipmentLot.SLT_SPL_ID=ShipmentLine.SPL_ID
+      WHERE ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID) AS TotalAmount,
+      row_number() OVER (ORDER BY isnull(ShipmentHeader.SPH_ShipmentDate,ShipmentHeader.SPH_UpdateDate) desc,ShipmentHeader.SPH_UpdateDate desc) AS row_number,
+      ShipmentHeader.SPH_Type as Type,
+      CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112) as SubmitDate
+      FROM    ShipmentHeader
+      WHERE ShipmentHeader.SPH_Status in ('Submitted','Reversed','Cancelled','Complete')
+      and ShipmentHeader.SPH_Type in('Consignment','Borrow')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">ShipmentHeader.SPH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">ShipmentHeader.SPH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ShipmentHeader.SPH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Type">ShipmentHeader.SPH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNumber">ShipmentHeader.SPH_ShipmentNbr Like N'%$OrderNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)>=#ShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)&lt;=#ShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">
+          ShipmentHeader.SPH_Hospital_HOS_ID IN (SELECT HOS_ID FROM Hospital
+          WHERE HOS_HospitalName like N'%$HospitalName$%'
+          OR HOS_HospitalShortName like N'%$HospitalName$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID
+          FROM         LotMaster INNER JOIN
+          Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID INNER JOIN
+          ShipmentLot ON Lot.LOT_ID = ShipmentLot.SLT_LOT_ID INNER JOIN
+          ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+          WHERE     (LotMaster.LTM_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+          and DMA_ID = ShipmentHeader.SPH_Dealer_DMA_ID )
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="SelectShipmentHeaderForPrinting" parameterClass="string" resultClass="ShipmentHeader">
+      SELECT SPH_ID AS Id,SPH_Hospital_HOS_ID AS HospitalHosId,SPH_ShipmentNbr AS ShipmentNbr,SPH_Dealer_DMA_ID AS DealerDmaId,
+      case when isnull(t.DST_ShipToAddress,'')='' then DMA_ChineseName
+      else t.DST_ShipToAddress end AS DealerName,
+      SPH_ShipmentDate AS ShipmentDate,SPH_Status AS Status,SPH_Reverse_SPH_ID AS ReverseSphId,SPH_NoteForPumpSerialNbr AS NoteForPumpSerialNbr,SPH_Type AS Type,SPH_ProductLine_BUM_ID AS ProductLineBumId,SPH_Shipment_User AS ShipmentUser,SPH_InvoiceNo AS InvoiceNo,SPH_UpdateDate AS UpdateDate,SPH_SubmitDate AS SubmitDate,SPH_Office AS Office,SPH_InvoiceTitle AS InvoiceTitle,SPH_InvoiceDate AS InvoiceDate
+      FROM ShipmentHeader s(nolock)
+      left join DealerMaster d(nolock)
+      on s.SPH_Dealer_DMA_ID=d.DMA_ID
+      left join DealerShipTo t(nolock)
+      on s.SPH_Dealer_DMA_ID=t.DST_Dealer_DMA_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SPH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="GetSubmittedOrder" parameterClass="string" resultClass="ShipmentHeader">
+      select top 1  * from ShipmentHeader where  SPH_Status='Submitted'
+      and SPH_Reverse_SPH_ID=#value#
+    </select>
+    <procedure id="GC_PurchaseOrder_AfterShipment" parameterMap="ConsignmentForOrder">
+      dbo.GC_PurchaseOrder_AfterShipment
+    </procedure>
+    <procedure id="GC_PurchaseOrder_AfterShipmentImport" parameterMap="ConsignmentForOrder">
+      dbo.GC_PurchaseOrder_AfterShipmentImport
+    </procedure>
+    <select id="SelectShipmentOrderStatus" parameterClass="string" resultClass="ShipmentHeader">
+      select DICT_KEY as OrderStaus,VALUE1 as StatusName from Lafite_DICT
+      where DICT_TYPE='CONST_ShipmentOrder_Status'
+    </select>
+    <select id="SelectShipmentOrderStatusByDealerSalesReportStatus" parameterClass="string" resultClass="ShipmentHeader">
+      select DICT_KEY as OrderStaus,VALUE1 as StatusName from Lafite_DICT
+      where DICT_TYPE='CONST_ShipmentOrder_Status'
+      and DICT_KEY IN ('Complete','Reversed')
+    </select>
+
+    <!--Added By Song Yuqi Begin-->
+    <select id="SelectConsignmentShipmentTotalAmountByHeaderId" parameterClass="string" resultClass="ShipmentHeader">
+      SELECT ISNULL(SUM(ISNULL(SPC_ShippedQty,0)*ISNULL(SPC_UnitPrice,0)),0) AS TotalAmount
+      FROM ShipmentConsignment
+      WHERE SPC_SPH_ID = #value#
+    </select>
+
+    <select id="SelectConsignmentShipmentTotalQtyByHeaderId" parameterClass="string" resultClass="ShipmentHeader">
+      SELECT ISNULL(SUM(ISNULL(CONVERT(decimal(18,6),SPC_ShippedQty),0)),0) as TotalQty
+      FROM ShipmentConsignment
+      WHERE SPC_SPH_ID = #value#
+    </select>
+
+    <procedure id="GC_ShipmentSubmit_Before" parameterMap="ConsignmentForSubmit">
+      dbo.GC_ShipmentSubmit_Before
+    </procedure>
+    <!--Added By Song Yuqi End-->
+    <select id="SelectAdminRole" parameterClass="string" resultClass="ShipmentHeader">
+      select  ATTRIBUTE_NAME,i.* from Lafite_IDENTITY_MAP a
+      left join Lafite_ATTRIBUTE c on a.MAP_ID=c.Id
+      left join Lafite_IDENTITY i on a.IDENTITY_ID=i.Id
+      where  ATTRIBUTE_NAME='Administrators' and i.Id=#Id#
+    </select>
+
+    <!--Edited By Song Yuqi On 2016-06-21-->
+    <select id="GetContractDate" parameterClass="string" resultClass="System.Collections.Hashtable">
+      <!--select EffectiveDate,MinDate as ExpirationDate,ActiveFlag,(select COUNT(*) from PartsClassification
+      where PCT_ProductLine_BUM_ID = vp.ProductLineID and PCT_ParentClassification_PCT_ID is not null) as IsShare
+      from V_DealerContractMaster DCM,V_DivisionProductLineRelation vp
+      where convert(nvarchar(4),Division) = convert(nvarchar(4),vp.DivisionCode)
+      <dynamic prepend="">
+      <isNotNull prepend="AND" property="DealerId">DCM.DMA_ID = #DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineId">vp.ProductLineID=#ProductLineId#</isNotNull>
+    </dynamic>
+      order by ActiveFlag desc,EffectiveDate-->
+      SELECT EffectiveDate,ExpirationDate,
+      CASE WHEN CONVERT(NVARCHAR(8),GETDATE(),112) BETWEEN CONVERT(NVARCHAR(8),EffectiveDate,112)
+      AND CONVERT(NVARCHAR(8),ExpirationDate,112) THEN 1 ELSE 0 END AS ActiveFlag,
+      (SELECT COUNT(*) FROM PartsClassification
+      WHERE PCT_ProductLine_BUM_ID = BumId
+      AND PCT_ParentClassification_PCT_ID IS NOT NULL) AS IsShare FROM
+      (
+      SELECT MIN(DAT_StartDate) AS EffectiveDate,MAX(DAT_EndDate) AS ExpirationDate,DAT_ProductLine_BUM_ID AS BumId
+      FROM DealerAuthorizationTable
+      WHERE DAT_TYPE IN ('Normal','Temp','Shipment')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DealerId">DAT_DMA_ID = #DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">DAT_ProductLine_BUM_ID = #ProductLineId#</isNotNull>
+      </dynamic>
+      GROUP BY DAT_DMA_ID,DAT_ProductLine_BUM_ID
+      ) T
+      ORDER BY ActiveFlag DESC,EffectiveDate
+    </select>
+    <select id="SelectAdminRoleAction" parameterClass="string" resultClass="ShipmentHeader">
+      select  1 from Lafite_IDENTITY_MAP a
+      inner join Lafite_ATTRIBUTE c on a.MAP_ID=c.Id
+      inner join Lafite_IDENTITY i on a.IDENTITY_ID=i.Id
+      inner join PurchaseOrderLog p on POL_OperUser=i.Id
+      where  ATTRIBUTE_NAME='Administrators' and p.POL_POH_ID=#ShipmentId#
+    </select>
+    <!--经销商提交医院销售数据前数据校验 Add by Songweiming on 2015-08-27-->
+    <procedure id="GC_HospitalShipmentBSC_BeforeSubmit" parameterMap="GC_HospitalShipmentBSC_BeforeSubmit_ParameterMap">
+      dbo.GC_HospitalShipmentBSC_BeforeSubmit
+    </procedure>
+    <select id="CheckNeedUploadAttachment" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select COUNT(*) as Cnt from DealerMaster(nolock),Client(nolock)
+      where DMA_Parent_DMA_ID = CLT_Corp_Id
+      and CLT_ID in ('LP4','LP5')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="DealerId">DealerMaster.DMA_ID = #DealerId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectShipmentLog" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select SPH_ShipmentNbr from PurchaseOrderLog,ShipmentHeader
+      where POL_POH_ID =  SPH_ID
+      and POL_OperType='Approve'
+      and SPH_ID = #value#
+    </select>
+    <procedure id="GC_PurchaseOrder_AutoGenConsignmentClearBorrow" parameterMap="ConsignmentClearBorrow">
+      dbo.GC_PurchaseOrder_AutoGenConsignmentClearBorrow
+    </procedure>
+    <!--经销商销售数据导出 Add by huyong on 2016-11-25-->
+    <select id="SelectByFilterShipmentHeaderForExport" parameterClass="System.Collections.Hashtable" resultClass="ShipmentHeader">
+      SELECT  SPH_ID AS Id,
+      SPH_Dealer_DMA_ID AS DealerId,
+      DM.DMA_ChineseName as DealerName,
+      DM.DMA_SAP_Code as DealerCode,
+      SPH_ShipmentNbr AS OrderNumber,
+      (SELECT Hospital.HOS_HospitalName FROM Hospital WHERE Hospital.HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID) AS HospitalName,
+      CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112) AS ShipmentDate,
+      (SELECT Lafite_IDENTITY.IDENTITY_NAME FROM Lafite_IDENTITY WHERE Lafite_IDENTITY.Id = ShipmentHeader.SPH_Shipment_User) AS ShipmentName,
+      VALUE1 AS StatusName,
+      VP.ATTRIBUTE_NAME,
+      VP.SubCompanyName,
+      VP.BrandName,
+      Warehouse.WHM_Name AS WarehouseName,
+      (SELECT Lafite_DICT.VALUE1 FROM Lafite_DICT WHERE DICT_KEY = WHM_Type and DICT_TYPE ='MS_WarehouseType') AS WarehouseTypeName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Product.PMA_UPN AS UPN,
+      V_LotMaster.LTM_LotNumber AS LotNumber,
+      V_LotMaster.LTM_QrCode AS QRCode,
+      ShipmentLot.SLT_LotShippedQty as ShipmentQty,
+      ShipmentLot.SLT_UnitPrice,
+      PMA_ConvertFactor as ConvertFactor,
+      ShipmentLot.Remark as Remark,
+      (SELECT ISNULL(AT_Name,'')+';' FROM Attachment WHERE AT_Main_ID = SPH_ID AND AT_Type = 'ShipmentToHospital'  FOR XML PATH('')) AS AttachmentList
+      ,case when exists (select 1 from Attachment a  where a.AT_Main_ID=ShipmentHeader.SPH_ID)then 'DMS销售单附件上传' else
+      case  when Valid_SPH_ID is not null  and SPH_Status &lt;&gt;'Draft' then '二维码发票认证'
+      else '' end end  as 'Annexsource'
+      FROM    ShipmentHeader(nolock)
+      INNER JOIN ShipmentLine(nolock) ON SPH_ID = SPL_SPH_ID
+      INNER JOIN ShipmentLot(nolock) ON SPL_ID = SLT_SPL_ID
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID = SPH_Dealer_DMA_ID
+      INNER JOIN Lafite_DICT(nolock) on SPH_Status = DICT_KEY and DICT_TYPE ='CONST_ShipmentOrder_Status'
+      INNER JOIN View_ProductLine(nolock) VP ON SPH_ProductLine_BUM_ID = VP.Id
+      INNER JOIN Product(nolock) ON SPL_Shipment_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON ShipmentLot.SLT_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Lot(nolock) ON isnull(SLT_QRLOT_ID,SLT_LOT_ID) = Lot.LOT_ID
+      INNER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      LEFT JOIN dbo.V_ShipmentWithValidInvoice VI ON (VI.Valid_SPH_ID = SPH_ID)
+      WHERE ShipmentHeader.SPH_Status in ('Complete','Reversed','Draft','Submitted','Cancelled')
+      <dynamic prepend="">
+        <isEqual property="OwnerIdentityType" compareValue="Dealer">
+          <isNotNull prepend="AND" property="OwnerCorpId">
+            EXISTS(
+            SELECT 1 from DealerMaster B(nolock) WHERE (B.DMA_Parent_DMA_ID =#OwnerCorpId#
+            AND ShipmentHeader.SPH_Dealer_DMA_ID=b.DMA_ID) OR (ShipmentHeader.SPH_Dealer_DMA_ID = #OwnerCorpId#)
+            )
+          </isNotNull>
+        </isEqual>
+        <isNotEqual property="OwnerIdentityType" compareValue="Dealer">
+          AND  EXISTS(
+          SELECT DealerID FROM dbo.Cache_SalesOfDealer
+          WHERE SalesID=#OwnerId#
+          <isNotNull prepend="AND" property="ProductLine">BUM_ID=#ProductLine#</isNotNull>
+           AND ShipmentHeader.SPH_Dealer_DMA_ID=DealerID
+          )
+        </isNotEqual>
+        <isNotNull prepend="AND" property="ProductLine">ShipmentHeader.SPH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">ShipmentHeader.SPH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ShipmentHeader.SPH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Type">ShipmentHeader.SPH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNumber">ShipmentHeader.SPH_ShipmentNbr Like N'%$OrderNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)>=#ShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateEnd">CONVERT(varchar(100), ShipmentHeader.SPH_ShipmentDate, 112)&lt;=#ShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="txtInvoiceDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_InvoiceDate, 112)>=#txtInvoiceDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="txtInvoiceDateend">CONVERT(varchar(100), ShipmentHeader.SPH_InvoiceDate, 112)&lt;=#txtInvoiceDateend#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceStatus">(case when (SPH_InvoiceNo is not null and  SPH_InvoiceDate is not null) then '已填写' when (SPH_InvoiceNo is null and  SPH_InvoiceDate is null) then '未填写' else '不完整' end)=#InvoiceStatus#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">ShipmentHeader.SPH_InvoiceNo Like N'%$InvoiceNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">
+          ShipmentHeader.SPH_Hospital_HOS_ID IN (SELECT HOS_ID FROM Hospital
+          WHERE HOS_HospitalName like N'%$HospitalName$%'
+          OR HOS_HospitalShortName like N'%$HospitalName$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (ShipmentHeader.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (VP.SubCompanyId=#SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (VP.BrandId=#BrandId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          EXISTS (SELECT 1 FROM ShipmentLine(nolock)
+          INNER JOIN ShipmentLot(nolock) ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+          WHERE ShipmentHeader.SPH_ID=ShipmentLine.SPL_SPH_ID
+          AND (ShipmentLot.SLT_Lot = #LotNumber# OR ShipmentLot.SLT_QRCode =#LotNumber#))
+
+        </isNotNull>
+        <!--<isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , SalesRepHospital SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SRH_USR_UserID) = IM.IDENTITY_ID
+          AND SD.SRN_HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID AND SD.BUM_ID = ShipmentHeader.SPH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM SalesRepHospital SD WHERE SD.SRH_USR_UserID = #OwnerId#
+          AND SD.SRN_HOS_ID = ShipmentHeader.SPH_Hospital_HOS_ID AND SD.BUM_ID = ShipmentHeader.SPH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>-->
+        <isEqual prepend="AND" property="InvoiceNocheck" compareValue="1">
+          <isEqual property="InvoiceState" compareValue="未上传">
+            (case when Valid_SPH_ID is null then DATEDIFF(day,SPH_SubmitDate,getdate()) else 0 end)> 0
+          </isEqual>
+          <isEqual property="InvoiceState" compareValue="已上传">
+            (case when Valid_SPH_ID is null then DATEDIFF(day,SPH_SubmitDate,getdate()) else 0 end)&lt; = 0
+          </isEqual>
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="ExportShipmentAttachment" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      <![CDATA[ 
+     select d.DMA_ChineseName as N'经销商名称',d.DMA_SAP_Code as N'ERPcode',SPH_ShipmentNbr as N'销售单号',h.HOS_HospitalName as N'医院名称',s.SPH_ShipmentDate as N'销售日期',(SELECT Lafite_IDENTITY.IDENTITY_NAME FROM Lafite_IDENTITY WHERE Lafite_IDENTITY.Id = s.SPH_Shipment_User) AS N'上报人' ,v.ProductLineName as N'产品线',VP.SubCompanyName as N'分子公司',VP.BrandName as N'品牌', l.VALUE1 as N'状态',
+     #AttachmentUrl#+CONVERT(nvarchar (255), a.AT_ID )as N'链接' 
+      from ShipmentHeader as s 
+      inner join Attachment a on s.SPH_ID=a.AT_Main_ID and a.AT_Type='ShipmentToHospital'
+      inner join DealerMaster d on d.DMA_ID= s.SPH_Dealer_DMA_ID
+      inner join Hospital h on h.HOS_ID=s.SPH_Hospital_HOS_ID
+      inner join V_DivisionProductLineRelation v on v.ProductLineID=s.SPH_ProductLine_BUM_ID
+      inner join Lafite_DICT l on l.DICT_KEY=s.SPH_Status and l.DICT_TYPE ='CONST_ShipmentOrder_Status'
+      LEFT JOIN View_ProductLine(nolock) VP ON s.SPH_ProductLine_BUM_ID = VP.Id
+      LEFT JOIN dbo.V_ShipmentWithValidInvoice VI ON (VI.Valid_SPH_ID = s.SPH_ID)
+      WHERE 1=1
+        ]]>
+      <dynamic>
+        <isEqual property="OwnerIdentityType" compareValue="Dealer">
+          <isNotNull prepend="AND" property="OwnerCorpId">
+            EXISTS(
+            SELECT 1 from DealerMaster B(nolock) WHERE (B.DMA_Parent_DMA_ID =#OwnerCorpId#
+            AND s.SPH_Dealer_DMA_ID=b.DMA_ID) OR (s.SPH_Dealer_DMA_ID = #OwnerCorpId#)
+            )
+          </isNotNull>
+        </isEqual>
+        <isNotEqual property="OwnerIdentityType" compareValue="Dealer">
+          AND  EXISTS(
+          SELECT DealerID FROM dbo.Cache_SalesOfDealer
+          WHERE SalesID=#OwnerId#
+          <isNotNull prepend="AND" property="ProductLine">BUM_ID=#ProductLine#</isNotNull>
+          AND s.SPH_Dealer_DMA_ID=DealerID
+          )
+        </isNotEqual>
+        <isNotNull prepend="AND" property="ProductLine">s.SPH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">s.SPH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">s.SPH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Type">s.SPH_Type=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateStart">CONVERT(varchar(100), s.SPH_SubmitDate, 112)>=#SubmitDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="SubmitDateEnd">CONVERT(varchar(100), s.SPH_SubmitDate, 112)&lt;=#SubmitDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNumber">s.SPH_ShipmentNbr Like N'%$OrderNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateStart">CONVERT(varchar(100), s.SPH_ShipmentDate, 112)>=#ShipmentDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDateEnd">CONVERT(varchar(100), s.SPH_ShipmentDate, 112)&lt;=#ShipmentDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="txtInvoiceDateStart">CONVERT(varchar(100), ShipmentHeader.SPH_InvoiceDate, 112)>=#txtInvoiceDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="txtInvoiceDateend">CONVERT(varchar(100), ShipmentHeader.SPH_InvoiceDate, 112)&lt;=#txtInvoiceDateend#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceStatus">(case when (SPH_InvoiceNo is not null and  SPH_InvoiceDate is not null) then '已填写' when (SPH_InvoiceNo is null and  SPH_InvoiceDate is null) then '未填写' else '不完整' end)=#InvoiceStatus#</isNotNull>
+        <isNotNull prepend="AND" property="InvoiceNo">s.SPH_InvoiceNo Like N'%$InvoiceNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (VP.SubCompanyId=#SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (VP.BrandId=#BrandId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">
+          s.SPH_Hospital_HOS_ID IN (SELECT HOS_ID FROM Hospital
+          WHERE HOS_HospitalName like N'%$HospitalName$%'
+          OR HOS_HospitalShortName like N'%$HospitalName$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (s.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (s.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID FROM ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID INNER JOIN
+          Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (s.SPH_ID IN(
+          SELECT DISTINCT ShipmentHeader.SPH_ID
+          FROM LotMaster INNER JOIN  Lot ON LotMaster.LTM_ID = Lot.LOT_LTM_ID INNER JOIN
+          ShipmentLot ON Lot.LOT_ID = isnull(ShipmentLot.SLT_QRLOT_ID,ShipmentLot.SLT_LOT_ID) INNER JOIN
+          ShipmentHeader INNER JOIN
+          ShipmentLine ON ShipmentHeader.SPH_ID = ShipmentLine.SPL_SPH_ID ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+          WHERE     (LotMaster.LTM_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isEqual prepend="AND" property="InvoiceNocheck" compareValue="1">
+          <isEqual property="InvoiceState" compareValue="未上传">
+            (case when Valid_SPH_ID is null then DATEDIFF(day,SPH_SubmitDate,getdate()) else 0 end)> 0
+          </isEqual>
+          <isEqual property="InvoiceState" compareValue="已上传">
+            (case when Valid_SPH_ID is null then DATEDIFF(day,SPH_SubmitDate,getdate()) else 0 end)&lt; = 0
+          </isEqual>
+        </isEqual>
+      </dynamic>
+      order by a.AT_UploadDate desc
+    </select>
+
+    <select id="ShipmentAttachmentDownload" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select AT_Name,AT_Url from Attachment
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          AT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <!--Added By Song Yuqi On 2017-05-25 Begin 发票附件上传-->
+    <select id="QueryShipmentUploadFileByInvoiceNo" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT * FROM ShipmentHeader
+      WHERE SPH_InvoiceNo LIKE '%'+#InvoiceNo#+'%'
+      AND SPH_Dealer_DMA_ID=#DealerId#
+      AND EXISTS(SELECT 1 FROM dbo.GC_Fn_SplitStringToTable(REPLACE(SPH_InvoiceNo,'；',';'),';')
+      WHERE RTRIM(LTRIM(VAL)) = #InvoiceNo#)
+    </select>
+
+    <insert id="InsertAttachmentForShipmentUploadFile" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Attachment
+      (AT_ID,AT_Main_ID,AT_Name,AT_Url,AT_Type,AT_UploadUser,AT_UploadDate)
+      SELECT NEWID(),SPH_ID,#FileName#,#FileUrl#,#FileType#,#UserId#,GETDATE() FROM ShipmentHeader
+      WHERE SPH_InvoiceNo LIKE '%'+#InvoiceNo#+'%'
+      AND SPH_Dealer_DMA_ID=#DealerId#
+      AND EXISTS(SELECT 1 FROM dbo.GC_Fn_SplitStringToTable(REPLACE(SPH_InvoiceNo,'；',';'),';')
+      WHERE RTRIM(LTRIM(VAL)) = #InvoiceNo#)
+    </insert>
+
+    <update id="FakeDeleteAttachmentByMainIdAndFileName" parameterClass="System.Collections.Hashtable">
+      UPDATE Attachment SET AT_Type='ShipmentAttach_BAK'
+      FROM ShipmentHeader
+      WHERE AT_Type=#FileType#
+      AND AT_Main_ID=SPH_ID
+      AND SPH_InvoiceNo LIKE '%'+#InvoiceNo#+'%'
+      AND (CASE WHEN CHARINDEX('.',AT_Name) > 0 THEN SUBSTRING(AT_Name,1,CHARINDEX('.',AT_Name) - 1) ELSE AT_Name END)=#InvoiceNo#
+      AND SPH_Dealer_DMA_ID=#DealerId#
+      AND EXISTS(SELECT 1 FROM dbo.GC_Fn_SplitStringToTable(REPLACE(SPH_InvoiceNo,'；',';'),';')
+      WHERE RTRIM(LTRIM(VAL)) = #InvoiceNo#)
+    </update>
+    <!--End 发票附件上传-->
+
+    <!--经销商销售报表-->
+    <select id="SelectDealerSalesReport" parameterClass="System.Collections.Hashtable">
+      SELECT DM.DMA_ChineseName,
+      DM.DMA_EnglishName,
+      DM.DMA_SAP_Code,
+      Header.SPH_ShipmentNbr,
+      (select VALUE1 from Lafite_DICT where DICT_KEY=Header.SPH_Type and DICT_TYPE='Consts_ShipmentOrder_Type') AS SPH_Type,
+      CONVERT (VARCHAR (10), Header.SPH_ShipmentDate, 120) AS SPH_ShipmentDate,
+      CONVERT (VARCHAR (10), Header.SPH_SubmitDate, 120) AS SPH_SubmitDate,
+      datepart(yy,Header.SPH_ShipmentDate) AS Year,
+      datepart(mm,Header.SPH_ShipmentDate) AS Month,
+      Hospital.HOS_HospitalName,
+      Hospital.HOS_Province,
+      Hospital.HOS_City,
+      Hospital.HOS_District,
+      Hospital.HOS_Key_Account,
+      VPL.Attribute_Name AS ProductLineName,
+      CFN.CFN_CustomerFaceNbr,
+      CFN.CFN_ChineseName,
+      CFN.CFN_EnglishName,
+      Product.PMA_UPN AS UPN,
+      CASE WHEN charindex('@@',LM.LTM_LotNumber) > 0
+      THEN substring(LM.LTM_LotNumber,1,charindex('@@',LM.LTM_LotNumber)-1)
+      ELSE LM.LTM_LotNumber
+      END AS LTM_LotNumber,
+      CASE WHEN charindex('@@',LM.LTM_LotNumber) > 0
+      THEN substring(LM.LTM_LotNumber,charindex('@@',LM.LTM_LotNumber)+2,len(LM.LTM_LotNumber))
+      ELSE ''
+      END AS QRCode,
+      CASE WHEN CFN.CFN_Property6 = '1' THEN CONVERT (VARCHAR (10), LM.LTM_ExpiredDate, 120)
+      WHEN CFN.CFN_Property6 = '0' THEN CONVERT (VARCHAR (7), LM.LTM_ExpiredDate, 120) END AS LTM_ExpiredDate,
+      Line.SPL_UnitPrice,
+      SLot.SLT_LotShippedQty,
+      SLot.SLT_LotShippedQty * SLot.SLT_UnitPrice AS SalesAmount,
+      Header.SPH_NoteForPumpSerialNbr,
+      Header.SPH_InvoiceNo,
+      CONVERT (VARCHAR (10), Header.SPH_InvoiceDate, 120) AS SPH_InvoiceDate,
+      CFN.CFN_Property1,
+      CFN.CFN_Property2,
+      CFN.CFN_Property3,
+      CFN.CFN_Property4,
+      CFN.CFN_Property5,
+      CFN.CFN_Property6,
+      CFN.CFN_Property7,
+      CFN.CFN_Property8,
+      CFN.CFN_Level1Code,
+      CFN.CFN_Level1Desc,
+      CFN.CFN_Level2Code,
+      CFN.CFN_Level2Desc,
+      CFN.CFN_Level3Code,
+      CFN.CFN_Level3Desc,
+      CFN.CFN_Level4Code,
+      CFN.CFN_Level4Desc,
+      CFN.CFN_Level5Code,
+      CFN.CFN_Level5Desc,
+      CASE WHEN SPO.SPO_ID IS NULL THEN '否' ELSE '是' END AS YesOrNo,
+      (SELECT DICT.VALUE1 FROM Lafite_DICT DICT WHERE DICT.DICT_KEY = Header.SPH_Status AND DICT.DICT_TYPE='CONST_ShipmentOrder_Status') AS ShipmentStatus,
+      SLot.SLT_WHM_ID,
+      WH.WHM_Code,
+      WH.WHM_Name,
+      Header.SPH_Shipment_User,
+      LI.IDENTITY_NAME,
+      Hospital.HOS_Address,
+      Hospital.HOS_Phone,
+      RFU.RFU_CurRegNo,
+      RFU.RFU_CurManuName,
+      RFU.RFU_LastRegNo,
+      RFU.RFU_LastManuName
+      FROM ShipmentHeader AS Header(nolock)
+      INNER JOIN ShipmentLine AS Line(nolock)
+      ON Line.SPL_SPH_ID = Header.SPH_ID
+      INNER JOIN ShipmentLot AS SLot(nolock)
+      ON SLot.SLT_SPL_ID = Line.SPL_ID
+      INNER JOIN DealerMaster AS DM(nolock)
+      ON DM.DMA_ID = Header.SPH_Dealer_DMA_ID
+      INNER JOIN Hospital(nolock)
+      ON Hospital.HOS_ID = Header.SPH_Hospital_HOS_ID
+      INNER JOIN Product(nolock)
+      ON Product.PMA_ID = Line.SPL_Shipment_PMA_ID
+      INNER JOIN CFN(nolock)
+      ON CFN.CFN_ID = Product.PMA_CFN_ID
+      INNER JOIN View_ProductLine AS VPL(nolock)
+      ON VPL.Id = Header.SPH_ProductLine_BUM_ID
+      INNER JOIN Lot(nolock)
+      ON Lot.LOT_ID = SLot.SLT_LOT_ID
+      INNER JOIN Warehouse WH(nolock)
+      ON WH.WHM_ID = SLot.SLT_WHM_ID
+      INNER JOIN LotMaster AS LM(nolock)
+      ON LM.LTM_ID = Lot.LOT_LTM_ID
+      LEFT JOIN Lafite_IDENTITY LI(nolock)
+      ON LI.Id = Header.SPH_Shipment_User
+      LEFT JOIN (select SPO_ID,SPO_SPH_ID from ShipmentOperation(nolock)
+      where SPO_OfficeName is not null or SPO_DoctorName is not null
+      or SPO_PatientName is not null or SPO_PatientGender is not null
+      or SPO_PatientPIN is not null or SPO_HospitalNo is not null) AS SPO
+      ON SPO.SPO_SPH_ID = Header.SPH_ID
+      LEFT JOIN RegInfo_FormUPN_History RFU(nolock)
+      ON (RFU.RFU_FormID = Header.SPH_ID and RFU.RFU_PmaID = Line.SPL_Shipment_PMA_ID )
+      where (Header.SPH_Status='Complete' OR Header.SPH_Status = 'Reversed')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="StartDate">Header.SPH_ShipmentDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">Header.SPH_ShipmentDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">VPL.Id = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VPL.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VPL.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Header.SPH_Status = #Status#</isNotNull>
+        <isNotNull prepend="AND" property="CfnNumber">CFN.CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LM.LTM_LotNumber LIKE N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Header.SPH_Dealer_DMA_ID = #DealerId#</isNotNull>
+
+        <!--<isNotNull prepend="AND" property="UserId">
+        Header.SPH_Dealer_DMA_ID = (SELECT Corp_ID FROM Lafite_IDENTITY(nolock)
+        WHERE Id = CONVERT(VARCHAR(36),#UserId#) AND Identity_Type = 'Dealer')
+      </isNotNull>-->
+      </dynamic>
+      ORDER BY DM.DMA_ChineseName
+    </select>
+
+    <select id="ExportDealerSalesReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DM.DMA_ChineseName AS '经销商名称',
+      DM.DMA_EnglishName AS '经销商英文名称',
+      DM.DMA_SAP_Code AS '经销商ERP Account',
+      Header.SPH_ShipmentNbr AS '销售单号',
+      (select VALUE1 from Lafite_DICT where DICT_KEY=Header.SPH_Type and DICT_TYPE='Consts_ShipmentOrder_Type') AS '销售单类型',
+      (SELECT DICT.VALUE1 FROM Lafite_DICT DICT WHERE DICT.DICT_KEY = Header.SPH_Status AND DICT.DICT_TYPE='CONST_ShipmentOrder_Status') AS '销售单状态',
+      CONVERT (VARCHAR (10), Header.SPH_SubmitDate, 120) AS '单据日期',
+      LI.IDENTITY_NAME AS '操作人',
+      CONVERT (VARCHAR (10), Header.SPH_ShipmentDate, 120) AS '销售日期',
+      datepart(yy,Header.SPH_ShipmentDate) AS '年度',
+      datepart(mm,Header.SPH_ShipmentDate) AS '月度',
+      Hospital.HOS_HospitalName AS '销售医院',
+      Hospital.HOS_Province AS '医院所属省份',
+      Hospital.HOS_City AS '医院所属地区',
+      Hospital.HOS_District AS '医院所属市',
+      Hospital.HOS_Key_Account AS '医院代码',
+      CASE WHEN SPO.SPO_ID IS NULL THEN '否' ELSE '是' END AS '是否已报台',
+      VPL.Attribute_Name AS '产品线',
+      WH.WHM_Code AS '仓库编号',
+      WH.WHM_Name AS '仓库名称',
+      CFN.CFN_CustomerFaceNbr AS '产品编号',
+      CFN.CFN_ChineseName AS '产品中文名',
+      CFN.CFN_EnglishName AS '产品英文名',
+      CASE WHEN charindex('@@',LM.LTM_LotNumber) > 0
+      THEN substring(LM.LTM_LotNumber,1,charindex('@@',LM.LTM_LotNumber)-1)
+      ELSE LM.LTM_LotNumber
+      END AS '产品批号',
+      CASE WHEN charindex('@@',LM.LTM_LotNumber) > 0
+      THEN substring(LM.LTM_LotNumber,charindex('@@',LM.LTM_LotNumber)+2,len(LM.LTM_LotNumber))
+      ELSE ''
+      END AS '二维码',
+      CASE WHEN CFN.CFN_Property6 = '1' THEN CONVERT (VARCHAR (10), LM.LTM_ExpiredDate, 120)
+      WHEN CFN.CFN_Property6 = '0' THEN CONVERT (VARCHAR (7), LM.LTM_ExpiredDate, 120) END AS '产品有效期',
+      SLot.SLT_LotShippedQty AS '销售数量',
+      SLot.SLT_LotShippedQty * SLot.SLT_UnitPrice AS '销售价格',
+      Header.SPH_InvoiceNo AS '销售发票',
+      CONVERT (VARCHAR (10), Header.SPH_InvoiceDate, 120) AS '发票日期',
+      Header.SPH_NoteForPumpSerialNbr AS '备注',
+      Hospital.HOS_Address AS '购货者经营地址',
+      Hospital.HOS_Phone AS '购货者联系方式',
+      RFU.RFU_CurRegNo AS '注册证编号-1',
+      RFU.RFU_CurManuName AS '生产企业（注册证-1）',
+      RFU.RFU_LastRegNo AS '注册证编号-2',
+      RFU.RFU_LastManuName AS '生产企业（注册证-2）',
+      CFN.CFN_Level1Code AS 'Level1 Code',
+      CFN.CFN_Level1Desc AS 'Level1 Desc',
+      CFN.CFN_Level2Code AS 'Level2 Code',
+      CFN.CFN_Level2Desc AS 'Level2 Desc',
+      CFN.CFN_Level3Code AS 'Level3 Code',
+      CFN.CFN_Level3Desc AS 'Level3 Desc',
+      CFN.CFN_Level4Code AS 'Level4 Code',
+      CFN.CFN_Level4Desc AS 'Level4 Desc',
+      CFN.CFN_Level5Code AS 'Level5 Code',
+      CFN.CFN_Level5Desc AS 'Level5 Desc'
+      FROM ShipmentHeader AS Header(nolock)
+      INNER JOIN ShipmentLine AS Line(nolock)
+      ON Line.SPL_SPH_ID = Header.SPH_ID
+      INNER JOIN ShipmentLot AS SLot(nolock)
+      ON SLot.SLT_SPL_ID = Line.SPL_ID
+      INNER JOIN DealerMaster AS DM(nolock)
+      ON DM.DMA_ID = Header.SPH_Dealer_DMA_ID
+      INNER JOIN Hospital(nolock)
+      ON Hospital.HOS_ID = Header.SPH_Hospital_HOS_ID
+      INNER JOIN Product(nolock)
+      ON Product.PMA_ID = Line.SPL_Shipment_PMA_ID
+      INNER JOIN CFN(nolock)
+      ON CFN.CFN_ID = Product.PMA_CFN_ID
+      INNER JOIN View_ProductLine AS VPL(nolock)
+      ON VPL.Id = Header.SPH_ProductLine_BUM_ID
+      INNER JOIN Lot(nolock)
+      ON Lot.LOT_ID = SLot.SLT_LOT_ID
+      INNER JOIN Warehouse WH(nolock)
+      ON WH.WHM_ID = SLot.SLT_WHM_ID
+      INNER JOIN LotMaster AS LM(nolock)
+      ON LM.LTM_ID = Lot.LOT_LTM_ID
+      LEFT JOIN Lafite_IDENTITY LI(nolock)
+      ON LI.Id = Header.SPH_Shipment_User
+      LEFT JOIN (select SPO_ID,SPO_SPH_ID from ShipmentOperation(nolock)
+      where SPO_OfficeName is not null or SPO_DoctorName is not null
+      or SPO_PatientName is not null or SPO_PatientGender is not null
+      or SPO_PatientPIN is not null or SPO_HospitalNo is not null) AS SPO
+      ON SPO.SPO_SPH_ID = Header.SPH_ID
+      LEFT JOIN RegInfo_FormUPN_History RFU(nolock)
+      ON (RFU.RFU_FormID = Header.SPH_ID and RFU.RFU_PmaID = Line.SPL_Shipment_PMA_ID )
+      where (Header.SPH_Status='Complete' OR Header.SPH_Status = 'Reversed')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="StartDate">Header.SPH_ShipmentDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">Header.SPH_ShipmentDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">VPL.Id = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VPL.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VPL.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">Header.SPH_Status = #Status#</isNotNull>
+        <isNotNull prepend="AND" property="CfnNumber">CFN.CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LM.LTM_LotNumber LIKE N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Header.SPH_Dealer_DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">
+          Header.SPH_Dealer_DMA_ID = (SELECT Corp_ID FROM Lafite_IDENTITY(nolock)
+          WHERE Id = CONVERT(VARCHAR(36),#UserId#) AND Identity_Type = 'Dealer')
+        </isNotNull>-->
+      </dynamic>
+      ORDER BY DM.DMA_ChineseName
+    </select>
+    <!--End 经销商销售报表-->
+
+    <select id="SelectShipmentHeaderToUploadToBSC" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT
+      (
+      SELECT TOP 1
+      T_Hospital.HOS_Key_BSAccount
+      FROM dbo.Hospital T_Hospital
+      WHERE T_Hospital.HOS_ID = T_ShipmentHeader.SPH_Hospital_HOS_ID
+      ) AS CustomerID,
+      1 AS Type,
+      T_ShipmentHeader.SPH_ShipmentDate AS SalesDate,
+      T_ShipmentHeader.SPH_ShipmentNbr AS SalesNo,
+      (
+      SELECT TOP 1
+      T_DealerMaster.DMA_ChineseName
+      FROM dbo.DealerMaster T_DealerMaster
+      WHERE T_DealerMaster.DMA_ID = T_ShipmentHeader.SPH_Dealer_DMA_ID
+      ) AS ServiceAgent,
+      T_ShipmentHeader.SPH_ID,
+      ISNULL(T_ShipmentHeader.SPH_NoteForPumpSerialNbr,'') AS SPH_NoteForPumpSerialNbr,
+      row_number() OVER (ORDER BY T_ShipmentHeader.SPH_UpdateDate) AS row_number
+      FROM dbo.ShipmentHeader T_ShipmentHeader
+      WHERE T_ShipmentHeader.SPH_Status = 'Complete'
+      <!--AND T_ShipmentHeader.SPH_Type = 'Hospital'
+      AND T_ShipmentHeader.BrandName = '波科'-->
+      AND EXISTS (
+      SELECT 1 FROM dbo.View_ProductLine V_ProductLine WHERE V_ProductLine.BrandName='波科' AND V_ProductLine.Id=T_ShipmentHeader.SPH_ProductLine_BUM_ID
+      )
+      AND NOT EXISTS(
+      SELECT 1 FROM dbo.UploadLog T_UploadLog WHERE T_ShipmentHeader.SPH_ShipmentNbr=T_UploadLog.ULL_Rev1 AND T_UploadLog.ULL_Type='UploadSalesToBSC' AND T_UploadLog.ULL_Rev2='Success'
+      )
+    </select>
+  </statements>
+</sqlMap>

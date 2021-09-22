@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceSalesMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="InterfaceSales" assembly="DMS.Model.dll" type="DMS.Model.InterfaceSales" />
+    </alias>
+    <resultMaps>
+        <resultMap id="InterfaceSalesResult" class="InterfaceSales">
+            <result property="Id" column="ITS_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ArticleNumber" column="ITS_ArticleNumber" type="string" dbType="nvarchar"/>
+            <result property="UnitPrice" column="ITS_UnitPrice" type="decimal" dbType="decimal"/>
+            <result property="LotNumber" column="ITS_LotNumber" type="string" dbType="nvarchar"/>
+            <result property="LotQty" column="ITS_LotQty" type="decimal" dbType="decimal"/>
+            <result property="SaleDate" column="ITS_SaleDate" type="DateTime" dbType="datetime"/>
+            <result property="SaleType" column="ITS_SaleType" type="string" dbType="nvarchar"/>
+            <result property="HospitalCode" column="ITS_HospitalCode" type="string" dbType="nvarchar"/>
+            <result property="Remark" column="ITS_Remark" type="string" dbType="nvarchar"/>
+            <result property="LineNbr" column="ITS_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="ITS_FileName" type="string" dbType="nvarchar"/>
+            <result property="ImportDate" column="ITS_ImportDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="ITS_ClientID" type="string" dbType="nvarchar"/>
+            <result property="BatchNbr" column="ITS_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="QrCode" column="ITS_QRCode" type="string" dbType="nvarchar"/>
+            <result property="SalesNo" column="ITS_SalesNo" type="string" dbType="nvarchar"/>
+            <result property="ServiceAgent" column="ITS_ServiceAgent" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="UploadHospitalSalesMap" class="System.Collections.Hashtable" >
+            <parameter property="UPN" column="UPN"  />
+            <parameter property="LOT" column="LOT"  />
+            <parameter property="HOS_ID" column="HOS_ID" />
+            <parameter property="Sub_User" column="Sub_User" />
+            <parameter property="Rv1" column="Rv1" />
+            <parameter property="Rv2" column="Rv2" />
+            <parameter property="Rv3" column="Rv3" />
+            <parameter property="RtnVal" column="RtnVal" direction="Output"  />
+            <parameter property="RtnMsg" column="RtnMsg" direction="Output"   />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectInterfaceSales" parameterClass="string" resultClass="InterfaceSales">
+            SELECT ITS_ID AS Id,ITS_ArticleNumber AS ArticleNumber,ITS_UnitPrice AS UnitPrice,ITS_LotNumber AS LotNumber,ITS_LotQty AS LotQty,ITS_SaleDate AS SaleDate,ITS_SaleType AS SaleType,ITS_HospitalCode AS HospitalCode,ITS_Remark AS Remark,ITS_LineNbr AS LineNbr,ITS_FileName AS FileName,ITS_ImportDate AS ImportDate,ITS_ClientID AS Clientid,ITS_BatchNbr AS BatchNbr,ITS_QRCode AS QrCode
+            FROM InterfaceSales
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    ITS_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterInterfaceSales" parameterClass="InterfaceSales" resultClass="InterfaceSales">
+            SELECT ITS_ID AS Id,ITS_ArticleNumber AS ArticleNumber,ITS_UnitPrice AS UnitPrice,ITS_LotNumber AS LotNumber,ITS_LotQty AS LotQty,ITS_SaleDate AS SaleDate,ITS_SaleType AS SaleType,ITS_HospitalCode AS HospitalCode,ITS_Remark AS Remark,ITS_LineNbr AS LineNbr,ITS_FileName AS FileName,ITS_ImportDate AS ImportDate,ITS_ClientID AS Clientid,ITS_BatchNbr AS BatchNbr,ITS_QRCode AS QrCode
+            FROM InterfaceSales
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">ITS_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="ArticleNumber">ITS_ArticleNumber=#ArticleNumber#</isNotNull>
+                <isNotNull prepend="AND" property="UnitPrice">ITS_UnitPrice=#UnitPrice#</isNotNull>
+                <isNotNull prepend="AND" property="LotNumber">ITS_LotNumber=#LotNumber#</isNotNull>
+                <isNotNull prepend="AND" property="LotQty">ITS_LotQty=#LotQty#</isNotNull>
+                <isNotNull prepend="AND" property="SaleDate">ITS_SaleDate=#SaleDate#</isNotNull>
+                <isNotNull prepend="AND" property="SaleType">ITS_SaleType=#SaleType#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalCode">ITS_HospitalCode=#HospitalCode#</isNotNull>
+                <isNotNull prepend="AND" property="Remark">ITS_Remark=#Remark#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">ITS_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">ITS_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ImportDate">ITS_ImportDate=#ImportDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">ITS_ClientID=#Clientid#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">ITS_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="QrCode">ITS_QRCode=#QrCode#</isNotNull>
+                <isNotNull prepend="AND" property="SalesNo">ITS_SalesNo=#SalesNo#</isNotNull>
+                <isNotNull prepend="AND" property="ServiceAgent">ITS_ServiceAgent=#ServiceAgent#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertInterfaceSales" parameterClass="InterfaceSales">
+          INSERT INTO InterfaceSales
+          (ITS_ID,ITS_ArticleNumber,ITS_UnitPrice,ITS_LotNumber,ITS_LotQty,ITS_SaleDate,ITS_SaleType,ITS_HospitalCode,ITS_Remark,ITS_LineNbr,ITS_FileName,ITS_ImportDate,ITS_ClientID,ITS_BatchNbr,ITS_QRCode,ITS_SalesNo,ITS_ServiceAgent)
+          VALUES(#Id#,#ArticleNumber#,#UnitPrice#,#LotNumber#,#LotQty#,#SaleDate:DateTime:1/1/0001 12:00:00 AM#,#SaleType#,#HospitalCode#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#QrCode#,#SalesNo#,#ServiceAgent#)
+        </insert>
+        <update id="UpdateInterfaceSales" parameterClass="InterfaceSales">
+          UPDATE InterfaceSales
+          SET ITS_ID=#Id#,ITS_ArticleNumber=#ArticleNumber#,ITS_UnitPrice=#UnitPrice#,ITS_LotNumber=#LotNumber#,ITS_LotQty=#LotQty#,ITS_SaleDate=#SaleDate#,ITS_SaleType=#SaleType#,ITS_HospitalCode=#HospitalCode#,ITS_Remark=#Remark#,ITS_LineNbr=#LineNbr#,ITS_FileName=#FileName#,ITS_ImportDate=#ImportDate#,ITS_ClientID=#Clientid#,ITS_BatchNbr=#BatchNbr#,ITS_QRCode=#QrCode#,ITS_SalesNo=#SalesNo#,ITS_ServiceAgent=#ServiceAgent#
+          WHERE ITS_ID = #Id#
+        </update>
+        <delete id="DeleteInterfaceSales" parameterClass="string">
+            DELETE FROM InterfaceSales
+            WHERE ITS_ID = #value#
+        </delete>
+
+        <procedure id="GC_UploadHospitalSalesByDateBox" parameterMap="UploadHospitalSalesMap">
+            dbo.GC_UploadHospitalSalesByDateBox
+        </procedure>
+
+        <select id="SelectHospitalSalesByBachNumber" parameterClass="string" resultClass="System.Collections.Hashtable">
+            SELECT Hospital.HOS_HospitalName as HospiatlName,Hospital.HOS_City as City,a.HSL_Sub_User as SubUser,(CFN.CFN_CustomerFaceNbr+'-'+CFN.CFN_EnglishName) ProductName,'1' as Qty ,a.HSL_LotNumber as LotNumber,Convert(NVARCHAR(10),a.HSL_ExpiredDate,120) as ExpiredDate,Convert(NVARCHAR(10),a.HSL_CreatDate,120) as CreatDate,a.HSL_Rv3 as ScanDate
+            FROM HospitalSalesLog a
+            INNER JOIN CFN ON a.HSL_CustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+            INNER JOIN Hospital ON a.HSL_HOS_ID=Hospital.HOS_ID
+            WHERE HSL_Rv1= #value#
+            Order BY CFN.CFN_CustomerFaceNbr,a.HSL_Sub_User
+        </select>
+    </statements>
+</sqlMap>

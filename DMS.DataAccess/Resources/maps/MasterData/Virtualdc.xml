@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="VirtualdcMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Virtualdc" assembly="DMS.Model.dll" type="DMS.Model.Virtualdc" />
+  </alias>
+  <resultMaps>
+    <resultMap id="VirtualdcResult" class="Virtualdc">
+      <result property="DmaId" column="VDC_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="VDC_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Plant" column="VDC_Plant" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectVirtualdc" parameterClass="string" resultClass="Virtualdc">
+      SELECT VDC_DMA_ID AS DmaId,VDC_BUM_ID AS BumId,VDC_Plant AS Plant
+      FROM VirtualDC
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          VDC_DMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterVirtualdc" parameterClass="Virtualdc" resultClass="Virtualdc">
+      SELECT VDC_DMA_ID AS DmaId,VDC_BUM_ID AS BumId,VDC_Plant AS Plant
+      FROM VirtualDC
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">VDC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">VDC_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="Plant">VDC_Plant=#Plant#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertVirtualdc" parameterClass="Virtualdc">
+      INSERT INTO VirtualDC
+      (VDC_DMA_ID,VDC_BUM_ID,VDC_Plant)
+      VALUES(#DmaId#,#BumId#,#Plant#)
+    </insert>
+    <update id="UpdateVirtualdc" parameterClass="Virtualdc">
+      UPDATE VirtualDC
+      SET VDC_DMA_ID=#DmaId#,VDC_BUM_ID=#BumId#,VDC_Plant=#Plant#
+      WHERE VDC_DMA_ID = #DmaId#
+    </update>
+    <delete id="DeleteVirtualdc" parameterClass="string">
+      DELETE FROM VirtualDC
+      WHERE VDC_DMA_ID = #value#
+    </delete>
+    <select id="QueryForPlant" parameterClass="System.Collections.Hashtable" resultClass="Virtualdc">
+      SELECT VDC_DMA_ID AS DmaId,VDC_BUM_ID AS BumId,VDC_Plant AS Plant
+      FROM VirtualDC
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">VDC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">VDC_BUM_ID=#BumId#</isNotNull>      
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

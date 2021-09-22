@@ -1,0 +1,162 @@
+﻿        html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline; 
+}
+
+html, 
+body {
+	margin: 0;
+	padding: 5px;
+	width: 100%;
+	font: 12px/1.4em Helvetica, Arial, sans-serif;
+	overflow-x:hidden;
+}
+
+a { 
+	color:#0068B7;
+	text-decoration:none;
+}
+a:hover { text-decoration: underline; }
+
+div.fieldset {
+border:  1px solid #afe14c;
+margin: 10px 0;
+padding: 20px 10px;}
+
+div.fieldset span.legend {
+    position: relative;
+    background-color: #FFF;
+    padding: 3px;
+    top: -30px;
+    font: 700 14px Arial, Helvetica, sans-serif;
+    color: #73b304;
+}
+
+div.flash {
+    width: 375px;
+    margin: 10px 5px;
+    border-color: #D9E4FF;
+}
+
+.Ico {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BACKGROUND-COLOR: transparent; WIDTH: 16px; HEIGHT: 16px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+
+.IcoNormal
+{
+	float:left;
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BACKGROUND-COLOR: transparent; WIDTH: 16px; HEIGHT: 16px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; BORDER-RIGHT: 0px;
+	background-image:url(images/upload_normal.gif);background-repeat:no-repeat;
+}
+
+.IcoWaiting
+{
+	float:left;
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BACKGROUND-COLOR: transparent; WIDTH: 16px; HEIGHT: 16px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; BORDER-RIGHT: 0px;
+	background-image:url(images/upload_waiting.gif);background-repeat:no-repeat;
+}
+
+.IcoUpload 
+{
+	float:left;
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BACKGROUND-COLOR: transparent; WIDTH: 16px; HEIGHT: 16px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; BORDER-RIGHT: 0px;
+	BACKGROUND-IMAGE: url(images/upload.gif); BACKGROUND-REPEAT: no-repeat
+}
+
+.theFont
+{
+	color:#0068B7;
+}
+
+.fle
+{float:left;}
+
+.statebarSmallDiv
+{
+	float:left;
+	width:180px;height:6px;background-color:#fafafa;border:solid 1px #ccc;VERTICAL-ALIGN: middle;
+	margin-left:5px;margin-top:10px; 
+	clear:both;
+}
+.statebarBigDiv
+{
+	float:left;
+	width:100px;height:6px;background-color:#fafafa;border:solid 1px #ccc;VERTICAL-ALIGN: middle;
+	margin-left:5px;margin-top:4px; 
+}
+.statebar
+{
+	background-color:#a5dd3d;width:30%;FONT-SIZE: 1px; OVERFLOW: hidden; LINE-HEIGHT: 6px;
+}  
+
+.ftt
+{
+	margin:5px; display:block; float:left;
+}
+
+.progressobj
+{
+	clear:both;
+	font-family:Verdana;
+	color:#A59A98;
+	margin:3px;	
+	width:460px;
+	border:solid 1px #ddd;
+	overflow:hidden;
+	padding:5px;
+}
+
+.progressobj A {
+	COLOR: #0068B7; TEXT-DECORATION: underline
+}
+.progressobj A:hover {
+	COLOR: #0068B7
+}
+
+
+
+
+/********************自定义的***********************/
+.onShow {
+display: inline-block;
+display: -moz-inline-stack; 
+vertical-align: middle;
+background: url(images/msg_bg.png) left -148px no-repeat;
+color: #444;
+line-height: 18px;
+padding: 2px 10px 2px 23px;
+margin-left: 10px;
+_margin-left: 5px;
+}
+
+.uploaderrorbox{border:1px solid #DCE3ED;width:280px; min-height:50px; padding:10px 5px; position:relative;   margin-top:10px; }
+.uploaderrorbox .uploadbox_t{ display:block; width:110px; height:20px; background:#fff; position:absolute; top:-10px; left:10px; text-align:center;color: #049; }
+.uploadbox{border:1px solid #DCE3ED;width:480px; min-height:50px; padding:10px 5px; position:relative;   margin-top:10px; }
+.uploadbox .uploadbox_t{ display:block; width:70px; height:20px; background:#fff; position:absolute; top:-10px; left:10px; text-align:center;color: #049; }
+#piclist{width:380px; overflow:hidden; margin:0px;padding:0px; list-style:none;}
+#piclist li{width:80px; border:solid 1px #dce3ed;margin:3px; float:left; display:inline; padding:3px; position:relative;}
+#piclist li:hover{border:solid 1px #00a; cursor:pointer;}
+#piclist li img{width:80px; height:80px;}
+#piclist li a{display:block;width:80px; height:17px; background:url(images/off.png) -8px top no-repeat; position:absolute; left:2px; bottom:4px;}
+#piclist li .on{ display:block;width:80px; height:17px; position:absolute; left:2px; bottom:0px; background:url(images/msg_bg.png) 65px -252px no-repeat;}
+
+ 
+
+.submit{background:#fff url(/statics/images/but.png) left top no-repeat;height: 27px;padding:0px 0px 0px 3px; margin:0px;  float:left;display:inline-block;  overflow:hidden;}
+.submit input{background:#fff url(/statics/images/but.png) right top no-repeat;height:27px; margin:0px; border:none;padding:0px 10px 0px 7px;font-size:12px; color:#fff;font-weight:bold; width:auto;overflow:visible;}
+.submit a{background:#fff url(/statics/images/but.png) right top no-repeat;height:27px; line-height:27px; margin:0px; border:none;padding:0px 10px 0px 7px;font-size:12px; color:#fff;font-weight:bold; width:auto;overflow:visible; display:block; text-align:center;}
+.submit a:hover{color:#ccc;}

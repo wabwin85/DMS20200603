@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TIWcDealerBarcodeqRcodeScanMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TIWcDealerBarcodeqRcodeScan" assembly="DMS.Model.dll" type="DMS.Model.TIWcDealerBarcodeqRcodeScan" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TIWcDealerBarcodeqRcodeScanResult" class="TIWcDealerBarcodeqRcodeScan">
+      <result property="Id" column="QRC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="QRC_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BarCode1" column="QRC_BarCode1" type="string" dbType="nvarchar"/>
+      <result property="BarCode2" column="QRC_BarCode2" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="QRC_QRCode" type="string" dbType="nvarchar"/>
+      <result property="Upn" column="QRC_UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="QRC_LOT" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="QRC_Remark" type="string" dbType="nvarchar"/>
+      <result property="RemarkDate" column="QRC_RemarkDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateDate" column="QRC_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUserName" column="QRC_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="Status" column="QRC_Status" type="string" dbType="nvarchar"/>
+      <result property="DataHandleRemark" column="QRC_DataHandleRemark" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_InventoryQr_Submit_QrCodeConvertMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="NewQrCode" column="NewQrCode" />
+      <parameter property="LotString" column="LotString" />
+      <parameter property="LotNumber" column="LotNumber" />
+      <parameter property="Upn" column="Upn" />
+      <parameter property="User" column="User" />
+      <parameter property="HeadId" column="HeadId" />
+      <parameter property="PMAId" column="PMAId" />
+      <parameter property="QrCode" column="QrCode" />
+      <parameter property="NewWhId" column="NewWhId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_GC_InventoryQr_Submit_StockQrCodeConvertMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="QrCode" column="QrCode" />
+      <parameter property="LotNumber" column="LotNumber" />
+      <parameter property="Upn" column="Upn" />
+      <parameter property="User" column="User" />
+      <parameter property="NewWhId" column="NewWhId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_GetCfnPriceHistoryMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="HospId" column="HospId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectTIWcDealerBarcodeqRcodeScan" parameterClass="string" resultClass="TIWcDealerBarcodeqRcodeScan">
+      SELECT QRC_ID AS Id,QRC_DMA_ID AS DmaId,QRC_BarCode1 AS BarCode1,QRC_BarCode2 AS BarCode2,QRC_QRCode AS QrCode,QRC_UPN AS Upn,QRC_LOT AS Lot,QRC_Remark AS Remark,QRC_RemarkDate AS RemarkDate,QRC_CreateDate AS CreateDate,QRC_CreateUserName AS CreateUserName,QRC_Status AS Status,QRC_DataHandleRemark AS DataHandleRemark
+      FROM interface.T_I_WC_DealerBarcodeQRcodeScan
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          QRC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTIWcDealerBarcodeqRcodeScan" parameterClass="TIWcDealerBarcodeqRcodeScan" resultClass="TIWcDealerBarcodeqRcodeScan">
+      SELECT QRC_ID AS Id,QRC_DMA_ID AS DmaId,QRC_BarCode1 AS BarCode1,QRC_BarCode2 AS BarCode2,QRC_QRCode AS QrCode,QRC_UPN AS Upn,QRC_LOT AS Lot,QRC_Remark AS Remark,QRC_RemarkDate AS RemarkDate,QRC_CreateDate AS CreateDate,QRC_CreateUserName AS CreateUserName,QRC_Status AS Status,QRC_DataHandleRemark AS DataHandleRemark
+      FROM interface.T_I_WC_DealerBarcodeQRcodeScan
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">QRC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">QRC_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode1">QRC_BarCode1=#BarCode1#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode2">QRC_BarCode2=#BarCode2#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">QRC_QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">QRC_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">QRC_LOT=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">QRC_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="RemarkDate">QRC_RemarkDate=#RemarkDate#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">QRC_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="Status">QRC_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="DataHandleRemark">QRC_DataHandleRemark=#DataHandleRemark#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTIWcDealerBarcodeqRcodeScan" parameterClass="TIWcDealerBarcodeqRcodeScan">
+      INSERT INTO interface.T_I_WC_DealerBarcodeQRcodeScan
+      (QRC_ID,QRC_DMA_ID,QRC_BarCode1,QRC_BarCode2,QRC_QRCode,QRC_UPN,QRC_LOT,QRC_Remark,QRC_RemarkDate,QRC_CreateDate,QRC_CreateUserName,QRC_Status,QRC_DataHandleRemark)
+      VALUES(#Id#,#DmaId#,#BarCode1#,#BarCode2#,#QrCode#,#Upn#,#Lot#,#Remark#,#RemarkDate:DateTime:1/1/0001 12:00:00 AM#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUserName#,#Status#,#DataHandleRemark#)
+    </insert>
+    <update id="UpdateTIWcDealerBarcodeqRcodeScan" parameterClass="TIWcDealerBarcodeqRcodeScan">
+      UPDATE interface.T_I_WC_DealerBarcodeQRcodeScan
+      SET QRC_ID=#Id#,QRC_DMA_ID=#DmaId#,QRC_BarCode1=#BarCode1#,QRC_BarCode2=#BarCode2#,QRC_QRCode=#QrCode#,QRC_UPN=#Upn#,QRC_LOT=#Lot#,QRC_Remark=#Remark#,QRC_RemarkDate=#RemarkDate#,QRC_CreateUserName=#CreateUserName#,QRC_Status=#Status#,QRC_DataHandleRemark=#DataHandleRemark#
+      WHERE QRC_ID = #Id#
+    </update>
+    <delete id="DeleteTIWcDealerBarcodeqRcodeScan" parameterClass="string">
+      DELETE FROM interface.T_I_WC_DealerBarcodeQRcodeScan
+      WHERE QRC_ID = #value#
+    </delete>
+
+    <update id="FakeDeleteTIWcDealerBarcodeqRcodeScan" parameterClass="string">
+      UPDATE interface.T_I_WC_DealerBarcodeQRcodeScan SET QRC_Status = 'Delete'
+      WHERE QRC_ID = #value#
+    </update>
+
+    <select id="QueryTIWcDealerBarcodeqRcodeScanByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT *
+      ,row_number() OVER (ORDER BY CreateDate DESC,LotQty DESC, DealerName, WarehouseName, Upn) AS [row_number]
+      FROM (
+      SELECT QRC_ID AS Id,QRC_DMA_ID AS DmaId,QRC_BarCode1 AS BarCode1,QRC_BarCode2 AS BarCode2,QRC_QRCode AS QrCode,QRC_UPN AS Upn,QRC_LOT AS Lot,QRC_Remark AS Remark,QRC_RemarkDate AS RemarkDate,QRC_CreateDate AS CreateDate,QRC_CreateUserName AS CreateUserName,QRC_Status AS Status,QRC_DataHandleRemark AS DataHandleRemark
+      ,DMA_ChineseName AS DealerName,DMA_SAP_Code AS DealerCode,DMA_DealerType AS DealerType,WHM_Name AS WarehouseName,WHM_Type AS WarehouseType,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_Property1 AS Sku2,CFN_ChineseName AS CfnCnName,CFN_EnglishName AS ProductEnName,LTM_ExpiredDate AS ExpiredDate,CFN_Property3 AS UOM, LOT_OnHandQty AS LotQty, LOT_OnHandQty AS Qty
+      ,(SELECT VALUE1 FROM Lafite_DICT WHERE DICT_KEY = WHM_Type AND DICT_TYPE = 'MS_WarehouseType') AS WarehouseTypeName,PMA_ConvertFactor AS ConvertFactor,CFN_ProductLine_BUM_ID AS ProductLineId,LOT_Id AS LotId,WHM_ID AS WarehouseId
+      ,(SELECT ATTRIBUTE_NAME FROM View_ProductLine WHERE Id= CFN_ProductLine_BUM_ID) AS ProductLineName
+      ,CASE WHEN QRC_DataHandleRemark IS Not NULL AND QRC_DataHandleRemark!='' THEN '已上报' ELSE '未上报' END AS ShipmentState
+      ,SubCompanyName,BrandName,SubCompanyId,BrandId
+      FROM interface.T_I_WC_DealerBarcodeQRcodeScan(nolock)
+      INNER JOIN DealerMaster(nolock) ON DMA_ID = QRC_DMA_ID
+      LEFT JOIN (
+      SELECT * FROM CFN(nolock)
+      INNER JOIN Product(nolock) ON PMA_CFN_ID = CFN_ID
+      INNER JOIN LotMaster(nolock) ON LTM_Product_PMA_ID = PMA_ID
+      INNER JOIN Lot(nolock) ON LOT_LTM_ID = LTM_ID
+      INNER JOIN Inventory(nolock) ON INV_ID = LOT_INV_ID
+
+      INNER JOIN Warehouse(nolock) ON WHM_ID = INV_WHM_ID AND WHM_Type != 'SystemHold'
+      LEFT JOIN View_ProductLine VP(nolock) on CFN.CFN_ProductLine_BUM_ID = VP.Id
+      ) T ON T.LTM_LotNumber = QRC_LOT + '@@' + QRC_QRCode
+      AND T.CFN_CustomerFaceNbr = QRC_UPN
+      AND T.WHM_DMA_ID = QRC_DMA_ID
+      ) TEMP
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">DmaId=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode1">BarCode1=#BarCode1#</isNotNull>
+        <isNotNull prepend="AND" property="BarCode2">BarCode2=#BarCode2#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">QrCode LIKE N'%'+#QrCode#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="Upn">Upn LIKE N'%'+#Upn#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="Lot">Lot LIKE N'%'+#Lot#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="Remark">Remark LIKE N'%'+#Remark#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="Status">[Status]=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="DataHandleRemark">DataHandleRemark=#DataHandleRemark#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseId">WarehouseId=#WarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnChineseName">CfnCnName LIKE N'%'+#CfnChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDateStart">CONVERT(NVARCHAR(10),ExpiredDate,112) >= #ExpiredDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDateEnd">CONVERT(NVARCHAR(10),ExpiredDate,112) &lt;= #ExpiredDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="RemarkDateStart">CONVERT(NVARCHAR(10),RemarkDate,112) >= #RemarkDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="RemarkDateEnd">CONVERT(NVARCHAR(10),RemarkDate,112) &lt;= #RemarkDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(NVARCHAR(10),CreateDate,112) >= #CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(NVARCHAR(10),CreateDate,112) &lt;= #CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ScanType">BarCode1=#ScanType#</isNotNull>
+        <isNotNull prepend="AND" property="ZeroInventory">LotQty = 0</isNotNull>
+        <isNotNull prepend="AND" property="NotZeroInventory">LotQty > 0</isNotNull>
+        <isNotNull prepend="AND" property="NullInventory">LotQty IS NULL </isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (SubCompanyId=#SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (BrandId=#BrandId#)
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = DmaId AND SD.BUM_ID = ProductLineId AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = DmaId AND SD.BUM_ID = ProductLineId)
+          )
+        </isEqual>
+        <isNotNull prepend="AND" property="ShipmentState">
+          (case when DataHandleRemark is not null and DataHandleRemark!=''  then 1 else 0 end)=#ShipmentState#
+        </isNotNull>
+      </dynamic>
+    </select>
+    <!--lijie add 2160318-->
+    <select id="QueryTIWcDealerBarcodeqRcodeScanByUpnCode" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select ShipmentLot.SLT_ID as Id,ShipmentHeader.SPH_Dealer_DMA_ID as DealerId,ShipmentHeader.SPH_ID as SPH_ID,ShipmentLine.SPL_Shipment_PMA_ID as PMA_ID, Warehouse.WHM_ID AS WarehouseId, Warehouse.WHM_Name AS WarehouseName,ShipmentHeader.SPH_ShipmentNbr as ShipmentNbr,ShipmentHeader.SPH_Hospital_HOS_ID as HospitalId
+      ,ShipmentHeader.SPH_SubmitDate as SubmitDate,CFN.CFN_CustomerFaceNbr as CustomerFaceNbr,CFN.CFN_Property1 as Property1,cfn.CFN_ChineseName as ChineseName,
+      CASE WHEN CHARINDEX('@@', LTM_LotNumber, 0) > 0 THEN substring(LTM_LotNumber, 1, CHARINDEX('@@', LTM_LotNumber,
+      0) - 1) ELSE LTM_LotNumber END as LotNumber,
+      CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+      - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END as QRCode
+      ,LotMaster.LTM_ExpiredDate as ExpiredDate,cfn.CFN_Property3 as Uom,ShipmentLot.SLT_LotShippedQty as ShippedQty,
+      ShipmentLot.SLT_UnitPrice as UnitPrice,Hospital.HOS_HospitalName as HospitalName
+      from ShipmentHeader inner join ShipmentLine on ShipmentHeader.SPH_ID=ShipmentLine.SPL_SPH_ID
+      inner join ShipmentLot on ShipmentLine.SPL_ID=ShipmentLot.SLT_SPL_ID
+      inner join Lot on ISNULL(ShipmentLot.SLT_QRLOT_ID,ShipmentLot.SLT_LOT_ID)=Lot.LOT_ID
+      inner join Product on Product.PMA_ID=ShipmentLine.SPL_Shipment_PMA_ID
+      inner join CFN on CFN.CFN_ID=Product.PMA_CFN_ID
+      inner join LotMaster on LotMaster.LTM_ID=Lot.LOT_LTM_ID
+      inner join Warehouse on ShipmentLot.SLT_WHM_ID=Warehouse.WHM_ID
+      inner join Hospital on ShipmentHeader.SPH_Hospital_HOS_ID=Hospital.HOS_ID
+      where CFN.CFN_CustomerFaceNbr=#Upn# and
+      CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+      - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END =#QrCode#
+      and ShipmentHeader.SPH_Dealer_DMA_ID=#DealerId#
+      and ShipmentHeader.SPH_Status='Complete'
+      and  CASE WHEN CHARINDEX('@@', LTM_LotNumber, 0) > 0 THEN substring(LTM_LotNumber, 1, CHARINDEX('@@', LTM_LotNumber,
+      0) - 1) ELSE LTM_LotNumber END =#LotNumber#
+      <!--and Warehouse.WHM_Type not in('Borrow','LP_Borrow')-->
+    </select>
+    <select id="SelectCfnBUby" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from CFN where CFN_CustomerFaceNbr=#value#
+    </select>
+    <select id="QueryTIWShipmentCfnBY" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+      select Lot.LOT_ID as Id,CFN.CFN_ID as CfnId,CFN.CFN_ChineseName as ChineseName,CFN.CFN_CustomerFaceNbr as CustomerFaceNbr,Lot.LOT_OnHandQty as Qty,Warehouse.WHM_ID as WHMId, CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, 1, CHARINDEX('@@', LotMaster.LTM_LotNumber,
+      0) - 1) ELSE LTM_LotNumber END as LotNumber,CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+      - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END as QrCode,Warehouse.WHM_DMA_ID as DealerId,ROW_NUMBER () OVER (ORDER BY CFN.CFN_ChineseName DESC) AS row_number  from Inventory inner join Lot
+      on Inventory.INV_ID=Lot.LOT_INV_ID
+      inner join LotMaster on LotMaster.LTM_ID=Lot.LOT_LTM_ID
+      inner join Product on Product.PMA_ID=Inventory.INV_PMA_ID
+      inner join CFN on Product.PMA_CFN_ID=CFN.CFN_ID
+      inner join Warehouse on Warehouse.WHM_ID=Inventory.INV_WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Upn">CFN.CFN_CustomerFaceNbr=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, 1, CHARINDEX('@@', LotMaster.LTM_LotNumber,
+          0) - 1) ELSE LTM_LotNumber END=#LotNumber#
+        </isNotNull>
+        <isNotNull prepend="AND" property="NewQrCode">
+          CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+          - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END=#NewQrCode#
+        </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseId">Warehouse.WHM_ID=#WarehouseId#</isNotNull>
+        and CFN_DeletedFlag='0'
+        and CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+        - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END!=#QrCode#
+        and CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+        - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END!='NoQR'
+        and WHM_DMA_ID=#DealerId#
+        and Lot.LOT_OnHandQty>0
+      </dynamic>
+
+    </select>
+    <select id="SelectStockCfnBYUpnQrCodeLot" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select Lot.LOT_ID as Id,Lot.LOT_INV_ID as INV_ID, Product.PMA_ID as PMAId, CFN.CFN_ID as CfnId,CFN.CFN_ChineseName as ChineseName,CFN.CFN_CustomerFaceNbr as CustomerFaceNbr,Lot.LOT_OnHandQty as Qty,Warehouse.WHM_ID as WHMId, CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, 1, CHARINDEX('@@', LotMaster.LTM_LotNumber,
+      0) - 1) ELSE LTM_LotNumber END as LotNumber,CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+      - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END as QrCode,Warehouse.WHM_DMA_ID as DealerId,Warehouse.WHM_Name as WarehouseName,
+      cfn.CFN_Property1 as  Property1, CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) as ExpiredDate,LotMaster.LTM_ID as LtmId,LotMaster.LTM_Type as LtmYtype, cfn.CFN_Property3 as UOM,Lot.LOT_OnHandQty as Qty
+      from Inventory inner join Lot
+      on Inventory.INV_ID=Lot.LOT_INV_ID
+      inner join LotMaster on LotMaster.LTM_ID=Lot.LOT_LTM_ID
+      inner join Product on Product.PMA_ID=Inventory.INV_PMA_ID
+      inner join CFN on Product.PMA_CFN_ID=CFN.CFN_ID
+      inner join Warehouse on Warehouse.WHM_ID=Inventory.INV_WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Upn">CFN.CFN_CustomerFaceNbr=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, 1, CHARINDEX('@@', LotMaster.LTM_LotNumber,
+          0) - 1) ELSE LTM_LotNumber END=#LotNumber#
+        </isNotNull>
+        <isNotNull prepend="AND" property="QrCode">
+          CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+          - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END=#QrCode#
+        </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseId">Warehouse.WHM_ID=#WarehouseId#</isNotNull>
+        and CFN_DeletedFlag='0'
+        and CASE WHEN CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) > 0 THEN substring(LotMaster.LTM_LotNumber, CHARINDEX('@@', LotMaster.LTM_LotNumber, 0) + 2, LEN(LotMaster.LTM_LotNumber)
+        - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END!='NoQR'
+        and WHM_DMA_ID=#DealerId#
+        and Lot.LOT_OnHandQty>0
+      </dynamic>
+    </select>
+    <update id="UpdateDealerBarcodeRemarkByDmaIdUpnLot" parameterClass="System.Collections.Hashtable">
+      UPDATE interface.T_I_WC_DealerBarcodeQRcodeScan SET QRC_DataHandleRemark= ISNULL(QRC_DataHandleRemark,'')+#Remark#
+      WHERE QRC_DMA_ID=#DmaId# AND QRC_QRCode=#QrCode# AND QRC_UPN=#Upn# AND QRC_LOT=#Lot#
+    </update>
+    <procedure id="GC_InventoryQr_Submit_QrCodeConvert" parameterMap="GC_InventoryQr_Submit_QrCodeConvertMap">
+      dbo.GC_InventoryQr_Submit_QrCodeConvert
+    </procedure>
+    <procedure id="GC_InventoryQr_Submit_StockQrCodeConvert" parameterMap="GC_GC_InventoryQr_Submit_StockQrCodeConvertMap">
+      dbo.GC_InventoryQr_Submit_StockQrCodeConvert
+    </procedure>
+    <procedure id="GC_GetCfnPriceHistory" parameterMap="GC_GetCfnPriceHistoryMap">
+      dbo.GC_GetCfnPriceHistory
+    </procedure>
+    <select id="selectremark" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from GC_Fn_ShipmentFileUpload(#value#)
+    </select>
+  </statements>
+</sqlMap>

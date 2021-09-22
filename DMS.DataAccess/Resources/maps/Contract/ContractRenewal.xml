@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractRenewalMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractRenewal" assembly="DMS.Model.dll" type="DMS.Model.ContractRenewal" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ContractRenewalResult" class="ContractRenewal">
+      <result property="CreId" column="CreId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreCmId" column="CreCmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreDmaId" column="CreDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreDivision" column="CreDivision" type="string" dbType="nvarchar"/>
+      <result property="CreMarketType" column="CreMarketType" type="int" dbType="int"/>
+      <result property="CreFromIsUpdate" column="CreFromIsUpdate" type="bool" dbType="bit"/>
+      <result property="CreDealerName" column="CreDealerName" type="string" dbType="nvarchar"/>
+      <result property="CreContractTypeCurrent" column="CreContractTypeCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreContractTypeRenewal" column="CreContractTypeRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreContractTypeRemarks" column="CreContractTypeRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreBscEntityCurrent" column="CreBscEntityCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreBscEntityRenewal" column="CreBscEntityRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreBscEntityRemarks" column="CreBscEntityRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreExclusivenessCurrent" column="CreExclusivenessCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreExclusivenessRenewal" column="CreExclusivenessRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreExclusivenessRemarks" column="CreExclusivenessRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreAgrmtEffectiveDateCurrent" column="CreAgrmtEffectiveDateCurrent" type="DateTime" dbType="datetime"/>
+      <result property="CreAgrmtEffectiveDateRenewal" column="CreAgrmtEffectiveDateRenewal" type="DateTime" dbType="datetime"/>
+      <result property="CreAgrmtExpirationDateCurrent" column="CreAgrmtExpirationDateCurrent" type="DateTime" dbType="datetime"/>
+      <result property="CreAgrmtExpirationDateRenewal" column="CreAgrmtExpirationDateRenewal" type="DateTime" dbType="datetime"/>
+      <result property="CreAgreementTermRemarks" column="CreAgreementTermRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreProductLineOld" column="CreProductLineOld" type="string" dbType="nvarchar"/>
+      <result property="CreProductLineNew" column="CreProductLineNew" type="string" dbType="nvarchar"/>
+      <result property="CreProductLineRemarks" column="CreProductLineRemarks" type="string" dbType="nvarchar"/>
+      <result property="CrePricesCurrent" column="CrePricesCurrent" type="string" dbType="nvarchar"/>
+      <result property="CrePricesRenewal" column="CrePricesRenewal" type="string" dbType="nvarchar"/>
+      <result property="CrePricesRemarks" column="CrePricesRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreTerritoryRemarks" column="CreTerritoryRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreQuotaRemakrs" column="CreQuotaRemakrs" type="string" dbType="nvarchar"/>
+      <result property="CreSpecialSalesCurrent" column="CreSpecialSalesCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreSpecialSalesRenewal" column="CreSpecialSalesRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreSpecialSalesRemarks" column="CreSpecialSalesRemarks" type="string" dbType="nvarchar"/>
+      <result property="CrePaymentCurrent" column="CrePaymentCurrent" type="string" dbType="nvarchar"/>
+      <result property="CrePaymentRenewal" column="CrePaymentRenewal" type="string" dbType="nvarchar"/>
+      <result property="CrePaymentRemarks" column="CrePaymentRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreCreditLimitsCurrent" column="CreCreditLimitsCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreCreditLimitsRenewal" column="CreCreditLimitsRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreCreditLimitsRemarks" column="CreCreditLimitsRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreAccountCurrent" column="CreAccountCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreAccountRenewal" column="CreAccountRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreGuaranteeWayCurrent" column="CreGuaranteeWayCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreGuaranteeWayRenewal" column="CreGuaranteeWayRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreGuaranteeWayRemark" column="CreGuaranteeWayRemark" type="string" dbType="nvarchar"/>
+      <result property="CreSecurityDepositCurrent" column="CreSecurityDepositCurrent" type="string" dbType="nvarchar"/>
+      <result property="CreSecurityDepositRenewal" column="CreSecurityDepositRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreSecurityDepositRemarks" column="CreSecurityDepositRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreAttachmentRenewal" column="CreAttachmentRenewal" type="string" dbType="nvarchar"/>
+      <result property="CreHasConflict" column="CreHasConflict" type="bool" dbType="bit"/>
+      <result property="CreConflictRemarks" column="CreConflictRemarks" type="string" dbType="nvarchar"/>
+      <result property="CreBusinessHandover" column="CreBusinessHandover" type="string" dbType="nvarchar"/>
+      <result property="CreHasiaf" column="CreHasiaf" type="bool" dbType="bit"/>
+      <result property="CreRsmPrintName" column="CreRsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreRsmDate" column="CreRsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CreNcmPrintName" column="CreNcmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreNcmDate" column="CreNcmDate" type="DateTime" dbType="datetime"/>
+      <result property="CreNsmPrintName" column="CreNsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreNsmDate" column="CreNsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CreNcmForPart2PrintName" column="CreNcmForPart2PrintName" type="string" dbType="nvarchar"/>
+      <result property="CreNcmForPart2Date" column="CreNcmForPart2Date" type="DateTime" dbType="datetime"/>
+      <result property="CreDrmPrintName" column="CreDrmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreDrmDate" column="CreDrmDate" type="DateTime" dbType="datetime"/>
+      <result property="CreFcPrintName" column="CreFcPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreFcDate" column="CreFcDate" type="DateTime" dbType="datetime"/>
+      <result property="CreCdPrintName" column="CreCdPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreCdDate" column="CreCdDate" type="DateTime" dbType="datetime"/>
+      <result property="CreVpfPrintName" column="CreVpfPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreVpfDate" column="CreVpfDate" type="DateTime" dbType="datetime"/>
+      <result property="CreVpapPrintName" column="CreVpapPrintName" type="string" dbType="nvarchar"/>
+      <result property="CreVpapDate" column="CreVpapDate" type="DateTime" dbType="datetime"/>
+      <result property="CreStatus" column="CreStatus" type="string" dbType="nvarchar"/>
+      <result property="CreType" column="CreType" type="string" dbType="nvarchar"/>
+      <result property="CreCreateDate" column="CreCreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreCreateUser" column="CreCreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreUpdateUser" column="CreUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreUpdateDate" column="CreUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreSubDepid" column="CRE_SubDepID" type="string" dbType="nvarchar"/>
+      <result property="CreSubdepName" column="CreSubdepName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectContractRenewal" parameterClass="string" resultClass="ContractRenewal">
+      SELECT CRE_ID AS CreId,CRE_CM_ID AS CreCmId,CRE_DMA_ID AS CreDmaId,CRE_Division AS CreDivision,CRE_MarketType AS CreMarketType,CRE_FromIsUpdate AS CreFromIsUpdate,CRE_Dealer_Name AS CreDealerName,CRE_ContractType_Current AS CreContractTypeCurrent,CRE_ContractType_Renewal AS CreContractTypeRenewal,CRE_ContractType_Remarks AS CreContractTypeRemarks,CRE_BSCEntity_Current AS CreBscEntityCurrent,CRE_BSCEntity_Renewal AS CreBscEntityRenewal,CRE_BSCEntity_Remarks AS CreBscEntityRemarks,CRE_Exclusiveness_Current AS CreExclusivenessCurrent,CRE_Exclusiveness_Renewal AS CreExclusivenessRenewal,CRE_Exclusiveness_Remarks AS CreExclusivenessRemarks,CRE_Agrmt_EffectiveDate_Current AS CreAgrmtEffectiveDateCurrent,CRE_Agrmt_EffectiveDate_Renewal AS CreAgrmtEffectiveDateRenewal,CRE_Agrmt_ExpirationDate_Current AS CreAgrmtExpirationDateCurrent,CRE_Agrmt_ExpirationDate_Renewal AS CreAgrmtExpirationDateRenewal,CRE_AgreementTerm_Remarks AS CreAgreementTermRemarks,CRE_ProductLine_Old AS CreProductLineOld,CRE_ProductLine_New AS CreProductLineNew,CRE_ProductLine_Remarks AS CreProductLineRemarks,CRE_Prices_Current AS CrePricesCurrent,CRE_Prices_Renewal AS CrePricesRenewal,CRE_Prices_Remarks AS CrePricesRemarks,CRE_Territory_Remarks AS CreTerritoryRemarks,CRE_Quota_Remakrs AS CreQuotaRemakrs,CRE_SpecialSales_Current AS CreSpecialSalesCurrent,CRE_SpecialSales_Renewal AS CreSpecialSalesRenewal,CRE_SpecialSales_Remarks AS CreSpecialSalesRemarks,CRE_Payment_Current AS CrePaymentCurrent,CRE_Payment_Renewal AS CrePaymentRenewal,CRE_Payment_Remarks AS CrePaymentRemarks,CRE_CreditLimits_Current AS CreCreditLimitsCurrent,CRE_CreditLimits_Renewal AS CreCreditLimitsRenewal,CRE_CreditLimits_Remarks AS CreCreditLimitsRemarks,CRE_Account_Current AS CreAccountCurrent,CRE_Account_Renewal AS CreAccountRenewal,CRE_Guarantee_Way_Current AS CreGuaranteeWayCurrent,CRE_Guarantee_Way_Renewal AS CreGuaranteeWayRenewal,CRE_Guarantee_Way_Remark AS CreGuaranteeWayRemark,CRE_SecurityDeposit_Current AS CreSecurityDepositCurrent,CRE_SecurityDeposit_Renewal AS CreSecurityDepositRenewal,CRE_SecurityDeposit_Remarks AS CreSecurityDepositRemarks,CRE_Attachment_Renewal AS CreAttachmentRenewal,CRE_HasConflict AS CreHasConflict,CRE_Conflict_Remarks AS CreConflictRemarks,CRE_Business_Handover AS CreBusinessHandover,CRE_HasIAF AS CreHasiaf,CRE_RSM_PrintName AS CreRsmPrintName,CRE_RSM_Date AS CreRsmDate,CRE_NCM_PrintName AS CreNcmPrintName,CRE_NCM_Date AS CreNcmDate,CRE_NSM_PrintName AS CreNsmPrintName,CRE_NSM_Date AS CreNsmDate,CRE_NCMForPart2_PrintName AS CreNcmForPart2PrintName,CRE_NCMForPart2_Date AS CreNcmForPart2Date,CRE_DRM_PrintName AS CreDrmPrintName,CRE_DRM_Date AS CreDrmDate,CRE_FC_PrintName AS CreFcPrintName,CRE_FC_Date AS CreFcDate,CRE_CD_PrintName AS CreCdPrintName,CRE_CD_Date AS CreCdDate,CRE_VPF_PrintName AS CreVpfPrintName,CRE_VPF_Date AS CreVpfDate,CRE_VPAP_PrintName AS CreVpapPrintName,CRE_VPAP_Date AS CreVpapDate,CRE_Status AS CreStatus,CRE_Type AS CreType,CRE_Create_Date AS CreCreateDate,CRE_Create_User AS CreCreateUser,CRE_Update_User AS CreUpdateUser,CRE_Update_Date AS CreUpdateDate
+      ,CRE_SubDepID AS CreSubDepid, B.CC_RV1 AS CreSubdepName
+      FROM ContractRenewal A
+      LEFT JOIN  INTERFACE.ClassificationContract  B ON A.CRE_SubDepID=B.CC_Code
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CRE_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    
+    <update id="UpdateRenewalCmidByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractRenewal
+      SET CRE_CM_ID=#CreCmId#
+      WHERE CRE_ID = #CreId#
+    </update>
+    
+    <update id="UpdateRenewalFromMark" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractRenewal
+      SET CRE_FromIsUpdate=#Mark#
+      WHERE CRE_ID = #CreId#
+    </update>
+  </statements>
+</sqlMap>

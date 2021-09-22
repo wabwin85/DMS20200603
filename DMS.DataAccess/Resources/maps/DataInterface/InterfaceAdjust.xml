@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceAdjustMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceAdjust" assembly="DMS.Model.dll" type="DMS.Model.InterfaceAdjust" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceAdjustResult" class="InterfaceAdjust">
+      <result property="Id" column="IIA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ArticleNumber" column="IIA_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="IIA_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="IIA_ExpiredDate" type="DateTime" dbType="datetime"/>
+      <result property="LotQty" column="IIA_LotQty" type="decimal" dbType="decimal"/>
+      <result property="AdjustDate" column="IIA_AdjustDate" type="DateTime" dbType="datetime"/>
+      <result property="AdjustType" column="IIA_AdjustType" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="IIA_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="IIA_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="IIA_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="IIA_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IIA_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IIA_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_Adjust_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceAdjust" parameterClass="string" resultClass="InterfaceAdjust">
+      SELECT IIA_ID AS Id,IIA_ArticleNumber AS ArticleNumber,IIA_LotNumber AS LotNumber,IIA_ExpiredDate AS ExpiredDate,IIA_LotQty AS LotQty,IIA_AdjustDate AS AdjustDate,IIA_AdjustType AS AdjustType,IIA_Remark AS Remark,IIA_LineNbr AS LineNbr,IIA_FileName AS FileName,IIA_ImportDate AS ImportDate,IIA_ClientID AS Clientid,IIA_BatchNbr AS BatchNbr
+      FROM InterfaceAdjust
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IIA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceAdjust" parameterClass="InterfaceAdjust" resultClass="InterfaceAdjust">
+      SELECT IIA_ID AS Id,IIA_ArticleNumber AS ArticleNumber,IIA_LotNumber AS LotNumber,IIA_ExpiredDate AS ExpiredDate,IIA_LotQty AS LotQty,IIA_AdjustDate AS AdjustDate,IIA_AdjustType AS AdjustType,IIA_Remark AS Remark,IIA_LineNbr AS LineNbr,IIA_FileName AS FileName,IIA_ImportDate AS ImportDate,IIA_ClientID AS Clientid,IIA_BatchNbr AS BatchNbr
+      FROM InterfaceAdjust
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IIA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">IIA_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IIA_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">IIA_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="LotQty">IIA_LotQty=#LotQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustDate">IIA_AdjustDate=#AdjustDate#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustType">IIA_AdjustType=#AdjustType#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IIA_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IIA_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">IIA_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IIA_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IIA_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IIA_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceAdjust" parameterClass="InterfaceAdjust">
+      INSERT INTO InterfaceAdjust
+      (IIA_ID,IIA_ArticleNumber,IIA_LotNumber,IIA_ExpiredDate,IIA_LotQty,IIA_AdjustDate,IIA_AdjustType,IIA_Remark,IIA_LineNbr,IIA_FileName,IIA_ImportDate,IIA_ClientID,IIA_BatchNbr)
+      VALUES(#Id#,#ArticleNumber#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#LotQty#,#AdjustDate:DateTime:1/1/0001 12:00:00 AM#,#AdjustType#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateInterfaceAdjust" parameterClass="InterfaceAdjust">
+      UPDATE InterfaceAdjust
+      SET IIA_ID=#Id#,IIA_ArticleNumber=#ArticleNumber#,IIA_LotNumber=#LotNumber#,IIA_ExpiredDate=#ExpiredDate#,IIA_LotQty=#LotQty#,IIA_AdjustDate=#AdjustDate#,IIA_AdjustType=#AdjustType#,IIA_Remark=#Remark#,IIA_LineNbr=#LineNbr#,IIA_FileName=#FileName#,IIA_ImportDate=#ImportDate#,IIA_ClientID=#Clientid#,IIA_BatchNbr=#BatchNbr#
+      WHERE IIA_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceAdjust" parameterClass="string">
+      DELETE FROM InterfaceAdjust
+      WHERE IIA_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_Adjust" parameterMap="GC_Interface_Adjust_ParameterMap">
+      dbo.GC_Interface_Adjust
+    </procedure>
+  </statements>
+</sqlMap>

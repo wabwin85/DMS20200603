@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ArrivalDateInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="ArrivalDateInit" assembly="DMS.Model.dll" type="DMS.Model.ArrivalDateInit" />
+    </alias>
+    <resultMaps>
+        <resultMap id="ArrivalDateInitResult" class="ArrivalDateInit">
+            <result property="Id" column="ADI_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="User" column="ADI_USER" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UploadDate" column="ADI_UploadDate" type="DateTime" dbType="datetime"/>
+            <result property="LineNbr" column="ADI_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="ADI_FileName" type="string" dbType="nvarchar"/>
+            <result property="ErrorFlag" column="ADI_ErrorFlag" type="bool" dbType="bit"/>
+            <result property="ErrorDescription" column="ADI_ErrorDescription" type="string" dbType="nvarchar"/>
+            <result property="Carrier" column="ADI_Carrier" type="string" dbType="nvarchar"/>
+            <result property="TrackingNo" column="ADI_TrackingNo" type="string" dbType="nvarchar"/>
+            <result property="ArrivalDate" column="ADI_ArrivalDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+      <parameterMap id="ArrivalDateInitParameterMap" class="System.Collections.Hashtable" >
+        <parameter property="UserId" column="UserId" />
+        <parameter property="FileName" column="FileName" />
+        <parameter property="IsValid" column="IsValid" direction="Output" />
+      </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectArrivalDateInit" parameterClass="string" resultClass="ArrivalDateInit">
+            SELECT ADI_ID AS Id,ADI_USER AS [User],ADI_UploadDate AS UploadDate,ADI_LineNbr AS LineNbr,ADI_FileName AS FileName,ADI_ErrorFlag AS ErrorFlag,ADI_ErrorDescription AS ErrorDescription,ADI_Carrier AS Carrier,ADI_TrackingNo AS TrackingNo,ADI_ArrivalDate AS ArrivalDate
+            FROM ArrivalDateInit
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    ADI_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterArrivalDateInit" parameterClass="ArrivalDateInit" resultClass="ArrivalDateInit">
+            SELECT ADI_ID AS Id,ADI_USER AS [User],ADI_UploadDate AS UploadDate,ADI_LineNbr AS LineNbr,ADI_FileName AS FileName,ADI_ErrorFlag AS ErrorFlag,ADI_ErrorDescription AS ErrorDescription,ADI_Carrier AS Carrier,ADI_TrackingNo AS TrackingNo,ADI_ArrivalDate AS ArrivalDate
+            FROM ArrivalDateInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">ADI_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="User">ADI_USER=#User#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">ADI_UploadDate=#UploadDate#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">ADI_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">ADI_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorFlag">ADI_ErrorFlag=#ErrorFlag#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorDescription">ADI_ErrorDescription=#ErrorDescription#</isNotNull>
+                <isNotNull prepend="AND" property="Carrier">ADI_Carrier=#Carrier#</isNotNull>
+                <isNotNull prepend="AND" property="TrackingNo">ADI_TrackingNo=#TrackingNo#</isNotNull>
+                <isNotNull prepend="AND" property="ArrivalDate">ADI_ArrivalDate=#ArrivalDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertArrivalDateInit" parameterClass="ArrivalDateInit">
+            INSERT INTO ArrivalDateInit
+            (ADI_ID,ADI_USER,ADI_UploadDate,ADI_LineNbr,ADI_FileName,ADI_ErrorFlag,ADI_ErrorDescription,ADI_Carrier,ADI_TrackingNo,ADI_ArrivalDate)
+            VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#Carrier#,#TrackingNo#,#ArrivalDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateArrivalDateInit" parameterClass="ArrivalDateInit">
+            UPDATE ArrivalDateInit
+            SET ADI_ID=#Id#,ADI_USER=#User#,ADI_UploadDate=#UploadDate#,ADI_LineNbr=#LineNbr#,ADI_FileName=#FileName#,ADI_ErrorFlag=#ErrorFlag#,ADI_ErrorDescription=#ErrorDescription#,ADI_Carrier=#Carrier#,ADI_TrackingNo=#TrackingNo#,ADI_ArrivalDate=#ArrivalDate#
+            WHERE ADI_ID = #Id#
+        </update>
+        <delete id="DeleteArrivalDateInit" parameterClass="string">
+            DELETE FROM ArrivalDateInit
+            WHERE ADI_ID = #value#
+        </delete>
+
+        <select id="SelectErrorArrivalDateInit" parameterClass="ArrivalDateInit" resultClass="ArrivalDateInit">
+          SELECT ADI_ID AS Id,ADI_USER AS ADIUser,ADI_UploadDate AS UploadDate,ADI_LineNbr AS LineNbr,ADI_FileName AS FileName,ADI_ErrorFlag AS ErrorFlag,ADI_ErrorDescription AS ErrorDescription,ADI_Carrier AS Carrier,ADI_TrackingNo AS TrackingNo,ADI_ArrivalDate AS ArrivalDate
+          FROM ArrivalDateInit WHERE ADI_ErrorFlag = 1
+            <isNotNull prepend="AND" property="User">ADI_USER=#User#</isNotNull>
+            <isNotNull prepend="AND" property="FileName">ADI_FileName=#FileName#</isNotNull>
+        </select>
+
+        <delete id="DeleteArrivalDateInitByUserId" parameterClass="string">
+          DELETE FROM ArrivalDateInit
+          WHERE ADI_USER = #value#
+        </delete>
+      
+        <procedure id="GC_UploadArrivalDate" parameterMap="ArrivalDateInitParameterMap">
+          dbo.GC_UploadArrivalDate
+        </procedure>
+    </statements>
+</sqlMap>

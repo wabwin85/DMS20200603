@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerTerritoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DealerTerritory" assembly="DMS.Model.dll" type="DMS.Model.DealerTerritory" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DealerTerritoryResult" class="DealerTerritory">
+            <result property="Id" column="DT_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="TemId" column="DT_TEM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DmaId" column="DT_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DeleteFlag" column="DT_DeleteFlag" type="bool" dbType="bit"/>
+            <result property="UpdateDate" column="DT_UpdateDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectDealerTerritory" parameterClass="string" resultClass="DealerTerritory">
+            SELECT DT_ID AS Id,DT_TEM_ID AS TemId,DT_DMA_ID AS DmaId,DT_DeleteFlag AS DeleteFlag,DT_UpdateDate AS UpdateDate
+            FROM DealerTerritory
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DT_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterDealerTerritory" parameterClass="DealerTerritory" resultClass="DealerTerritory">
+            SELECT DT_ID AS Id,DT_TEM_ID AS TemId,DT_DMA_ID AS DmaId,DT_DeleteFlag AS DeleteFlag,DT_UpdateDate AS UpdateDate
+            FROM DealerTerritory
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">DT_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="TemId">DT_TEM_ID=#TemId#</isNotNull>
+                <isNotNull prepend="AND" property="DmaId">DT_DMA_ID=#DmaId#</isNotNull>
+                <isNotNull prepend="AND" property="DeleteFlag">DT_DeleteFlag=#DeleteFlag#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">DT_UpdateDate=#UpdateDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertDealerTerritory" parameterClass="DealerTerritory">
+            INSERT INTO DealerTerritory
+            (DT_ID,DT_TEM_ID,DT_DMA_ID,DT_DeleteFlag,DT_UpdateDate)
+            VALUES(#Id#,#TemId#,#DmaId#,#DeleteFlag#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateDealerTerritory" parameterClass="DealerTerritory">
+            UPDATE DealerTerritory
+            SET DT_ID=#Id#,DT_TEM_ID=#TemId#,DT_DMA_ID=#DmaId#,DT_DeleteFlag=#DeleteFlag#,DT_UpdateDate=#UpdateDate#
+            WHERE DT_ID = #Id#
+        </update>
+        <delete id="DeleteDealerTerritory" parameterClass="string">
+            DELETE FROM DealerTerritory
+            WHERE DT_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

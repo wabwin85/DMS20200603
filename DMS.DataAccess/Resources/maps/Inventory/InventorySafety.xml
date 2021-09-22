@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventorySafetyMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventorySafety" assembly="DMS.Model.dll" type="DMS.Model.InventorySafety" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventorySafetyResult" class="InventorySafety">
+      <result property="Id" column="IS_ID" type="Guid" dbType="Guid"/>
+      <result property="DealerDmaId" column="IS_Dealer_DMA_ID" type="Guid" dbType="Guid"/>
+      <result property="CfnId" column="IS_CFN_ID" type="Guid" dbType="Guid"/>
+      <result property="Qty" column="IS_Qty" type="double" dbType="Real"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectInventorySafety" parameterClass="string" resultClass="InventorySafety">
+      SELECT IS_ID AS Id,IS_Dealer_DMA_ID AS DealerDmaId,IS_CFN_ID AS CfnId,IS_Qty AS Qty
+      FROM InventorySafety
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventorySafety" parameterClass="InventorySafety" resultClass="InventorySafety">
+      SELECT IS_ID AS Id,IS_Dealer_DMA_ID AS DealerDmaId,IS_CFN_ID AS CfnId,IS_Qty AS Qty,fn(IS_Dealer_DMA_ID,IS_CFN_ID)
+      FROM InventorySafety
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IS_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">IS_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IS_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">IS_Qty=#Qty#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventorySafety" parameterClass="InventorySafety">
+      INSERT INTO InventorySafety
+      (IS_ID,IS_Dealer_DMA_ID,IS_CFN_ID,IS_Qty)
+      VALUES(#Id#,#DealerDmaId#,#CfnId#,#Qty#)
+    </insert>
+    <update id="UpdateInventorySafety" parameterClass="InventorySafety">
+      UPDATE InventorySafety
+      SET IS_ID=#Id#,IS_Dealer_DMA_ID=#DealerDmaId#,IS_CFN_ID=#CfnId#,IS_Qty=#Qty#
+      WHERE IS_ID = #Id#
+    </update>
+
+    <update id="UpdateInventorySafetyQty" parameterClass="System.Collections.Hashtable">
+      UPDATE InventorySafety
+      SET IS_Qty=#Qty#
+      WHERE IS_ID = #Id#
+    </update>
+
+    <delete id="DeleteInventorySafety" parameterClass="string">
+      DELETE FROM InventorySafety
+      WHERE IS_ID = #value#
+    </delete>
+
+    <select id="GetInventoryByDMACFN" parameterClass="System.Collections.Hashtable" resultClass="InventorySafety">
+      SELECT InvSafty.IS_ID AS Id,
+      DealerMaster.DMA_ChineseName,
+      CFN.CFN_CustomerFaceNbr AS ArticleNumber,
+      LA.ATTRIBUTE_NAME AS ProductLineName,
+      InvSafty.IS_CFN_ID AS CFN_ID,
+      InvSafty.IS_Dealer_DMA_ID AS DMA_ID,
+      dbo.GC_Fn_GetInventoryByDMACFN (InvSafty.IS_Dealer_DMA_ID, InvSafty.IS_CFN_ID) AS InvActualQty,
+      InvSafty.IS_Qty AS InvSaftyQty,
+      Warehouse.WHM_Name as WarehouseName,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr ASC) AS row_number
+      FROM InventorySafety AS InvSafty
+      INNER JOIN DealerMaster
+      ON (InvSafty.IS_Dealer_DMA_ID = DealerMaster.DMA_ID)
+      INNER JOIN CFN
+      ON (InvSafty.IS_CFN_ID = CFN.CFN_ID)
+      INNER JOIN View_ProductLine AS LA
+      ON (CFN.CFN_ProductLine_BUM_ID = LA.Id)
+      inner join Warehouse
+      on InvSafty.IS_WHM_ID=Warehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubCompanyId">LA.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">LA.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Article_Number">CFN.CFN_CustomerFaceNbr like N'%$Article_Number$%'</isNotNull>
+        <isNotNull prepend="AND" property="DMA_ID">DealerMaster.DMA_ID=#DMA_ID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="GetActualInvQtyByCFN" parameterClass="System.Collections.Hashtable" resultClass="InventorySafety">
+        SELECT
+        CFN.CFN_ID,
+        CFN.CFN_CustomerFaceNbr AS ArticleNumber,
+        CFN.CFN_EnglishName AS EngName,
+        CFN.CFN_ChineseName AS ChnName,
+        <dynamic>
+        <isParameterPresent property="DMA_ID">
+            dbo.GC_Fn_GetInventoryByDMACFN (#DMA_ID#, CFN.CFN_ID) AS InvActualQty,
+        </isParameterPresent>
+      </dynamic>
+      row_number () OVER (ORDER BY CFN.CFN_CustomerFaceNbr ASC) AS row_number
+      FROM CFN
+      INNER JOIN CfnClassification CC ON CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DMA_ID">
+          EXISTS
+          (SELECT 1
+          FROM DealerAuthorizationTable AS DA
+          INNER JOIN DealerContract AS DC
+          ON DA.DAT_DCL_ID = DC.DCL_ID
+          INNER JOIN Cache_PartsClassificationRec AS CP
+          ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+          WHERE DC.DCL_DMA_ID = #DMA_ID#
+          <!--modified by bozhenfei on 20100712 @-->
+            <!--AND CONVERT(varchar(100), GETDATE(), 112) BETWEEN CONVERT(varchar(100), DC.DCL_StartDate, 112) AND CONVERT(varchar(100), DC.DCL_StopDate, 112)-->
+            <!--end-->
+          AND ( (DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+          AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+          OR (    DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+          AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+          AND CP.PCT_ID = CC.ClassificationId)))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Article_Number">CFN.CFN_CustomerFaceNbr like N'%$Article_Number$%'</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="GetInventorySafetyByDMACFN" parameterClass="System.Collections.Hashtable" resultClass="InventorySafety">
+      SELECT IS_ID AS Id,IS_Dealer_DMA_ID AS DealerDmaId,IS_CFN_ID AS CfnId,IS_Qty AS Qty
+      FROM InventorySafety
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerDmaId">IS_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">IS_CFN_ID=#CfnId#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <select id="GetActualInvQtyOfShareCFN" parameterClass="System.Collections.Hashtable" resultClass="InventorySafety">
+        SELECT
+        CFN.CFN_ID,
+        CFN.CFN_CustomerFaceNbr AS ArticleNumber,
+        CFN.CFN_EnglishName AS EngName,
+        CFN.CFN_ChineseName AS ChnName,
+        <dynamic>
+        <isParameterPresent property="DMA_ID">
+            dbo.GC_Fn_GetInventoryByDMACFN (#DMA_ID#, CFN.CFN_ID) AS InvActualQty,
+        </isParameterPresent>
+      </dynamic>
+      row_number () OVER (ORDER BY CFN.CFN_CustomerFaceNbr ASC) AS row_number
+      FROM CFN
+      WHERE CFN.CFN_Share = 1
+      <isNotNull prepend="AND" property="Article_Number">CFN.CFN_CustomerFaceNbr like N'%$Article_Number$%'</isNotNull>
+    </select>
+
+    <update id="UpdateSafetyQtyWithAcutalQty" parameterClass="string">
+      UPDATE InvSafety
+      SET InvSafety.Is_Qty = InvActual.ActualQty
+      FROM    InventorySafety AS InvSafety
+      INNER JOIN
+      (  SELECT CFN_ID, DMA_ID, sum (isnull (INV_Qty, 0)) AS ActualQty
+      FROM (SELECT CFN.CFN_ID,
+      DM.DMA_ID,
+      PD.PMA_UPN AS PDUPN,
+      PD.PMA_Name AS PDName,
+      WH.WHM_Name AS WHName,
+      WH.WHM_Type,
+      INV.INV_OnHandQuantity AS INV_Qty
+      FROM CFN,
+      DealerMaster AS DM,
+      Product AS PD,
+      Warehouse AS WH,
+      Inventory INV
+      WHERE     PD.PMA_CFN_ID = CFN.CFN_ID
+      AND PD.PMA_ID = INV.INV_PMA_ID
+      AND DM.DMA_ID = WH.WHM_DMA_ID
+      AND INV.INV_WHM_ID = wH.WHM_ID
+      AND WH.WHM_Type != 'SystemHold'
+      AND DM.DMA_ID = #value#) AS InvertoryGroup
+      GROUP BY CFN_ID, DMA_ID) AS InvActual
+      ON (InvSafety.IS_CFN_ID = InvActual.CFN_ID AND InvSafety.IS_Dealer_DMA_ID = InvActual.DMA_ID)
+      WHERE InvActual.ActualQty > 0
+    </update>
+
+    <insert id="InsertSafetyQtyWithAcutalQty" parameterClass="string">
+      INSERT INTO InventorySafety
+      SELECT newid (),
+      InvActual.DMA_ID,
+      InvActual.CFN_ID,
+      InvActual.ActualQty
+      FROM    InventorySafety AS InvSafety
+      RIGHT OUTER JOIN
+      (  SELECT CFN_ID, DMA_ID, sum (isnull (INV_Qty, 0)) AS ActualQty
+      FROM (SELECT CFN.CFN_ID,
+      DM.DMA_ID,
+      PD.PMA_UPN AS PDUPN,
+      PD.PMA_Name AS PDName,
+      WH.WHM_Name AS WHName,
+      WH.WHM_Type,
+      INV.INV_OnHandQuantity AS INV_Qty
+      FROM CFN,
+      DealerMaster AS DM,
+      Product AS PD,
+      Warehouse AS WH,
+      Inventory INV
+      WHERE     PD.PMA_CFN_ID = CFN.CFN_ID
+      AND PD.PMA_ID = INV.INV_PMA_ID
+      AND DM.DMA_ID = WH.WHM_DMA_ID
+      AND INV.INV_WHM_ID = wH.WHM_ID
+      AND WH.WHM_Type != 'SystemHold'
+      AND DM.DMA_ID = #value#) AS InvertoryGroup
+      GROUP BY CFN_ID, DMA_ID) AS InvActual
+      ON (InvSafety.IS_CFN_ID = InvActual.CFN_ID AND InvSafety.IS_Dealer_DMA_ID = InvActual.DMA_ID)
+      WHERE InvActual.ActualQty > 0 AND InvSafety.IS_ID IS NULL
+    </insert>
+  </statements>
+</sqlMap>

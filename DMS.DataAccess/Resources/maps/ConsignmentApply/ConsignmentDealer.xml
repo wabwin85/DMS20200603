@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentDealerMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentDealer" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentDealer" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentDealerResult" class="ConsignmentDealer">
+      <result property="Id" column="CD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CmId" column="CD_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="CD_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Remark" column="CD_Remark" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_ConsignmentApplyOrder_CheckSubmit" class="System.Collections.Hashtable" >
+      <parameter property="CAH_ID" column="CAH_ID" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="CMID" column="CMID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+      <parameter property="RtnRegMsg" column="RtnRegMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectConsignmentDealerBy" parameterClass="System.Collections.Hashtable" resultClass="ConsignmentDealer">
+      SELECT ConsignmentMaster.CM_ID AS Id,ConsignmentMaster.CM_ConsignmentName AS Name FROM ConsignmentMaster INNER JOIN  ConsignmentAuthorization ON ConsignmentMaster.CM_ID=ConsignmentAuthorization.CA_CM_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ConsignmentAuthorization.CA_DMA_ID=#CMId#
+          AND ConsignmentAuthorization.CA_ProductLine_Id=#ProductLineId#
+          AND ConsignmentAuthorization.CA_IsActive=1
+          AND ConsignmentAuthorization.CA_StartDate&lt;= GETDATE() AND DATEADD(DAY,1,CA_EndDate)>=GETDATE()
+        </isParameterPresent>
+
+      </dynamic>
+    </select>
+    <select id="SelectConsignmentDealer" parameterClass="string" resultClass="ConsignmentDealer">
+      SELECT CD_ID AS Id,CD_CM_ID AS CmId,CD_DMA_ID AS DmaId,CD_Remark AS Remark
+      FROM ConsignmentDealer
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentDealer" parameterClass="ConsignmentDealer" resultClass="ConsignmentDealer">
+      SELECT CD_ID AS Id,CD_CM_ID AS CmId,CD_DMA_ID AS DmaId,CD_Remark AS Remark
+      FROM ConsignmentDealer
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CmId">CD_CM_ID=#CmId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">CD_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">CD_Remark=#Remark#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentDealer" parameterClass="ConsignmentDealer">
+      INSERT INTO ConsignmentDealer
+      (CD_ID,CD_CM_ID,CD_DMA_ID,CD_Remark)
+      VALUES(#Id#,#CmId#,#DmaId#,#Remark#)
+    </insert>
+    <update id="UpdateConsignmentDealer" parameterClass="ConsignmentDealer">
+      UPDATE ConsignmentDealer
+      SET CD_ID=#Id#,CD_CM_ID=#CmId#,CD_DMA_ID=#DmaId#,CD_Remark=#Remark#
+      WHERE CD_ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentDealer" parameterClass="string">
+      DELETE FROM ConsignmentDealer
+      WHERE CD_ID = #value#
+    </delete>
+    <procedure id="GC_ConsignmentApplyOrder_CheckSubmit" parameterMap="GC_ConsignmentApplyOrder_CheckSubmit">
+      dbo.GC_ConsignmentApplyOrder_CheckSubmit
+    </procedure>
+    <insert id="AddConsignmentDealerby" parameterClass="System.Collections.Hashtable">
+      INSERT INTO ConsignmentDealer(CD_ID,CD_CM_ID,CD_DMA_ID)
+      VALUES(NEWID(),#CMID#,#DealerId#)
+    </insert>
+    <select id="IsConsignmentDealerby" parameterClass="System.Collections.Hashtable" resultClass="ConsignmentDealer">
+      SELECT COUNT(*) cnt  FROM ConsignmentDealer where CD_CM_ID=#CMID# and CD_DMA_ID=#DMAID#
+
+    </select>
+    <delete id="DeleteConsignmentCfnby" parameterClass="string">
+      delete ConsignmentCfn where CC_ID=#value#
+    </delete>
+    
+    <select id="SelectConsignmentContractDealer" parameterClass="System.Collections.Hashtable" resultClass="ConsignmentDealer">
+      SELECT CCH_ID Id,CCH_No+'-'+CCH_Name AS Name
+      ,row_number () OVER (ORDER BY a.CCH_CreateDate desc) AS [row_number]
+      FROM Consignment.ContractHeader A
+      WHERE GETDATE() BETWEEN CCH_BeginDate AND CCH_EndDate
+      <isNotNull prepend="AND" property="Status">A.CCH_Status=#Status#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">A.CCH_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineId">A.CCH_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+    </select>
+  </statements>
+</sqlMap>

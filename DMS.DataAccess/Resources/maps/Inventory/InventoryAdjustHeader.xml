@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryAdjustHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryAdjustHeader" assembly="DMS.Model.dll" type="DMS.Model.InventoryAdjustHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryAdjustHeaderResult" class="InventoryAdjustHeader">
+      <result property="Id" column="IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Reason" column="IAH_Reason" type="string" dbType="nvarchar"/>
+      <result property="InvAdjNbr" column="IAH_Inv_Adj_Nbr" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="IAH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ApprovalDate" column="IAH_ApprovalDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateDate" column="IAH_CreatedDate" type="DateTime" dbType="datetime"/>
+      <result property="ApprovalUsrUserid" column="IAH_Approval_USR_UserID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AuditorNotes" column="IAH_AuditorNotes" type="string" dbType="nvarchar"/>
+      <result property="UserDescription" column="IAH_UserDescription" type="string" dbType="nvarchar"/>
+      <result property="Status" column="IAH_Status" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="IAH_CreatedBy_USR_UserID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ReverseIahId" column="IAH_Reverse_IAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductLineBumId" column="IAH_ProductLine_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WarehouseType" column="IAH_WarehouseType" type="string" dbType="nvarchar"/>
+      <result property="Rsm" column="IAH_RSM" type="string" dbType="nvarchar"/>
+      <result property="ApplyType" column="IAH_ApplyType" type="string" dbType="nvarchar"/>
+      <result property="RetrunReason" column="RetrunReason" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ReturnAdjustBeforeSubmitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="AdjustId" column="AdjustId" />
+      <parameter property="AdjustNo" column="AdjustNo" />
+      <parameter property="AdjustDesc" column="AdjustDesc" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="AdjustType" column="AdjustType" />
+      <parameter property="ApplyType" column="ApplyType" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="UserName" column="UserName" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="UpdateAdjustCfnPriceParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="AdjustId" column="AdjustId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="AdjustType" column="AdjustType" />
+      <parameter property="ApplyType" column="ApplyType" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+
+  <statements>
+
+    <select id="SelectInventoryAdjustHeader" parameterClass="string" resultClass="InventoryAdjustHeader">
+      SELECT IAH_ID AS Id,IAH_Reason AS Reason,IAH_Inv_Adj_Nbr AS InvAdjNbr,IAH_DMA_ID AS DmaId,IAH_ApprovalDate AS ApprovalDate,IAH_CreatedDate AS CreateDate,IAH_Approval_USR_UserID AS ApprovalUsrUserid,IAH_AuditorNotes AS AuditorNotes,IAH_UserDescription AS UserDescription,IAH_Status AS Status,IAH_CreatedBy_USR_UserID AS CreateUser,IAH_Reverse_IAH_ID AS ReverseIahId,IAH_ProductLine_BUM_ID AS ProductLineBumId,IAH_WarehouseType AS WarehouseType,IAH_RSM AS Rsm,IAH_ApplyType AS ApplyType,RetrunReason AS RetrunReason
+      FROM InventoryAdjustHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IAH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustHeader" parameterClass="InventoryAdjustHeader" resultClass="InventoryAdjustHeader">
+      SELECT IAH_ID AS Id,IAH_Reason AS Reason,IAH_Inv_Adj_Nbr AS InvAdjNbr,IAH_DMA_ID AS DmaId,IAH_ApprovalDate AS ApprovalDate,IAH_CreatedDate AS CreateDate,IAH_Approval_USR_UserID AS ApprovalUsrUserid,IAH_AuditorNotes AS AuditorNotes,IAH_UserDescription AS UserDescription,IAH_Status AS Status,IAH_CreatedBy_USR_UserID AS CreateUser,IAH_Reverse_IAH_ID AS ReverseIahId,IAH_ProductLine_BUM_ID AS ProductLineBumId,IAH_WarehouseType AS WarehouseType,IAH_RSM AS Rsm,IAH_ApplyType AS ApplyType,RetrunReason AS RetrunReason
+      FROM InventoryAdjustHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IAH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Reason">IAH_Reason=#Reason#</isNotNull>
+        <isNotNull prepend="AND" property="InvAdjNbr">IAH_Inv_Adj_Nbr=#InvAdjNbr#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IAH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ApprovalDate">IAH_ApprovalDate=#ApprovalDate#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDate">IAH_CreatedDate=#CreateDate#</isNotNull>
+        <isNotNull prepend="AND" property="ApprovalUsrUserid">IAH_Approval_USR_UserID=#ApprovalUsrUserid#</isNotNull>
+        <isNotNull prepend="AND" property="AuditorNotes">IAH_AuditorNotes=#AuditorNotes#</isNotNull>
+        <isNotNull prepend="AND" property="UserDescription">IAH_UserDescription=#UserDescription#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUser">IAH_CreatedBy_USR_UserID=#CreateUser#</isNotNull>
+        <isNotNull prepend="AND" property="ReverseIahId">IAH_Reverse_IAH_ID=#ReverseIahId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">IAH_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseType">IAH_WarehouseType=#WarehouseType#</isNotNull>
+        <isNotNull prepend="AND" property="Rsm">IAH_RSM=#Rsm#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyType">IAH_ApplyType=#ApplyType#</isNotNull>
+        <isNotNull prepend="AND" property="RetrunReason">RetrunReason=#RetrunReason#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryAdjustHeader" parameterClass="InventoryAdjustHeader">
+      INSERT INTO InventoryAdjustHeader
+      (IAH_ID,IAH_Reason,IAH_Inv_Adj_Nbr,IAH_DMA_ID,IAH_ApprovalDate,IAH_CreatedDate,IAH_Approval_USR_UserID,IAH_AuditorNotes,IAH_UserDescription,IAH_Status,IAH_CreatedBy_USR_UserID,IAH_Reverse_IAH_ID,IAH_ProductLine_BUM_ID,IAH_WarehouseType,IAH_RSM,IAH_ApplyType,RetrunReason)
+      VALUES(#Id#,#Reason#,#InvAdjNbr#,#DmaId#,#ApprovalDate:DateTime:1/1/0001 12:00:00 AM#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#ApprovalUsrUserid#,#AuditorNotes#,#UserDescription#,#Status#,#CreateUser#,#ReverseIahId#,#ProductLineBumId#,#WarehouseType#,#Rsm#,#ApplyType#,#RetrunReason#)
+    </insert>
+
+    <insert id="ConsignInsertInventoryAdjustHeader" parameterClass="InventoryAdjustHeader">
+      INSERT INTO InventoryAdjustHeader
+      (IAH_ID,IAH_Reason,IAH_Inv_Adj_Nbr,IAH_DMA_ID,IAH_ApprovalDate,IAH_CreatedDate,IAH_Approval_USR_UserID,IAH_AuditorNotes,IAH_UserDescription,IAH_Status,IAH_CreatedBy_USR_UserID,IAH_Reverse_IAH_ID,IAH_ProductLine_BUM_ID,IAH_WarehouseType,IAH_RSM,IAH_ApplyType,RetrunReason,SaleRep)
+      VALUES(#Id#,#Reason#,#InvAdjNbr#,#DmaId#,#ApprovalDate:DateTime:1/1/0001 12:00:00 AM#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#ApprovalUsrUserid#,#AuditorNotes#,#UserDescription#,#Status#,#CreateUser#,#ReverseIahId#,#ProductLineBumId#,#WarehouseType#,#Rsm#,#ApplyType#,#RetrunReason#,#SaleRep#)
+    </insert>
+
+    <!--退货提交时也更新IAH_CreatedDate lijie edit-->
+    <update id="UpdateInventoryAdjustHeader" parameterClass="InventoryAdjustHeader">
+      UPDATE InventoryAdjustHeader
+      SET IAH_ID=#Id#,IAH_Reason=#Reason#,IAH_Inv_Adj_Nbr=#InvAdjNbr#,IAH_DMA_ID=#DmaId#,IAH_ApprovalDate=#ApprovalDate#,IAH_Approval_USR_UserID=#ApprovalUsrUserid#,IAH_AuditorNotes=#AuditorNotes#,IAH_UserDescription=#UserDescription#,IAH_Status=#Status#,IAH_Reverse_IAH_ID=#ReverseIahId#,IAH_ProductLine_BUM_ID=#ProductLineBumId#,IAH_WarehouseType=#WarehouseType#,IAH_RSM=#Rsm#,IAH_ApplyType=#ApplyType#,RetrunReason=#RetrunReason#,
+      IAH_CreatedDate=GETDATE(),SaleRep=#SaleRep#
+      WHERE IAH_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryAdjustHeader" parameterClass="string">
+      DELETE FROM InventoryAdjustHeader
+      WHERE IAH_ID = #value#
+    </delete>
+    <select id="SelectByFilterInventoryAdjustHeaderAll" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      (select top 1 DMA_ChineseName from DealerMaster where DealerMaster.DMA_ID=InventoryAdjustHeader.IAH_DMA_ID) DealerName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Reason and DICT_TYPE='CONST_AdjustQty_Type') TypeName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Status and DICT_TYPE='CONST_AdjustQty_Status') StatusName,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      IAH_Reason AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      Lafite_IDENTITY.IDENTITY_NAME AS CreateUserName,
+      IAH_Status AS Status,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      (select ISNULL(SUM(convert(decimal(18,4),InventoryAdjustDetail.IAD_Quantity)),0)
+      FROM InventoryAdjustDetail WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY IAH_CreatedDate DESC) AS row_number
+      ,IAH_UserDescription as AdjustReason
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+
+      FROM InventoryAdjustHeader
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=InventoryAdjustHeader.IAH_ProductLine_BUM_ID
+      LEFT OUTER JOIN Lafite_IDENTITY ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      WHERE IAH_WarehouseType = 'Normal'
+      AND isnull(IAH_Reason,'') not in ( 'Return','Exchange','Transfer')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr like N'%$AdjustNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          InventoryAdjustHeader.IAH_ID IN (
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM InventoryAdjustLot
+          INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE InventoryAdjustLot.IAL_QRCode =#LotNumber#
+          OR InventoryAdjustLot.IAL_Lot = #LotNumber#
+          )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <!--excel导出-->
+    <select id="InventoryAdjustListForExport" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT DISTINCT
+      (select top 1 DMA_ChineseName from DealerMaster where DealerMaster.DMA_ID=InventoryAdjustHeader.IAH_DMA_ID) '经销商名称',
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Reason and DICT_TYPE='CONST_AdjustQty_Type') '类型',
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Status and DICT_TYPE='CONST_AdjustQty_Status') '状态',
+      IAH_Inv_Adj_Nbr AS '调整编号',
+      <!--IAH_Reason AS Type,-->
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS '调整日期',
+      Lafite_IDENTITY.IDENTITY_NAME AS '创建人',
+      <!--IAH_Status AS Status,
+      ISNULL((SELECT TOP 1 IDENTITY_NAME FROM dbo.Lafite_IDENTITY
+      WHERE Id=IAH_Approval_USR_UserID),'') AS '审批人',
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS '审批日期',-->
+      dbo.View_ProductLine.ATTRIBUTE_NAME AS '产品线',
+      <!--(select ISNULL(SUM(convert(decimal(18,4),InventoryAdjustDetail.IAD_Quantity)),0)
+      FROM InventoryAdjustDetail WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS '总数量'-->
+      Warehouse.WHM_Name AS '仓库',
+	    CFN.CFN_ChineseName AS '产品中文名',
+	    CFN.CFN_EnglishName AS '产品英文名',
+	    CFN.CFN_CustomerFaceNbr AS '产品型号',
+	    InventoryAdjustLot.IAL_Lot AS '序列号/批号',
+	    InventoryAdjustLot.IAL_QRCode AS '二维码',
+	    Product.PMA_UnitOfMeasure AS '单位',
+	    InventoryAdjustLot.IAL_LotQty AS '数量',
+	    LOT_LTM_ExpiredDate AS '产品有效期'
+      ,IAH_UserDescription as '调整原因'
+      ,View_ProductLine.SubCompanyName AS '分子公司'
+      ,View_ProductLine.BrandName AS '品牌'
+      FROM InventoryAdjustHeader(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=InventoryAdjustHeader.IAH_ProductLine_BUM_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      LEFT JOIN InventoryAdjustDetail(nolock) ON InventoryAdjustDetail.IAD_IAH_ID=InventoryAdjustHeader.IAH_ID
+	    LEFT JOIN InventoryAdjustLot(nolock) ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+	    LEFT JOIN Warehouse (nolock) ON Warehouse.WHM_ID=InventoryAdjustLot.IAL_WHM_ID
+	    LEFT JOIN dbo.Lot(NOLOCK) ON Lot.LOT_ID=InventoryAdjustLot.IAL_LOT_ID
+	    LEFT JOIN dbo.CFN (NOLOCK) ON Lot.LOT_CFN_ID=CFN.CFN_ID
+	    LEFT JOIN dbo.Product (NOLOCK) ON Product.PMA_ID=InventoryAdjustDetail.IAD_PMA_ID
+      WHERE IAH_WarehouseType = 'Normal'
+      AND isnull(IAH_Reason,'') not in ( 'Return','Exchange','Transfer')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr like N'%$AdjustNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          InventoryAdjustHeader.IAH_ID IN (
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM InventoryAdjustLot
+          INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE InventoryAdjustLot.IAL_QRCode =#LotNumber#
+          OR InventoryAdjustLot.IAL_Lot = #LotNumber#
+          )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustHeaderAudit" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      IAH_Reason AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      IAH_Status AS Status,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      (select ISNULL(SUM(InventoryAdjustDetail.IAD_Quantity),0)
+      FROM InventoryAdjustDetail WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY InventoryAdjustHeader.IAH_ID ASC) AS row_number
+      FROM InventoryAdjustHeader
+      WHERE IAH_Reason IN ('Return','Sample')
+      AND IAH_Status IN ('Cancelled','Reject','Submitted','Accept')
+      <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+      <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+      <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr=#AdjustNumber#</isNotNull>
+      <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+      <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+        )
+
+      </isEqual>
+    </select>
+    <select id="SelectByFilterInventoryAdjustHeaderForLPHQ" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      (select top 1 DMA_ChineseName from DealerMaster where DealerMaster.DMA_ID=InventoryAdjustHeader.IAH_DMA_ID) DealerName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Reason and DICT_TYPE='Consignment_ContractHeader_Status') TypeName,
+      (select top 1 VALUE1 from Lafite_DICT where Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Status and DICT_TYPE='CONST_AdjustQty_Status') StatusName,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      IAH_Reason AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      Lafite_IDENTITY.IDENTITY_NAME AS CreateUserName,
+      IAH_Status AS Status,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      (select ISNULL(SUM(InventoryAdjustDetail.IAD_Quantity),0)
+      FROM InventoryAdjustDetail WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY IAH_CreatedDate DESC ) AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+
+      FROM InventoryAdjustHeader
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=InventoryAdjustHeader.IAH_ProductLine_BUM_ID
+      LEFT OUTER JOIN Lafite_IDENTITY ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      WHERE IAH_WarehouseType = 'Consignment'
+      AND IAH_Reason not in ( 'Return','Exchange','Transfer')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr like N'%$AdjustNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          InventoryAdjustHeader.IAH_ID IN (
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM InventoryAdjustLot
+          INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE InventoryAdjustLot.IAL_QRCode =#LotNumber#
+          OR InventoryAdjustLot.IAL_Lot = #LotNumber#
+          )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+          and DMA_ID = IAH_DMA_ID)
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustHeaderReturn" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      IAH_Reason AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      Lafite_IDENTITY.IDENTITY_NAME AS CreateUserName,
+      IAH_Status AS Status,
+      case when InventoryAdjustHeader.IAH_WarehouseType = 'Normal' then '批发' else '寄售' end AS IsConsignment,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      (select ATTRIBUTE_NAME from View_ProductLine where ATTRIBUTE_TYPE='Product_Line' and Id=IAH_ProductLine_BUM_ID) AS ProductLineName,
+      IAH_UserDescription AS Remark,
+      (select ISNULL(SUM(InventoryAdjustLot.IAL_LotQty),0)
+      FROM InventoryAdjustDetail,InventoryAdjustLot WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID
+      and IAD_ID = IAL_IAD_ID) AS TotalQyt,
+      IAH_WarehouseType AS IAH_WarehouseType,
+      row_number() OVER (ORDER BY IAH_CreatedDate DESC ) AS row_number
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM InventoryAdjustHeader(nolock)
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=InventoryAdjustHeader.IAH_ProductLine_BUM_ID
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID = IAH_DMA_ID
+      WHERE IAH_Reason in( 'Return','Exchange','Transfer','ZLReturn')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr like N'%$AdjustNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          InventoryAdjustHeader.IAH_ID IN (
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM InventoryAdjustLot
+          INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE InventoryAdjustLot.IAL_QRCode =#LotNumber#
+          OR InventoryAdjustLot.IAL_Lot = #LotNumber#
+          )
+        </isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster(nolock) AS DM WHERE ((DM.dma_parent_dma_id = #LPId# AND InventoryAdjustHeader.IAH_Status not in ('Draft')) OR DM.DMA_ID = #LPId#) AND InventoryAdjustHeader.IAH_DMA_ID=DM.DMA_ID )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustHeaderReturnAudit" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      IAH_Reason AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      Lafite_IDENTITY.IDENTITY_NAME AS CreateUserName,
+      IAH_Status AS Status,
+      case when InventoryAdjustHeader.IAH_WarehouseType = 'Normal' then '批发' else '寄售' end AS IsConsignment,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      (select ATTRIBUTE_NAME from View_ProductLine where ATTRIBUTE_TYPE='Product_Line' and Id=IAH_ProductLine_BUM_ID) AS ProductLineName,
+      IAH_UserDescription AS Remark,
+      (select ISNULL(SUM(InventoryAdjustDetail.IAD_Quantity),0)
+      FROM InventoryAdjustDetail WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY IAH_CreatedDate DESC) AS row_number
+      FROM InventoryAdjustHeader
+      LEFT OUTER JOIN Lafite_IDENTITY ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      WHERE IAH_Reason in ('Return','Exchange','Transfer')
+      AND IAH_Status in ('Reject','Submitted','Accept')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr like N'%$AdjustNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM
+          InventoryAdjustLot INNER JOIN
+          InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE     (InventoryAdjustLot.IAL_LotNumber like N'%'+#LotNumber#+'%' or InventoryAdjustLot.IAL_QRLotNumber  like N'%'+#LotNumber#+'%')))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+          and DMA_ID = IAH_DMA_ID)
+          <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterForExport" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      DMA_ChineseName AS N'经销商',
+      IAH_Inv_Adj_Nbr AS N'退货单号',
+      case when head.IAH_Reason = 'Return' then '退货' when head.IAH_Reason = 'Exchange' then '换货' else '转移给其他经销商' end AS N'退货类型',
+      case when head.IAH_WarehouseType = 'Normal' then '批发' else '寄售' end AS N'物权类型',
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS N'退货日期',
+      Lafite_IDENTITY.IDENTITY_NAME AS N'退货人',
+      D.VALUE1 AS N'状态',
+      IAH_UserDescription N'退货原因',
+      IAH_AuditorNotes N'审批意见',
+      ATTRIBUTE_NAME as N'产品线',
+      Warehouse.WHM_Name N'仓库',
+      (select VALUE1 from Lafite_DICT where DICT_TYPE='MS_WarehouseType' and DICT_KEY=Warehouse.WHM_Type)  N'仓库类型',
+      Product.PMA_UPN AS N'产品型号',
+      V_LotMaster.LTM_LotNumber  AS   N'产品序列号/批号',
+      V_LotMaster.LTM_QrCode AS  N'二维码',
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), ISNULL(V_LotMaster.LTM_ExpiredDate, ajlot.IAL_ExpiredDate), 112) else CONVERT(varchar(100), ISNULL(V_LotMaster.LTM_ExpiredDate, ajlot.IAL_ExpiredDate), 112) END AS N'有效期',
+      V_LotMaster.LTM_Type AS N'生产日期',
+      Product.PMA_UnitOfMeasure AS N'单位',
+      ajlot.IAL_LotQty AS N'数量',
+      ajlot.IAL_UnitPrice AS N'价格',
+      (select max(Convert(nvarchar(10),POL_OperDate,20)+' '+Convert(nvarchar(10),POL_OperDate,08)) from  PurchaseOrderlog where POL_POH_ID=head.IAH_ID and POL_OperType='Approve') AS N'审批通过时间',
+      CASE WHEN V_LotMaster.LTM_Type = '' or V_LotMaster.LTM_Type is null
+      then
+      (select top 1 t1.REG_NO
+      from MD.V_INF_UPN_REG_LIST t1,
+      (
+      select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_TO) As ValidDateTo from MD.V_INF_UPN_REG_LIST REG_NO where REG_NO.VALID_DATE_TO is not null and Reg_No.CFN_CustomerFaceNbr = cfn.CFN_CustomerFaceNbr  group by REG_NO.CFN_CustomerFaceNbr
+      ) t2
+      where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_TO =t2.ValidDateTo and t1.CFN_CustomerFaceNbr =cfn.CFN_CustomerFaceNbr)
+      ELSE (select top 1 t1.REG_NO
+      from MD.V_INF_UPN_REG_LIST t1, (
+      select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_From ) as ValidDateFrom from MD.V_INF_UPN_REG_LIST REG_NO
+      where REG_NO.VALID_DATE_TO is not null
+      and Reg_No.CFN_CustomerFaceNbr = cfn.CFN_CustomerFaceNbr
+      and convert(datetime,V_LotMaster.LTM_Type) &lt;= REG_NO.VALID_DATE_TO
+      and convert(datetime,V_LotMaster.LTM_Type) >= REG_NO.VALID_DATE_FROM
+      group by REG_NO.CFN_CustomerFaceNbr
+      ) t2 where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_From =t2.ValidDateFrom
+      and t1.CFN_CustomerFaceNbr=cfn.CFN_CustomerFaceNbr)
+      END AS N'注册证',
+      CASE WHEN V_LotMaster.LTM_Type = '' or V_LotMaster.LTM_Type is null
+      then
+      (select top  1 t1.MANU_NAME
+      from MD.V_INF_UPN_REG_LIST t1,
+      (
+      select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_From) As ValidDateFrom from MD.V_INF_UPN_REG_LIST REG_NO where REG_NO.VALID_DATE_TO is not null and Reg_No.CFN_CustomerFaceNbr = cfn.CFN_CustomerFaceNbr  group by REG_NO.CFN_CustomerFaceNbr
+      ) t2
+      where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_From =t2.ValidDateFrom and t1.CFN_CustomerFaceNbr =cfn.CFN_CustomerFaceNbr)
+      ELSE (select top 1 t1.MANU_NAME
+      from MD.V_INF_UPN_REG_LIST t1, (
+      select REG_NO.CFN_CustomerFaceNbr , max(REG_NO.VALID_DATE_TO ) as ValidDateTo from MD.V_INF_UPN_REG_LIST REG_NO
+      where REG_NO.VALID_DATE_TO is not null
+      and Reg_No.CFN_CustomerFaceNbr = cfn.CFN_CustomerFaceNbr
+      and convert(datetime,V_LotMaster.LTM_Type) &lt;= REG_NO.VALID_DATE_TO
+      and convert(datetime,V_LotMaster.LTM_Type) >= REG_NO.VALID_DATE_FROM
+      group by REG_NO.CFN_CustomerFaceNbr
+      ) t2 where t1.CFN_CustomerFaceNbr=t2.CFN_CustomerFaceNbr and t1.VALID_DATE_TO =t2.ValidDateTo
+      and t1.CFN_CustomerFaceNbr=cfn.CFN_CustomerFaceNbr)
+      END AS N'生产厂商'
+      ,F.VALUE1 AS N'类型'
+      ,g.VALUE1 AS N'原因'
+      FROM InventoryAdjustHeader head(nolock)
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = head.IAH_CreatedBy_USR_UserID
+      left join InventoryAdjustDetail detail(nolock) on detail.IAD_IAH_ID=head.IAH_ID
+      left join InventoryAdjustLot ajlot(nolock) on ajlot.IAL_IAD_ID = detail.IAD_ID
+      left JOIN Product(nolock) ON detail.IAD_PMA_ID = Product.PMA_ID
+      left JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      left join DealerMaster(nolock) on head.IAH_DMA_ID=DMA_ID
+      left  JOIN Warehouse(nolock) ON ajlot.IAL_WHM_ID = Warehouse.WHM_ID
+      LEFT OUTER JOIN Lot(nolock) ON ajlot.IAL_LOT_ID = Lot.LOT_ID
+      LEFT OUTER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      left join View_ProductLine v on v.Id=CFN.CFN_ProductLine_BUM_ID
+      left join Lafite_DICT d(nolock) on d.DICT_KEY=IAH_Status and d.DICT_TYPE= 'CONST_AdjustQty_Status'
+      left join Lafite_DICT f(nolock) on f.DICT_KEY=IAH_ApplyType and f.DICT_TYPE= 'CONST_AdjustRenturn_Type'
+      left join Lafite_DICT g(nolock) on g.DICT_KEY=RetrunReason and g.DICT_TYPE= 'CONST_AdjustRenturn_Reason'
+
+      WHERE IAH_Reason in ('Return','Exchange','Transfer')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">v.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">v.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr=#AdjustNumber#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (head.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail(nolock) INNER JOIN
+          Product(nolock) ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (head.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail(nolock) INNER JOIN
+          Product(nolock) ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (head.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM
+          InventoryAdjustLot(nolock) INNER JOIN
+          InventoryAdjustDetail(nolock) ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE     (InventoryAdjustLot.IAL_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster(nolock) AS DM WHERE ((DM.dma_parent_dma_id = #LPId# AND head.IAH_Status not in ('Draft')) OR DM.DMA_ID = #LPId#) AND head.IAH_DMA_ID=DM.DMA_ID )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = head.IAH_DMA_ID AND SD.BUM_ID = head.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD(nolock) WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = head.IAH_DMA_ID AND SD.BUM_ID = head.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+      </dynamic>
+      ORDER BY IAH_CreatedDate DESC
+    </select>
+
+    <select id="SelectByFilterForAdjustAuditExport" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      DMA_ChineseName AS N'经销商',
+      IAH_Inv_Adj_Nbr AS N'退货单号',
+      case when head.IAH_Reason = 'Return' then '退货' else '换货' end AS N'退货类型',
+      case when head.IAH_WarehouseType = 'Normal' then '批发' else '寄售' end AS N'物权类型',
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS N'退货日期',
+      Lafite_IDENTITY.IDENTITY_NAME AS N'退货人',
+      VALUE1 AS N'状态',
+      IAH_UserDescription N'退货原因',
+      IAH_AuditorNotes N'审批意见',
+      ATTRIBUTE_NAME as N'产品线',
+      Warehouse.WHM_Name N'仓库',
+      (select VALUE1 from Lafite_DICT(nolock) where DICT_TYPE='MS_WarehouseType' and DICT_KEY=Warehouse.WHM_Type)  N'仓库类型',
+      Product.PMA_UPN AS N'产品型号',
+      V_LotMaster.LTM_LotNumber AS  N'产品序列号/批号',
+      V_LotMaster.LTM_QrCOde AS N'二维码',
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), ISNULL(V_LotMaster.LTM_ExpiredDate, ajlot.IAL_ExpiredDate), 112) else CONVERT(varchar(100), ISNULL(V_LotMaster.LTM_ExpiredDate, ajlot.IAL_ExpiredDate), 112) END AS N'有效期',
+      Product.PMA_UnitOfMeasure AS N'单位',
+      ajlot.IAL_LotQty AS N'数量',
+      (select max(Convert(nvarchar(10),POL_OperDate,20)+' '+Convert(nvarchar(10),POL_OperDate,08)) from  PurchaseOrderlog(nolock) where POL_POH_ID=head.IAH_ID and POL_OperType='Approve') AS N'审批通过时间'
+      FROM InventoryAdjustHeader head(nolock)
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = head.IAH_CreatedBy_USR_UserID
+      left join InventoryAdjustDetail detail(nolock) on detail.IAD_IAH_ID=head.IAH_ID
+      left join InventoryAdjustLot ajlot(nolock) on ajlot.IAL_IAD_ID = detail.IAD_ID
+      left JOIN Product(nolock) ON detail.IAD_PMA_ID = Product.PMA_ID
+      left JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      left join DealerMaster(nolock) on head.IAH_DMA_ID=DMA_ID
+      left JOIN Warehouse(nolock) ON ajlot.IAL_WHM_ID = Warehouse.WHM_ID
+      LEFT OUTER JOIN Lot(nolock) ON ajlot.IAL_LOT_ID = Lot.LOT_ID
+      LEFT OUTER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      left join View_ProductLine v on v.Id=CFN.CFN_ProductLine_BUM_ID
+      left join Lafite_DICT d(nolock) on d.DICT_KEY=IAH_Status and DICT_TYPE= 'CONST_AdjustQty_Status'
+      WHERE IAH_Reason in ('Return','Exchange')
+      AND IAH_Status in ('Reject','Submitted','Accept')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">v.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">v.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr=#AdjustNumber#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (head.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (head.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (head.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM
+          InventoryAdjustLot INNER JOIN
+          InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE     (InventoryAdjustLot.IAL_LotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = head.IAH_DMA_ID AND SD.BUM_ID = head.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = head.IAH_DMA_ID AND SD.BUM_ID = head.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #OwnerCorpId#
+          and DMA_ID = IAH_DMA_ID)
+          <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        </isEqual>
+      </dynamic>
+      ORDER BY IAH_CreatedDate DESC
+    </select>
+
+    <select id="SelectByFilterInventoryAdjustHeaderCTOS" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      SELECT
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      IAH_Reason AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      Lafite_IDENTITY.IDENTITY_NAME AS CreateUserName,
+      IAH_Status AS Status,
+      case when InventoryAdjustHeader.IAH_WarehouseType = 'Normal' then '批发' else '寄售' end AS IsConsignment,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      (select ATTRIBUTE_NAME from View_ProductLine where ATTRIBUTE_TYPE='Product_Line' and Id=IAH_ProductLine_BUM_ID) AS ProductLineName,
+      IAH_UserDescription AS Remark,
+      (select ISNULL(SUM(InventoryAdjustDetail.IAD_Quantity),0)
+      FROM InventoryAdjustDetail WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY IAH_CreatedDate DESC ) AS row_number
+      FROM InventoryAdjustHeader(nolock)
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID = IAH_DMA_ID
+      WHERE IAH_Reason = 'CTOS'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLine">IAH_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">IAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Type">IAH_Reason=#Type#</isNotNull>
+        <isNotNull prepend="AND" property="Status">IAH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustNumber">IAH_Inv_Adj_Nbr like N'%$AdjustNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateStart">CONVERT(varchar(100), IAH_CreatedDate, 112)>=#CreateDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDateEnd">CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;=#CreateDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+          WHERE (CFN.CFN_CustomerFaceNbr like N'%$Cfn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="Upn">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+          Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+          WHERE (Product.PMA_UPN  like N'%$Upn$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">
+          (InventoryAdjustHeader.IAH_ID IN(
+          SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+          FROM
+          InventoryAdjustLot INNER JOIN
+          InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+          WHERE     (InventoryAdjustLot.IAL_LotNumber like N'%$LotNumber$%' or InventoryAdjustLot.IAL_QRLotNumber like N'%$LotNumber$%')))
+        </isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE ((DM.dma_parent_dma_id = #LPId# AND InventoryAdjustHeader.IAH_Status not in ('Draft')) OR DM.DMA_ID = #LPId#) AND InventoryAdjustHeader.IAH_DMA_ID=DM.DMA_ID )
+        </isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = InventoryAdjustHeader.IAH_DMA_ID AND SD.BUM_ID = InventoryAdjustHeader.IAH_ProductLine_BUM_ID)
+          )
+
+        </isEqual>
+      </dynamic>
+    </select>
+
+    <select id="SelectIsOtherStockInAvailable" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustHeader">
+      select dbo.GC_Fn_InvAdjust_CheckUserAuth(#UserId#)
+
+    </select>
+
+    <select id="GetConsignmentOrderByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select distinct CAH_ID as Id,CAH_OrderNo as PurchaseOrderNbr
+      from dbo.ConsignmentApplyHeader,PurchaseOrderDetail,PurchaseOrderHeader,POReceiptHeader,POReceipt,POReceiptLot,CFN CFN1,LotMaster,Lot
+      where CAH_OrderNo = POD_ShipmentNbr
+      and POD_POH_ID = POH_ID
+      and POH_OrderNo = PRH_PurchaseOrderNbr
+      and PRH_ID = POR_PRH_ID
+      and POR_ID = PRL_POR_ID
+      and POD_CFN_ID = CFN1.CFN_ID
+      and PRL_LotNumber = LTM_LotNumber
+      and LTM_ID = LOT_LTM_ID
+      AND CAH_OrderStatus = 'Approved'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ProductLineId">CAH_ProductLine_ID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">CAH_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">PRL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">POR_SAP_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CFN">exists (select 1 from CFN CFN2 where CFN1.CFN_Property1 = CFN2.CFN_Property1 and CFN2.CFN_CustomerFaceNbr=#CFN#)</isNotNull>
+        <isNotNull prepend="AND" property="LotId">LOT_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectT_I_QV_SalesRepDealerByProductLine" parameterClass="System.Collections.Hashtable"  resultClass="System.Data.DataSet">
+      <!--select It.* from  interface.T_I_QV_SalesRepDealer It inner join V_DivisionProductLineRelation
+      on It.DivisionID=V_DivisionProductLineRelation.DivisionCode 
+      and CONVERT(nvarchar(50),It.DivisionID)=18-->
+
+      <!--SELECT DISTINCT It.DivisionID,It.Division,(It.Name + ',' + REPLACE(Email,'@bsci.com',''))AS Name,It.JobTitle,It.Email,It.Mobile,It.UserAccount,REPLACE(Email,'@bsci.com','') AS UserCode
+      FROM interface.T_I_QV_SalesRepDealer It INNER JOIN V_DivisionProductLineRelation
+      ON It.DivisionID = V_DivisionProductLineRelation.DivisionCode
+      <isNotNull prepend="AND" property="ProductLineId">V_DivisionProductLineRelation.ProductLineID=#ProductLineId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerCode">CONVERT(NVARCHAR(50),It.DealerCode)=#DealerCode#</isNotNull>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerID">EXISTS(SELECT 1 FROM DealerMaster AS DM(nolock) WHERE It.DealerCode = DM.DMA_SAP_CODE AND DM.DMA_ID = #DealerID#)</isNotNull>
+      </dynamic>-->
+
+      SELECT a.IDENTITY_CODE AS UserCode ,a.IDENTITY_NAME  AS Name,DealerID,BUM_ID FROM dbo.Lafite_IDENTITY a  INNER JOIN  dbo.View_SalesOfDealer b
+      ON a.Id=b.SalesID
+      WHERE  b.BUM_ID=#ProductLineId#
+      <isNotNull prepend="AND" property="DealerID">b.DealerID = #DealerID#</isNotNull>
+    </select>
+    <select id="SelectT_I_QV_SalesRepByProductLine" parameterClass="System.Collections.Hashtable"  resultClass="System.Data.DataSet">
+      SELECT DISTINCT It.DivisionID,It.Division,(It.Name + ',' + REPLACE(Email,'@bsci.com',''))AS Name,
+      It.JobTitle,It.Email,It.Mobile,It.UserAccount,REPLACE(Email,'@bsci.com','') AS UserCode,
+      It.Region,It.ParentUser,It.ParentUserAccount,It.FullName
+      FROM interface.T_I_QV_SalesRep It inner join V_DivisionProductLineRelation
+      on It.DivisionID=V_DivisionProductLineRelation.DivisionCode
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLineId">V_DivisionProductLineRelation.ProductLineID=#ProductLineId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="GetInventoryAdjustByIdPrint" parameterClass="string" resultClass="InventoryAdjustHeader">
+      SELECT IAH_ID AS Id,IAH_Reason AS Reason,IAH_Inv_Adj_Nbr AS InvAdjNbr,IAH_DMA_ID AS DmaId,IAH_ApprovalDate AS ApprovalDate,IAH_CreatedDate AS CreateDate,IAH_Approval_USR_UserID AS ApprovalUsrUserid,IAH_AuditorNotes AS AuditorNotes,IAH_UserDescription AS UserDescription,IAH_Status AS Status,IAH_CreatedBy_USR_UserID AS CreateUser,IAH_Reverse_IAH_ID AS ReverseIahId,IAH_ProductLine_BUM_ID AS ProductLineBumId,IAH_WarehouseType AS WarehouseType,IAH_RSM AS Rsm,B.VALUE1 AS ApplyType,C.VALUE1 AS RetrunReason
+      FROM InventoryAdjustHeader LEFT JOIN Lafite_DICT B on InventoryAdjustHeader.IAH_ApplyType=B.DICT_KEY
+      AND B.DICT_TYPE='CONST_AdjustRenturn_Type'
+      LEFT JOIN Lafite_DICT C ON InventoryAdjustHeader.RetrunReason=C.DICT_KEY  AND C.DICT_TYPE='CONST_AdjustRenturn_Type'
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IAH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <procedure id="GC_ReturnAdjustSubmit_Before" parameterMap="ReturnAdjustBeforeSubmitParameterMap">
+      dbo.GC_ReturnAdjustSubmit_Before
+    </procedure>
+
+    <procedure id="GC_UpdateAdjustCfnPrice" parameterMap="UpdateAdjustCfnPriceParameterMap">
+      dbo.GC_UpdateAdjustCfnPrice
+    </procedure>
+
+    <!--Added By Song Yuqi On 2017-08-24 For 普通退换货对接EKP Begin-->
+    <select id="GetInventoryReturnForEkpFormDataById" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT ISNULL(IAH_Inv_Adj_Nbr,'') +  ' '+
+      ISNULL((SELECT VALUE1 FROM Lafite_DICT WHERE DICT_TYPE = 'CONST_AdjustRenturn_Type' AND DICT_KEY = IAH_ApplyType),'')
+      + DivisionName + ' 退货' AS docSubject FROM InventoryAdjustHeader
+      INNER JOIN V_DivisionProductLineRelation ON ProductLineID = IAH_ProductLine_BUM_ID
+      WHERE IAH_ID = #value#
+    </select>
+    <!--Added By Song Yuqi On 2017-08-24 For 普通退换货对接EKP End-->
+  </statements>
+</sqlMap>

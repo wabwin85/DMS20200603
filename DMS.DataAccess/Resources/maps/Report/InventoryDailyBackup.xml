@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryDailyBackupMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <!--经销商历史库存明细报表-->
+    <select id="SelectDealerInventoryHistoryReport" parameterClass="System.Collections.Hashtable">
+      SELECT
+      CFN.CFN_ChineseName AS CFNChineseName,
+      DealerMaster.DMA_DealerType AS DealerType,
+      (select DMA_ChineseName from dealermaster DM(nolock) where DM.dma_id=dealermaster.DMA_Parent_DMA_ID) AS ParentDealer,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      CFN.CFN_Implant AS Implant,
+      Lafite_ATTRIBUTE.ATTRIBUTE_NAME AS ProductLineName,
+      Product.PMA_UPN AS Upn,
+      Product.PMA_Name AS ProductName,
+      Warehouse.WHM_Name AS WarehouseName,
+      CASE WHEN charindex('@@',LotMaster.LTM_LotNumber) > 0
+      THEN substring(LotMaster.LTM_LotNumber,1,charindex('@@',LotMaster.LTM_LotNumber)-1)
+      ELSE LotMaster.LTM_LotNumber
+      END AS LotNumber,
+      CASE WHEN charindex('@@',LotMaster.LTM_LotNumber) > 0
+      THEN substring(LotMaster.LTM_LotNumber,charindex('@@',LotMaster.LTM_LotNumber)+2,len(LotMaster.LTM_LotNumber))
+      ELSE ''
+      END AS QRCode,
+      LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Convert(decimal(18,2),LotDY.LOT_OnHandQty) AS OnHandQty,
+      Inv.INV_OnHandQuantity AS OnHandQuantity,
+      LotDY.LOT_ID AS Lotid, Inv.INV_ID AS Invid,
+      Inv.INV_WHM_ID AS WhmId,
+      Inv.INV_PMA_ID AS PmaId,
+      LotDY.LOT_LTM_ID AS LtmId,
+      CAST(Product.PMA_SAPUnitPrice AS REAL) AS SapUnitPrice,
+      Warehouse.WHM_DMA_ID AS DealerId,
+      DealerMaster.DMA_ChineseName AS DealerName,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      (select Lafite_DICT.VALUE1 from Lafite_DICT(nolock) where Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type) AS WhmType,
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END) AS ExpiredDateString,
+      CONVERT(varchar(100), Inv.INV_BAK_DATE, 112) AS INV_BAK_DATE
+      FROM interface.InventoryDailyBackup  Inv(nolock)
+      INNER JOIN interface.LotDailyBackup LotDY(nolock) ON Inv.INV_ID = LotDY.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON LotDY.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(nolock) ON Inv.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inv.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Lafite_ATTRIBUTE(nolock) ON CFN.CFN_ProductLine_BUM_ID = Lafite_ATTRIBUTE.Id
+      INNER JOIN  DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN View_ProductLine(nolock) ON View_ProductLine.id = CFN.CFN_ProductLine_BUM_ID
+      WHERE  (LotDY.LOT_OnHandQty &lt;> 0)
+      AND ((#DealerType#='LP' AND (DealerMaster.DMA_Parent_DMA_ID=#CorpId# OR DealerMaster.DMA_ID=#CorpId#))
+      OR (#DealerType#='DEALER' AND DealerMaster.DMA_ID=#CorpId#)
+      OR (#DealerType#='USER' AND EXISTS
+      (
+      SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock) , Cache_SalesOfDealer SD(nolock)
+      WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+      AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID
+      AND OU.AttributeId &lt;> OU.RootId
+      AND OU.RootID IN (select MAP_ID from Lafite_IDENTITY_MAP OM(nolock) where OM.MAP_TYPE='Organization'  AND OM.IDENTITY_ID = #UserId#)
+      )
+      OR
+      EXISTS
+      (
+      SELECT 1 from Cache_SalesOfDealer SD(nolock)
+      WHERE SD.SalesID = #UserId#
+      AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID
+      )))
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Dealer">DealerMaster.DMA_ID = #Dealer#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">Inv.INV_BAK_DATE >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">LotDY.LOT_BAK_DATE >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">Inv.INV_BAK_DATE &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">LotDY.LOT_BAK_DATE &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+      </dynamic>
+      ORDER BY DMA_ChineseName, WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber
+    </select>
+
+    <select id="ExportDealerInventoryHistoryReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      DealerMaster.DMA_ChineseName AS '经销商名称',
+      DealerMaster.DMA_DealerType AS '经销商类型',
+      (select DMA_ChineseName from dealermaster DM(nolock) where DM.dma_id=dealermaster.DMA_Parent_DMA_ID) AS '上级经销商',
+      Warehouse.WHM_Name AS '仓库',
+      (select Lafite_DICT.VALUE1 from Lafite_DICT(nolock) where Lafite_DICT.DICT_TYPE='MS_WarehouseType' and Lafite_DICT.DICT_KEY = Warehouse.WHM_Type) AS '仓库类型',
+      Lafite_ATTRIBUTE.ATTRIBUTE_NAME AS '产品线',
+      CFN.CFN_CustomerFaceNbr AS '产品型号',
+      CFN.CFN_ChineseName AS '产品中文名称',
+      CFN.CFN_EnglishName AS '产品英文名称',
+      CASE WHEN charindex('@@',LotMaster.LTM_LotNumber) > 0
+      THEN substring(LotMaster.LTM_LotNumber,1,charindex('@@',LotMaster.LTM_LotNumber)-1)
+      ELSE LotMaster.LTM_LotNumber
+      END AS '序列号',
+      CASE WHEN charindex('@@',LotMaster.LTM_LotNumber) > 0
+      THEN substring(LotMaster.LTM_LotNumber,charindex('@@',LotMaster.LTM_LotNumber)+2,len(LotMaster.LTM_LotNumber))
+      ELSE ''
+      END AS '二维码',
+      (CASE WHEN CFN.CFN_Property6 = '0' THEN CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) ELSE CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END) AS '有效期',
+      Product.PMA_UnitOfMeasure AS '单位',
+      Convert(decimal(18,2),LotDY.LOT_OnHandQty) AS '库存数量',
+      CONVERT(varchar(100), Inv.INV_BAK_DATE, 112) AS '库存日期'
+      FROM interface.InventoryDailyBackup  Inv(nolock)
+      INNER JOIN interface.LotDailyBackup LotDY(nolock) ON Inv.INV_ID = LotDY.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON LotDY.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Warehouse(nolock) ON Inv.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Product(nolock) ON Inv.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Lafite_ATTRIBUTE(nolock) ON CFN.CFN_ProductLine_BUM_ID = Lafite_ATTRIBUTE.Id
+      INNER JOIN  DealerMaster(nolock) ON Warehouse.WHM_DMA_ID = DealerMaster.DMA_ID
+      INNER JOIN View_ProductLine(nolock) ON View_ProductLine.id = CFN.CFN_ProductLine_BUM_ID
+      WHERE  (LotDY.LOT_OnHandQty &lt;> 0)
+      AND ((#DealerType#='LP' AND (DealerMaster.DMA_Parent_DMA_ID=#CorpId# OR DealerMaster.DMA_ID=#CorpId#))
+      OR (#DealerType#='DEALER' AND DealerMaster.DMA_ID=#CorpId#)
+      OR (#DealerType#='USER' AND EXISTS
+      (
+      SELECT 1 FROM Cache_OrganizationUnits OU(nolock), Lafite_IDENTITY_MAP IM(nolock), Cache_SalesOfDealer SD(nolock)
+      WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+      AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID
+      AND OU.AttributeId &lt;> OU.RootId
+      AND OU.RootID IN (select MAP_ID from Lafite_IDENTITY_MAP OM(nolock) where OM.MAP_TYPE='Organization'  AND OM.IDENTITY_ID = #UserId#)
+      )
+      OR
+      EXISTS
+      (
+      SELECT 1 from Cache_SalesOfDealer SD(nolock)
+      WHERE SD.SalesID = #UserId#
+      AND SD.DealerID = Warehouse.WHM_DMA_ID AND SD.BUM_ID = CFN.CFN_ProductLine_BUM_ID
+      )))
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="Dealer">DealerMaster.DMA_ID = #Dealer#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">Inv.INV_BAK_DATE >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">LotDY.LOT_BAK_DATE >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">Inv.INV_BAK_DATE &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">LotDY.LOT_BAK_DATE &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+      </dynamic>
+      ORDER BY DMA_ChineseName, WHM_Name, CFN_CustomerFaceNbr, PMA_UPN, LTM_LotNumber
+    </select>
+    <!--End 经销商历史库存明细报表-->
+  
+  </statements>
+</sqlMap>

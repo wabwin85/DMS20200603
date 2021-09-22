@@ -1,0 +1,240 @@
+﻿body {
+    height: auto;
+    font-size: 12px;
+}
+
+.inline {
+    margin-right: 5px;
+    float: left;
+}
+
+select {
+    font-size: 14px;
+}
+
+.calander {
+    border: 2px solid #7b9ebd;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 11pt;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.right {
+    text-align: right !important;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.size-64 {
+    font-size: 64px !important;
+}
+
+.size-24 {
+    font-size: 24px !important;
+}
+
+.size-16 {
+    font-size: 16px !important;
+}
+
+.size-14 {
+    font-size: 14px !important;
+}
+
+a[title=上一页] {
+    border-right: 1px solid #ccc !important;
+}
+
+.table-info .td-info {
+    padding: 2px 4px 2px 4px;
+}
+
+.panelBorder {
+    border: solid 1px #cdcdcd;
+    border-top: solid 2px #003b6f;
+    padding: 0px;
+    margin: 5px;
+}
+
+.panelTitle {
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: solid 1px #cdcdcd;
+}
+
+.weui_mask_transparent {
+    opacity: .2;
+    background-color: #000;
+}
+
+td[role=gridcell] {
+    border-bottom: 1px solid #ccc;
+}
+
+.bootbox {
+    z-index: 20000;
+}
+
+.modal-backdrop {
+    z-index: 19999;
+}
+
+.content-main {
+    height: -moz-calc(100% - 41px);
+    height: -webkit-calc(100% - 41px);
+    height: calc(100% - 41px);
+}
+
+.bsc-blue {
+    color: #003b6f;
+}
+
+.red {
+    color: #dd5a43;
+}
+
+.white {
+    color: #FFFFFF;
+}
+
+.content-row {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.fa-require:before {
+    content: "|";
+    color: #dd5a43;
+    font-weight: bold;
+}
+
+.fa-blank:before {
+    content: " ";
+    font-weight: bold;
+}
+
+.k-tabstrip:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.k-tabstrip > .k-tabstrip-items > .k-state-active {
+    border-top-color: #003b6f;
+    border-bottom: 2px solid #fff;
+    border-left: solid 1px #003b6f;
+    border-right: solid 1px #003b6f;
+    opacity: 1;
+}
+
+.k-tabstrip-items {
+    border-bottom: solid 2px #003b6f;
+}
+
+    .k-tabstrip-items > .k-item:first-child {
+        margin-left: 10px;
+    }
+
+    .k-tabstrip-items > .k-state-default > .k-link {
+        color: #003b6f;
+    }
+
+    .k-tabstrip-items > .k-state-active > .k-link {
+        color: #333;
+    }
+
+.k-tabstrip > .k-content {
+    border: 0;
+}
+
+.k-grid-header-wrap {
+    border-color: #a3d0e4;
+}
+
+.k-grid-header {
+    border-color: #a3d0e4;
+    background-color: #d9ecf5;
+}
+
+    .k-grid-header th.k-header {
+        border-color: #a3d0e4;
+        background-color: #d9ecf5;
+    }
+
+.k-grid tr td {
+    border-color: #bbdceb;
+}
+
+.k-grid tr:hover {
+    background-color: #7ad2f7;
+}
+
+.k-alt {
+    background-color: #e6f2f8;
+}
+
+.panel-body {
+    padding: 5px;
+}
+
+.KendoTable tr td {
+    height: 30px;
+    /*border-bottom: dashed 1px #cdcdcd;*/
+    vertical-align: middle;
+    padding: 2px 15px 2px 15px;
+}
+
+.KendoTable tr:last-child td {
+    border-bottom: 0px;
+}
+
+.KendoButton {
+    background-color: #003b6f;
+    border-color: #003b6f;
+    color: #FFFFFF;
+    /*padding-right: 10px;*/
+}
+
+    .KendoButton:hover {
+        background-color: #337ab7;
+        color: #FFFFFF;
+    }
+
+.k-switch {
+    border: none;
+}
+
+.FooterBar {
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    position: fixed;
+    bottom: 0px;
+    background-color: #f5f5f5;
+    border-top: solid 1px #ccc;
+}
+
+.bootbox-body {
+    overflow: auto;
+    max-height: 400px;
+}

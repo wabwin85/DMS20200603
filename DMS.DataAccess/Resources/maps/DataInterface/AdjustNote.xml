@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AdjustNoteMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AdjustNote" assembly="DMS.Model.dll" type="DMS.Model.AdjustNote" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AdjustNoteResult" class="AdjustNote">
+      <result property="Id" column="ANL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ArticleNumber" column="ANL_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="LotNumber" column="ANL_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="ANL_ExpiredDate" type="DateTime" dbType="datetime"/>
+      <result property="LotQty" column="ANL_LotQty" type="decimal" dbType="decimal"/>
+      <result property="AdjustDate" column="ANL_AdjustDate" type="DateTime" dbType="datetime"/>
+      <result property="AdjustType" column="ANL_AdjustType" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="ANL_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="ANL_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ANL_FileName" type="string" dbType="nvarchar"/>
+      <result property="ImportDate" column="ANL_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="BatchNbr" column="ANL_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="Clientid" column="ANL_ClientID" type="string" dbType="nvarchar"/>
+      <result property="DmaId" column="ANL_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="ANL_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="ANL_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PmaId" column="ANL_PMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="ANL_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="PctId" column="ANL_PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LtmId" column="ANL_LTM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SltId" column="ANL_SLT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Authorized" column="ANL_Authorized" type="bool" dbType="bit"/>
+      <result property="ProblemDescription" column="ANL_ProblemDescription" type="string" dbType="nvarchar"/>
+      <result property="HandleDate" column="ANL_HandleDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAdjustNote" parameterClass="string" resultClass="AdjustNote">
+      SELECT ANL_ID AS Id,ANL_ArticleNumber AS ArticleNumber,ANL_LotNumber AS LotNumber,ANL_ExpiredDate AS ExpiredDate,ANL_LotQty AS LotQty,ANL_AdjustDate AS AdjustDate,ANL_AdjustType AS AdjustType,ANL_Remark AS Remark,ANL_LineNbr AS LineNbr,ANL_FileName AS FileName,ANL_ImportDate AS ImportDate,ANL_BatchNbr AS BatchNbr,ANL_ClientID AS Clientid,ANL_DMA_ID AS DmaId,ANL_WHM_ID AS WhmId,ANL_CFN_ID AS CfnId,ANL_PMA_ID AS PmaId,ANL_BUM_ID AS BumId,ANL_PCT_ID AS PctId,ANL_LTM_ID AS LtmId,ANL_SLT_ID AS SltId,ANL_Authorized AS Authorized,ANL_ProblemDescription AS ProblemDescription,ANL_HandleDate AS HandleDate
+      FROM AdjustNote
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ANL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAdjustNote" parameterClass="AdjustNote" resultClass="AdjustNote">
+      SELECT ANL_ID AS Id,ANL_ArticleNumber AS ArticleNumber,ANL_LotNumber AS LotNumber,ANL_ExpiredDate AS ExpiredDate,ANL_LotQty AS LotQty,ANL_AdjustDate AS AdjustDate,ANL_AdjustType AS AdjustType,ANL_Remark AS Remark,ANL_LineNbr AS LineNbr,ANL_FileName AS FileName,ANL_ImportDate AS ImportDate,ANL_BatchNbr AS BatchNbr,ANL_ClientID AS Clientid,ANL_DMA_ID AS DmaId,ANL_WHM_ID AS WhmId,ANL_CFN_ID AS CfnId,ANL_PMA_ID AS PmaId,ANL_BUM_ID AS BumId,ANL_PCT_ID AS PctId,ANL_LTM_ID AS LtmId,ANL_SLT_ID AS SltId,ANL_Authorized AS Authorized,ANL_ProblemDescription AS ProblemDescription,ANL_HandleDate AS HandleDate
+      FROM AdjustNote
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ANL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">ANL_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">ANL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">ANL_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="LotQty">ANL_LotQty=#LotQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustDate">ANL_AdjustDate=#AdjustDate#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustType">ANL_AdjustType=#AdjustType#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">ANL_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ANL_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ANL_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">ANL_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">ANL_BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">ANL_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ANL_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">ANL_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">ANL_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">ANL_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">ANL_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="PctId">ANL_PCT_ID=#PctId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">ANL_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="SltId">ANL_SLT_ID=#SltId#</isNotNull>
+        <isNotNull prepend="AND" property="Authorized">ANL_Authorized=#Authorized#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">ANL_ProblemDescription=#ProblemDescription#</isNotNull>
+        <isNotNull prepend="AND" property="HandleDate">ANL_HandleDate=#HandleDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAdjustNote" parameterClass="AdjustNote">
+      INSERT INTO AdjustNote
+      (ANL_ID,ANL_ArticleNumber,ANL_LotNumber,ANL_ExpiredDate,ANL_LotQty,ANL_AdjustDate,ANL_AdjustType,ANL_Remark,ANL_LineNbr,ANL_FileName,ANL_ImportDate,ANL_BatchNbr,ANL_ClientID,ANL_DMA_ID,ANL_WHM_ID,ANL_CFN_ID,ANL_PMA_ID,ANL_BUM_ID,ANL_PCT_ID,ANL_LTM_ID,ANL_SLT_ID,ANL_Authorized,ANL_ProblemDescription,ANL_HandleDate)
+      VALUES(#Id#,#ArticleNumber#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#LotQty#,#AdjustDate:DateTime:1/1/0001 12:00:00 AM#,#AdjustType#,#Remark#,#LineNbr#,#FileName#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#BatchNbr#,#Clientid#,#DmaId#,#WhmId#,#CfnId#,#PmaId#,#BumId#,#PctId#,#LtmId#,#SltId#,#Authorized#,#ProblemDescription#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateAdjustNote" parameterClass="AdjustNote">
+      UPDATE AdjustNote
+      SET ANL_ID=#Id#,ANL_ArticleNumber=#ArticleNumber#,ANL_LotNumber=#LotNumber#,ANL_ExpiredDate=#ExpiredDate#,ANL_LotQty=#LotQty#,ANL_AdjustDate=#AdjustDate#,ANL_AdjustType=#AdjustType#,ANL_Remark=#Remark#,ANL_LineNbr=#LineNbr#,ANL_FileName=#FileName#,ANL_ImportDate=#ImportDate#,ANL_BatchNbr=#BatchNbr#,ANL_ClientID=#Clientid#,ANL_DMA_ID=#DmaId#,ANL_WHM_ID=#WhmId#,ANL_CFN_ID=#CfnId#,ANL_PMA_ID=#PmaId#,ANL_BUM_ID=#BumId#,ANL_PCT_ID=#PctId#,ANL_LTM_ID=#LtmId#,ANL_SLT_ID=#SltId#,ANL_Authorized=#Authorized#,ANL_ProblemDescription=#ProblemDescription#,ANL_HandleDate=#HandleDate#
+      WHERE ANL_ID = #Id#
+    </update>
+    <delete id="DeleteAdjustNote" parameterClass="string">
+      DELETE FROM AdjustNote
+      WHERE ANL_ID = #value#
+    </delete>
+    <select id="SelectAdjustNoteByBatchNbrErrorOnly" parameterClass="string" resultClass="AdjustNote">
+      SELECT ANL_ID AS Id,ANL_ArticleNumber AS ArticleNumber,ANL_LotNumber AS LotNumber,ANL_ExpiredDate AS ExpiredDate,ANL_LotQty AS LotQty,ANL_AdjustDate AS AdjustDate,ANL_AdjustType AS AdjustType,ANL_Remark AS Remark,ANL_LineNbr AS LineNbr,ANL_FileName AS FileName,ANL_ImportDate AS ImportDate,ANL_BatchNbr AS BatchNbr,ANL_ClientID AS Clientid,ANL_DMA_ID AS DmaId,ANL_WHM_ID AS WhmId,ANL_CFN_ID AS CfnId,ANL_PMA_ID AS PmaId,ANL_BUM_ID AS BumId,ANL_PCT_ID AS PctId,ANL_LTM_ID AS LtmId,ANL_SLT_ID AS SltId,ANL_Authorized AS Authorized,ANL_ProblemDescription AS ProblemDescription,ANL_HandleDate AS HandleDate
+      FROM AdjustNote
+      WHERE ANL_BatchNbr = #value# AND ANL_ProblemDescription IS NOT NULL
+      ORDER BY ANL_LineNbr
+    </select>
+  </statements>
+</sqlMap>

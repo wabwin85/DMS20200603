@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnHospitalPriceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="CfnHospitalPrice" assembly="DMS.Model.dll" type="DMS.Model.CfnHospitalPrice" />
+    </alias>
+    <resultMaps>
+        <resultMap id="CfnHospitalPriceResult" class="CfnHospitalPrice">
+            <result property="Id" column="CHP_ID" type="Guid" dbType="Guid"/>
+            <result property="HosId" column="CHP_Hospital_ID" type="Guid" dbType="Guid"/>
+            <result property="HospitalName" column="HOS_HospitalName" type="string" dbType="varchar"/>
+            <result property="Province" column="HOS_Province" type="string" dbType="varchar"/>
+            <result property="City" column="HOS_City" type="string" dbType="varchar"/>
+            <result property="District" column="HOS_District" type="string" dbType="varchar"/>
+            <result property="Grade" column="HOS_Grade" type="string" dbType="varchar"/>
+            <result property="CfnId" column="CHP_CFN_ID" type="Guid" dbType="Guid"/>
+            <result property="ProductLineBumId" column="CFN_ProductLine_BUM_ID" type="Guid" dbType="Guid"/>
+            <result property="CustomerFaceNbr" column="CFN_CustomerFaceNbr" type="string" dbType="varchar"/>
+            <result property="ChineseName" column="CFN_ChineseName" type="Guid" dbType="varchar"/>
+            <result property="EnglishName" column="CFN_EnglishName" type="Guid" dbType="varchar"/>
+            <result property="Description" column="CFN_Description" type="string" dbType="varchar"/>
+            <result property="Price" column="CHP_Price" type="double" dbType="Real"/>
+            <result property="CreateUser" column="CHP_CreateUser" type="Guid" dbType="Guid"/>
+            <result property="CreateDate" column="CHP_CreateDate" type="DateTime" dbType="DateTime"/>
+            <result property="UpdateUser" column="CHP_UpdateUser" type="Guid" dbType="Guid"/>
+            <result property="UpdateDate" column="CHP_UpdateDate" type="DateTime" dbType="DateTime"/>
+            <result property="DeletedFlag" column="CHP_DeletedFlag" type="bool" dbType="bool"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectCfnHospitalPrice" parameterClass="string" resultClass="CfnHospitalPrice">
+            SELECT CHP_ID AS Id,CHP_Hospital_ID AS HosId,CHP_CFN_ID AS CfnId,CHP_Price AS Price,CHP_CreateUser AS CreateUser,CHP_CreateDate AS CreateDate,CHP_UpdateUser AS UpdateUser,CHP_UpdateDate AS UpdateDate,CHP_DeletedFlag AS DeletedFlag
+            FROM CFNHospitalPrice
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    CHP_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterCfnHospitalPrice" parameterClass="System.Collections.Hashtable" resultClass="CfnHospitalPrice">
+            SELECT price.CHP_ID AS Id,price.CHP_Hospital_ID AS HosId,hospital.HOS_HospitalName AS HospitalName,hospital.HOS_Province AS Province,hospital.HOS_City AS City,hospital.HOS_Town AS Town,hospital.HOS_District AS District,hospital.HOS_Grade AS Grade,
+            price.CHP_CFN_ID AS CfnId,cfn.CFN_ProductLine_BUM_ID As ProductLineBumId,cfn.CFN_CustomerFaceNbr AS CustomerFaceNbr,cfn.CFN_ChineseName AS ChineseName,cfn.CFN_EnglishName AS EnglishName,cfn.CFN_Description AS Description,
+            price.CHP_Price AS Price,price.CHP_CreateUser AS CreateUser,price.CHP_CreateDate AS CreateDate,price.CHP_UpdateUser AS UpdateUser,price.CHP_UpdateDate AS UpdateDate,price.CHP_DeletedFlag AS DeletedFlag,
+            row_number () OVER (ORDER BY [CFN_CustomerFaceNbr] ASC) AS [row_number]
+            FROM CFNHospitalPrice price INNER JOIN CFN cfn ON price.CHP_CFN_ID = cfn.CFN_ID
+            INNER JOIN Hospital hospital ON price.CHP_Hospital_ID = hospital.HOS_ID
+            WHERE price.CHP_DeletedFlag = 0
+            <dynamic prepend="">
+                <isNotNull prepend="AND" property="Id">CHP_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="HospitalId">CHP_Hospital_ID=#HospitalId#</isNotNull>
+                <isNotNull prepend="AND" property="CfnId">CHP_CFN_ID=#CfnId#</isNotNull>
+                <isNotNull prepend="AND" property="HosId">CHP_Hospital_ID=#HosId#</isNotNull>
+                <isNotNull prepend="AND" property="Price">CHP_Price=#Price#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">CHP_UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">CHP_UpdateDate=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="ProductLineBumId">CFN_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+                <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr like '%$CustomerFaceNbr$%'</isNotNull>
+                <isNotNull prepend="AND" property="HospitalName">HOS_HospitalName like '%$HospitalName$%'</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertCfnHospitalPrice" parameterClass="CfnHospitalPrice">
+            INSERT INTO CFNHospitalPrice
+            (CHP_ID,CHP_Hospital_ID,CHP_CFN_ID,CHP_Price,CHP_CreateUser,CHP_CreateDate,CHP_UpdateUser,CHP_UpdateDate,CHP_DeletedFlag)
+            VALUES(#Id#,#HosId#,#CfnId#,#Price#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#DeletedFlag#)
+        </insert>
+        <update id="UpdateCfnHospitalPrice" parameterClass="CfnHospitalPrice">
+            UPDATE CFNHospitalPrice
+            SET CHP_ID=#Id#,CHP_Hospital_ID=#HosId#,CHP_CFN_ID=#CfnId#,CHP_Price=#Price#,CHP_UpdateUser=#UpdateUser#,CHP_UpdateDate=#UpdateDate#,CHP_DeletedFlag=#DeletedFlag#
+            WHERE CHP_ID = #Id#
+        </update>
+        <delete id="DeleteCfnHospitalPrice" parameterClass="string">
+            DELETE FROM CFNHospitalPrice
+            WHERE CHP_ID = #value#
+        </delete>
+        <update id="FakeDeleteCfnHospitalPrice" parameterClass="CfnHospitalPrice">
+            UPDATE CFNHospitalPrice
+            SET CHP_DeletedFlag=#DeletedFlag#
+            WHERE CHP_ID = #Id#
+        </update>
+    </statements>
+</sqlMap>

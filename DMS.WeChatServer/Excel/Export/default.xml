@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dDefault>
+    <dMain keyFont="Calibri" keyFontSize="9" keyFontColor="" keyBackGroudColor="#9999FF" keyHorizontalAlignment="left" keyBond="YES"  valueFont="Calibri" valueFontSize="9" valueFontColor="" valueHorizontalAlignment="LEFT" valueBond="NO" ></dMain>
+    <dDetail keyFont="Calibri" keyFontSize="9" keyFontColor="" keyBackGroudColor="#9999FF" keyHorizontalAlignment="center" keyBond="YES"  valueFont="Calibri" valueFontSize="9" valueFontColor="" valueHorizontalAlignment="" valueBond="NO" keyPos="3,A" valuePos="4,A"  isRollup="false" sumBackGroudColor="#FFCC99"></dDetail>
+</dDefault>

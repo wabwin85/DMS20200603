@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentDiscountRuleMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentDiscountRule" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentDiscountRule" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentDiscountRuleResult" class="ConsignmentDiscountRule">
+      <result property="Id" column="ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Bu" column="BU" type="int" dbType="int"/>
+      <result property="PctLevel" column="PctLevel" type="string" dbType="nvarchar"/>
+      <result property="PctLevelCode" column="PctLevelCode" type="string" dbType="nvarchar"/>
+      <result property="Upn" column="UPN" type="string" dbType="nvarchar"/>
+      <result property="Lot" column="LOT" type="string" dbType="nvarchar"/>
+      <result property="QrCode" column="QRCode" type="string" dbType="nvarchar"/>
+      <result property="PctNameGroup" column="PctNameGroup" type="string" dbType="nvarchar"/>
+      <result property="LeftValue" column="LeftValue" type="int" dbType="int"/>
+      <result property="RightValue" column="RightValue" type="int" dbType="int"/>
+      <result property="DiscountValue" column="DiscountValue" type="decimal" dbType="decimal"/>
+      <result property="BeginDate" column="BeginDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="EndDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DiscountRuleParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectConsignmentDiscountRule" parameterClass="string" resultClass="ConsignmentDiscountRule">
+      SELECT ID AS Id,BU AS Bu,PctLevel AS PctLevel,PctLevelCode AS PctLevelCode,UPN AS Upn,LOT AS Lot,QRCode AS QrCode,PctNameGroup AS PctNameGroup,LeftValue AS LeftValue,RightValue AS RightValue,DiscountValue AS DiscountValue
+      FROM ConsignmentDiscountRule
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentDiscountRule" parameterClass="ConsignmentDiscountRule" resultClass="ConsignmentDiscountRule">
+      SELECT ID AS Id,BU AS Bu,PctLevel AS PctLevel,PctLevelCode AS PctLevelCode,UPN AS Upn,LOT AS Lot,QRCode AS QrCode,PctNameGroup AS PctNameGroup,LeftValue AS LeftValue,RightValue AS RightValue,DiscountValue AS DiscountValue
+      FROM ConsignmentDiscountRule
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Bu">BU=#Bu#</isNotNull>
+        <isNotNull prepend="AND" property="PctLevel">PctLevel=#PctLevel#</isNotNull>
+        <isNotNull prepend="AND" property="PctLevelCode">PctLevelCode=#PctLevelCode#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="Lot">LOT=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">QRCode=#QrCode#</isNotNull>
+        <isNotNull prepend="AND" property="PctNameGroup">PctNameGroup=#PctNameGroup#</isNotNull>
+        <isNotNull prepend="AND" property="LeftValue">LeftValue=#LeftValue#</isNotNull>
+        <isNotNull prepend="AND" property="RightValue">RightValue=#RightValue#</isNotNull>
+        <isNotNull prepend="AND" property="DiscountValue">DiscountValue=#DiscountValue#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentDiscountRule" parameterClass="ConsignmentDiscountRule">
+      INSERT INTO ConsignmentDiscountRule
+      (ID,BU,PctLevel,PctLevelCode,UPN,LOT,QRCode,PctNameGroup,LeftValue,RightValue,DiscountValue)
+      VALUES(#Id#,#Bu#,#PctLevel#,#PctLevelCode#,#Upn#,#Lot#,#QrCode#,#PctNameGroup#,#LeftValue#,#RightValue#,#DiscountValue#)
+    </insert>
+    <update id="UpdateConsignmentDiscountRule" parameterClass="ConsignmentDiscountRule">
+      UPDATE ConsignmentDiscountRule
+      SET ID=#Id#,BU=#Bu#,PctLevel=#PctLevel#,PctLevelCode=#PctLevelCode#,UPN=#Upn#,LOT=#Lot#,QRCode=#QrCode#,PctNameGroup=#PctNameGroup#,LeftValue=#LeftValue#,RightValue=#RightValue#,DiscountValue=#DiscountValue#
+      WHERE ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentDiscountRule" parameterClass="string">
+      DELETE FROM ConsignmentDiscountRule
+      WHERE ID = #value#
+    </delete>
+    
+    <select id="SelectOrderDiscountRule" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.ID AS Id,BU AS Bu,B.ProductLineName,B.DivisionName,D.DMA_SAP_Code AS SAPCode,D.DMA_ChineseName DealerName,PctLevel AS PctLevel,PctLevelCode AS PctLevelCode,UPN AS Upn,LOT AS Lot,QRCode AS QrCode,PctNameGroup AS PctNameGroup,LeftValue AS LeftValue,RightValue AS RightValue,DiscountValue AS DiscountValue,C.IDENTITY_NAME CreatUser,A.CreateUser AS CreateUserId,CONVERT(NVARCHAR(100),A.CreateDate,20) AS CreateDate
+      ,BeginDate,EndDate,B.SubCompanyName,B.BrandName
+      ,ROW_NUMBER () OVER (ORDER BY CreateDate,A.LeftValue,A.UPN DESC) AS [row_number]
+      FROM ConsignmentDiscountRule A(nolock)
+      INNER JOIN V_DivisionProductLineRelation B ON CONVERT(NVARCHAR(10),A.BU)=B.DivisionCode  AND B.IsEmerging='0'
+      INNER JOIN DealerMaster D(nolock) ON D.DMA_ID=A.DealerId
+      INNER JOIN Lafite_IDENTITY C(nolock) ON C.Id=a.CreateUser
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">A.ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">B.ProductLineID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN like N'%$Upn$%' </isNotNull>
+        <isNotNull prepend="AND" property="Lot">LOT=#Lot#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId=#BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <!--折扣规则导入验证-->
+    <procedure id="GC_OrderDiscountRuleInit" parameterMap="DiscountRuleParameterMap">
+      dbo.GC_OrderDiscountRuleInit
+    </procedure>
+    <!--获取错误数据-->
+    <select id="SelectDiscountRuleErrorData" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT BU,UPN,CFN_ChineseName AS UPNName,LOT,QRCode,LeftValue,RightValue,DiscountValue,ErrMassage, CASE WHEN ISNULL(ErrMassage,'')='' THEN '0' ELSE '1' END ErrType
+      ,BeginDate,EndDate,DealerSAP
+      ,ROW_NUMBER () OVER (ORDER BY UPN,RightValue DESC) AS [row_number]
+      FROM dbo.ConsignmentDiscountRuleInit
+      left JOIN CFN ON CFN_CustomerFaceNbr=UPN
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UserId">CreateUser=#UserId#</isNotNull>
+      </dynamic>
+    </select>
+    
+    <delete id="DeleteOrderDiscountRuleByUser" parameterClass="string">
+      DELETE FROM ConsignmentDiscountRuleInit  WHERE CreateUser = #value#
+    </delete>
+  </statements>
+</sqlMap>

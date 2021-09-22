@@ -1,0 +1,166 @@
+
+<!--
+目前仅支持单表导入.自动校验“必填项、字段类型、代码表校验、枚举型校验、年月格式校验、数字范围校验”
+在系统自动校验之外的特殊校验，需要自己写SP，SP中应该包括最终的INSERT到正式表
+STEP:
+1.建立临时表，所有字段都应该是NVARCHAR以便EXCEL肯定能够导入临时表，临时表必须包含如下字段：
+  II_ID  uniqueidentifier primary key not null,
+  II_User uniqueidentifier,
+  II_UploadDate DATETIME,
+  II_LineNbr INT,
+  II_ErrorFlag INT,
+  II_ErrorMsg NVARCHAR(2000),
+2.在Website\Excel\Import\module目录下创建一个XML文件，格式如下
+-->
+<!--XML范例可见DealerPurchaseForecastAdjust.xml-->
+<?xml version="1.0" encoding="utf-8" ?>
+<iExcel Desc="本XML配置文件的描述信息" Procedure="proc_test_import">
+<!--
+Desc：本XML的描述信息
+Procedure:基础校验之后执行的SP名称
+-->
+<iSheets>
+  <iSheet TableName="TempTable" DataStartRowNumber="2"> 
+  <!--
+  TableName:临时表的名称
+  DataStartRowNumber:数据开始的行号，一般是第2行
+  -->
+  <iRecords>
+    <iRecord Position="0" ColumnName="DistName" DescName="经销商名称" DataType="nvarchar" IsRequired="Y" ErrorMsgColumn="DistNameError" CheckType="Table" CheckValue="t_distributer.dist_name"></iRecord>
+    <!--
+    Position:EXCEL的列位置，第一列是0，依次类推，可以跳过不需要的列
+    ColumnName：对应临时表的字段名
+    DescName：EXCEL列的描述，会用于界面的提示，例如系统会给出“经销商名称不存在！”的提示
+    DataType：字段类型，目前支持nvarchar,datetime,int,decimal
+    IsRequired:是否必填项,Y是必填，N或空是非必填
+    ErrorMsgColumn：本字段出现错误时，将错误信息写入的字段，若不填写，自动使用II_ErrorMsg
+    CheckType：校验类型，目前包括Table\Value\Format
+    CheckValue:
+      当CheckType=Table时，这里填写t_distributer.dist_name（表名.字段名)来判断
+      当CheckType=Value时,以逗号分隔所有枚举
+      当CheckType=Format,DataType="nvarchar"时,YYYYMM或YYYY-MM表示年月
+      当CheckType=Format,DataType=int,decimal,可以使用>0 或者 <0 或者 between 0 and 100
+    -->
+    <iRecord Position="1" ColumnName="RegistDate" DescName="注册日期" DataType="datetime" IsRequired="" ErrorMsgColumn="RegistDateError" CheckType="" CheckValue=""></iRecord>
+    <iRecord Position="3" ColumnName="DistLevel" DescName="经销商级别" DataType="nvarchar" IsRequired="Y" ErrorMsgColumn="DistLevelError" CheckType="Value" CheckValue="一级,二级,三级"></iRecord>
+    <iRecord Position="5" ColumnName="YearMonth" DescName="年月" DataType="nvarchar" IsRequired="Y" ErrorMsgColumn="YearMonthError" CheckType="Format" CheckValue="YYYYMM"></iRecord>
+    <iRecord Position="7" ColumnName="BP" DescName="指标" DataType="int" IsRequired="Y" ErrorMsgColumn="BPError" CheckType="Format" CheckValue=">0"></iRecord>
+  </iRecords> 
+  </iSheet>
+</iSheets>
+</iExcel>
+<!--
+c#
+private XlsImport XlsImport = new XlsImport("DealerPurchaseForecastAdjust");
+
+//调用Import方法导入,若数据没问题，直接更新正式表
+string strReturn = XlsImport.Import(dt); 
+//strReturn返回值
+if (strReturn == "Success") //成功
+{
+Ext.Msg.Alert(GetLocalResourceObject("ImportClick.IsValid.Error.Alert.Title").ToString(), GetLocalResourceObject("ImportClick.IsValid.Error.Alert.Body").ToString()).Show();
+}
+else if (strReturn == "Error") //无法判断的错误都是Error
+{
+Ext.Msg.Alert(GetLocalResourceObject("ImportClick.IsValid.Alert.Title").ToString(), GetLocalResourceObject("ImportClick.IsValid.Alert.Body").ToString()).Show();
+}
+else //在上述XML配置文件中自定义的Procedure中返回的文字描述，因此直接弹出到页面
+{
+Ext.Msg.Alert(GetLocalResourceObject("ImportClick.Alert.Title").ToString(), strReturn).Show();
+}
+
+如果有“先导入，若数据有问题将错误行LOAD到页面上，用户可以编辑修改后，再点击导入按钮”这样的功能
+可以调用XlsImport.ImportUpdate()，实现在临时表上直接校验和导入
+-->
+
+<!--自定义SP范例：
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Proc_DealerPurchaseForecastAdjustImport]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Proc_DealerPurchaseForecastAdjustImport]
+GO
+
+CREATE PROCEDURE dbo.Proc_DealerPurchaseForecastAdjustImport
+(
+	@UserId UNIQUEIDENTIFIER,
+	@IsValid NVARCHAR(200) = 'a' OUTPUT  
+)
+AS
+BEGIN TRY 
+	SET @IsValid = 'Error'
+	
+	DECLARE @YEARMONTH NVARCHAR(10) --当前年月
+	
+	SELECT @YEARMONTH = CDD_Calendar FROM CalendarDate 
+	WHERE CDD_Calendar = CONVERT(NVARCHAR(6),GETDATE(),112) AND DAY(GETDATE()) BETWEEN CDD_Date8 AND CDD_Date9
+	
+	IF @YEARMONTH IS NULL
+	BEGIN 
+		SET @IsValid = '当前时间点不可导入数据！'
+		RETURN 
+	END
+	
+	SELECT * INTO #DealerPurchaseForecastAdjust_Import FROM DealerPurchaseForecastAdjust_Import WHERE II_User = @UserId 
+	--校验*****************************************************************************
+	--判断本次上传数据是否属于符合的年月（只能导入允许的当前帐期年月）
+	IF EXISTS (SELECT 1 FROM #DealerPurchaseForecastAdjust_Import WHERE II_User = @UserId 
+		AND PFA_ForecastVersion <> @YEARMONTH)
+	BEGIN
+		SET @IsValid = '只能导入'+@YEARMONTH+'的预测数据！'
+		RETURN 
+	END
+	
+	--校验数据是否一致（条目数一致，主键一致）
+	SELECT A.* INTO #DealerPurchaseForecastAdjust FROM DealerPurchaseForecastAdjust a,Lafite_IDENTITY b
+	WHERE a.PFA_DMA_ID = b.Corp_ID AND b.Id = @UserId AND a.PFA_ForecastVersion = @YEARMONTH
+	
+	--此时两个#表中应该都是该经销商该年月的数据，因此只要比较CFN
+	IF EXISTS (SELECT 1 FROM #DealerPurchaseForecastAdjust_Import A 
+		WHERE NOT EXISTS (SELECT 1 FROM #DealerPurchaseForecastAdjust WHERE PFA_UPN = A.PFA_UPN))
+	OR EXISTS (SELECT 1 FROM #DealerPurchaseForecastAdjust A 
+		WHERE NOT EXISTS (SELECT 1 FROM #DealerPurchaseForecastAdjust_Import WHERE PFA_UPN = A.PFA_UPN))
+	BEGIN 
+		SET @IsValid = '数据不一致，请重新下载模板填写！'
+		RETURN 
+	END
+	
+	--放入正式表*****************************************************************************
+	 ALTER TABLE #DealerPurchaseForecastAdjust_Import ADD PFA_ID UNIQUEIDENTIFIER
+
+	UPDATE B SET PFA_ID = A.PFA_ID
+	FROM #DealerPurchaseForecastAdjust A,#DealerPurchaseForecastAdjust_Import B
+	WHERE A.PFA_UPN = B.PFA_UPN
+	
+	UPDATE B SET PFA_ForecastAdj_M1 = CONVERT(INT,CONVERT(DECIMAL,A.PFA_ForecastAdj_M1)),
+	PFA_ForecastAdj_M2 = CONVERT(INT,CONVERT(DECIMAL,A.PFA_ForecastAdj_M2)),
+	PFA_ForecastAdj_M3 = CONVERT(INT,CONVERT(DECIMAL,A.PFA_ForecastAdj_M3)),
+	PFA_ForecastAdj_Remark = A.PFA_ForecastAdj_Remark,
+	PFA_UpdateDate = GETDATE(),
+	PFA_UpdateUser = @UserId
+	FROM #DealerPurchaseForecastAdjust_Import A,DealerPurchaseForecastAdjust B
+	WHERE A.PFA_ID = B.PFA_ID
+	
+ 	SET @IsValid = 'Success'
+END TRY
+BEGIN CATCH
+	declare @error_number int
+	declare @error_serverity int
+	declare @error_state int
+	declare @error_message nvarchar(256)
+	declare @error_line int
+	declare @error_procedure nvarchar(256)
+	declare @vError nvarchar(1000)
+	
+	set @error_number = ERROR_NUMBER()
+	set @error_serverity = ERROR_SEVERITY()
+	set @error_state = ERROR_STATE()
+	set @error_message = ERROR_MESSAGE()
+	set @error_line = ERROR_LINE()
+	set @error_procedure = ERROR_PROCEDURE()
+	set @vError = ISNULL(@error_procedure,'')+'第'+convert(nvarchar(10),ISNULL(@error_line,''))+'行出错[错误号：'+convert(nvarchar(10),ISNULL(@error_number,''))+']，'+ISNULL(@error_message,'')
+	
+	--ROLLBACK TRAN
+	SET @IsValid = @vError
+END CATCH
+
+GO
+
+-->

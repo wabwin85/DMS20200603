@@ -1,0 +1,638 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>蓝威 DMS</title>
+    <style>
+        .grid-cell {
+            width: 100%;
+            text-align: left;
+            padding: 0px;
+            font-weight: normal;
+            vertical-align: top;
+            border-top: 0px solid;
+            display: inline-flex;
+            border-bottom: 1px solid #eee;
+        }
+
+            .grid-cell:last-child {
+                border-bottom: 0;
+            }
+
+            .grid-cell > label {
+                padding: 5px;
+                float: left;
+                font-weight: 600;
+                word-break: break-all;
+                word-wrap: break-word;
+            }
+
+            .grid-cell > div {
+                padding: 5px;
+                float: left;
+                word-break: break-all;
+                word-wrap: break-word;
+            }
+
+
+        .double-cell > label {
+            width: 40%;
+        }
+
+        .double-cell > div {
+            width: 60%;
+        }
+
+        .single-cell > label {
+            width: 40%;
+        }
+
+        .single-cell > div {
+            width: 60%;
+        }
+
+        .pc-table {
+            display: block;
+        }
+
+        .mobile-table {
+            display: none;
+        }
+
+        @media all and (max-width:1000px) {
+            .double-cell > label {
+                width: 250px;
+            }
+
+            .double-cell > div {
+                width: -moz-calc(100% - 250px);
+                width: -webkit-calc(100% - 250px);
+                width: calc(100% - 250px);
+            }
+
+            .single-cell {
+                display: inline-table;
+            }
+
+                .single-cell > label {
+                    width: 100%;
+                }
+
+                .single-cell > div {
+                    width: 100%;
+                }
+
+            .pc-table {
+                display: none;
+            }
+
+            .mobile-table {
+                display: inline-table;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <div style="width:100%;font-size:20px;text-align:center;border:2px solid #eee;padding:5px 0;margin:10px 0;">经销商续约</div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">申请信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell" style="width:96%;">
+                    <label style="width:100%;">当经销商合同到期后，若需要继续合作的，应进行经销商续约操作。</label>
+                </div>
+                <div class="grid-cell double-cell">
+                    <div style="color:red;">
+                        #{Main.Message}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请单号(Application No.)：</label>
+                    <div>
+                        #{Main.ContractNo}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>经销商类型：</label>
+                    <div>
+                        #{Main.DealerTypeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>产品线：</label>
+                    <div>
+                        #{Main.DepIdShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>合同分类：</label>
+                    <div>
+                        #{Main.SUBDEPIDShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请人：</label>
+                    <div>
+                        #{Main.EName}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请部门：</label>
+                    <div>
+                        #{Main.ApplicantDepShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请日期：</label>
+                    <div>
+                        #{Main.RequestDate}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>经销商：</label>
+                    <div>
+                        #{Main.DealerNameShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="display:none;">
+                    <label>市场类型：</label>
+                    <div>
+                        #{Main.MarketTypeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>是否为设备经销商：</label>
+                    <div>
+                        #{Main.IsEquipmentShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="display:none;">
+                    <label> RSM：</label>
+                    <div>
+                        #{Main.ReagionRSMShow}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">当前协议条款：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell">
+                    <label>合作类型：</label>
+                    <div>
+                        #{Current.CurrentContractType}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>合同实体：</label>
+                    <div>
+                        #{Current.CurrentBSC}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>独家合同：</label>
+                    <div>
+                        #{Current.CurrentExclusiveness}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>协议期限(协议生效日) ：</label>
+                    <div>
+                        #{Current.CurrentAgreementBegin}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>协议期限(协议到期日) ：</label>
+                    <div>
+                        #{Current.CurrentAgreementEnd}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>产品线：</label>
+                    <div>
+                        #{Current.CurrentProduct}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>(如果是部分产品线，请列出)：</label>
+                    <div>
+                        #{Current.CurrentProductRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>价格<br />标准价格的_%的折扣：</label>
+                    <div>
+                        #{Current.CurrentPrice}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>备注（Remark）：</label>
+                    <div>
+                        #{Current.CurrentPriceRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>销售返利政策<br />季度采购总额的_% ：</label>
+                    <div>
+                        #{Current.CurrentSpecialSales}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>备注（Remark）：</label>
+                    <div>
+                        #{Current.CurrentSpecialSalesRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>区域(医院)：</label>
+                    <div>
+                        #{Current.CurrentHospital}&nbsp;&nbsp;<button class="btn btn-sm btn-primary" onclick="window.open('#{Current.CurrentHospitalUrl}'); return false;">查看</button>
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>采购指标(CNY)：</label>
+                    <div>
+                        #{Current.CurrentQuota}&nbsp;&nbsp;<button class="btn btn-sm btn-primary" onclick="window.open('#{Current.CurrentQuotaUrl}'); return false;">查看</button>
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>指标总额(CNY)不含税：</label>
+                    <div>
+                        #{Current.CurrentQuotaTotal}
+                    </div>
+                </div>
+                <div class="grid-cell single-cell">
+                    <label>附件：</label>
+                    <div>
+                        #{Current.CurrentAttachment}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">续约后协议条款 ：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell">
+                    <label>合作类型：</label>
+                    <div>
+                        #{Proposals.ContractType}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>合同实体：</label>
+                    <div>
+                        #{Proposals.BSC}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>独家合同：</label>
+                    <div>
+                        #{Proposals.Exclusiveness}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>协议期限(协议生效日) ：</label>
+                    <div>
+                        #{Proposals.AgreementBegin}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>协议期限(协议到期日)：</label>
+                    <div>
+                        #{Proposals.AgreementEnd}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>产品线：</label>
+                    <div>
+                        #{Proposals.Product}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>(如果是部分产品线，请列出)：</label>
+                    <div>
+                        #{Proposals.ProductRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>价格<br />标准价格的_%的折扣：</label>
+                    <div>
+                        #{Proposals.Price}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>备注（Remark）：</label>
+                    <div>
+                        #{Proposals.PriceRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>销售返利政策<br />季度采购总额的_% ：</label>
+                    <div>
+                        #{Proposals.SpecialSales}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>备注（Remark）：</label>
+                    <div>
+                        #{Proposals.SpecialSalesRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>区域(医院)：</label>
+                    <div>
+                        #{Proposals.Hospital}&nbsp;&nbsp;<button class="btn btn-sm btn-primary" onclick="window.open('#{Proposals.HospitalUrl}'); return false;">查看</button>
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>采购指标(CNY)：</label>
+                    <div>
+                        #{Proposals.Quota}&nbsp;&nbsp;<button class="btn btn-sm btn-primary" onclick="window.open('#{Proposals.QuotaUrl}'); return false;">查看</button>
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>指标总额(CNY)不含税：</label>
+                    <div>
+                        #{Proposals.QuotaTotal}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="display:none;">
+                    <label>指标总额(USD)不含税：</label>
+                    <div>
+                        #{Proposals.QUOTAUSD}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>经销商总计采购指标小于总计医院指标的原因：</label>
+                    <div>
+                        #{Proposals.DealerLessHosReason}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_DealerLessHosQRemark}">
+                    <label>#{Proposals.DealerLessHosQRemark}</label>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>经销商季度指标小于医院季度指标的原因 ：</label>
+                    <div>
+                        #{Proposals.DealerLessHosReasonQ}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>总计医院实际指标小于总计医院标准指标的原因 ：</label>
+                    <div>
+                        #{Proposals.HosLessStandardReason}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_HosLessStandardQRemark}">
+                    <label>#{Proposals.HosLessStandardQRemark}</label>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>
+                        总计医院实际指标小于总计医院标准指标的原因：
+
+                    </label>
+                    <div>
+                        #{Proposals.HosLessStandardReasonQ}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_ProductGroupRemark}">
+                    <label>#{Proposals.ProductGroupRemark}</label>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>产品组最小指标备注：</label>
+                    <div>
+                        #{Proposals.ProductGroupMemo}
+                    </div>
+                </div>
+                <div class="grid-cell single-cell">
+                    <label>附件：</label>
+                    <div>
+                        #{Proposals.Attachment}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">其他：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell" style="width:96%;">
+                    <label>1.) 如果以上业务计划书增加当前经销商协议的产品线或区域，那么会与任何其他现有经销商的独家协议条款冲突吗？还是会与任何新任命经销商潜在冲突？：</label>
+                    <div>
+                        #{NCM.ConflictShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:96%;#{Display.Display_ConflictRemark} ">
+                    <label>如果是，请说明 ：</label>
+                    <div>
+                        #{NCM.ConflictRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>2.) 如果以上业务计划书削减当前经销商协议的产品线或区域，谁将接管这个经销商削减的业务？</label>
+                    <div>
+                        #{NCM.HandoverShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_HandoverRemark} ">
+                    <label>如果是，请说明 ：</label>
+                    <div>
+                        #{NCM.HandoverRemark}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">背调报告：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell">
+                    <label>DD报告名称：</label>
+                    <div>
+                        #{DDReport.DDReportName}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>DD报告有效开始时间:</label>
+                    <div>
+                        #{DDReport.DDStartDate}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>DD报告有效结束时间:</label>
+                    <div>
+                        #{DDReport.DDEndDate}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>DD报告:</label>
+                    <div>
+                        #{DDReport.DDAttachment}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>是否有RedFlag:</label>
+                    <div>
+                        #{DDReport.IsHaveRedFlag}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">培训信息：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 0;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">培训类型</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">培训名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">培训时间</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">是否通过</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(TrainInfo)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TrainType}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TrainName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TrainDate}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{IsPass}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">历史KPI ：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 0;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">年份</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">季度</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">Division</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">Sub BU</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">总分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(KPI)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Year}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Quarter}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{Division}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SubBUName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TotalScore}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">CFDA产品分类：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 0;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">类别</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">分类代码</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">分类名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(CFDA)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{GM_KIND}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{GM_CATALOG}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{CatagoryName}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+     <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">资质文件：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;border-color: #d5d5d5;border-style: solid;border-width: 0;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">文件类别</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">分类名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(Qualification)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{FileType}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                <a href="#{FileUrl}" target="_blank">#{FileName}</a>
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

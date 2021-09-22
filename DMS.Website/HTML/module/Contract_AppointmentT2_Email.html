@@ -1,0 +1,592 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>蓝威 DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">申请信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;" colspan="2">经销商若申请原因选择新经销商，指该公司之前与平台无任何形式的经销业务往来。</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600; color:red;" colspan="2"> #{Main.Message}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请单号：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ContractNo}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.DealerTypeShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">产品线：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.DepIdShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合同分类：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.SUBDEPIDShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">员工号：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.EId}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请人：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.EName}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请日期：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.RequestDate}</td>
+                </tr>
+                <tr style="#{Display.Display_REASONShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">原因：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.REASONShow}</td>
+                </tr>
+                <tr style="#{Display.Display_FORMERNAME}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">曾用名：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.FORMERNAMEShow}</td>
+                </tr>
+                <tr style="display:none;">   <!--style="#{Display.Display_AssessmentShow}"-->
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合并考核经销商：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.AssessmentShow}</td>
+                </tr>
+                <tr style="display:none;">  <!--style="#{Display.Display_AssessmentStart}"-->
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合并考核开始时间：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.AssessmentStart}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请部门：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ApplicantDepShow}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">市场类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.MarketTypeShow}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">RBM：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ReagionRSMShow}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">新经销商基本信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司中文名称：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.CompanyName}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司负责人：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.Contact}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">公司负责人邮件地址：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.EMail}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">公司负责人手机号码：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.Mobile}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">商务负责人：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.BusinessContact}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">商务负责人邮件地址：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.BusinessEMail}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">商务负责人手机号码：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.BusinessMobile}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否为设备经销商：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.IsEquipmentShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">办公室电话号码：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.OfficeNumber}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">手机号码：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.Mobile}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商标记：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.DealerMarkShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 300px;">办公室地址：</td>
+                    <td style="word-wrap: break-word; word-break: break-all; padding: 5px 0; border-bottom: 1px solid #eee;"> #{Candidate.OfficeAddress}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">邮寄地址：</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.EmailAddress}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司成立日期：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.EstablishedTime}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">公司注册资本：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.Capital}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">平台公司名称：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Candidate.LPSAPCodeShow}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">支持文件(Support Doc)：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否三证合一：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.IsThreeLicenseShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(1)营业执照<br />(请不要继续推荐，如果经销商没有通过当地工商管理局年度检验。) ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.BA}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(2)医疗器械经营许可证<br />(请不要继续推荐，如果波士顿产品的CFDA类别不在医疗器械经营许可证经营范围内。) ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.MA}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(3)备案凭证<br />（二类证） </td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.Bak}</td>
+                </tr>
+                <tr style="#{Display.Display_TA}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(4)税务登记证<br />(请不要继续推荐，如果经销商没有通过当地税务局年度检验。)<br /> ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.TA}</td>
+                </tr>
+                <tr style="#{Display.Display_OA}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(5)组织机构代码证<br />(请不要继续推荐，如果经销商没有通过当地质量技术监督局年度检验。) <br /> ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Documents.OA}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">销售&市场的竞争能力(Sales & market competitive ability)：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">医疗行业经验(年限) ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Competency.HealthcareShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">介入行业经验(年限)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Competency.InterShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">主要客户关系(年限)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Competency.KOLShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合作过的业务伙伴(跨国公司名称)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Competency.MNC}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">如果经销商没有拥有以上的能力，请提供其他理由：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Competency.Justification}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">初步的业务计划书：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合作类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.ContractType}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合同实体：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.BSC}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">独家合同：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.Exclusiveness}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">协议期限(协议生效日)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.AgreementBegin}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">协议期限(协议到期日) ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.AgreementEnd}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">产品线(Product Line)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.ProductShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">(如果是部分产品线，请列出)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.ProductRemark}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">价格<br />标准价格的_%的折扣：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.Price}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">备注：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.PriceRemark}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">销售返利政策<br />季度采购总额的_% ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.SpecialSales}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">备注：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.SpecialSalesRemark}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">区域(医院)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.Hospital}&nbsp;&nbsp;<button onclick="window.open('#{Proposals.HospitalUrl}'); return false;">查看</button></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">采购指标(CNY)<!--<br />(蓝威 SFX Rate:USD 1 = CNY 6.69)-->：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.Quota}&nbsp;&nbsp;<button onclick="window.open('#{Proposals.QuotaUrl}'); return false;">查看</button></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">指标总额(CNY)不含税：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.QuotaTotal}</td>
+                </tr>
+                <tr style="display: none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">指标总额(USD)不含税：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.QUOTAUSD}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商总计采购指标小于总计医院指标的原因：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.DealerLessHosReason}</td>
+                </tr>
+                <tr style="#{Display.Display_DealerLessHosQRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;" colspan="2">#{Proposals.DealerLessHosQRemark}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商季度指标小于医院季度指标的原因 ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.DealerLessHosReasonQ}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">总计医院实际指标小于总计医院标准指标的原因 ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.HosLessStandardReason}</td>
+                </tr>
+                <tr style="#{Display.Display_HosLessStandardQRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;" colspan="2">#{Proposals.HosLessStandardQRemark}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">医院实际季度指标小于医院标准季度指标的原因 ：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.HosLessStandardReasonQ}</td>
+                </tr>
+                <tr style="#{Display.Display_ProductGroupRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;" colspan="2">#{Proposals.ProductGroupRemark}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">产品组最小指标备注：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.ProductGroupMemo}</td>
+                </tr>
+                <tr style="#{Display.Display_CorssBuMemo}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">不选择跨BU经销商备注：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.CorssBuMemo}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">附件：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Proposals.Attachment}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">背调报告：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">报告名称:</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">#{DDReport.DDReportName}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">DD报告有效开始时间:</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">#{DDReport.DDStartDate}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">DD报告有效结束时间:</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">#{DDReport.DDEndDate}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否有RedFlag:</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">#{DDReport.IsHaveRedFlag}</td>
+                </tr>
+                <tr>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">DD报告:</td>
+                    <td style="word-break: break-all;word-wrap: break-word;padding:5px 0;border-bottom:1px solid #eee;">#{DDReport.DDAttachment}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">培训信息：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">培训类型</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">培训名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">培训时间</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">是否通过</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(TrainInfo)}
+                        <tr>
+                            <td style="word-break: break-all;word-wrap: break-word;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TrainType}
+                            </td>
+                            <td style="word-break: break-all;word-wrap: break-word;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TrainName}
+                            </td>
+                            <td style="word-break: break-all;word-wrap: break-word;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{TrainDate}
+                            </td>
+                            <td style="word-break: break-all;word-wrap: break-word;border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{IsPass}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">跨BU经销商：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">医院编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">医院名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">经销商编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">经销商名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">BU</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">SubBU</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px;display:none;">迪乐评分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(CrossBu)}
+                        <tr>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{HospitalCode}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{HospitalName}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{DealerCode}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{DealerName}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{BUName}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SubBUName}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;display:none;">
+                                #{KpiScore}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">同名经销商：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">经销商</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">所属市场</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">产品线</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">所属平台</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(SameDealer)}
+                        <tr>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SameDealerName}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SameMarketType}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SameProductLine}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SameLpName}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px; #{Display.Display_FormerDealer}">曾用名经销商：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px; #{Display.Display_FormerDealer}">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">原因</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 250px">关联经销商编号</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 250px">关联经销商名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(FormerDealer)}
+                        <tr>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{RelateReason}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{RelateRefSAPID}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{RelateRefDealerName}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px; #{Display.Display_AssessmentDealer}">合并考核经销商：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px; #{Display.Display_AssessmentDealer}">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">类型</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">年份</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">开始季度</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">结束季度</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">Division</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">SubBU</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">经销商编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">经销商名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">备注</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">红蓝海</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(AssessmentDealer)}
+                        <tr>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiType}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiYear}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiQFrom}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiQTo}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiDivision}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiSubBu}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiCode}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiName}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiRemark}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{AssessmentBiMarketType}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">CFDA产品分类：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;margin-bottom: 9px;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">类别</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">分类代码</th>
+                            <th style="border-style: solid;border-width: 0 1px 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 200px">分类名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(Cfda)}
+                        <tr>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{GM_KIND}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{GM_CATALOG}
+                            </td>
+                            <td style="word-wrap: break-word;word-break: break-all;border-style: solid; border-width: 0 1px 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{CatagoryName}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

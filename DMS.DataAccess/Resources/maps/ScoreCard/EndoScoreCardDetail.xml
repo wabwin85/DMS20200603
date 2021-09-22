@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EndoScoreCardDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EndoScoreCardDetail" assembly="DMS.Model.dll" type="DMS.Model.EndoScoreCardDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EndoScoreCardDetailResult" class="EndoScoreCardDetail">
+      <result property="Id" column="ESCD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="EschId" column="ESCD_ESCH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Wfbizindex" column="ESCD_WFBIZINDEX" type="int" dbType="int"/>
+      <result property="Manage" column="ESCD_Manage" type="string" dbType="nvarchar"/>
+      <result property="Item" column="ESCD_Item" type="string" dbType="nvarchar"/>
+      <result property="Source" column="ESCD_Source" type="string" dbType="nvarchar"/>
+      <result property="TotalScore" column="ESCD_TotalScore" type="string" dbType="nvarchar"/>
+      <result property="Content" column="ESCD_Content" type="string" dbType="nvarchar"/>
+      <result property="Score" column="ESCD_Score" type="string" dbType="nvarchar"/>
+      <result property="ScoreDetail" column="ESCD_ScoreDetail" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEndoScoreCardDetail" parameterClass="string" resultClass="EndoScoreCardDetail">
+      SELECT ESCD_ID AS Id,ESCD_ESCH_ID AS EschId,ESCD_WFBIZINDEX AS Wfbizindex,ESCD_Manage AS Manage,ESCD_Item AS Item,ESCD_Source AS Source,ESCD_TotalScore AS TotalScore,ESCD_Content AS Content,ESCD_Score AS Score,ESCD_ScoreDetail AS ScoreDetail
+      FROM EndoScoreCardDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ESCD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEndoScoreCardDetail" parameterClass="EndoScoreCardDetail" resultClass="EndoScoreCardDetail">
+      SELECT ESCD_ID AS Id,ESCD_ESCH_ID AS EschId,ESCD_WFBIZINDEX AS Wfbizindex,ESCD_Manage AS Manage,ESCD_Item AS Item,ESCD_Source AS Source,ESCD_TotalScore AS TotalScore,ESCD_Content AS Content,ESCD_Score AS Score,ESCD_ScoreDetail AS ScoreDetail
+      FROM EndoScoreCardDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESCD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="EschId">ESCD_ESCH_ID=#EschId#</isNotNull>
+        <isNotNull prepend="AND" property="Wfbizindex">ESCD_WFBIZINDEX=#Wfbizindex#</isNotNull>
+        <isNotNull prepend="AND" property="Manage">ESCD_Manage=#Manage#</isNotNull>
+        <isNotNull prepend="AND" property="Item">ESCD_Item=#Item#</isNotNull>
+        <isNotNull prepend="AND" property="Source">ESCD_Source=#Source#</isNotNull>
+        <isNotNull prepend="AND" property="TotalScore">ESCD_TotalScore=#TotalScore#</isNotNull>
+        <isNotNull prepend="AND" property="Content">ESCD_Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Score">ESCD_Score=#Score#</isNotNull>
+        <isNotNull prepend="AND" property="ScoreDetail">ESCD_ScoreDetail=#ScoreDetail#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEndoScoreCardDetail" parameterClass="EndoScoreCardDetail">
+      INSERT INTO EndoScoreCardDetail
+      (ESCD_ID,ESCD_ESCH_ID,ESCD_WFBIZINDEX,ESCD_Manage,ESCD_Item,ESCD_Source,ESCD_TotalScore,ESCD_Content,ESCD_Score,ESCD_ScoreDetail)
+      VALUES(#Id#,#EschId#,#Wfbizindex#,#Manage#,#Item#,#Source#,#TotalScore#,#Content#,#Score#,#ScoreDetail#)
+    </insert>
+    <update id="UpdateEndoScoreCardDetail" parameterClass="EndoScoreCardDetail">
+      UPDATE EndoScoreCardDetail
+      SET ESCD_ID=#Id#,ESCD_ESCH_ID=#EschId#,ESCD_WFBIZINDEX=#Wfbizindex#,ESCD_Manage=#Manage#,ESCD_Item=#Item#,ESCD_Source=#Source#,ESCD_TotalScore=#TotalScore#,ESCD_Content=#Content#,ESCD_Score=#Score#,ESCD_ScoreDetail=#ScoreDetail#
+      WHERE ESCD_ID = #Id#
+    </update>
+    <delete id="DeleteEndoScoreCardDetail" parameterClass="string">
+      DELETE FROM EndoScoreCardDetail
+      WHERE ESCD_ID = #value#
+    </delete>
+
+    <select id="QueryEndoScoreCardDetailById" parameterClass="string" resultClass="EndoScoreCardDetail">
+      SELECT ESCD_ID AS Id,ESCD_ESCH_ID AS EschId,ESCD_WFBIZINDEX AS Wfbizindex,ESCD_Manage AS Manage,ESCD_Item AS Item,ESCD_Source AS Source,ESCD_TotalScore AS TotalScore,ESCD_Content AS Content,ESCD_Score AS Score,ESCD_ScoreDetail AS ScoreDetail,row_number() OVER (ORDER BY ESCD_WFBIZINDEX asc) AS row_number
+      FROM EndoScoreCardDetail
+      WHERE ESCD_ESCH_ID = #value#
+      AND ESCD_WFBIZINDEX &lt; 11
+      union
+      select ESCD_ID AS Id,ESCD_ESCH_ID AS EschId,ESCD_WFBIZINDEX AS Wfbizindex,ESCD_Manage AS Manage,ESCD_Item AS Item,
+      ESCD_Source AS Source,ESCD_TotalScore AS TotalScore,ESCD_Content AS Content,(select SUM(convert(decimal,(case when e2.ESCD_Score = '' then 0 else e2.ESCD_Score end))) from EndoScoreCardDetail e2 where e1.ESCD_ESCH_ID = e2.ESCD_ESCH_ID and e2.ESCD_WFBIZINDEX &lt; 11) AS Score,ESCD_ScoreDetail AS ScoreDetail,11
+      FROM EndoScoreCardDetail e1
+      WHERE ESCD_ESCH_ID = #value#
+      AND ESCD_WFBIZINDEX = 11
+    </select>
+
+    <update id="UpdateAdminScore" parameterClass="System.Collections.Hashtable" >
+      Update EndoScoreCardDetail
+      SET ESCD_Score = #Score#
+      WHERE ESCD_ESCH_ID=#Id#
+      AND ESCD_WFBIZINDEX = 10
+    </update>
+    <select id="GetEditTotalScoreById" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select sum(case when isnull(ESCD_Score,'') = '' then 0 else  ESCD_Score end) + case when isnull(#Score#,'') = '' then 0 else  #Score# end as TotalScore
+      from EndoScoreCardDetail esc
+      wHERE ESCD_WFBIZINDEX &lt;> 10
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">ESCD_ESCH_ID=#Id#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="ExportEndoScoreCardDetailForLP" parameterClass="string" resultClass="EndoScoreCardDetail">
+      SELECT ESCD_Manage AS '管理内容',ESCD_Item AS '评估项目',ESCD_Source AS '公式及来源',ESCD_Content AS '打分说明',ESCD_TotalScore AS '总分',ESCD_ScoreDetail AS '评分明细',ESCD_Score AS '实际得分'
+      FROM EndoScoreCardDetail
+      WHERE ESCD_ESCH_ID = #value#
+      AND ESCD_WFBIZINDEX &lt; 11
+      ORDER BY ESCD_WFBIZINDEX
+    </select>
+  </statements>
+</sqlMap>

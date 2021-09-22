@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventorySafetyInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventorySafetyInit" assembly="DMS.Model.dll" type="DMS.Model.InventorySafetyInit" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventorySafetyInitResult" class="InventorySafetyInit">
+      <result property="Id" column="ISI_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="User" column="ISI_USER" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UploadDate" column="ISI_UploadDate" type="DateTime" dbType="datetime"/>
+      <result property="LineNbr" column="ISI_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="ISI_FileName" type="string" dbType="nvarchar"/>
+      <result property="ErrorFlag" column="ISI_ErrorFlag" type="bool" dbType="bit"/>
+      <result property="ErrorDescription" column="ISI_ErrorDescription" type="string" dbType="nvarchar"/>
+      <result property="DealerSapCode" column="ISI_DealerSapCode" type="string" dbType="nvarchar"/>
+      <result property="DealerName" column="ISI_DealerName" type="string" dbType="nvarchar"/>
+      <result property="Warehouse" column="ISI_Warehouse" type="string" dbType="nvarchar"/>
+      <result property="ArticleNumber" column="ISI_ArticleNumber" type="string" dbType="nvarchar"/>
+      <result property="Qty" column="ISI_Qty" type="decimal" dbType="decimal"/>
+      <result property="DmaId" column="ISI_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CfnId" column="ISI_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="ISI_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InventorySafetyInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInventorySafetyInit" parameterClass="string" resultClass="InventorySafetyInit">
+      SELECT ISI_ID AS Id,ISI_USER AS User,ISI_UploadDate AS UploadDate,ISI_LineNbr AS LineNbr,ISI_FileName AS FileName,ISI_ErrorFlag AS ErrorFlag,ISI_ErrorDescription AS ErrorDescription,ISI_DealerSapCode AS DealerSapCode,ISI_DealerName AS DealerName,ISI_Warehouse AS Warehouse,ISI_ArticleNumber AS ArticleNumber,ISI_Qty AS Qty,ISI_DMA_ID AS DmaId,ISI_CFN_ID AS CfnId,ISI_WHM_ID AS WhmId
+      FROM InventorySafetyInit
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ISI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventorySafetyInit" parameterClass="InventorySafetyInit" resultClass="InventorySafetyInit">
+      SELECT ISI_ID AS Id,ISI_USER AS User,ISI_UploadDate AS UploadDate,ISI_LineNbr AS LineNbr,ISI_FileName AS FileName,ISI_ErrorFlag AS ErrorFlag,ISI_ErrorDescription AS ErrorDescription,ISI_DealerSapCode AS DealerSapCode,ISI_DealerName AS DealerName,ISI_Warehouse AS Warehouse,ISI_ArticleNumber AS ArticleNumber,ISI_Qty AS Qty,ISI_DMA_ID AS DmaId,ISI_CFN_ID AS CfnId,ISI_WHM_ID AS WhmId
+      FROM InventorySafetyInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ISI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">ISI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">ISI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ISI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ISI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ISI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">ISI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">ISI_DealerSapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">ISI_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="Warehouse">ISI_Warehouse=#Warehouse#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">ISI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">ISI_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ISI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">ISI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">ISI_WHM_ID=#WhmId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventorySafetyInit" parameterClass="InventorySafetyInit">
+      INSERT INTO InventorySafetyInit
+      (ISI_ID,ISI_USER,ISI_UploadDate,ISI_LineNbr,ISI_FileName,ISI_ErrorFlag,ISI_ErrorDescription,ISI_DealerSapCode,ISI_DealerName,ISI_Warehouse,ISI_ArticleNumber,ISI_Qty,ISI_DMA_ID,ISI_CFN_ID,ISI_WHM_ID)
+      VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#DealerSapCode#,#DealerName#,#Warehouse#,#ArticleNumber#,#Qty#,#DmaId#,#CfnId#,#WhmId#)
+    </insert>
+    <update id="UpdateInventorySafetyInit" parameterClass="InventorySafetyInit">
+      UPDATE InventorySafetyInit
+      SET ISI_ID=#Id#,ISI_USER=#User#,ISI_UploadDate=#UploadDate#,ISI_LineNbr=#LineNbr#,ISI_FileName=#FileName#,ISI_ErrorFlag=#ErrorFlag#,ISI_ErrorDescription=#ErrorDescription#,ISI_DealerSapCode=#DealerSapCode#,ISI_DealerName=#DealerName#,ISI_Warehouse=#Warehouse#,ISI_ArticleNumber=#ArticleNumber#,ISI_Qty=#Qty#,ISI_DMA_ID=#DmaId#,ISI_CFN_ID=#CfnId#,ISI_WHM_ID=#WhmId#
+      WHERE ISI_ID = #Id#
+    </update>
+    <delete id="DeleteInventorySafetyInit" parameterClass="string">
+      DELETE FROM InventorySafetyInit
+      WHERE ISI_ID = #value#
+    </delete>
+    <delete id="DeleteInventorySafetyInitByUser" parameterClass="string">
+      DELETE FROM InventorySafetyInit
+      WHERE ISI_USER = #value#
+    </delete>
+    <procedure id="GC_InventorySafetyInit" parameterMap="InventorySafetyInitParameterMap">
+      dbo.GC_InventorySafetyInit
+    </procedure>
+    <select id="SelectInventorySafetyInitByHashtable" parameterClass="System.Collections.Hashtable" resultClass="InventorySafetyInit">
+      SELECT ISI_ID AS Id,ISI_USER AS [User],ISI_UploadDate AS UploadDate,ISI_LineNbr AS LineNbr,ISI_FileName AS FileName,ISI_ErrorFlag AS ErrorFlag,ISI_ErrorDescription AS ErrorDescription,ISI_DealerSapCode AS DealerSapCode,ISI_DealerName AS DealerName,ISI_Warehouse AS Warehouse,ISI_ArticleNumber AS ArticleNumber,ISI_Qty AS Qty,ISI_DMA_ID AS DmaId,ISI_CFN_ID AS CfnId,ISI_WHM_ID AS WhmId,
+      ROW_NUMBER () OVER (ORDER BY ISI_LineNbr ASC) AS row_number
+      FROM InventorySafetyInit
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ISI_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="User">ISI_USER=#User#</isNotNull>
+        <isNotNull prepend="AND" property="UploadDate">ISI_UploadDate=#UploadDate#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">ISI_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">ISI_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorFlag">ISI_ErrorFlag=#ErrorFlag#</isNotNull>
+        <isNotNull prepend="AND" property="ErrorDescription">ISI_ErrorDescription=#ErrorDescription#</isNotNull>
+        <isNotNull prepend="AND" property="DealerSapCode">ISI_DealerSapCode=#DealerSapCode#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">ISI_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="Warehouse">ISI_Warehouse=#Warehouse#</isNotNull>
+        <isNotNull prepend="AND" property="ArticleNumber">ISI_ArticleNumber=#ArticleNumber#</isNotNull>
+        <isNotNull prepend="AND" property="Qty">ISI_Qty=#Qty#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ISI_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="CfnId">ISI_CFN_ID=#CfnId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">ISI_WHM_ID=#WhmId#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

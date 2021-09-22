@@ -1,0 +1,1 @@
+﻿ALTER TABLE dbo.UploadLog ADD [ULL_ProductLineID] UNIQUEIDENTIFIER;

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProductClassificationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProductClassification" assembly="DMS.Model.dll" type="DMS.Model.ProductClassification" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProductClassificationResult" class="ProductClassification">
+      <result property="Id" column="PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductLineId" column="PCT_ProductLine_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Code" column="PCT_Code" type="string" dbType="varchar"/>
+      <result property="Namecn" column="PCT_NameCN" type="string" dbType="varchar"/>
+      <result property="Nameen" column="PCT_NameEN" type="string" dbType="varchar"/>
+      <result property="ParentClassificationPctId" column="PCT_ParentClassification_PCT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Active" column="PCT_Active" type="bool" dbType="bit"/>
+      <result property="Rv1" column="PCT_Rv1" type="string" dbType="varchar"/>
+      <result property="Rv2" column="PCT_Rv2" type="string" dbType="varchar"/>
+      <result property="Rv3" column="PCT_Rv3" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectProductClassification" parameterClass="string" resultClass="ProductClassification">
+      SELECT PCT_ID AS Id,PCT_ProductLine_ID AS ProductLineId,PCT_Code AS Code,PCT_NameCN AS Namecn,PCT_NameEN AS Nameen,PCT_ParentClassification_PCT_ID AS ParentClassificationPctId,PCT_Active AS Active,PCT_Rv1 AS Rv1,PCT_Rv2 AS Rv2,PCT_Rv3 AS Rv3
+      FROM ProductClassification
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PCT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProductClassification" parameterClass="ProductClassification" resultClass="ProductClassification">
+      SELECT PCT_ID AS Id,PCT_ProductLine_ID AS ProductLineId,PCT_Code AS Code,PCT_NameCN AS Namecn,PCT_NameEN AS Nameen,PCT_ParentClassification_PCT_ID AS ParentClassificationPctId,PCT_Active AS Active,PCT_Rv1 AS Rv1,PCT_Rv2 AS Rv2,PCT_Rv3 AS Rv3
+      FROM ProductClassification
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">PCT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">PCT_ProductLine_ID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PCT_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="Namecn">PCT_NameCN=#Namecn#</isNotNull>
+        <isNotNull prepend="AND" property="Nameen">PCT_NameEN=#Nameen#</isNotNull>
+        <isNotNull prepend="AND" property="ParentClassificationPctId">PCT_ParentClassification_PCT_ID=#ParentClassificationPctId#</isNotNull>
+        <isNotNull prepend="AND" property="Active">PCT_Active=#Active#</isNotNull>
+        <isNotNull prepend="AND" property="Rv1">PCT_Rv1=#Rv1#</isNotNull>
+        <isNotNull prepend="AND" property="Rv2">PCT_Rv2=#Rv2#</isNotNull>
+        <isNotNull prepend="AND" property="Rv3">PCT_Rv3=#Rv3#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertProductClassification" parameterClass="ProductClassification">
+      INSERT INTO ProductClassification
+      (PCT_ID,PCT_ProductLine_ID,PCT_Code,PCT_NameCN,PCT_NameEN,PCT_ParentClassification_PCT_ID,PCT_Active,PCT_Rv1,PCT_Rv2,PCT_Rv3)
+      VALUES(#Id#,#ProductLineId#,#Code#,#Namecn#,#Nameen#,#ParentClassificationPctId#,#Active#,#Rv1#,#Rv2#,#Rv3#)
+    </insert>
+    <update id="UpdateProductClassification" parameterClass="ProductClassification">
+      UPDATE ProductClassification
+      SET PCT_ID=#Id#,PCT_ProductLine_ID=#ProductLineId#,PCT_Code=#Code#,PCT_NameCN=#Namecn#,PCT_NameEN=#Nameen#,PCT_ParentClassification_PCT_ID=#ParentClassificationPctId#,PCT_Active=#Active#,PCT_Rv1=#Rv1#,PCT_Rv2=#Rv2#,PCT_Rv3=#Rv3#
+      WHERE PCT_ID = #Id#
+    </update>
+    <delete id="DeleteProductClassification" parameterClass="string">
+      DELETE FROM ProductClassification
+      WHERE PCT_ID = #value#
+    </delete>
+
+    <select id="SelectProductClassificationByProductLineId" parameterClass="System.Collections.Hashtable" resultClass="ProductClassification">
+      SELECT PCT_ID AS Id,PCT_ProductLine_ID AS ProductLineId,PCT_Code AS Code,PCT_NameCN AS Namecn,PCT_NameEN AS Nameen,PCT_ParentClassification_PCT_ID AS ParentClassificationPctId,PCT_Active AS Active,PCT_Rv1 AS Rv1,PCT_Rv2 AS Rv2,PCT_Rv3 AS Rv3
+      ,row_number() OVER (ORDER BY PCT_Rv3 ) AS row_number
+      FROM ProductClassification
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLineBumId">PCT_ProductLine_ID=#ProductLineBumId# </isNotNull>
+        <isNotNull prepend="AND" property="Active">PCT_Active=#Active# </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectContractProductClassification" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT AOPHPM_PCT_ID AS PctId ,PCT_NameCN AS PctNamecn
+      FROM AOPHospitalProductMapping mp
+      LEFT JOIN ProductClassification ON PCT_ID=AOPHPM_PCT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">mp.AOPHPM_ContractId=#ContractId# </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectContractProductClassificationPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT AOPHPM_PCP_ID AS PcpId
+      FROM AOPHospitalProductMapping mp
+      LEFT JOIN ProductClassification ON PCT_ID=AOPHPM_PCT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">mp.AOPHPM_ContractId=#ContractId# </isNotNull>
+      </dynamic>
+      And AOPHPM_PCP_ID is not null
+    </select>
+
+    <select id="SelectProductClassificationPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT PCT_ID AS PctId,PCT_ProductLine_ID AS ProductLineId,PCT_NameCN AS Namecn,
+      PC.PCP_ID AS PcpId ,PC.PCP_Price AS AOPDealer ,pc.PCP_Rv1  AS Price,pc.PCP_Rv2 Remark
+      FROM ProductClassification P
+      INNER JOIN ProductClassificationPrice PC ON P.PCT_ID=PC.PCP_PCT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLineBumId">PCT_ProductLine_ID=#ProductLineBumId# </isNotNull>
+        <isNotNull prepend="AND" property="Active">PCT_Active=#Active# </isNotNull>
+        <isNotNull prepend="AND" property="Year">PC.PCP_Year=#Year# </isNotNull>
+      </dynamic>
+    </select>
+
+    <delete id="DeleteHospitalProductMapping" parameterClass="System.Collections.Hashtable">
+      DELETE FROM AOPHospitalProductMapping
+      WHERE AOPHPM_ContractId=#ContractId# AND AOPHPM_Dma_id=#DealerDmaId# AND AOPHPM_Hos_Id=#HosId#
+    </delete>
+
+    <insert id="SubmintDealerHospitalProductMapping" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AOPHospitalProductMapping(AOPHPM_Id,AOPHPM_ContractId,AOPHPM_Dma_id,AOPHPM_Hos_Id,AOPHPM_PCT_ID,AOPHPM_PCP_ID)
+      SELECT NEWID(),#ContractId# ,#DealerDmaId#,#HosId#, VAL,NULL FROM [GC_Fn_SplitStringToTable](#ProductString#,',')
+    </insert>
+
+    <select id="CheckAuthorProductPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC [dbo].[GC_CheckAuthorProductPrice]  #ContractId#,#ProductLineBumId#, #priceidString#
+    </select>
+  
+    <update id="UpdateNullHospitalProductPrice" parameterClass="System.Collections.Hashtable">
+      UPDATE AOPHospitalProductMapping SET AOPHPM_PCP_ID=NULL WHERE AOPHPM_ContractId=#ContractId#
+    </update>
+
+    <update id="SubmintHospitalProductPrice" parameterClass="System.Collections.Hashtable">
+      UPDATE AOPHospitalProductMapping SET AOPHPM_PCP_ID=pc.CP_ID
+      FROM interface.ClassificationQuotaPrice pc ,interface.ClassificationQuota cq,( SELECT  VAL AS PcpId FROM GC_Fn_SplitStringToTable(#priceidString#,',')) Prc
+      WHERE pc.CP_ID=Prc.PcpId
+      AND pc.CP_CQ_Code=cq.CQ_Code
+      and cq.CQ_ID=AOPHospitalProductMapping.AOPHPM_PCT_ID
+      AND AOPHPM_ContractId=#ContractId#
+    </update>
+    
+  </statements>
+</sqlMap>

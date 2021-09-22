@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MasterPage.DealerSpecialUPN" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <statements>
+
+    <select id="MasterPage.DealerSpecialUPN.SelectDealerSpecialUPNList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,DMA_EnglishShortName AS EnglishShortName,DMA_Nbr AS Nbr,DMA_SAP_Code AS SapCode,DMA_DealerType AS DealerType,DMA_CompanyType AS CompanyType,DMA_CompanyGrade AS CompanyGrade,DMA_DealerAuthentication AS DealerAuthentication,DMA_FirstContractDate AS FirstContractDate,DMA_RegisteredAddress AS RegisteredAddress,DMA_Address AS Address,DMA_ShipToAddress AS ShipToAddress,DMA_PostalCode AS PostalCode,DMA_Phone AS Phone,DMA_Fax AS Fax,DMA_ContactPerson AS ContactPerson,DMA_Email AS Email,DMA_GeneralManager AS GeneralManager,DMA_LegalRep AS LegalRep,CAST (DMA_RegisteredCapital AS REAL) AS RegisteredCapital,DMA_Bank AS Bank,DMA_BankAccount AS BankAccount,DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = DMA_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      ,DMA_Parent_DMA_ID AS ParentDmaId
+      ,row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock)
+      WHERE DMA_DeletedFlag = 0
+      <isNotEmpty prepend="AND" property="DMA_ID">
+        DMA_ID=#DMA_ID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="DealerType">
+        DMA_DealerType=#DealerType#
+      </isNotEmpty>
+    </select>
+
+    <select id="MasterPage.DealerSpecialUPN.SelectDealerSpecialUPNInfo" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT * FROM DealerSpecialUPN
+      LEFT JOIN CFN ON CFN.CFN_ID=DS_CFN_ID
+      inner join Product on CFN.CFN_ID=Product.PMA_CFN_ID
+      WHERE DS_DMA_ID=#Id#
+
+    </select>
+
+    <select id="MasterPage.DealerSpecialUPN.SelectDealerSpecialUPNQuery" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT * FROM DealerSpecialUPN
+      LEFT JOIN CFN ON CFN.CFN_ID=DS_CFN_ID
+      inner join Product on CFN.CFN_ID=Product.PMA_CFN_ID
+      WHERE DS_DMA_ID=#Id#
+    <isNotEmpty prepend="AND" property="Filter">
+      (CFN.CFN_CustomerFaceNbr in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')) or CFN.CFN_Property1 in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')) or CFN.CFN_ChineseName in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')))
+    </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Bu">
+        CFN.CFN_ProductLine_BUM_ID=#Bu#
+      </isNotEmpty>
+    </select>
+    
+
+    <select id="MasterPage.DealerSpecialUPN.DealerSpecialUPNPicker" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT * FROM CFN
+      inner join Product on CFN.CFN_ID=Product.PMA_CFN_ID
+      WHERE CFN_ID NOT IN (select DS_CFN_ID from dbo.DealerSpecialUPN WHERE DS_DMA_ID=#Id#) AND CFN_Property4!=-1
+      <isNotEmpty prepend="AND" property="Filter">
+        (CFN.CFN_CustomerFaceNbr in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')) or CFN.CFN_Property1 in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')) or CFN.CFN_ChineseName in (select VAL from dbo.GC_Fn_SplitStringToTable(#Filter#,',')))
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Bu">
+        CFN.CFN_ProductLine_BUM_ID=#Bu#
+      </isNotEmpty>
+    </select>
+
+    <delete id="MasterPage.DealerSpecialUPN.Delete" parameterClass="string">
+      DELETE FROM DealerSpecialUPN
+      WHERE DS_DMA_ID = #Id# AND DS_CFN_ID IN (SELECT VAL FROM GC_Fn_SplitStringToTable(#CFN_ID#,','))
+    </delete>
+
+    <insert id="MasterPage.DealerSpecialUPN.Insert" parameterClass="string">
+      <![CDATA[
+       Insert into DealerSpecialUPN (DS_ID,DS_DMA_ID,DS_CFN_ID,DS_CreateUser,DS_CreateDate)
+       Values
+       (NEWID(),#DMA_ID#,#CFN_ID#,#CreateUser#,#CreateDate#)
+      ]]>
+    </insert>
+
+    <select id="MasterPage.DealerSpecialUPN.DealerType" parameterClass="string" resultClass="System.Data.DataSet">
+
+      SELECT DICT_KEY,VALUE1 
+      FROM Lafite_DICT
+      WHERE DICT_TYPE=#DICT_TYPE#
+
+    </select>
+    
+    
+  </statements>
+</sqlMap>

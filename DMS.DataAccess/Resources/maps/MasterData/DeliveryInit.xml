@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DeliveryInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="DeliveryInit" assembly="DMS.Model.dll" type="DMS.Model.DeliveryInit" />
+    </alias>
+    <resultMaps>
+        <resultMap id="DeliveryInitResult" class="DeliveryInit">
+            <result property="Id" column="DIL_ID" type="Guid" dbType="Guid"/>
+            <result property="User" column="DIL_USER" type="Guid" dbType="Guid"/>
+            <result property="UploadDate" column="DIL_UploadDate" type="DateTime" dbType="DateTime"/>
+            <result property="LineNbr" column="DIL_LineNbr" type="int" dbType="Int"/>
+            <result property="FileName" column="DIL_FileName" type="string" dbType="varchar"/>
+            <result property="ErrorFlag" column="DIL_ErrorFlag" type="bool" dbType="bool"/>
+            <result property="ErrorDescription" column="DIL_ErrorDescription" type="string" dbType="varchar"/>
+            <result property="SapCode" column="DIL_SAPCode" type="string" dbType="varchar"/>
+            <result property="OrderNo" column="DIL_OrderNo" type="string" dbType="varchar"/>
+            <result property="ArticleNo" column="DIL_ArticleNo" type="string" dbType="varchar"/>
+            <result property="LotNumber" column="DIL_LotNumber" type="string" dbType="varchar"/>
+            <result property="ExpiredDate" column="DIL_ExpiredDate" type="DateTime" dbType="DateTime"/>
+            <result property="SapDeliveryNo" column="DIL_SapDeliveryNo" type="string" dbType="varchar"/>
+            <result property="ShippingDate" column="DIL_ShippingDate" type="DateTime" dbType="DateTime"/>
+            <result property="Carrier" column="DIL_Carrier" type="string" dbType="varchar"/>
+            <result property="TrackingNo" column="DIL_TrackingNo" type="string" dbType="varchar"/>
+            <result property="DeliveryQty" column="DIL_DeliveryQty" type="double" dbType="Real"/>
+            <result property="ShipType" column="DIL_ShipType" type="string" dbType="varchar"/>
+            <result property="Note" column="DIL_Note" type="string" dbType="varchar"/>
+            <result property="SapDeliveryLineNbr" column="DIL_SapDeliveryLineNbr" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="delivery-pars" class="System.Collections.Hashtable" >
+            <parameter property="UserId" column="UserId" />
+          <parameter property="SubCompanyId" column="SubCompanyId" />
+          <parameter property="BrandId" column="BrandId" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectDeliveryInit" parameterClass="string" resultClass="DeliveryInit">
+            SELECT DIL_ID AS Id,DIL_USER AS [User],DIL_UploadDate AS UploadDate,DIL_LineNbr AS LineNbr,DIL_FileName AS FileName,DIL_ErrorFlag AS ErrorFlag,DIL_ErrorDescription AS ErrorDescription,DIL_SAPCode AS SapCode,DIL_OrderNo AS OrderNo,DIL_ArticleNo AS ArticleNo,DIL_LotNumber AS LotNumber,DIL_ExpiredDate AS ExpiredDate,DIL_SapDeliveryNo AS SapDeliveryNo,DIL_ShippingDate AS ShippingDate,DIL_Carrier AS Carrier,DIL_TrackingNo AS TrackingNo,DIL_DeliveryQty AS DeliveryQty,DIL_ShipType AS ShipType,DIL_Note AS Note,DIL_SapDeliveryLineNbr AS SapDeliveryLineNbr
+            FROM DeliveryInit
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    DIL_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterDeliveryInit" parameterClass="DeliveryInit" resultClass="DeliveryInit">
+            SELECT DIL_ID AS Id,DIL_USER AS [User],DIL_UploadDate AS UploadDate,DIL_LineNbr AS LineNbr,DIL_FileName AS FileName,DIL_ErrorFlag AS ErrorFlag,DIL_ErrorDescription AS ErrorDescription,DIL_SAPCode AS SapCode,DIL_OrderNo AS OrderNo,DIL_ArticleNo AS ArticleNo,DIL_LotNumber AS LotNumber,DIL_ExpiredDate AS ExpiredDate,DIL_SapDeliveryNo AS SapDeliveryNo,DIL_ShippingDate AS ShippingDate,DIL_Carrier AS Carrier,DIL_TrackingNo AS TrackingNo,DIL_DeliveryQty AS DeliveryQty,DIL_ShipType AS ShipType,DIL_Note AS Note,DIL_SapDeliveryLineNbr AS SapDeliveryLineNbr
+            FROM DeliveryInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">DIL_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="User">DIL_USER=#User#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">DIL_UploadDate=#UploadDate#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">DIL_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">DIL_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorFlag">DIL_ErrorFlag=#ErrorFlag#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorDescription">DIL_ErrorDescription=#ErrorDescription#</isNotNull>
+                <isNotNull prepend="AND" property="SapCode">DIL_SAPCode=#SapCode#</isNotNull>
+                <isNotNull prepend="AND" property="OrderNo">DIL_OrderNo=#OrderNo#</isNotNull>
+                <isNotNull prepend="AND" property="ArticleNo">DIL_ArticleNo=#ArticleNo#</isNotNull>
+                <isNotNull prepend="AND" property="LotNumber">DIL_LotNumber=#LotNumber#</isNotNull>
+                <isNotNull prepend="AND" property="ExpiredDate">DIL_ExpiredDate=#ExpiredDate#</isNotNull>
+                <isNotNull prepend="AND" property="SapDeliveryNo">DIL_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+                <isNotNull prepend="AND" property="ShippingDate">DIL_ShippingDate=#ShippingDate#</isNotNull>
+                <isNotNull prepend="AND" property="Carrier">DIL_Carrier=#Carrier#</isNotNull>
+                <isNotNull prepend="AND" property="TrackingNo">DIL_TrackingNo=#TrackingNo#</isNotNull>
+                <isNotNull prepend="AND" property="DeliveryQty">DIL_DeliveryQty=#DeliveryQty#</isNotNull>
+                <isNotNull prepend="AND" property="ShipType">DIL_ShipType=#ShipType#</isNotNull>
+                <isNotNull prepend="AND" property="Note">DIL_Note=#Note#</isNotNull>
+                <isNotNull prepend="AND" property="SapDeliveryLineNbr">DIL_SapDeliveryLineNbr=#SapDeliveryLineNbr#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertDeliveryInit" parameterClass="DeliveryInit">
+            INSERT INTO DeliveryInit
+            (DIL_ID,DIL_USER,DIL_UploadDate,DIL_LineNbr,DIL_FileName,DIL_ErrorFlag,DIL_ErrorDescription,DIL_SAPCode,DIL_OrderNo,DIL_ArticleNo,DIL_LotNumber,DIL_ExpiredDate,DIL_SapDeliveryNo,DIL_ShippingDate,DIL_Carrier,DIL_TrackingNo,DIL_DeliveryQty,DIL_ShipType,DIL_Note,DIL_SapDeliveryLineNbr)
+            VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#SapCode#,#OrderNo#,#ArticleNo#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#SapDeliveryNo#,#ShippingDate:DateTime:1/1/0001 12:00:00 AM#,#Carrier#,#TrackingNo#,#DeliveryQty#,#ShipType#,#Note#,#SapDeliveryLineNbr#)
+        </insert>
+        <update id="UpdateDeliveryInit" parameterClass="DeliveryInit">
+            UPDATE DeliveryInit
+            SET DIL_ID=#Id#,DIL_USER=#User#,DIL_UploadDate=#UploadDate#,DIL_LineNbr=#LineNbr#,DIL_FileName=#FileName#,DIL_ErrorFlag=#ErrorFlag#,DIL_ErrorDescription=#ErrorDescription#,DIL_SAPCode=#SapCode#,DIL_OrderNo=#OrderNo#,DIL_ArticleNo=#ArticleNo#,DIL_LotNumber=#LotNumber#,DIL_ExpiredDate=#ExpiredDate#,DIL_SapDeliveryNo=#SapDeliveryNo#,DIL_ShippingDate=#ShippingDate#,DIL_Carrier=#Carrier#,DIL_TrackingNo=#TrackingNo#,DIL_DeliveryQty=#DeliveryQty#,DIL_ShipType=#ShipType#,DIL_Note=#Note#,DIL_SapDeliveryLineNbr=#SapDeliveryLineNbr#
+            WHERE DIL_ID = #Id#
+        </update>
+        <delete id="DeleteDeliveryInit" parameterClass="string">
+            DELETE FROM DeliveryInit
+            WHERE DIL_ID = #value#
+        </delete>
+
+        <!--added by bozhenfei on 20100610-->
+        <delete id="DeleteDeliveryInitByUser" parameterClass="string">
+            DELETE FROM DeliveryInit
+            WHERE DIL_USER = #value#
+        </delete>
+        <select id="QueryErrorDeliveryInit" parameterClass="System.Collections.Hashtable" resultClass="DeliveryInit">
+            SELECT DIL_ID AS Id,DIL_USER AS [User],DIL_UploadDate AS UploadDate,DIL_LineNbr AS LineNbr,DIL_FileName AS FileName,DIL_ErrorFlag AS ErrorFlag,DIL_ErrorDescription AS ErrorDescription,DIL_SAPCode AS SapCode,DIL_OrderNo AS OrderNo,DIL_ArticleNo AS ArticleNo,DIL_LotNumber AS LotNumber,DIL_ExpiredDate AS ExpiredDate,DIL_SapDeliveryNo AS SapDeliveryNo,DIL_ShippingDate AS ShippingDate,DIL_Carrier AS Carrier,DIL_TrackingNo AS TrackingNo,DIL_DeliveryQty AS DeliveryQty,DIL_ShipType AS ShipType,DIL_Note AS Note,DIL_SapDeliveryLineNbr AS SapDeliveryLineNbr,
+            row_number() OVER (ORDER BY DIL_LineNbr) AS row_number
+            FROM DeliveryInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="User">DIL_USER=#User#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorFlag">DIL_ErrorFlag=#ErrorFlag#</isNotNull>
+            </dynamic>
+        </select>
+        <procedure id="GC_ImportPOReceipt" parameterMap="delivery-pars">
+            dbo.GC_ImportPOReceipt
+        </procedure>
+        <!--end-->
+    </statements>
+</sqlMap>

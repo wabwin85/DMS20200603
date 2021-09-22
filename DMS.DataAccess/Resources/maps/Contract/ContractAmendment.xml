@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractAmendmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractAmendment" assembly="DMS.Model.dll" type="DMS.Model.ContractAmendment" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ContractAmendmentResult" class="ContractAmendment">
+      <result property="CamId" column="CamId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CamCmId" column="CamCmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CamDmaId" column="CamDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CamDivision" column="CamDivision" type="string" dbType="nvarchar"/>
+      <result property="CamMarketType" column="CamMarketType" type="int" dbType="int"/>
+      <result property="CamAmendmentReason" column="CamAmendmentReason" type="string" dbType="nvarchar"/>
+      <result property="CamDealerName" column="CamDealerName" type="string" dbType="nvarchar"/>
+      <result property="CamAgreementEffectiveDate" column="CamAgreementEffectiveDate" type="DateTime" dbType="datetime"/>
+      <result property="CamAgreementExpirationDate" column="CamAgreementExpirationDate" type="DateTime" dbType="datetime"/>
+      <result property="CamAmendmentEffectiveDate" column="CamAmendmentEffectiveDate" type="DateTime" dbType="datetime"/>
+      <result property="CamStandardAmendment" column="CamStandardAmendment" type="bool" dbType="bit"/>
+      <result property="CamProductLineIsChange" column="CamProductLineIsChange" type="bool" dbType="bit"/>
+      <result property="CamProductLineOld" column="CamProductLineOld" type="string" dbType="nvarchar"/>
+      <result property="CamProductLineNew" column="CamProductLineNew" type="string" dbType="nvarchar"/>
+      <result property="CamProductLineRemarks" column="CamProductLineRemarks" type="string" dbType="nvarchar"/>
+      <result property="CamPriceIsChange" column="CamPriceIsChange" type="bool" dbType="bit"/>
+      <result property="CamPriceOld" column="CamPriceOld" type="string" dbType="nvarchar"/>
+      <result property="CamPriceNew" column="CamPriceNew" type="string" dbType="nvarchar"/>
+      <result property="CamPriceRemarks" column="CamPriceRemarks" type="string" dbType="nvarchar"/>
+      <result property="CamSpecialIsChange" column="CamSpecialIsChange" type="bool" dbType="bit"/>
+      <result property="CamSpecialOld" column="CamSpecialOld" type="string" dbType="nvarchar"/>
+      <result property="CamSpecialAmendment" column="CamSpecialAmendment" type="string" dbType="nvarchar"/>
+      <result property="CamSpecialAmendmentRemraks" column="CamSpecialAmendmentRemraks" type="string" dbType="nvarchar"/>
+      <result property="CamTerritoryIsChange" column="CamTerritoryIsChange" type="bool" dbType="bit"/>
+      <result property="CamTerritoryRemarks" column="CamTerritoryRemarks" type="string" dbType="nvarchar"/>
+      <result property="CamQuotaIsChange" column="CamQuotaIsChange" type="bool" dbType="bit"/>
+      <result property="CamQuotaRemakrs" column="CamQuotaRemakrs" type="string" dbType="nvarchar"/>
+      <result property="CamPaymentIsChange" column="CamPaymentIsChange" type="bool" dbType="bit"/>
+      <result property="CamPaymentOld" column="CamPaymentOld" type="string" dbType="nvarchar"/>
+      <result property="CamPaymentNew" column="CamPaymentNew" type="string" dbType="nvarchar"/>
+      <result property="CamPaymentRemarks" column="CamPaymentRemarks" type="string" dbType="nvarchar"/>
+      <result property="CamCreditLimitIsChange" column="CamCreditLimitIsChange" type="bool" dbType="bit"/>
+      <result property="CamCreditLimitOld" column="CamCreditLimitOld" type="string" dbType="nvarchar"/>
+      <result property="CamCreditLimitNew" column="CamCreditLimitNew" type="string" dbType="nvarchar"/>
+      <result property="CamSecurityDepositOld" column="CamSecurityDepositOld" type="string" dbType="nvarchar"/>
+      <result property="CamSecurityDepositNew" column="CamSecurityDepositNew" type="string" dbType="nvarchar"/>
+      <result property="CamAccountOld" column="CamAccountOld" type="string" dbType="nvarchar"/>
+      <result property="CamAccountNew" column="CamAccountNew" type="string" dbType="nvarchar"/>
+      <result property="CamGuaranteeWayNew" column="CamGuaranteeWayNew" type="string" dbType="nvarchar"/>
+      <result property="CamGuaranteeWayOld" column="CamGuaranteeWayOld" type="string" dbType="nvarchar"/>
+      <result property="CamGuaranteeWayRemark" column="CamGuaranteeWayRemark" type="string" dbType="nvarchar"/>
+      <result property="CamAttachmentOld" column="CamAttachmentOld" type="string" dbType="nvarchar"/>
+      <result property="CamAttachmentNew" column="CamAttachmentNew" type="string" dbType="nvarchar"/>
+      <result property="CamHasConflict" column="CamHasConflict" type="bool" dbType="bit"/>
+      <result property="CamConflictRemarks" column="CamConflictRemarks" type="string" dbType="nvarchar"/>
+      <result property="CamBusinessHandover" column="CamBusinessHandover" type="string" dbType="nvarchar"/>
+      <result property="CamSupplementaryLetter" column="CamSupplementaryLetter" type="bool" dbType="bit"/>
+      <result property="CamRsmPrintName" column="CamRsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamRsmDate" column="CamRsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CamNcmPrintName" column="CamNcmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamNcmDate" column="CamNcmDate" type="DateTime" dbType="datetime"/>
+      <result property="CamNsmPrintName" column="CamNsmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamNsmDate" column="CamNsmDate" type="DateTime" dbType="datetime"/>
+      <result property="CamNcmForPart2PrintName" column="CamNcmForPart2PrintName" type="string" dbType="nvarchar"/>
+      <result property="CamNcmForPart2Date" column="CamNcmForPart2Date" type="DateTime" dbType="datetime"/>
+      <result property="CamDrmPrintName" column="CamDrmPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamDrmDate" column="CamDrmDate" type="DateTime" dbType="datetime"/>
+      <result property="CamFcPrintName" column="CamFcPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamFcDate" column="CamFcDate" type="DateTime" dbType="datetime"/>
+      <result property="CamCdPrintName" column="CamCdPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamCdDate" column="CamCdDate" type="DateTime" dbType="datetime"/>
+      <result property="CamVpfPrintName" column="CamVpfPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamVpfDate" column="CamVpfDate" type="DateTime" dbType="datetime"/>
+      <result property="CamVpapPrintName" column="CamVpapPrintName" type="string" dbType="nvarchar"/>
+      <result property="CamVpapDate" column="CamVpapDate" type="DateTime" dbType="datetime"/>
+      <result property="CamStatus" column="CamStatus" type="string" dbType="nvarchar"/>
+      <result property="CamType" column="CamType" type="string" dbType="nvarchar"/>
+      <result property="CamCreateDate" column="CamCreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CamCreateUser" column="CamCreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CamUpdateUser" column="CamUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CamUpdateDate" column="CamUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="CamSubDepid" column="CAM_SubDepID" type="string" dbType="nvarchar"/>
+      <result property="CamSubdepName" column="CamSubdepName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="ContractUpdateSysMap" class="System.Collections.Hashtable" >
+      <parameter property="TempId" column="TempId" />
+      <parameter property="ContractType" column="ContractType" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+
+    <select id="SelectContractAmendment" parameterClass="string" resultClass="ContractAmendment">
+      SELECT CAM_ID AS CamId,CAM_CM_ID AS CamCmId,CAM_DMA_ID AS CamDmaId,CAM_Division AS CamDivision,CAM_MarketType AS CamMarketType,CAM_Amendment_Reason AS CamAmendmentReason,CAM_Dealer_Name AS CamDealerName,CAM_Agreement_EffectiveDate AS CamAgreementEffectiveDate,CAM_Agreement_ExpirationDate AS CamAgreementExpirationDate,CAM_Amendment_EffectiveDate AS CamAmendmentEffectiveDate,CAM_Standard_Amendment AS CamStandardAmendment,CAM_ProductLine_IsChange AS CamProductLineIsChange,CAM_ProductLine_Old AS CamProductLineOld,CAM_ProductLine_New AS CamProductLineNew,CAM_ProductLine_Remarks AS CamProductLineRemarks,CAM_Price_IsChange AS CamPriceIsChange,CAM_Price_Old AS CamPriceOld,CAM_Price_New AS CamPriceNew,CAM_Price_Remarks AS CamPriceRemarks,CAM_Special_IsChange AS CamSpecialIsChange,CAM_Special_Old AS CamSpecialOld,CAM_Special_Amendment AS CamSpecialAmendment,CAM_Special_Amendment_Remraks AS CamSpecialAmendmentRemraks,CAM_Territory_IsChange AS CamTerritoryIsChange,CAM_Territory_Remarks AS CamTerritoryRemarks,CAM_Quota_IsChange AS CamQuotaIsChange,CAM_Quota_Remakrs AS CamQuotaRemakrs,CAM_Payment_IsChange AS CamPaymentIsChange,CAM_Payment_Old AS CamPaymentOld,CAM_Payment_New AS CamPaymentNew,CAM_Payment_Remarks AS CamPaymentRemarks,CAM_Credit_Limit_IsChange AS CamCreditLimitIsChange,CAM_Credit_Limit_Old AS CamCreditLimitOld,CAM_Credit_Limit_New AS CamCreditLimitNew,CAM_Security_Deposit_Old AS CamSecurityDepositOld,CAM_Security_Deposit_New AS CamSecurityDepositNew,CAM_Account_Old AS CamAccountOld,CAM_Account_New AS CamAccountNew,CAM_Guarantee_Way_New AS CamGuaranteeWayNew,CAM_Guarantee_Way_Old AS CamGuaranteeWayOld,CAM_Guarantee_Way_Remark AS CamGuaranteeWayRemark,CAM_Attachment_Old AS CamAttachmentOld,CAM_Attachment_New AS CamAttachmentNew,CAM_HasConflict AS CamHasConflict,CAM_Conflict_Remarks AS CamConflictRemarks,CAM_Business_Handover AS CamBusinessHandover,CAM_Supplementary_Letter AS CamSupplementaryLetter,CAM_RSM_PrintName AS CamRsmPrintName,CAM_RSM_Date AS CamRsmDate,CAM_NCM_PrintName AS CamNcmPrintName,CAM_NCM_Date AS CamNcmDate,CAM_NSM_PrintName AS CamNsmPrintName,CAM_NSM_Date AS CamNsmDate,CAM_NCMForPart2_PrintName AS CamNcmForPart2PrintName,CAM_NCMForPart2_Date AS CamNcmForPart2Date,CAM_DRM_PrintName AS CamDrmPrintName,CAM_DRM_Date AS CamDrmDate,CAM_FC_PrintName AS CamFcPrintName,CAM_FC_Date AS CamFcDate,CAM_CD_PrintName AS CamCdPrintName,CAM_CD_Date AS CamCdDate,CAM_VPF_PrintName AS CamVpfPrintName,CAM_VPF_Date AS CamVpfDate,CAM_VPAP_PrintName AS CamVpapPrintName,CAM_VPAP_Date AS CamVpapDate,CAM_Status AS CamStatus,CAM_Type AS CamType,CAM_Create_Date AS CamCreateDate,CAM_Create_User AS CamCreateUser,CAM_Update_User AS CamUpdateUser,CAM_Update_Date AS CamUpdateDate
+      ,CAM_SubDepID AS CamSubDepid, B.CC_RV1 AS CamSubdepName
+      FROM ContractAmendment A
+      LEFT JOIN  INTERFACE.ClassificationContract  B ON A.CAM_SubDepID=B.CC_Code
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CAM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <update id="UpdateAmendmentCmidByConid" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractAmendment
+      SET CAM_CM_ID=#CamCmId#
+      WHERE CAM_ID = #CamId#
+    </update>
+
+    <!--admin Update-->
+    <select id="SelectAmendmentMain" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT ContractId,ContractNo,ContractStatus,E.VALUE1 AS ContractStatusName,DealerType,DepId,B.DivisionName AS DepName,SUBDEPID,C.CC_NameCN SUBDEPNAME,EId,EName,ApplicantDep,RequestDate,CompanyID,DealerName,D.DMA_ChineseShortName AS DealerCnName,MarketType,DealerBeginDate,DealerEndDate,AmendEffectiveDate,Purpose,IsEquipment,Assessment	,AssessmentStart
+      FROM  Contract.AmendmentMain A(nolock)
+      INNER JOIN V_DivisionProductLineRelation B ON CONVERT(NVARCHAR(50),A.DepId)=B.DivisionCode AND B.IsEmerging='0'
+      INNER JOIN INTERFACE.ClassificationContract C(nolock) ON C.CC_Code=A.SUBDEPID
+      INNER JOIN DealerMaster D(nolock) ON D.DMA_SAP_Code=A.DealerName
+      inner join Lafite_DICT E(nolock) on E.DICT_TYPE='CONST_CONTRACT_ContractStatus' and A.ContractStatus=E.DICT_KEY
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.ContractId =#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractNo">A.ContractNo =#ContractNo#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectAmendmentProposals" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT a.ContractNo,a.ContractId,Product,ProductRemark,Price,PriceRemark,SpecialSales,SpecialSalesRemark,Hospital,Quota,QuotaTotal,QUOTAUSD,AllProductAop,AllProductAopUSD,Payment,CreditTerm,CreditLimit,PayTerm,IsDeposit,Deposit,Inform,InformOther,Comment,B.Attachment
+      FROM Contract.AmendmentMain A
+      INNER JOIN  Contract.AmendmentProposals B on a.ContractId=b.ContractId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.ContractId =#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractNo">A.ContractNo =#ContractNo#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectAttachmentUpload" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select AT_ID,AT_Main_ID,AT_Name,AT_Url,AT_Type,AT_UploadUser,AT_UploadDate from Attachment A
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UpdateId">A.AT_Main_ID=#UpdateId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <procedure id="ContractUpdateSubmint" parameterMap="ContractUpdateSysMap">
+      dbo.GC_ContractUpdateSubmint
+    </procedure>
+
+    <select id="SelectAmedmentUpdatelog" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT C.Id,C.UserId,C.UpdateDate,B.IDENTITY_NAME+'('+ISNULL(IDENTITY_CODE,'')+')' AS UserName
+      ,row_number() OVER (ORDER BY C.UpdateDate ASC) AS [row_number]
+      FROM (
+      SELECT	A.ContractId,A.HistoryId AS Id,UpdateUser AS UserId,UpdateDate
+      FROM Contract.AmendmentMainHistory A
+      UNION SELECT A.ContractId,	A.HistoryId AS Id,UpdateUser AS UserId,UpdateDate
+      FROM Contract.AppointmentMainHistory A
+      UNION SELECT A.ContractId,	A.His_Id AS Id,UpdateUser AS UserId,UpdateDate
+      FROM Contract.TerminationMainTempHistory A) C
+      INNER JOIN Lafite_IDENTITY B ON C.UserId=B.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">C.ContractId=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="TerritoryEditorInitAdmin" parameterClass="System.Collections.Hashtable">
+      dbo.GC_TerritoryEditorInitAdmin #ContractId#,#TempId#,#ContractType#
+    </insert>
+
+    <select id="SelectAuthorizationProductSelectedAdmin" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      B.CC_Code AS ProductLineSub,
+      B.CC_NameCN AS ProductLineSubDesc,
+      DAT_PMA_ID PmaId,DAT_ID Id,DAT_DCL_ID DclId,DAT_DMA_ID DmaId,DAT_DMA_ID_Actual DmaIdActual,DAT_ProductLine_BUM_ID ProductLineBumId,
+      DAT_AuthorizationType AuthorizationType,DAT_HospitalListDesc HospitalListDesc,DAT_ProductDescription  ProductDescription,B.CA_NameCN AS PmaDesc
+      ,row_number ()  OVER (ORDER BY  CA_Code ASC) AS [row_number]
+      FROM Contract.DealerAuthorizationTableTempHistory A
+      LEFT JOIN
+      (SELECT DISTINCT CC_Code,CC_ID,CC_NameCN,CA_ID,CA_Code,CA_NameCN
+      FROM V_ProductClassificationStructure CC WHERE CC.ActiveFlag=1 AND CC.CC_Code=#SubBU#) B ON B.CA_ID=A.DAT_PMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">A.HistoryId=#TempId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="IsertContractProductAdminItem" parameterClass="System.Collections.Hashtable">
+      INSERT INTO  Contract.DealerAuthorizationTableTempHistory (HistoryId,DAT_PMA_ID,DAT_ID,DAT_DCL_ID,DAT_DMA_ID,DAT_DMA_ID_Actual,DAT_ProductLine_BUM_ID,DAT_AuthorizationType,DAT_HospitalListDesc,DAT_ProductDescription)
+      SELECT #TempId#,B.VAL,NEWID(),#ContractId#,#DealerId#,#DealerId#
+      ,(SELECT TOP 1 DP.ProductLineID FROM V_DivisionProductLineRelation DP WHERE DP.IsEmerging='0' AND DP.DivisionName=#BuName#)
+      ,CASE  WHEN EXISTS (SELECT TOP 1 DP.ProductLineID FROM V_DivisionProductLineRelation DP WHERE DP.IsEmerging='0' AND DP.DivisionName=#BuName# AND B.VAL=DP.ProductLineID )
+      THEN 0 ELSE 1 END,NULL,NULL
+      FROM dbo.GC_Fn_SplitStringToTable(#ProductString#,',') B
+      WHERE NOT EXISTS(SELECT 1 FROM Contract.DealerAuthorizationTableTempHistory A
+      WHERE A.DAT_DCL_ID=#ContractId#
+      AND A.HistoryId=#TempId#
+      AND CONVERT(NVARCHAR(36),A.DAT_PMA_ID)=B.VAL)
+    </insert>
+
+    <select id="SelectProductHospitalSeletedAdmin" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT A.HistoryId,B.ID AS Id ,B.HOS_ID AS HosId,C.HOS_HospitalShortName AS HosHospitalShortName ,C.HOS_HospitalName AS HosHospitalName,
+      c.HOS_Grade AS HosGrade, C.HOS_Key_Account AS HosKeyAccount,C.HOS_Province AS HosProvince,C.HOS_City AS HosCity,C.HOS_District AS HosDistrict,
+      B.HOS_Depart AS HosDepart,B.HOS_DepartType AS HosDepartType,DP.VALUE1 AS HosDepartTypeName,B.HOS_DepartRemark AS HosDepartRemark
+      ,row_number () OVER (ORDER BY C.HOS_ID ASC) AS [row_number]
+      FROM Contract.DealerAuthorizationTableTempHistory A
+      INNER JOIN Contract.ContractTerritoryHistory B ON A.HistoryId=B.HistoryId AND A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_DICT DP ON DP.DICT_TYPE = 'HospitalDepart' AND CONVERT (NVARCHAR (50),A.DAT_ProductLine_BUM_ID) = DP.PID AND B.HOS_DepartType = DP.DICT_KEY
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">A.HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="DctId">A.DAT_ID=#DctId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <delete id="DeleteProductSelectedAdmin" parameterClass="System.Collections.Hashtable">
+      DELETE FROM Contract.DealerAuthorizationTableTempHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TempId">HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="DctId">DAT_ID=#DctId#</isNotNull>
+      </dynamic>
+    </delete>
+    <delete id="DeleteHospitalAOPTempAdmin" parameterClass="System.Collections.Hashtable">
+      DELETE FROM Contract.AOPDealerHospitalTempHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TempId">HistoryId=#TempId#</isNotNull>
+      </dynamic>
+    </delete>
+    <delete id="DeleteDealerAOPTempAdmin" parameterClass="System.Collections.Hashtable">
+      DELETE FROM Contract.AOPDealerTempHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TempId">HistoryId=#TempId#</isNotNull>
+      </dynamic>
+    </delete>
+    <delete id="DeleteAuthorizationHospitalTempAdmin" parameterClass="System.Collections.Hashtable">
+      DELETE FROM Contract.ContractTerritoryHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="TempId">HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+      </dynamic>
+    </delete>
+    <select id="SelectDCMSCopyProductCanAdmin" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.DAT_PMA_ID AS PmaId,B.CA_NameCN AS PmaDesc,A.DAT_ID AS Id,A.DAT_ProductLine_BUM_ID AS ProductLineBumId
+      ,A.DAT_DMA_ID AS DmaId,A.DAT_ProductDescription AS ProductDescription,A.DAT_HospitalListDesc AS HospitalListDesc,A.DAT_AuthorizationType AS AuthorizationType
+      ,row_number () OVER (ORDER BY B.CA_NameCN ASC) AS [row_number]
+      FROM Contract.DealerAuthorizationTableTempHistory A
+      INNER JOIN (SELECT CA_ID,CA_NameCN FROM INTERFACE.ClassificationAuthorization
+      WHERE #BeginDate# between CA_StartDate and CA_EndDate ) B ON A.DAT_PMA_ID=B.CA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.DAT_DCL_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">A.HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">A.DAT_ID &lt;> #Id#</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="CopyHospitalTempFromOtherAuthAdmin" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.ContractTerritoryHistory(HistoryId,ID,Contract_ID,HOS_ID,Territory_Type,HOS_Depart,HOS_DepartType,HOS_DepartRemark)
+      SELECT TT.HistoryId,newid() , '$DatId$',HOS_ID,'New',
+      HOS_Depart,HOS_DepartType,HOS_DepartRemark
+      FROM Contract.ContractTerritoryHistory tt
+      INNER JOIN Contract.DealerAuthorizationTableTempHistory DT ON DT.DAT_ID=TT.Contract_ID and dt.HistoryId=tt.HistoryId
+      WHERE tt.Contract_ID =#FromDatID#
+      AND TT.HistoryId=#TempId#
+      AND NOT EXISTS ( SELECT 1 FROM Contract.ContractTerritoryHistory a WHERE a.HOS_ID =tt.HOS_ID AND a.Contract_ID=#DatId# and tt.HistoryId=a.HistoryId)
+    </update>
+
+    <insert id="InsertProductHospitalTempAdmin" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.ContractTerritoryHistory(HistoryId,ID,Contract_ID,HOS_ID)
+      SELECT '$TempId$',NEWID(),'$DatId$',VAL FROM dbo.GC_Fn_SplitStringToTable(#HospitalIdString#,',')
+      WHERE NOT EXISTS (SELECT 1 FROM Contract.ContractTerritoryHistory B WHERE B.Contract_ID=#DatId# AND B.HistoryId=#TempId#
+      and CONVERT(NVARCHAR(36),B.HOS_ID)=VAL)
+    </insert>
+
+    <select id="SelectHospitalProductAOPAdmin" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT HistoryId,AOPDH_ID AS Id,AOPDH_Contract_ID ContractId,AOPDH_Dealer_DMA_ID DealerId,AOPDH_ProductLine_BUM_ID ProductLineId
+      ,AOPDH_Hospital_ID AS HospitalId,AOPDH_Year AS [Year]
+      ,AOPDH_Amount1 AS Amount_1,AOPDH_Amount2 AS Amount_2,AOPDH_Amount3 AS Amount_3,AOPDH_Amount4 AS Amount_4,AOPDH_Amount5 AS Amount_5,AOPDH_Amount6 AS Amount_6,AOPDH_Amount7 AS Amount_7,AOPDH_Amount8 AS Amount_8,AOPDH_Amount9 AS Amount_9,AOPDH_Amount10 AS Amount_10
+      ,AOPDH_Amount11 AS Amount_11,AOPDH_Amount12 AS Amount_12
+      ,(AOPDH_Amount1+AOPDH_Amount2+AOPDH_Amount3) AS Q1
+      ,(AOPDH_Amount4+AOPDH_Amount5+AOPDH_Amount6) AS Q2
+      ,(AOPDH_Amount7+AOPDH_Amount8+AOPDH_Amount9) AS Q3
+      ,(AOPDH_Amount10+AOPDH_Amount11+AOPDH_Amount12) AS Q4
+      ,(AOPDH_Amount1+AOPDH_Amount2+AOPDH_Amount3+AOPDH_Amount4+AOPDH_Amount5+AOPDH_Amount6+AOPDH_Amount7+AOPDH_Amount8+AOPDH_Amount9+AOPDH_Amount10+AOPDH_Amount11+AOPDH_Amount12) AS Amount_Y
+      ,AOPDH_Update_User_ID,AOPDH_Update_Date,AOPDH_PCT_ID AS CQId
+      ,B.CQ_NameCN AS CQName
+      ,B.CQ_Code AS CQCode
+      ,C.HOS_HospitalName AS HospitalName
+      ,row_number () OVER (ORDER BY A.AOPDH_Hospital_ID,A.AOPDH_PCT_ID ASC) AS [row_number]
+      FROM [Contract].[AOPDealerHospitalTempHistory] A
+      INNER JOIN (SELECT DISTINCT CQ_ID,CQ_Code,CQ_NameCN FROM INTERFACE.ClassificationQuota ) B ON A.AOPDH_PCT_ID=B.CQ_ID
+      INNER JOIN Hospital C ON C.HOS_ID=A.AOPDH_Hospital_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.AOPDH_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">A.HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="HospitalName">C.HOS_HospitalName like '%HospitalName%' </isNotNull>
+        <isNotNull prepend="AND" property="Year"> A.AOPDH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="ProductName">B.CQ_NameCN  like '%ProductName%' </isNotNull>
+        <isNotNull prepend="AND" property="Id"> A.AOPDH_ID=#Id#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectDealerAOPAdmin" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT HistoryId,AOPD_ID AS Id,AOPD_Contract_ID ContractId,AOPD_Dealer_DMA_ID DealerId,AOPD_ProductLine_BUM_ID ProductLineId
+      ,AOPD_Year AS [Year]
+      ,AOPD_Amount1 AS Amount_1,AOPD_Amount2 AS Amount_2,AOPD_Amount3 AS Amount_3,AOPD_Amount4 AS Amount_4,AOPD_Amount5 AS Amount_5,AOPD_Amount6 AS Amount_6,AOPD_Amount7 AS Amount_7,AOPD_Amount8 AS Amount_8,AOPD_Amount9 AS Amount_9,AOPD_Amount10 AS Amount_10
+      ,AOPD_Amount11 AS Amount_11,AOPD_Amount12 AS Amount_12
+      ,(AOPD_Amount1+AOPD_Amount2+AOPD_Amount3) AS Q1
+      ,(AOPD_Amount4+AOPD_Amount5+AOPD_Amount6) AS Q2
+      ,(AOPD_Amount7+AOPD_Amount8+AOPD_Amount9) AS Q3
+      ,(AOPD_Amount10+AOPD_Amount11+AOPD_Amount12) AS Q4
+      ,(AOPD_Amount1+AOPD_Amount2+AOPD_Amount3+AOPD_Amount4+AOPD_Amount5+AOPD_Amount6+AOPD_Amount7+AOPD_Amount8+AOPD_Amount9+AOPD_Amount10+AOPD_Amount11+AOPD_Amount12) AS Amount_Y
+      ,AOPD_Update_User_ID,AOPD_Update_Date,a.AOPD_CC_ID AS CCId
+      ,B.CC_NameCN AS CCName
+      ,B.CC_Code AS CCCode
+      FROM [Contract].[AOPDealerTempHistory] A
+      INNER JOIN (SELECT DISTINCT CC_ID,CC_Code,CC_NameCN FROM INTERFACE.ClassificationContract ) B ON A.AOPD_CC_ID=B.CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">A.HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="Year"> A.AOPD_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Id"> A.AOPD_ID=#Id#</isNotNull>
+      </dynamic>
+    </select>
+    <!--初始化指标-->
+    <insert id="AOPEditorInitAdmin" parameterClass="System.Collections.Hashtable">
+      dbo.GC_AOPEditorInitAdmin #ContractId#,#TempId#,#ContractType#
+    </insert>
+    <!--修改医院指标-->
+    <update id="SaveHospitalAopAdmin" parameterClass="System.Collections.Hashtable">
+      UPDATE Contract.AOPDealerHospitalTempHistory
+      SET AOPDH_Amount1 = #AOPDH_Amount1#
+      ,AOPDH_Amount2 = #AOPDH_Amount2#
+      ,AOPDH_Amount3 = #AOPDH_Amount3#
+      ,AOPDH_Amount4 = #AOPDH_Amount4#
+      ,AOPDH_Amount5 = #AOPDH_Amount5#
+      ,AOPDH_Amount6 = #AOPDH_Amount6#
+      ,AOPDH_Amount7 = #AOPDH_Amount7#
+      ,AOPDH_Amount8 = #AOPDH_Amount8#
+      ,AOPDH_Amount9 = #AOPDH_Amount9#
+      ,AOPDH_Amount10 = #AOPDH_Amount10#
+      ,AOPDH_Amount11 = #AOPDH_Amount11#
+      ,AOPDH_Amount12 = #AOPDH_Amount12#
+      ,AOPDH_Update_Date =GETDATE()
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">AOPDH_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="Id"> AOPDH_ID=#Id#</isNotNull>
+      </dynamic>
+    </update>
+    <update id="SaveDealerAopAdmin" parameterClass="System.Collections.Hashtable">
+      UPDATE Contract.AOPDealerTempHistory
+      SET AOPD_Amount1 = #AOPD_Amount1#
+      ,AOPD_Amount2 = #AOPD_Amount2#
+      ,AOPD_Amount3 = #AOPD_Amount3#
+      ,AOPD_Amount4 = #AOPD_Amount4#
+      ,AOPD_Amount5 = #AOPD_Amount5#
+      ,AOPD_Amount6 = #AOPD_Amount6#
+      ,AOPD_Amount7 = #AOPD_Amount7#
+      ,AOPD_Amount8 = #AOPD_Amount8#
+      ,AOPD_Amount9 = #AOPD_Amount9#
+      ,AOPD_Amount10 = #AOPD_Amount10#
+      ,AOPD_Amount11 = #AOPD_Amount11#
+      ,AOPD_Amount12 = #AOPD_Amount12#
+      ,AOPD_Update_Date =GETDATE()
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="TempId">HistoryId=#TempId#</isNotNull>
+        <isNotNull prepend="AND" property="Id"> AOPD_ID=#Id#</isNotNull>
+      </dynamic>
+    </update>
+    <!--获取合同附件-->
+    <select id="SelectContractAttachmentAdmin" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT AttId,FileName ,FileUrl,CreateDate,B.IDENTITY_NAME AS CreateUser
+      ,row_number () OVER (ORDER BY A.CreateDate DESC) AS [row_number]
+      FROM Contract.Attachment A
+      LEFT JOIN Lafite_IDENTITY B ON A.CreateUser=B.ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AttachmentList">CONVERT(NVARCHAR(100),A.AttId) IN (SELECT VAL FROM dbo.GC_Fn_SplitStringToTable(#AttachmentList#,',') )</isNotNull>
+        <isNotNull prepend="AND" property="FileUrl">A.FileUrl=#FileUrl#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="UploadContractAttachmentAdmin" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Contract.Attachment (FileName,FileUrl,CreateUser,CreateDate)
+      VALUES (#FileName#,#FileUrl#,#CreateUser#,GETDATE())
+    </insert>
+    
+  </statements>
+</sqlMap>

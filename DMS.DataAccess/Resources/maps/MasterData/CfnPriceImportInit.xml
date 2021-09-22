@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnPriceImportInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+	  <typeAlias alias="CfnPriceImportInit" assembly="DMS.Model.dll" type="DMS.Model.CfnPriceImportInit" />
+  </alias>
+  <resultMaps>
+		  <resultMap id="CfnPriceImportInitResult" class="CfnPriceImportInit">
+        <result property="Id" column="CFNPI_ID" type="Guid" dbType="uniqueidentifier"/>
+        <result property="GroupId" column="CFNPI_Group_ID" type="Guid" dbType="uniqueidentifier"/>
+        <result property="SapCode" column="CFNPI_SAP_Code" type="string" dbType="nvarchar"/>
+        <result property="ChineseName" column="CFNPI_ChineseName" type="string" dbType="nvarchar"/>
+        <result property="CfnId" column="CFNPI_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+        <result property="CustomerFaceNbr" column="CFNPI_CustomerFaceNbr" type="string" dbType="nvarchar"/>
+        <result property="Price" column="CFNPI_Price" type="string" dbType="nvarchar"/>
+        <result property="Province" column="CFNPI_Province" type="string" dbType="nvarchar"/>
+        <result property="ProvinceId" column="CFNPI_Province_ID" type="Guid" dbType="uniqueidentifier"/>
+        <result property="City" column="CFNPI_City" type="string" dbType="nvarchar"/>
+        <result property="CityId" column="CFNPI_City_ID" type="Guid" dbType="uniqueidentifier"/>
+        <result property="LevelValue" column="CFNPI_LevelValue" type="string" dbType="nvarchar"/>
+        <result property="LevelKey" column="CFNPI_LevelKey" type="string" dbType="nvarchar"/>
+        <result property="ValidDateFrom" column="CFNPI_ValidDateFrom" type="string" dbType="nvarchar"/>
+        <result property="ValidDateTo" column="CFNPI_ValidDateTo" type="string" dbType="nvarchar"/>
+        <result property="ValidDateTo" column="CFNPI_DealerType" type="string" dbType="nvarchar"/>
+        <result property="SubCompanyId" column="CFNPI_SubCompanyId" type="Guid" dbType="uniqueidentifier"/>
+        <result property="BrandId" column="CFNPI_BrandId" type="Guid" dbType="uniqueidentifier"/>
+        <result property="ErrMassage" column="ErrMassage" type="string" dbType="nvarchar"/>
+        <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+        <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DealerPriceParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ImportType" column="ImportType" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+<statements>
+	
+  <select id="SelectCfnPriceImportInit" parameterClass="string" resultClass="CfnPriceImportInit">
+    SELECT CFNPI_ID AS Id,CFNPI_Group_ID AS GroupId,CFNPI_SAP_Code AS SapCode,CFNPI_ChineseName AS ChineseName,CFNPI_CFN_ID AS CfnId,CFNPI_CustomerFaceNbr AS CustomerFaceNbr,CFNPI_Price AS Price,CFNPI_Province AS Province,CFNPI_Province_ID AS ProvinceId,CFNPI_City AS City,CFNPI_City_ID AS CityId,CFNPI_LevelValue AS LevelValue,CFNPI_LevelKey AS LevelKey,CFNPI_ValidDateFrom AS ValidDateFrom,CFNPI_ValidDateTo AS ValidDateTo,CFNPI_DealerType AS DealerType,CFNPI_SubCompanyId AS SubCompanyId,CFNPI_BrandId AS BrandId,ErrMassage AS ErrMassage,CreateUser AS CreateUser,CreateDate AS CreateDate
+    FROM CFNPriceImportInit
+    <dynamic prepend="WHERE">
+      <isParameterPresent>CFNPI_ID = #value#
+      </isParameterPresent>
+    </dynamic>
+  </select>
+  <select id="SelectByFilterCfnPriceImportInit" parameterClass="CfnPriceImportInit" resultClass="CfnPriceImportInit">
+    SELECT CFNPI_ID AS Id,CFNPI_Group_ID AS GroupId,CFNPI_SAP_Code AS SapCode,CFNPI_ChineseName AS ChineseName,CFNPI_CFN_ID AS CfnId,CFNPI_CustomerFaceNbr AS CustomerFaceNbr,CFNPI_Price AS Price,CFNPI_Province AS Province,CFNPI_Province_ID AS ProvinceId,CFNPI_City AS City,CFNPI_City_ID AS CityId,CFNPI_LevelValue AS LevelValue,CFNPI_LevelKey AS LevelKey,CFNPI_ValidDateFrom AS ValidDateFrom,CFNPI_ValidDateTo AS ValidDateTo,CFNPI_DealerType AS DealerType,CFNPI_SubCompanyId AS SubCompanyId,CFNPI_BrandId AS BrandId,ErrMassage AS ErrMassage,CreateUser AS CreateUser,CreateDate AS CreateDate
+    FROM CFNPriceImportInit
+    <dynamic prepend="WHERE"><isNotNull prepend="AND" property="Id">CFNPI_ID=#Id#</isNotNull><isNotNull prepend="AND" property="GroupId">CFNPI_Group_ID=#GroupId#</isNotNull><isNotNull prepend="AND" property="SapCode">CFNPI_SAP_Code=#SapCode#</isNotNull><isNotNull prepend="AND" property="ChineseName">CFNPI_ChineseName=#ChineseName#</isNotNull><isNotNull prepend="AND" property="CfnId">CFNPI_CFN_ID=#CfnId#</isNotNull><isNotNull prepend="AND" property="CustomerFaceNbr">CFNPI_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull><isNotNull prepend="AND" property="Price">CFNPI_Price=#Price#</isNotNull><isNotNull prepend="AND" property="Province">CFNPI_Province=#Province#</isNotNull><isNotNull prepend="AND" property="ProvinceId">CFNPI_Province_ID=#ProvinceId#</isNotNull><isNotNull prepend="AND" property="City">CFNPI_City=#City#</isNotNull><isNotNull prepend="AND" property="CityId">CFNPI_City_ID=#CityId#</isNotNull><isNotNull prepend="AND" property="LevelValue">CFNPI_LevelValue=#LevelValue#</isNotNull><isNotNull prepend="AND" property="LevelKey">CFNPI_LevelKey=#LevelKey#</isNotNull><isNotNull prepend="AND" property="ValidDateFrom">CFNPI_ValidDateFrom=#ValidDateFrom#</isNotNull><isNotNull prepend="AND" property="ValidDateTo">CFNPI_ValidDateTo=#ValidDateTo#</isNotNull><isNotNull prepend="AND" property="SubCompanyId">CFNPI_SubCompanyId=#SubCompanyId#</isNotNull><isNotNull prepend="AND" property="BrandId">CFNPI_BrandId=#BrandId#</isNotNull><isNotNull prepend="AND" property="ErrMassage">ErrMassage=#ErrMassage#</isNotNull>
+    </dynamic>
+  </select>
+  
+  <!--获取错误数据-->
+  <select id="SelectDealerPriceErrorData" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+    SELECT CFNPI_ID AS Id,
+    CFNPI_Group_ID AS GroupId,
+    CFNPI_SAP_Code AS SapCode,
+    CFNPI_ChineseName AS DmaName,
+    CFNPI_CFN_ID AS CfnId,
+    CFNPI_CustomerFaceNbr AS CustomerFaceNbr,
+    CFN_ChineseName AS CfnChineseName,
+    CFN_Description AS CfnDescription,
+    CFNPI_Price AS Price,
+    CFNPI_Province AS Province,
+    CFNPI_City AS City,
+    CFNPI_LevelValue AS LevelValue,
+    CFNPI_ValidDateFrom AS BeginDate,
+    CFNPI_ValidDateTo AS EndDate,
+    CFNPI_DealerType AS DealerType,
+    ErrMassage,
+    ROW_NUMBER () OVER (ORDER BY CFNPI_Group_ID, CFN_ProductLine_BUM_ID ASC) AS [row_number]
+    FROM CFNPriceImportInit cfnpi(nolock)
+    LEFT JOIN CFN ON cfnpi.CFNPI_CustomerFaceNbr=cfn.CFN_CustomerFaceNbr
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="UserId">CreateUser=#UserId#</isNotNull>
+    </dynamic>
+  </select>
+  <delete id="DeleteCfnPriceImportInitByUser" parameterClass="string">
+    DELETE FROM CFNPriceImportInit  WHERE CreateUser = #value#
+  </delete>
+  <insert id="InsertCfnPriceImportInit" parameterClass="CfnPriceImportInit">
+    INSERT INTO CFNPriceImportInit
+    (CFNPI_ID,CFNPI_Group_ID,CFNPI_SAP_Code,CFNPI_ChineseName,CFNPI_CFN_ID,CFNPI_CustomerFaceNbr,CFNPI_Price,CFNPI_Province,CFNPI_Province_ID,CFNPI_City,CFNPI_City_ID,CFNPI_LevelValue,CFNPI_LevelKey,CFNPI_ValidDateFrom,CFNPI_ValidDateTo,CFNPI_DealerType,CFNPI_SubCompanyId,CFNPI_BrandId,ErrMassage,CreateUser,CreateDate)
+    VALUES(#Id#,#GroupId#,#SapCode#,#ChineseName#,#CfnId#,#CustomerFaceNbr#,#Price#,#Province#,#ProvinceId#,#City#,#CityId#,#LevelValue#,#LevelKey#,#ValidDateFrom#,#ValidDateTo#,#DealerType#,#SubCompanyId#,#BrandId#,#ErrMassage#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#)
+  </insert>
+  <update id="UpdateCfnPriceImportInit" parameterClass="CfnPriceImportInit">
+    UPDATE CFNPriceImportInit 
+     SET CFNPI_ID=#Id#,CFNPI_Group_ID=#GroupId#,CFNPI_SAP_Code=#SapCode#,CFNPI_ChineseName=#ChineseName#,CFNPI_CFN_ID=#CfnId#,CFNPI_CustomerFaceNbr=#CustomerFaceNbr#,CFNPI_Price=#Price#,CFNPI_Province=#Province#,CFNPI_Province_ID=#ProvinceId#,CFNPI_City=#City#,CFNPI_City_ID=#CityId#,CFNPI_LevelValue=#LevelValue#,CFNPI_LevelKey=#LevelKey#,CFNPI_ValidDateFrom=#ValidDateFrom#,CFNPI_ValidDateTo=#ValidDateTo#,CFNPI_SubCompanyId=#SubCompanyId#,CFNPI_BrandId=#BrandId#,ErrMassage=#ErrMassage#
+    WHERE CFNPI_ID = #Id#
+  </update>
+  <delete id="DeleteCfnPriceImportInit" parameterClass="string">
+    DELETE FROM CFNPriceImportInit
+    WHERE CFNPI_ID = #value#
+  </delete>
+  <!--产品价格导入验证-->
+  <procedure id="GC_DealerPriceImportInit" parameterMap="DealerPriceParameterMap">
+    dbo.GC_DealerPriceImportInit
+  </procedure>
+</statements>
+</sqlMap>

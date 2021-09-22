@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InterfaceDealerSalesWritebackMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InterfaceDealerSalesWriteback" assembly="DMS.Model.dll" type="DMS.Model.InterfaceDealerSalesWriteback" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InterfaceDealerSalesWritebackResult" class="InterfaceDealerSalesWriteback">
+      <result property="Id" column="IDW_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WriteBackNo" column="IDW_WriteBackNo" type="string" dbType="nvarchar"/>
+      <result property="SalesNo" column="IDW_SalesNo" type="string" dbType="nvarchar"/>
+      <result property="WriteBackDate" column="IDW_WriteBackDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="IDW_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="IDW_LineNbr" type="int" dbType="int"/>
+      <result property="ShipmentId" column="IDW_ShipmentID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ImportDate" column="IDW_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="IDW_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="IDW_BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ErrorMsg" column="IDW_ErrorMsg" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InterfaceDealerSalesWritebackParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID"/>
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInterfaceDealerSalesWriteback" parameterClass="string" resultClass="InterfaceDealerSalesWriteback">
+      SELECT IDW_ID AS Id,IDW_WriteBackNo AS WriteBackNo,IDW_SalesNo AS SalesNo,IDW_WriteBackDate AS WriteBackDate,IDW_Remark AS Remark,IDW_LineNbr AS LineNbr,IDW_ShipmentID as ShipmentId,IDW_ImportDate AS ImportDate,IDW_ClientID AS Clientid,IDW_BatchNbr AS BatchNbr,IDW_ErrorMsg AS ErrorMsg
+      FROM InterfaceDealerSalesWriteback
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IDW_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInterfaceDealerSalesWriteback" parameterClass="InterfaceDealerSalesWriteback" resultClass="InterfaceDealerSalesWriteback">
+      SELECT IDW_ID AS Id,IDW_WriteBackNo AS WriteBackNo,IDW_SalesNo AS SalesNo,IDW_WriteBackDate AS WriteBackDate,IDW_Remark AS Remark,IDW_LineNbr AS LineNbr,IDW_ShipmentID as ShipmentId,IDW_ImportDate AS ImportDate,IDW_ClientID AS Clientid,IDW_BatchNbr AS BatchNbr,IDW_ErrorMsg AS ErrorMsg
+      FROM InterfaceDealerSalesWriteback
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">IDW_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="WriteBackNo">IDW_WriteBackNo=#WriteBackNo#</isNotNull>
+        <isNotNull prepend="AND" property="SalesNo">IDW_SalesNo=#SalesNo#</isNotNull>
+        <isNotNull prepend="AND" property="WriteBackDate">IDW_WriteBackDate=#WriteBackDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">IDW_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">IDW_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">IDW_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">IDW_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">IDW_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInterfaceDealerSalesWriteback" parameterClass="InterfaceDealerSalesWriteback">
+      INSERT INTO InterfaceDealerSalesWriteback
+      (IDW_ID,IDW_WriteBackNo,IDW_SalesNo,IDW_WriteBackDate,IDW_Remark,IDW_LineNbr,IDW_ShipmentID,IDW_ImportDate,IDW_ClientID,IDW_BatchNbr,IDW_ErrorMsg)
+      VALUES(#Id#,#WriteBackNo#,#SalesNo#,#WriteBackDate:DateTime:1/1/0001 12:00:00 AM#,#Remark#,#LineNbr#,#ShipmentId#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#,#ErrorMsg#)
+    </insert>
+    <update id="UpdateInterfaceDealerSalesWriteback" parameterClass="InterfaceDealerSalesWriteback">
+      UPDATE InterfaceDealerSalesWriteback
+      SET IDW_ID=#Id#,IDW_WriteBackNo=#WriteBackNo#,IDW_SalesNo=#SalesNo#,IDW_WriteBackDate=#WriteBackDate#,IDW_Remark=#Remark#,IDW_LineNbr=#LineNbr#,IDW_ImportDate=#ImportDate#,IDW_ClientID=#Clientid#,IDW_BatchNbr=#BatchNbr#,IDW_ErrorMsg=#ErrorMsg#
+      WHERE IDW_ID = #Id#
+    </update>
+    <delete id="DeleteInterfaceDealerSalesWriteback" parameterClass="string">
+      DELETE FROM InterfaceDealerSalesWriteback
+      WHERE IDW_ID = #value#
+    </delete>
+    <procedure id="GC_Interface_DealerSalesWriteback" parameterMap="InterfaceDealerSalesWritebackParameterMap">
+      dbo.GC_Interface_DealerSalesWriteback
+    </procedure>
+    <select id="SelectDealerSalesWritebackByBatchNbrErrorOnly" parameterClass="string" resultClass="InterfaceDealerSalesWriteback">
+      SELECT IDW_ID AS Id,IDW_WriteBackNo AS WriteBackNo,IDW_SalesNo AS SalesNo,IDW_WriteBackDate AS WriteBackDate,IDW_Remark AS Remark,IDW_LineNbr AS LineNbr,IDW_ShipmentID as ShipmentId,IDW_ImportDate AS ImportDate,IDW_ClientID AS Clientid,IDW_BatchNbr AS BatchNbr,IDW_ErrorMsg AS ErrorMsg
+      FROM InterfaceDealerSalesWriteback
+      WHERE IDW_BatchNbr = #value# AND IDW_ErrorMsg IS NOT NULL
+      ORDER BY IDW_LineNbr
+    </select>
+    <select id="SelectDealerSalesWritebackByBatchNbr" parameterClass="string" resultClass="InterfaceDealerSalesWriteback">
+      SELECT IDW_ID AS Id,IDW_WriteBackNo AS WriteBackNo,IDW_SalesNo AS SalesNo,IDW_WriteBackDate AS WriteBackDate,IDW_Remark AS Remark,IDW_LineNbr AS LineNbr,IDW_ShipmentID as ShipmentId,IDW_ImportDate AS ImportDate,IDW_ClientID AS Clientid,IDW_BatchNbr AS BatchNbr,IDW_ErrorMsg AS ErrorMsg
+      FROM InterfaceDealerSalesWriteback
+      WHERE IDW_BatchNbr = #value#
+      ORDER BY IDW_LineNbr
+    </select>
+  </statements>
+</sqlMap>

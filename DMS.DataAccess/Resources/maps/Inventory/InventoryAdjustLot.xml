@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InventoryAdjustLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="InventoryAdjustLot" assembly="DMS.Model.dll" type="DMS.Model.InventoryAdjustLot" />
+  </alias>
+  <resultMaps>
+    <resultMap id="InventoryAdjustLotResult" class="InventoryAdjustLot">
+      <result property="IadId" column="IAL_IAD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Id" column="IAL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotQty" column="IAL_LotQty" type="double" dbType="float"/>
+      <result property="LotId" column="IAL_LOT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="IAL_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotNumber" column="IAL_LotNumber" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="IAL_ExpiredDate" type="DateTime" dbType="datetime"/>
+      <result property="PrhId" column="IAL_PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UnitPrice" column="IAL_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="DmaId" column="IAL_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrLotId" column="IAL_QRLOT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrLotNumber" column="IAL_QRLotNumber" type="string" dbType="nvarchar"/>
+      <result property="LtmLot" column="IAL_Lot" type="string" dbType="nvarchar"/>
+      <result property="LotQRCode" column="IAL_QRCode" type="string" dbType="nvarchar"/>
+      <result property="DOM" column="IAL_DOM" type="string" dbType="nvarchar"/>
+      <result property="ERPLineNbr" column="IAL_ERPLineNbr" type="string" dbType="nvarchar"/>
+      <result property="ERPNbr" column="IAL_ERPNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_InventoryAdjust_CheckSubmit_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="IAHID" column="IAHID" />
+      <parameter property="AdjustType" column="AdjustType" />
+      <parameter property="RtnRegMsg" column="RtnRegMsg" direction="Output" />
+      <parameter property="IsValid" column="IsValid" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectInventoryAdjustLot" parameterClass="string" resultClass="InventoryAdjustLot">
+      SELECT IAL_IAD_ID AS IadId,IAL_ID AS Id,IAL_LotQty AS LotQty,IAL_LOT_ID AS LotId,IAL_WHM_ID AS WhmId,IAL_LotNumber AS LotNumber,IAL_ExpiredDate AS ExpiredDate,IAL_PRH_ID AS PrhId,IAL_UnitPrice AS UnitPrice,IAL_DMA_ID AS DmaId,IAL_QRLOT_ID AS QrLotId,IAL_QRLotNumber AS QrLotNumber,
+      IAL_Lot AS LtmLot ,IAL_QRCode AS LotQRCode
+      FROM InventoryAdjustLot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          IAL_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustLot" parameterClass="InventoryAdjustLot" resultClass="InventoryAdjustLot">
+      SELECT IAL_IAD_ID AS IadId,IAL_ID AS Id,IAL_LotQty AS LotQty,IAL_LOT_ID AS LotId,IAL_WHM_ID AS WhmId,IAL_LotNumber AS LotNumber,IAL_ExpiredDate AS ExpiredDate,IAL_PRH_ID AS PrhId,IAL_UnitPrice AS UnitPrice,IAL_DMA_ID AS DmaId,IAL_QRLOT_ID AS QrLotId,IAL_QRLotNumber AS QrLotNumber,IAL_QRCode AS LotQRCode
+      FROM InventoryAdjustLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="IadId">IAL_IAD_ID=#IadId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">IAL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="LotQty">IAL_LotQty=#LotQty#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">IAL_LOT_ID=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">IAL_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IAL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">IAL_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="PrhId">IAL_PRH_ID=#PrhId#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">IAL_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">IAL_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="QrLotId">IAL_QRLOT_ID=#QrLotId#</isNotNull>
+        <isNotNull prepend="AND" property="QrLotNumber">IAL_QRLotNumber=#QrLotNumber#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectInventoryAdjustLotByHashtable" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustLot">
+      SELECT IAL_IAD_ID AS IadId,IAL_ID AS Id,IAL_LotQty AS LotQty,IAL_LOT_ID AS LotId,IAL_WHM_ID AS WhmId,IAL_LotNumber AS LotNumber,IAL_ExpiredDate AS ExpiredDate,IAL_PRH_ID AS PrhId,IAL_QRLOT_ID as QrLotId,IAL_QRLotNumber as QrLotNumber,IAL_UnitPrice AS UnitPrice
+      , IAL_QRCode as LotQRCode,	IAL_Lot as  LtmLot
+      FROM InventoryAdjustLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="IadId">IAL_IAD_ID=#IadId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">IAL_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="LotQty">IAL_LotQty=#LotQty#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">IAL_LOT_ID=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">IAL_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">IAL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">IAL_ExpiredDate=#ExpiredDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertInventoryAdjustLot" parameterClass="InventoryAdjustLot">
+      INSERT INTO InventoryAdjustLot
+      (IAL_IAD_ID,IAL_ID,IAL_LotQty,IAL_LOT_ID,IAL_WHM_ID,IAL_LotNumber,IAL_ExpiredDate,IAL_PRH_ID,IAL_UnitPrice,IAL_DMA_ID,IAL_QRLOT_ID,IAL_QRLotNumber,IAL_Lot,IAL_QRCode,IAL_DOM,IAL_ERPLineNbr,IAL_ERPNbr)
+      VALUES(#IadId#,#Id#,#LotQty#,#LotId#,#WhmId#,#LotNumber#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#PrhId#,#UnitPrice#,#DmaId#,#QrLotId#,#QrLotNumber#,#LtmLot#,#LotQRCode#,#DOM#,#ERPLineNbr#,#ERPNbr#)
+    </insert>
+    <update id="UpdateInventoryAdjustLot" parameterClass="InventoryAdjustLot">
+      UPDATE InventoryAdjustLot
+      SET IAL_IAD_ID=#IadId#,IAL_ID=#Id#,IAL_LotQty=#LotQty#,IAL_LOT_ID=#LotId#,IAL_WHM_ID=#WhmId#,IAL_LotNumber=#LotNumber#,IAL_ExpiredDate=#ExpiredDate#,IAL_PRH_ID=#PrhId#,IAL_UnitPrice=#UnitPrice#,IAL_DMA_ID=#DmaId#,IAL_QRLOT_ID=#QrLotId#,IAL_QRLotNumber=#QrLotNumber#,IAL_QRCode=#LotQRCode#,IAL_Lot=#LtmLot#,IAL_DOM=#DOM#
+      WHERE IAL_ID = #Id#
+    </update>
+    <delete id="DeleteInventoryAdjustLot" parameterClass="string">
+      DELETE FROM InventoryAdjustLot
+      WHERE IAL_ID = #value#
+    </delete>
+    <select id="SelectByFilterInventoryAdjustLotAll" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustLot">
+      SELECT
+      InventoryAdjustLot.IAL_ID AS Id,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      Warehouse.WHM_Type AS WarehouseType,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      CFN.CFN_ChineseName AS CFNChineseName,
+      Product.PMA_ID AS PmaId,
+      Product.PMA_UPN AS UPN,
+      IAL_Lot  as LotNumber,
+      IAL_QRCode as QRCode,
+      case when isnull(IAL_QRLotNumber,'') = '' then '' else substring(IAL_QRLotNumber,CHARINDEX('@@',IAL_QRLotNumber,0)+2,LEN(IAL_QRLotNumber)-CHARINDEX('@@',IAL_QRLotNumber,0)) end AS QRCodeEdit,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), ISNULL( LOT.LOT_LTM_ExpiredDate, InventoryAdjustLot.IAL_ExpiredDate), 112) else CONVERT(varchar(100), ISNULL( LOT.LOT_LTM_ExpiredDate, InventoryAdjustLot.IAL_ExpiredDate), 112) END AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      ISNULL(Lot.LOT_OnHandQty, dbo.fn_getCurrentInventoryQtyByLotNumber(Warehouse.WHM_DMA_ID, InventoryAdjustDetail.IAD_PMA_ID, InventoryAdjustLot.IAL_LotNumber,Warehouse.WHM_ID)) AS TotalQty,
+      CONVERT(varchar(100),  LOT.LOT_LTM_DOM, 112) AS CreatedDate,
+      InventoryAdjustLot.IAL_LotQty AS AdjustQty,
+      ISNULL(InventoryAdjustLot.IAL_UnitPrice,0) as UnitPrice,
+      (select PRH_PurchaseOrderNbr from POReceiptHeader where PRH_ID = InventoryAdjustLot.IAL_PRH_ID) AS PurchaseOrderNbr,
+      CONVERT(DECIMAL(18,6),Product.PMA_ConvertFactor) AS ConvertFactor,
+      row_number() OVER (ORDER BY Warehouse.WHM_Name,CFN.CFN_CustomerFaceNbr,Product.PMA_UPN, ISNULL( LOT.LOT_LTM_Lot , InventoryAdjustLot.IAL_LotNumber)) AS row_number
+      FROM InventoryAdjustLot
+      INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+      INNER JOIN Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON InventoryAdjustLot.IAL_WHM_ID = Warehouse.WHM_ID
+      LEFT OUTER JOIN Lot ON InventoryAdjustLot.IAL_LOT_ID = Lot.LOT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AdjustId">InventoryAdjustDetail.IAD_IAH_ID=#AdjustId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">InventoryAdjustLot.IAL_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+    <delete id="DeleteInventoryAdjustLotByAdjustId" parameterClass="string">
+      DELETE FROM InventoryAdjustLot
+      WHERE IAL_IAD_ID IN (SELECT IAD_ID FROM InventoryAdjustDetail WHERE IAD_IAH_ID = #value#)
+    </delete>
+    <select id="SelectTotalInventoryAdjustLotQtyByLineId" parameterClass="string" resultClass="string">
+      SELECT SUM(IAL_LotQty) AS TotalQty
+      FROM InventoryAdjustLot WHERE IAL_IAD_ID = #value#
+    </select>
+    <select id="SelectTotalInventoryAdjustLot" parameterClass="string" resultClass="string">
+      SELECT substring(IAL_LotNumber,1,CHARINDEX('@@',IAL_LotNumber,0)-1)   as LOT ,  substring(IAL_LotNumber,CHARINDEX('@@',IAL_LotNumber,0)+2,LEN(IAL_LotNumber)-CHARINDEX('@@',IAL_LotNumber,0))  as QRCode
+      FROM InventoryAdjustLot  WHERE IAL_IAD_ID = #value#
+    </select>
+    <!--<select id="SelectTotalInventoryAdjustQRCode" parameterClass="string" resultClass="string">
+      SELECT   substring(IAL_LotNumber,CHARINDEX('@@',IAL_LotNumber,0)+2,LEN(IAL_LotNumber)-CHARINDEX('@@',IAL_LotNumber,0)) as QRCode
+      FROM InventoryAdjustLot  WHERE IAL_IAD_ID = #value#
+    </select>-->
+
+    <select id="SelectInventoryAdjustLotByAdjustId" parameterClass="string" resultClass="InventoryAdjustLot">
+      SELECT IAL_IAD_ID AS IadId,IAL_ID AS Id,IAL_LotQty AS LotQty,IAL_LOT_ID AS LotId,IAL_WHM_ID AS WhmId,IAL_LotNumber AS LotNumber,IAL_ExpiredDate AS ExpiredDate,IAL_PRH_ID AS PrhId,IAL_QRLOT_ID as QrLotId,IAL_QRLotNumber as QrLotNumber,IAL_ERPLineNbr AS ERPLineNbr,IAL_ERPNbr AS ERPNbr
+      ,IAL_QRCode LotQRCode,IAL_DOM DOM, IAL_UnitPrice UnitPrice
+      FROM InventoryAdjustLot
+      WHERE IAL_IAD_ID IN (SELECT IAD_ID FROM InventoryAdjustDetail WHERE IAD_IAH_ID = #value#)
+    </select>
+    <select id="SelectByFilterInventoryAdjustLotCTOS" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustLot">
+      SELECT
+      InventoryAdjustLot.IAL_ID AS Id,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      CFN.CFN_ChineseName AS CFNChineseName,
+      Product.PMA_ID AS PmaId,
+      Product.PMA_UPN AS UPN,
+      V_LotMaster.LTM_LotNumber AS LotNumber,
+      V_LotMaster.LTM_QrCode AS QRCode,
+      case when isnull(IAL_QRLotNumber,'') = '' then '' else substring(IAL_QRLotNumber,CHARINDEX('@@',IAL_QRLotNumber,0)+2,LEN(IAL_QRLotNumber)-CHARINDEX('@@',IAL_QRLotNumber,0)) end AS QRCodeEdit,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), ISNULL( V_LotMaster.LTM_ExpiredDate, InventoryAdjustLot.IAL_ExpiredDate), 112) else CONVERT(varchar(100), ISNULL( V_LotMaster.LTM_ExpiredDate, InventoryAdjustLot.IAL_ExpiredDate), 112) END AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      ISNULL(Lot.LOT_OnHandQty, dbo.fn_getCurrentInventoryQtyByLotNumber(Warehouse.WHM_DMA_ID, InventoryAdjustDetail.IAD_PMA_ID, InventoryAdjustLot.IAL_LotNumber,Warehouse.WHM_ID)) - isnull(tmp.IAL_LotQty,0) AS TotalQty,
+      CONVERT(varchar(100),  V_LotMaster.LTM_CreatedDate, 112) AS CreatedDate,
+      InventoryAdjustLot.IAL_LotQty AS AdjustQty,
+      (select PRH_PurchaseOrderNbr from POReceiptHeader where PRH_ID = InventoryAdjustLot.IAL_PRH_ID) AS PurchaseOrderNbr,
+      CONVERT(DECIMAL(18,6),Product.PMA_ConvertFactor) AS ConvertFactor,
+      row_number() OVER (ORDER BY Warehouse.WHM_Name,CFN.CFN_CustomerFaceNbr,Product.PMA_UPN, ISNULL( V_LotMaster.LTM_LotNumber, InventoryAdjustLot.IAL_LotNumber),V_LotMaster.LTM_QrCode) AS row_number
+      FROM InventoryAdjustLot
+      INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+      INNER JOIN Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON InventoryAdjustLot.IAL_WHM_ID = Warehouse.WHM_ID
+      LEFT OUTER JOIN Lot ON InventoryAdjustLot.IAL_LOT_ID = Lot.LOT_ID
+      LEFT OUTER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      LEFT OUTER JOIN (select IAD_PMA_ID,IAL_LOT_ID,IAL_LotNumber,IAL_WHM_ID,sum(IAL_LotQty) as IAL_LotQty
+      from InventoryAdjustHeader,InventoryAdjustDetail,InventoryAdjustLot
+      where IAH_ID = IAD_IAH_ID
+      and IAD_ID = IAL_IAD_ID
+      and IAH_Reason = 'CTOS'
+      and IAH_Status = 'Submitted'
+      group by IAD_PMA_ID,IAL_LOT_ID,IAL_LotNumber,IAL_WHM_ID)  tmp
+      ON PMA_ID = tmp.IAD_PMA_ID AND LOT_ID = tmp.IAL_LOT_ID AND LTM_LotNumber = tmp.IAL_LotNumber AND WHM_ID = tmp.IAL_WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AdjustId">InventoryAdjustDetail.IAD_IAH_ID=#AdjustId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">InventoryAdjustLot.IAL_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterInventoryAdjustLotTransfer" parameterClass="System.Collections.Hashtable" resultClass="InventoryAdjustLot">
+      SELECT
+      InventoryAdjustLot.IAL_ID AS Id,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      CFN.CFN_ChineseName AS CFNChineseName,
+      Product.PMA_ID AS PmaId,
+      Product.PMA_UPN AS UPN,
+      IAL_Lot  as LotNumber,
+      IAL_QRCode as QRCode,
+      case when isnull(IAL_QRLotNumber,'') = '' then '' else substring(IAL_QRLotNumber,CHARINDEX('@@',IAL_QRLotNumber,0)+2,LEN(IAL_QRLotNumber)-CHARINDEX('@@',IAL_QRLotNumber,0)) end AS QRCodeEdit,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      ISNULL(Lot.LOT_OnHandQty, dbo.fn_getCurrentInventoryQtyByLotNumber(Warehouse.WHM_DMA_ID, InventoryAdjustDetail.IAD_PMA_ID, InventoryAdjustLot.IAL_LotNumber,Warehouse.WHM_ID)) AS TotalQty,
+      CONVERT(varchar(100),LOT.LOT_LTM_DOM, 112) AS CreatedDate,
+      InventoryAdjustLot.IAL_LotQty AS AdjustQty,
+      (SELECT CAH_OrderNo FROM ConsignmentApplyHeader WHERE CAH_ID = IAL_PRH_ID) AS PurchaseOrderNbr,
+      CONVERT(DECIMAL(18,6),Product.PMA_ConvertFactor) AS ConvertFactor,
+      (SELECT DMA_ChineseName FROM DealerMaster WHERE IAL_DMA_ID = DMA_ID) AS ChineseName,
+      (SELECT DMA_ChineseShortName FROM DealerMaster WHERE IAL_DMA_ID = DMA_ID) AS ChineseShortName,
+      Warehouse.WHM_Type AS WarehouseType,
+      row_number() OVER (ORDER BY Warehouse.WHM_Name,CFN.CFN_CustomerFaceNbr,Product.PMA_UPN, ISNULL(LOT.LOT_LTM_Lot,
+      InventoryAdjustLot.IAL_LotNumber)) AS row_number
+      FROM InventoryAdjustLot(nolock)
+      INNER JOIN InventoryAdjustDetail(nolock) ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+      INNER JOIN Product(nolock) ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON InventoryAdjustLot.IAL_WHM_ID = Warehouse.WHM_ID
+      LEFT OUTER JOIN Lot(nolock) ON InventoryAdjustLot.IAL_LOT_ID = Lot.LOT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AdjustId">InventoryAdjustDetail.IAD_IAH_ID=#AdjustId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">InventoryAdjustLot.IAL_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectInventoryAdjustLotChecked" parameterClass="string" resultClass="System.Data.DataSet" >
+      select case when CHARINDEX('@@',InventoryAdjustLot.IAL_QRLotNumber)>0 then substring(InventoryAdjustLot.IAL_QRLotNumber,CHARINDEX('@@',InventoryAdjustLot.IAL_QRLotNumber,0)+2,LEN(InventoryAdjustLot.IAL_QRLotNumber)-CHARINDEX('@@',InventoryAdjustLot.IAL_QRLotNumber,0)) else '' end as EditQrCode,
+      V_LotMaster.LTM_LotNumber as LotNumber,
+      V_LotMaster.LTM_QrCode as QrCode
+      from InventoryAdjustLot
+      inner join Lot on ISNULL(IAL_QRLOT_ID,IAL_LOT_ID)=LOT_ID inner join V_LotMaster on LOT_LTM_ID=V_LotMaster.LTM_ID
+      inner join InventoryAdjustDetail on InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      where InventoryAdjustDetail.IAD_IAH_ID=#value#
+    </select>
+    <select id="SelectInventoryAdjustLoSumQtytByAdjustId" parameterClass="string" resultClass="InventoryAdjustLot">
+      SELECT IAL_IAD_ID AS IadId,Sum(IAL_LotQty) AS LotQty,IAL_LOT_ID AS LotId,IAL_WHM_ID AS WhmId,IAL_LotNumber AS LotNumber
+      FROM InventoryAdjustLot
+      WHERE IAL_IAD_ID IN (SELECT IAD_ID FROM InventoryAdjustDetail WHERE IAD_IAH_ID = #value#)
+      group by IAL_IAD_ID ,IAL_LOT_ID ,IAL_WHM_ID ,IAL_LotNumber
+    </select>
+    <select id="SelectLotQrCodeChecked" parameterClass="string" resultClass="System.Data.DataSet" >
+      select count(*) as CNT
+      from InventoryAdjustLot
+      inner join InventoryAdjustDetail on InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      where InventoryAdjustDetail.IAD_IAH_ID=#value#
+      and IAL_LotNumber like '%NoQR'
+      and isnull(IAL_QRLotNumber,'') = ''
+    </select>
+    <select id="SelectIsDoubleByQrCode" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select count(*) as CNT from InventoryAdjustLot,InventoryAdjustDetail
+      where IAL_IAD_ID = IAD_ID
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">IAD_IAH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="IalId">IAL_ID &lt;>#IalId#</isNotNull>
+        <isNotNull prepend="AND" property="QrCode">(IAL_QRLotNumber like N'%$QrCode$%' or IAL_LotNumber like N'%$QrCode$%')</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectInverntoryRutrnQrCode" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select  SUM(ISNULL(InventoryAdjustLot.IAL_LotQty,0))+ISNULL(#Qty#,0) as QtySum from InventoryAdjustHeader inner join InventoryAdjustDetail
+      on InventoryAdjustHeader.IAH_ID=InventoryAdjustDetail.IAD_IAH_ID
+      inner join InventoryAdjustLot on InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      inner join Lot on ISNULL(InventoryAdjustLot.IAL_QRLOT_ID,InventoryAdjustLot.IAL_LOT_ID)=Lot.LOT_ID
+      inner join LotMaster on LotMaster.LTM_ID=Lot.LOT_LTM_ID
+      where (InventoryAdjustHeader.IAH_Status='Submitted' or InventoryAdjustHeader.IAH_Status='Complete')
+      and(InventoryAdjustHeader.IAH_Reason='Exchange' or InventoryAdjustHeader.IAH_Reason='Return')
+      and InventoryAdjustHeader.IAH_DMA_ID=#DealreId#
+      and (#EditQrCode#=LotMaster.LTM_QRCode or #QrCode#=LotMaster.LTM_QRCode)
+      AND ISNULL(LotMaster.LTM_QRCode,'NoQR') != 'NoQR'
+      group by ISNULL(InventoryAdjustLot.IAL_QRLOT_ID,InventoryAdjustLot.IAL_LOT_ID)
+    </select>
+    <select id="SelectInventoryAdjustLotBYIdQrCode" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select COUNT(*) as Cnt from InventoryAdjustHeader inner join InventoryAdjustDetail on
+      InventoryAdjustHeader.IAH_ID=InventoryAdjustDetail.IAD_IAH_ID
+      inner join InventoryAdjustLot on InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      where
+      (CASE WHEN CHARINDEX('@@',InventoryAdjustLot.IAL_LotNumber, 0) > 0 THEN substring(InventoryAdjustLot.IAL_LotNumber, CHARINDEX('@@', InventoryAdjustLot.IAL_LotNumber, 0) + 2, LEN(InventoryAdjustLot.IAL_LotNumber)
+      -CHARINDEX('@@', InventoryAdjustLot.IAL_LotNumber, 0)) ELSE 'NoQR' END=#QrCode#
+      or CASE WHEN CHARINDEX('@@', InventoryAdjustLot.IAL_QRLotNumber, 0) > 0 THEN substring(InventoryAdjustLot.IAL_QRLotNumber, CHARINDEX('@@', InventoryAdjustLot.IAL_QRLotNumber, 0) + 2, LEN(InventoryAdjustLot.IAL_QRLotNumber)
+      -CHARINDEX('@@', InventoryAdjustLot.IAL_QRLotNumber, 0)) ELSE 'NoQR' END=#QrCode#)
+      and InventoryAdjustHeader.IAH_ID=#HeadId#
+    </select>
+    <select id="SelectInventoryAdjustLotQrCodeBYDmIdHeadId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select '二维码'+QrCode+'已在历史订单中使用,'  from
+      (
+      SELECT * FROM (
+      select ISNULL(A.EditQrCode,A.QrCod)as ReturnQrCode,Qty from (
+      select ISNULL(InventoryAdjustLot.IAL_LotQty,0)as Qty,
+      LotMaster.LTM_QRCode as QrCod,
+      CASE WHEN CHARINDEX('@@',InventoryAdjustLot.IAL_QRLotNumber, 0) > 0
+      THEN substring(InventoryAdjustLot.IAL_QRLotNumber, CHARINDEX('@@', InventoryAdjustLot.IAL_QRLotNumber, 0) + 2,
+      LEN(InventoryAdjustLot.IAL_QRLotNumber) - CHARINDEX('@@', InventoryAdjustLot.IAL_QRLotNumber, 0))
+      ELSE null END
+      as EditQrCode
+      from InventoryAdjustHeader inner join InventoryAdjustDetail on InventoryAdjustHeader.IAH_ID=InventoryAdjustDetail.IAD_IAH_ID
+      inner join InventoryAdjustLot on InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      inner join Lot on ISNULL(InventoryAdjustLot.IAL_QRLOT_ID,InventoryAdjustLot.IAL_LOT_ID)=Lot.LOT_ID
+      inner join LotMaster on LotMaster.LTM_ID=Lot.LOT_LTM_ID
+      where InventoryAdjustHeader.IAH_ID=#HeadId#
+      AND InventoryAdjustLot.IAL_QRLOT_ID IS NOT NULL
+      ) A
+      ) D left join
+      (
+      select SUM(ISNULL(InventoryAdjustLot.IAL_LotQty,0)) as TotoQty,
+      LotMaster.LTM_QRCode QrCode from InventoryAdjustHeader inner join InventoryAdjustDetail on
+      InventoryAdjustHeader.IAH_ID=InventoryAdjustDetail.IAD_IAH_ID
+      inner join InventoryAdjustLot on InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      inner join Lot on ISNULL(InventoryAdjustLot.IAL_QRLOT_ID,InventoryAdjustLot.IAL_LOT_ID)=Lot.LOT_ID
+      inner join LotMaster on LotMaster.LTM_ID=Lot.LOT_LTM_ID
+      where  InventoryAdjustHeader.IAH_DMA_ID=#DmaId#
+      and InventoryAdjustHeader.IAH_Status in('Submitted','Accept')
+      and InventoryAdjustHeader.IAH_Reason='Return'
+      AND LTM_LotNumber NOT LIKE '%NoQR%'
+      AND LTM_LotNumber LIKE '%@@%'
+      group by LotMaster.LTM_QRCode
+      ) B on D.ReturnQrCode = B.QrCode
+      where  (B.TotoQty + D.Qty)>1
+      )C
+      order by C.QrCode FOR XML PATH('')
+
+    </select>
+
+    <!--Added By Song Yuqi 2016-06-03-->
+    <select id="CheckInventoryProductAuthInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DISTINCT 'UPN:'+ CFN_CustomerFaceNbr +'授权未通过 @@' FROM InventoryAdjustHeader
+      INNER JOIN InventoryAdjustDetail ON IAH_ID = IAD_IAH_ID
+      INNER JOIN InventoryAdjustLot ON IAD_ID = IAL_IAD_ID
+      INNER JOIN Lot ON LOT_ID = IAL_LOT_ID
+      INNER JOIN Inventory ON INV_ID = LOT_INV_ID
+      INNER JOIN Product ON PMA_ID = INV_PMA_ID
+      INNER JOIN CFN ON CFN_ID = PMA_CFN_ID
+      WHERE IAH_ID =  #ReturnOrderId#
+      AND NOT EXISTS(
+      SELECT 1 FROM DealerAuthorizationTable
+      INNER JOIN Cache_PartsClassificationRec ON PCT_ProductLine_BUM_ID = DAT_ProductLine_BUM_ID
+      INNER JOIN CfnClassification CC ON PCT_ID=cc.ClassificationId
+      WHERE DAT_PMA_ID != DAT_ProductLine_BUM_ID
+      AND DAT_DMA_ID = IAH_DMA_ID
+      AND DAT_ProductLine_BUM_ID =  #ProductLineId#
+      AND PCT_ParentClassification_PCT_ID = DAT_PMA_ID
+      AND CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      AND CFN_DeletedFlag = 0
+      AND ((DAT_Type = 'Return' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR (#OrderAuthCount# = 0 AND (DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DATEADD(DAY,-1,CONVERT(DATETIME,CONVERT(CHAR(8),DATEADD(MONTH,(DATEPART(QUARTER,DAT_EndDate)+2)*3-MONTH(DAT_EndDate)-2,DAT_EndDate),120)+'01')),DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      UNION
+      SELECT 1 FROM DealerAuthorizationTable
+      INNER JOIN Cache_PartsClassificationRec ON PCT_ProductLine_BUM_ID = DAT_ProductLine_BUM_ID
+      INNER JOIN CfnClassification CC ON PCT_ID=cc.ClassificationId
+      WHERE DAT_PMA_ID = DAT_ProductLine_BUM_ID
+      AND DAT_DMA_ID = IAH_DMA_ID
+      AND DAT_ProductLine_BUM_ID =  #ProductLineId#
+      AND DAT_PMA_ID = PCT_ProductLine_BUM_ID
+      AND CC.CfnCustomerFaceNbr=CFN_CustomerFaceNbr
+      AND CFN_DeletedFlag = 0
+      AND ((DAT_Type = 'Return' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,GETDATE())))
+      OR (#OrderAuthCount# = 0 AND (DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),GETDATE(),120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DATEADD(DAY,-1,CONVERT(DATETIME,CONVERT(CHAR(8),DATEADD(MONTH,(DATEPART(QUARTER,DAT_EndDate)+2)*3-MONTH(DAT_EndDate)-2,DAT_EndDate),120)+'01')),DATEADD(DAY,-1,GETDATE())))
+      )
+      )
+      )
+      FOR XML PATH('')
+    </select>
+
+    <!--lijie add 2016-05-16-->
+    <select id="QueryInterfaceDealerReturnConfirmBybatchNumber"  parameterClass="string" resultClass="System.Data.DataSet">
+      select IDC_ID as Id,IDC_ReturnNo as ReturnNo, IDC_ConfirmDate as ConfirmDate,
+      case IDC_IsConfirm when  '1' then '审批通过' else '审批拒绝' end as IsConfirm,
+      IDC_Remark as Remark, CASE WHEN CHARINDEX('@@', IDC_Lot, 0) > 0 THEN substring(IDC_Lot, 1, CHARINDEX('@@', IDC_Lot,
+      0) - 1) ELSE IDC_Lot END AS LotNumber,
+      CASE WHEN CHARINDEX('@@', IDC_Lot, 0) > 0 THEN substring(IDC_Lot, CHARINDEX('@@', IDC_Lot, 0) + 2, LEN(IDC_Lot)
+      - CHARINDEX('@@', IDC_Lot, 0)) ELSE 'NoQR' END AS QrCode,
+      IDC_ErrorMsg as ErrorMsg,IDC_UnitPrice as Price,IDC_UPN as UNP, IDC_LineNbr as LineNbr, row_number() OVER (ORDER BY IDC_LineNbr) AS row_number
+      from InterfaceDealerReturnConfirm where IDC_BatchNbr=#value#
+    </select>
+    <select id="SelectExistsDMAParent" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select '订单号:'+A.IDC_ReturnNo+'不属于该平台审批,行号'+A.IDC_LineNbr as Messinge from
+      (
+      select InterfaceDealerReturnConfirm.IDC_ReturnNo,CONVERT(nvarchar(10),InterfaceDealerReturnConfirm.IDC_LineNbr)as IDC_LineNbr
+      from InterfaceDealerReturnConfirm(nolock) inner join InventoryAdjustHeader(nolock) on InterfaceDealerReturnConfirm.IDC_ReturnNo=InventoryAdjustHeader.IAH_Inv_Adj_Nbr
+      inner join DealerMaster(nolock) on InventoryAdjustHeader.IAH_DMA_ID=DealerMaster.DMA_ID
+      where InventoryAdjustHeader.IAH_Reason='Return'
+      and DealerMaster.DMA_Parent_DMA_ID !=#DmaId#
+      and   DealerMaster.DMA_Parent_DMA_ID is not null and
+      InterfaceDealerReturnConfirm.IDC_BatchNbr=#batchNumber#)A
+      order by A.IDC_LineNbr FOR XML PATH('')
+    </select>
+
+    <select id="SelectInventoryAdjustPrhIDBYHeadId" parameterClass="string" resultClass="System.Data.DataSet">
+      select count(*) cnt
+      from InventoryAdjustDetail,InventoryAdjustLot
+      where IAD_ID=IAL_IAD_ID
+      and IAL_PRH_ID is null
+      and IAD_IAH_ID = #value#
+    </select>
+    <select id="SelectExistsCFnbyLotIdWhmIdLot"  parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+      select * from InventoryAdjustLot where IAL_LotNumber=#Lot# and IAL_WHM_ID=#WhmId# and IAL_LOT_ID=#LotId# and IAL_IAD_ID=#IadId#
+    </select>
+    <procedure id="GC_InventoryAdjust_CheckSubmit" parameterMap="GC_InventoryAdjust_CheckSubmit_ParameterMap">
+      dbo.GC_InventoryAdjust_CheckSubmit
+    </procedure>
+
+    <select id="ExistsPOReceiptHeaderIsUpn"  parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DISTINCT PH.PRH_ID AS Id,PH.PRH_PurchaseOrderNbr AS PurchaseOrderNbr
+      FROM POReceiptHeader PH
+      INNER JOIN POReceipt PR ON PH.PRH_ID = PR.POR_PRH_ID
+      INNER JOIN Product Po ON PR.POR_SAP_PMA_ID=Po.PMA_ID
+      INNER JOIN CFN Cf ON Po.PMA_CFN_ID=Cf.CFN_ID
+      WHERE PRH_ID=#PrhId# AND Cf.CFN_CustomerFaceNbr=#Upn#
+    </select>
+    <select id="ExistsConsignmentIsUpn"  parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.CAH_OrderNo,A.CAH_ID
+      FROM ConsignmentApplyHeader A
+      INNER JOIN ConsignmentApplyDetails B
+      ON A.CAH_ID=B.CAD_CAH_ID
+      INNER JOIN CFN C ON B.CAD_CFN_ID=C.CFN_ID
+      WHERE A.CAH_ID=#PrhId# AND exists (select 1 from CFN CFN2 where C.CFN_Property1 = CFN2.CFN_Property1 and CFN2.CFN_CustomerFaceNbr=#Upn#)
+    </select>
+    <select id="GetInventoryDtBYIahId"  parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT IAL_WHM_ID FROM InventoryAdjustHeader A inner join InventoryAdjustDetail B
+      on A.IAH_ID=B.IAD_IAH_ID INNER JOIN InventoryAdjustLot C ON C.IAL_IAD_ID=B.IAD_ID
+      WHERE A.IAH_ID=#value# GROUP BY IAL_WHM_ID
+    </select>
+    <select id="SelectAdjustRenturn_Reason" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DICT_KEY as [Key], VALUE1 as Value,VALUE2 , REV3 FROM Lafite_DICT WHERE DICT_TYPE=#TypeName# and ACTIVE_FLAG=1
+      <isNotNull prepend="AND" property="DmaType">
+        VALUE3=#DmaType#
+      </isNotNull>
+      <isNotNull prepend="AND" property="Key">
+        DICT_KEY=#Key#
+      </isNotNull>
+      <isNotNull prepend="AND" property="Rev3">
+        REV3=#Rev3#
+      </isNotNull>
+      <isNotNull prepend="AND" property="Value2">
+        Value2 like N'%$Value2$%'
+      </isNotNull>
+    </select>
+    <select id="SelectReturnProductQtyorPrice" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT SUM(ISNULL(InventoryAdjustLot.IAL_LotQty,0)) as SumQty,CONVERT(decimal(18,2) ,SUM(ISNULL(InventoryAdjustLot.IAL_UnitPrice,0)*isnull(InventoryAdjustLot.IAL_LotQty,0))) as SumPrice,
+      CONVERT(decimal(18,2) ,SUM((ISNULL(InventoryAdjustLot.IAL_UnitPrice,0)*isnull(InventoryAdjustLot.IAL_LotQty,0))/dbo.Func_GetTaxRate(null,IAH_CreatedDate))) as SumQtyTax FROM InventoryAdjustDetail
+      INNER JOIN InventoryAdjustHeader(nolock)
+      ON InventoryAdjustDetail.IAD_IAH_ID=InventoryAdjustHeader.IAH_ID
+      INNER JOIN InventoryAdjustLot
+      ON InventoryAdjustDetail.IAD_ID=InventoryAdjustLot.IAL_IAD_ID
+      where InventoryAdjustDetail.IAD_IAH_ID=#value#
+    </select>
+    <select id="SelectReturnCfnPrice" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT dbo.fn_GetPriceForDealerRetrun(#DealerId#,#CfnId#,#Lot#,#SubCompanyId#,#BrandId#,#ReturnApplyType#) as Price
+    </select>
+    <select id="SelectReturnCfnPriceForT1AndLP" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT TOP 1 prl.PRL_ExpiredDate,prl.PRL_DOM,prl.PRL_ERPNbr,prl.PRL_ERPLineNbr,prl.PRL_ERPAmount,prl.PRL_ERPTaxRate,PRL_ERPAmount Price
+      FROM POReceiptLot prl
+      INNER JOIN dbo.POReceipt por ON prl.PRL_POR_ID=por.POR_ID
+      INNER JOIN dbo.POReceiptHeader prh ON por.POR_PRH_ID = prh.PRH_ID
+      INNER JOIN View_ProductLine vp ON vp.Id = prh.PRH_ProductLine_BUM_ID
+      WHERE 1=1
+      <dynamic>
+        <isNotNull prepend="AND" property="SubCompanyId">vp.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="Brand">vp.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">prh.PRH_Dealer_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">prl.PRL_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">por.POR_SAP_PMA_ID=#PmaId#</isNotNull>
+      </dynamic>
+      Order BY PRL_ERPAmount*(1+ PRL_ERPTaxRate)
+    </select>
+    <select id="SelectProdectById" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from Product where PMA_ID=#value#
+    </select>
+    <select id="SelectAdjustRenturnApplyTypebyHeadid" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      CASE WHEN E.REV3='Consignment' THEN  '退货类型为:'+E.VALUE1+'的时候，只能选择寄售库，和借货库的产品。批次号号'+ISNULL(C.IAL_QRLotNumber,C.IAL_LotNumber)  WHEN E.REV3='Normal' THEN '退货类型为:'+E.VALUE1+'的时候，只能选择主仓库与普通库的产品。批次号号'+ISNULL(C.IAL_QRLotNumber,C.IAL_LotNumber) END  AS MESSING
+      FROM InventoryAdjustHeader A INNER JOIN InventoryAdjustDetail B ON A.IAH_ID=B.IAD_IAH_ID
+      INNER JOIN InventoryAdjustLot C ON C.IAL_IAD_ID=B.IAD_ID INNER JOIN Warehouse D ON D.WHM_ID=C.IAL_WHM_ID
+      INNER JOIN Lafite_DICT E ON E.DICT_KEY=A.IAH_ApplyType
+      WHERE (A.IAH_ApplyType IN('Consignment','7') AND D.WHM_Type IN ('DefaultWH','Normal') AND A.IAH_ID=#IahId#) OR
+      (A.IAH_ApplyType NOT IN ('Consignment','7') and D.WHM_Type  IN ('Consignment','LP_Consignment','Borrow') AND A.IAH_ID=#IahId#)
+      AND E.DICT_TYPE='CONST_AdjustRenturn_Type' AND A.IAH_ID=#IahId# order by ISNULL(IAL_QRLotNumber,IAL_LotNumber) FOR XML PATH('')
+    </select>
+    <select id="GetProductLineByDmaId" parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct A.ProductLineID Id,A.ProductLineName AttributeName from
+      V_DivisionProductLineRelation A where exists(select 1 from V_DealerContractMaster B where
+      CONVERT(NVARCHAR(100),A.DivisionCode)=CONVERT(NVARCHAR(100),B.Division) and B.DMA_ID=#value# )
+    </select>
+
+    <select id="SelectRetrunInventoryAdjustLotByAdjustId" parameterClass="string" resultClass="InventoryAdjustLot">
+      SELECT IAL_IAD_ID AS IadId,sum(IAL_LotQty) AS LotQty,IAL_LOT_ID AS LotId,PMA_CFN_ID AS WhmId,IAL_ExpiredDate AS ExpiredDate,IAL_UnitPrice as UnitPrice,IAL_Lot AS LtmLot,IAL_DOM AS DOM,IAL_ERPLineNbr AS ERPLineNbr,IAL_ERPNbr AS ERPNbr
+      FROM InventoryAdjustLot ial
+      INNER JOIN InventoryAdjustDetail iad ON iad.IAD_ID=ial.IAL_IAD_ID
+      INNER JOIN Product pd ON iad.IAD_PMA_ID = pd.PMA_ID
+      WHERE  iad.IAD_IAH_ID = #value#
+      GROUP BY IAL_IAD_ID,IAL_LOT_ID,PMA_CFN_ID,IAL_ExpiredDate,IAL_UnitPrice,IAL_Lot,IAL_DOM,IAL_ERPLineNbr,IAL_ERPNbr
+    </select>
+  </statements>
+</sqlMap>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TeacherDealerRelationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="TeacherDealerRelation" assembly="DMS.Model.dll" type="DMS.Model.TeacherDealerRelation" />
+    </alias>
+    <resultMaps>
+        <resultMap id="TeacherDealerRelationResult" class="TeacherDealerRelation">
+            <result property="BscUserId" column="BscUserId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="DealerId" column="DealerId" type="Guid" dbType="uniqueidentifier"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertTeacherDealerRelation" parameterClass="TeacherDealerRelation">
+            INSERT INTO Commando.TeacherDealerRelation
+            (BscUserId,DealerId)
+            SELECT #BscUserId#,#DealerId#
+            WHERE NOT EXISTS (SELECT 1 FROM Commando.TeacherDealerRelation WHERE BscUserId=#BscUserId# AND DealerId=#DealerId#)
+        </insert>
+        <delete id="DeleteTeacherDealerRelation" parameterClass="TeacherDealerRelation">
+            DELETE FROM Commando.TeacherDealerRelation
+            WHERE BscUserId = #BscUserId#
+            AND DealerId=#DealerId#
+        </delete>
+        <delete id="DeleteTeacherDealerRelationByBscUserId" parameterClass="string">
+            DELETE FROM Commando.TeacherDealerRelation
+            WHERE BscUserId = #value#
+        </delete>
+        <select id="SelectTeacherDealerList" parameterClass="string" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT A.BscUserId,
+                   A.DealerId,
+                   B.DMA_ChineseName DealerName,
+                   ROW_NUMBER() OVER(ORDER BY B.DMA_ChineseName) AS [row_number]
+            FROM   Commando.TeacherDealerRelation A,
+                   DealerMaster B
+            WHERE  A.DealerId = B.DMA_ID
+                   AND A.BscUserId = #value#
+            ]]>
+        </select>
+        <select id="SelectRemainTeacherDealerList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT A.DMA_ID DealerId,
+                   A.DMA_ChineseName DealerName,
+                   ROW_NUMBER() OVER(ORDER BY A.DMA_ChineseName) AS [row_number]
+            FROM   DealerMaster A
+            WHERE  NOT EXISTS (
+                       SELECT 1
+                       FROM   Commando.TeacherDealerRelation B
+                       WHERE  A.DMA_ID = B.DealerId
+                              AND B.BscUserId = #BscUserId#
+                   )
+                   AND (ISNULL(#DealerName#, '') = '' OR A.DMA_ChineseName LIKE '%' + #DealerName# + '%')
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

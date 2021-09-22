@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentLotMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentLot" assembly="DMS.Model.dll" type="DMS.Model.ShipmentLot" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentLotResult" class="ShipmentLot">
+      <result property="SplId" column="SLT_SPL_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="LotShippedQty" column="SLT_LotShippedQty" type="double" dbType="float"/>
+      <result property="LotId" column="SLT_LOT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Id" column="SLT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="WhmId" column="SLT_WHM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UnitPrice" column="SLT_UnitPrice" type="decimal" dbType="decimal"/>
+      <result property="AdjType" column="AdjType" type="string" dbType="nvarchar"/>
+      <result property="AdjReason" column="AdjReason" type="string" dbType="nvarchar"/>
+      <result property="AdjAction" column="AdjAction" type="string" dbType="nvarchar"/>
+      <result property="InputTime" column="InputTime" type="DateTime" dbType="datetime"/>
+      <result property="ShipmentDate" column="ShipmentDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <result property="CahId" column="SLT_CAH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="QrlotId" column="SLT_QRLOT_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Lot" column="SLT_Lot" type="string" dbType="nvarchar"/>
+      <result property="QRCode" column="SLT_QRCode" type="string" dbType="nvarchar"/>
+      <result property="DOM" column="SLT_DOM" type="string" dbType="nvarchar"/>
+      <result property="ExpiredDate" column="SLT_ExpiredDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectShipmentLot" parameterClass="string" resultClass="ShipmentLot">
+      SELECT SLT_SPL_ID AS SplId,SLT_LotShippedQty AS LotShippedQty,SLT_LOT_ID AS LotId,SLT_ID AS Id,SLT_WHM_ID AS WhmId,SLT_UnitPrice AS UnitPrice,AdjType AS AdjType,AdjReason AS AdjReason,AdjAction AS AdjAction,InputTime AS InputTime,ShipmentDate AS ShipmentDate,Remark AS Remark,SLT_CAH_ID AS CahId,SLT_QRLOT_ID AS QrlotId,SLT_QRLotNumber AS QrLotNumber,SLT_Lot AS Lot,SLT_QRCode AS QRCode,SLT_ExpiredDate AS ExpiredDate,SLT_DOM AS DOM
+      FROM ShipmentLot
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SLT_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentLot" parameterClass="ShipmentLot" resultClass="ShipmentLot">
+      SELECT SLT_SPL_ID AS SplId,SLT_LotShippedQty AS LotShippedQty,SLT_LOT_ID AS LotId,SLT_ID AS Id,SLT_WHM_ID AS WhmId,SLT_UnitPrice AS UnitPrice,AdjType AS AdjType,AdjReason AS AdjReason,AdjAction AS AdjAction,InputTime AS InputTime,ShipmentDate AS ShipmentDate,Remark AS Remark,SLT_CAH_ID AS CahId,SLT_QRLOT_ID AS QrlotId,SLT_QRLotNumber AS QrLotNumber,SLT_Lot AS Lot,SLT_QRCode AS QRCode,SLT_ExpiredDate AS ExpiredDate,SLT_DOM AS DOM
+      FROM ShipmentLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SplId">SLT_SPL_ID=#SplId#</isNotNull>
+        <isNotNull prepend="AND" property="LotShippedQty">SLT_LotShippedQty=#LotShippedQty#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">SLT_LOT_ID=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">SLT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">SLT_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">SLT_UnitPrice=#UnitPrice#</isNotNull>
+        <isNotNull prepend="AND" property="AdjType">AdjType=#AdjType#</isNotNull>
+        <isNotNull prepend="AND" property="AdjReason">AdjReason=#AdjReason#</isNotNull>
+        <isNotNull prepend="AND" property="AdjAction">AdjAction=#AdjAction#</isNotNull>
+        <isNotNull prepend="AND" property="InputTime">InputTime=#InputTime#</isNotNull>
+        <isNotNull prepend="AND" property="ShipmentDate">ShipmentDate=#ShipmentDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="CahId">SLT_CAH_ID=#CahId#</isNotNull>
+        <isNotNull prepend="AND" property="QrlotId">SLT_QRLOT_ID=#QrlotId#</isNotNull>
+        <isNotNull prepend="AND" property="QrLotNumber">SLT_QRLotNumber=#QrLotNumber#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentLot" parameterClass="ShipmentLot">
+      INSERT INTO ShipmentLot
+      (SLT_SPL_ID,SLT_LotShippedQty,SLT_LOT_ID,SLT_ID,SLT_WHM_ID,SLT_UnitPrice,AdjType,AdjReason,AdjAction,InputTime,ShipmentDate,Remark,SLT_CAH_ID,SLT_QRLOT_ID,SLT_QRLotNumber,SLT_Lot,SLT_QRCode,SLT_ExpiredDate,SLT_DOM)
+      VALUES(#SplId#,#LotShippedQty#,#LotId#,#Id#,#WhmId#,#UnitPrice#,#AdjType#,#AdjReason#,#AdjAction#,#InputTime:DateTime:1/1/0001 12:00:00 AM#,#ShipmentDate:DateTime:1/1/0001 12:00:00 AM#,#Remark#,#CahId#,#QrlotId#,#QrLotNumber#,#Lot#,#QRCode#,#ExpiredDate:DateTime:1/1/0001 12:00:00 AM#,#DOM#)
+    </insert>
+    <update id="UpdateShipmentLot" parameterClass="ShipmentLot">
+      UPDATE ShipmentLot
+      SET SLT_SPL_ID=#SplId#,SLT_LotShippedQty=#LotShippedQty#,SLT_LOT_ID=#LotId#,SLT_ID=#Id#,SLT_WHM_ID=#WhmId#,SLT_UnitPrice=#UnitPrice#,AdjType=#AdjType#,AdjReason=#AdjReason#,AdjAction=#AdjAction#,InputTime=#InputTime#,ShipmentDate=#ShipmentDate#,Remark=#Remark#,SLT_CAH_ID=#CahId#,SLT_QRLOT_ID=#QrlotId#,SLT_QRLotNumber=#QrLotNumber#
+      WHERE SLT_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentLot" parameterClass="string">
+      DELETE FROM ShipmentLot
+      WHERE SLT_ID = #value#
+    </delete>
+
+    //added by bozhenfei on 20090814
+    <delete id="DeleteShipmentLotByHeaderId" parameterClass="string">
+      DELETE FROM ShipmentLot
+      WHERE SLT_SPL_ID IN (SELECT SPL_ID FROM ShipmentLine WHERE SPL_SPH_ID = #value#)
+    </delete>
+
+    <select id="SelectByFilterShipmentLotAll" parameterClass="System.Collections.Hashtable" resultClass="ShipmentLot">
+      SELECT
+      Warehouse.WHM_Type AS WhType,
+      Warehouse.WHM_Code AS WhCode,
+      ShipmentLot.SLT_ID AS Id,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLine,
+      Product.PMA_UPN AS UPN,
+      ShipmentLot.SLT_Lot AS LotNumber,
+      ShipmentLot.SLT_QRCode AS QRCode,
+      case when isnull(SLT_QRLotNumber,'') = '' then '' else substring(SLT_QRLotNumber,CHARINDEX('@@',SLT_QRLotNumber,0)+2,LEN(SLT_QRLotNumber)-CHARINDEX('@@',SLT_QRLotNumber,0)) end AS QRCodeEdit,
+      CONVERT(varchar(100), ShipmentLot.SLT_ExpiredDate, 112)  AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      convert(decimal(18,6),isnull(Lot.LOT_OnHandQty,0)) AS TotalQty,
+      ShipmentLot.SLT_UnitPrice AS UnitPrice,
+      convert(decimal(18,6),ShipmentLot.SLT_LotShippedQty) AS ShipmentQty,
+      CFN.CFN_Implant AS Implant,
+      0 AS IsConsumableItem,
+      PMA_ConvertFactor as ConvertFactor,
+      (SELECT CAH_OrderNo FROM ConsignmentApplyHeader(nolock) WHERE CAH_ID = SLT_CAH_ID) as PurchaseOrderNbr,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, ShipmentLot.SLT_Lot) AS row_number,
+      CFN_EnglishName CFNEnName,
+      CFN_ChineseName CFNChName,
+      CONVERT(varchar(10), ShipmentDate, 120) ShipmentDate,
+      Remark,AdjAction
+      ,dbo.fn_GetEnabledFlag(CFN_Property6,ShipmentLot.SLT_ExpiredDate,#ShipmentDate#) IsCanOrder
+      ,CFN_Property6,
+      case when  (select count(*) from interface.T_I_JY_HospitalSalesValidate t1(nolock), dealermaster t2(nolock) where t1.dealerCode = t2.DMA_SAP_Code and t2.DMA_ID = warehouse.WHM_DMA_ID and t1.QrCode = ShipmentLot.SLT_QRCode  ) =0 then '1' else '0' END AS QRCheck,
+      case when isnull((select HSBI.IsError from dbo.HospitalShipmentBSC_BeforeSubmit_Init AS HSBI where HSBI.Id = ShipmentLot.SLT_ID),0) = 1 then '1' else '0' END AS IsError
+      FROM    ShipmentLot(nolock)
+      INNER JOIN ShipmentLine(nolock) ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+      INNER JOIN Product(nolock) ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON ShipmentLot.SLT_WHM_ID = Warehouse.WHM_ID
+      left JOIN Lot(nolock) ON  ShipmentLot.SLT_LOT_ID = Lot.LOT_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="HeaderId">ShipmentLine.SPL_SPH_ID=#HeaderId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">ShipmentLot.SLT_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectSumByFilterShipmentLotAll" parameterClass="System.Collections.Hashtable" resultClass="ShipmentLot">
+      SELECT sum(Convert(decimal(18,2),isnull(SLT_LotShippedQty,0))) as TotalQty,sum(Convert(decimal(18,2),isnull(SLT_LotShippedQty,0) * isnull(SLT_UnitPrice,0))) as TotalPrice
+      FROM    ShipmentLot(nolock)
+      INNER JOIN ShipmentLine(nolock) ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+      INNER JOIN Product(nolock) ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON ShipmentLot.SLT_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Lot(nolock) ON ShipmentLot.SLT_LOT_ID = Lot.LOT_ID
+      INNER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="HeaderId">ShipmentLine.SPL_SPH_ID=#HeaderId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">ShipmentLot.SLT_ID=#LotId#</isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="SelectShipmentLotByHashtable" parameterClass="System.Collections.Hashtable" resultClass="ShipmentLot">
+      SELECT SLT_SPL_ID AS SplId,SLT_LotShippedQty AS LotShippedQty,SLT_LOT_ID AS LotId,SLT_ID AS Id,SLT_WHM_ID AS WhmId,SLT_UnitPrice AS UnitPrice,ShipmentDate AS ShipmentDate,Remark AS Remark, SLT_QRLOT_ID AS QrlotId,SLT_QRLotNumber AS QrLotNumber,SLT_Lot AS Lot,SLT_QRCode AS QRCode,SLT_ExpiredDate AS ExpiredDate,SLT_DOM AS DOM
+      FROM ShipmentLot
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SplId">SLT_SPL_ID=#SplId#</isNotNull>
+        <isNotNull prepend="AND" property="LotShippedQty">SLT_LotShippedQty=#LotShippedQty#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">SLT_LOT_ID=#LotId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">SLT_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">SLT_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="UnitPrice">SLT_UnitPrice=#UnitPrice#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectTotalShipmentLotQtyByLineId" parameterClass="string" resultClass="string">
+      SELECT SUM(CONVERT(decimal(18,6),SLT_LotShippedQty)) AS TotalQty
+      FROM ShipmentLot WHERE SLT_SPL_ID = #value#
+    </select>
+
+    <select id="SelectShipmentLotByHeaderId" parameterClass="string" resultClass="ShipmentLot">
+      SELECT SLT_SPL_ID AS SplId,SLT_LotShippedQty AS LotShippedQty,SLT_LOT_ID AS LotId,SLT_ID AS Id,SLT_WHM_ID AS WhmId
+      FROM ShipmentLot
+      WHERE SLT_SPL_ID IN (SELECT SPL_ID FROM ShipmentLine WHERE SPL_SPH_ID = #value#)
+    </select>
+    <select id="SelectByFilterShipmentLotForPrint" parameterClass="System.Collections.Hashtable" resultClass="ShipmentLot">
+      SELECT
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      CFN.CFN_ProductLine_BUM_ID AS ProductLine,
+      CFN.CFN_EnglishName AS CFNEnglishName,
+      Product.PMA_UPN AS UPN,
+      V_LotMaster.LTM_LotNumber AS LotNumber,
+      Case  CFN_Property6
+      when 0 then CONVERT(nvarchar(6), V_LotMaster.LTM_ExpiredDate, 112)
+      when 1 then CONVERT(nvarchar(8), V_LotMaster.LTM_ExpiredDate, 112)
+      else CONVERT(nvarchar(100), V_LotMaster.LTM_ExpiredDate, 112)
+      end AS ExpiredDate,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      ShipmentLot.SLT_UnitPrice AS UnitPrice,
+      SUm(convert(decimal(18,6),ShipmentLot.SLT_LotShippedQty)) AS ShipmentQty,
+      CFN.CFN_Implant AS Implant,
+      (CASE WHEN CFN.CFN_Property1 = '耗材' THEN 1
+      ELSE 0
+      END) AS IsConsumableItem,
+      row_number() OVER (ORDER BY CFN.CFN_ChineseName,CFN.CFN_EnglishName,CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, V_LotMaster.LTM_LotNumber) AS row_number,
+      RD_ArticleNumber as ArticleNumber,
+      CFN_Property5 as RegistrationNbrCN,
+      CFN_Description as RegistrationNbrEN,
+      RM_OpeningDate as OpeningDate ,
+      RM_ExpirationDate as ExpirationDate,
+      CFN.CFN_ChineseName as RegistrationProductName
+      FROM    ShipmentLot
+      INNER JOIN ShipmentLine ON ShipmentLot.SLT_SPL_ID = ShipmentLine.SPL_ID
+      INNER JOIN Product ON ShipmentLine.SPL_Shipment_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON ShipmentLot.SLT_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN Lot ON ShipmentLot.SLT_LOT_ID = Lot.LOT_ID
+      INNER JOIN V_LotMaster ON Lot.LOT_LTM_ID = V_LotMaster.LTM_ID
+      left join RegistrationDetail on RegistrationDetail.RD_ArticleNumber=CFN.CFN_CustomerFaceNbr
+      left join RegistrationMain on RegistrationMain.RM_ID=RegistrationDetail.RD_RM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="HeaderId">ShipmentLine.SPL_SPH_ID=#HeaderId#</isNotNull>
+        <isNotNull prepend="AND" property="LotId">ShipmentLot.SLT_ID=#LotId#</isNotNull>
+      </dynamic>
+      group by Warehouse.WHM_ID,
+      Warehouse.WHM_Name ,
+      CFN.CFN_CustomerFaceNbr ,
+      CFN.CFN_ProductLine_BUM_ID,
+      Product.PMA_UPN ,
+      V_LotMaster.LTM_LotNumber ,
+      CFN_Property6,
+      V_LotMaster.LTM_ExpiredDate,
+      Product.PMA_UnitOfMeasure ,
+      ShipmentLot.SLT_UnitPrice ,
+      CFN.CFN_Implant ,
+      CFN.CFN_Property1,
+      RD_ArticleNumber ,
+      CFN_Property5 ,
+      CFN_Description ,
+      RM_OpeningDate ,
+      RM_ExpirationDate ,
+      CFN.CFN_ChineseName,
+      CFN.CFN_EnglishName
+    </select>
+    <select id="SelectShipmentLotByLotNumber" parameterClass="System.Collections.Hashtable" resultClass="ShipmentLot">
+      SELECT SLT_SPL_ID AS SplId,SLT_LotShippedQty AS LotShippedQty,SLT_LOT_ID AS LotId,SLT_ID AS Id,SLT_WHM_ID AS WhmId,SLT_UnitPrice AS UnitPrice,ShipmentDate AS ShipmentDate,Remark AS Remark
+      FROM ShipmentLot
+      INNER JOIN Lot ON ShipmentLot.SLT_LOT_ID = Lot.LOT_ID
+      INNER JOIN LotMaster ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      where LTM_LotNumber=(select LTM_LotNumber from LotMaster
+      join Lot on LOT_LTM_ID=LTM_ID
+      where LOT_ID=#LotId#) and SLT_SPL_ID=#SplId#
+    </select>
+    <select id="SelectShipmentLotByChecked" parameterClass="string" resultClass="System.Data.DataSet">
+      select case when CHARINDEX('@@',ShipmentLot.SLT_QRLotNumber)>0 then substring(ShipmentLot.SLT_QRLotNumber,CHARINDEX('@@',ShipmentLot.SLT_QRLotNumber,0)+2,LEN(ShipmentLot.SLT_QRLotNumber)-CHARINDEX('@@',ShipmentLot.SLT_QRLotNumber,0)) else '' end as EditQrCode,
+      V_LotMaster.LTM_LotNumber as LotNumber,Warehouse.WHM_Type as Wtype,Warehouse.WHM_Code as Wcode,
+      V_LotMaster.LTM_QrCode as QrCode,
+      SLT_LotShippedQty as ShipmentQty,
+      SLT_LOT_ID as LotId
+      from ShipmentLot inner join Warehouse on ShipmentLot.SLT_WHM_ID=Warehouse.WHM_ID
+      inner join Lot on ISNULL(SLT_QRLOT_ID,SLT_LOT_ID)=LOT_ID inner join V_LotMaster on LOT_LTM_ID=V_LotMaster.LTM_ID
+      inner join ShipmentLine on ShipmentLine.SPL_ID=ShipmentLot.SLT_SPL_ID
+      where ShipmentLine.SPL_SPH_ID=#value#
+    </select>
+    <select id="SelectShipmentdistictLotid" parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct ShipmentLot.SLT_LOT_ID
+      from ShipmentLot inner join Warehouse on ShipmentLot.SLT_WHM_ID=Warehouse.WHM_ID
+      inner join Lot on ISNULL(SLT_QRLOT_ID,SLT_LOT_ID)=LOT_ID inner join V_LotMaster on LOT_LTM_ID=V_LotMaster.LTM_ID
+      inner join ShipmentLine on ShipmentLine.SPL_ID=ShipmentLot.SLT_SPL_ID
+      where ShipmentLine.SPL_SPH_ID=#value#
+    </select>
+    <select id="SelectShipmentLotQty" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select distinct Lot.LOT_OnHandQty as TotalQty,
+      SUM(ISNULL(ShipmentLot.SLT_LotShippedQty,0))as ShipmentQty,
+      CASE WHEN CHARINDEX('@@', ShipmentLot.SLT_QRLotNumber, 0) > 0
+      THEN substring(ShipmentLot.SLT_QRLotNumber, 1, CHARINDEX('@@', ShipmentLot.SLT_QRLotNumber,
+      0) - 1) ELSE ShipmentLot.SLT_QRLotNumber END AS LotNumber
+      from
+      ShipmentLot inner join
+      Lot on ShipmentLot.SLT_LOT_ID=Lot.LOT_ID
+      inner join ShipmentLine on ShipmentLine.SPL_ID=ShipmentLot.SLT_SPL_ID
+      where ShipmentLot.SLT_LOT_ID=#Lotid#
+      and ShipmentLine.SPL_SPH_ID=#Sphid#
+      group by Lot.LOT_OnHandQty, CASE WHEN CHARINDEX('@@', ShipmentLot.SLT_QRLotNumber, 0) > 0 THEN substring(ShipmentLot.SLT_QRLotNumber, 1, CHARINDEX('@@', ShipmentLot.SLT_QRLotNumber, 0) - 1) ELSE ShipmentLot.SLT_QRLotNumber END
+    </select>
+
+      <select id="QueryShipmentLotBySphId" parameterClass="string" resultClass="ShipmentLot">
+          SELECT SLT_SPL_ID AS SplId,SLT_LotShippedQty AS LotShippedQty,SLT_LOT_ID AS LotId,SLT_ID AS Id,SLT_WHM_ID AS WhmId,SLT_UnitPrice AS UnitPrice,ShipmentDate AS ShipmentDate,Remark AS Remark, SLT_QRLOT_ID AS QrlotId,SLT_QRLotNumber AS QrLotNumber
+          ,LTM_LotNumber AS LotNumber,PMA_UPN AS Upn,ShipmentLot.AdjAction AS AdjAction
+          FROM ShipmentLot
+          INNER JOIN ShipmentLine ON SPL_ID = SLT_SPL_ID
+          INNER JOIN ShipmentHeader ON SPH_ID = SPL_SPH_ID
+          INNER JOIN Lot ON LOT_ID = ISNULL(SLT_QRLOT_ID,SLT_LOT_ID)
+          INNER JOIN LotMaster ON LTM_ID = LOT_LTM_ID
+          INNER JOIN Product ON PMA_ID = SPL_Shipment_PMA_ID
+          <dynamic prepend="WHERE">
+              <isParameterPresent>
+                  SPH_ID = #value#
+              </isParameterPresent> 
+          </dynamic>
+      </select>
+    <select id="SelectShipmentLotQrCodeBYLineIdandLotId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select   LotMaster.LTM_ID as Id, CASE WHEN CHARINDEX('@@', LTM_LotNumber, 0) > 0 THEN substring(LTM_LotNumber, CHARINDEX('@@', LTM_LotNumber, 0) + 2, LEN(LTM_LotNumber)
+      - CHARINDEX('@@', LTM_LotNumber, 0)) ELSE 'NoQR' END AS QrCode
+      from LotMaster inner join Lot on Lot.LOT_LTM_ID=LotMaster.LTM_ID
+      where LOT_ID=#LotId#
+    </select>
+    <select id="SelectCalendarDateSix" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select count(*) as Cnt from CalendarDate where CDD_Calendar = (select convert(nvarchar(6),getdate(),112)) and CDD_Calendar+ RIGHT (REPLICATE ('0', 2) + convert(nvarchar(2),CDD_Date1),2) >=(select convert(nvarchar(8),getdate(),112))
+    </select>
+    <select id="SelectLimitNumber" parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct SPH_ID as Id,SPH_ShipmentNbr as OrderNumber,ProductLineName from V_ShipmentFileUpload
+      where SPH_Dealer_DMA_ID = #value#
+      order by SPH_ShipmentNbr
+    </select>
+    <select id="SelectShipmentLimitBUCount" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from GC_Fn_ShipmentFileUpload(#value#)
+    </select>
+
+    //added by SongWeiming on 20180625
+    <delete id="DeleteErrorShipmentLotByHeaderId" parameterClass="System.Collections.Hashtable">
+      DELETE FROM ShipmentLot
+      WHERE SLT_ID IN (select Id from dbo.HospitalShipmentBSC_BeforeSubmit_Init where SPH_ID=#ShipmentId# and IsError = 1)
+    </delete>
+
+    <insert id="InsertShipmentAdjustOperLog" parameterClass="System.Collections.Hashtable">
+      INSERT INTO dbo.ShipmentAdjustOperLog
+      (SOL_ID,SOL_SLT_ID,SOL_InputTime,SOL_InputUser)
+      VALUES(newid(),#SLT_ID#,GETDATE(),#InputUser#)
+    </insert>
+
+    <select id="SelectShipmentLotToUploadToBSC" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT
+      (
+      SELECT TOP 1
+      T_Product.PMA_UPN
+      FROM Product T_Product
+      WHERE T_Product.PMA_ID = T_ShipmentLine.SPL_Shipment_PMA_ID
+      ) AS UPN,
+      T_ShipmentLot.SLT_Lot AS Lot,
+      T_ShipmentLot.SLT_QRCode AS QRCode,
+      T_ShipmentLot.SLT_UnitPrice AS UnitPrice,
+      T_ShipmentLot.SLT_LotShippedQty AS Qty
+      FROM dbo.ShipmentLot T_ShipmentLot
+      INNER JOIN ShipmentLine T_ShipmentLine
+      ON T_ShipmentLot.SLT_SPL_ID = T_ShipmentLine.SPL_ID
+      WHERE T_ShipmentLine.SPL_SPH_ID = #SPH_ID#
+      ORDER BY T_ShipmentLine.SPL_LineNbr;
+    </select>
+  </statements>
+</sqlMap>

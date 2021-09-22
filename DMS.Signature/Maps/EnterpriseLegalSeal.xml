@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EnterpriseLegalSealMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EnterpriseLegalSeal" assembly="DMS.Signature.dll" type="DMS.Signature.Model.EnterpriseLegalSeal" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EnterpriseLegalSealResult" class="EnterpriseLegalSeal">
+      <result property="Id" column="ELS_ID" type="string" dbType="char"/>
+      <result property="ElmId" column="ELS_ELM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ELS_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerName" column="ELS_DealerName" type="string" dbType="nvarchar"/>
+      <result property="LegalName" column="ELS_LegalName" type="string" dbType="nvarchar"/>
+      <result property="ParentDmaId" column="ELS_Parent_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AccountUid" column="ELS_AccountUid" type="string" dbType="nvarchar"/>
+      <result property="TemplateType" column="ELS_TemplateType" type="string" dbType="nvarchar"/>
+      <result property="Color" column="ELS_Color" type="string" dbType="nvarchar"/>
+      <result property="Seal" column="ELS_Seal" type="string" dbType="nvarchar"/>
+      <result property="ImageUrl" column="ELS_ImageUrl" type="string" dbType="nvarchar"/>
+      <result property="IsActive" column="ELS_IsActive" type="int" dbType="int"/>
+      <result property="CreateUser" column="ELS_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="ELS_CreateUserName" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="ELS_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="ELS_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateUserName" column="ELS_UpdateUserName" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="ELS_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEnterpriseLegalSeal" parameterClass="string" resultClass="EnterpriseLegalSeal">
+      SELECT ELS_ID AS Id,ELS_ELM_ID AS ElmId,ELS_DMA_ID AS DmaId,ELS_DealerName AS DealerName,ELS_LegalName AS LegalName,ELS_Parent_DMA_ID AS ParentDmaId,ELS_AccountUid AS AccountUid,ELS_TemplateType AS TemplateType,ELS_Color AS Color,ELS_Seal AS Seal,ELS_ImageUrl AS ImageUrl,ELS_IsActive AS IsActive,ELS_CreateUser AS CreateUser,ELS_CreateUserName AS CreateUserName,ELS_CreateDate AS CreateDate,ELS_UpdateUser AS UpdateUser,ELS_UpdateUserName AS UpdateUserName,ELS_UpdateDate AS UpdateDate
+      FROM ESign.EnterpriseLegalSeal
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ELS_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEnterpriseLegalSeal" parameterClass="EnterpriseLegalSeal" resultClass="EnterpriseLegalSeal">
+      SELECT ELS_ID AS Id,ELS_ELM_ID AS ElmId,ELS_DMA_ID AS DmaId,ELS_DealerName AS DealerName,ELS_LegalName AS LegalName,ELS_Parent_DMA_ID AS ParentDmaId,ELS_AccountUid AS AccountUid,ELS_TemplateType AS TemplateType,ELS_Color AS Color,ELS_Seal AS Seal,ELS_ImageUrl AS ImageUrl,ELS_IsActive AS IsActive,ELS_CreateUser AS CreateUser,ELS_CreateUserName AS CreateUserName,ELS_CreateDate AS CreateDate,ELS_UpdateUser AS UpdateUser,ELS_UpdateUserName AS UpdateUserName,ELS_UpdateDate AS UpdateDate
+      FROM ESign.EnterpriseLegalSeal
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ELS_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ElmId">ELS_ELM_ID=#ElmId#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ELS_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerName">ELS_DealerName=#DealerName#</isNotNull>
+        <isNotNull prepend="AND" property="LegalName">ELS_LegalName=#LegalName#</isNotNull>
+        <isNotNull prepend="AND" property="ParentDmaId">ELS_Parent_DMA_ID=#ParentDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="AccountUid">ELS_AccountUid=#AccountUid#</isNotNull>
+        <isNotNull prepend="AND" property="TemplateType">ELS_TemplateType=#TemplateType#</isNotNull>
+        <isNotNull prepend="AND" property="Color">ELS_Color=#Color#</isNotNull>
+        <isNotNull prepend="AND" property="Seal">ELS_Seal=#Seal#</isNotNull>
+        <isNotNull prepend="AND" property="ImageUrl">ELS_ImageUrl=#ImageUrl#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">ELS_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">ELS_CreateUserName=#CreateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">ELS_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUserName">ELS_UpdateUserName=#UpdateUserName#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">ELS_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEnterpriseLegalSeal" parameterClass="EnterpriseLegalSeal">
+      IF (#IsActive# != '2')
+      BEGIN
+      IF (EXISTS (SELECT 1 FROM ESign.EnterpriseLegalSeal WITH ( UPDLOCK, HOLDLOCK )
+      WHERE ELS_DMA_ID = #DmaId# AND ELS_IsActive = '1' ))
+      BEGIN
+      UPDATE ESign.EnterpriseLegalSeal SET ELS_IsActive='0',ELS_UpdateUser=#UpdateUser#,ELS_UpdateUserName=#UpdateUserName#,ELS_UpdateDate=#UpdateDate#
+      WHERE ELS_DMA_ID = #DmaId# AND ELS_IsActive = '1'
+      END
+      END
+
+      INSERT INTO ESign.EnterpriseLegalSeal
+      (ELS_ID,ELS_ELM_ID,ELS_DMA_ID,ELS_DealerName,ELS_LegalName,ELS_Parent_DMA_ID,ELS_AccountUid,ELS_TemplateType,ELS_Color,ELS_Seal,ELS_ImageUrl,ELS_IsActive,ELS_CreateUser,ELS_CreateUserName,ELS_CreateDate,ELS_UpdateUser,ELS_UpdateUserName,ELS_UpdateDate)
+      VALUES(#Id#,#ElmId#,#DmaId#,#DealerName#,#LegalName#,#ParentDmaId#,#AccountUid#,#TemplateType#,#Color#,#Seal#,#ImageUrl#,#IsActive#,#CreateUser#,#CreateUserName#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateUserName#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateEnterpriseLegalSeal" parameterClass="EnterpriseLegalSeal">
+      UPDATE ESign.EnterpriseLegalSeal
+      SET ELS_ID=#Id#,ELS_ELM_ID=#ElmId#,ELS_DMA_ID=#DmaId#,ELS_DealerName=#DealerName#,ELS_LegalName=#LegalName#,ELS_Parent_DMA_ID=#ParentDmaId#,ELS_AccountUid=#AccountUid#,ELS_TemplateType=#TemplateType#,ELS_Color=#Color#,ELS_Seal=#Seal#,ELS_ImageUrl=#ImageUrl#,ELS_IsActive=#IsActive#,ELS_CreateUserName=#CreateUserName#,ELS_UpdateUser=#UpdateUser#,ELS_UpdateUserName=#UpdateUserName#,ELS_UpdateDate=#UpdateDate#
+      WHERE ELS_ID = #Id#
+    </update>
+    <delete id="DeleteEnterpriseLegalSeal" parameterClass="string">
+      DELETE FROM ESign.EnterpriseLegalSeal
+      WHERE ELS_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

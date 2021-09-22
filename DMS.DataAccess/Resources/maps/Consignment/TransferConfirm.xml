@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.TransferConfirmMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Consignment.TransferConfirm" assembly="DMS.Model.dll" type="DMS.Model.Consignment.TransferConfirmPO" />
+  </alias>
+  <parameterMaps>
+  </parameterMaps>
+  <statements>
+    <!-- Start Select -->
+    <select id="Consignment.TransferConfirmMap.SelectInventoryList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        
+       select * into ##tb from 
+      (SELECT LOT_LTM_ID LotMasterId,
+               Cfn.CFN_ID UpnId,
+               Warehouse.WHM_ID WarehouseId,
+               Warehouse.WHM_Name WarehouseName,
+               Product.PMA_ID ProductId,
+               Lot.LOT_ID LotId,
+               LOT_LTM_Lot Lot,
+               LOT_LTM_QRCode QrCode ,
+               LOT_LTM_DOM  DOM, 
+			         LOT_LTM_ExpiredDate   ExpiredDate  
+        FROM   dbo.Warehouse Warehouse
+               INNER JOIN dbo.Inventory Inventory
+                    ON  Inventory.INV_WHM_ID = Warehouse.WHM_ID
+               INNER JOIN dbo.Lot Lot
+                    ON  Lot.LOT_INV_ID = Inventory.INV_ID
+               INNER JOIN dbo.Product Product
+                    ON  Product.PMA_ID = Inventory.INV_PMA_ID
+               INNER JOIN dbo.CFN Cfn
+                    ON  Cfn.CFN_ID = Product.PMA_CFN_ID
+        WHERE  Lot.LOT_OnHandQty > 0
+              AND Cfn.CFN_ID = #UpnId#
+              AND Warehouse.WHM_DMA_ID = #DealerId#
+              AND Warehouse.WHM_Type='Borrow'
+              ) t
+    select * from ##tb t where t.QrCode!='NoQR'
+      ]]>
+    </select>
+    <select id="Consignment.TransferConfirmMap.SelectConfirmedList" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      <![CDATA[
+        SELECT TransferDetail.TD_ID DetailId,
+               LotMaster.LTM_ID LotMasterId,
+               TransferDetail.TD_CFN_ID UpnId,
+               TransferConfirm.TC_WHM_ID WarehouseId,
+               Warehouse.WHM_Name WarehouseName,
+               TransferConfirm.TC_PMA_ID ProductId,
+               Lot.LOT_ID LotId,
+               LotMaster.LTM_LotNumber Lot,
+               LotMaster.LTM_QrCode QrCode,
+               LOT_LTM_DOM  DOM  ,  
+			         LOT_LTM_ExpiredDate ExpiredDate
+        FROM   Consignment.TransferConfirm TransferConfirm
+               INNER JOIN Consignment.TransferDetail TransferDetail
+                    ON  TransferDetail.TD_ID = TransferConfirm.TC_TD_ID
+               INNER JOIN dbo.Warehouse Warehouse
+                    ON  Warehouse.WHM_ID = TransferConfirm.TC_WHM_ID
+               INNER JOIN dbo.Product Product
+                    ON  Product.PMA_ID = TransferConfirm.TC_PMA_ID
+               INNER JOIN dbo.Lot Lot
+                    ON  Lot.LOT_ID = TransferConfirm.TC_LOT_ID
+               INNER JOIN dbo.V_LotMaster LotMaster
+                    ON  LotMaster.LTM_ID = Lot.LOT_LTM_ID
+        WHERE  TransferDetail.TD_TH_ID = #value#
+      ]]>
+    </select>
+    <!-- End   Select -->
+
+    <!-- Start Insert -->
+    <insert id="Consignment.TransferConfirmMap.Insert" parameterClass="Consignment.TransferConfirm">
+      <![CDATA[
+        INSERT INTO Consignment.TransferConfirm ( TC_ID, TC_TD_ID, TC_WHM_ID, TC_PMA_ID, TC_LOT_ID, TC_QTY, TC_ConfirmUser, TC_ConfirmDate, TC_Lot ,TC_QRCode,TC_DOM ,TC_ExpiredDate) 
+     VALUES ( #TC_ID#, #TC_TD_ID#, #TC_WHM_ID#, #TC_PMA_ID#, #TC_LOT_ID#, #TC_QTY#, #TC_ConfirmUser#,#TC_ConfirmDate#, #TC_Lot#,#TC_QRCode#,#TC_DOM#,#TC_ExpiredDate# )
+   ]]>
+    </insert>
+    <!-- End   Insert -->
+
+    <!-- Start Update -->
+    <!-- End   Update -->
+
+    <!-- Start Delete -->
+    <!-- End   Delete -->
+
+    <!-- Start Procdure -->
+    <!-- End   Procdure -->
+  </statements>
+</sqlMap>

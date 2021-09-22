@@ -1,0 +1,1049 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AopDealerTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="AopDealerTemp" assembly="DMS.Model.dll" type="DMS.Model.AopDealerTemp" />
+  </alias>
+  <resultMaps>
+    <resultMap id="AopDealerTempResult" class="AopDealerTemp">
+      <result property="AopdId" column="AopdId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AopdContractId" column="AopdContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AopdDealerDmaId" column="AopdDealerDmaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AopdDealerDmaIdActual" column="AopdDealerDmaIdActual" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AopdProductLineBumId" column="AopdProductLineBumId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AopdMarketType" column="AopdMarketType" type="string" dbType="nvarchar"/>
+      <result property="AopdYear" column="AopdYear" type="string" dbType="nvarchar"/>
+      <result property="AopdMonth" column="AopdMonth" type="string" dbType="nvarchar"/>
+      <result property="AopdAmount" column="AopdAmount" type="double" dbType="float"/>
+      <result property="AopdUpdateUserId" column="AopdUpdateUserId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="AopdUpdateDate" column="AopdUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="CcId" column="AOPD_CC_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAopDealerTemp" parameterClass="string" resultClass="AopDealerTemp">
+      SELECT AOPD_ID AS Id,AOPD_Contract_ID AS ContractId,AOPD_Dealer_DMA_ID AS DealerDmaId,AOPD_Dealer_DMA_ID_Actual AS DealerDmaIdActual,AOPD_ProductLine_BUM_ID AS ProductLineBumId,AOPD_Market_Type AS MarketType,AOPD_Year AS Year,AOPD_Month AS Month,AOPD_Amount AS Amount,AOPD_Update_User_ID AS UpdateUserId,AOPD_Update_Date AS UpdateDate,AOPD_CC_ID AS CcId
+      FROM AOPDealerTemp
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          AOPD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAopDealerTemp" parameterClass="AopDealerTemp" resultClass="AopDealerTemp">
+      SELECT AOPD_ID AS AopdId,AOPD_Contract_ID AS AopdContractId,AOPD_Dealer_DMA_ID AS AopdDealerDmaId,AOPD_ProductLine_BUM_ID AS AopdProductLineBumId,AOPD_Market_Type AS AopdMarketType,AOPD_Year AS AopdYear,AOPD_Month AS AopdMonth,AOPD_Amount AS AopdAmount,AOPD_Update_User_ID AS AopdUpdateUserId,AOPD_Update_Date AS AopdUpdateDate,AOPD_CC_ID AS CcId
+      FROM AOPDealerTemp
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AopdId">AOPD_ID=#AopdId#</isNotNull>
+        <isNotNull prepend="AND" property="AopdContractId">AOPD_Contract_ID=#AopdContractId#</isNotNull>
+        <isNotNull prepend="AND" property="AopdDealerDmaId">AOPD_Dealer_DMA_ID=#AopdDealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="AopdProductLineBumId">AOPD_ProductLine_BUM_ID=#AopdProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="AopdYear">AOPD_Year=#AopdYear#</isNotNull>
+        <isNotNull prepend="AND" property="AopdMonth">AOPD_Month=#AopdMonth#</isNotNull>
+        <isNotNull prepend="AND" property="AopdAmount">AOPD_Amount=#AopdAmount#</isNotNull>
+        <isNotNull prepend="AND" property="AopdUpdateUserId">AOPD_Update_User_ID=#AopdUpdateUserId#</isNotNull>
+        <isNotNull prepend="AND" property="AopdUpdateDate">AOPD_Update_Date=#AopdUpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="CcId">AOPD_CC_ID=#CcId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertAopDealerTemp" parameterClass="AopDealerTemp">
+      INSERT INTO AOPDealerTemp
+      (AOPD_ID,AOPD_Contract_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount,AOPD_Update_User_ID,AOPD_Update_Date,AOPD_CC_ID)
+      VALUES(#AopdId#,#AopdContractId#,#AopdDealerDmaId#,#AopdProductLineBumId#,#AopdMarketType#,#AopdYear#,#AopdMonth#,#AopdAmount#,#AopdUpdateUserId#,#AopdUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#CcId#)
+    </insert>
+
+    <update id="UpdateAopDealerTemp" parameterClass="AopDealerTemp">
+      UPDATE AOPDealerTemp
+      SET AOPD_ID=#AopdId#,AOPD_Contract_ID=#AopdContractId#,AOPD_Dealer_DMA_ID=#AopdDealerDmaId#,AOPD_ProductLine_BUM_ID=#AopdProductLineBumId#,AOPD_Market_Type=#AopdMarketType#,AOPD_Year=#AopdYear#,AOPD_Month=#AopdMonth#,AOPD_Amount=#AopdAmount#,AOPD_Update_User_ID=#AopdUpdateUserId#,AOPD_Update_Date=#AopdUpdateDate#,AOPD_CC_ID=#CcId#
+      WHERE AOPD_ID = #AopdId#
+    </update>
+
+    <delete id="DeleteAopDealerTemp" parameterClass="System.Collections.Hashtable">
+      DELETE FROM AOPDealerTemp
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="ContractCode">AOPD_CC_ID in (select distinct CC_ID from interface.ClassificationContract where CC_Code=#ContractCode#)</isNotNull>
+        <isNotNull prepend="AND" property="PartsContractId">AOPD_CC_ID =#PartsContractId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">AOPD_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="MinMonth">CONVERT(INT, ISNULL(AOPD_Month,'0')) >=CONVERT(INT, #MinMonth#)</isNotNull>
+      </dynamic>
+    </delete>
+
+    <update id="FakeDeleteAopDealerTemp" parameterClass="AopDealerTemp">
+      UPDATE AOPDealerTemp
+      SET AOPD_ID=#AopdId#,AOPD_Contract_ID=#AopdContractId#,AOPD_Dealer_DMA_ID=#AopdDealerDmaId#,AOPD_ProductLine_BUM_ID=#AopdProductLineBumId#,AOPD_Market_Type=#AopdMarketType#,AOPD_Year=#AopdYear#,AOPD_Month=#AopdMonth#,AOPD_Amount=#AopdAmount#,AOPD_Update_User_ID=#AopdUpdateUserId#,AOPD_Update_Date=#AopdUpdateDate#
+      WHERE AOPD_ID = #AopdId#
+    </update>
+
+    <select id="SelectAopDealerTempByQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT	tmp.AOPD_Contract_ID as Contract_ID,
+      tmp.AOPD_Dealer_DMA_ID as Dealer_DMA_ID,
+      tmp.AOPD_ProductLine_BUM_ID as ProductLine_BUM_ID,
+      cc.CC_NameCN AS CCName,
+      tmp.AOPD_Year as Year,
+      tmp.AOPD_Amount_1 as Amount_1,
+      tmp.AOPD_Amount_2 as Amount_2,
+      tmp.AOPD_Amount_3 as Amount_3,
+      tmp.AOPD_Amount_4 as Amount_4,
+      tmp.AOPD_Amount_5 as Amount_5,
+      tmp.AOPD_Amount_6 as Amount_6,
+      tmp.AOPD_Amount_7 as Amount_7,
+      tmp.AOPD_Amount_8 as Amount_8,
+      tmp.AOPD_Amount_9 as Amount_9,
+      tmp.AOPD_Amount_10 as Amount_10,
+      tmp.AOPD_Amount_11 as Amount_11,
+      tmp.AOPD_Amount_12 as Amount_12,
+      tmp.AOPD_Amount_Y as Amount_Y,
+      fm.AOPD_Amount_1 FmAmount_1,
+      fm.AOPD_Amount_2 FmAmount_2,
+      fm.AOPD_Amount_3 FmAmount_3,
+      fm.AOPD_Amount_4 FmAmount_4,
+      fm.AOPD_Amount_5 FmAmount_5,
+      fm.AOPD_Amount_6 FmAmount_6,
+      fm.AOPD_Amount_7 FmAmount_7,
+      fm.AOPD_Amount_8 FmAmount_8,
+      fm.AOPD_Amount_9 FmAmount_9,
+      fm.AOPD_Amount_10 FmAmount_10,
+      fm.AOPD_Amount_11 FmAmount_11,
+      fm.AOPD_Amount_12 FmAmount_12,
+      fm.AOPD_Amount_Y  FmAmount_Y,
+      (tmp.AOPD_Amount_1-fm.AOPD_Amount_1) DiffAmount_1,
+      (tmp.AOPD_Amount_2-fm.AOPD_Amount_2) DiffAmount_2,
+      (tmp.AOPD_Amount_3-fm.AOPD_Amount_3) DiffAmount_3,
+      (tmp.AOPD_Amount_4-fm.AOPD_Amount_4) DiffAmount_4,
+      (tmp.AOPD_Amount_5-fm.AOPD_Amount_5) DiffAmount_5,
+      (tmp.AOPD_Amount_6-fm.AOPD_Amount_6) DiffAmount_6,
+      (tmp.AOPD_Amount_7-fm.AOPD_Amount_7) DiffAmount_7,
+      (tmp.AOPD_Amount_8-fm.AOPD_Amount_8) DiffAmount_8,
+      (tmp.AOPD_Amount_9-fm.AOPD_Amount_9) DiffAmount_9,
+      (tmp.AOPD_Amount_10-fm.AOPD_Amount_10) DiffAmount_10,
+      (tmp.AOPD_Amount_11-fm.AOPD_Amount_11) DiffAmount_11,
+      (tmp.AOPD_Amount_12-fm.AOPD_Amount_12) DiffAmount_12,
+      (tmp.AOPD_Amount_Y-fm.AOPD_Amount_Y) DiffAmount_Y,
+      row_number() OVER (ORDER BY fm.AOPD_Year ASC) AS [row_number]
+      FROM V_AOPDealer_Temp tmp
+      LEFT JOIN (SELECT distinct CC_ID,CC_NameCN FROM interface.ClassificationContract ) cc ON cc.CC_ID=tmp.AOPD_CC_ID
+      LEFT JOIN V_AOPDealer fm ON fm.AOPD_Dealer_DMA_ID=tmp.AOPD_Dealer_DMA_ID
+      AND fm.AOPD_ProductLine_BUM_ID=tmp.AOPD_ProductLine_BUM_ID
+      AND fm.AOPD_CC_ID=tmp.AOPD_CC_ID
+      AND ISNULL(fm.AOPD_Market_Type,'0')=ISNULL(fm.AOPD_Market_Type,'0')
+      AND fm.AOPD_Year=tmp.AOPD_Year
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">tmp.AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">tmp.AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">tmp.AOPD_ProductLine_BUM_ID =#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="SubBuId">tmp.AOPD_CC_ID =#SubBuId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">tmp.AOPD_Year=#Year#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectAopDealerUnionHospitalQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT *,row_number () OVER (ORDER BY TAB.Year,TAB.AOPType  DESC) AS [row_number]
+      FROM (SELECT AOPD_Contract_ID AS Contract_ID,
+      AOPD_Dealer_DMA_ID AS Dealer_DMA_ID,
+      AOPD_ProductLine_BUM_ID AS ProductLine_BUM_ID,
+      AOPD_Year AS Year,
+      '经销商指标' AS AOPType,
+      AOPD_Amount_1 AS Amount_1,
+      AOPD_Amount_2 AS Amount_2,
+      AOPD_Amount_3 AS Amount_3,
+      AOPD_Amount_4 AS Amount_4,
+      AOPD_Amount_5 AS Amount_5,
+      AOPD_Amount_6 AS Amount_6,
+      AOPD_Amount_7 AS Amount_7,
+      AOPD_Amount_8 AS Amount_8,
+      AOPD_Amount_9 AS Amount_9,
+      AOPD_Amount_10 AS Amount_10,
+      AOPD_Amount_11 AS Amount_11,
+      AOPD_Amount_12 AS Amount_12,
+      AOPD_Amount_Y AS Amount_Y,
+      Rmk_Body AS RmkBody,
+      CASE
+      WHEN    ISNULL (HTP.SAOPDH_Amount_Y, '') = ''
+      OR HTP.SAOPDH_Amount_Y = 0
+      THEN
+      NULL
+      ELSE
+      (CASE
+      WHEN    (AOPD_Amount_Y - SAOPDH_Amount_Y &lt; 0)
+      OR (  (AOPD_Amount_Y - SAOPDH_Amount_Y)
+      / SAOPDH_Amount_Y > 0.2)
+      THEN
+      1
+      ELSE
+      0
+      END)
+      END
+      AS RefD_H
+      FROM V_AOPDealer_Temp TP
+      LEFT JOIN AOPRemark
+      ON     AOPD_Contract_ID = Rmk_ContractID
+      AND Rmk_Type = 'Dealer'
+      LEFT JOIN (SELECT AOPDH_Contract_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year,
+      SUM (AOPDH_Amount_Y) AS SAOPDH_Amount_Y
+      FROM V_AOPDealerHospital_Temp
+      GROUP BY AOPDH_Contract_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year) HTP
+      ON     HTP.AOPDH_Contract_ID = TP.AOPD_Contract_ID
+      AND HTP.AOPDH_ProductLine_BUM_ID =
+      TP.AOPD_ProductLine_BUM_ID
+      AND HTP.AOPDH_Year = TP.AOPD_Year
+      UNION
+      SELECT AOPDH_Contract_ID,
+      AOPDH_Dealer_DMA_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year,
+      '医院商业指标' AS AOPType,
+      SUM (AOPDH_Amount_1),
+      SUM (AOPDH_Amount_2),
+      SUM (AOPDH_Amount_3),
+      SUM (AOPDH_Amount_4),
+      SUM (AOPDH_Amount_5),
+      SUM (AOPDH_Amount_6),
+      SUM (AOPDH_Amount_7),
+      SUM (AOPDH_Amount_8),
+      SUM (AOPDH_Amount_9),
+      SUM (AOPDH_Amount_10),
+      SUM (AOPDH_Amount_11),
+      SUM (AOPDH_Amount_12),
+      SUM (AOPDH_Amount_Y),
+      '' AS RmkBody,
+      NULL RefD_H
+      FROM V_AOPDealerHospital_Temp
+      GROUP BY AOPDH_Contract_ID,
+      AOPDH_Dealer_DMA_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year) TAB
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">TAB.Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">TAB.Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">TAB.ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">TAB.Year=#Year#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <select id="SelectAopDealerUnionHospitalHistoryQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT *,row_number () OVER (ORDER BY TAB.Year,TAB.AOPType  DESC) AS [row_number]
+      FROM (SELECT AOPD_Contract_ID AS Contract_ID,
+      AOPD_Dealer_DMA_ID AS Dealer_DMA_ID,
+      AOPD_ProductLine_BUM_ID AS ProductLine_BUM_ID,
+      AOPD_Year AS Year,
+      '经销商商业采购指标(修改后)' AS AOPType,
+      dbo.GetFormatString(AOPD_Amount_1,0) AS Amount_1,
+      dbo.GetFormatString(AOPD_Amount_2,0) AS Amount_2,
+      dbo.GetFormatString(AOPD_Amount_3,0) AS Amount_3,
+      dbo.GetFormatString(AOPD_Amount_4,0) AS Amount_4,
+      dbo.GetFormatString(AOPD_Amount_5,0) AS Amount_5,
+      dbo.GetFormatString(AOPD_Amount_6,0) AS Amount_6,
+      dbo.GetFormatString(AOPD_Amount_7,0) AS Amount_7,
+      dbo.GetFormatString(AOPD_Amount_8,0) AS Amount_8,
+      dbo.GetFormatString(AOPD_Amount_9,0) AS Amount_9,
+      dbo.GetFormatString(AOPD_Amount_10,0) AS Amount_10,
+      dbo.GetFormatString(AOPD_Amount_11,0) AS Amount_11,
+      dbo.GetFormatString(AOPD_Amount_12,0) AS Amount_12,
+      dbo.GetFormatString(AOPD_Amount_Y,0) AS Amount_Y,
+      Rmk_Body AS RmkBody,
+      CASE
+      WHEN    ISNULL (HTP.SAOPDH_Amount_Y, '') = ''
+      OR HTP.SAOPDH_Amount_Y = 0
+      THEN NULL ELSE
+      (CASE WHEN    (AOPD_Amount_Y - SAOPDH_Amount_Y   &lt; 0) OR (  (AOPD_Amount_Y - SAOPDH_Amount_Y) / SAOPDH_Amount_Y > 0.2) THEN 1 ELSE 0 END) END  AS RefD_H
+      FROM V_AOPDealer_Temp TP
+      LEFT JOIN AOPRemark
+      ON     AOPD_Contract_ID = Rmk_ContractID
+      AND Rmk_Type = 'Dealer'
+      LEFT JOIN (SELECT AOPDH_Contract_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year,
+      SUM (AOPDH_Amount_Y) AS SAOPDH_Amount_Y
+      FROM V_AOPDealerHospital_Temp
+      GROUP BY AOPDH_Contract_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year) HTP
+      ON     HTP.AOPDH_Contract_ID = TP.AOPD_Contract_ID
+      AND HTP.AOPDH_ProductLine_BUM_ID =
+      TP.AOPD_ProductLine_BUM_ID
+      AND HTP.AOPDH_Year = TP.AOPD_Year
+      UNION
+
+      SELECT AOPDH_Contract_ID,
+      AOPDH_Dealer_DMA_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year,
+      '经销商医院实际指标' AS AOPType,
+      dbo.GetFormatString(SUM (AOPDH_Amount_1),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_2),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_3),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_4),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_5),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_6),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_7),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_8),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_9),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_10),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_11),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_12),0),
+      dbo.GetFormatString(SUM (AOPDH_Amount_Y),0),
+      '' AS RmkBody,
+      NULL RefD_H
+      FROM V_AOPDealerHospital_Temp
+      GROUP BY AOPDH_Contract_ID,
+      AOPDH_Dealer_DMA_ID,
+      AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year
+
+      UNION
+      SELECT TP.AOPD_Contract_ID,
+      HIS.AOPD_Dealer_DMA_ID,
+      HIS.AOPD_ProductLine_BUM_ID,
+      HIS.AOPD_Year,
+      '经销商商业采购指标（当前）' AS AOPType,
+      dbo.GetFormatString(HIS.AOPD_Amount_1,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_2,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_3,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_4,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_5,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_6,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_7,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_8,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_9,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_10,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_11,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_12,0),
+      dbo.GetFormatString(HIS.AOPD_Amount_Y,0),
+      '' AS RmkBody,
+      NULL RefD_H
+      FROM V_AOPDealer_Temp TP
+      INNER JOIN V_AOPDealer HIS
+      ON HIS.AOPD_Dealer_DMA_ID=TP.AOPD_Dealer_DMA_ID
+      AND HIS.AOPD_ProductLine_BUM_ID=TP.AOPD_ProductLine_BUM_ID
+      AND HIS.AOPD_CC_ID=TP.AOPD_CC_ID
+      AND HIS.AOPD_Year=TP.AOPD_Year
+      AND ISNULL(HIS.AOPD_Market_Type,'0')=ISNULL(TP.AOPD_Market_Type,'0')
+      ) TAB
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">TAB.Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">TAB.Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">TAB.ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">TAB.Year=#Year#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectAopDealerUnionHospitalUnitHistoryQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT *,row_number () OVER (ORDER BY TAB.Year,TAB.AOPType  DESC) AS [row_number]
+      FROM(
+      SELECT	AOPD_Contract_ID AS Contract_ID,
+      AOPD_Dealer_DMA_ID AS Dealer_DMA_ID,
+      AOPD_ProductLine_BUM_ID AS ProductLine_BUM_ID,
+      AOPD_Year AS Year,
+      '经销商指标(修改后)' AS AOPType,
+      AOPD_Amount_1 AS Amount_1,AOPD_Amount_2 AS Amount_2,AOPD_Amount_3 AS Amount_3,AOPD_Amount_4 AS Amount_4,AOPD_Amount_5 AS Amount_5,AOPD_Amount_6 AS Amount_6,
+      AOPD_Amount_7 AS Amount_7,AOPD_Amount_8 AS Amount_8,AOPD_Amount_9 AS Amount_9,AOPD_Amount_10 AS Amount_10,AOPD_Amount_11 AS Amount_11,AOPD_Amount_12 AS Amount_12,
+      AOPD_Amount_Y AS Amount_Y,
+      Rmk_Body AS RmkBody,
+      CASE WHEN    ISNULL (HTP.SAOPDH_Amount_Y, 0) = 0 THEN NULL ELSE
+      (CASE WHEN    (ROUND(AOPD_Amount_Y,2) - ROUND(SAOPDH_Amount_Y,2)  &lt; 0) OR (ROUND((AOPD_Amount_Y - SAOPDH_Amount_Y),2) / SAOPDH_Amount_Y > 0.2) THEN 1 ELSE 0 END)
+      END  AS RefD_H
+      FROM V_AOPDealer_Temp TP
+      LEFT JOIN AOPRemark ON AOPD_Contract_ID = Rmk_ContractID AND Rmk_Type = 'Dealer'
+      LEFT JOIN (SELECT AOPICH_Contract_ID, AOPICH_ProductLine_ID, AOPICH_Year, SUM (AOPICH_Unit_Y * c.CP_Price) AS SAOPDH_Amount_Y
+      FROM V_AOPICDealerHospital_Temp a
+      inner join AOPHospitalProductMapping b on a.AOPICH_Contract_ID=b.AOPHPM_ContractId and a.AOPICH_PCT_ID=b.AOPHPM_PCT_ID and a.AOPICH_Hospital_ID=b.AOPHPM_Hos_Id
+      inner join interface.ClassificationQuotaPrice c on c.CP_ID=b.AOPHPM_PCP_ID
+      GROUP BY a.AOPICH_Contract_ID, a.AOPICH_ProductLine_ID, a.AOPICH_Year) HTP
+      ON HTP.AOPICH_Contract_ID = TP.AOPD_Contract_ID AND HTP.AOPICH_ProductLine_ID = TP.AOPD_ProductLine_BUM_ID AND HTP.AOPICH_Year = TP.AOPD_Year
+
+      UNION
+      SELECT AOPICH_Contract_ID,
+      AOPICH_DMA_ID,AOPICH_ProductLine_ID,AOPICH_Year,'医院商业指标' AS AOPType,
+      SUM (AOPICH_Unit_1 * c.CP_Price),SUM (AOPICH_Unit_2 * c.CP_Price),SUM (AOPICH_Unit_3 * c.CP_Price),SUM (AOPICH_Unit_4 * c.CP_Price),
+      SUM (AOPICH_Unit_5 * c.CP_Price),SUM (AOPICH_Unit_6 * c.CP_Price),SUM (AOPICH_Unit_7 * c.CP_Price),SUM (AOPICH_Unit_8 * c.CP_Price),
+      SUM (AOPICH_Unit_9 * c.CP_Price),SUM (AOPICH_Unit_10 * c.CP_Price),SUM (AOPICH_Unit_11 * c.CP_Price),SUM (AOPICH_Unit_12 * c.CP_Price),
+      SUM (AOPICH_Unit_Y * c.CP_Price),      '' AS RmkBody,  NULL RefD_H
+      FROM V_AOPICDealerHospital_Temp a
+      inner join AOPHospitalProductMapping b on a.AOPICH_Contract_ID=b.AOPHPM_ContractId and a.AOPICH_PCT_ID=b.AOPHPM_PCT_ID AND a.AOPICH_Hospital_ID=b.AOPHPM_Hos_Id
+      inner join interface.ClassificationQuotaPrice c on c.CP_ID=b.AOPHPM_PCP_ID
+      GROUP BY AOPICH_Contract_ID, AOPICH_DMA_ID, AOPICH_ProductLine_ID,AOPICH_Year
+      UNION
+      SELECT TP.AOPD_Contract_ID,HIS.AOPD_Dealer_DMA_ID,HIS.AOPD_ProductLine_BUM_ID,HIS.AOPD_Year,'经销商指标（当前）' AS AOPType,
+      HIS.AOPD_Amount_1,HIS.AOPD_Amount_2,HIS.AOPD_Amount_3,HIS.AOPD_Amount_4,HIS.AOPD_Amount_5,HIS.AOPD_Amount_6,
+      HIS.AOPD_Amount_7,HIS.AOPD_Amount_8,HIS.AOPD_Amount_9,HIS.AOPD_Amount_10,HIS.AOPD_Amount_11,HIS.AOPD_Amount_12,HIS.AOPD_Amount_Y,
+      '' AS RmkBody,      NULL RefD_H
+      FROM V_AOPDealer_Temp TP
+      INNER JOIN V_AOPDealer HIS
+      ON HIS.AOPD_Dealer_DMA_ID=TP.AOPD_Dealer_DMA_ID
+      AND HIS.AOPD_ProductLine_BUM_ID=TP.AOPD_ProductLine_BUM_ID  AND HIS.AOPD_CC_ID=TP.AOPD_CC_ID AND HIS.AOPD_Year=TP.AOPD_Year
+      AND ISNULL(HIS.AOPD_Market_Type,'0')=ISNULL(TP.AOPD_Market_Type,'0')
+      ) TAB
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">TAB.Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">TAB.Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">TAB.ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">TAB.Year=#Year#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectAopDealerTempMap" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT temp.AOPD_Contract_ID as Contract_ID,temp.AOPD_Dealer_DMA_ID as Dealer_DMA_ID,
+      temp.AOPD_ProductLine_BUM_ID as ProductLine_BUM_ID,
+      temp.AOPD_Year as Year,
+      temp.AOPD_Amount_1 as Amount_1,
+      temp.AOPD_Amount_2 as Amount_2,
+      temp.AOPD_Amount_3 as Amount_3,
+      temp.AOPD_Amount_4 as Amount_4,
+      temp.AOPD_Amount_5 as Amount_5,
+      temp.AOPD_Amount_6 as Amount_6,
+      temp.AOPD_Amount_7 as Amount_7,
+      temp.AOPD_Amount_8 as Amount_8,
+      temp.AOPD_Amount_9 as Amount_9,
+      temp.AOPD_Amount_10 as Amount_10,
+      temp.AOPD_Amount_11 as Amount_11,
+      temp.AOPD_Amount_12 as Amount_12,
+      temp.AOPD_Amount_Y as Amount_Y,
+      Rmk_Body as RmkBody,
+      Rmk_ID as RmkId,
+      Formal.AOPD_Amount_1 AS FormalAmount_1,
+      Formal.AOPD_Amount_2 AS FormalAmount_2,
+      Formal.AOPD_Amount_3 AS FormalAmount_3,
+      Formal.AOPD_Amount_4 AS FormalAmount_4,
+      Formal.AOPD_Amount_5 AS FormalAmount_5,
+      Formal.AOPD_Amount_6 AS FormalAmount_6,
+      Formal.AOPD_Amount_7 AS FormalAmount_7,
+      Formal.AOPD_Amount_8 AS FormalAmount_8,
+      Formal.AOPD_Amount_9 AS FormalAmount_9,
+      Formal.AOPD_Amount_10 AS FormalAmount_10,
+      Formal.AOPD_Amount_11 AS FormalAmount_11,
+      Formal.AOPD_Amount_12 AS FormalAmount_12,
+      Re_Amount1,
+      Re_Amount2,
+      Re_Amount3,
+      Re_Amount4,
+      Re_Amount5,
+      Re_Amount6,
+      Re_Amount7,
+      Re_Amount8,
+      Re_Amount9,
+      Re_Amount10,
+      Re_Amount11,
+      Re_Amount12,
+      row_number() OVER (ORDER BY temp.AOPD_Contract_ID ASC, temp.AOPD_Dealer_DMA_ID ASC,temp.AOPD_ProductLine_BUM_ID ASC,temp.AOPD_Year ASC) AS [row_number]
+      FROM V_AOPDealer_Temp temp
+      left join AOPRemark on AOPD_Contract_ID=Rmk_ContractID and Rmk_Type='Dealer'
+      left join V_AOPDealer Formal ON Formal.AOPD_Dealer_DMA_ID= temp.AOPD_Dealer_DMA_ID
+      AND Formal.AOPD_ProductLine_BUM_ID=temp.AOPD_ProductLine_BUM_ID
+      AND Formal.AOPD_Year=temp.AOPD_Year
+      AND ISNULL(Formal.AOPD_Market_Type,'0')=ISNULL(temp.AOPD_Market_Type,'0')
+      LEFT JOIN (
+      SELECT
+      ReHos.AOPICH_Contract_ID,
+      ReHos.AOPICH_DMA_ID,
+      ReHos.AOPICH_ProductLine_ID,
+      ReHos.AOPICH_Year,
+      SUM(ReHos.AOPICH_Unit_1 * HOSPRICE.PriceAmount) AS Re_Amount1,
+      SUM(ReHos.AOPICH_Unit_2 * HOSPRICE.PriceAmount) AS Re_Amount2,
+      SUM(ReHos.AOPICH_Unit_3 * HOSPRICE.PriceAmount) AS Re_Amount3,
+      SUM(ReHos.AOPICH_Unit_4 * HOSPRICE.PriceAmount) AS Re_Amount4,
+      SUM(ReHos.AOPICH_Unit_5 * HOSPRICE.PriceAmount) AS Re_Amount5,
+      SUM(ReHos.AOPICH_Unit_6 * HOSPRICE.PriceAmount) AS Re_Amount6,
+      SUM(ReHos.AOPICH_Unit_7 * HOSPRICE.PriceAmount) AS Re_Amount7,
+      SUM(ReHos.AOPICH_Unit_8 * HOSPRICE.PriceAmount) AS Re_Amount8,
+      SUM(ReHos.AOPICH_Unit_9 * HOSPRICE.PriceAmount) AS Re_Amount9,
+      SUM(ReHos.AOPICH_Unit_10 * HOSPRICE.PriceAmount) AS Re_Amount10,
+      SUM(ReHos.AOPICH_Unit_11 * HOSPRICE.PriceAmount) AS Re_Amount11,
+      SUM(ReHos.AOPICH_Unit_12 * HOSPRICE.PriceAmount) AS Re_Amount12
+      FROM  V_AOPICDealerHospital_Temp ReHos
+      LEFT JOIN AOPHospitalProductMapping MP ON MP.AOPHPM_ContractId=ReHos.AOPICH_Contract_ID AND MP.AOPHPM_PCT_ID=ReHos.AOPICH_PCT_ID and ReHos.AOPICH_Hospital_ID=MP.AOPHPM_Hos_Id
+      LEFT JOIN V_ProductClassificationAndPrice HOSPRICE ON HOSPRICE.ProductLine_ID=ReHos.AOPICH_ProductLine_ID
+      AND HOSPRICE.ID=ReHos.AOPICH_PCT_ID AND HOSPRICE.PriceID=MP.AOPHPM_PCP_ID
+      AND ReHos.AOPICH_Year=HOSPRICE.PriceYear
+      WHERE ReHos.AOPICH_Contract_ID=#ContractId#
+      GROUP BY ReHos.AOPICH_Contract_ID,ReHos.AOPICH_DMA_ID, ReHos.AOPICH_ProductLine_ID,ReHos.AOPICH_Year) TB
+      ON TB.AOPICH_Contract_ID=temp.AOPD_Contract_ID
+      AND TB.AOPICH_DMA_ID=temp.AOPD_Dealer_DMA_ID
+      AND TB.AOPICH_ProductLine_ID=temp.AOPD_ProductLine_BUM_ID
+      AND TB.AOPICH_Year=TB.AOPICH_Year
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">temp.AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">temp.AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">temp.AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">temp.AOPD_Year=#Year#</isNotNull>
+
+      </dynamic>
+    </select>
+
+    <select id="SelectAopDealersByHosTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT TP.AOPD_Contract_ID,
+      TP.AOPD_Dealer_DMA_ID AS Dealer_DMA_ID,
+      TP.AOPD_ProductLine_BUM_ID AS ProductLine_BUM_ID,
+      TP.AOPD_Year AS Year,
+      TP.AOPD_Market_Type AS Market_Type ,
+      CASE WHEN ISNULL (TP.AOPD_Amount_Y, '') = '' OR TP.AOPD_Amount_Y = 0 OR TAB.MY=0
+      THEN NULL ELSE (CASE WHEN    (TP.AOPD_Amount_Y - TAB.MY   &lt; 0)OR (  (TP.AOPD_Amount_Y - TAB.MY )  / TAB.MY > 0.2)
+      THEN  1  ELSE  0 END) END  AS RefD_H,
+      dbo.GetFormatString(TP.AOPD_Amount_1+ TP.AOPD_Amount_2 +TP.AOPD_Amount_3,0) AS Q1,
+      dbo.GetFormatString(TP.AOPD_Amount_4+ TP.AOPD_Amount_5 +TP.AOPD_Amount_6,0) AS Q2,
+      dbo.GetFormatString(TP.AOPD_Amount_7+ TP.AOPD_Amount_8 +TP.AOPD_Amount_9,0) AS Q3,
+      dbo.GetFormatString(TP.AOPD_Amount_10+ TP.AOPD_Amount_11 +TP.AOPD_Amount_12,0) AS Q4,
+      dbo.GetFormatString(TP.AOPD_Amount_1,0) Amount_1,
+      dbo.GetFormatString(TP.AOPD_Amount_2,0) Amount_2,
+      dbo.GetFormatString(TP.AOPD_Amount_3,0) Amount_3,
+      dbo.GetFormatString(TP.AOPD_Amount_4,0) Amount_4,
+      dbo.GetFormatString(TP.AOPD_Amount_5,0) Amount_5,
+      dbo.GetFormatString(TP.AOPD_Amount_6,0) Amount_6,
+      dbo.GetFormatString(TP.AOPD_Amount_7,0) Amount_7,
+      dbo.GetFormatString(TP.AOPD_Amount_8,0) Amount_8,
+      dbo.GetFormatString(TP.AOPD_Amount_9,0) Amount_9,
+      dbo.GetFormatString(TP.AOPD_Amount_10,0) Amount_10,
+      dbo.GetFormatString(TP.AOPD_Amount_11,0) Amount_11,
+      dbo.GetFormatString(TP.AOPD_Amount_12,0) Amount_12,
+      dbo.GetFormatString(TP.AOPD_Amount_Y,0) Amount_Y,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_1,0)+ISNULL(FM.AOPD_Amount_2,0)+ISNULL(FM.AOPD_Amount_3,0),0) AS FormalQ1,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_4,0)+ISNULL(FM.AOPD_Amount_5,0)+ISNULL(FM.AOPD_Amount_6,0),0) AS FormalQ2,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_7,0)+ISNULL(FM.AOPD_Amount_8,0)+ISNULL(FM.AOPD_Amount_9,0),0) AS FormalQ3,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_10,0)+ISNULL(FM.AOPD_Amount_11,0)+ISNULL(FM.AOPD_Amount_12,0),0) AS FormalQ4,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_1,0),0) FormalAmount_1,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_2,0),0) FormalAmount_2,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_3,0),0) FormalAmount_3,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_4,0),0) FormalAmount_4,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_5,0),0) FormalAmount_5,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_6,0),0) FormalAmount_6,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_7,0),0) FormalAmount_7,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_8,0),0) FormalAmount_8,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_9,0),0) FormalAmount_9,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_10,0),0) FormalAmount_10,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_11,0),0) FormalAmount_11,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_12,0),0) FormalAmount_12,
+      dbo.GetFormatString(ISNULL(FM.AOPD_Amount_Y,0),0) FormalAmount_Y,
+      dbo.GetFormatString(ISNULL(TAB.M1,0)+ ISNULL(TAB.M2,0)+ ISNULL(TAB.M3,0),0) AS Re_Q1,
+      dbo.GetFormatString(ISNULL(TAB.M4,0)+ ISNULL(TAB.M5,0)+ ISNULL(TAB.M6,0),0) AS Re_Q2,
+      dbo.GetFormatString(ISNULL(TAB.M7,0)+ ISNULL(TAB.M8,0)+ ISNULL(TAB.M9,0),0) AS Re_Q3,
+      dbo.GetFormatString(ISNULL(TAB.M10,0)+ ISNULL(TAB.M11,0)+ ISNULL(TAB.M12,0),0) AS Re_Q4,
+      dbo.GetFormatString(ISNULL(TAB.M1,0),0) Re_Amount1,
+      dbo.GetFormatString(ISNULL(TAB.M2,0),0) Re_Amount2,
+      dbo.GetFormatString(ISNULL(TAB.M3,0),0) Re_Amount3,
+      dbo.GetFormatString(ISNULL(TAB.M4,0),0) Re_Amount4,
+      dbo.GetFormatString(ISNULL(TAB.M5,0),0) Re_Amount5,
+      dbo.GetFormatString(ISNULL(TAB.M6,0),0) Re_Amount6,
+      dbo.GetFormatString(ISNULL(TAB.M7,0),0) Re_Amount7,
+      dbo.GetFormatString(ISNULL(TAB.M8,0),0) Re_Amount8,
+      dbo.GetFormatString(ISNULL(TAB.M9,0),0) Re_Amount9,
+      dbo.GetFormatString(ISNULL(TAB.M10,0),0) Re_Amount10,
+      dbo.GetFormatString(ISNULL(TAB.M11,0),0) Re_Amount11,
+      dbo.GetFormatString(ISNULL(TAB.M12,0),0) Re_Amount12,
+      dbo.GetFormatString(ISNULL(TAB.MY,0),0)   Re_Amount_Y,
+
+      dbo.GetFormatString(TP.AOPD_Amount_1+ TP.AOPD_Amount_2 +TP.AOPD_Amount_3-ISNULL(TAB.M1,0)-ISNULL(TAB.M2,0)-ISNULL(TAB.M3,0),0)  AS DifferentQ1,
+      dbo.GetFormatString(TP.AOPD_Amount_4+ TP.AOPD_Amount_5 +TP.AOPD_Amount_6-ISNULL(TAB.M4,0)-ISNULL(TAB.M5,0)-ISNULL(TAB.M6,0),0)  AS DifferentQ2,
+      dbo.GetFormatString(TP.AOPD_Amount_7+ TP.AOPD_Amount_8 +TP.AOPD_Amount_9-ISNULL(TAB.M7,0)-ISNULL(TAB.M8,0)-ISNULL(TAB.M9,0),0)  AS DifferentQ3,
+      dbo.GetFormatString(TP.AOPD_Amount_10+ TP.AOPD_Amount_11 +TP.AOPD_Amount_12-ISNULL(TAB.M10,0)-ISNULL(TAB.M11,0)-ISNULL(TAB.M12,0),0)  AS DifferentQ4,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_1,0)-ISNULL(TAB.M1,0)),0) AS Different1,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_2,0)-ISNULL(TAB.M2,0)),0) AS Different2,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_3,0)-ISNULL(TAB.M3,0)),0) AS Different3,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_4,0)-ISNULL(TAB.M4,0)),0) AS Different4,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_5,0)-ISNULL(TAB.M5,0)),0) AS Different5,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_6,0)-ISNULL(TAB.M6,0)),0) AS Different6,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_7,0)-ISNULL(TAB.M7,0)),0) AS Different7,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_8,0)-ISNULL(TAB.M8,0)),0) AS Different8,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_9,0)-ISNULL(TAB.M9,0)),0) AS Different9,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_10,0)-ISNULL(TAB.M10,0)),0) AS Different10,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_11,0)-ISNULL(TAB.M11,0)),0) AS Different11,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_12,0)-ISNULL(TAB.M12,0)),0) AS Different12,
+      dbo.GetFormatString((ISNULL(TP.AOPD_Amount_Y,0)-ISNULL(TAB.MY,0)),0) AS DifferentY,
+
+      RMK.Rmk_ID AS RmkId,
+      RMK.Rmk_Body AS RmkBody
+      FROM V_AOPDealer_Temp TP
+      LEFT JOIN V_AOPDealer FM ON TP.AOPD_Dealer_DMA_ID = FM.AOPD_Dealer_DMA_ID AND TP.AOPD_ProductLine_BUM_ID = FM.AOPD_ProductLine_BUM_ID
+      AND ISNULL (TP.AOPD_Market_Type, '0') = ISNULL (FM.AOPD_Market_Type, '0') AND TP.AOPD_CC_ID=FM.AOPD_CC_ID AND TP.AOPD_Year=FM.AOPD_Year
+      LEFT JOIN (SELECT Tmp.AOPDH_Contract_ID,
+      Tmp.AOPDH_ProductLine_BUM_ID,
+      AOPDH_Year,
+      SUM (ISNULL (Tmp.AOPDH_Amount_1, 0)) M1,
+      SUM (ISNULL (Tmp.AOPDH_Amount_2, 0)) M2,
+      SUM (ISNULL (Tmp.AOPDH_Amount_3, 0)) M3,
+      SUM (ISNULL (Tmp.AOPDH_Amount_4, 0)) M4,
+      SUM (ISNULL (Tmp.AOPDH_Amount_5, 0)) M5,
+      SUM (ISNULL (Tmp.AOPDH_Amount_6, 0)) M6,
+      SUM (ISNULL (Tmp.AOPDH_Amount_7, 0)) M7,
+      SUM (ISNULL (Tmp.AOPDH_Amount_8, 0)) M8,
+      SUM (ISNULL (Tmp.AOPDH_Amount_9, 0)) M9,
+      SUM (ISNULL (Tmp.AOPDH_Amount_10, 0)) M10,
+      SUM (ISNULL (Tmp.AOPDH_Amount_11, 0)) M11,
+      SUM (ISNULL (Tmp.AOPDH_Amount_12, 0)) M12,
+      SUM (ISNULL (Tmp.AOPDH_Amount_Y, 0)) MY
+      FROM    V_AOPDealerHospital_Temp Tmp
+      GROUP BY Tmp.AOPDH_Contract_ID, Tmp.AOPDH_ProductLine_BUM_ID, Tmp.AOPDH_Year) TAB
+      ON TAB.AOPDH_Contract_ID = TP.AOPD_Contract_ID
+      AND TAB.AOPDH_ProductLine_BUM_ID = TP.AOPD_ProductLine_BUM_ID AND TAB.AOPDH_Year = TP.AOPD_Year
+      LEFT JOIN AOPRemark RMK ON RMK.Rmk_ContractID=TP.AOPD_Contract_ID AND RMK.Rmk_Type='Dealer'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">TP.AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">TP.AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">TP.AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">TP.AOPD_Year=#Year#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="ExportDealerAOPTempByQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT
+      pl.ATTRIBUTE_NAME as N'产品线',
+      cc.CC_NameCN as N'产品分类',
+      AOPD_Year as N'年度',
+      AOPD_Amount_1 as N'1月',
+      AOPD_Amount_2 as N'2月',
+      AOPD_Amount_3 as N'3月',
+      AOPD_Amount_4 as N'4月',
+      AOPD_Amount_5 as N'5月',
+      AOPD_Amount_6 as N'6月',
+      AOPD_Amount_7 as N'7月',
+      AOPD_Amount_8 as N'8月',
+      AOPD_Amount_9 as N'9月',
+      AOPD_Amount_10 as N'10月',
+      AOPD_Amount_11 as N'11月',
+      AOPD_Amount_12 as N'12月',
+      AOPD_Amount_Y as N'合计'
+      FROM V_AOPDealer_Temp AOP
+      left join View_ProductLine pl on pl.Id=AOP.AOPD_ProductLine_BUM_ID
+      left join (select distinct CC_ID,CC_NameCN from interface.ClassificationContract ) cc
+      on cc.CC_ID=aop.AOPD_CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">AOPD_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">pl.SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">pl.BrandId=#BrandId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectAopDealersByQueryByContractId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT AOPD_Contract_ID as Contract_ID,
+      AOPD_Dealer_DMA_ID as Dealer_DMA_ID,
+      pl.ATTRIBUTE_NAME as ProductLine,
+      cc.CC_NameCN AS CCName,
+      AOPD_Year as Year,
+      (AOPD_Amount_1 +AOPD_Amount_2 +AOPD_Amount_3 ) AS Q1 ,
+      (AOPD_Amount_4 +AOPD_Amount_5 +AOPD_Amount_6 ) AS Q2 ,
+      (AOPD_Amount_7 +AOPD_Amount_8 +AOPD_Amount_9 ) AS Q3 ,
+      (AOPD_Amount_10 +AOPD_Amount_11 +AOPD_Amount_12 ) AS Q4 ,
+      AOPD_Amount_1 M1,
+      AOPD_Amount_2 M2,
+      AOPD_Amount_3 M3,
+      AOPD_Amount_4 M4,
+      AOPD_Amount_5 M5,
+      AOPD_Amount_6 M6,
+      AOPD_Amount_7 M7,
+      AOPD_Amount_8 M8,
+      AOPD_Amount_9 M9,
+      AOPD_Amount_10 M10,
+      AOPD_Amount_11 M11,
+      AOPD_Amount_12 M12,
+      AOPD_Amount_Y as Amount_Y
+      FROM V_AOPDealer_Temp
+      left join View_ProductLine pl on pl.Id=V_AOPDealer_Temp.AOPD_ProductLine_BUM_ID
+      LEFT JOIN interface.ClassificationContract  cc on cc.CC_ID=AOPD_CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">pl.SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">pl.BrandId=#BrandId#</isNotNull>
+      </dynamic>
+      ORDER BY AOPD_Year
+    </select>
+
+    <select id="SelectFormalAopDealer" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT pl_div.ProductLineName AS ProductLine,
+      b.CC_NameCN AS ProductClass,
+      aopd.AOPD_Market_Type AS MarketType,
+      aopd.AOPD_Year AS Year,
+      aopd.AOPD_Amount_Y AS Amount_Y,
+      (aopd.AOPD_Amount_1 + aopd.AOPD_Amount_2 + aopd.AOPD_Amount_3) AS Q1,
+      (aopd.AOPD_Amount_4 + aopd.AOPD_Amount_5 + aopd.AOPD_Amount_6) AS Q2,
+      (aopd.AOPD_Amount_7 + aopd.AOPD_Amount_8 + aopd.AOPD_Amount_9) AS Q3,
+      (aopd.AOPD_Amount_10 + aopd.AOPD_Amount_11 + aopd.AOPD_Amount_12) AS Q4,
+      aopd.AOPD_Amount_1 AS Amount_1,
+      aopd.AOPD_Amount_2 AS Amount_2,
+      aopd.AOPD_Amount_3 AS Amount_3,
+      aopd.AOPD_Amount_4 AS Amount_4,
+      aopd.AOPD_Amount_5 AS Amount_5,
+      aopd.AOPD_Amount_6 AS Amount_6,
+      aopd.AOPD_Amount_7 AS Amount_7,
+      aopd.AOPD_Amount_8 AS Amount_8,
+      aopd.AOPD_Amount_9 AS Amount_9,
+      aopd.AOPD_Amount_10 AS Amount_10,
+      aopd.AOPD_Amount_11 AS Amount_11,
+      aopd.AOPD_Amount_12 AS Amount_12,
+      row_number() OVER (ORDER BY aopd.AOPD_Year ASC) AS [row_number]
+      FROM    dbo.V_AOPDealer aopd
+      INNER JOIN V_DivisionProductLineRelation AS pl_div ON pl_div.ProductLineID = aopd.AOPD_ProductLine_BUM_ID
+      INNER JOIN (SELECT distinct CC_ID,CC_NameCN,CC_Code FROM interface.ClassificationContract) b on b.CC_ID=aopd.AOPD_CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">aopd.AOPD_Dealer_DMA_ID = #DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="DivisionId">pl_div.DivisionCode = #DivisionId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">aopd.AOPD_Year = #Year#</isNotNull>
+        <isNotNull prepend="AND" property="IsEmerging">aopd.AOPD_Market_Type = #IsEmerging#</isNotNull>
+        <isNotNull prepend="AND" property="SubDepCode">b.CC_Code = #SubDepCode# </isNotNull>
+        <isNotNull prepend="AND" property="BeginYear">aopd.AOPD_Year >= #BeginYear#</isNotNull>
+        <isNotNull prepend="AND" property="EndYear">aopd.AOPD_Year &lt;= #EndYear#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertAopDealerTempForICDate" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AOPDealerTemp(AOPD_ID,AOPD_Contract_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount,AOPD_Update_Date)
+      SELECT NEWID(),AOPICH_Contract_ID,AOPICH_DMA_ID,AOPICH_ProductLine_ID,#MarketType# ,AOPICH_Year,AOPICH_Month,sum(AOPICH_Unit * PP.PriceAmount) AS ProductAumt,GETDATE()
+      FROM AOPICDealerHospitalTemp  temp
+      INNER JOIN AOPHospitalProductMapping MP ON MP.AOPHPM_ContractId=temp.AOPICH_Contract_ID AND MP.AOPHPM_Dma_id=temp.AOPICH_DMA_ID
+      AND MP.AOPHPM_PCT_ID=temp.AOPICH_PCT_ID AND MP.AOPHPM_Hos_Id=temp.AOPICH_Hospital_ID
+      INNER JOIN V_ProductClassificationAndPrice PP ON PP.ID=MP.AOPHPM_PCT_ID AND PP.PriceID=MP.AOPHPM_PCP_ID
+      WHERE AOPICH_Contract_ID=#ContractId# AND AOPICH_DMA_ID=#DealerDmaId# AND AOPICH_ProductLine_ID=#ProductLineBumId# and AOPICH_Year=#Year#
+      GROUP BY AOPICH_Contract_ID,AOPICH_DMA_ID,AOPICH_ProductLine_ID,AOPICH_Year,AOPICH_Month
+    </insert>
+
+    <insert id="InsertAopDealerTempByHospitalProduct" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AOPDealerTemp(AOPD_ID,AOPD_Contract_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount,AOPD_Update_Date,AOPD_CC_ID)
+      SELECT NEWID(),AOPICH_Contract_ID,AOPICH_DMA_ID,AOPICH_ProductLine_ID,#MarketType# ,AOPICH_Year,AOPICH_Month,sum(AOPICH_Unit * PP.CP_Price) AS ProductAumt,GETDATE(),(SELECT TOP 1 CC_ID FROM interface.ClassificationContract WHERE CC_Code=#ContractCode#)
+      FROM AOPICDealerHospitalTemp  temp
+      INNER JOIN AOPHospitalProductMapping MP ON MP.AOPHPM_ContractId=temp.AOPICH_Contract_ID AND MP.AOPHPM_Dma_id=temp.AOPICH_DMA_ID
+      AND MP.AOPHPM_PCT_ID=temp.AOPICH_PCT_ID AND MP.AOPHPM_Hos_Id=temp.AOPICH_Hospital_ID
+      INNER JOIN (SELECT DISTINCT CQ_ID,CP_ID,CP_Price FROM V_ProductClassificationStructure) PP ON PP.CQ_ID=MP.AOPHPM_PCT_ID AND PP.CP_ID=MP.AOPHPM_PCP_ID
+      WHERE AOPICH_Contract_ID=#ContractId# AND AOPICH_DMA_ID=#DealerDmaId# AND AOPICH_ProductLine_ID=#ProductLineBumId# and AOPICH_Year=#Year# AND AOPICH_Month>=#MinMonth#
+      GROUP BY AOPICH_Contract_ID,AOPICH_DMA_ID,AOPICH_ProductLine_ID,AOPICH_Year,AOPICH_Month
+    </insert>
+
+    <insert id="InsertAopDealerTempByHospitalProductAmount" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AOPDealerTemp(AOPD_ID,AOPD_Contract_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount,AOPD_Update_Date,AOPD_CC_ID)
+      SELECT NEWID(),AOPDH_Contract_ID,AOPDH_Dealer_DMA_ID,AOPDH_ProductLine_BUM_ID,#MarketType# ,AOPDH_Year,AOPDH_Month,SUM(AOPDH_Amount) AS ProductAumt,GETDATE(),(SELECT TOP 1 CC_ID FROM interface.ClassificationContract WHERE CC_Code=#ContractCode#)
+      FROM AOPDealerHospitalTemp  temp
+      WHERE AOPDH_Contract_ID=#ContractId# AND AOPDH_Dealer_DMA_ID=#DealerDmaId# AND AOPDH_ProductLine_BUM_ID=#ProductLineBumId# and AOPDH_Year=#Year# AND AOPDH_Month>=#MinMonth#
+      GROUP BY AOPDH_Contract_ID,AOPDH_Dealer_DMA_ID,AOPDH_ProductLine_BUM_ID,AOPDH_Year,AOPDH_Month
+    </insert>
+
+    <insert id="InsertSynchronousHospitalAOP" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AOPDealerTemp(AOPD_ID,AOPD_Contract_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount)
+      SELECT NEWID(), dmaTp.AOPDH_Contract_ID,dmaTp.AOPDH_Dealer_DMA_ID,dmaTp.AOPDH_ProductLine_BUM_ID,#MarketType#,dmaTp.AOPDH_Year,dmaTp.AOPDH_Month,SUM(dmaTp.AOPDH_Amount)
+      FROM AOPDealerHospitalTemp dmaTp
+      INNER JOIN (  SELECT auth.DAT_DCL_ID,auth.DAT_DMA_ID,auth.DAT_ProductLine_BUM_ID,hos.HOS_ID FROM ContractTerritory hos
+      INNER JOIN DealerAuthorizationTableTemp auth ON auth.DAT_ID=hos.Contract_ID) THOS
+      ON THOS.DAT_DCL_ID=dmaTp.AOPDH_Contract_ID
+      AND THOS.DAT_DMA_ID=dmaTp.AOPDH_Dealer_DMA_ID
+      AND THOS.DAT_ProductLine_BUM_ID=dmaTp.AOPDH_ProductLine_BUM_ID
+      AND THOS.HOS_ID=dmaTp.AOPDH_Hospital_ID
+      WHERE dmaTp.AOPDH_Contract_ID=#ContractId#
+      and dmaTp.AOPDH_Year=#Year#
+      AND CONVERT(INT, ISNULL(dmaTp.AOPDH_Month,'0')) >=  CONVERT(INT, #MinMonth#)
+      GROUP BY dmaTp.AOPDH_Contract_ID,dmaTp.AOPDH_Dealer_DMA_ID,dmaTp.AOPDH_ProductLine_BUM_ID,dmaTp.AOPDH_Year,dmaTp.AOPDH_Month
+    </insert>
+
+    <select id="CheckFormalDealerAOPTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT NEWID(),#Con_Id#,AOPD_Dealer_DMA_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount,'00000000-0000-0000-0000-000000000000',GETDATE()
+      FROM AOPDealer
+      WHERE AOPDealer.AOPD_Dealer_DMA_ID=#Dma_Id#
+      AND AOPD_ProductLine_BUM_ID=#Plb_Id#
+      AOPD_Year IN (SELECT  VAL FROM GC_Fn_SplitStringToTable(#YearString#,','))
+
+      <isNotNull prepend="AND" property="IsEmerging">AOPD_Market_Type = #IsEmerging#</isNotNull>
+    </select>
+
+    <select id="SynchronousFormalDealerAOPTemp" parameterClass="string" resultClass="System.Data.DataSet">
+      EXEC  [dbo].[GC_SynchronousAOPToTempDealer] #Con_Id#,#Dma_Id#,#Plb_Id#,#SubBu_Id#,#YearString#,#IsEmerging#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <select id="SelectAopDealerContrastLastYear" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT V_AOPDealer_Temp.AOPD_Contract_ID AS Contract_ID,
+      V_AOPDealer_Temp.AOPD_Dealer_DMA_ID AS Dealer_DMA_ID,
+      pl.ATTRIBUTE_NAME AS ProductLine,
+      V_AOPDealer_Temp.AOPD_Year AS Year,
+      (  V_AOPDealer_Temp.AOPD_Amount_1
+      + V_AOPDealer_Temp.AOPD_Amount_2
+      + V_AOPDealer_Temp.AOPD_Amount_3)
+      AS Q1,
+      (  V_AOPDealer_Temp.AOPD_Amount_4
+      + V_AOPDealer_Temp.AOPD_Amount_5
+      + V_AOPDealer_Temp.AOPD_Amount_6)
+      AS Q2,
+      (  V_AOPDealer_Temp.AOPD_Amount_7
+      + V_AOPDealer_Temp.AOPD_Amount_8
+      + V_AOPDealer_Temp.AOPD_Amount_9)
+      AS Q3,
+      (  V_AOPDealer_Temp.AOPD_Amount_10
+      + V_AOPDealer_Temp.AOPD_Amount_11
+      + V_AOPDealer_Temp.AOPD_Amount_12)
+      AS Q4,
+      V_AOPDealer_Temp.AOPD_Amount_Y AS Amount_Y
+      ,CONVERT(nvarchar(10),(V_AOPDealer_Temp.AOPD_Amount_Y- ISNULL(V_AOPDealer.AOPD_Amount_Y,0))/ ISNULL(V_AOPDealer.AOPD_Amount_Y,1)/100)+'%' AS Comparison
+      FROM V_AOPDealer_Temp
+      INNER JOIN ContractRenewal on V_AOPDealer_Temp.AOPD_Contract_ID=ContractRenewal.CRE_ID
+      LEFT JOIN View_ProductLine pl
+      ON pl.Id = V_AOPDealer_Temp.AOPD_ProductLine_BUM_ID
+      LEFT JOIN V_AOPDealer
+      ON     V_AOPDealer_Temp.AOPD_Dealer_DMA_ID =
+      V_AOPDealer.AOPD_Dealer_DMA_ID
+      AND V_AOPDealer_Temp.AOPD_ProductLine_BUM_ID =
+      V_AOPDealer.AOPD_ProductLine_BUM_ID
+      AND V_AOPDealer_Temp.AOPD_Year = CONVERT(nvarchar(10),(CONVERT(INT,V_AOPDealer.AOPD_Year)-1))
+      AND V_AOPDealer.AOPD_Market_Type=ContractRenewal.CRE_MarketType
+      WHERE V_AOPDealer_Temp.AOPD_Contract_ID=#value#
+      <isNotNull prepend="AND" property="SubCompanyId">pl.SubCompanyId=#SubCompanyId#</isNotNull>
+      <isNotNull prepend="AND" property="BrandId">pl.BrandId=#BrandId#</isNotNull>
+      ORDER BY V_AOPDealer_Temp.AOPD_Year
+    </select>
+
+    <select id="SelectDealerAOPAndHospitalAOPUnitTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  TP.AOPD_Contract_ID as Contract_ID,TP.AOPD_Dealer_DMA_ID as Dealer_DMA_ID,
+      TP.AOPD_ProductLine_BUM_ID as ProductLine_BUM_ID,
+      TP.AOPD_CC_ID,
+      TP.AOPD_Year as Year,
+      Rmk_Body as RmkBody,
+      Rmk_ID as RmkId,
+      TP.AOPD_Amount_1 as Amount_1,
+      TP.AOPD_Amount_2 as Amount_2,
+      TP.AOPD_Amount_3 as Amount_3,
+      TP.AOPD_Amount_4 as Amount_4,
+      TP.AOPD_Amount_5 as Amount_5,
+      TP.AOPD_Amount_6 as Amount_6,
+      TP.AOPD_Amount_7 as Amount_7,
+      TP.AOPD_Amount_8 as Amount_8,
+      TP.AOPD_Amount_9 as Amount_9,
+      TP.AOPD_Amount_10 as Amount_10,
+      TP.AOPD_Amount_11 as Amount_11,
+      TP.AOPD_Amount_12 as Amount_12,
+      TP.AOPD_Amount_Y as Amount_Y,
+      FM.AOPD_Amount_1 AS FormalAmount_1,
+      FM.AOPD_Amount_2 AS FormalAmount_2,
+      FM.AOPD_Amount_3 AS FormalAmount_3,
+      FM.AOPD_Amount_4 AS FormalAmount_4,
+      FM.AOPD_Amount_5 AS FormalAmount_5,
+      FM.AOPD_Amount_6 AS FormalAmount_6,
+      FM.AOPD_Amount_7 AS FormalAmount_7,
+      FM.AOPD_Amount_8 AS FormalAmount_8,
+      FM.AOPD_Amount_9 AS FormalAmount_9,
+      FM.AOPD_Amount_10 AS FormalAmount_10,
+      FM.AOPD_Amount_11 AS FormalAmount_11,
+      FM.AOPD_Amount_12 AS FormalAmount_12,
+      FM.AOPD_Amount_Y AS FormalAmount_Y,
+      TB.Re_Amount1  AS HosAmount1,
+      TB.Re_Amount2  AS HosAmount2,
+      TB.Re_Amount3  AS HosAmount3,
+      TB.Re_Amount4  AS HosAmount4,
+      TB.Re_Amount5  AS HosAmount5,
+      TB.Re_Amount6  AS HosAmount6,
+      TB.Re_Amount7  AS HosAmount7,
+      TB.Re_Amount8  AS HosAmount8,
+      TB.Re_Amount9  AS HosAmount9,
+      TB.Re_Amount10  AS HosAmount10,
+      TB.Re_Amount11  AS HosAmount11,
+      TB.Re_Amount12  AS HosAmount12,
+      TB.Re_AmountY AS HosAmountY
+      FROM V_AOPDealer_Temp TP
+      LEFT JOIN AOPRemark
+      ON TP.AOPD_Contract_ID = Rmk_ContractID AND Rmk_Type = 'Dealer'
+      LEFT JOIN V_AOPDealer FM
+      ON FM.AOPD_Dealer_DMA_ID = TP.AOPD_Dealer_DMA_ID
+      AND FM.AOPD_ProductLine_BUM_ID = TP.AOPD_ProductLine_BUM_ID
+      AND FM.AOPD_CC_ID=TP.AOPD_CC_ID
+      AND FM.AOPD_Year = TP.AOPD_Year
+      AND ISNULL (FM.AOPD_Market_Type, '0') =ISNULL (TP.AOPD_Market_Type, '0')
+      LEFT JOIN (	SELECT
+      HosTemp.AOPICH_Contract_ID,
+      HosTemp.AOPICH_Year,
+      SUM(HosTemp.AOPICH_Unit_1 * PRIC.CP_Price) AS Re_Amount1,
+      SUM(HosTemp.AOPICH_Unit_2 * PRIC.CP_Price) AS Re_Amount2,
+      SUM(HosTemp.AOPICH_Unit_3 * PRIC.CP_Price) AS Re_Amount3,
+      SUM(HosTemp.AOPICH_Unit_4 * PRIC.CP_Price) AS Re_Amount4,
+      SUM(HosTemp.AOPICH_Unit_5 * PRIC.CP_Price) AS Re_Amount5,
+      SUM(HosTemp.AOPICH_Unit_6 * PRIC.CP_Price) AS Re_Amount6,
+      SUM(HosTemp.AOPICH_Unit_7 * PRIC.CP_Price) AS Re_Amount7,
+      SUM(HosTemp.AOPICH_Unit_8 * PRIC.CP_Price) AS Re_Amount8,
+      SUM(HosTemp.AOPICH_Unit_9 * PRIC.CP_Price) AS Re_Amount9,
+      SUM(HosTemp.AOPICH_Unit_10 * PRIC.CP_Price) AS Re_Amount10,
+      SUM(HosTemp.AOPICH_Unit_11 * PRIC.CP_Price) AS Re_Amount11,
+      SUM(HosTemp.AOPICH_Unit_12 * PRIC.CP_Price) AS Re_Amount12,
+      SUM(HosTemp.AOPICH_Unit_Y * PRIC.CP_Price ) AS Re_AmountY
+      FROM  V_AOPICDealerHospital_Temp HosTemp
+      INNER JOIN AOPHospitalProductMapping MP ON MP.AOPHPM_ContractId=HosTemp.AOPICH_Contract_ID AND MP.AOPHPM_PCT_ID=HosTemp.AOPICH_PCT_ID and HosTemp.AOPICH_Hospital_ID=MP.AOPHPM_Hos_Id
+      INNER JOIN (SELECT DISTINCT  PCS.CC_ProductLineID,PCS.CQ_ID,PCS.CP_ID,PCS.CP_Price FROM V_ProductClassificationStructure PCS ) PRIC ON  PRIC.CC_ProductLineID=HosTemp.AOPICH_ProductLine_ID AND PRIC.CQ_ID=MP.AOPHPM_PCT_ID AND PRIC.CP_ID=MP.AOPHPM_PCP_ID
+      GROUP BY HosTemp.AOPICH_Contract_ID,HosTemp.AOPICH_DMA_ID, HosTemp.AOPICH_ProductLine_ID,HosTemp.AOPICH_Year) TB
+      ON TB.AOPICH_Contract_ID=TP.AOPD_Contract_ID AND TB.AOPICH_Year=TP.AOPD_Year
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">TP.AOPD_Contract_ID = #ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">TP.AOPD_Year = #Year#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <select id="SelectAopDealerUnionHospitalAmount" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT TOTB.* ,row_number () OVER (ORDER BY TOTB.AOPD_Year,TOTB.AOPType  DESC) AS [row_number]
+      FROM (
+      SELECT dealer.AOPD_Contract_ID,dealer.AOPD_Dealer_DMA_ID,dealer.AOPD_ProductLine_BUM_ID,dealer.AOPD_Year,
+      dbo.GetFormatString((dealer.AOPD_Amount_1+dealer.AOPD_Amount_2+dealer.AOPD_Amount_3),0) as Q1,
+      dbo.GetFormatString((dealer.AOPD_Amount_4+dealer.AOPD_Amount_5+dealer.AOPD_Amount_6),0) as Q2,
+      dbo.GetFormatString((dealer.AOPD_Amount_7+dealer.AOPD_Amount_8+dealer.AOPD_Amount_9),0) as Q3,
+      dbo.GetFormatString((dealer.AOPD_Amount_10+dealer.AOPD_Amount_11+dealer.AOPD_Amount_12),0) as Q4,
+      dbo.GetFormatString(dealer.AOPD_Amount_1,0) AS AOPD_Amount_1,dbo.GetFormatString(dealer.AOPD_Amount_2,0) as AOPD_Amount_2,dbo.GetFormatString(dealer.AOPD_Amount_3,0) as AOPD_Amount_3,
+      dbo.GetFormatString(dealer.AOPD_Amount_4,0) as AOPD_Amount_4 ,dbo.GetFormatString(dealer.AOPD_Amount_5,0) as AOPD_Amount_5,dbo.GetFormatString(dealer.AOPD_Amount_6,0) as AOPD_Amount_6,
+      dbo.GetFormatString(dealer.AOPD_Amount_7,0) as AOPD_Amount_7,dbo.GetFormatString(dealer.AOPD_Amount_8,0) as AOPD_Amount_8,dbo.GetFormatString(dealer.AOPD_Amount_9,0) as AOPD_Amount_9,
+      dbo.GetFormatString(dealer.AOPD_Amount_10,0) as AOPD_Amount_10,dbo.GetFormatString(dealer.AOPD_Amount_11,0) as AOPD_Amount_11,dbo.GetFormatString(dealer.AOPD_Amount_12,0) as AOPD_Amount_12,dbo.GetFormatString(dealer.AOPD_Amount_Y,0) as AOPD_Amount_Y,
+
+      (CASE  WHEN  ISNULL(tab.AOPDH_Amount_Y,0)=0  THEN ''
+      ELSE CASE WHEN ((ROUND(dealer.AOPD_Amount_Y-tab.AOPDH_Amount_Y,4))/tab.AOPDH_Amount_Y >0.1) OR (ROUND(dealer.AOPD_Amount_Y-tab.AOPDH_Amount_Y,4)   &lt; 0)
+      THEN CASE WHEN EXISTS(SELECT 1 FROM INTERFACE.ClassificationContract WHERE CC_ID=dealer.AOPD_CC_ID AND ISNULL(CC_RV2,'')='1') THEN '1' ELSE '0' END
+      ELSE '0' END END) AS RefD_H
+      ,'经销商商业采购指标' as AOPType
+      FROM  V_AOPDealer_Temp dealer
+      LEFT JOIN (SELECT AOPDH_Contract_ID,AOPDH_ProductLine_BUM_ID,AOPDH_Dealer_DMA_ID,AOPDH_Year,SUM(AOPDH_Amount_Y) AS AOPDH_Amount_Y FROM  V_AOPDealerHospital_Temp WHERE AOPDH_Contract_ID=#ContractId#  GROUP BY AOPDH_Contract_ID,AOPDH_ProductLine_BUM_ID,AOPDH_Dealer_DMA_ID,AOPDH_Year  )tab
+      on tab.AOPDH_Contract_ID=dealer.AOPD_Contract_ID and tab.AOPDH_ProductLine_BUM_ID=dealer.AOPD_ProductLine_BUM_ID
+      and tab.AOPDH_Dealer_DMA_ID=dealer.AOPD_Dealer_DMA_ID and tab.AOPDH_Year=dealer.AOPD_Year
+      UNION
+      SELECT tab.AOPDH_Contract_ID,tab.AOPDH_Dealer_DMA_ID,tab.AOPDH_ProductLine_BUM_ID,tab.AOPDH_Year,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_1+tab.AOPDH_Amount_2+tab.AOPDH_Amount_3),0) RefQ1,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_4+tab.AOPDH_Amount_5+tab.AOPDH_Amount_6),0) RefQ2,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_7+tab.AOPDH_Amount_8+tab.AOPDH_Amount_9),0) RefQ3,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_10+tab.AOPDH_Amount_11+tab.AOPDH_Amount_12),0) RefQ4,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_1),0) as RefAmount1,dbo.GetFormatString(SUM(tab.AOPDH_Amount_2),0) as RefAmount2,dbo.GetFormatString(SUM(tab.AOPDH_Amount_3),0) as RefAmount3,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_4),0) as RefAmount4,dbo.GetFormatString(SUM(tab.AOPDH_Amount_5),0) as RefAmount5,dbo.GetFormatString(SUM(tab.AOPDH_Amount_6),0) as RefAmount6,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_7),0) as RefAmount7,dbo.GetFormatString(SUM(tab.AOPDH_Amount_8),0) as RefAmount8,dbo.GetFormatString(SUM(tab.AOPDH_Amount_9),0) as RefAmount9,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_10),0) as RefAmount10,dbo.GetFormatString(SUM(tab.AOPDH_Amount_11),0) as RefAmount11,dbo.GetFormatString(SUM(tab.AOPDH_Amount_12),0) as RefAmount12,
+      dbo.GetFormatString(SUM(tab.AOPDH_Amount_Y),0) as RefAmountTotal,
+      '' AS RefD_H
+      ,'经销商医院实际指标' as AOPType
+      FROM V_AOPDealerHospital_Temp tab
+      GROUP BY tab.AOPDH_Contract_ID,tab.AOPDH_Dealer_DMA_ID,tab.AOPDH_ProductLine_BUM_ID,tab.AOPDH_Year
+      )TOTB
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">TOTB.AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerDmaId">TOTB.AOPD_Dealer_DMA_ID=#DealerDmaId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineBumId">TOTB.AOPD_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">TOTB.AOPD_Year=#Year#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectDealerTempIndex" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  A.AOPD_Dealer_DMA_ID  DealerId,A.AOPD_Year AOPYear,
+      A.AOPD_Amount_1 Amount1,
+      A.AOPD_Amount_2 Amount2,
+      A.AOPD_Amount_3 Amount3,
+      A.AOPD_Amount_4 Amount4,
+      A.AOPD_Amount_5 Amount5,
+      A.AOPD_Amount_6 Amount6,
+      A.AOPD_Amount_7 Amount7,
+      A.AOPD_Amount_8 Amount8,
+      A.AOPD_Amount_9 Amount9,
+      A.AOPD_Amount_10 Amount10,
+      A.AOPD_Amount_11 Amount11,
+      A.AOPD_Amount_12 Amount12,
+      A.AOPD_Amount_1+A.AOPD_Amount_2+A.AOPD_Amount_3 Q1,
+      A.AOPD_Amount_4+A.AOPD_Amount_5+A.AOPD_Amount_6 Q2,
+      A.AOPD_Amount_7+A.AOPD_Amount_8+A.AOPD_Amount_9 Q3,
+      A.AOPD_Amount_10+A.AOPD_Amount_11+A.AOPD_Amount_12 Q4,
+      A.AOPD_Amount_Y AmountY,
+      ISNULL(B.AOPD_Amount_1,0) HisAmount1,
+      ISNULL(B.AOPD_Amount_2,0) HisAmount2,
+      ISNULL(B.AOPD_Amount_3,0) HisAmount3,
+      ISNULL(B.AOPD_Amount_4,0) HisAmount4,
+      ISNULL(B.AOPD_Amount_5,0) HisAmount5,
+      ISNULL(B.AOPD_Amount_6,0) HisAmount6,
+      ISNULL(B.AOPD_Amount_7,0) HisAmount7,
+      ISNULL(B.AOPD_Amount_8,0) HisAmount8,
+      ISNULL(B.AOPD_Amount_9,0) HisAmount9,
+      ISNULL(B.AOPD_Amount_10,0) HisAmount10,
+      ISNULL(B.AOPD_Amount_11,0) HisAmount11,
+      ISNULL(B.AOPD_Amount_12,0) HisAmount12,
+      ISNULL(B.AOPD_Amount_1+B.AOPD_Amount_2+B.AOPD_Amount_3,0) HisQ1,
+      ISNULL(B.AOPD_Amount_4+B.AOPD_Amount_5+B.AOPD_Amount_6,0) HisQ2,
+      ISNULL(B.AOPD_Amount_7+B.AOPD_Amount_8+B.AOPD_Amount_9,0) HisQ3,
+      ISNULL(B.AOPD_Amount_10+B.AOPD_Amount_11+B.AOPD_Amount_12,0) HisQ4,
+      ISNULL(B.AOPD_Amount_Y,0) HisAmountY,
+      D.Rmk_ID AS RmkID,
+      D.Rmk_Body AS RmkBody
+      ,row_number() OVER (ORDER BY A.AOPD_Year ASC) AS [row_number]
+      FROM V_AOPDealer_Temp  A
+      LEFT JOIN V_AOPDealer B ON A.AOPD_Dealer_DMA_ID=B.AOPD_Dealer_DMA_ID
+      AND A.AOPD_ProductLine_BUM_ID=B.AOPD_ProductLine_BUM_ID AND A.AOPD_CC_ID=B.AOPD_CC_ID AND A.AOPD_Year=B.AOPD_Year
+      LEFT JOIN AOPRemark D ON D.Rmk_ContractID=A.AOPD_Contract_ID and Rmk_Type='Dealer'
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.AOPD_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="AopYear">A.AOPD_Year=#AopYear#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectDelaerHistoryAOP" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  A.AOPD_Dealer_DMA_ID  DealerId,A.AOPD_Year AOPYear,
+      A.AOPD_Amount_1 Amount1,
+      A.AOPD_Amount_2 Amount2,
+      A.AOPD_Amount_3 Amount3,
+      A.AOPD_Amount_4 Amount4,
+      A.AOPD_Amount_5 Amount5,
+      A.AOPD_Amount_6 Amount6,
+      A.AOPD_Amount_7 Amount7,
+      A.AOPD_Amount_8 Amount8,
+      A.AOPD_Amount_9 Amount9,
+      A.AOPD_Amount_10 Amount10,
+      A.AOPD_Amount_11 Amount11,
+      A.AOPD_Amount_12 Amount12,
+      A.AOPD_Amount_1+A.AOPD_Amount_2+A.AOPD_Amount_3 Q1,
+      A.AOPD_Amount_4+A.AOPD_Amount_5+A.AOPD_Amount_6 Q2,
+      A.AOPD_Amount_7+A.AOPD_Amount_8+A.AOPD_Amount_9 Q3,
+      A.AOPD_Amount_10+A.AOPD_Amount_11+A.AOPD_Amount_12 Q4,
+      A.AOPD_Amount_Y AmountY
+      ,row_number() OVER (ORDER BY A.AOPD_Year ASC) AS [row_number]
+      FROM V_AOPDealer_Temp  A
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="LastContractId">A.AOPD_Contract_ID=#LastContractId#</isNotNull>
+        <isNotNull prepend="AND" property="AopYear">A.AOPD_Year=#AopYear#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectHospitalTempIndexSum" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT C.AOPDH_Dealer_DMA_ID  DealerId,c.AOPDH_Year AOPYear,
+      SUM(ISNULL(C.AOPDH_Amount_1,0)) ReAmount1,
+      SUM(ISNULL(C.AOPDH_Amount_2,0)) ReAmount2,
+      SUM(ISNULL(C.AOPDH_Amount_3,0)) ReAmount3,
+      SUM(ISNULL(C.AOPDH_Amount_4,0)) ReAmount4,
+      SUM(ISNULL(C.AOPDH_Amount_5,0)) ReAmount5,
+      SUM(ISNULL(C.AOPDH_Amount_6,0)) ReAmount6,
+      SUM(ISNULL(C.AOPDH_Amount_7,0)) ReAmount7,
+      SUM(ISNULL(C.AOPDH_Amount_8,0)) ReAmount8,
+      SUM(ISNULL(C.AOPDH_Amount_9,0)) ReAmount9,
+      SUM(ISNULL(C.AOPDH_Amount_10,0)) ReAmount10,
+      SUM(ISNULL(C.AOPDH_Amount_11,0)) ReAmount11,
+      SUM(ISNULL(C.AOPDH_Amount_12,0)) ReAmount12,
+      SUM(ISNULL(C.AOPDH_Amount_1+C.AOPDH_Amount_2+C.AOPDH_Amount_3,0)) ReQ1,
+      SUM(ISNULL(C.AOPDH_Amount_4+C.AOPDH_Amount_5+C.AOPDH_Amount_6,0)) ReQ2,
+      SUM(ISNULL(C.AOPDH_Amount_7+C.AOPDH_Amount_8+C.AOPDH_Amount_9,0)) ReQ3,
+      SUM(ISNULL(C.AOPDH_Amount_10+C.AOPDH_Amount_11+C.AOPDH_Amount_12,0)) ReQ4,
+      SUM(ISNULL(C.AOPDH_Amount_Y,0)) ReAmountY
+      ,row_number() OVER (ORDER BY C.AOPDH_Year ASC) AS [row_number]
+      FROM  V_AOPDealerHospital_Temp C
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId"> C.AOPDH_Contract_ID=#ContractId#</isNotNull>
+        <isNotNull prepend="AND" property="AopYear">C.AOPDH_Year=#AopYear#</isNotNull>
+      </dynamic>
+      GROUP BY C.AOPDH_Dealer_DMA_ID,c.AOPDH_Year
+    </select>
+
+    <select id="SelectDealerIndexTempYears" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.AOPD_Year AS Year
+      ,row_number() OVER (ORDER BY A.AOPD_Year ASC) AS [row_number]
+      FROM V_AOPDealer_Temp A
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ContractId">A.AOPD_Contract_ID=#ContractId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="MerageDealerAopTemp" parameterClass="System.Collections.Hashtable">
+      INSERT INTO AOPDealerTemp(AOPD_ID,AOPD_Contract_ID,AOPD_Dealer_DMA_ID,AOPD_ProductLine_BUM_ID,AOPD_Market_Type,AOPD_Year,AOPD_Month,AOPD_Amount,AOPD_Update_Date,AOPD_CC_ID)
+      SELECT NEWID(),AOPDH_Contract_ID,AOPDH_Dealer_DMA_ID,AOPDH_ProductLine_BUM_ID,#MarketType# ,AOPDH_Year,AOPDH_Month,SUM(AOPDH_Amount  * DBO.GC_Fn_GetProductHospitalPrice(temp.AOPDH_Hospital_ID,temp.AOPDH_PCT_ID,temp.AOPDH_Year,temp.AOPDH_Month)) AS ProductAumt,GETDATE(),(SELECT TOP 1 CC_ID FROM interface.ClassificationContract WHERE CC_Code=#ContractCode#)
+      FROM AOPDealerHospitalTemp  temp
+      WHERE AOPDH_Contract_ID=#ContractId# AND AOPDH_Year=#Year# AND AOPDH_Month>=#MinMonth#
+      GROUP BY AOPDH_Contract_ID,AOPDH_Dealer_DMA_ID,AOPDH_ProductLine_BUM_ID,AOPDH_Year,AOPDH_Month
+    </insert>
+  </statements>
+</sqlMap>
+
+

@@ -1,0 +1,100 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteWindow.Master.cs" Inherits="DMS.Website.MasterPageKendo.SiteWindow" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/styles/kendo.common.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/styles/kendo.bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/styles/kendo.bootstrap.mobile.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/bootstrap-3.3.5/css/bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/Font-Awesome-4.7.0/css/font-awesome.min.css") %>" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/css/kendoStyle.css") %>?v=0.4" />
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/Resources/css/weui.css") %>" />
+
+    <asp:ContentPlaceHolder ID="StyleContent" runat="server" />
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/js/jquery.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/js/kendo.web.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/js/kendo.all.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/js/messages/kendo.messages.zh-CN.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/kendo-2017.2.504/js/cultures/kendo.culture.zh-CN.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/bootstrap-3.3.5/js/bootstrap.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/js/bootbox.min.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/FrameJs/common.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/FrameJs/Kendo/fileDownload.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/FrameJs/Kendo/util.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/FrameJs/Kendo/control.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Resources/FrameJs/Kendo/window.js") %>"></script>
+
+    <style type="text/css">
+        html,
+        body
+        {
+            font-family: 微软雅黑;
+        }
+
+        .panel-main
+        {
+            width: 100%;
+            overflow-y: auto;
+        }
+
+    </style>
+
+    <script type="text/ecmascript">
+        kendo.culture("zh-CN");
+
+        $(document).ready(function () {
+            bootbox.setDefaults({
+                locale: 'zh_CN'
+            });
+        })
+
+        Common.AppVirtualPath = "<%=HttpRuntime.AppDomainAppVirtualPath %>";
+    </script>
+</head>
+<body>
+    <div class="panel-main">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
+    <%--实现整个页面的遮罩--%>
+    <div id="loadingToast" class="weui_loading_toast">
+        <div class="weui_mask_transparent">
+        </div>
+        <div class="weui_toast">
+            <div class="weui_loading">
+                <div class="weui_loading_leaf weui_loading_leaf_0">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_1">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_2">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_3">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_4">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_5">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_6">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_7">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_8">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_9">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_10">
+                </div>
+                <div class="weui_loading_leaf weui_loading_leaf_11">
+                </div>
+            </div>
+            <p id="mscont" class="weui_toast_content">
+                数据加载中
+            </p>
+        </div>
+    </div>
+</body>
+</html>

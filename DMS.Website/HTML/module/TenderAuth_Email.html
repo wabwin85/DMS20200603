@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">申请单信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 120px;font-weight: 600;">授权编号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.No}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">申请人：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CreateUser}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">申请时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CreateDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品线：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.ProductLineName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">部门：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DivisionName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">授权开始时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.BeginDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">授权终止时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.EndDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">经销商类型：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DealerTypeName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">是否三证合一：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.LicenceType}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">经销商名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DealerName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">邮寄及联系方式：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.DealerAddress}</td>
+                </tr>
+                <tr>
+                    <td style="padding-top:5px;font-weight: 600;">备注：</td>
+                    <td style="padding-top:5px;"> #{Header.Remark1}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">授权产品：</span>
+    <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;">
+        <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+            <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                    <thead>
+                        <tr>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px"  >行号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px"  >医院编号</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px" >医院名称</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px"  >授权产品</th>
+                            <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px"  >重复授权经销商</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #{foreach(AuthProduct)}
+                        <tr>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{ROWNUMBER}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{HosKeyAccount}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{HosHospitalName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{SubProductName}
+                            </td>
+                            <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                #{RepeatDealer}
+                            </td>
+                        </tr>
+                        #{end}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="height:10px;width:100%;border-top-style: solid;border-top-color: #eee;border-top-width: 1px;margin-top: 10px;"></div>
+        <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">附件：</span>
+        <div style="box-shadow: none;box-sizing: content-box;background-color: #fff;color: #2e2e2e;line-height: normal;outline: 0;">
+            <div style="width: 100%;box-shadow: none;box-sizing: content-box;color: #2e2e2e;background-color: #fff;line-height: normal;max-width: none;empty-cells: show;position: relative;outline: 0;margin: 0;zoom: 1;">
+                <div style="position: relative;width: 100%;overflow: auto;overflow-x: auto;overflow-y: auto;zoom: 1;min-height: 0;white-space: normal;">
+                    <table style="table-layout: fixed;background-color: transparent;width: 100%;margin: 0;max-width: none;border-collapse: separate;border-spacing: 0;empty-cells: show;border-width: 0;outline: 0;">
+                        <thead>
+                            <tr>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 50px">行号</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 150px">附件名称</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">附件类型</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 80px">上传人</th>
+                                <th style="border-style: solid;border-width: 0 0 1px 1px;border-color: #c5c5c5;background-color: #1f4e81;color: #ffffff;overflow: hidden;padding: 6px 7px 5px 7px;font-weight: 600;white-space: nowrap;text-overflow: ellipsis;text-align: left;width: 100px">上传时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #{foreach(Attachment)}
+                            <tr>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{row_number}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    <a href="https://bscdealer.cn/Pages/Download.aspx?downloadname=#{Name}&filename=#{Url}&downtype=TenderFile" target="_blank">#{Name}</a>
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{TypeName}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{Identity_Name}
+                                </td>
+                                <td style="border-style: solid; border-width: 0 0 1px 1px; border-color: #c5c5c5;padding: 2px 7px;line-height: 20px;overflow: hidden;vertical-align: middle;text-overflow: ellipsis;white-space: nowrap;">
+                                    #{UploadDate}
+                                </td>
+                            </tr>
+                            #{end}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

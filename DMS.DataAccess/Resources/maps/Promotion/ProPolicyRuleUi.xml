@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProPolicyRuleUiMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProPolicyRuleUi" assembly="DMS.Model.dll" type="DMS.Model.ProPolicyRuleUi" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProPolicyRuleUiResult" class="ProPolicyRuleUi">
+      <result property="RuleId" column="RuleId" type="int" dbType="int"/>
+      <result property="PolicyId" column="PolicyId" type="int" dbType="int"/>
+      <result property="RuleDesc" column="RuleDesc" type="string" dbType="nvarchar"/>
+      <result property="JudgePolicyFactorId" column="JudgePolicyFactorId" type="int" dbType="int"/>
+      <result property="JudgeValue" column="JudgeValue" type="decimal" dbType="decimal"/>
+      <result property="GiftValue" column="GiftValue" type="decimal" dbType="decimal"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="CurrUser" column="CurrUser" type="string" dbType="nvarchar"/>
+      <result property="PointsValue" column="PointsValue" type="decimal" dbType="decimal"/>
+      <result property="PointsType" column="PointsType" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="SelectByFilterProPolicyRuleUi" parameterClass="ProPolicyRuleUi" resultClass="ProPolicyRuleUi">
+      SELECT RuleId AS RuleId,PolicyId AS PolicyId,RuleDesc AS RuleDesc,JudgePolicyFactorId AS JudgePolicyFactorId,JudgeValue AS JudgeValue,GiftValue AS GiftValue,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,CurrUser AS CurrUser,PointsValue AS PointsValue ,PointsType AS PointsType
+      FROM Promotion.PRO_POLICY_RULE_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleId">RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleDesc">RuleDesc=#RuleDesc#</isNotNull>
+        <isNotNull prepend="AND" property="JudgePolicyFactorId">JudgePolicyFactorId=#JudgePolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="JudgeValue">JudgeValue=#JudgeValue#</isNotNull>
+        <isNotNull prepend="AND" property="GiftValue">GiftValue=#GiftValue#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+    <!--新增赠送规则-->
+    <insert id="InsertProPolicyRuleUi" parameterClass="ProPolicyRuleUi">
+      INSERT INTO Promotion.PRO_POLICY_RULE_UI
+      (RuleId,PolicyId,RuleDesc,JudgePolicyFactorId,JudgeValue,GiftValue,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,CurrUser ,PointsValue,PointsType)
+      VALUES(#RuleId#,#PolicyId#,#RuleDesc#,#JudgePolicyFactorId#,#JudgeValue#,#GiftValue#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#CurrUser#,#PointsValue#,#PointsType#)
+    </insert>
+    
+    <update id="UpdateProPolicyRuleUi" parameterClass="ProPolicyRuleUi">
+      UPDATE Promotion.PRO_POLICY_RULE_UI
+      SET RuleId=#RuleId#,PolicyId=#PolicyId#,RuleDesc=#RuleDesc#,JudgePolicyFactorId=#JudgePolicyFactorId#,JudgeValue=#JudgeValue#,GiftValue=#GiftValue#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,Remark1=#Remark1#,CurrUser=#CurrUser#,PointsValue=#PointsValue#,PointsType=#PointsType#
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleId">RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </update>
+    
+    <!--删除赠送规则-->
+    <delete id="DeleteProPolicyRuleUi" parameterClass="System.Collections.Hashtable">
+      DELETE FROM Promotion.PRO_POLICY_RULE_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="RuleId">RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </delete>
+    
+    <!--获取赠送规则-->
+    <select id="SelectPolicyRuleUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.RuleId,A.PolicyId,A.RuleDesc,A.JudgePolicyFactorId,B.FactDesc,A.JudgeValue,A.GiftValue,A.CreateBy,A.CreateTime,A.ModifyBy,A.ModifyDate,A.Remark1,A.PointsValue,A.PointsType
+      ,ROW_NUMBER () OVER (ORDER BY A.RuleId ) AS [row_number]
+      FROM  Promotion.PRO_POLICY_RULE_UI A
+      INNER JOIN Promotion.PRO_POLICY_FACTOR_UI B ON A.JudgePolicyFactorId=B.PolicyFactorId   AND A.CurrUser=B.CurrUser
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="RuleId">A.RuleId=#RuleId#</isNotNull>
+        <isNotNull prepend="AND" property="JudgePolicyFactorId">A.JudgePolicyFactorId=#JudgePolicyFactorId#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

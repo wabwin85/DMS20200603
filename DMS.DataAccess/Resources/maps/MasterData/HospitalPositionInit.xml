@@ -1,0 +1,30 @@
+<sqlMap namespace="HospitalPositionInit" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="HospitalPositionInit" assembly="DMS.Model.dll" type="DMS.Model.HospitalPositionInit" />
+  </alias>
+  <parameterMaps>
+    <parameterMap id="HospitalPositionInitParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="UserId" column="UserId" />
+      <parameter property="IsImport" column="IsImport" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <delete id="DeleteHospitalPositionInitByUser" parameterClass="string">
+      DELETE FROM HospitalPositionInit
+      WHERE ImportUser = #value#
+    </delete>
+    <procedure id="GC_HospitalPositionInitVerify" parameterMap="HospitalPositionInitParameterMap">
+      dbo.GC_HospitalPositionInitVerify
+    </procedure>
+    <select id="QueryHospitalPositionInitData" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT i.[Id],i.[HospitalId],[HospitalCode],[IsError],ISNULL([ErrorMsg],'校验通过') as ErrorMsg,[LineNbr],[ImportUser],[ImportDate]
+	        ,HOS_ID,HOS_Key_Account,HOS_HospitalName,HOS_Province,HOS_City,HOS_District
+          ,ROW_NUMBER() OVER(ORDER BY IsError DESC,LineNbr) AS [row_number]
+      FROM [HospitalPositionInit] i
+	      left join Hospital h on i.HospitalId=h.HOS_ID
+      WHERE ImportUser = #UserId#
+    </select>    
+  </statements>
+</sqlMap>

@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Consignment.ConsignInventoryAdjustHeader" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="Consignment.ConsignInventoryAdjustHeaderPO" assembly="DMS.Model.dll" type="DMS.Model.Consignment.ConsignInventoryAdjustHeaderPO" />
+  </alias>
+  <parameterMaps>
+    <parameterMap id="ConsignmentInventoryAdjustMap" class="System.Collections.Hashtable" >
+      <parameter property="BillType" column="BillType" />
+      <parameter property="BillNo" column="BillNo" />
+      <parameter property="OperationType" column="OperationType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+
+    <select id="Consignment.ConsignInventoryAdjustHeader.SelectConsignInventoryAdjustHeaderList" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT
+      DMA_ChineseName,
+      IAH_ID AS Id,
+      IAH_DMA_ID AS DealerId,
+      IAH_Inv_Adj_Nbr AS AdjustNumber,
+      T.VALUE1 AS Type,
+      CONVERT(varchar(100), IAH_CreatedDate, 112) AS CreateDate,
+      IAH_CreatedBy_USR_UserID AS CreateUserId,
+      Lafite_IDENTITY.IDENTITY_NAME AS CreateUserName,
+      S.VALUE1 AS Status,
+      case when InventoryAdjustHeader.IAH_WarehouseType = 'Normal' then '批发' else '寄售' end AS IsConsignment,
+      CONVERT(varchar(100), IAH_ApprovalDate, 112) AS ApprovalDate,
+      IAH_Approval_USR_UserID AS ApprovalUserId,
+      IAH_ProductLine_BUM_ID AS ProductLine,
+      PL.SubCompanyName,PL.BrandName,
+      (select ATTRIBUTE_NAME from View_ProductLine(nolock) where ATTRIBUTE_TYPE='Product_Line' and Id=IAH_ProductLine_BUM_ID) AS ProductLineName,
+      IAH_UserDescription AS Remark,
+      (select ISNULL(SUM(InventoryAdjustDetail.IAD_Quantity),0)
+      FROM InventoryAdjustDetail(nolock) WHERE InventoryAdjustDetail.IAD_IAH_ID = InventoryAdjustHeader.IAH_ID) AS TotalQyt,
+      row_number() OVER (ORDER BY IAH_CreatedDate DESC ) AS row_number
+      FROM InventoryAdjustHeader(nolock)
+      LEFT OUTER JOIN Lafite_IDENTITY(nolock) ON Lafite_IDENTITY.id = InventoryAdjustHeader.IAH_CreatedBy_USR_UserID
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID = IAH_DMA_ID
+      left join Lafite_DICT T(nolock) on T.DICT_KEY=InventoryAdjustHeader.IAH_Reason and T.DICT_TYPE='CONST_AdjustQty_Type'
+      left join Lafite_DICT S(nolock) on S.DICT_KEY=InventoryAdjustHeader.IAH_Status and S.DICT_TYPE='CONST_AdjustQty_Status'
+      left join View_ProductLine PL(nolock) on PL.Id=InventoryAdjustHeader.IAH_ProductLine_BUM_ID
+      WHERE 1=1 and IAH_Reason in ('ForceCTOS','SalesOut','CTOS')
+
+      <isEqual prepend="AND" property="IsDealer" compareValue="false">
+        IAH_Status !='Draft'
+      </isEqual>
+      <isNotEmpty prepend="AND" property="DealerId">
+        IAH_DMA_ID =#DealerId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryProductLine">
+        IAH_ProductLine_BUM_ID=#QryProductLine#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryDealer">
+        DM.DMA_ChineseName like '%'+#QryDealer#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryType">
+        IAH_Reason=#QryType#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryStatus">
+        IAH_Status=#QryStatus#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryApplyNo">
+        IAH_Inv_Adj_Nbr like '%'+#QryApplyNo#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryStartDate">
+        CONVERT(varchar(100), IAH_CreatedDate, 112)>=#QryStartDate#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryEndDate">
+        CONVERT(varchar(100), IAH_CreatedDate, 112)&lt;#QryEndDate#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="SubCompanyId">
+        PL.SubCompanyId=#SubCompanyId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="BrandId">
+        PL.BrandId=#BrandId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="LPId">
+        EXISTS (  SELECT 1 FROM DealerMaster AS DM(nolock) WHERE ((DM.dma_parent_dma_id = #LPId# AND InventoryAdjustHeader.IAH_Status not in ('Draft')) OR DM.DMA_ID = #LPId#) AND InventoryAdjustHeader.IAH_DMA_ID=DM.DMA_ID )
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryProductBatchNo">
+        InventoryAdjustHeader.IAH_ID IN (
+        SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+        FROM InventoryAdjustLot
+        INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+        WHERE  InventoryAdjustLot.IAL_Lot = #QryProductBatchNo#
+        )
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryProductModel">
+        (InventoryAdjustHeader.IAH_ID IN(
+        SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID FROM InventoryAdjustDetail INNER JOIN
+        Product ON InventoryAdjustDetail.IAD_PMA_ID = Product.PMA_ID INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+        WHERE (CFN.CFN_CustomerFaceNbr like  '%'+#QryProductModel#+'%')))
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryTwoCode">
+        IAH_ID in
+        ( 	SELECT DISTINCT InventoryAdjustDetail.IAD_IAH_ID
+        FROM InventoryAdjustLot
+        INNER JOIN InventoryAdjustDetail ON InventoryAdjustLot.IAL_IAD_ID = InventoryAdjustDetail.IAD_ID
+        WHERE  InventoryAdjustLot.IAL_QRCode = #QryTwoCode#)
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="UserDescription">
+        InventoryAdjustHeader.IAH_UserDescription like '%'+#UserDescription#+'%'
+      </isNotEmpty>
+      order by IAH_CreatedDate desc
+    </select>
+
+
+    <select id="Consignment.ConsignInventoryAdjustHeader.SelectADDProduct" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT
+      Lot.LOT_ID, Lot.LOT_ID AS LotId,
+      Convert(decimal(18,6),Lot.LOT_OnHandQty) - isnull(IAL_LotQty,0) AS LotInvQty,Convert(decimal(18,6),Lot.LOT_OnHandQty) - isnull(IAL_LotQty,0) as IAL_LotQty,
+      LotMaster.LTM_Lot AS LotNumber,
+      LotMaster.LTM_QRCode as QRCode,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) else CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END AS LotExpiredDate,
+      Inventory.INV_WHM_ID AS WarehouseId,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_UPN AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_ChineseName AS ChineseName,
+      CFN.CFN_EnglishName AS EnglishName,
+      Product.PMA_ConvertFactor as PMA_ConvertFactor,
+      <!--(select top 1 a.CFNP_Price from CFNPrice a where a.CFNP_CFN_ID=CFN.CFN_ID  and a.CFNP_Group_ID=Warehouse.WHM_DMA_ID and a.CFNP_PriceType='Dealer') as Price-->
+      dbo.fn_GetCfnPriceByDealer(#QryDealer#, CFN.CFN_ID, #SubCompanyId#, #BrandId#, 'Dealer', 0) as Price
+      FROM Inventory
+      INNER JOIN Lot ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Product ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      left join (select IAD_PMA_ID,IAL_LOT_ID,IAL_LotNumber,IAL_WHM_ID,sum(IAL_LotQty) as IAL_LotQty
+      from InventoryAdjustHeader,InventoryAdjustDetail,InventoryAdjustLot
+      where IAH_ID = IAD_IAH_ID
+      and IAD_ID = IAL_IAD_ID
+      and IAH_Reason = 'CTOS'
+      and IAH_Status in ('Submitted','Submit')
+      group by IAD_PMA_ID,IAL_LOT_ID,IAL_LotNumber,IAL_WHM_ID)  iah
+      ON PMA_ID = IAD_PMA_ID AND LOT_ID = IAL_LOT_ID AND LTM_LotNumber = IAL_LotNumber AND WHM_ID = IAL_WHM_ID
+      where Warehouse.WHM_DMA_ID=#QryDealer# and (CFN.CFN_ProductLine_BUM_ID=#QryProductLine# or CFN.CFN_Share = 1) and Lot.LOT_OnHandQty - isnull(iah.IAL_LotQty,0)>0 and LotMaster.LTM_LotNumber not like '%NoQR%'
+      <isNotEmpty prepend="AND" property="QryWarehouseId">
+        Warehouse.WHM_ID=#QryWarehouseId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryLotNumber">
+        Lot.LOT_LTM_Lot like '%'+#QryLotNumber#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryProductModel">
+        Product.PMA_UPN like '%'+#QryProductModel#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="QryTwoCode">
+        lot.LOT_LTM_QRCode      like '%'+#QryTwoCode#+'%'
+      </isNotEmpty>
+    </select>
+
+    <insert id="Consignment.ConsignInventoryAdjustHeader.Insert" parameterClass="Consignment.ConsignInventoryAdjustHeaderPO">
+      <![CDATA[
+      INSERT INTO dbo.InventoryAdjustHeader
+        (IAH_ID, IAH_Reason, IAH_Inv_Adj_Nbr, IAH_DMA_ID, IAH_ApprovalDate, IAH_CreatedDate, IAH_Approval_USR_UserID, IAH_AuditorNotes, IAH_UserDescription, IAH_Status, IAH_CreatedBy_USR_UserID, IAH_Reverse_IAH_ID, IAH_ProductLine_BUM_ID, IAH_WarehouseType, IAH_RSM, IAH_ApplyType, RetrunReason, SaleRep)
+      VALUES
+        (#IAH_ID#, #IAH_Reason#, #IAH_Inv_Adj_Nbr#, #IAH_DMA_ID#, #IAH_ApprovalDate#, #IAH_CreatedDate#, #IAH_Approval_USR_UserID#, #IAH_AuditorNotes#, #IAH_UserDescription#, #IAH_Status#, #IAH_CreatedBy_USR_UserID#, #IAH_Reverse_IAH_ID#, #IAH_ProductLine_BUM_ID#, #IAH_WarehouseType#, #IAH_RSM#, #IAH_ApplyType#, #RetrunReason#, #SaleRep#)
+
+      ]]>
+    </insert>
+
+    <select id="Consignment.ConsignInventoryAdjustHeader.SelectConsignInventoryAdjustHeader" parameterClass="string" resultClass="Consignment.ConsignInventoryAdjustHeaderPO">
+      <![CDATA[
+        select *,DMA_ChineseShortName,VALUE1 from InventoryAdjustHeader
+        left join DealerMaster on DealerMaster.DMA_ID=InventoryAdjustHeader.IAH_DMA_ID
+        left join Lafite_DICT on Lafite_DICT.DICT_KEY=InventoryAdjustHeader.IAH_Reason and Lafite_DICT.DICT_TYPE='CONST_AdjustQty_Type'
+        where IAH_ID=#ID#
+      ]]>
+    </select>
+
+    <select id="Consignment.ConsignInventoryAdjustHeader.QueryInventoryAdjustDetail" parameterClass="string" resultClass="System.Data.DataSet">
+
+      select IAL_LOT_ID as LOT_ID,Warehouse.WHM_Name as WarehouseName,Product.PMA_UPN as UPN,CFN.CFN_ChineseName as ChineseName,Product.PMA_ConvertFactor,
+      IAL_Lot AS LotNumber,
+      IAL_QRCode   as QRCode,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), IAL_ExpiredDate, 112) else CONVERT(varchar(100), IAL_ExpiredDate, 112) END AS LotExpiredDate,
+      PMA_UnitOfMeasure as UnitOfMeasure,
+      SUM(Convert(decimal(18,0),Lot.LOT_OnHandQty)) AS LotInvQty,
+      IAL_LotQty,
+      IAL_UnitPrice as Price,
+      (IAL_UnitPrice*IAL_LotQty) as RemainFee
+      from InventoryAdjustLot i
+      left join Warehouse on Warehouse.WHM_ID=i.IAL_WHM_ID
+      left join InventoryAdjustDetail on InventoryAdjustDetail.IAD_ID=i.IAL_IAD_ID
+      left join Product on Product.PMA_ID=InventoryAdjustDetail.IAD_PMA_ID
+      left join CFN on CFN.CFN_ID=Product.PMA_CFN_ID
+      left join Lot on Lot.LOT_ID=i.IAL_LOT_ID
+      left join InventoryAdjustHeader on InventoryAdjustHeader.IAH_ID=InventoryAdjustDetail.IAD_IAH_ID
+      where IAL_IAD_ID in (select IAD_ID from InventoryAdjustDetail
+      where IAD_IAH_ID=#IAD_IAH_ID#)
+      group by LOT_OnHandQty,LOT_ID,IAL_LOT_ID,WHM_Name,PMA_UPN,CFN_ChineseName,PMA_ConvertFactor,IAL_Lot,IAL_QRCode,
+      CFN_Property6,IAL_ExpiredDate,PMA_UnitOfMeasure,IAL_LotQty,IAL_UnitPrice
+    </select>
+
+    <select id="Consignment.ConsignInventoryAdjustHeader.SelectUserName" parameterClass="string" resultClass="System.Data.DataSet">
+      select * from Lafite_IDENTITY
+      where Id=#IAH_CreatedBy_USR_UserID#
+    </select>
+    
+    <select id="Consignment.ConsignInventoryAdjustHeader.GetKeyValueType" parameterClass="string" resultClass="System.Data.DataSet">
+      select DICT_KEY as [Key]
+      ,(case when Value1='寄售转销售' then '经销商申请买断' else Value1 end) as Value
+      from lafite_dict
+      where dict_type='CONST_AdjustQty_Type' and REV1='CONST'
+    </select>
+    
+    <delete id="Consignment.ConsignInventoryAdjustHeader.DeleteInventoryAdjustDetail" parameterClass="string">
+      DELETE FROM InventoryAdjustDetail
+      WHERE IAD_IAH_ID = #value#
+    </delete>
+    <delete id="Consignment.ConsignInventoryAdjustHeader.DeleteInventoryAdjustLot" parameterClass="string">
+      DELETE FROM InventoryAdjustLot
+      where IAL_IAD_ID in (select IAD_ID from InventoryAdjustDetail
+      where IAD_IAH_ID=#value#)
+    </delete>
+
+    <procedure id="Consignment.ConsignInventoryAdjustHeader.ConsignmentInventoryAdjust" parameterMap="ConsignmentInventoryAdjustMap">
+      Consignment.Proc_InventoryAdjust
+    </procedure>
+
+    <select id="Consignment.ConsignInventoryAdjustHeader.GetNumber" parameterClass="string" resultClass="System.Data.DataSet">
+      select IAH_Inv_Adj_Nbr from InventoryAdjustHeader
+      where IAH_ID=#ID#
+    </select>
+    <select id="Consignment.ConsignInventoryAdjustHeader.GetAccount" parameterClass="string" resultClass="System.Data.DataSet">
+      select account from interface.MDM_EmployeeMaster
+      where EID=#EID#
+    </select>
+    <select id="Consignment.ConsignInventoryAdjustHeader.GetSalesName" parameterClass="string" resultClass="System.Data.DataSet">
+      select Name from interface.T_I_QV_SalesRep
+      where UserAccount=#UserAccount#
+    </select>
+    <update id="Consignment.ConsignInventoryAdjustHeader.UpdateStatus" parameterClass="string">
+      <![CDATA[
+      update InventoryAdjustHeader set IAH_Status='Submitted' where IAH_Inv_Adj_Nbr=#Number# and IAH_Status='InApproval'
+      ]]>
+    </update>
+
+    <update id="Consignment.ConsignInventoryAdjustHeader.Update" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       Update InventoryAdjustHeader set SaleRep=#BoSales#,IAH_UserDescription=#Remark# where IAH_ID=#ID#
+      ]]>
+    </update>
+  </statements>
+</sqlMap>

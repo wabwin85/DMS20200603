@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PromotionPolicyMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="PromotionPolicy" assembly="DMS.Model.dll" type="DMS.Model.PromotionPolicy" />
+  </alias>
+  <resultMaps>
+    <resultMap id="PromotionPolicyResult" class="PromotionPolicy">
+      <result property="Id" column="PMP_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Code" column="PMP_Code" type="string" dbType="nvarchar"/>
+      <result property="Content" column="Content" type="string" dbType="nvarchar"/>
+      <result property="Dmaid" column="DMAID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Division" column="Division" type="string" dbType="nvarchar"/>
+      <result property="ProductLine" column="ProductLine" type="string" dbType="nvarchar"/>
+      <result property="ComputeCycle" column="ComputeCycle" type="string" dbType="nvarchar"/>
+      <result property="PurchaseQty" column="PurchaseQty" type="int" dbType="int"/>
+      <result property="FreeQty" column="FreeQty" type="int" dbType="int"/>
+      <result property="ClearQty" column="ClearQty" type="int" dbType="int"/>
+      <result property="AdjustQty" column="AdjustQty" type="int" dbType="int"/>
+      <result property="AdjustRemark" column="AdjustRemark" type="string" dbType="nvarchar"/>
+      <result property="AvaliableQty" column="AvaliableQty" type="int" dbType="int"/>
+      <result property="BeginDate" column="BeginDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="EndDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+      <result property="PromotionType" column="PromotionType" type="string" dbType="nvarchar"/>
+      <result property="Upn" column="UPN" type="string" dbType="nvarchar"/>
+      <result property="IsDeleted" column="IsDeleted" type="bool" dbType="bit"/>
+      <result property="ProductLineId" column="ProductLineId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IsApproved" column="IsApproved" type="bool" dbType="bit"/>
+      <result property="PRName" column="PRName" type="string" dbType="nvarchar"/>
+      <result property="DmaidT2" column="DMAIDT2" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="PromotionPolicyMap" class="System.Collections.Hashtable" >
+      <parameter property="qty" column="qty" />
+      <parameter property="remark" column="remark" />
+      <parameter property="id" column="id" />
+      <parameter property="AdjustUserId" column="AdjustUserId"></parameter>
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectPromotionPolicy" parameterClass="string" resultClass="PromotionPolicy">
+      SELECT PMP_ID AS Id,PMP_Code AS Code,Content AS Content,DMAID AS Dmaid,Division AS Division,ProductLine AS ProductLine,ComputeCycle AS ComputeCycle,PurchaseQty AS PurchaseQty,FreeQty AS FreeQty,ClearQty AS ClearQty,AdjustQty AS AdjustQty,AdjustRemark AS AdjustRemark,AvaliableQty AS AvaliableQty,BeginDate AS BeginDate,EndDate AS EndDate,CreateTime AS CreateTime,UpdateTime AS UpdateTime,PromotionType AS PromotionType,UPN AS Upn,IsDeleted AS IsDeleted,ProductLineId AS ProductLineId,IsApproved AS IsApproved,PRName as PRName
+      FROM PromotionPolicy
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PMP_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterPromotionPolicy" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT PMP_ID AS Id,PMP_Code AS Code,Content AS Content,DMAID AS Dmaid,Division AS Division,ProductLine AS ProductLine,ComputeCycle AS ComputeCycle,PurchaseQty AS PurchaseQty,FreeQty AS FreeQty,ClearQty AS ClearQty,AdjustQty AS AdjustQty,AdjustRemark AS AdjustRemark,AvaliableQty AS AvaliableQty,BeginDate AS BeginDate,EndDate AS EndDate,CreateTime AS CreateTime,UpdateTime AS UpdateTime,PromotionType AS PromotionType,UPN AS Upn,IsDeleted AS IsDeleted,ProductLineId AS ProductLineId,IsApproved AS IsApproved,PRName as PRName
+      FROM PromotionPolicy
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">PMP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PMP_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="PRName">PRName=#PRName#</isNotNull>
+        <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">DMAID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+        <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+        <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+        <isNotNull prepend="AND" property="AvaliableQty">AvaliableQty=#AvaliableQty#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">BeginDate=#BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateTime">UpdateTime=#UpdateTime#</isNotNull>
+        <isNotNull prepend="AND" property="PromotionType">PromotionType=#PromotionType#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="IsDeleted">IsDeleted=#IsDeleted#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="IsApproved">IsApproved=#IsApproved#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertPromotionPolicy" parameterClass="PromotionPolicy">
+      INSERT INTO PromotionPolicy
+      (PMP_ID,PMP_Code,Content,DMAID,Division,ProductLine,ComputeCycle,PurchaseQty,FreeQty,ClearQty,AdjustQty,AdjustRemark,AvaliableQty,BeginDate,EndDate,CreateTime,UpdateTime,PromotionType,UPN,IsDeleted,ProductLineId,IsApproved,PRName)
+      VALUES(#Id#,#Code#,#Content#,#Dmaid#,#Division#,#ProductLine#,#ComputeCycle#,#PurchaseQty#,#FreeQty#,#ClearQty#,#AdjustQty#,#AdjustRemark#,#AvaliableQty#,#BeginDate:DateTime:1/1/0001 12:00:00 AM#,#EndDate:DateTime:1/1/0001 12:00:00 AM#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#,#PromotionType#,#Upn#,#IsDeleted#,#ProductLineId#,#IsApproved#,#PRName#)
+    </insert>
+    <update id="UpdatePromotionPolicy" parameterClass="PromotionPolicy">
+      UPDATE PromotionPolicy
+      SET PMP_ID=#Id#,PMP_Code=#Code#,Content=#Content#,DMAID=#Dmaid#,Division=#Division#,ProductLine=#ProductLine#,ComputeCycle=#ComputeCycle#,PurchaseQty=#PurchaseQty#,FreeQty=#FreeQty#,ClearQty=#ClearQty#,AdjustQty=#AdjustQty#,AdjustRemark=#AdjustRemark#,AvaliableQty=#AvaliableQty#,BeginDate=#BeginDate#,EndDate=#EndDate#,
+      CreateTime=#CreateTime#,UpdateTime=#UpdateTime#,PromotionType=#PromotionType#,UPN=#Upn#,
+      IsDeleted=#IsDeleted#,ProductLineId=#ProductLineId#,IsApproved=#IsApproved#,PRName=#PRName#
+      WHERE PMP_ID = #Id#
+    </update>
+    <delete id="DeletePromotionPolicy" parameterClass="string">
+      DELETE FROM PromotionPolicy
+      WHERE PMP_ID = #value#
+    </delete>
+    <select id="QueryPromotionPolicy" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT PMP_ID AS Id,PMP_Code AS Code,Content AS Content,DMAID AS Dmaid,Division AS Division,
+      ProductLine AS ProductLine,ComputeCycle AS ComputeCycle,PurchaseQty AS PurchaseQty,
+      FreeQty AS FreeQty,ClearQty AS ClearQty,AdjustQty AS AdjustQty,AdjustRemark AS AdjustRemark,
+      AvaliableQty AS AvaliableQty,convert(varchar(100),BeginDate,112) AS BeginDate, CONVERT(varchar(100), EndDate,112) AS EndDate,convert(varchar(100),CreateTime,112) AS CreateTime,
+      convert(varchar(100),UpdateTime,112) AS UpdateTime,PromotionType AS PromotionType,UPN AS Upn,
+      IsDeleted AS IsDeleted,ProductLineId AS ProductLineId,
+      IsApproved=case IsApproved when 'Submitted' then '待批' when 'Approved' then '同意' else '拒绝' end,PRName as PRName
+      ,ROW_NUMBER () OVER (ORDER BY CreateTime desc ) AS row_number
+      ,AdjustQtyForT2
+      FROM PromotionPolicy where IsDeleted=0 and PromotionType='额度使用'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">PMP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PMP_Code Like N'%$Code$%'</isNotNull>
+        <isNotNull prepend="AND" property="PRName">PRName Like N'%$PRName$%'</isNotNull>
+        <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">DMAID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+        <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+        <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+        <isNotNull prepend="AND" property="AvaliableQty">AvaliableQty=#AvaliableQty#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">BeginDate>=#BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate&lt;=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateTime">UpdateTime=#UpdateTime#</isNotNull>
+        <isNotNull prepend="AND" property="PromotionType">PromotionType=#PromotionType#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="IsDeleted">IsDeleted=#IsDeleted#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="IsApproved">IsApproved Like N'%$IsApproved$%'</isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryPromotionPolicyForT2" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT PM_Id as Id, PMP_Code AS Code,PRName AS PRName,DealerID AS Dmaid,Division AS Division,
+      ProductLine AS ProductLine,ComputeCycle AS ComputeCycle,
+      t.FreeQty AS FreeQty,t.AdjustQty AS AdjustQty,t.AdjustRemark AS AdjustRemark,
+      convert(varchar(100),BeginDate,112) AS BeginDate, CONVERT(varchar(100), EndDate,112)
+      AS EndDate,
+      convert(varchar(100),t.CreateTime,112) AS CreateTime,
+      IsApproved=case IsApproved when 'Submitted' then '待批' when 'Approved' then '同意' else '拒绝' end,
+      ROW_NUMBER () OVER (ORDER BY PMP_Code,t.CreateTime desc ) AS row_number
+      ,DMA_ChineseName as DMAName
+      ,ShipmentQty,NotUsedQty,LastAvaliableQty,Tiers,LimitQty,TotalLimitQty
+      FROM PromotionPolicyForT2 t(nolock)
+      join PromotionPolicy p(nolock) on PRCode=PMP_Code
+      join DealerMaster(nolock) on DMA_Id=t.DealerId
+      where PromotionType='额度使用' and IsDeleted=0 and DType='T2'
+      and (DealerID=#Dmaid# or ParentDealerId=#ParentDealerId#)
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">PM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PMP_Code Like N'%$Code$%'</isNotNull>
+        <isNotNull prepend="AND" property="PRName">PRName Like N'%$PRName$%'</isNotNull>
+        <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">DealerID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+        <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+        <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">BeginDate>=#BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate&lt;=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="IsApproved">IsApproved Like N'%$IsApproved$%'</isNotNull>
+      </dynamic>
+    </select>
+    <select id="QueryPromotionPolicyT2" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT PM_Id as Id, PMP_Code AS Code,PRName AS PRName,DealerID AS Dmaid,Division AS Division,
+      ProductLine AS ProductLine,ComputeCycle AS ComputeCycle,
+      t.FreeQty AS FreeQty,t.AdjustQty AS AdjustQty,t.AdjustRemark AS AdjustRemark,
+      convert(varchar(100),BeginDate,112) AS BeginDate, CONVERT(varchar(100), EndDate,112)
+      AS EndDate,
+      convert(varchar(100),t.CreateTime,112) AS CreateTime,
+      IsApproved=case IsApproved when 'Submitted' then '待批' when 'Approved' then '同意' else '拒绝' end,
+      ROW_NUMBER () OVER (ORDER BY PMP_Code,t.CreateTime desc ) AS row_number
+      ,DMA_ChineseName as DMAName
+      ,ShipmentQty,NotUsedQty,LastAvaliableQty,Tiers,LimitQty,TotalLimitQty
+      FROM PromotionPolicyForT2 t(nolock)
+      join PromotionPolicy p(nolock) on PRCode=PMP_Code
+      join DealerMaster(nolock) on DMA_Id=t.DealerId
+      where PromotionType='额度使用' and IsDeleted=0 and DType='T2'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">PM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PMP_Code Like N'%$Code$%'</isNotNull>
+        <isNotNull prepend="AND" property="PRName">PRName Like N'%$PRName$%'</isNotNull>
+        <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">DealerID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+        <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+        <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">BeginDate>=#BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate&lt;=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="IsApproved">IsApproved Like N'%$IsApproved$%'</isNotNull>
+      </dynamic>
+    </select>
+    <select id="ExportPromotionPolicy" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT
+      DMA_ChineseName AS 经销商,Division AS Division,ProductLine AS 产品线,
+      PMP_Code AS 政策编码,PRName as 政策名称,Content as 政策内容,
+      convert(varchar(100),BeginDate,112) AS 开始日期,
+      CONVERT(varchar(100), EndDate,112) AS 结束日期,
+      ComputeCycle AS 计算周期,convert(varchar(100),CreateTime,112) AS 计算日期,
+      FreeQty AS 赠送数量,ClearQty AS 订单已用数量,AdjustQtyForT2 AS 二级调整数量,AdjustQty AS 调整数量,
+      AdjustRemark AS 调整备注,
+      AvaliableQty AS 可用数量,
+      审批状态=case IsApproved when 'Submitted' then '待批' when 'Approved' then '同意' else '拒绝' end
+      FROM PromotionPolicy
+      left join DealerMaster on DMAID=DMA_ID where IsDeleted=0 and PromotionType='额度使用'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">PMP_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PMP_Code Like N'%$Code$%'</isNotNull>
+        <isNotNull prepend="AND" property="PRName">PRName Like N'%$PRName$%'</isNotNull>
+        <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">DMAID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+        <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+        <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+        <isNotNull prepend="AND" property="AvaliableQty">AvaliableQty=#AvaliableQty#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">BeginDate>=#BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate&lt;=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateTime">UpdateTime=#UpdateTime#</isNotNull>
+        <isNotNull prepend="AND" property="PromotionType">PromotionType=#PromotionType#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="IsDeleted">IsDeleted=#IsDeleted#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="IsApproved">IsApproved=#IsApproved#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="ExportPromotionPolicyForT2" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT
+      DMA_ChineseName AS 经销商,Division AS Division,ProductLine AS 产品线,
+      PMP_Code AS 政策编码,PRName as 政策名称,Content as 政策内容,
+      convert(varchar(100),BeginDate,112) AS 开始日期,
+      CONVERT(varchar(100), EndDate,112) AS 结束日期,
+      ComputeCycle AS 计算周期,convert(varchar(100),t.CreateTime,112) AS 计算日期,
+      t.FreeQty AS 赠送数量,t.AdjustQty AS 调整数量,
+      t. AdjustRemark AS 调整备注    ,ShipmentQty as '总数量（用量或采购）'
+      ,NotUsedQty as 剩余未计算数量,LastAvaliableQty as 上次获取赠品数,Tiers as 阶梯级数
+      ,LimitQty as '赠品上限值（PI）',TotalLimitQty as '政策历史累计获取赠品数（PI）',
+      审批状态=case IsApproved when 'Submitted' then '待批' when 'Approved' then '同意' else '拒绝' end
+      FROM PromotionPolicyForT2 t
+      join PromotionPolicy p on PRCode=PMP_Code
+      left join DealerMaster on t.DealerID=DMA_ID
+      where IsDeleted=0  and DType='T2'and PromotionType='额度使用'
+      and (DealerID=#Dmaid# or ParentDealerId=#ParentDealerId#)
+      <dynamic prepend="">
+      <isNotNull prepend="AND" property="Id">PM_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="Code">PMP_Code Like N'%$Code$%'</isNotNull>
+      <isNotNull prepend="AND" property="PRName">PRName Like N'%$PRName$%'</isNotNull>
+      <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+      <isNotNull prepend="AND" property="Dmaid">DealerID=#Dmaid#</isNotNull>
+      <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+      <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+      <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+      <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+      <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+      <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+      <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+      <isNotNull prepend="AND" property="BeginDate">BeginDate>=#BeginDate#</isNotNull>
+      <isNotNull prepend="AND" property="EndDate">EndDate&lt;=#EndDate#</isNotNull>
+      <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+      <isNotNull prepend="AND" property="IsApproved">IsApproved Like N'%$IsApproved$%'</isNotNull>
+    </dynamic>
+    </select>
+    <select id="ExportPromotionPolicyT2" parameterClass="PromotionPolicy" resultClass="PromotionPolicy">
+      SELECT
+      DMA_ChineseName AS 经销商,Division AS Division,ProductLine AS 产品线,
+      PMP_Code AS 政策编码,PRName as 政策名称,Content as 政策内容,
+      convert(varchar(100),BeginDate,112) AS 开始日期,
+      CONVERT(varchar(100), EndDate,112) AS 结束日期,
+      ComputeCycle AS 计算周期,convert(varchar(100),t.CreateTime,112) AS 计算日期,
+      t.FreeQty AS 赠送数量,t.AdjustQty AS 调整数量,t. AdjustRemark AS 调整备注,
+      ShipmentQty as '总数量（用量或采购）'
+      ,NotUsedQty as 剩余未计算数量,LastAvaliableQty as 上次获取赠品数,Tiers as 阶梯级数
+      ,LimitQty as '赠品上限值（PI）',TotalLimitQty as '政策历史累计获取赠品数（PI）',
+      审批状态=case IsApproved when 'Submitted' then '待批' when 'Approved' then '同意' else '拒绝' end
+      FROM PromotionPolicyForT2 t
+      join PromotionPolicy p on PRCode=PMP_Code
+      left join DealerMaster on t.DealerID=DMA_ID
+      where IsDeleted=0  and DType='T2'and PromotionType='额度使用'
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="Id">PM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Code">PMP_Code Like N'%$Code$%'</isNotNull>
+        <isNotNull prepend="AND" property="PRName">PRName Like N'%$PRName$%'</isNotNull>
+        <isNotNull prepend="AND" property="Content">Content=#Content#</isNotNull>
+        <isNotNull prepend="AND" property="Dmaid">DealerID=#Dmaid#</isNotNull>
+        <isNotNull prepend="AND" property="Division">Division=#Division#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">ProductLine=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ComputeCycle">ComputeCycle=#ComputeCycle#</isNotNull>
+        <isNotNull prepend="AND" property="PurchaseQty">PurchaseQty=#PurchaseQty#</isNotNull>
+        <isNotNull prepend="AND" property="FreeQty">FreeQty=#FreeQty#</isNotNull>
+        <isNotNull prepend="AND" property="ClearQty">ClearQty=#ClearQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustQty">AdjustQty=#AdjustQty#</isNotNull>
+        <isNotNull prepend="AND" property="AdjustRemark">AdjustRemark=#AdjustRemark#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">BeginDate>=#BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">EndDate&lt;=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="IsApproved">IsApproved Like N'%$IsApproved$%'</isNotNull>
+      </dynamic>
+    </select>
+    <procedure id="GC_UpdatePromotionAdjustQty" parameterMap="PromotionPolicyMap">
+      dbo.GC_UpdatePromotionAdjustQty
+    </procedure>
+    <procedure id="GC_UpdatePromotionAdjustQtyForT2" parameterMap="PromotionPolicyMap">
+      dbo.GC_UpdatePromotionAdjustQtyForT2
+    </procedure>
+  </statements>
+</sqlMap>

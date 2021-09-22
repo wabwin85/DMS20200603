@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ContractPurchaseQuotasMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ContractPurchaseQuotas" assembly="DMS.Model.dll" type="DMS.Model.ContractPurchaseQuotas" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ContractPurchaseQuotasResult" class="ContractPurchaseQuotas">
+      <result property="QuotaId" column="QuotaId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractId" column="ContractId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ContractType" column="ContractType" type="string" dbType="nvarchar"/>
+      <result property="QuotasType" column="QuotasType" type="string" dbType="nvarchar"/>
+      <result property="PlBumId" column="PlBumId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="Year" type="int" dbType="int"/>
+      <result property="January" column="January" type="decimal" dbType="decimal"/>
+      <result property="February" column="February" type="decimal" dbType="decimal"/>
+      <result property="March" column="March" type="decimal" dbType="decimal"/>
+      <result property="April" column="April" type="decimal" dbType="decimal"/>
+      <result property="May" column="May" type="decimal" dbType="decimal"/>
+      <result property="June" column="June" type="decimal" dbType="decimal"/>
+      <result property="July" column="July" type="decimal" dbType="decimal"/>
+      <result property="August" column="August" type="decimal" dbType="decimal"/>
+      <result property="September" column="September" type="decimal" dbType="decimal"/>
+      <result property="October" column="October" type="decimal" dbType="decimal"/>
+      <result property="November" column="November" type="decimal" dbType="decimal"/>
+      <result property="December" column="December" type="decimal" dbType="decimal"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectPurchaseQuotas" parameterClass="Guid" resultClass="System.Data.DataSet">
+      SELECT Quota_ID AS QuotaId,Contract_ID AS ContractId,Contract_Type AS ContractType,Quotas_Type AS QuotasType,PL_BUM_ID AS PlBumId,Year AS Year,January AS January,February AS February,March AS March,April AS April,May AS May,June AS June,July AS July,August AS August,September AS September,October AS October,November AS November,December AS December
+      FROM ContractPurchaseQuotas
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Contract_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    
+    <select id="SelectPurchaseQuotasByConId" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Quo.Quota_ID AS QuotaId,
+      Quo.Contract_ID AS ContractId,
+      Quo.Contract_Type AS ContractType,
+      Quo.Quotas_Type AS QuotasType,
+      Quo.PL_BUM_ID AS PlBumId,
+      Pl.ATTRIBUTE_NAME AS ProductLine,
+      Quo.Year AS Year,
+      (January + February + March) AS Q1,
+      (April + May + June) AS Q2,
+      (July + August + September) AS Q3,
+      (October + November + December) AS Q4
+      FROM    ContractPurchaseQuotas Quo
+      LEFT JOIN
+      View_ProductLine Pl
+      ON Quo.PL_BUM_ID = Pl.Id
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Contract_ID = #value#
+        </isParameterPresent>
+        <isNotNull prepend="AND" property="SubCompanyId">pl.SubCompanyId=#SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">pl.BrandId=#BrandId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectClassificationQuotaTempByContractId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT AOPHPM_PCT_ID AS PctId ,cq.CQ_NameCN AS PctNamecn
+      FROM AOPHospitalProductMapping mp
+      LEFT JOIN interface.ClassificationQuota cq ON cq.CQ_ID =AOPHPM_PCT_ID
+      WHERE mp.AOPHPM_ContractId=#value#
+      ORDER BY cq.CQ_NameCN
+    </select>
+
+    <select id="SelectQuotaPriceTempByContractId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT AOPHPM_PCP_ID AS PcpId
+      FROM AOPHospitalProductMapping mp
+      LEFT JOIN interface.ClassificationQuota cq ON cq.CQ_ID =AOPHPM_PCT_ID
+      WHERE mp.AOPHPM_ContractId=#value#
+      And AOPHPM_PCP_ID is not null
+    </select>
+
+    <select id="SelectAllQuotaPriceForTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT cq.CQ_ID AS PctId,cq.CQ_ParentCode,cq.CQ_NameCN AS Namecn,
+      cp.CP_ID AS PcpId ,cp.CP_Price AS AOPDealer ,cp.CP_RV1  AS Price,cp.CP_RV2 Remark,cp.CP_Year AS Year
+      FROM interface.ClassificationQuota cq
+      INNER JOIN interface.ClassificationQuotaPrice cp ON cq.CQ_Code=cp.CP_CQ_Code
+      WHERE CQ.CQ_ID IN (SELECT DISTINCT MP.AOPHPM_PCT_ID  FROM AOPHospitalProductMapping MP WHERE MP.AOPHPM_ContractId=#ContractId# )
+      AND cp.CP_Year in (SELECT VAL FROM   dbo.GC_Fn_SplitStringToTable(#YearString#,','))
+      ORDER BY cq.CQ_NameCN
+    </select>
+
+    <select id="MaintainDealerAOPByHospitalAOP" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC GC_MaintainDealerAOPByHospitalAOP #ContractId#,#DealerId#,#ProductLineId#,#ContractType#,#MarketType#,#YearString#,#BeginYearMinMonth#,#AOPType#,#PartsContractCode#,#IsAmountSy#,#RtnVal#,#RtnMsg#
+    </select>
+    
+  </statements>
+</sqlMap>

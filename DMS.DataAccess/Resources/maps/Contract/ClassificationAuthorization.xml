@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ClassificationAuthorizationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ClassificationAuthorization" assembly="DMS.Model.dll" type="DMS.Model.ClassificationAuthorization" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ClassificationAuthorizationResult" class="ClassificationAuthorization">
+      <result property="Id" column="CA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ParentCode" column="CA_ParentCode" type="string" dbType="varchar"/>
+      <result property="Code" column="CA_Code" type="string" dbType="varchar"/>
+      <result property="Namecn" column="CA_NameCN" type="string" dbType="varchar"/>
+      <result property="Nameen" column="CA_NameEN" type="string" dbType="varchar"/>
+      <result property="Year" column="CA_Year" type="int" dbType="int"/>
+      <result property="Rv1" column="CA_RV1" type="string" dbType="varchar"/>
+      <result property="Rv2" column="CA_RV2" type="string" dbType="varchar"/>
+      <result property="Rv3" column="CA_RV3" type="string" dbType="varchar"/>
+      <result property="Rv4" column="CA_RV4" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="DelaerAutTampParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="ContractId" column="ContractId" />
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="PartsContractCode" column="PartsContractCode" />
+      <parameter property="BRType" column="BRType" />
+      <parameter property="start" column="start" />
+      <parameter property="limit" column="limit" />
+      <parameter property="totalCount" column="totalCount" direction="Output" />
+    </parameterMap>
+
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectClassificationAuthorizationByParentCode" parameterClass="string" resultClass="ClassificationAuthorization">
+      SELECT CA_ID AS Id,CA_ParentCode AS ParentCode,CA_Code AS Code,CA_NameCN AS Namecn,CA_NameEN AS Nameen,CA_Year AS Year,CA_RV1 AS Rv1,CA_RV2 AS Rv2,CA_RV3 AS Rv3,CA_RV4 AS Rv4
+      FROM interface.ClassificationAuthorization
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CA_ParentCode = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterClassificationAuthorization" parameterClass="ClassificationAuthorization" resultClass="ClassificationAuthorization">
+      SELECT CA_ID AS Id,CA_ParentCode AS ParentCode,CA_Code AS Code,CA_NameCN AS Namecn,CA_NameEN AS Nameen,CA_Year AS Year,CA_RV1 AS Rv1,CA_RV2 AS Rv2,CA_RV3 AS Rv3,CA_RV4 AS Rv4
+      FROM ClassificationAuthorization
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ParentCode">CA_ParentCode=#ParentCode#</isNotNull>
+        <isNotNull prepend="AND" property="Code">CA_Code=#Code#</isNotNull>
+        <isNotNull prepend="AND" property="Namecn">CA_NameCN=#Namecn#</isNotNull>
+        <isNotNull prepend="AND" property="Nameen">CA_NameEN=#Nameen#</isNotNull>
+        <isNotNull prepend="AND" property="Year">CA_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Rv1">CA_RV1=#Rv1#</isNotNull>
+        <isNotNull prepend="AND" property="Rv2">CA_RV2=#Rv2#</isNotNull>
+        <isNotNull prepend="AND" property="Rv3">CA_RV3=#Rv3#</isNotNull>
+        <isNotNull prepend="AND" property="Rv4">CA_RV4=#Rv4#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectPartAuthorizationHospitalTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT newid () Id,
+      HosId,
+      HosHospitalShortName,
+      HosHospitalName,
+      HosGrade,
+      HosKeyAccount,
+      HosProvince,
+      HosCity,
+      HosDistrict,
+      ISNULL (HosDepart, '') AS HosDepart,
+      ISNULL (HosDepartType, '') AS HosDepartType,
+      ISNULL (HosDepartTypeName, '') AS HosDepartTypeName,
+      ISNULL (HosDepartRemark, '') AS HosDepartRemark,
+      OperType,
+      CASE WHEN ISNULL (bTable.DealerName, '') = '' THEN 0 ELSE 1 END TCount,
+      bTable.DealerName AS RepeatDealer,
+      row_number () OVER (ORDER BY HosProvince, HosCity, HosDistrict ASC)
+      AS [row_number]
+      FROM    (SELECT DISTINCT dat.DAT_DMA_ID,
+      hos.HOS_ID AS HosId,
+      hos.HOS_HospitalShortName AS HosHospitalShortName,
+      hos.HOS_HospitalName AS HosHospitalName,
+      hos.HOS_Grade AS HosGrade,
+      hos.HOS_Key_Account AS HosKeyAccount,
+      hos.HOS_Province AS HosProvince,
+      hos.HOS_City AS HosCity,
+      hos.HOS_District AS HosDistrict,
+      #PartsContractCode# CC_Code,
+      dat.DAT_ProductLine_BUM_ID,
+      cont.Territory_Type AS OperType,
+      cont.HOS_Depart AS HosDepart,
+      cont.HOS_DepartType AS HosDepartType,
+      dst.VALUE1 AS HosDepartTypeName,
+      cont.HOS_DepartRemark AS HosDepartRemark
+      FROM Hospital hos
+      INNER JOIN dbo.ContractTerritory cont
+      ON hos.HOS_ID = cont.HOS_ID
+      INNER JOIN dbo.DealerAuthorizationTableTemp dat
+      ON dat.DAT_ID = cont.Contract_ID
+      LEFT JOIN Lafite_DICT dst
+      ON     dst.DICT_TYPE = 'HospitalDepart'
+      AND CONVERT (NVARCHAR (50),
+      dat.DAT_ProductLine_BUM_ID) = dst.PID
+      AND cont.HOS_DepartType = dst.DICT_KEY
+      WHERE dat.DAT_DCL_ID = #ContractId#) aTable
+      LEFT JOIN
+      (SELECT t1.DAT_ProductLine_BUM_ID,
+      t1.CC_Code,
+      t1.CC_ID,
+      t1.HLA_HOS_ID,
+      [DealerName] =
+      STUFF (
+      (SELECT ',' + tt2.[DMA_ChineseName]
+      FROM (select distinct DMA_ID,DAT_ProductLine_BUM_ID,CC_ID,HLA_HOS_ID from  V_DealerAuthorizationBR where CA_ID NOT IN
+      (SELECT PCT_ID FROM DBO.PartsClassification(nolock) WHERE PCT_ParentClassification_PCT_ID IS NOT NULL) ) tt1, DealerMaster tt2(nolock)
+      WHERE     tt1.DMA_ID = tt2.DMA_ID
+      AND tt2.DMA_DealerType &lt;> 'LP'
+      AND tt2.DMA_ID &lt;> #DealerId#
+      AND t1.DAT_ProductLine_BUM_ID =tt1.DAT_ProductLine_BUM_ID
+      AND t1.CC_ID = tt1.CC_ID
+      AND t1.HLA_HOS_ID=tt1.HLA_HOS_ID
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')
+      FROM	(SELECT DISTINCT a.DAT_ProductLine_BUM_ID, a.CC_Code, a.CC_ID, a.HLA_HOS_ID
+      FROM V_DealerAuthorizationBR a WHERE a.CC_ID NOT IN(SELECT PCT_ID FROM DBO.PartsClassification  WHERE PCT_ParentClassification_PCT_ID IS NOT NULL)) t1
+      GROUP BY t1.DAT_ProductLine_BUM_ID,t1.CC_Code,t1.CC_ID, t1.HLA_HOS_ID ) bTable
+      ON     aTable.DAT_ProductLine_BUM_ID = bTable.DAT_ProductLine_BUM_ID
+      AND aTable.CC_Code = bTable.CC_Code
+      AND aTable.HosId = bTable.HLA_HOS_ID
+    </select>
+
+    <select id="SelectPartAuthorizationHospitalTempNoBR" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+
+      select * ,row_number () OVER (ORDER BY HosProvince, HosCity, HosDistrict ASC) AS [row_number] from (
+      SELECT distinct
+      C.HOS_ID AS HosId,
+      C.HOS_HospitalShortName AS HosHospitalShortName,
+      C.HOS_HospitalName AS HosHospitalName,
+      C.HOS_Grade AS HosGrade,
+      C.HOS_Key_Account AS HosKeyAccount,
+      C.HOS_Province AS HosProvince,
+      C.HOS_City AS HosCity,
+      C.HOS_District AS HosDistrict,
+      A.DAT_ProductLine_BUM_ID,
+      B.Territory_Type AS OperType,
+      isnull(B.HOS_Depart,'') AS HosDepart,
+      isnull(B.HOS_DepartType,'') AS HosDepartType,
+      isnull(dst.VALUE1,'') AS HosDepartTypeName,
+      isnull(B.HOS_DepartRemark,'') AS HosDepartRemark
+      FROM DealerAuthorizationTableTemp A
+      INNER JOIN ContractTerritory B ON A.DAT_ID=B.Contract_ID
+      INNER JOIN Hospital C ON C.HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_DICT dst ON  dst.DICT_TYPE = 'HospitalDepart'
+      AND CONVERT (NVARCHAR (50), A.DAT_ProductLine_BUM_ID) = dst.PID  AND B.HOS_DepartType = dst.DICT_KEY
+      WHERE A.DAT_DCL_ID=#ContractId#
+      )tab
+    </select>
+
+    <select id="SelectPartAuthorizationHospitalTempP" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      exec [dbo].[GC_GetDealerAuthorizationHospitalTemp] #ContractId#,#DealerId#,#PartsContractCode# ,#BRType#,#start#,#limit#
+    </select>
+    <!--<procedure id="SelectPartAuthorizationHospitalTempP" parameterMap="DelaerAutTampParameterMap">
+      [dbo].[GC_GetDealerAuthorizationHospitalTemp]
+    </procedure>-->
+
+    <select id="SelectPartsAuthorizedTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT CA_ID AS Id,CA_ParentCode AS ParentCode,CA_Code AS Code,CA_NameCN AS Namecn,CA_NameEN AS Nameen,CA_Year AS Year,CA_RV1 AS Rv1,CA_RV2 AS Rv2,CA_RV3 AS Rv3,CA_RV4 AS Rv4,CASE WHEN  B.DAT_ID IS NULL THEN 0 ELSE 1 End IsSelected
+      ,row_number () OVER (ORDER BY CA_Code ASC) AS [row_number]
+      FROM interface.ClassificationAuthorization A
+      LEFT JOIN DealerAuthorizationTableTemp B ON A.CA_ID=B.DAT_PMA_ID AND B.DAT_DCL_ID=#ContractId#
+      WHERE A.CA_ParentCode=#PartsContractCode#
+    </select>
+
+    <delete id="RemoveAuthorizationTemp" parameterClass="System.Collections.Hashtable">
+      DELETE dbo.ContractTerritory FROM DealerAuthorizationTableTemp A  where HOS_ID = #HosId# AND Contract_ID = A.DAT_ID AND A.DAT_DCL_ID=#ContractId#
+    </delete>
+
+    <select id="ModifyPartsAuthorizationTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      exec GC_ModifyPartsAuthorization #ContractId#,#DealerId#,#ProductLineId#,#PartsAuthorizationIdString#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <select id="SysFormalAuthorizationToTemp" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      exec GC_SysFormalAuthorizationToTemp #ContractId#,#DealerId#,#ProductLineId#,#PartsContractCode#,#MarketType#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <update id="UpdateContractTerritoryDepartment" parameterClass="System.Collections.Hashtable">
+      UPDATE ContractTerritory SET HOS_Depart=#HlaDep#,HOS_DepartType=#HlaDepType#,HOS_DepartRemark=#HlaDepRemark#
+      FROM DealerAuthorizationTableTemp A
+      WHERE A.DAT_ID=ContractTerritory.Contract_ID
+      AND A.DAT_DCL_ID=#ContractId#
+      AND HOS_ID=#HosId#
+    </update>
+
+
+  </statements>
+</sqlMap>

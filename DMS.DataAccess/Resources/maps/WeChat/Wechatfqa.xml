@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WechatfqaMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="Wechatfqa" assembly="DMS.Model.dll" type="DMS.Model.Wechatfqa" />
+  </alias>
+  <resultMaps>
+    <resultMap id="WechatfqaResult" class="Wechatfqa">
+      <result property="Id" column="WFQA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Title" column="WFQA_Title" type="string" dbType="nvarchar"/>
+      <result property="Body" column="WFQA_Body" type="string" dbType="nvarchar"/>
+      <result property="State" column="WFQA_State" type="bool" dbType="bit"/>
+      <result property="CreateDate" column="WFQA_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="WFQA_CreateUser" type="string" dbType="nvarchar"/>
+      <result property="UpdateDate" column="WFQA_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="WFQA_UpdateUser" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectWechatfqa" parameterClass="string" resultClass="Wechatfqa">
+      SELECT WFQA_ID AS Id,WFQA_Title AS Title,WFQA_Body AS Body,WFQA_State AS State,WFQA_CreateDate AS CreateDate,WFQA_CreateUser AS CreateUser,WFQA_UpdateDate AS UpdateDate,WFQA_UpdateUser AS UpdateUser
+      FROM WechatFQA
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          WFQA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterWechatfqa" parameterClass="Wechatfqa" resultClass="Wechatfqa">
+      SELECT WFQA_ID AS Id,WFQA_Title AS Title,WFQA_Body AS Body,WFQA_State AS State,WFQA_CreateDate AS CreateDate,WFQA_CreateUser AS CreateUser,WFQA_UpdateDate AS UpdateDate,WFQA_UpdateUser AS UpdateUser
+      FROM WechatFQA
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">WFQA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Title">WFQA_Title=#Title#</isNotNull>
+        <isNotNull prepend="AND" property="Body">WFQA_Body=#Body#</isNotNull>
+        <isNotNull prepend="AND" property="State">WFQA_State=#State#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">WFQA_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">WFQA_UpdateUser=#UpdateUser#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertWechatfqa" parameterClass="Wechatfqa">
+      INSERT INTO WechatFQA
+      (WFQA_ID,WFQA_Title,WFQA_Body,WFQA_State,WFQA_CreateDate,WFQA_CreateUser,WFQA_UpdateDate,WFQA_UpdateUser)
+      VALUES(#Id#,#Title#,#Body#,#State#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#)
+    </insert>
+    <update id="UpdateWechatfqa" parameterClass="Wechatfqa">
+      UPDATE WechatFQA
+      SET WFQA_Title=#Title#,WFQA_Body=#Body#,WFQA_State=#State#,WFQA_UpdateDate=#UpdateDate#,WFQA_UpdateUser=#UpdateUser#
+      WHERE WFQA_ID = #Id#
+    </update>
+    <delete id="DeleteWechatfqa" parameterClass="string">
+      DELETE FROM WechatFQA
+      WHERE WFQA_ID = #value#
+    </delete>
+
+    <select id="SelectByWechatfqa" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT WFQA_ID AS Id,WFQA_Title AS Title,WFQA_Body AS Body,WFQA_State AS State,WFQA_CreateDate AS CreateDate,WFQA_CreateUser AS CreateUser,WFQA_UpdateDate AS UpdateDate,WFQA_UpdateUser AS UpdateUser,
+      ROW_NUMBER () OVER (ORDER BY WFQA_CreateDate DESC) AS [row_number]
+      FROM WechatFQA
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Title">WFQA_Title like N'%$Title$%'</isNotNull>
+        <isNotNull prepend="AND" property="State">WFQA_State=#State#</isNotNull>
+        <isNotNull prepend="AND" property="UserName">WFQA_CreateUser =#UserName#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectFQAList"  resultClass="System.Data.DataSet">
+      SELECT WFQA_ID ,WFQA_Title ,WFQA_Body ,WFQA_State ,WFQA_CreateDate ,WFQA_CreateUser ,WFQA_UpdateDate ,WFQA_UpdateUser 
+      FROM WechatFQA
+    </select>
+
+    <select id="SelectFQAAnnexList"  resultClass="System.Data.DataSet">
+      SELECT AT_ID,	AT_Main_ID,	AT_Name,	AT_Url,	AT_Type,	AT_UploadUser,	AT_UploadDate
+      FROM Attachment
+      WHERE AT_Type='WechatFAQ'
+    </select>
+
+    <select id="SelectFunctionSuggest" parameterClass="System.Collections.Hashtable"  resultClass="System.Data.DataSet">
+      SELECT WFS_ID AS Id,WFS_Body AS Body,WFS_CreateUserId as UserId ,B.BWU_UserName AS UserName,B.BWU_DealerName AS DealerName,B.BWU_DealerType AS DealerType, Convert(NVARCHAR(10),WFS_CreateDate ,120) as CreateDate
+      ,ROW_NUMBER () OVER (ORDER BY WFS_CreateDate DESC) AS [row_number]
+      FROM WechatFunctionSuggest A
+      LEFT JOIN BusinessWechatUser  B ON A.WFS_CreateUserId=B.BWU_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">WFS_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="BeginDate">Convert(NVARCHAR(10),WFS_CreateDate ,120)   >= #BeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">Convert(NVARCHAR(10),WFS_CreateDate ,120) &lt;= #EndDate#</isNotNull>
+      </dynamic>
+    </select>
+    
+  </statements>
+</sqlMap>

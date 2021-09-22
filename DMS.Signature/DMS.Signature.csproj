@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9623E5E2-D457-4B5B-954C-E4B113DAE22B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMS.Signature</RootNamespace>
+    <AssemblyName>DMS.Signature</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\References\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\References\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net1213">
+      <HintPath>..\..\References\Common.Logging.Log4Net1213.dll</HintPath>
+    </Reference>
+    <Reference Include="EsignTechSharp">
+      <HintPath>..\..\References\Esign\EsignTechSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="EsignUtils">
+      <HintPath>..\..\References\Esign\EsignUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.DataAccess">
+      <HintPath>..\..\References\Grapecity.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Grapecity.DataAccess.IBatisNet">
+      <HintPath>..\..\References\Grapecity.DataAccess.IBatisNet.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\..\References\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\..\References\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Acrobat">
+      <HintPath>..\..\References\Interop.Acrobat.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\References\Esign\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\ESignBLL.cs" />
+    <Compile Include="Common\FileHelper.cs" />
+    <Compile Include="Daos\BaseSqlMapDao.cs" />
+    <Compile Include="Daos\EnterpriseAuthenticationDao.cs" />
+    <Compile Include="Daos\EnterpriseAuthListDao.cs" />
+    <Compile Include="Daos\EnterpriseLegalMasterDao.cs" />
+    <Compile Include="Daos\EnterpriseLegalSealDao.cs" />
+    <Compile Include="Daos\EnterpriseMappingDao.cs" />
+    <Compile Include="Daos\EnterpriseMasterDao.cs" />
+    <Compile Include="Daos\EnterprisePayAuthDao.cs" />
+    <Compile Include="Daos\EnterpriseSealDao.cs" />
+    <Compile Include="Daos\FileKeyWordDao.cs" />
+    <Compile Include="Daos\FileVersionDao.cs" />
+    <Compile Include="Daos\IBaseSqlDao.cs" />
+    <Compile Include="Daos\OperationLogDao.cs" />
+    <Compile Include="Model\EnterpriseAuthentication.cs" />
+    <Compile Include="Model\EnterpriseAuthenticationRequest.cs" />
+    <Compile Include="Model\EnterpriseAuthenticationResponse.cs" />
+    <Compile Include="Model\EnterpriseAuthList.cs" />
+    <Compile Include="Model\EnterpriseLegalMaster.cs" />
+    <Compile Include="Model\EnterpriseLegalSeal.cs" />
+    <Compile Include="Model\EnterpriseMapping.cs" />
+    <Compile Include="Model\EnterpriseMaster.cs" />
+    <Compile Include="Model\EnterprisePayAuth.cs" />
+    <Compile Include="Model\EnterpriseSeal.cs" />
+    <Compile Include="Model\ESignViewModel.cs" />
+    <Compile Include="Model\EviFileDigestRequest.cs" />
+    <Compile Include="Model\EviFileDigestResponse.cs" />
+    <Compile Include="Model\FileKeyWord.cs" />
+    <Compile Include="Model\FileVersion.cs" />
+    <Compile Include="Model\OperationLog.cs" />
+    <Compile Include="SignatureHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Maps\EnterpriseMaster.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\EnterpriseSeal.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\FileVersion.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\OperationLog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Maps\FileKeyWord.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Maps\EnterpriseAuthentication.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\EnterprisePayAuth.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Maps\EnterpriseAuthList.xml" />
+    <EmbeddedResource Include="Maps\EnterpriseMapping.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMS.DataAccess\DMS.DataAccess.csproj">
+      <Project>{03a4a80f-98b9-40c7-a3dd-804d7901f0dc}</Project>
+      <Name>DMS.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Maps\EnterpriseLegalMaster.xml" />
+    <EmbeddedResource Include="Maps\EnterpriseLegalSeal.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

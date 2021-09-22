@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealeriafSignMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealeriafSign" assembly="DMS.Model.dll" type="DMS.Model.DealeriafSign" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealeriafSignResult" class="DealeriafSign">
+      <result property="CmId" column="DIS_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="From3Company" column="DIS_From3_Company" type="string" dbType="nvarchar"/>
+      <result property="From3User" column="DIS_From3_User" type="string" dbType="nvarchar"/>
+      <result property="From3Date" column="DIS_From3_Date" type="DateTime" dbType="datetime"/>
+      <result property="From3NationalId" column="DIS_From3_National_ID" type="string" dbType="nvarchar"/>
+      <result property="From3Birth" column="DIS_From3_Birth" type="DateTime" dbType="datetime"/>
+      <result property="From3Position" column="DIS_From3_Position" type="string" dbType="nvarchar"/>
+      <result property="From5ThirdParty" column="DIS_From5_ThirdParty" type="string" dbType="nvarchar"/>
+      <result property="From5Name" column="DIS_From5_Name" type="string" dbType="nvarchar"/>
+      <result property="From5Title" column="DIS_From5_Title" type="string" dbType="nvarchar"/>
+      <result property="From5Date" column="DIS_From5_Date" type="DateTime" dbType="datetime"/>
+      <result property="From6ThirdParty" column="DIS_From6_ThirdParty" type="string" dbType="nvarchar"/>
+      <result property="From6Date" column="DIS_From6_Date" type="DateTime" dbType="datetime"/>
+      <result property="From6PresentedBy" column="DIS_From6_PresentedBy" type="string" dbType="nvarchar"/>
+      <result property="From6RepName" column="DIS_From6_Rep_Name" type="string" dbType="nvarchar"/>
+      <result property="From6RepTital" column="DIS_From6_Rep_Tital" type="string" dbType="nvarchar"/>
+      <result property="ThirdPartyUser" column="DIS_ThirdParty_User" type="string" dbType="nvarchar"/>
+      <result property="ThirdPartyPosition" column="DIS_ThirdParty_Position" type="string" dbType="nvarchar"/>
+      <result property="ThirdPartyDate" column="DIS_ThirdParty_Date" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDealeriafSign" parameterClass="string" resultClass="DealeriafSign">
+      SELECT DIS_CM_ID AS CmId,DIS_From3_Company AS From3Company,DIS_From3_User AS From3User,DIS_From3_Date AS From3Date,DIS_From3_National_ID AS From3NationalId,DIS_From3_Birth AS From3Birth,DIS_From3_Position AS From3Position,DIS_From5_ThirdParty AS From5ThirdParty,DIS_From5_Name AS From5Name,DIS_From5_Title AS From5Title,DIS_From5_Date AS From5Date,DIS_From6_ThirdParty AS From6ThirdParty,DIS_From6_Date AS From6Date,DIS_From6_PresentedBy AS From6PresentedBy,DIS_From6_Rep_Name AS From6RepName,DIS_From6_Rep_Tital AS From6RepTital,DIS_ThirdParty_User AS ThirdPartyUser,DIS_ThirdParty_Position AS ThirdPartyPosition,DIS_ThirdParty_Date AS ThirdPartyDate
+      FROM DealerIAFSign
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DIS_CM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealeriafSign" parameterClass="DealeriafSign" resultClass="DealeriafSign">
+      SELECT DIS_CM_ID AS CmId,DIS_From3_Company AS From3Company,DIS_From3_User AS From3User,DIS_From3_Date AS From3Date,DIS_From3_National_ID AS From3NationalId,DIS_From3_Birth AS From3Birth,DIS_From3_Position AS From3Position,DIS_From5_ThirdParty AS From5ThirdParty,DIS_From5_Name AS From5Name,DIS_From5_Title AS From5Title,DIS_From5_Date AS From5Date,DIS_From6_ThirdParty AS From6ThirdParty,DIS_From6_Date AS From6Date,DIS_From6_PresentedBy AS From6PresentedBy,DIS_From6_Rep_Name AS From6RepName,DIS_From6_Rep_Tital AS From6RepTital,DIS_ThirdParty_User AS ThirdPartyUser,DIS_ThirdParty_Position AS ThirdPartyPosition,DIS_ThirdParty_Date AS ThirdPartyDate
+      FROM DealerIAFSign
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CmId">DIS_CM_ID=#CmId#</isNotNull>
+        <isNotNull prepend="AND" property="From3Company">DIS_From3_Company=#From3Company#</isNotNull>
+        <isNotNull prepend="AND" property="From3Date">DIS_From3_Date=#From3Date#</isNotNull>
+        <isNotNull prepend="AND" property="From3NationalId">DIS_From3_National_ID=#From3NationalId#</isNotNull>
+        <isNotNull prepend="AND" property="From3Birth">DIS_From3_Birth=#From3Birth#</isNotNull>
+        <isNotNull prepend="AND" property="From3Position">DIS_From3_Position=#From3Position#</isNotNull>
+        <isNotNull prepend="AND" property="From5ThirdParty">DIS_From5_ThirdParty=#From5ThirdParty#</isNotNull>
+        <isNotNull prepend="AND" property="From5Name">DIS_From5_Name=#From5Name#</isNotNull>
+        <isNotNull prepend="AND" property="From5Title">DIS_From5_Title=#From5Title#</isNotNull>
+        <isNotNull prepend="AND" property="From5Date">DIS_From5_Date=#From5Date#</isNotNull>
+        <isNotNull prepend="AND" property="From6ThirdParty">DIS_From6_ThirdParty=#From6ThirdParty#</isNotNull>
+        <isNotNull prepend="AND" property="From6Date">DIS_From6_Date=#From6Date#</isNotNull>
+        <isNotNull prepend="AND" property="From6PresentedBy">DIS_From6_PresentedBy=#From6PresentedBy#</isNotNull>
+        <isNotNull prepend="AND" property="From6RepName">DIS_From6_Rep_Name=#From6RepName#</isNotNull>
+        <isNotNull prepend="AND" property="From6RepTital">DIS_From6_Rep_Tital=#From6RepTital#</isNotNull>
+        <isNotNull prepend="AND" property="ThirdPartyUser">DIS_ThirdParty_User=#ThirdPartyUser#</isNotNull>
+        <isNotNull prepend="AND" property="ThirdPartyPosition">DIS_ThirdParty_Position=#ThirdPartyPosition#</isNotNull>
+        <isNotNull prepend="AND" property="ThirdPartyDate">DIS_ThirdParty_Date=#ThirdPartyDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDealeriafSign" parameterClass="DealeriafSign">
+      INSERT INTO DealerIAFSign
+      (DIS_CM_ID,DIS_From3_Company,DIS_From3_User,DIS_From3_Date,DIS_From3_National_ID,DIS_From3_Birth,DIS_From3_Position,DIS_From5_ThirdParty,DIS_From5_Name,DIS_From5_Title,DIS_From5_Date,DIS_From6_ThirdParty,DIS_From6_Date,DIS_From6_PresentedBy,DIS_From6_Rep_Name,DIS_From6_Rep_Tital,DIS_ThirdParty_User,DIS_ThirdParty_Position,DIS_ThirdParty_Date)
+      VALUES(#CmId#,#From3Company#,#From3User#,#From3Date:DateTime:1/1/0001 12:00:00 AM#,#From3NationalId#,#From3Birth:DateTime:1/1/0001 12:00:00 AM#,#From3Position#,#From5ThirdParty#,#From5Name#,#From5Title#,#From5Date:DateTime:1/1/0001 12:00:00 AM#,#From6ThirdParty#,#From6Date:DateTime:1/1/0001 12:00:00 AM#,#From6PresentedBy#,#From6RepName#,#From6RepTital#,#ThirdPartyUser#,#ThirdPartyPosition#,#ThirdPartyDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateDealeriafSign" parameterClass="DealeriafSign">
+      UPDATE DealerIAFSign
+      SET DIS_CM_ID=#CmId#,DIS_From3_Company=#From3Company#,DIS_From3_User=#From3User#,DIS_From3_Date=#From3Date#,DIS_From3_National_ID=#From3NationalId#,DIS_From3_Birth=#From3Birth#,DIS_From3_Position=#From3Position#,DIS_From5_ThirdParty=#From5ThirdParty#,DIS_From5_Name=#From5Name#,DIS_From5_Title=#From5Title#,DIS_From5_Date=#From5Date#,DIS_From6_ThirdParty=#From6ThirdParty#,DIS_From6_Date=#From6Date#,DIS_From6_PresentedBy=#From6PresentedBy#,DIS_From6_Rep_Name=#From6RepName#,DIS_From6_Rep_Tital=#From6RepTital#,DIS_ThirdParty_User=#ThirdPartyUser#,DIS_ThirdParty_Position=#ThirdPartyPosition#,DIS_ThirdParty_Date=#ThirdPartyDate#
+      WHERE DIS_CM_ID = #CmId#
+    </update>
+    <delete id="DeleteDealeriafSign" parameterClass="string">
+      DELETE FROM DealerIAFSign
+      WHERE DIS_CM_ID = #value#
+    </delete>
+
+    <update id="UpdateDealerIAFSign3" parameterClass="DealeriafSign">
+      UPDATE DealerIAFSign
+      SET DIS_From3_Company=#From3Company#,DIS_From3_User=#From3User#,DIS_From3_Date=#From3Date#,DIS_From3_National_ID=#From3NationalId#,DIS_From3_Birth=#From3Birth#,DIS_From3_Position=#From3Position#
+      WHERE DIS_CM_ID = #CmId#
+    </update>
+
+    <update id="UpdateDealerIAFSign5" parameterClass="DealeriafSign">
+      UPDATE DealerIAFSign
+      SET DIS_From5_ThirdParty=#From5ThirdParty#,DIS_From5_Name=#From5Name#,DIS_From5_Title=#From5Title#,DIS_From5_Date=#From5Date#
+      WHERE DIS_CM_ID = #CmId#
+    </update>
+
+    <update id="UpdateDealerIAFSign6" parameterClass="DealeriafSign">
+      UPDATE DealerIAFSign
+      SET DIS_From6_ThirdParty=#From6ThirdParty#,DIS_From6_Date=#From6Date#,DIS_From6_PresentedBy=#From6PresentedBy#,DIS_From6_Rep_Name=#From6RepName#,DIS_From6_Rep_Tital=#From6RepTital#
+      WHERE DIS_CM_ID = #CmId#
+    </update>
+
+    <update id="UpdateThirdParty" parameterClass="DealeriafSign">
+      UPDATE DealerIAFSign
+      SET DIS_ThirdParty_User=#ThirdPartyUser#,DIS_ThirdParty_Position=#ThirdPartyPosition#,DIS_ThirdParty_Date=#ThirdPartyDate#
+      WHERE DIS_CM_ID = #CmId#
+    </update>
+  </statements>
+</sqlMap>

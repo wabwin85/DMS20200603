@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DeliveryConfirmationMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DeliveryConfirmation" assembly="DMS.Model.dll" type="DMS.Model.DeliveryConfirmation" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DeliveryConfirmationResult" class="DeliveryConfirmation">
+      <result property="Id" column="DC_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SapDeliveryNo" column="DC_SapDeliveryNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="DC_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="IsConfirm" column="DC_IsConfirm" type="bool" dbType="bit"/>
+      <result property="Remark" column="DC_Remark" type="string" dbType="nvarchar"/>
+      <result property="LineNbr" column="DC_LineNbr" type="int" dbType="int"/>
+      <result property="FileName" column="DC_FileName" type="string" dbType="nvarchar"/>
+      <result property="PrhId" column="DC_PRH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProblemDescription" column="DC_ProblemDescription" type="string" dbType="nvarchar"/>
+      <result property="HandleDate" column="DC_HandleDate" type="DateTime" dbType="datetime"/>
+      <result property="ImportDate" column="DC_ImportDate" type="DateTime" dbType="datetime"/>
+      <result property="Clientid" column="DC_ClientID" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="DC_BatchNbr" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDeliveryConfirmation" parameterClass="string" resultClass="DeliveryConfirmation">
+      SELECT DC_ID AS Id,DC_SapDeliveryNo AS SapDeliveryNo,DC_ConfirmDate AS ConfirmDate,DC_IsConfirm AS IsConfirm,DC_Remark AS Remark,DC_LineNbr AS LineNbr,DC_FileName AS FileName,DC_PRH_ID AS PrhId,DC_ProblemDescription AS ProblemDescription,DC_HandleDate AS HandleDate,DC_ImportDate AS ImportDate,DC_ClientID AS Clientid,DC_BatchNbr AS BatchNbr
+      FROM DeliveryConfirmation
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          DC_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDeliveryConfirmation" parameterClass="DeliveryConfirmation" resultClass="DeliveryConfirmation">
+      SELECT DC_ID AS Id,DC_SapDeliveryNo AS SapDeliveryNo,DC_ConfirmDate AS ConfirmDate,DC_IsConfirm AS IsConfirm,DC_Remark AS Remark,DC_LineNbr AS LineNbr,DC_FileName AS FileName,DC_PRH_ID AS PrhId,DC_ProblemDescription AS ProblemDescription,DC_HandleDate AS HandleDate,DC_ImportDate AS ImportDate,DC_ClientID AS Clientid,DC_BatchNbr AS BatchNbr
+      FROM DeliveryConfirmation
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">DC_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SapDeliveryNo">DC_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">DC_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsConfirm">DC_IsConfirm=#IsConfirm#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">DC_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="LineNbr">DC_LineNbr=#LineNbr#</isNotNull>
+        <isNotNull prepend="AND" property="FileName">DC_FileName=#FileName#</isNotNull>
+        <isNotNull prepend="AND" property="PrhId">DC_PRH_ID=#PrhId#</isNotNull>
+        <isNotNull prepend="AND" property="ProblemDescription">DC_ProblemDescription=#ProblemDescription#</isNotNull>
+        <isNotNull prepend="AND" property="HandleDate">DC_HandleDate=#HandleDate#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">DC_ImportDate=#ImportDate#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">DC_ClientID=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">DC_BatchNbr=#BatchNbr#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDeliveryConfirmation" parameterClass="DeliveryConfirmation">
+      INSERT INTO DeliveryConfirmation
+      (DC_ID,DC_SapDeliveryNo,DC_ConfirmDate,DC_IsConfirm,DC_Remark,DC_LineNbr,DC_FileName,DC_PRH_ID,DC_ProblemDescription,DC_HandleDate,DC_ImportDate,DC_ClientID,DC_BatchNbr)
+      VALUES(#Id#,#SapDeliveryNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#IsConfirm#,#Remark#,#LineNbr#,#FileName#,#PrhId#,#ProblemDescription#,#HandleDate:DateTime:1/1/0001 12:00:00 AM#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#,#BatchNbr#)
+    </insert>
+    <update id="UpdateDeliveryConfirmation" parameterClass="DeliveryConfirmation">
+      UPDATE DeliveryConfirmation
+      SET DC_ID=#Id#,DC_SapDeliveryNo=#SapDeliveryNo#,DC_ConfirmDate=#ConfirmDate#,DC_IsConfirm=#IsConfirm#,DC_Remark=#Remark#,DC_LineNbr=#LineNbr#,DC_FileName=#FileName#,DC_PRH_ID=#PrhId#,DC_ProblemDescription=#ProblemDescription#,DC_HandleDate=#HandleDate#,DC_ImportDate=#ImportDate#,DC_ClientID=#Clientid#,DC_BatchNbr=#BatchNbr#
+      WHERE DC_ID = #Id#
+    </update>
+    <delete id="DeleteDeliveryConfirmation" parameterClass="string">
+      DELETE FROM DeliveryConfirmation
+      WHERE DC_ID = #value#
+    </delete>
+    <select id="SelectDeliveryConfirmationByBatchNbrErrorOnly" parameterClass="string" resultClass="DeliveryConfirmation">
+      SELECT DC_ID AS Id,DC_SapDeliveryNo AS SapDeliveryNo,DC_ConfirmDate AS ConfirmDate,DC_IsConfirm AS IsConfirm,DC_Remark AS Remark,DC_LineNbr AS LineNbr,DC_FileName AS FileName,DC_PRH_ID AS PrhId,DC_ProblemDescription AS ProblemDescription,DC_HandleDate AS HandleDate,DC_ImportDate AS ImportDate,DC_ClientID AS Clientid,DC_BatchNbr AS BatchNbr
+      FROM DeliveryConfirmation
+      WHERE DC_BatchNbr = #value# AND DC_ProblemDescription IS NOT NULL
+      ORDER BY DC_LineNbr
+    </select>
+  </statements>
+</sqlMap>

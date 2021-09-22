@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="HospitalListHistoryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="HospitalListHistory" assembly="DMS.Model.dll" type="DMS.Model.HospitalListHistory" />
+  </alias>
+  <resultMaps>
+    <resultMap id="HospitalListHistoryResult" class="HospitalListHistory">
+      <result property="Id" column="HLH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ChangeToContractid" column="HLH_ChangeToContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CurrentContractid" column="HLH_CurrentContractID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="HLH_HOS_ID" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectHospitalListHistory" parameterClass="string" resultClass="HospitalListHistory">
+      SELECT HLH_ID AS Id,HLH_ChangeToContractID AS ChangeToContractid,HLH_CurrentContractID AS CurrentContractid,HLH_HOS_ID AS HosId
+      FROM HospitalListHistory
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          HLH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterHospitalListHistory" parameterClass="HospitalListHistory" resultClass="HospitalListHistory">
+      SELECT HLH_ID AS Id,HLH_ChangeToContractID AS ChangeToContractid,HLH_CurrentContractID AS CurrentContractid,HLH_HOS_ID AS HosId
+      FROM HospitalListHistory
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">HLH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ChangeToContractid">HLH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">HLH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">HLH_HOS_ID=#HosId#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertHospitalListHistory" parameterClass="HospitalListHistory">
+      INSERT INTO HospitalListHistory
+      (HLH_ID,HLH_ChangeToContractID,HLH_CurrentContractID,HLH_HOS_ID)
+      VALUES(#Id#,#ChangeToContractid#,#CurrentContractid#,#HosId#)
+    </insert>
+    <update id="UpdateHospitalListHistory" parameterClass="HospitalListHistory">
+      UPDATE HospitalListHistory
+      SET HLH_ID=#Id#,HLH_ChangeToContractID=#ChangeToContractid#,HLH_CurrentContractID=#CurrentContractid#,HLH_HOS_ID=#HosId#
+      WHERE HLH_ID = #Id#
+    </update>
+    <delete id="DeleteHospitalListHistory" parameterClass="string">
+      DELETE FROM HospitalListHistory
+      WHERE HLH_ID = #value#
+    </delete>
+
+    <select id="SelectHistoryAuthorizedHospital" parameterClass="HospitalListHistory" resultClass="System.Data.DataSet">
+      SELECT *,ROW_NUMBER () OVER (ORDER BY ChangeToContractid DESC) AS [row_number] FROM
+      (
+      SELECT distinct
+      HLH_ChangeToContractID AS ChangeToContractid,
+      HLH_CurrentContractID AS CurrentContractid,
+      HLH_HOS_ID AS HosId,
+      t2.HOS_HospitalName AS HospitalName,
+      t2.HOS_HospitalNameEN AS HospitalNameEN
+      FROM    HospitalListHistory t1
+      INNER JOIN
+      Hospital t2
+      ON t1.HLH_HOS_ID = t2.HOS_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ChangeToContractid">HLH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">HLH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">HLH_HOS_ID=#HosId#</isNotNull>
+      </dynamic>
+      )
+      TAB
+    </select>
+
+  <select id="SelectHistoryContracteHospital" parameterClass="HospitalListHistory" resultClass="System.Data.DataSet">
+    SELECT distinct
+    HLH_HOS_ID AS HospitalID,
+    t2.HOS_HospitalName AS HospitalName,
+    t2.HOS_Grade AS Grade,
+    t2.HOS_HospitalShortName AS HospitalShortName,
+    t2.HOS_HospitalNameEN AS HospitalNameEN,
+    t2.HOS_Key_Account AS Account,
+    t2.HOS_Province AS Province,
+    t2.HOS_City AS City,
+    t2.HOS_Director AS District ,
+    ROW_NUMBER () OVER (ORDER BY HLH_ChangeToContractID DESC)
+    AS [row_number]
+    FROM    HospitalListHistory t1
+    INNER JOIN
+    Hospital t2
+    ON t1.HLH_HOS_ID = t2.HOS_ID
+    <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ChangeToContractid">HLH_ChangeToContractID=#ChangeToContractid#</isNotNull>
+        <isNotNull prepend="AND" property="CurrentContractid">HLH_CurrentContractID=#CurrentContractid#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">HLH_HOS_ID=#HosId#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

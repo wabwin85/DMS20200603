@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PaymentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="Payment" assembly="DMS.Model.dll" type="DMS.Model.Payment" />
+    </alias>
+    <resultMaps>
+        <resultMap id="PaymentResult" class="Payment">
+            <result property="Id" column="PMT_ID" type="Guid" dbType="Guid"/>
+            <result property="Name" column="PMT_Name" type="string" dbType="varchar"/>
+            <result property="Description" column="PMT_Description" type="string" dbType="varchar"/>
+            <result property="Parameter1" column="PMT_Parameter1" type="string" dbType="varchar"/>
+            <result property="Parameter2" column="PMT_Parameter2" type="string" dbType="varchar"/>
+            <result property="Parameter3" column="PMT_Parameter3" type="string" dbType="varchar"/>
+            <result property="Parameter4" column="PMT_Parameter4" type="string" dbType="varchar"/>
+            <result property="Parameter5" column="PMT_Parameter5" type="string" dbType="varchar"/>
+            <result property="Parameter6" column="PMT_Parameter6" type="string" dbType="varchar"/>
+            <result property="Parameter7" column="PMT_Parameter7" type="string" dbType="varchar"/>
+            <result property="Parameter8" column="PMT_Parameter8" type="string" dbType="varchar"/>
+            <result property="ActiveFlag" column="PMT_ActiveFlag" type="bool" dbType="bool"/>
+            <result property="DeleteFlag" column="PMT_DeleteFlag" type="bool" dbType="bool"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectPayment" parameterClass="string" resultClass="Payment">
+            SELECT PMT_ID AS Id,PMT_Name AS Name,PMT_Description AS Description,PMT_Parameter1 AS Parameter1,PMT_Parameter2 AS Parameter2,PMT_Parameter3 AS Parameter3,PMT_Parameter4 AS Parameter4,PMT_Parameter5 AS Parameter5,PMT_Parameter6 AS Parameter6,PMT_Parameter7 AS Parameter7,PMT_Parameter8 AS Parameter8,PMT_ActiveFlag AS ActiveFlag,PMT_DeleteFlag AS DeleteFlag
+            FROM Payment
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    PMT_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        
+        <select id="SelectByFilterPayment" parameterClass="Payment" resultClass="Payment">
+            SELECT PMT_ID AS Id,PMT_Name AS Name,PMT_Description AS Description,PMT_Parameter1 AS Parameter1,PMT_Parameter2 AS Parameter2,PMT_Parameter3 AS Parameter3,PMT_Parameter4 AS Parameter4,PMT_Parameter5 AS Parameter5,PMT_Parameter6 AS Parameter6,PMT_Parameter7 AS Parameter7,PMT_Parameter8 AS Parameter8,PMT_ActiveFlag AS ActiveFlag,PMT_DeleteFlag AS DeleteFlag
+            FROM Payment
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">PMT_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="Name">PMT_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Description">PMT_Description=#Description#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter1">PMT_Parameter1=#Parameter1#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter2">PMT_Parameter2=#Parameter2#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter3">PMT_Parameter3=#Parameter3#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter4">PMT_Parameter4=#Parameter4#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter5">PMT_Parameter5=#Parameter5#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter6">PMT_Parameter6=#Parameter6#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter7">PMT_Parameter7=#Parameter7#</isNotNull>
+                <isNotNull prepend="AND" property="Parameter8">PMT_Parameter8=#Parameter8#</isNotNull>
+                <isNotNull prepend="AND" property="ActiveFlag">PMT_ActiveFlag=#ActiveFlag#</isNotNull>
+                <isNotNull prepend="AND" property="DeleteFlag">PMT_DeleteFlag=#DeleteFlag#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertPayment" parameterClass="Payment">
+            INSERT INTO Payment
+            (PMT_ID,PMT_Name,PMT_Description,PMT_Parameter1,PMT_Parameter2,PMT_Parameter3,PMT_Parameter4,PMT_Parameter5,PMT_Parameter6,PMT_Parameter7,PMT_Parameter8,PMT_ActiveFlag,PMT_DeleteFlag)
+            VALUES(#Id#,#Name#,#Description#,#Parameter1#,#Parameter2#,#Parameter3#,#Parameter4#,#Parameter5#,#Parameter6#,#Parameter7#,#Parameter8#,#ActiveFlag#,#DeleteFlag#)
+        </insert>
+        <update id="UpdatePayment" parameterClass="Payment">
+            UPDATE Payment
+            SET PMT_ID=#Id#,PMT_Name=#Name#,PMT_Description=#Description#,PMT_Parameter1=#Parameter1#,PMT_Parameter2=#Parameter2#,PMT_Parameter3=#Parameter3#,PMT_Parameter4=#Parameter4#,PMT_Parameter5=#Parameter5#,PMT_Parameter6=#Parameter6#,PMT_Parameter7=#Parameter7#,PMT_Parameter8=#Parameter8#,PMT_ActiveFlag=#ActiveFlag#,PMT_DeleteFlag=#DeleteFlag#
+            WHERE PMT_ID = #Id#
+        </update>
+        <delete id="DeletePayment" parameterClass="string">
+            DELETE FROM Payment
+            WHERE PMT_ID = #value#
+        </delete>
+    </statements>
+</sqlMap>

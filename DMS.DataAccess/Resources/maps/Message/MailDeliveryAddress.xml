@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MailDeliveryAddressMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="MailDeliveryAddress" assembly="DMS.Model.dll" type="DMS.Model.MailDeliveryAddress" />
+  </alias>
+  <resultMaps>
+    <resultMap id="MailDeliveryAddressResult" class="MailDeliveryAddress">
+      <result property="Id" column="MDA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="MailType" column="MDA_MailType" type="string" dbType="nvarchar"/>
+      <result property="MailTo" column="MDA_MailTo" type="string" dbType="nvarchar"/>
+      <result property="ProductLineid" column="MDA_ProductLineID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UserName" column="MDA_UserName" type="string" dbType="nvarchar"/>
+      <result property="MailAddress" column="MDA_MailAddress" type="string" dbType="nvarchar"/>
+      <result property="Sms" column="MDA_SMS" type="string" dbType="nvarchar"/>
+      <result property="ActiveFlag" column="MDA_ActiveFlag" type="bool" dbType="bit"/>
+      <result property="CreateDate" column="MDA_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateDate" column="MDA_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectMailDeliveryAddress" parameterClass="string" resultClass="MailDeliveryAddress">
+      SELECT MDA_ID AS Id,MDA_MailType AS MailType,MDA_MailTo AS MailTo,MDA_ProductLineID AS ProductLineid,MDA_UserName AS UserName,MDA_MailAddress AS MailAddress,MDA_SMS AS Sms,MDA_ActiveFlag AS ActiveFlag,MDA_CreateDate AS CreateDate,MDA_UpdateDate AS UpdateDate
+      FROM MailDeliveryAddress
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          MDA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterMailDeliveryAddress" parameterClass="MailDeliveryAddress" resultClass="MailDeliveryAddress">
+      SELECT MDA_ID AS Id,MDA_MailType AS MailType,MDA_MailTo AS MailTo,MDA_ProductLineID AS ProductLineid,MDA_UserName AS UserName,MDA_MailAddress AS MailAddress,MDA_SMS AS Sms,MDA_ActiveFlag AS ActiveFlag,MDA_CreateDate AS CreateDate,MDA_UpdateDate AS UpdateDate
+      FROM MailDeliveryAddress
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">MDA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="MailType">MDA_MailType=#MailType#</isNotNull>
+        <isNotNull prepend="AND" property="MailTo">MDA_MailTo=#MailTo#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineid">MDA_ProductLineID=#ProductLineid#</isNotNull>
+        <isNotNull prepend="AND" property="UserName">MDA_UserName=#UserName#</isNotNull>
+        <isNotNull prepend="AND" property="MailAddress">MDA_MailAddress=#MailAddress#</isNotNull>
+        <isNotNull prepend="AND" property="Sms">MDA_SMS=#Sms#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">MDA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">MDA_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertMailDeliveryAddress" parameterClass="MailDeliveryAddress">
+      INSERT INTO MailDeliveryAddress
+      (MDA_ID,MDA_MailType,MDA_MailTo,MDA_ProductLineID,MDA_UserName,MDA_MailAddress,MDA_SMS,MDA_ActiveFlag,MDA_CreateDate,MDA_UpdateDate)
+      VALUES(#Id#,#MailType#,#MailTo#,#ProductLineid#,#UserName#,#MailAddress#,#Sms#,#ActiveFlag#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateMailDeliveryAddress" parameterClass="MailDeliveryAddress">
+      UPDATE MailDeliveryAddress
+      SET MDA_ID=#Id#,MDA_MailType=#MailType#,MDA_MailTo=#MailTo#,MDA_ProductLineID=#ProductLineid#,MDA_UserName=#UserName#,MDA_MailAddress=#MailAddress#,MDA_SMS=#Sms#,MDA_ActiveFlag=#ActiveFlag#,MDA_UpdateDate=#UpdateDate#
+      WHERE MDA_ID = #Id#
+    </update>
+    <delete id="DeleteMailDeliveryAddress" parameterClass="string">
+      DELETE FROM MailDeliveryAddress
+      WHERE MDA_ID = #value#
+    </delete>
+
+    <select id="QueryOrderMailAddressByConditions" parameterClass="System.Collections.Hashtable" resultClass="MailDeliveryAddress">
+      SELECT MDA_ID AS Id,
+      MDA_MailType AS MailType,
+      MDA_MailTo AS MailTo,
+      MDA_ProductLineID AS ProductLineid,
+      MDA_UserName AS UserName,
+      MDA_MailAddress AS MailAddress,
+      MDA_SMS AS Sms,
+      MDA_ActiveFlag AS ActiveFlag,
+      MDA_CreateDate AS CreateDate,
+      MDA_UpdateDate AS UpdateDate
+      FROM Client C, MailDeliveryAddress M
+      WHERE     C.CLT_ID = M.MDA_MailTo
+      AND C.CLT_Corp_Id IN
+      (SELECT DMA_parent_DMA_ID
+      FROM DealerMaster(nolock)
+      WHERE DMA_ID = #DmaId#)
+      AND M.MDA_ProductLineID = #ProductLineID#
+      AND M.MDA_MailType = #MailType#
+      AND M.MDA_ActiveFlag = 1
+    </select>
+
+    <select id="SelectDCMSMailAddressByConditions" parameterClass="System.Collections.Hashtable" resultClass="MailDeliveryAddress">
+      SELECT li.Id AS Id,'' AS MailType,'' AS MailTo,NULL AS ProductLineid,IDENTITY_NAME AS UserName,EMAIL1 AS MailAddress,'' AS Sms,1 AS ActiveFlag,GETDATE() AS CreateDate,GETDATE() AS UpdateDate
+      FROM Lafite_IDENTITY li
+      INNER JOIN Lafite_IDENTITY_MAP lim On lim.IDENTITY_ID= li.Id
+      INNER JOIN Lafite_ATTRIBUTE la ON lim.MAP_ID=la.Id
+      WHERE ISNULL(li.BOOLEAN_FLAG,0)='1' AND ISNULL(li.DELETE_FLAG,0)='0'
+      <dynamic>
+        <isNotNull prepend="AND" property="MailType">la.ATTRIBUTE_TYPE=#MailType#</isNotNull>
+        <isNotNull prepend="AND" property="MailTo">la.ATTRIBUTE_NAME=#MailTo#</isNotNull>
+      </dynamic>
+      <!--SELECT MDA_ID AS Id,MDA_MailType AS MailType,MDA_MailTo AS MailTo,MDA_ProductLineID AS ProductLineid,MDA_UserName AS UserName,MDA_MailAddress AS MailAddress,MDA_SMS AS Sms,MDA_ActiveFlag AS ActiveFlag,MDA_CreateDate AS CreateDate,MDA_UpdateDate AS UpdateDate
+      FROM MailDeliveryAddress
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">MDA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="MailType">MDA_MailType=#MailType#</isNotNull>
+        <isNotNull prepend="AND" property="MailTo">MDA_MailTo=#MailTo#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineid">MDA_ProductLineID=#ProductLineid#</isNotNull>
+        <isNotNull prepend="AND" property="UserName">MDA_UserName=#UserName#</isNotNull>
+        <isNotNull prepend="AND" property="MailAddress">MDA_MailAddress=#MailAddress#</isNotNull>
+        <isNotNull prepend="AND" property="Sms">MDA_SMS=#Sms#</isNotNull>
+        <isNotNull prepend="AND" property="ActiveFlag">MDA_ActiveFlag=#ActiveFlag#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">MDA_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>-->
+    </select>
+
+    <select id="SelectDCMSLPMailAddressByConditions" parameterClass="System.Collections.Hashtable" resultClass="MailDeliveryAddress">
+      <!--SELECT MDA_ID AS Id,MDA_MailType AS MailType,MDA_MailTo AS MailTo,MDA_ProductLineID AS ProductLineid,MDA_UserName AS UserName,MDA_MailAddress AS MailAddress,MDA_SMS AS Sms,MDA_ActiveFlag AS ActiveFlag,MDA_CreateDate AS CreateDate,MDA_UpdateDate AS UpdateDate
+      FROM MailDeliveryAddress MA(nolock)
+      INNER JOIN Client(nolock) ON MA.MDA_MailTo=Client.CLT_ID
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_Parent_DMA_ID=Client.CLT_Corp_Id-->
+      SELECT Id AS Id,'' AS MailType,'' AS MailTo,NULL AS ProductLineid,IDENTITY_NAME AS UserName,EMAIL1 AS MailAddress,'' AS Sms,1 AS ActiveFlag,GETDATE() AS CreateDate,GETDATE() AS UpdateDate
+      FROM Lafite_IDENTITY li
+      INNER JOIN DealerMaster DM On DM.DMA_Parent_DMA_ID= li.Corp_ID
+      WHERE ISNULL(li.BOOLEAN_FLAG,0)='1' AND ISNULL(li.DELETE_FLAG,0)='0'
+      <dynamic>
+        <!--<isNotNull prepend="AND" property="MailType">MDA_MailType=#MailType#</isNotNull>-->
+        <isNotNull prepend="AND" property="DealerId">DM.DMA_ID=#DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="ProductLineid">MDA_ProductLineID=#ProductLineid#</isNotNull>-->
+      </dynamic>
+    </select>
+
+      <select id="SelectMailDeliveryAddressByCondition" parameterClass="MailDeliveryAddress" resultClass="MailDeliveryAddress">
+          <!--SELECT MDA_ID AS Id,MDA_MailType AS MailType,MDA_MailTo AS MailTo,MDA_ProductLineID AS ProductLineid,MDA_UserName AS UserName,MDA_MailAddress AS MailAddress,MDA_SMS AS Sms,MDA_ActiveFlag AS ActiveFlag,MDA_CreateDate AS CreateDate,MDA_UpdateDate AS UpdateDate
+          FROM MailDeliveryAddress
+          <dynamic prepend="WHERE">             
+              <isNotNull prepend="AND" property="MailType">MDA_MailType=#MailType#</isNotNull>
+              <isNotNull prepend="AND" property="MailTo">MDA_MailTo=#MailTo#</isNotNull>
+              <isNotNull prepend="AND" property="ProductLineid">MDA_ProductLineID=#ProductLineid#</isNotNull>
+              <isNotNull prepend="AND" property="UserName">MDA_UserName=#UserName#</isNotNull>
+              <isNotNull prepend="AND" property="MailAddress">MDA_MailAddress=#MailAddress#</isNotNull>
+              <isNotNull prepend="AND" property="Sms">MDA_SMS=#Sms#</isNotNull>
+              <isNotNull prepend="AND" property="ActiveFlag">MDA_ActiveFlag=#ActiveFlag#</isNotNull>
+              <isNotNull prepend="AND" property="UpdateDate">MDA_UpdateDate=#UpdateDate#</isNotNull>
+          </dynamic>-->
+          
+      </select>
+  </statements>
+</sqlMap>

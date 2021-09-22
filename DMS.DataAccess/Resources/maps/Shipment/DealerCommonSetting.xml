@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerCommonSettingMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+<alias>
+	<typeAlias alias="DealerCommonSetting" assembly="DMS.Model.dll" type="DMS.Model.DealerCommonSetting" />
+</alias>
+<resultMaps>
+		<resultMap id="DealerCommonSettingResult" class="DealerCommonSetting"><result property="Id" column="DCS_ID" type="Guid" dbType="uniqueidentifier"/><result property="DmaId" column="DCS_DMA_ID" type="Guid" dbType="uniqueidentifier"/><result property="SettingName" column="DCS_SettingName" type="string" dbType="nvarchar"/><result property="SettingValue" column="DCS_SettingValue" type="string" dbType="nvarchar"/><result property="ActiveFlag" column="DCS_ActiveFlag" type="bool" dbType="bit"/></resultMap>
+</resultMaps>
+<statements>
+	<select id="SelectDealerCommonSetting" parameterClass="string" resultClass="DealerCommonSetting">SELECT DCS_ID AS Id,DCS_DMA_ID AS DmaId,DCS_SettingName AS SettingName,DCS_SettingValue AS SettingValue,DCS_ActiveFlag AS ActiveFlagFROM DealerCommonSetting<dynamic prepend="WHERE"><isParameterPresent>DCS_ID = #value#</isParameterPresent></dynamic></select><select id="SelectByFilterDealerCommonSetting" parameterClass="DealerCommonSetting" resultClass="DealerCommonSetting">SELECT DCS_ID AS Id,DCS_DMA_ID AS DmaId,DCS_SettingName AS SettingName,DCS_SettingValue AS SettingValue,DCS_ActiveFlag AS ActiveFlagFROM DealerCommonSetting<dynamic prepend="WHERE"><isNotNull prepend="AND" property="Id">DCS_ID=#Id#</isNotNull><isNotNull prepend="AND" property="DmaId">DCS_DMA_ID=#DmaId#</isNotNull><isNotNull prepend="AND" property="SettingName">DCS_SettingName=#SettingName#</isNotNull><isNotNull prepend="AND" property="SettingValue">DCS_SettingValue=#SettingValue#</isNotNull><isNotNull prepend="AND" property="ActiveFlag">DCS_ActiveFlag=#ActiveFlag#</isNotNull></dynamic></select><insert id="InsertDealerCommonSetting" parameterClass="DealerCommonSetting">	INSERT INTO DealerCommonSetting (DCS_ID,DCS_DMA_ID,DCS_SettingName,DCS_SettingValue,DCS_ActiveFlag) 	VALUES(#Id#,#DmaId#,#SettingName#,#SettingValue#,#ActiveFlag#)</insert><update id="UpdateDealerCommonSetting" parameterClass="DealerCommonSetting">UPDATE DealerCommonSetting  SET DCS_ID=#Id#,DCS_DMA_ID=#DmaId#,DCS_SettingName=#SettingName#,DCS_SettingValue=#SettingValue#,DCS_ActiveFlag=#ActiveFlag#WHERE DCS_ID = #Id#</update><delete id="DeleteDealerCommonSetting" parameterClass="string">DELETE FROM DealerCommonSettingWHERE DCS_ID = #value#</delete>
+  <select id="SelectDealerCommonSettingbyDMA" parameterClass="string" resultClass="DealerCommonSetting">
+    SELECT DCS_ID AS Id,DCS_DMA_ID AS DmaId,DCS_SettingName AS SettingName,DCS_SettingValue AS SettingValue,DCS_ActiveFlag AS ActiveFlag
+    FROM DealerCommonSetting
+    <dynamic prepend="WHERE">
+      <isParameterPresent>
+        DCS_DMA_ID = #value#
+      </isParameterPresent>
+    </dynamic>
+  </select>
+</statements>
+</sqlMap>

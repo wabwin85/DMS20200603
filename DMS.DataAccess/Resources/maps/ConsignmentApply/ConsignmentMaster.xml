@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ConsignmentMasterMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ConsignmentMaster" assembly="DMS.Model.dll" type="DMS.Model.ConsignmentMaster" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ConsignmentMasterResult" class="ConsignmentMaster">
+      <result property="Id" column="CM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductLineId" column="CM_ProductLine_Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="OrderNo" column="CM_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="ConsignmentName" column="CM_ConsignmentName" type="string" dbType="nvarchar"/>
+      <result property="ConsignmentDay" column="CM_ConsignmentDay" type="int" dbType="int"/>
+      <result property="DelayTime" column="CM_DelayTime" type="int" dbType="int"/>
+      <result property="StartDate" column="CM_StartDate" type="DateTime" dbType="datetime"/>
+      <result property="EndDate" column="CM_EndDate" type="DateTime" dbType="datetime"/>
+      <result property="OrderStatus" column="CM_OrderStatus" type="string" dbType="nvarchar"/>
+      <result property="OrderType" column="CM_OrderType" type="string" dbType="nvarchar"/>
+      <result property="Remark" column="CM_Remark" type="string" dbType="nvarchar"/>
+      <result property="ReturnTime" column="CM_ReturnTime" type="int" dbType="int"/>
+      <result property="DailyFines" column="CM_DailyFines" type="decimal" dbType="decimal"/>
+      <result property="LowestMargin" column="CM_LowestMargin" type="decimal" dbType="decimal"/>
+      <result property="TotalAmount" column="CM_TotalAmount" type="decimal" dbType="decimal"/>
+      <result property="IsActive" column="CM_IsActive" type="bool" dbType="bit"/>
+      <result property="CreateUser" column="CM_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="CM_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="CM_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="CM_UpdateDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_ConsignmentMaster_CheckSubmitMps" class="System.Collections.Hashtable" >
+      <parameter property="CM_ID" column="CM_ID" />
+      <parameter property="ProductLineId" column="ProductLineId" />
+      <parameter property="NAme" column="NAme" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+      <parameter property="RtnRegMsg" column="RtnRegMsg" direction="Output" />
+    </parameterMap>
+    
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectConsignmentMaster" parameterClass="string" resultClass="ConsignmentMaster">
+      SELECT CM_ID AS Id,CM_ProductLine_Id AS ProductLineId,CM_OrderNo AS OrderNo,CM_ConsignmentName AS ConsignmentName,CM_ConsignmentDay AS ConsignmentDay,CM_DelayTime AS DelayTime,CM_StartDate AS StartDate,CM_EndDate AS EndDate,CM_OrderStatus AS OrderStatus,CM_OrderType AS OrderType,CM_Remark AS Remark,CM_ReturnTime AS ReturnTime,CM_DailyFines AS DailyFines,CM_LowestMargin AS LowestMargin,CM_TotalAmount AS TotalAmount,CM_IsActive AS IsActive,CM_CreateUser AS CreateUser,CM_CreateDate AS CreateDate,CM_UpdateUser AS UpdateUser,CM_UpdateDate AS UpdateDate
+      FROM ConsignmentMaster
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          CM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterConsignmentMaster" parameterClass="ConsignmentMaster" resultClass="ConsignmentMaster">
+      SELECT CM_ID AS Id,CM_ProductLine_Id AS ProductLineId,CM_OrderNo AS OrderNo,CM_ConsignmentName AS ConsignmentName,CM_ConsignmentDay AS ConsignmentDay,CM_DelayTime AS DelayTime,CM_StartDate AS StartDate,CM_EndDate AS EndDate,CM_OrderStatus AS OrderStatus,CM_OrderType AS OrderType,CM_Remark AS Remark,CM_ReturnTime AS ReturnTime,CM_DailyFines AS DailyFines,CM_LowestMargin AS LowestMargin,CM_TotalAmount AS TotalAmount,CM_IsActive AS IsActive,CM_CreateUser AS CreateUser,CM_CreateDate AS CreateDate,CM_UpdateUser AS UpdateUser,CM_UpdateDate AS UpdateDate
+      FROM ConsignmentMaster
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">CM_ProductLine_Id=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">CM_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentName">CM_ConsignmentName=#ConsignmentName#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentDay">CM_ConsignmentDay=#ConsignmentDay#</isNotNull>
+        <isNotNull prepend="AND" property="DelayTime">CM_DelayTime=#DelayTime#</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">CM_StartDate=#StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">CM_EndDate=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">CM_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">CM_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">CM_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="ReturnTime">CM_ReturnTime=#ReturnTime#</isNotNull>
+        <isNotNull prepend="AND" property="DailyFines">CM_DailyFines=#DailyFines#</isNotNull>
+        <isNotNull prepend="AND" property="LowestMargin">CM_LowestMargin=#LowestMargin#</isNotNull>
+        <isNotNull prepend="AND" property="TotalAmount">CM_TotalAmount=#TotalAmount#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">CM_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">CM_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">CM_UpdateDate=#UpdateDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertConsignmentMaster" parameterClass="ConsignmentMaster">
+      INSERT INTO ConsignmentMaster
+      (CM_ID,CM_ProductLine_Id,CM_OrderNo,CM_ConsignmentName,CM_ConsignmentDay,CM_DelayTime,CM_StartDate,CM_EndDate,CM_OrderStatus,CM_OrderType,CM_Remark,CM_ReturnTime,CM_DailyFines,CM_LowestMargin,CM_TotalAmount,CM_IsActive,CM_CreateUser,CM_CreateDate,CM_UpdateUser,CM_UpdateDate)
+      VALUES(#Id#,#ProductLineId#,#OrderNo#,#ConsignmentName#,#ConsignmentDay#,#DelayTime#,#StartDate:DateTime:1/1/0001 12:00:00 AM#,#EndDate:DateTime:1/1/0001 12:00:00 AM#,#OrderStatus#,#OrderType#,#Remark#,#ReturnTime#,#DailyFines#,#LowestMargin#,#TotalAmount#,#IsActive#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateConsignmentMaster" parameterClass="ConsignmentMaster">
+      UPDATE ConsignmentMaster
+      SET CM_ID=#Id#,CM_ProductLine_Id=#ProductLineId#,CM_OrderNo=#OrderNo#,CM_ConsignmentName=#ConsignmentName#,CM_ConsignmentDay=#ConsignmentDay#,CM_DelayTime=#DelayTime#,CM_StartDate=#StartDate#,CM_EndDate=#EndDate#,CM_OrderStatus=#OrderStatus#,CM_OrderType=#OrderType#,CM_Remark=#Remark#,CM_ReturnTime=#ReturnTime#,CM_DailyFines=#DailyFines#,CM_LowestMargin=#LowestMargin#,CM_TotalAmount=#TotalAmount#,CM_IsActive=#IsActive#,CM_UpdateUser=#UpdateUser#,CM_UpdateDate=#UpdateDate#
+      WHERE CM_ID = #Id#
+    </update>
+    <delete id="DeleteConsignmentMaster" parameterClass="string">
+      DELETE FROM ConsignmentMaster
+      WHERE CM_ID = #value#
+    </delete>
+
+    <select id="SelectConsignmentMasterByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT distinct CM_ID as Id, CM_OrderNo as OrderNo,CM_ProductLine_Id as ProductLineId,CM_ConsignmentName as ConsignmentName,CM_ConsignmentDay as ConsignmentDay,CM_DelayTime as DelayTime,Convert(nvarchar(10),CM_StartDate,120) as StartDate,Convert(nvarchar(10),CM_EndDate,120) as EndDate,CM_OrderStatus as OrderStatus ,CM_OrderType as OrderType,CM_Remark as Remark,
+      row_number() OVER (ORDER BY CM_CreateDate DESC) AS [row_number]
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      FROM ConsignmentMaster
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=ConsignmentMaster.CM_ProductLine_Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">CM_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">CM_ProductLine_Id=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">
+          EXISTS (SELECT 1 FROM ConsignmentDealer WHERE ConsignmentDealer.CD_CM_ID = ConsignmentMaster.CM_ID
+          AND ConsignmentDealer.CD_DMA_ID=#DealerId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">CM_OrderNo like N'%$OrderNo$%'</isNotNull>
+        <isNotNull prepend="AND" property="StartDate">CM_StartDate >=#StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">CM_EndDate &lt;=#EndDate#</isNotNull>
+        <isNotNull prepend="AND" property="Cfn">
+          EXISTS (SELECT 1 FROM ConsignmentCfn, CFN WHERE ConsignmentCfn.CC_CM_ID = ConsignmentMaster.CM_ID
+          AND ConsignmentCfn.CC_CFN_ID = CFN.CFN_ID AND CFN.CFN_CustomerFaceNbr LIKE N'%$Cfn$%')
+        </isNotNull>
+        <isNotNull prepend="AND" property="OrderStatus">CM_OrderStatus=#OrderStatus#</isNotNull>
+        <isNotNull prepend="AND" property="OrderType">CM_OrderType=#OrderType#</isNotNull>
+        <isNotNull prepend="AND" property="ConsignmentName">CM_ConsignmentName like N'%$ConsignmentName$%'</isNotNull>
+          <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+              (
+              EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+              WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+              AND SD.BUM_ID = CM_ProductLine_Id AND OU.AttributeId &lt;&gt; OU.RootId
+              <iterate prepend="AND" property="OwnerOrganizationUnits"
+                    open="(" close=")" conjunction="OR">
+                  OU.RootId = #OwnerOrganizationUnits[]#
+              </iterate>
+              )
+              OR
+              EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId# AND SD.BUM_ID = CM_ProductLine_Id)
+              )
+          </isEqual>
+        <isNotNull prepend="AND" property="SubCompanyId">
+          (View_ProductLine.SubCompanyId = #SubCompanyId#)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BrandId">
+          (View_ProductLine.BrandId = #BrandId#)
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectConsignmentMasterById" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT distinct CM_ID as Id, CM_OrderNo as OrderNo,ATTRIBUTE_NAME as AttributeName,CM_ConsignmentName as ConsignmentName,CM_ConsignmentDay as ConsignmentDay,CM_DelayTime as DelayTime,Convert(nvarchar(10),CM_StartDate,120) as StartDate,Convert(nvarchar(10),CM_EndDate,120) as EndDate,CM_OrderStatus as OrderStatus ,CM_OrderType as OrderType,CM_Remark as Remark,
+      row_number() OVER (ORDER BY CM_ID ASC) AS [row_number]
+      FROM ConsignmentMaster,View_ProductLine
+      WHERE CM_ProductLine_Id = Id
+      and CM_ID=#value#
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="RevokeOrder" parameterClass="string">
+      UPDATE ConsignmentMaster
+      SET CM_OrderStatus = 'Cancel'
+      WHERE CM_ID = #CMID#
+    </update>
+    <select id="SelectConsignmentMasterByealer" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT Dealer.CD_ID AS Id, Dealer.CD_DMA_ID AS DmaId,Mast.CM_ProductLine_Id AS ProductLineId,Mast.CM_ConsignmentName AS ConsignmentName,Dm.DMA_ChineseName AS Name,Dm.DMA_DealerType AS DealerType, Dm.DMA_SAP_Code AS SAPCode,  row_number() OVER (ORDER BY Mast.CM_ID ASC) AS [row_number]
+      FROM ConsignmentMaster Mast(nolock)
+      INNER JOIN ConsignmentDealer Dealer(nolock) ON Dealer.CD_CM_ID= Mast.CM_ID 
+      INNER JOIN DealerMaster AS Dm(nolock)  ON Dealer.CD_DMA_ID=Dm.DMA_ID
+      WHERE Mast.CM_ID=#CMID#
+    </select>
+    <select id="QeryConsignmentMasterDealerSearch" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select *,row_number() OVER (ORDER BY t.ChineseName ASC) AS [row_number] from  ( select distinct  Mast.DMA_ID AS Id,Mast.DMA_ChineseName AS ChineseName,Mast.DMA_ChineseShortName AS ChineseShortName,DMA_EnglishName AS EnglishName,Mast.DMA_EnglishShortName AS EnglishShortName,Mast.DMA_Nbr AS Nbr,
+      Mast.DMA_SAP_Code AS SapCode,Mast.DMA_DealerType AS DealerType,Mast.DMA_CompanyType AS CompanyType,
+      Mast.DMA_CompanyGrade AS CompanyGrade,Mast.DMA_DealerAuthentication AS DealerAuthentication,Mast.DMA_FirstContractDate AS FirstContractDate,
+      Mast.DMA_RegisteredAddress AS RegisteredAddress,Mast.DMA_Address AS Address,Mast.DMA_ShipToAddress AS ShipToAddress,
+      Mast.DMA_PostalCode AS PostalCode,Mast.DMA_Phone AS Phone,DMA_Fax AS Fax,
+      Mast.DMA_ContactPerson AS ContactPerson,Mast.DMA_Email AS Email,
+      Mast.DMA_GeneralManager AS GeneralManager,Mast.DMA_LegalRep AS LegalRep,CAST (Mast.DMA_RegisteredCapital AS REAL) AS RegisteredCapital,Mast.DMA_Bank AS Bank,Mast.DMA_BankAccount AS BankAccount,Mast.DMA_TaxNo AS TaxNo,DMA_License AS License,DMA_LicenseLimit AS LicenseLimit,DMA_Province AS Province,DMA_City AS City,DMA_District AS District,DMA_SalesMode AS SalesMode,DMA_Taxpayer AS Taxpayer,DMA_Finance AS Finance,DMA_Finance_Phone AS FinancePhone,DMA_Finance_Email AS FinanceEmail,DMA_Payment AS Payment,DMA_ShipToContact_CON_ID AS ShipToContactConId,DMA_BillToContact_CON_ID AS BillToContactConId,DMA_EstablishDate AS EstablishDate,DMA_SystemStartDate AS SystemStartDate,DMA_Certification AS Certification,DMA_HostCompanyFlag AS HostCompanyFlag,DMA_DealerOrderNbrName AS DealerOrderNbrName,DMA_SAPInvoiceToEmail AS SapInvoiceToEmail,DMA_LastModifiedDate AS LastUpdateDate,
+      (SELECT IDENTITY_NAME FROM Lafite_IDENTITY WHERE Id = DMA_LastModifiedBy_USR_UserID ) AS LastUpdateUserName
+      ,DMA_LastModifiedBy_USR_UserID AS LastUpdateUser,DMA_ActiveFlag AS ActiveFlag,DMA_DeletedFlag AS DeletedFlag
+      ,DMA_Parent_DMA_ID AS ParentDmaId
+
+      FROM DealerMaster Mast(nolock) inner join V_DealerContractMaster V_Mast on V_Mast.DMA_ID=Mast.DMA_ID
+      WHERE DMA_DeletedFlag = 0 and V_Mast.Division=#Division# and V_Mast.EffectiveDate &lt; GETDATE() and  (isnull(V_Mast.ExtensionDate,V_Mast.ExpirationDate)> GETDATE() OR ExpirationDate > GETDATE()))as t
+
+        <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ChineseName"> t.ChineseName like N'%'+#ChineseName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="EnglishName"> t.EnglishName like N'%'+#EnglishName#+'%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">t.DealerType=#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="SapCode"> t.SapCode like N'%'+#SapCode#+'%'</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectConsignmentMasterAllby" parameterClass="string" resultClass="System.Data.DataSet">
+      select CM_ID CMID,CM_ConsignmentName Name from ConsignmentMaster where CM_OrderStatus=#states#
+    </select>
+    <select id="QuqerConsignmentAuthorizationby" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select  CA.CA_ID AS Id,Mast.CM_ConsignmentName AS ConsignmentName,CA.CA_StartDate AS
+      StartDate,CA.CA_EndDate AS  EndDate ,CA.CA_IsActive AS IsActive ,Dma.DMA_ChineseName AS ChineseName,
+      row_number() OVER (ORDER BY CA.CA_CreateDate DESC) AS [row_number]
+      ,View_ProductLine.SubCompanyName
+      ,View_ProductLine.BrandName
+      from ConsignmentMaster Mast inner join ConsignmentAuthorization CA on Mast.CM_ID=CA.CA_CM_ID
+      inner join DealerMaster Dma(nolock) on CA.CA_DMA_ID=Dma.DMA_ID
+      LEFT JOIN View_ProductLine(nolock) ON View_ProductLine.Id=CA.CA_ProductLine_Id
+      where (Mast.CM_OrderStatus='Submit' or Mast.CM_OrderStatus='Cancel')
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = CA.CA_DMA_ID AND SD.BUM_ID = Mast.CM_ProductLine_Id AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = CA.CA_DMA_ID AND SD.BUM_ID = Mast.CM_ProductLine_Id)
+        )
+      </isEqual>
+      <isNotNull prepend="AND" property="ProductLine">
+        Mast.CM_ProductLine_Id=#ProductLine#
+      </isNotNull>
+      <isNotNull prepend="AND" property="CmId">
+        Mast.CM_ID=#CmId#
+      </isNotNull>
+      <isNotNull prepend="AND" property="DealreId">
+        CA.CA_DMA_ID=#DealreId#
+      </isNotNull>
+      <isNotNull prepend="AND" property="IsActive">
+        CA.CA_IsActive=#IsActive#
+      </isNotNull>
+      <isNotNull prepend="AND" property="SubCompanyId">
+        (View_ProductLine.SubCompanyId = #SubCompanyId#)
+      </isNotNull>
+      <isNotNull prepend="AND" property="BrandId">
+        (View_ProductLine.BrandId = #BrandId#)
+      </isNotNull>
+    </select>
+    <select id="SelectDelareProductLineby" parameterClass="string" resultClass="System.Data.DataSet">
+      select distinct A.ProductLineID Id,A.ProductLineName Name from
+      V_DivisionProductLineRelation A where exists(select 1 from V_DealerContractMaster B where
+      CONVERT(NVARCHAR(100),A.DivisionCode)=CONVERT(NVARCHAR(100),B.Division) and B.DMA_ID=#DmaId# and B.EffectiveDate  &lt;=GETDATE() and (ExpirationDate>= GETDATE() OR ExtensionDate>=GETDATE()))
+    </select>
+    <select id="SelectProductLineConsignmenby" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+        SELECT CM_ID AS Id, CM_ConsignmentName AS Name FROM ConsignmentMaster where
+        EXISTS (SELECT 1 FROM ConsignmentDealer
+        WHERE ConsignmentMaster.CM_ID=ConsignmentDealer.CD_CM_ID
+        AND ConsignmentDealer.CD_DMA_ID=#DMAID# )
+        AND CM_ProductLine_Id=#ProductLineId# AND ConsignmentMaster.CM_OrderStatus='Submit'
+    </select>
+    <insert id="InsertConsignmentAuthorizationby" parameterClass="System.Collections.Hashtable">
+      insert into ConsignmentAuthorization(CA_ID,CA_DMA_ID,CA_ProductLine_Id,CA_CM_ID,CA_IsActive,CA_StartDate,CA_EndDate,CA_Remark,CA_CreateUser,CA_CreateDate,CA_CM_StartDate,CA_CM_EndDate)
+      values(NEWID(),#DMAID#,#ProductLineId#,#CMID#,#IsActive#,#StartDate#,#EndDate#,#Remark#,#UserId#,GETDATE(), #CMStartDate#,#CMEndDate#)
+    </insert>
+    <update id="UpdateConsignmentAuthorizationby" parameterClass="System.Collections.Hashtable">
+      UPDATE ConsignmentAuthorization SET CA_StartDate=#StartDate#,CA_EndDate=#EndDate# WHERE CA_ID=#CAID#
+    </update>
+    <select id="SelecConsignmentAuthorizationby" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT * FROM ConsignmentAuthorization WHERE CA_ID=#CAID#
+    </select>
+    <select id="SelecConsignmentdatetimeby" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select * from ConsignmentAuthorization a where exists(select 1 from ConsignmentMaster b where a.CA_CM_ID=b.CM_ID and b.CM_ID=#CMID#)
+      and a.CA_ProductLine_Id=#ProductLineId# and a.CA_DMA_ID=#DMAId# and a.CA_IsActive='1'
+    </select>
+    <select id="SelecConsignmentAuthorizationCount" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select COUNT(*) as Cnt from ConsignmentAuthorization where CA_DMA_ID=#DMAID# AND CA_ProductLine_Id=#ProductLineId# AND CA_CM_ID=#CMID#
+    </select>
+    <update id="Updatstopby" parameterClass="string">
+      update ConsignmentAuthorization set CA_IsActive='0' where CA_ID=#CAID#
+    </update>
+    <update id="Updatrecoveryby" parameterClass="string">
+      update ConsignmentAuthorization set CA_IsActive='1' where CA_ID=#CAID#
+    </update>
+    <delete id="DeleteConsignmentDealerby" parameterClass="string">
+      DELETE ConsignmentDealer WHERE CD_CM_ID=#CMID#
+    </delete>
+    <procedure id="GC_ConsignmentMaster_CheckSubmit" parameterMap="GC_ConsignmentMaster_CheckSubmitMps">
+      dbo.GC_ConsignmentMaster_CheckSubmit
+    </procedure>
+  </statements>
+</sqlMap>

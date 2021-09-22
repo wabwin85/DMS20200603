@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DpRightMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DpRight" assembly="DMS.Model.dll" type="DMS.Model.DpRight" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DpRightResult" class="DpRight">
+      <result property="Id" column="Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Modleid" column="Modleid" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Roleid" column="Roleid" type="Guid" dbType="uniqueidentifier"/>
+      <result property="IsRead" column="IsRead" type="bool" dbType="bit"/>
+      <result property="IsWrite" column="IsWrite" type="bool" dbType="bit"/>
+      <result property="IsCreate" column="IsCreate" type="bool" dbType="bit"/>
+      <result property="IsDelete" column="IsDelete" type="bool" dbType="bit"/>
+      <result property="IsImport" column="IsImport" type="bool" dbType="bit"/>
+      <result property="IsOutport" column="IsOutport" type="bool" dbType="bit"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="IsAction" column="IsAction" type="bool" dbType="bit"/>
+      <result property="DeleteBy" column="DeleteBy" type="string" dbType="nvarchar"/>
+      <result property="DeleteDate" column="DeleteDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDpRight" parameterClass="string" resultClass="DpRight">
+      SELECT ID AS Id,ModleID AS Modleid,RoleID AS Roleid,IsRead AS IsRead,IsWrite AS IsWrite,IsCreate AS IsCreate,IsDelete AS IsDelete,IsImport AS IsImport,IsOutport AS IsOutport,CreateBy AS CreateBy,CreateDate AS CreateDate,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,IsAction AS IsAction,DeleteBy AS DeleteBy,DeleteDate AS DeleteDate
+      FROM DPRight
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDpRight" parameterClass="DpRight" resultClass="DpRight">
+      SELECT ID AS Id,ModleID AS Modleid,RoleID AS Roleid,IsRead AS IsRead,IsWrite AS IsWrite,IsCreate AS IsCreate,IsDelete AS IsDelete,IsImport AS IsImport,IsOutport AS IsOutport,CreateBy AS CreateBy,CreateDate AS CreateDate,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,IsAction AS IsAction,DeleteBy AS DeleteBy,DeleteDate AS DeleteDate
+      FROM DPRight
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="Modleid">ModleID=#Modleid#</isNotNull>
+        <isNotNull prepend="AND" property="Roleid">RoleID=#Roleid#</isNotNull>
+        <isNotNull prepend="AND" property="IsRead">IsRead=#IsRead#</isNotNull>
+        <isNotNull prepend="AND" property="IsWrite">IsWrite=#IsWrite#</isNotNull>
+        <isNotNull prepend="AND" property="IsCreate">IsCreate=#IsCreate#</isNotNull>
+        <isNotNull prepend="AND" property="IsDelete">IsDelete=#IsDelete#</isNotNull>
+        <isNotNull prepend="AND" property="IsImport">IsImport=#IsImport#</isNotNull>
+        <isNotNull prepend="AND" property="IsOutport">IsOutport=#IsOutport#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDate">CreateDate=#CreateDate#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="IsAction">IsAction=#IsAction#</isNotNull>
+        <isNotNull prepend="AND" property="DeleteBy">DeleteBy=#DeleteBy#</isNotNull>
+        <isNotNull prepend="AND" property="DeleteDate">DeleteDate=#DeleteDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDpRight" parameterClass="DpRight">
+      INSERT INTO dbo.DPRight
+      (ID,ModleID,RoleID,IsRead,IsWrite,IsCreate,IsDelete,IsImport,IsOutport,CreateBy,CreateDate,ModifyBy,ModifyDate,IsAction,DeleteBy,DeleteDate)
+      VALUES(#Id#,#Modleid#,#Roleid#,#IsRead#,#IsWrite#,#IsCreate#,#IsDelete#,#IsImport#,#IsOutport#,#CreateBy#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#IsAction#,#DeleteBy#,#DeleteDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateDpRight" parameterClass="DpRight">
+      UPDATE DPRight
+      SET ID=#Id#,ModleID=#Modleid#,RoleID=#Roleid#,IsRead=#IsRead#,IsWrite=#IsWrite#,IsCreate=#IsCreate#,IsDelete=#IsDelete#,IsImport=#IsImport#,IsOutport=#IsOutport#,CreateBy=#CreateBy#,CreateDate=#CreateDate#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,IsAction=#IsAction#,DeleteBy=#DeleteBy#,DeleteDate=#DeleteDate#
+      WHERE ID = #Id#
+    </update>
+    <delete id="DeleteDpRight" parameterClass="string">
+      DELETE FROM DPRight
+      WHERE ID = #value#
+    </delete>
+    <update id="FakeDeleteDpRight" parameterClass="DpRight">
+      UPDATE DPRight
+      SET ID=#Id#,ModleID=#Modleid#,RoleID=#Roleid#,IsRead=#IsRead#,IsWrite=#IsWrite#,IsCreate=#IsCreate#,IsDelete=#IsDelete#,IsImport=#IsImport#,IsOutport=#IsOutport#,CreateBy=#CreateBy#,CreateDate=#CreateDate#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#,IsAction=#IsAction#,DeleteBy=#DeleteBy#,DeleteDate=#DeleteDate#
+      WHERE ID = #Id#
+    </update>
+
+    <select id="SelectAllModularAndPermissions" parameterClass="string" resultClass="System.Collections.Hashtable" >
+      select md.Id,md.PID,md.DICT_LEVEL,md.VALUE1 as ModleName,rt.ID as RoleID
+      from dbo.Lafite_DICT md left join dbo.DPRight rt
+      on md.Id=rt.ModleID and rt.IsAction=1 and rt.RoleID=#value#
+      where md.DICT_TYPE in ('CONST_DealerInfo_FirstClass','CONST_DealerInfo_SecondClass') and md.ACTIVE_FLAG='1'
+      order by PID
+    </select>
+
+    <select id="SelectFristClassPermissions" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      select distinct md.PID
+      from dbo.Lafite_DICT md
+      inner join dbo.DPRight ri
+      on ri.ModleId=md.Id and md.DICT_TYPE='CONST_DealerInfo_SecondClass'
+      inner join dbo.Lafite_ATTRIBUTE rl on rl.Id=ri.RoleID
+      <isNotNull prepend="" property="Roles">
+        AND rl.ATTRIBUTE_NAME in
+        <iterate prepend="" property="Roles"
+            open="(" close=")" conjunction=",">
+          #Roles[]#
+        </iterate>
+      </isNotNull>
+    </select>
+
+    <select id="SelectSecondClassPermissions" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      select ri.ModleID
+      from dbo.DPRight ri
+      inner join dbo.Lafite_DICT md
+      on ri.ModleId=md.Id
+      and md.DICT_TYPE='CONST_DealerInfo_SecondClass'
+      and md.PID=#ParentModleID#
+      inner join dbo.Lafite_ATTRIBUTE rl on rl.Id=ri.RoleID
+      <isNotNull prepend="" property="Roles">
+        AND rl.ATTRIBUTE_NAME in
+        <iterate prepend="" property="Roles"
+            open="(" close=")" conjunction=",">
+          #Roles[]#
+        </iterate>
+      </isNotNull>
+    </select>
+
+    <delete id="DeletePermissionsByRoleId" parameterClass="string">
+      delete dbo.DPRight where RoleID=#value#
+    </delete>
+  </statements>
+</sqlMap>

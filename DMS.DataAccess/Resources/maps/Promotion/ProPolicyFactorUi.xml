@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProPolicyFactorUiMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ProPolicyFactorUi" assembly="DMS.Model.dll" type="DMS.Model.ProPolicyFactorUi" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ProPolicyFactorUiResult" class="ProPolicyFactorUi">
+      <result property="PolicyFactorId" column="PolicyFactorId" type="int" dbType="int"/>
+      <result property="PolicyId" column="PolicyId" type="int" dbType="int"/>
+      <result property="FactId" column="FactId" type="int" dbType="int"/>
+      <result property="FactDesc" column="FactDesc" type="string" dbType="nvarchar"/>
+      <result property="DataType" column="DataType" type="string" dbType="nvarchar"/>
+      <result property="FactType" column="FactType" type="string" dbType="nvarchar"/>
+      <result property="FactValue" column="FactValue" type="string" dbType="nvarchar"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark1" column="Remark1" type="string" dbType="nvarchar"/>
+      <result property="CurrUser" column="CurrUser" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectProPolicyFactorUi" parameterClass="string" resultClass="ProPolicyFactorUi">
+      SELECT PolicyFactorId AS PolicyFactorId,PolicyId AS PolicyId,FactId AS FactId,FactDesc AS FactDesc,DataType AS DataType,FactType AS FactType,FactValue AS FactValue,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,CurrUser AS CurrUser
+      FROM Promotion.PRO_POLICY_FACTOR_UI
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          PolicyFactorId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterProPolicyFactorUi" parameterClass="ProPolicyFactorUi" resultClass="ProPolicyFactorUi">
+      SELECT PolicyFactorId AS PolicyFactorId,PolicyId AS PolicyId,FactId AS FactId,FactDesc AS FactDesc,DataType AS DataType,FactType AS FactType,FactValue AS FactValue,CreateBy AS CreateBy,CreateTime AS CreateTime,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate,Remark1 AS Remark1,CurrUser AS CurrUser
+      FROM Promotion.PRO_POLICY_FACTOR_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="FactId">FactId=#FactId#</isNotNull>
+        <isNotNull prepend="AND" property="FactDesc">FactDesc=#FactDesc#</isNotNull>
+        <isNotNull prepend="AND" property="DataType">DataType=#DataType#</isNotNull>
+        <isNotNull prepend="AND" property="FactType">FactType=#FactType#</isNotNull>
+        <isNotNull prepend="AND" property="FactValue">FactValue=#FactValue#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">CreateTime=#CreateTime#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark1">Remark1=#Remark1#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+    <!--维护政策因素表信息-->
+    <insert id="InsertProPolicyFactorUi" parameterClass="ProPolicyFactorUi">
+      INSERT INTO Promotion.PRO_POLICY_FACTOR_UI
+      (PolicyFactorId,PolicyId,FactId,FactDesc,DataType,FactType,FactValue,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,CurrUser)
+      VALUES(#PolicyFactorId#,#PolicyId#,#FactId#,#FactDesc#,#DataType#,#FactType#,#FactValue#,#CreateBy#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#,#Remark1#,#CurrUser#)
+    </insert>
+
+    <!--因素是赠品时，维护赠品表信息-->
+    <insert id="InsertProPolicyFactorGiftUi" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.PRO_POLICY_LARGESS_UI
+      (PolicyId,GiftType,GiftPolicyFactorId,PointsValue,UseRangePolicyFactorId,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,CurrUser)
+      VALUES(#PolicyId#,#GiftType#,#GiftPolicyFactorId#,#PointsValue#,#UseRangePolicyFactorId#,#CreateBy#,#CreateTime#,#ModifyBy#,#ModifyDate#,#Remark1#,#CurrUser#)
+    </insert>
+
+    <update id="UpdateProPolicyFactorUi" parameterClass="ProPolicyFactorUi">
+      UPDATE Promotion.PRO_POLICY_FACTOR_UI
+      SET FactDesc=#FactDesc#,ModifyDate=Getdate(),Remark1=#Remark1#,CurrUser=#CurrUser#
+      WHERE PolicyFactorId = #PolicyFactorId#
+    </update>
+    
+    <delete id="DeleteProPolicyFactorUi" parameterClass="System.Collections.Hashtable" >
+      DELETE FROM Promotion.PRO_POLICY_FACTOR_UI
+      WHERE PolicyFactorId = #PolicyFactorId# AND CurrUser=#CurrUser#
+    </delete>
+
+    <!--删除赠品因素-->
+    <delete id="DeletePolicyFactorGiftUi" parameterClass="System.Collections.Hashtable" >
+      DELETE Promotion.PRO_POLICY_LARGESS_UI WHERE PolicyId=#PolicyId#   AND CurrUser=#CurrUser#
+    </delete>
+
+    <!--获取政策所对应因素，包含指定产品因素是否赠品-->
+    <select id="SelectPolicyFactorUi" parameterClass="ProPolicyFactorUi" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId AS PolicyFactorId,A.PolicyId AS PolicyId,A.FactId AS FactId,C.FactName AS FactName,A.FactDesc AS FactDesc,A.DataType AS DataType,A.FactType AS FactType,A.FactValue AS FactValue,A.CreateBy AS CreateBy,A.CreateTime AS CreateTime,A.ModifyBy AS ModifyBy,A.ModifyDate AS ModifyDate,A.Remark1 AS Remark1,A.CurrUser AS CurrUser
+      ,B.GiftType
+      ,CASE WHEN B.PolicyId IS NULL THEN 'N' ELSE 'Y' END AS IsGift
+      ,CASE WHEN D.PolicyId IS NULL THEN 'N' ELSE 'Y' END AS IsPoint
+      ,CASE WHEN B.PolicyId IS NULL AND D.PolicyId IS NULL THEN A.FactDesc
+      WHEN B.PolicyId IS NOT NULL AND D.PolicyId IS NULL THEN A.FactDesc +'【赠品】'
+      WHEN B.PolicyId IS NULL AND D.PolicyId IS NOT NULL THEN A.FactDesc +'【积分可购产品范围】'
+      WHEN B.PolicyId IS NOT NULL AND D.PolicyId IS NOT NULL THEN A.FactDesc +'【赠品且是积分可购产品范围】'
+      END IsGiftName
+      ,B.PointsValue AS PointsValue
+      ,ROW_NUMBER () OVER (ORDER BY A.PolicyFactorId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_FACTOR_UI A
+      INNER JOIN Promotion.PRO_FACTOR C ON C.FactId=A.FactId
+      LEFT JOIN Promotion.PRO_POLICY_LARGESS_UI B ON A.PolicyFactorId=B.GiftPolicyFactorId AND A.CurrUser=B.CurrUser AND A.PolicyId=B.PolicyId
+      LEFT JOIN Promotion.PRO_POLICY_LARGESS_UI D ON A.PolicyFactorId=D.UseRangePolicyFactorId AND A.CurrUser=D.CurrUser AND A.PolicyId=D.PolicyId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="FactId">A.FactId=#FactId#</isNotNull>
+        <isNotNull prepend="AND" property="FactDesc">A.FactDesc=#FactDesc#</isNotNull>
+        <isNotNull prepend="AND" property="DataType">A.DataType=#DataType#</isNotNull>
+        <isNotNull prepend="AND" property="FactType">A.FactType=#FactType#</isNotNull>
+        <isNotNull prepend="AND" property="FactValue">A.FactValue=#FactValue#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+    
+    <!--获取政策赠品表数据-->
+    <select id="SelectPolicyLargessUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyId,GiftType,GiftPolicyFactorId,PointsValue,UseRangePolicyFactorId,CreateBy,CreateTime,ModifyBy,ModifyDate,Remark1,CurrUser
+      FROM Promotion.PRO_POLICY_LARGESS_UI A 
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectFactorConditionByFactorId" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT A.ConditionId,B.ConditionName,A.FactId FROM Promotion.PRO_FACTOR_CONDITION A  INNER JOIN promotion.PRO_CONDTION B ON A.ConditionId=B.ConditionId
+      WHERE A.FactId=#value#
+    </select>
+
+    <select id="SelectFactorConditionType" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT VAL AS ConditionType FROM dbo.GC_Fn_SplitStringToTable ((SELECT a.OperTag FROM Promotion.PRO_FACTOR_CONDITION A WHERE A.ConditionId=#ConditionId# AND A.FactId=#FactId#),',')
+    </select>
+
+    <!--维护政策因素规则表-->
+    <insert id="InsertPolicyFactorConditionUi" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Promotion.PRO_POLICY_FACTOR_CONDITION_UI (PolicyFactorId,ConditionId,OperTag,PolicyFactorConditionId,CurrUser)
+      VALUES(#PolicyFactorId#,#ConditionId#,#ConditionType#,#FactConditionId#,#CurrUser#)
+    </insert>
+    
+    <!--删除政策因素规则表-->
+    <delete id="DeleteUIPolicyFactorCondition" parameterClass="System.Collections.Hashtable" >
+      DELETE Promotion.PRO_POLICY_FACTOR_CONDITION_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorConditionId">PolicyFactorConditionId=#PolicyFactorConditionId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+  
+    </delete>
+
+    <!--获取政策因素已设置规则-->
+    <select id="SelectUIPolicyFactorCondition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PolicyFactorId,ConditionId,OperTag,ConditionValue,PolicyFactorConditionId FROM Promotion.PRO_POLICY_FACTOR_CONDITION_UI
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FactConditionId">PolicyFactorConditionId=#FactConditionId#</isNotNull>
+        <isNotNull prepend="AND" property="PolicyFactorId">PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取政策因素可选规则-->
+    <select id="SelectFactorConditionRuleUiCanNew" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Code,Id,Name
+      ,ROW_NUMBER () OVER (ORDER BY Id ) AS [row_number]
+      FROM [Promotion].[func_Interface_FactorCondition_ListNew](#ProductLineId#,#SubBU#,#ConditionId#,#CurrUser#)
+    </select>
+    <!--获取政策因素可选规则-->
+    <select id="SelectFactorConditionRuleUiCan" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Code,Id,Name
+      ,ROW_NUMBER () OVER (ORDER BY Id ) AS [row_number]
+      FROM [Promotion].[func_Interface_FactorCondition_List](#FactConditionId#,#ProductLineId#,#SubBU#,#KeyValue#,#CurrUser#)
+    </select>
+
+    <!--清空政策因素规则-->
+    <update id="FactorConditionRuleUiSetClear" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_POLICY_FACTOR_CONDITION_UI SET ConditionValue='' WHERE CurrUser=#CurrUser# AND PolicyFactorConditionId=#FactConditionId# AND PolicyFactorId=#PolicyFactorId#
+    </update>
+    <!--设定政策因素规则-->
+    <update id="FactorConditionRuleUiSet" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_POLICY_FACTOR_CONDITION_UI SET ConditionValue=(ISNULL(ConditionValue,'')+#ConditionValueAdd#) WHERE CurrUser=#CurrUser# AND PolicyFactorConditionId=#FactConditionId# AND PolicyFactorId=#PolicyFactorId#
+      AND NOT EXISTS(SELECT 1 FROM Promotion.func_Pro_Utility_getStringSplit(ConditionValue) B WHERE B.ColA+'|'=#ConditionValueAdd#)
+    </update>
+    <!--获取政策因素已选规则-->
+    <select id="SelectFactorConditionRuleUiSeletedString" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT * FROM Promotion.func_Interface_FactorConditionSeleted_String(#FactConditionId#,#CurrUser#)
+    </select>
+
+    <!--获取政策因素已选规则-->
+    <select id="SelectFactorConditionRuleUiSeleted" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT Id,Name
+      ,ROW_NUMBER () OVER (ORDER BY Id ) AS [row_number]
+      FROM [Promotion].[func_Interface_FactorConditionSeleted_List](#FactConditionId#,#CurrUser#)
+    </select>
+
+    <!--删除政策因素已选规则-->
+    <select id="FactorConditionRuleUiDelete" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      EXEC [Promotion].[Proc_Interface_PolicyFactorRuleDelete] #FactConditionId#,#ConditionValueDelete#,#CurrUser#
+    </select>
+
+    <!--查询政策因素规则-->
+    <select id="SelectConditionRuleUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT B.ConditionName,A.PolicyFactorId,A.ConditionId,A.OperTag,Promotion.func_Pro_Utility_getFactorRuleValue(A.ConditionId,A.ConditionValue) AS ConditionValue,A.CurrUser,A.PolicyFactorConditionId
+      ,ROW_NUMBER () OVER (ORDER BY A.PolicyFactorConditionId ) AS [row_number]
+      FROM Promotion.PRO_POLICY_FACTOR_CONDITION_UI A
+      INNER JOIN promotion.PRO_CONDTION B ON A.ConditionId=B.ConditionId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PolicyFactorId">A.PolicyFactorId=#PolicyFactorId#</isNotNull>
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取赠品因素-->
+    <select id="SelectIsGift" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyId,A.GiftType,A.GiftPolicyFactorId,A.PointsValue,A.UseRangePolicyFactorId,A.Remark1,B.FactDesc,C.FactName
+      FROM Promotion.PRO_POLICY_LARGESS_UI A
+      LEFT JOIN Promotion.PRO_POLICY_FACTOR_UI B ON A.GiftPolicyFactorId=B.PolicyFactorId AND A.CurrUser=B.CurrUser
+      LEFT JOIN Promotion.PRO_FACTOR C ON C.FactId=B.FactId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      </dynamic>
+    </select>
+
+    <!--修改是赠品因素-->
+    <update id="UpdateIsGiftUi" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_POLICY_LARGESS_UI SET GiftPolicyFactorId=#GiftPolicyFactorId# WHERE CurrUser=#CurrUser# AND PolicyId=#PolicyId#
+    </update>
+
+    <!--修改是积分使用因素-->
+    <update id="UpdateIsUsePointUi" parameterClass="System.Collections.Hashtable">
+      UPDATE Promotion.PRO_POLICY_LARGESS_UI SET UseRangePolicyFactorId=#UseRangePolicyFactorId# WHERE CurrUser=#CurrUser# AND PolicyId=#PolicyId#
+    </update>
+
+    <!--获取可用于作为计算基数的政策因素-->
+    <select id="SelectComputePolicyFactorUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,A.PolicyId,A.FactId,A.FactDesc,A.DataType,A.FactType,A.FactValue,A.CreateBy,A.CreateTime,A.ModifyBy,A.ModifyDate,A.Remark1,A.CurrUser,B.FactName
+      FROM Promotion.PRO_POLICY_FACTOR_UI A
+      INNER JOIN Promotion.PRO_FACTOR B ON A.FactId=B.FactId
+      WHERE
+      B.ValueType IN ('QUANTITY','MONEY')
+      <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+      <isNotNull prepend="AND" property="PolicyStyleSub">
+        ((ISNULL(#PolicyStyleSub#,'')='金额百分比积分' AND    B.ValueType='MONEY') OR (ISNULL(#PolicyStyleSub#,'') &lt;&gt;'金额百分比积分') )
+      </isNotNull>
+    </select>
+
+    <!--获取可以用于作为门槛的因素-->
+    <select id="SelectSillPolicyFactorUi" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT A.PolicyFactorId,A.PolicyId,A.FactId,A.FactDesc,A.DataType,A.FactType,A.FactValue,A.CreateBy,A.CreateTime,A.ModifyBy,A.ModifyDate,A.Remark1,A.CurrUser,
+      case when isnull(A.FactDesc,'')='' then B.FactName else (B.FactName+'('+A.FactDesc+')') end as FactName
+      FROM Promotion.PRO_POLICY_FACTOR_UI A
+      INNER JOIN Promotion.PRO_FACTOR B ON A.FactId=B.FactId
+      WHERE
+      B.ValueType IS NOT NULL
+      <isNotNull prepend="AND" property="CurrUser">A.CurrUser=#CurrUser#</isNotNull>
+      <isNotNull prepend="AND" property="PolicyId">A.PolicyId=#PolicyId#</isNotNull>
+    </select>
+
+  </statements>
+</sqlMap>

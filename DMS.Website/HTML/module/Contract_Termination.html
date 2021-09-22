@@ -1,0 +1,619 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>蓝威 DMS</title>
+    <style>
+        .grid-cell {
+            width: 100%;
+            text-align: left;
+            padding: 0px;
+            font-weight: normal;
+            vertical-align: top;
+            border-top: 0px solid;
+            display: inline-flex;
+            border-bottom: 1px solid #eee;
+        }
+
+            .grid-cell double-cell:last-child {
+                border-bottom: 0;
+            }
+
+            .grid-cell > label {
+                padding: 5px;
+                float: left;
+                font-weight: 600;
+                word-break: break-all;
+                word-wrap: break-word;
+            }
+
+            .grid-cell > div {
+                padding: 5px;
+                float: left;
+                word-break: break-all;
+                word-wrap: break-word;
+            }
+
+
+        .double-cell > label {
+            width: 40%;
+        }
+
+        .double-cell > div {
+            width: 60%;
+        }
+
+        .single-cell > label {
+            width: 40%;
+        }
+
+        .single-cell > div {
+            width: 60%;
+        }
+
+        .pc-table {
+            display: block;
+        }
+
+        .mobile-table {
+            display: none;
+        }
+
+        @media all and (max-width:1000px) {
+            .double-cell > label {
+                width: 250px;
+            }
+
+            .double-cell > div {
+                width: -moz-calc(100% - 250px);
+                width: -webkit-calc(100% - 250px);
+                width: calc(100% - 250px);
+            }
+
+            .single-cell {
+                display: inline-table;
+            }
+
+                .single-cell > label {
+                    width: 100%;
+                }
+
+                .single-cell > div {
+                    width: 100%;
+                }
+
+            .pc-table {
+                display: none;
+            }
+
+            .mobile-table {
+                display: inline-table;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <div style="width:100%;font-size:20px;text-align:center;border:2px solid #eee;padding:5px 0;margin:10px 0;">经销商终止</div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">申请信息<!--(Application Information)-->：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label style="width:100%; display: none;">平台和一级经销商，请用英文输入！<br /> </label>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请单号(Application No.)：</label>
+                    <div>
+                        #{Main.ContractNo}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>产品线：</label>
+                    <div>
+                        #{Main.DepIdShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>合同分类：</label>
+                    <div>
+                        #{Main.SUBDEPIDShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请人：</label>
+                    <div>
+                        #{Main.EName}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请日期(Request Date)：</label>
+                    <div>
+                        #{Main.RequestDate}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>申请部门：</label>
+                    <div>
+                        #{Main.ApplicantDepShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="display:none;">
+                    <label>市场类型：</label>
+                    <div>
+                        #{Main.MarketTypeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>经销商类型：</label>
+                    <div>
+                        #{Main.DealerTypeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>经销商：</label>
+                    <div>
+                        #{Main.DealerNameShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>协议生效日：</label>
+                    <div>
+                        #{Main.DealerBeginDate}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>协议到期日：</label>
+                    <div>
+                        #{Main.DealerEndDate}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>终止类型：</label>
+                    <div>
+                        #{Main.DealerEndTypShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>终止生效日：</label>
+                    <div>
+                        #{Main.PlanExpiration}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>终止原因：</label>
+                    <div>
+                        #{Main.DealerEndReasonShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_OtherReason}">
+                    <label>其他终止原因：</label>
+                    <div>
+                        #{Main.OtherReason}
+                    </div>
+                </div>
+                <div class="grid-cell single-cell" style="#{Display.Display_IAF}">
+                    <label>IAF：</label>
+                    <div>
+                        #{Main.IAF}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_ReagionRSM}">
+                    <label>RSM：</label>
+                    <div>
+                        #{Main.ReagionRSMShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>指标总额(CNY)(不含税)：</label>
+                    <div>
+                        #{Main.Quotatotal}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="display:none;">
+                    <label>指标总额(USD)不含税：</label>
+                    <div>
+                        #{Main.QUOTAUSD}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">经销商当前状态：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell">
+                    <label>1. ) 是否有未完成的投标工作?</label>
+                    <div>
+                        #{Status.TenderIssueShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>备注：</label>
+                    <div>
+                        #{Status.TenderIssueRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_RebateShow}">
+                    <label>2. ) 代理商的返利 (CNY，Exculde VAT):</label>
+                    <div>
+                        #{Status.RebateShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_RebateAmt}">
+                    <label>返利金额(CNY, inc. VAT)：</label>
+                    <div>
+                        #{Status.RebateAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_PromotionShow}">
+                    <label>3. ) 代理商促销 (CNY，Exculde VAT):</label>
+                    <div>
+                        #{Status.PromotionShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_PromotionAmt}">
+                    <label>促销金额(CNY, inc. VAT)：</label>
+                    <div>
+                        #{Status.PromotionAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>4. ) 代理商投诉换货 (CNY，Exculde VAT)：</label>
+                    <div>
+                        #{Status.ComplaintShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>投诉换货金额(CNY, inc. VAT)：</label>
+                    <div>
+                        #{Status.ComplaintAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_GoodsReturnShow}">
+                    <label>5. ) 代理商终止后是否有退货：</label>
+                    <div>
+                        #{Status.GoodsReturnShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_GoodsReturnAmt}">
+                    <label>退换货金额：</label>
+                    <div>
+                        #{Status.GoodsReturnAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>交接货原因：</label>
+                    <div>
+                        #{Status.ReturnReasonShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>交接货产品清单：</label>
+                    <div>
+                        #{Status.IsRGAAttachShow}
+                    </div>
+                </div>
+                <div class="grid-cell single-cell">
+                    <label>清单附件：</label>
+                    <div>
+                        #{Status.RGAAttach}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CreditMemoShow}">
+                    <label>6. ) 代理商是否有资质开红字通知单：</label>
+                    <div>
+                        #{Status.CreditMemoShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CreditMemoRemark}">
+                    <label>备注</label>
+                    <div>
+                        #{Status.CreditMemoRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_IsPendingPaymentShow}">
+                    <label>7. ) 是否和代理商存在争议款项，需要蓝威支付代理商：</label>
+                    <div>
+                        #{Status.IsPendingPaymentShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_PendingAmt}">
+                    <label>金额:</label>
+                    <div>
+                        #{Status.PendingAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_PendingRemark}">
+                    <label>争议款项原因：</label>
+                    <div>
+                        #{Status.PendingRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CurrentAR}">
+                    <label>8.) 经销商应付账款 (CNY, inc. VAT):</label>
+                    <div>
+                        #{Status.CurrentAR}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CashDepositShow}">
+                    <label>9.) ① 现金抵押：</label>
+                    <div>
+                        #{Status.CashDepositShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CashDepositAmt}">
+                    <label>金额:</label>
+                    <div>
+                        #{Status.CashDepositAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_BGuaranteeShow}">
+                    <label>9.) ② 银行保函:</label>
+                    <div>
+                        #{Status.BGuaranteeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_BGuaranteeAmt}">
+                    <label>金额:</label>
+                    <div>
+                        #{Status.BGuaranteeAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CGuaranteeShow}">
+                    <label>9.) ③公司保函：</label>
+                    <div>
+                        #{Status.CGuaranteeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_CGuaranteeAmt}">
+                    <label>金额:</label>
+                    <div>
+                        #{Status.CGuaranteeAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>10.) 代理商缺货和未清的短期寄售 (CNY, inc. VAT)：</label>
+                    <div>
+                        #{Status.InventoryShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>金额:</label>
+                    <div>
+                        #{Status.InventoryAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell">
+                    <label>库存清单:</label>
+                    <div>
+                        #{Status.InventoryList}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_EstimatedAR}">
+                    <label>11.) 结算金额 (CNY, inc. VAT):</label>
+                    <div>
+                        #{Status.EstimatedAR}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_Wirteoff}">
+                    <label>其中申请坏账损失(wirte off)：</label>
+                    <div>
+                        #{Status.Wirteoff}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_PaymentPlan}">
+                    <label>12.) 如果清算后仍有欠款，请填写付款计划:</label>
+                    <div>
+                        #{Status.PaymentPlan}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_ReserveShow}">
+                    <label>13.) 坏帐计提？：</label>
+                    <div>
+                        #{Status.ReserveShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_ReserveAmt}">
+                    <label>坏帐金额:</label>
+                    <div>
+                        #{Status.ReserveAmt}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_ReserveTypeShow}">
+                    <label>坏帐类型:</label>
+                    <div>
+                        #{Status.ReserveTypeShow}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">业务交接</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>谁来接管此经销商业务？</label>
+                    <div>
+                        #{Handover.TakeOver}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>接管经销商类型</label>
+                    <div>
+                        #{Handover.TakeOverTypeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>如果是新经销商，是否已经提交新经销商申请？</label>
+                    <div>
+                        #{Handover.TakeOverIsNewShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>是否已经通知经销商不续约或终止？</label>
+                    <div>
+                        #{Handover.HandoverNotifiedShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>何时通知经销商不续约或终止？提案？</label>
+                    <div>
+                        #{Handover.WhenNotify}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>何时完成结算？</label>
+                    <div>
+                        #{Handover.WhenSettlement}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>何时完成交接工作？</label>
+                    <div>
+                        #{Handover.WhenHandover}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_FollowUp}">
+                    <label>该代理商是否有涉及患者随访</label>
+                    <div>
+                        #{Handover.FollowUpShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_FollowUpRemark}">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;如果是，患者随访跟进措施</label>
+                    <div>
+                        #{Handover.FollowUpRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_FieldOperation}">
+                    <label>该代理商是否正在执行任何现场行动</label>
+                    <div>
+                        #{Handover.FieldOperationShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_FieldOperationRemark}">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;如果是，现场行动进展</label>
+                    <div>
+                        #{Handover.FieldOperationRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_AdverseEvent}">
+                    <label>该代理上是否有正在上报中的不良事件</label>
+                    <div>
+                        #{Handover.AdverseEventShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_AdverseEventRemark}">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;如果是，不良事件上报进展</label>
+                    <div>
+                        #{Handover.AdverseEventRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_SubmitImplant}">
+                    <label>如为CRM代理商，已使用产品的植入单是否已提交到蓝威</label>
+                    <div>
+                        #{Handover.SubmitImplantShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_SubmitImplantRemark}">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;如果否，预计完成时间是</label>
+                    <div>
+                        #{Handover.SubmitImplantRemark}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_InventoryDispose}">
+                    <label>代理商库存产品处置情况</label>
+                    <div>
+                        #{Handover.InventoryDisposeShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_InventoryDisposeRemark1}">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;如果是转移给其他代理商，代理商是</label>
+                    <div>
+                        #{Handover.InventoryDisposeRemark1}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="#{Display.Display_InventoryDisposeRemark2}">
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;如果是其他，请说明</label>
+                    <div>
+                        #{Handover.InventoryDisposeRemark2}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">交接</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>是否将此事通知到DRM, Finance, Operations & HEGA？</label>
+                    <div>
+                        #{NCM.NotifiedShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>是否已审阅并确认以上结算提案？</label>
+                    <div>
+                        #{NCM.ReviewedShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>是否已为交接工作提交新经销商申请表格？</label>
+                    <div>
+                        #{NCM.HandoverShow}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>如果没有，请说明</label>
+                    <div>
+                        #{NCM.HandoverRemark}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size:12px;font-size: 15px;">第三方不续约 / 终止表格</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <div style="width: 100%;padding-left: 0;overflow: hidden;margin: 0;">
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>截至到当前季度指标：总额</label>
+                    <div>
+                        #{EndForm.CurrentQuota}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>截至当前季度实际采购总额：</label>
+                    <div>
+                        #{EndForm.ActualSales}
+                    </div>
+                </div>
+                <div class="grid-cell double-cell" style="width:100%;">
+                    <label>蓝威在经销商终止协议之后<br />若要继续参加投标，请提供详细信息：</label>
+                    <div>
+                        #{EndForm.TenderDetails}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ThirdPartyDisclosureMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ThirdPartyDisclosure" assembly="DMS.Model.dll" type="DMS.Model.ThirdPartyDisclosure" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ThirdPartyDisclosureResult" class="ThirdPartyDisclosure">
+      <result property="Id" column="TPD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="TPD_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ProductLineId" column="TPD_ProductLineId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="HosId" column="TPD_HOS_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CompanyName" column="TPD_CompanyName" type="string" dbType="varchar"/>
+      <result property="Rsm" column="TPD_RSM" type="string" dbType="varchar"/>
+      <result property="CompanyName2" column="TPD_CompanyName2" type="string" dbType="nvarchar"/>
+      <result property="Rsm2" column="TPD_RSM2" type="string" dbType="nvarchar"/>
+      <result property="Nottp" column="TPD_NotTP" type="bool" dbType="bit"/>
+      <result property="ApprovalStatus" column="TPD_ApprovalStatus" type="string" dbType="nvarchar"/>
+      <result property="ApprovalUser" column="TPD_ApprovalUser" type="string" dbType="nvarchar"/>
+      <result property="ApprovalRemark" column="TPD_ApprovalRemark" type="string" dbType="nvarchar"/>
+      <result property="ApprovalDate" column="TPD_ApprovalDate" type="DateTime" dbType="datetime"/>
+
+      <result property="CreatDate" column="TPD_CreatDate" type="DateTime" dbType="datetime"/>
+      <result property="CreatUser" column="TPD_CreatUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Status" column="TPD_Status" type="bool" dbType="bit"/>
+      <result property="ProductNameString" column="TPD_ProductNameString" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectThirdPartyDisclosure" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT TPD_ID AS Id,TPD_DMA_ID AS DmaId,TPD_ProductLineId AS ProductLineId,TPD_HOS_ID AS HosId,TPD_CompanyName AS CompanyName,TPD_RSM AS Rsm,TPD_CreatDate AS CreatDate,TPD_CreatUser AS CreatUser,TPD_ApprovalRemark AS ApprovalRemark,
+      TPD_CompanyName2 AS CompanyName2,TPD_RSM2 AS Rsm2,TPD_NOTTP AS NotTP,
+      B.HOS_HospitalName AS HospitalName
+      ,DMA_DealerType AS DealerType,TPD_ApprovalStatus AS ApprovalStatus,TPD_ProductNameString AS ProductNameString
+      FROM ThirdPartyDisclosure A(nolock)
+      INNER JOIN Hospital B(nolock) ON A.TPD_HOS_ID=B.HOS_ID
+      INNER JOIN DealerMaster C(nolock) ON C.DMA_ID=A.TPD_DMA_ID
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TPD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterThirdPartyDisclosure" parameterClass="ThirdPartyDisclosure" resultClass="ThirdPartyDisclosure">
+      SELECT TPD_ID AS Id,TPD_DMA_ID AS DmaId,TPD_ProductLineId AS ProductLineId,TPD_HOS_ID AS HosId,TPD_CompanyName AS CompanyName,TPD_RSM AS Rsm,TPD_CreatDate AS CreatDate,TPD_CreatUser AS CreatUser,TPD_ProductNameString AS ProductNameString
+      FROM ThirdPartyDisclosure
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">TPD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">TPD_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="HosId">TPD_HOS_ID=#HosId#</isNotNull>
+        <isNotNull prepend="AND" property="CompanyName">TPD_CompanyName=#CompanyName#</isNotNull>
+        <isNotNull prepend="AND" property="Rsm">TPD_RSM=#Rsm#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertThirdPartyDisclosure" parameterClass="ThirdPartyDisclosure">
+      INSERT INTO ThirdPartyDisclosure
+      (TPD_ID,TPD_DMA_ID,TPD_ProductLineId,TPD_HOS_ID,TPD_CompanyName,TPD_RSM,TPD_CompanyName2,TPD_RSM2,TPD_NotTP,TPD_CreatUser,TPD_CreatDate,TPD_ProductNameString)
+      VALUES(#Id#,#DmaId#,#ProductLineId#,#HosId#,#CompanyName#,#Rsm#,#CompanyName2#,#Rsm2#,#Nottp#,#CreatUser#,#CreatDate#,#ProductNameString#)
+    </insert>
+    <update id="UpdateThirdPartyDisclosure" parameterClass="ThirdPartyDisclosure">
+      UPDATE ThirdPartyDisclosure
+      SET TPD_ID=#Id#,TPD_DMA_ID=#DmaId#,TPD_ProductLineId=#ProductLineId#,TPD_HOS_ID=#HosId#,TPD_CompanyName=#CompanyName#,TPD_RSM=#Rsm#,TPD_CompanyName2=#CompanyName2#,TPD_RSM2=#Rsm2#,TPD_NotTP=#Nottp#,TPD_ApprovalStatus=#ApprovalStatus#,
+      TPD_CreatUser=#CreatUser#,TPD_CreatDate=#CreatDate#,TPD_ApprovalUser=#ApprovalUser#, TPD_ApprovalDate=#ApprovalDate#,TPD_ApprovalRemark=#ApprovalRemark#,TPD_ProductNameString=#ProductNameString#
+      WHERE TPD_ID = #Id#
+    </update>
+    <delete id="DeleteThirdPartyDisclosure" parameterClass="string">
+      DELETE FROM ThirdPartyDisclosure
+      WHERE TPD_ID = #value#
+    </delete>
+
+    <select id="SelectThirdPartyDisclosureQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT TPD_ID AS Id,TPD_DMA_ID AS DmaId,TPD_HOS_ID AS HospitalId ,B.HOS_HospitalName AS HospitalName,TPD_NotTP AS NotTP
+      ,TPD_CompanyName AS CompanyName,TPD_RSM AS Rsm
+      ,TPD_CompanyName2 AS CompanyName2,TPD_RSM2 AS Rsm2
+      ,TPD_ApprovalStatus AS ApprovalStatus
+      ,TPD_ApprovalDate AS ApprovalDate
+      ,D.IDENTITY_NAME AS ApprovalName
+      ,TPD_ProductNameString AS ProductNameString
+      <!--=  STUFF (
+      (SELECT ',' + tt1.DivisionName
+      FROM  (SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      AND A.DMA_ID=#DmaId#
+      UNION
+      SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0) &lt;>2
+      AND A.DMA_ID= #DmaId# ) tt1
+      WHERE TPD.TPD_DMA_ID = tt1.DMA_ID
+      AND TPD.TPD_HOS_ID=tt1.HLA_HOS_ID
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')-->
+      ,ROW_NUMBER () OVER (ORDER BY TPD_ApprovalStatus  DESC) AS [row_number]
+      FROM ThirdPartyDisclosure TPD
+      LEFT JOIN Hospital B ON TPD.TPD_HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_IDENTITY D ON D.Id=TPD.TPD_ApprovalUser
+      WHERE TPD_DMA_ID =#DmaId#
+      AND TPD_Status=1
+      <isNotNull prepend="AND" property="HospitalName">B.HOS_HospitalName like N'%$HospitalName$%'</isNotNull>
+    </select>
+
+    <select id="SelectThirdPartyDisclosureQueryNoPL" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT TPD_ID AS Id,TPD_DMA_ID AS DmaId,TPD_HOS_ID AS HospitalId ,B.HOS_HospitalName AS HospitalName,TPD_NotTP AS NotTP
+      ,TPD_CompanyName AS CompanyName,TPD_RSM AS Rsm
+      ,TPD_CompanyName2 AS CompanyName2,TPD_RSM2 AS Rsm2
+      ,ROW_NUMBER () OVER (ORDER BY B.HOS_HospitalName DESC) AS [row_number]
+      FROM ThirdPartyDisclosure TPD
+      LEFT JOIN Hospital B ON TPD.TPD_HOS_ID=B.HOS_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">TPD_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">TPD_Status=#Status#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <delete id="DeleteThirdPartyDisclosureByAuthorized" parameterClass="System.Collections.Hashtable">
+      DELETE  ThirdPartyDisclosure WHERE
+      ThirdPartyDisclosure.TPD_DMA_ID=#DmaId#
+      AND ThirdPartyDisclosure.TPD_ProductLineId=#ProductLineId#
+      AND TPD_ID NOT IN (
+      SELECT TPD.TPD_ID FROM ThirdPartyDisclosure TPD
+      INNER JOIN DealerAuthorizationTable   DAT  ON  DAT.DAT_DMA_ID=TPD.TPD_DMA_ID AND DAT.DAT_ProductLine_BUM_ID =TPD.TPD_ProductLineId
+      INNER JOIN HospitalList  HOS ON DAT.DAT_ID=HOS.HLA_DAT_ID AND HOS.HLA_HOS_ID= TPD.TPD_HOS_ID
+      WHERE TPD.TPD_DMA_ID =#DmaId# AND TPD.TPD_ProductLineId=#ProductLineId# )
+    </delete>
+
+    <select id="SynchronousHospitalToThirdParty" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC GC_SynchronousAuthorToThirdParty #DmaId#,#RtnVal#,#RtnMsg#
+    </select>
+
+    <update id="UpdateHospitalNoDisclosure" parameterClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosure
+      set TPD_NotTP= 1,TPD_CompanyName=null,	TPD_RSM=null,	TPD_CompanyName2=null,	TPD_RSM2=null,TPD_ApprovalStatus=null,TPD_ApprovalDate=null,TPD_ApprovalUser=null,TPD_ApprovalRemark=null
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="and" property="Id">
+          TPD_ID in
+          <iterate  property="Id" open="(" close=")" conjunction=",">
+            #Id[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </update>
+
+    <update id="ApprovalThirdParty" parameterClass="System.Collections.Hashtable">
+      UPDATE ThirdPartyDisclosure
+      set TPD_ApprovalStatus=#ApprovalStatus# ,TPD_ApprovalDate=#ApprovalDate# ,TPD_ApprovalUser=#ApprovalName#,TPD_ApprovalRemark=#ApprovalRemark#
+      where TPD_Id=#Id#
+    </update>
+
+    <select id="SelectThirdPartyBuType" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      STUFF(REPLACE(REPLACE((
+      SELECT DISTINCT TAB.DivisionName RESULT FROM (
+      SELECT DISTINCT c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      AND EXISTS(SELECT 1 FROM ThirdPartyDisclosure H WHERE H.TPD_HOS_ID=E.HLA_HOS_ID AND H.TPD_DMA_ID=A.DMA_ID AND H.TPD_Status=1 )
+      AND A.DMA_ID=#DmaId#
+      UNION
+      SELECT DISTINCT c.DivisionName+'-'+F.MarketName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0) &lt;>2
+      AND EXISTS(SELECT 1 FROM ThirdPartyDisclosure H WHERE H.TPD_HOS_ID=E.HLA_HOS_ID AND H.TPD_DMA_ID=A.DMA_ID AND H.TPD_Status=1 )
+      AND A.DMA_ID= #DmaId#
+      ) AS TAB
+      FOR XML AUTO
+      ), '&lt;TAB RESULT="', ','), '"/>', ''), 1, 1, '') AS  BuType
+    </select>
+    <select id="QueryThirdPartyDisclosure" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT *
+      , ROW_NUMBER () OVER (ORDER BY TB.DmaId  DESC) AS [row_number]
+      FROM(
+      SELECT DISTINCT TDL_ID AS Id,
+      TDL_DMA_ID AS DmaId ,
+      TDL_HOS_ID AS HospitalId ,
+      B.HOS_Key_Account AS HospitaCode ,
+      B.HOS_HospitalName AS HospitalName ,
+      TDL_CompanyName AS CompanyName ,
+      TDL_RSM AS Rsm ,
+      '' AS CompanyName2 ,
+      '' AS Rsm2 ,
+      TDL_ApprovalStatus AS ApprovalStatus ,
+      TDL_ApprovalDate AS ApprovalDate ,
+      D.IDENTITY_NAME AS ApprovalName ,
+      TDL_CreatDate AS CreatDate ,
+      Dma.DMA_ChineseName AS ChineseName ,
+      Dma.DMA_SAP_Code AS SAPCode ,
+      Dma.DMA_Parent_DMA_ID ,
+      CASE WHEN CONVERT(NVARCHAR(10),ISNULL(TPL.TDL_NotTP,''))='1' THEN '是' else '' end AS NotTP
+      ,case when (SELECT TOP 1 At.AT_ID FROM Attachment At(nolock) WHERE TPL.TDL_ID=At.AT_Main_ID) IS null then '否'  else '是' end as IsAt
+      ,TPL.TDL_ProductNameString AS ProductNameString
+      <!--=  STUFF (
+      (SELECT ',' + tt1.DivisionName
+      FROM  (SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      <isNotNull prepend="AND" property="DmaId">A.DMA_ID=#DmaId#</isNotNull>
+      UNION
+      SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0) !=2
+      <isNotNull prepend="AND" property="DmaId">A.DMA_ID=#DmaId#</isNotNull>
+      ) tt1
+      WHERE TPD.TPD_DMA_ID = tt1.DMA_ID
+      AND TPD.TPD_HOS_ID=tt1.HLA_HOS_ID
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')-->
+      FROM ThirdPartyDisclosureList TPL(nolock)
+      LEFT JOIN DealerMaster Dma(nolock) ON TPL.TDL_DMA_ID=Dma.DMA_ID
+      LEFT JOIN Hospital B(nolock) ON TPL.TDL_HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_IDENTITY D(nolock) ON D.Id=TPL.TDL_ApprovalUser
+      )TB
+      <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="DmaId">TB.DmaId=#DmaId#</isNotNull>
+      <isNotNull prepend="AND" property="Name">TB.HospitalName like N'%$Name$%'</isNotNull>
+      <isNotNull prepend="AND" property="IsAt">TB.IsAt=#IsAt#</isNotNull>
+      <isNotNull prepend="AND" property="ApprovalStatus">TB.ApprovalStatus=#ApprovalStatus#</isNotNull>
+      <isNotNull prepend="AND" property="IsHospital">CASE WHEN (TB.CompanyName IS Not NULL OR TB.CompanyName IS Not NULL) THEN '是' ELSE '否' END=#IsHospital#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+        (TB.DMA_Parent_DMA_ID=#OwnerCorpId# OR TB.DmaId=#OwnerCorpId#)
+      </isEqual>
+      </dynamic>
+    </select>
+   
+    <select id="ExportThirdPartyDisclosure" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DISTINCT
+      DmaId,
+      SAPCode AS N'SAPCode ',
+      ChineseName AS N'经销商中文名称',
+      ProductNameString AS N'产品线',
+      HospitaCode AS N'医院Code',
+      HospitalName AS N'医院名称',
+      CompanyName AS N'第三方公司1',
+      Rsm AS N'与第三方关系1',
+      <!--CompanyName2 AS N'第三方公司2',
+      Rsm2 AS N'与第三方关系2',-->
+      CreatDate AS N'披露时间',
+      ApprovalDate AS N'审批时间',
+      ApprovalStatus AS N'审批状态',
+      ApprovalRemark AS N'审批备注',
+      IsAt AS N'是否上传附件',
+      NotTP AS N'确认无披露'
+      FROM(
+      SELECT TDL_ID AS Id,TDL_DMA_ID AS DmaId,TDL_HOS_ID AS HospitalId ,B.HOS_Key_Account AS HospitaCode,B.HOS_HospitalName AS HospitalName
+      ,TDL_CompanyName AS CompanyName,TDL_RSM AS Rsm
+      ,TDL_ApprovalStatus AS ApprovalStatus
+      ,TDL_ApprovalDate AS ApprovalDate
+      ,TDL_ApprovalRemark AS ApprovalRemark
+      ,TPD.TDL_CreatDate AS CreatDate
+      ,D.IDENTITY_NAME AS ApprovalName
+      ,Dma.DMA_ChineseName AS ChineseName
+      ,Dma.DMA_SAP_Code AS SAPCode
+      ,Dma.DMA_Parent_DMA_ID
+      ,CASE WHEN CONVERT(NVARCHAR(10),ISNULL(TPD.TDL_NotTP,''))='1' THEN '是' else '否' end AS NotTP
+      ,case when At.AT_ID IS null then '否'  else '是' end as IsAt
+      ,TPD.TDL_ProductNameString AS ProductNameString
+
+      <!--=  STUFF (
+      (SELECT ',' + tt1.DivisionName
+      FROM  (SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      <isNotNull prepend="AND" property="DmaId">A.DMA_ID=#DmaId#</isNotNull>
+      UNION
+      SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0) !=2
+      <isNotNull prepend="AND" property="DmaId">A.DMA_ID=#DmaId#</isNotNull>
+      ) tt1
+      WHERE TPD.TPD_DMA_ID = tt1.DMA_ID
+      AND TPD.TPD_HOS_ID=tt1.HLA_HOS_ID
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')
+      -->
+      FROM ThirdPartyDisclosureList TPD(nolock)
+      LEFT JOIN DealerMaster Dma(nolock) ON TPD.TDL_DMA_ID=Dma.DMA_ID
+      LEFT JOIN Hospital B(nolock) ON TPD.TDL_HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_IDENTITY D(nolock) ON D.Id=TPD.TDL_ApprovalUser
+      LEFT JOIN Attachment At(nolock) on TPD.TDL_ID=At.AT_Main_ID
+      )TB
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DmaId">TB.DmaId=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Name">TB.HospitalName like N'%$Name$%'</isNotNull>
+        <isNotNull prepend="AND" property="IsAt">TB.IsAt=#IsAt#</isNotNull>
+        <isNotNull prepend="AND" property="ApprovalStatus">TB.ApprovalStatus=#ApprovalStatus#</isNotNull>
+        <isNotNull prepend="AND" property="IsHospital">CASE WHEN (TB.CompanyName IS Not NULL OR TB.CompanyName IS Not NULL) THEN '是' ELSE '否' END=#IsHospital#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (TB.DMA_Parent_DMA_ID=#OwnerCorpId# OR TB.DmaId=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="SelectThirdPartyDisclosureHospitBU" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT TPD_ID AS Id,TPD_DMA_ID AS DmaId,TPD_HOS_ID AS HospitalId ,B.HOS_HospitalName AS HospitalName,TPD_NotTP AS NotTP
+      ,TPD_CompanyName AS CompanyName,TPD_RSM AS Rsm
+      ,TPD_CompanyName2 AS CompanyName2,TPD_RSM2 AS Rsm2
+      ,TPD_ApprovalStatus AS ApprovalStatus
+      ,TPD_ApprovalDate AS ApprovalDate
+      ,D.IDENTITY_NAME AS ApprovalName
+      ,[ProductNameString]=  STUFF (
+      (SELECT ',' + tt1.DivisionName
+      FROM  (SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0)=2
+      AND A.DMA_ID=#DmaId#
+      UNION
+      SELECT DISTINCT A.DMA_ID,C.ProductLineID,E.HLA_HOS_ID,c.DivisionName
+      FROM V_DealerContractMaster A
+      INNER JOIN (SELECT DISTINCT CC_ID,CA_ID FROM V_ProductClassificationStructure) B ON A.CC_ID=B.CC_ID
+      INNER JOIN V_DivisionProductLineRelation C ON C.DivisionCode=CONVERT(NVARCHAR(10),A.Division) AND C.IsEmerging='0'
+      INNER JOIN DealerAuthorizationTable D ON D.DAT_DMA_ID=A.DMA_ID AND D.DAT_ProductLine_BUM_ID=C.ProductLineID AND D.DAT_PMA_ID=B.CA_ID
+      INNER JOIN HospitalList E ON E.HLA_DAT_ID=D.DAT_ID
+      INNER JOIN V_AllHospitalMarketProperty F ON F.ProductLineID=C.ProductLineID AND F.Hos_Id=E.HLA_HOS_ID AND F.MarketProperty=ISNULL(A.MarketType,0)
+      WHERE A.ActiveFlag=1
+      AND ISNULL(A.MarketType,0) &lt;>2
+      AND A.DMA_ID= #DmaId# ) tt1
+      WHERE TPD.TPD_DMA_ID = tt1.DMA_ID
+      AND TPD.TPD_HOS_ID=tt1.HLA_HOS_ID
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')
+      FROM ThirdPartyDisclosure TPD
+      LEFT JOIN Hospital B ON TPD.TPD_HOS_ID=B.HOS_ID
+      LEFT JOIN Lafite_IDENTITY D ON D.Id=TPD.TPD_ApprovalUser
+      WHERE TPD_DMA_ID =#DmaId#
+      AND TPD_Status=1
+      <isNotNull prepend="AND" property="ApprovalStatus">TPD_ApprovalStatus=#ApprovalStatus#</isNotNull>
+      <isNotNull prepend="AND" property="Rsm">TPD.TPD_RSM=#Rsm#</isNotNull>
+      <isNotNull prepend="AND" property="Rsm2">TPD.TPD_RSM2=#Rsm2#</isNotNull>
+    </select>
+    <insert id="InsertContractLog" parameterClass="System.Collections.Hashtable">
+      INSERT INTO ContractLog(ID,ContractUser,DMAId,ContractDate,Remarks)
+      VALUES(NEWID(),#ContractUser#,#DMAId#,GETDATE(),#Remarks#)
+    </insert>
+    <!--add hou zhi yong-->
+  <select id="ThirdPartyDisclosureHospitBU" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+    select h.HOS_HospitalName,TPD_ProductNameString from ThirdPartyDisclosure t(nolock) inner join Hospital h(nolock) on h.HOS_ID=t.TPD_HOS_ID
+    inner join DealerMaster d(nolock) on d.DMA_ID= t.TPD_DMA_ID
+    <dynamic prepend="WHERE">
+     <isNotNull prepend="AND" property="Id">TPD_ID=#Id#</isNotNull>
+     <isNotNull prepend="AND" property="ApprovalStatus">TPD_ApprovalStatus=#ApprovalStatus#</isNotNull>
+       
+  </dynamic>  
+  </select>
+</statements>
+</sqlMap>

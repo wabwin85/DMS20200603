@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="BscUserMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="BscUser" assembly="DMS.Model.dll" type="DMS.Model.BscUser" />
+    </alias>
+    <resultMaps>
+        <resultMap id="BscUserResult" class="BscUser">
+            <result property="BscUserId" column="BscUserId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="WeChatUserId" column="WeChatUserId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UserType" column="UserType" type="String" dbType="nvarchar"/>
+            <result property="CreateUser" column="CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateTime" column="CreateTime" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertBscUser" parameterClass="BscUser">
+            INSERT INTO Commando.BscUser
+            (BscUserId,WeChatUserId,UserType,CreateUser,CreateTime,UpdateUser,UpdateTime)
+            SELECT #BscUserId#,#WeChatUserId#,#UserType#,#CreateUser#,#CreateTime:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateTime:DateTime:1/1/0001 12:00:00 AM#
+            WHERE NOT EXISTS (SELECT 1 FROM Commando.BscUser WHERE BscUserId=#BscUserId#)
+        </insert>
+        <update id="UpdateBscUser" parameterClass="BscUser">
+            UPDATE Commando.BscUser
+            SET UserType=#UserType#,UpdateUser=#UpdateUser#,UpdateTime=#UpdateTime#
+            WHERE BscUserId = #BscUserId#
+        </update>
+        <delete id="DeleteBscUser" parameterClass="string">
+            DELETE FROM Commando.BscUser
+            WHERE BscUserId = #value#
+        </delete>
+        <select id="SelectBscUserInfo" parameterClass="string" resultClass="System.Collections.Hashtable">
+            <![CDATA[
+            SELECT A.BscUserId,
+                   A.UserType,
+                   B.BWU_UserName UserName,
+                   B.BWU_Sex UserSex,
+                   B.BWU_Phone UserPhone,
+                   B.BWU_Email UserEmail
+            FROM   Commando.BscUser A,
+                   BusinessWechatUser B
+            WHERE  A.WeChatUserId = B.BWU_ID
+                   AND B.BWU_Status = 'Active'
+                   AND A.WeChatUserId = #value#
+            ]]>
+        </select>
+        <select id="SelectBscUserList" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            <![CDATA[
+            SELECT A.BscUserId,
+                   Commando.Func_GetUserType(A.UserType) UserType,
+                   B.BWU_UserName UserName,
+                   B.BWU_Sex UserSex,
+                   B.BWU_Phone UserPhone,
+                   B.BWU_Email UserEmail,
+                   ROW_NUMBER() OVER(ORDER BY B.BWU_UserName) AS [row_number]
+            FROM   Commando.BscUser A,
+                   BusinessWechatUser B
+            WHERE  A.WeChatUserId = B.BWU_ID
+                   AND B.BWU_Status = 'Active'
+                   AND (
+                           ISNULL(#UserName#, '') = ''
+                           OR B.BWU_UserName LIKE '%' + #UserName# + '%'
+                       )
+                   AND (
+                           ISNULL(#UserType#, '') = ''
+                           OR A.UserType LIKE '%' + #UserType# + '%'
+                       )
+            ]]>
+        </select>
+    </statements>
+</sqlMap>

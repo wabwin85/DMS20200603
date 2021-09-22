@@ -1,0 +1,1166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CurrentInvMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="CurrentInv" assembly="DMS.Model.dll" type="DMS.Model.CurrentInv" />
+  </alias>
+  <resultMaps>
+    <resultMap id="CurrentInvResult" class="CurrentInv">
+      <result property="ChineseName" column="CFN_ChineseName" type="string" dbType="varchar"/>
+      <result property="CustomerFaceNbr" column="CFN_CustomerFaceNbr" type="string" dbType="varchar"/>
+      <result property="Implant" column="CFN_Implant" type="bool" dbType="bool"/>
+      <result property="ProductLinename" column="ATTRIBUTE_ProductLineNAME" type="string" dbType="varchar"/>
+      <result property="Upn" column="PMA_UPN" type="string" dbType="varchar"/>
+      <result property="ProductName" column="PMA_ProductName" type="string" dbType="varchar"/>
+      <result property="WarehouseName" column="WHM_WarehouseName" type="string" dbType="varchar"/>
+      <result property="LotNumber" column="LTM_LotNumber" type="string" dbType="varchar"/>
+      <result property="ExpiredDate" column="LTM_ExpiredDate" type="DateTime" dbType="DateTime"/>
+      <result property="OnHandQty" column="LOT_OnHandQty" type="double" dbType="Real"/>
+      <result property="OnHandQuantity" column="INV_OnHandQuantity" type="double" dbType="Real"/>
+      <result property="Lotid" column="LOT_LotID" type="Guid" dbType="Guid"/>
+      <result property="Invid" column="INV_InvID" type="Guid" dbType="Guid"/>
+      <result property="WhmId" column="INV_WHM_ID" type="Guid" dbType="Guid"/>
+      <result property="PmaId" column="INV_PMA_ID" type="Guid" dbType="Guid"/>
+      <result property="LtmId" column="LOT_LTM_ID" type="Guid" dbType="Guid"/>
+      <result property="SapUnitPrice" column="PMA_SAPUnitPrice" type="double" dbType="Real"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectCurrentInv" parameterClass="string" resultClass="CurrentInv">
+      <!--SELECT CFN_ChineseName AS ChineseName,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_Implant AS Implant,ATTRIBUTE_ProductLineNAME AS ProductLinename,PMA_UPN AS Upn,PMA_ProductName AS ProductName,WHM_WarehouseName AS WarehouseName,LTM_LotNumber AS LotNumber,LTM_ExpiredDate AS ExpiredDate,LOT_OnHandQty AS OnHandQty,INV_OnHandQuantity AS OnHandQuantity,LOT_LotID AS Lotid,INV_InvID AS Invid,INV_WHM_ID AS WhmId,INV_PMA_ID AS PmaId,LOT_LTM_ID AS LtmId
+      FROM _CurrentInv-->
+      SELECT  CFN.CFN_ChineseName AS ChineseName, CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr, CFN.CFN_Implant AS Implant,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLinename, Product.PMA_UPN AS Upn, Product.PMA_Name as ProductName,
+      Warehouse.WHM_Name as WarehouseName, LotMaster.LTM_LotNumber AS LotNumber, LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Lot.LOT_OnHandQty AS OnHandQty, Inventory.INV_OnHandQuantity AS OnHandQuantity, Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId,Inventory.INV_PMA_ID AS PmaId, Lot.LOT_LTM_ID AS LtmId, CAST (PMA_SAPUnitPrice AS REAL) AS SapUnitPrice
+      FROM Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          LOT_ID = #value#
+        </isParameterPresent>
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterCurrentInv" parameterClass="string" resultClass="CurrentInv">
+      <!--SELECT CFN_ChineseName AS ChineseName,CFN_CustomerFaceNbr AS CustomerFaceNbr,CFN_Implant AS Implant,
+      ATTRIBUTE_ProductLineNAME AS ProductLinename,PMA_UPN AS Upn,PMA_ProductName AS ProductName,WHM_WarehouseName AS WarehouseName,
+      LTM_LotNumber AS LotNumber,LTM_ExpiredDate AS ExpiredDate,
+      LOT_OnHandQty AS OnHandQty,INV_OnHandQuantity AS OnHandQuantity,LOT_LotID AS Lotid,INV_InvID AS Invid,
+      INV_WHM_ID AS WhmId,INV_PMA_ID AS PmaId,LOT_LTM_ID AS LtmId
+      FROM _CurrentInv-->
+      SELECT  CFN.CFN_ChineseName AS ChineseName, CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr, CFN.CFN_Implant AS Implant,
+      View_ProductLine.ATTRIBUTE_NAME AS ProductLinename, Product.PMA_UPN AS Upn, Product.PMA_Name as ProductName,
+      Warehouse.WHM_Name as WarehouseName, LotMaster.LTM_LotNumber AS LotNumber, LotMaster.LTM_ExpiredDate AS ExpiredDate,
+      Lot.LOT_OnHandQty AS OnHandQty, Inventory.INV_OnHandQuantity AS OnHandQuantity, Lot.LOT_ID AS Lotid, Inventory.INV_ID AS Invid,
+      Inventory.INV_WHM_ID AS WhmId,Inventory.INV_PMA_ID AS PmaId, Lot.LOT_LTM_ID AS LtmId,CAST (PMA_SAPUnitPrice AS REAL) AS SapUnitPrice
+      FROM Inventory(nolock) INNER JOIN
+      Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID INNER JOIN
+      LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID INNER JOIN
+      Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID INNER JOIN
+      Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID INNER JOIN
+      CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID INNER JOIN
+      View_ProductLine(nolock) ON CFN.CFN_ProductLine_BUM_ID = View_ProductLine.Id
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="ChineseName">CFN_ChineseName=#ChineseName#</isNotNull>
+        <isNotNull prepend="AND" property="CustomerFaceNbr">CFN_CustomerFaceNbr=#CustomerFaceNbr#</isNotNull>
+        <isNotNull prepend="AND" property="Implant">CFN_Implant=#Implant#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLinename">ATTRIBUTE_ProductLineNAME=#ProductLinename#</isNotNull>
+        <isNotNull prepend="AND" property="Upn">PMA_UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="ProductName">PMA_ProductName=#ProductName#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseName">WHM_WarehouseName=#WarehouseName#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LTM_LotNumber=#LotNumber#</isNotNull>
+        <isNotNull prepend="AND" property="ExpiredDate">LTM_ExpiredDate=#ExpiredDate#</isNotNull>
+        <isNotNull prepend="AND" property="OnHandQty">LOT_OnHandQty=#OnHandQty#</isNotNull>
+        <isNotNull prepend="AND" property="OnHandQuantity">INV_OnHandQuantity=#OnHandQuantity#</isNotNull>
+        <isNotNull prepend="AND" property="Lotid">LOT_LotID=#Lotid#</isNotNull>
+        <isNotNull prepend="AND" property="Invid">INV_InvID=#Invid#</isNotNull>
+        <isNotNull prepend="AND" property="WhmId">INV_WHM_ID=#WhmId#</isNotNull>
+        <isNotNull prepend="AND" property="PmaId">INV_PMA_ID=#PmaId#</isNotNull>
+        <isNotNull prepend="AND" property="LtmId">LOT_LTM_ID=#LtmId#</isNotNull>
+        <isNotNull prepend="AND" property="SapUnitPrice">PMA_SAPUnitPrice=#SapUnitPrice#</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterAll" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Lot.LOT_ID, Lot.LOT_ID AS LotId,
+      Convert(decimal(18,6),Lot.LOT_OnHandQty) AS LotInvQty,
+      lot.LOT_LTM_Lot AS LotNumber,
+      lot.LOT_LTM_QRCode  as  QRCode,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6),LOT.LOT_LTM_ExpiredDate, 112) else CONVERT(varchar(100), LOT.LOT_LTM_ExpiredDate, 112) END AS LotExpiredDate,
+      lot.LOT_WHM_ID AS WarehouseId,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_UPN AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_ChineseName AS ChineseName,
+      CFN.CFN_EnglishName AS EnglishName,
+      CASE  WHEN (#Type#='Return' or #Type#='Exchange') THEN dbo.fn_GetPriceForDealerRetrun(#DealerId#,CFN.CFN_ID,Lot.LOT_LTM_QRCode+Lot.LOT_LTM_Lot,#SubCompanyId#,#BrandId#,#ReturnApplyType#)
+      ELSE 0 END
+      as Price
+      FROM Lot(nolock)
+      INNER JOIN CFN(nolock) ON LOT.LOT_CFN_ID= CFN.CFN_ID
+      INNER JOIN Product(nolock) ON Product.PMA_CFN_ID= CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON Lot.LOT_WHM_ID = Warehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="WarehouseId">Warehouse.WHM_ID=#WarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">(CFN.CFN_ProductLine_BUM_ID=#ProductLine# or CFN.CFN_Share = 1)</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber1">
+          Lot.LOT_LTM_Lot = #ProductLotNumber1#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber2">
+          Lot.LOT_LTM_Lot= #ProductLotNumber2#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber3">
+          Lot.LOT_LTM_Lot= #ProductLotNumber3#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber4">
+          Lot.LOT_LTM_Lot = #ProductLotNumber4#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber5">
+          Lot.LOT_LTM_Lot = #ProductLotNumber5#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber6">
+          Lot.LOT_LTM_Lot= #ProductLotNumber6#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber7">
+          Lot.LOT_LTM_Lot = #ProductLotNumber7#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber8">
+          Lot.LOT_LTM_Lot= #ProductLotNumber8#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber9">
+          Lot.LOT_LTM_Lot = #ProductLotNumber9#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber10">
+          Lot.LOT_LTM_Lot = #ProductLotNumber10#
+        </isNotNull>
+        <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+        <isNotNull prepend="AND" property="QrCode"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="QrCode1">
+          lot.LOT_LTM_QRCode = #QrCode1#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode2">
+          lot.LOT_LTM_QRCode= #QrCode2#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode3">
+          lot.LOT_LTM_QRCode = #QrCode3#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode4">
+          lot.LOT_LTM_QRCode = #QrCode4#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode5">
+          lot.LOT_LTM_QRCode = #QrCode5#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode6">
+          lot.LOT_LTM_QRCode = #QrCode6#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode7">
+          lot.LOT_LTM_QRCode = #QrCode7#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode8">
+          lot.LOT_LTM_QRCode = #QrCode8#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode9">
+          lot.LOT_LTM_QRCode = #QrCode9#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode10">
+          lot.LOT_LTM_QRCode = #QrCode10#
+        </isNotNull>
+        <isNotNull prepend="" property="QrCode">) </isNotNull>
+        <isNotNull prepend="AND" property="QrCodes">
+          lot.LOT_LTM_QRCode in (select VAL from dbo.GC_Fn_SplitStringToTable(#QrCodes#,','))
+        </isNotNull>
+        <!--<isNotNull prepend="AND" property="ProductCFN">CFN.CFN_CustomerFaceNbr like '%$ProductCFN$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN">Product.PMA_UPN like '%$ProductUPN$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber">LotMaster.LTM_LotNumber like '%$ProductLotNumber$%'</isNotNull>-->
+
+        <isNotNull prepend="AND" property="WarehouseType">Warehouse.WHM_Type != #WarehouseType#</isNotNull>
+        <isNotNull prepend="AND" property="QryWarehouseType">
+          Warehouse.WHM_Type IN
+          <iterate  property="QryWarehouseType" open="(" close=")" conjunction=",">
+            #QryWarehouseType[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty > #LotInvQtyMin#</isNotNull>
+      </dynamic>
+      ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN,lot.LOT_LTM_QRCode,lot.LOT_LTM_Lot
+    </select>
+
+    //added by bozhenfei on 20090814 for ShipmentOrder
+    <!--Edited By Song Yuqi On 2016-05-31-->
+    <select id="SelectByFilterShipmentOrder" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT top 200
+      Lot.LOT_ID, Lot.LOT_ID AS LotId,
+      convert(decimal (18,6),Lot.LOT_OnHandQty) AS LotInvQty,
+      Lot.LOT_LTM_Lot AS LotNumber,
+      Lot.LOT_LTM_QRCode AS QRCode,
+      <!-- Case  CFN_Property6
+      when 0 then CONVERT(nvarchar(6), LotMaster.LTM_ExpiredDate, 112)
+      when 1 then CONVERT(nvarchar(8), LotMaster.LTM_ExpiredDate, 112)
+      else CONVERT(nvarchar(100), LotMaster.LTM_ExpiredDate, 112)
+      end AS LotExpiredDate,-->
+      CONVERT(nvarchar(8), Lot.LOT_LTM_ExpiredDate, 112) AS LotExpiredDate,
+      Inventory.INV_WHM_ID AS WarehouseId,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_UPN AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Warehouse.WHM_Name AS WarehouseName,
+      PMA_ConvertFactor as ConvertFactor,
+      <!--dbo.fn_getExpiryDateTypeByShipmentDate(LotMaster.LTM_ExpiredDate,CFN_Property6,#ShipmentDate#) ExpiryDateType-->
+      <!--,dbo.fn_GetEnabledFlag(CFN_Property6,LotMaster.LTM_ExpiredDate,#ShipmentDate#) IsCanOrder-->
+      <!--,dbo.fn_GetCanShipFlag(CFN_Property6,LTM_LotNumber,PMA_UPN,#DMAID#) IsCanOrder-->
+      CASE
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end AS ExpiryDateType,
+      CASE WHEN Lot.LOT_LTM_ExpiredDate >=#ShipmentDate# then '是' else '否' End IsCanOrder
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN CfnClassification CF(nolock) ON CF.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+      WHERE Lot.LOT_OnHandQty > 0
+      <isNotNull prepend="AND" property="WarehouseId">Inventory.INV_WHM_ID=#WarehouseId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+      <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+      <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+      <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+      <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber1">Lot.LOT_LTM_Lot = #ProductLotNumber1#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber2">Lot.LOT_LTM_Lot = #ProductLotNumber2#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber3">Lot.LOT_LTM_Lot = #ProductLotNumber3#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber4">Lot.LOT_LTM_Lot = #ProductLotNumber4#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber5">Lot.LOT_LTM_Lot = #ProductLotNumber5#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber6">Lot.LOT_LTM_Lot = #ProductLotNumber6#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber7">Lot.LOT_LTM_Lot = #ProductLotNumber7#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber8">Lot.LOT_LTM_Lot = #ProductLotNumber8#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber9">Lot.LOT_LTM_Lot = #ProductLotNumber9#</isNotNull>
+      <isNotNull prepend="OR" property="ProductLotNumber10">Lot.LOT_LTM_Lot = #ProductLotNumber10#</isNotNull>
+      <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+      <isNotNull prepend="AND" property="QrCode"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="QrCode1">Lot.LOT_LTM_QRCode = #QrCode1#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode2">Lot.LOT_LTM_QRCode = #QrCode2#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode3">Lot.LOT_LTM_QRCode = #QrCode3#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode4">Lot.LOT_LTM_QRCode = #QrCode4#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode5">Lot.LOT_LTM_QRCode = #QrCode5#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode6">Lot.LOT_LTM_QRCode = #QrCode6#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode7">Lot.LOT_LTM_QRCode = #QrCode7#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode8">Lot.LOT_LTM_QRCode= #QrCode8#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode9">Lot.LOT_LTM_QRCode = #QrCode9#</isNotNull>
+      <isNotNull prepend="OR" property="QrCode10">Lot.LOT_LTM_QRCode = #QrCode10#</isNotNull>
+      <isNotNull prepend="" property="QrCode">) </isNotNull>
+      <isNotNull prepend="AND" property="QrCodes">
+        Lot.LOT_LTM_QRCode in (select VAL from dbo.GC_Fn_SplitStringToTable(#QrCodes#,','))
+      </isNotNull>
+      <isNotNull prepend="AND" property="WarehouseType">Warehouse.WHM_Type != #WarehouseType#</isNotNull>
+      <isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty > #LotInvQtyMin#</isNotNull>
+      <!--<isNotNull prepend="AND" property="ExpiryDateType">dbo.fn_getExpiryDateType(LotMaster.LTM_ExpiredDate,CFN_Property6)=#ExpiryDateType#</isNotNull>-->
+      <isNotNull prepend="AND" property="ExpiryDateType">
+        <!--dbo.fn_getExpiryDateTypeByShipmentDate(LotMaster.LTM_ExpiredDate,CFN_Property6,#ShipmentDate#)=#ExpiryDateType#-->
+        CASE
+        WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+        WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+        WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+        WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+        WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end=#ExpiryDateType#
+      </isNotNull>
+      <isNotNull prepend="AND" property="HospitalId">
+        (
+        EXISTS
+        (
+        SELECT  1
+        FROM DealerAuthorizationTable AS DA
+        INNER JOIN HospitalList AS HL ON DA.DAT_ID = HL.HLA_DAT_ID
+        INNER JOIN Cache_PartsClassificationRec AS CP ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+        WHERE DA.DAT_DMA_ID = Warehouse.WHM_DMA_ID
+        AND ((DA.DAT_Type = 'Shipment' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),#ShipmentDate#,120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,#ShipmentDate#)))
+        OR (#OrderAuthCount# = 0 AND (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),#ShipmentDate#,120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,#ShipmentDate#)))
+        )
+        )
+        AND HL.HLA_HOS_ID = #HospitalId#
+        AND #ShipmentDate# BETWEEN ISNULL(HL.HLA_StartDate,'1900-01-01') AND ISNULL(HL.HLA_EndDate,DATEADD(DAY,-1,#ShipmentDate#))
+        AND
+        (
+        (DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+        AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+        OR
+        (DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+        AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+        AND CP.PCT_ID = CF.ClassificationId)
+        )
+        )
+        <isNotNull prepend="AND" property="ProductLine">CFN.CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        )
+      </isNotNull>
+      ORDER BY Lot.LOT_LTM_ExpiredDate,Warehouse.WHM_Name,CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, Lot.LOT_LTM_Lot,Lot.LOT_LTM_QRCode
+    </select>
+    <select id="SelectByFilterShipmentOrderAdjust" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT TOP 200
+      Lot.LOT_ID, Lot.LOT_ID AS LotId,
+      convert(decimal (18,6),Lot.LOT_OnHandQty) AS LotInvQty,
+      Lot.LOT_LTM_Lot AS LotNumber,
+      Lot.LOT_LTM_QRCode AS QRCode,
+      CONVERT(nvarchar(8), Lot.LOT_LTM_ExpiredDate, 112) AS LotExpiredDate,
+      Inventory.INV_WHM_ID AS WarehouseId,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_UPN AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Warehouse.WHM_Name AS WarehouseName,
+      PMA_ConvertFactor as ConvertFactor,
+      <!--dbo.fn_getExpiryDateType(LotMaster.LTM_ExpiredDate,CFN_Property6) ExpiryDateType-->
+      <!--dbo.fn_getExpiryDateTypeByShipmentDate(LotMaster.LTM_ExpiredDate,CFN_Property6,#ShipmentDate#) ExpiryDateType
+      ,dbo.fn_GetEnabledFlag(CFN_Property6,LotMaster.LTM_ExpiredDate,#ShipmentDate#) IsCanOrder-->
+      CASE
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end AS ExpiryDateType,
+      CASE WHEN Lot.LOT_LTM_ExpiredDate >=#ShipmentDate# then '是' else '否' End IsCanOrder
+      FROM Lot(nolock)
+      left join Inventory(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      left JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      left JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      left JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="WarehouseId">Inventory.INV_WHM_ID=#WarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber1">Lot.LOT_LTM_Lot = #ProductLotNumber1# OR Lot.LOT_LTM_QRCode = #ProductLotNumber1#  </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber2">Lot.LOT_LTM_Lot = #ProductLotNumber2# OR Lot.LOT_LTM_QRCode = #ProductLotNumber2#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber3">Lot.LOT_LTM_Lot = #ProductLotNumber3# OR Lot.LOT_LTM_QRCode = #ProductLotNumber3#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber4">Lot.LOT_LTM_Lot = #ProductLotNumber4# OR Lot.LOT_LTM_QRCode = #ProductLotNumber4#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber5">Lot.LOT_LTM_Lot = #ProductLotNumber5# OR Lot.LOT_LTM_QRCode = #ProductLotNumber5#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber6">Lot.LOT_LTM_Lot = #ProductLotNumber6# OR Lot.LOT_LTM_QRCode = #ProductLotNumber6#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber7">Lot.LOT_LTM_Lot = #ProductLotNumber7# OR Lot.LOT_LTM_QRCode = #ProductLotNumber7#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber8">Lot.LOT_LTM_Lot = #ProductLotNumber8# OR Lot.LOT_LTM_QRCode = #ProductLotNumber8#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber9">Lot.LOT_LTM_Lot = #ProductLotNumber9# OR Lot.LOT_LTM_QRCode = #ProductLotNumber9#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber10">Lot.LOT_LTM_Lot = #ProductLotNumber10# OR Lot.LOT_LTM_QRCode = #ProductLotNumber10#</isNotNull>
+        <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseType">Warehouse.WHM_Type != #WarehouseType#</isNotNull>
+        <!--<isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty > #LotInvQtyMin#</isNotNull>-->
+        <!--<isNotNull prepend="AND" property="ExpiryDateType">dbo.fn_getExpiryDateType(LotMaster.LTM_ExpiredDate,CFN_Property6)=#ExpiryDateType#</isNotNull>-->
+        <isNotNull prepend="AND" property="ExpiryDateType">
+          <!--dbo.fn_getExpiryDateTypeByShipmentDate(LotMaster.LTM_ExpiredDate,CFN_Property6,#ShipmentDate#)=#ExpiryDateType#-->
+          CASE
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end=#ExpiryDateType#
+        </isNotNull>
+
+
+        <!--<isNotNull prepend="AND" property="HospitalId">
+          (
+          EXISTS (SELECT  1
+          FROM    DealerAuthorizationTable AS DA
+          INNER JOIN DealerContract AS DC ON DA.DAT_DCL_ID = DC.DCL_ID
+          INNER JOIN HospitalList AS HL ON DA.DAT_ID = HL.HLA_DAT_ID
+          INNER JOIN Cache_PartsClassificationRec AS CP ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+          WHERE DC.DCL_DMA_ID = Warehouse.WHM_DMA_ID
+          AND HL.HLA_HOS_ID = #HospitalId#
+          AND (
+          (DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+          AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+          OR
+          (DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+          AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+          AND CP.PCT_ID = CFN.CFN_ProductCatagory_PCT_ID)
+          )
+          )
+          <isNotNull prepend="AND" property="ProductLine">CFN.CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+          )
+        </isNotNull>-->
+      </dynamic>
+      ORDER BY Lot.LOT_LTM_ExpiredDate,Warehouse.WHM_Name,CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, Lot.LOT_LTM_Lot, Lot.LOT_LTM_QRCode
+    </select>
+
+    //Added By Song Yuqi On 20140317 Begin
+    //Edit By SongWeiming on 2019-04-17 性能优化
+    <select id="SelectByFilterShipmentOrderByT2Consignment" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT top 200
+      Lot.LOT_ID AS LotId,
+      SUM(convert(decimal (18,6),Lot.LOT_OnHandQty)) AS LotInvQty,
+      Lot.LOT_LTM_Lot AS LotNumber,
+      Lot.LOT_LTM_QRCode AS QRCode,
+      Warehouse.WHM_ID AS WarehouseId,
+      Warehouse.WHM_Name as WarehouseName,
+      CONVERT(nvarchar(8), Lot.LOT_LTM_ExpiredDate, 112) AS LotExpiredDate,
+      <!--Case  CFN_Property6 when 0 then CONVERT(nvarchar(6), V_LotMaster.LTM_ExpiredDate, 112) when 1 then CONVERT(nvarchar(8), V_LotMaster.LTM_ExpiredDate, 112) else CONVERT(nvarchar(100), V_LotMaster.LTM_ExpiredDate, 112) end AS LotExpiredDate,-->
+      Product.PMA_ID AS ProductId,
+      MAX(Product.PMA_UPN) AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      MAX(CFN.CFN_CustomerFaceNbr) AS CFN,
+      PMA_ConvertFactor as ConvertFactor,
+
+      <!--dbo.fn_getExpiryDateTypeByShipmentDate(V_LotMaster.LTM_ExpiredDate,CFN_Property6,#ShipmentDate#) ExpiryDateType
+      ,dbo.fn_GetEnabledFlag(CFN_Property6,V_LotMaster.LTM_ExpiredDate,#ShipmentDate#) IsCanOrder-->
+      CASE
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end AS ExpiryDateType,
+      CASE WHEN Lot.LOT_LTM_ExpiredDate >=#ShipmentDate# then '是' else '否' End IsCanOrder
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      INNER JOIN CfnClassification CF(nolock) ON CF.CfnCustomerFaceNbr=CFN.CFN_CustomerFaceNbr
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber1">Lot.LOT_LTM_Lot = #ProductLotNumber1#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber2">Lot.LOT_LTM_Lot = #ProductLotNumber2#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber3">Lot.LOT_LTM_Lot = #ProductLotNumber3#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber4">Lot.LOT_LTM_Lot = #ProductLotNumber4#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber5">Lot.LOT_LTM_Lot = #ProductLotNumber5#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber6">Lot.LOT_LTM_Lot = #ProductLotNumber6#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber7">Lot.LOT_LTM_Lot = #ProductLotNumber7#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber8">Lot.LOT_LTM_Lot = #ProductLotNumber8#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber9">Lot.LOT_LTM_Lot = #ProductLotNumber9#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber10">Lot.LOT_LTM_Lot = #ProductLotNumber10#</isNotNull>
+        <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+        <isNotNull prepend="AND" property="QrCode"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="QrCode1">Lot.LOT_LTM_QRCode = #QrCode1#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode2">Lot.LOT_LTM_QRCode = #QrCode2#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode3">Lot.LOT_LTM_QRCode = #QrCode3#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode4">Lot.LOT_LTM_QRCode = #QrCode4#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode5">Lot.LOT_LTM_QRCode = #QrCode5#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode6">Lot.LOT_LTM_QRCode = #QrCode6#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode7">Lot.LOT_LTM_QRCode = #QrCode7#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode8">Lot.LOT_LTM_QRCode = #QrCode8#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode9">Lot.LOT_LTM_QRCode = #QrCode9#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode10">Lot.LOT_LTM_QRCode = #QrCode10#</isNotNull>
+        <isNotNull prepend="" property="QrCode">) </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseTypes">
+          Warehouse.WHM_Type IN
+          <iterate  property="WarehouseTypes" open="(" close=")" conjunction=",">
+            #WarehouseTypes[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty > #LotInvQtyMin#</isNotNull>
+        <!--<isNotNull prepend="AND" property="ExpiryDateType">dbo.fn_getExpiryDateType(LotMaster.LTM_ExpiredDate,CFN_Property6)=#ExpiryDateType#</isNotNull>-->
+        <isNotNull prepend="AND" property="ExpiryDateType">
+          <!--dbo.fn_getExpiryDateTypeByShipmentDate(V_LotMaster.LTM_ExpiredDate,CFN_Property6,#ShipmentDate#)=#ExpiryDateType#-->
+          CASE
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end=#ExpiryDateType#
+        </isNotNull>
+        <isNotNull prepend="AND" property="HospitalId">
+          (
+          EXISTS
+          (
+          SELECT  1
+          FROM DealerAuthorizationTable AS DA(nolock)
+          INNER JOIN HospitalList AS HL(nolock) ON DA.DAT_ID = HL.HLA_DAT_ID
+          INNER JOIN Cache_PartsClassificationRec AS CP(nolock) ON CP.PCT_ProductLine_BUM_ID = DA.DAT_ProductLine_BUM_ID
+          WHERE DA.DAT_DMA_ID = Warehouse.WHM_DMA_ID
+          AND ((DA.DAT_Type = 'Shipment' AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),#ShipmentDate#,120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,#ShipmentDate#)))
+          OR (#OrderAuthCount# = 0 AND (DA.DAT_Type IN ('Normal','Temp') AND CONVERT(DATETIME,CONVERT(NVARCHAR(10),#ShipmentDate#,120)) BETWEEN ISNULL(DAT_StartDate,'1900-01-01') AND ISNULL(DAT_EndDate,DATEADD(DAY,-1,#ShipmentDate#)))
+          )
+          )
+          AND HL.HLA_HOS_ID = #HospitalId#
+          AND #ShipmentDate# BETWEEN ISNULL(HL.HLA_StartDate,'1900-01-01') AND ISNULL(HL.HLA_EndDate,DATEADD(DAY,-1,GETDATE()))
+          AND
+          (
+          (DA.DAT_PMA_ID = DA.DAT_ProductLine_BUM_ID
+          AND DA.DAT_ProductLine_BUM_ID = CFN.CFN_ProductLine_BUM_ID)
+          OR
+          (DA.DAT_PMA_ID != DA.DAT_ProductLine_BUM_ID
+          AND CP.PCT_ParentClassification_PCT_ID = DA.DAT_PMA_ID
+          <!--AND CP.PCT_ID = CFN.CFN_ProductCatagory_PCT_ID-->
+          AND CP.PCT_ID = CF.ClassificationId
+          )
+          )
+          )
+          <isNotNull prepend="AND" property="ProductLine">CFN.CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+          )
+        </isNotNull>
+      </dynamic>
+      GROUP BY Lot.LOT_ID,Product.PMA_UPN,CFN.CFN_CustomerFaceNbr,Lot.LOT_LTM_ExpiredDate,Product.PMA_ID,Product.PMA_UnitOfMeasure,PMA_ConvertFactor ,Lot.LOT_LTM_Lot ,CFN_Property6,Lot.LOT_LTM_QRCode, Warehouse.WHM_ID, Warehouse.WHM_Name
+      ORDER BY Lot.LOT_LTM_ExpiredDate,CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, Lot.LOT_LTM_Lot,Lot.LOT_LTM_QRCode, Warehouse.WHM_Name
+    </select>
+
+    <select id="SelectByFilterReturnByT2Consignment" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Lot.LOT_ID AS LotId,
+      SUM(Convert(decimal(18,6),Lot.LOT_OnHandQty)) AS LotInvQty,
+      LotMaster.LTM_Lot AS LotNumber,
+      LotMaster.LTM_QRCode as QRCode,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) else CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END AS LotExpiredDate,
+      Product.PMA_ID AS ProductId,
+      MAX(Product.PMA_UPN) AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      MAX(CFN.CFN_CustomerFaceNbr) AS CFN,
+      CFN.CFN_ChineseName AS ChineseName,
+      CFN.CFN_EnglishName AS EnglishName,
+      Warehouse.WHM_Name AS WarehouseName
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">(CFN.CFN_ProductLine_BUM_ID=#ProductLine# or CFN.CFN_Share = 1)</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber1">
+          LotMaster.LTM_Lot = #ProductLotNumber1#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber2">
+          LotMaster.LTM_Lot = #ProductLotNumber2#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber3">
+          LotMaster.LTM_Lot = #ProductLotNumber3#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber4">
+          LotMaster.LTM_Lot = #ProductLotNumber4#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber5">
+          LotMaster.LTM_Lot = #ProductLotNumber5#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber6">
+          LotMaster.LTM_Lot = #ProductLotNumber6#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber7">
+          LotMaster.LTM_Lot = #ProductLotNumber7#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber8">
+          LotMaster.LTM_Lot = #ProductLotNumber8#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber9">
+          LotMaster.LTM_Lot = #ProductLotNumber9#
+        </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber10">
+          LotMaster.LTM_Lot = #ProductLotNumber10#
+        </isNotNull>
+        <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+        <isNotNull prepend="AND" property="QrCode"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="QrCode1">
+          LotMaster.LTM_QRCode = #QrCode1#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode2">
+          LotMaster.LTM_QRCode = #QrCode2#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode3">
+          LotMaster.LTM_QRCode = #QrCode3#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode4">
+          LotMaster.LTM_QRCode = #QrCode4#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode5">
+          LotMaster.LTM_QRCode = #QrCode5#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode6">
+          LotMaster.LTM_QRCode = #QrCode6#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode7">
+          LotMaster.LTM_QRCode = #QrCode7#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode8">
+          LotMaster.LTM_QRCode = #QrCode8#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode9">
+          LotMaster.LTM_QRCode = #QrCode9#
+        </isNotNull>
+        <isNotNull prepend="OR" property="QrCode10">
+          LotMaster.LTM_QRCode = #QrCode10#
+        </isNotNull>
+        <isNotNull prepend="" property="QrCode">) </isNotNull>
+        <isNotNull prepend="AND" property="QryWarehouseType">
+          Warehouse.WHM_Type IN
+          <iterate  property="QryWarehouseType" open="(" close=")" conjunction=",">
+            #QryWarehouseType[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseId">Warehouse.WHM_ID=#WarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty > #LotInvQtyMin#</isNotNull>
+      </dynamic>
+      GROUP BY Lot.LOT_ID,Product.PMA_UPN,CFN.CFN_CustomerFaceNbr,LotMaster.LTM_ExpiredDate,Product.PMA_ID,LotMaster.LTM_Lot,LotMaster.LTM_QRCode,Product.PMA_UnitOfMeasure,CFN_Property6,CFN.CFN_ChineseName,CFN.CFN_EnglishName,Warehouse.WHM_Name
+      ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN
+    </select>
+    //Added By Song Yuqi On 20140317 End
+
+    <select id="SelectTransferLineByLotIDs" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT distinct
+      Product.PMA_ID AS ProductId,
+      Inventory.INV_WHM_ID AS WarehouseId
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="and" property="LotIds">
+          Lot.LOT_ID IN
+          <iterate  property="LotIds" open="(" close=")" conjunction=",">
+            #LotIds[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectTransferLotByLotIDs" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Lot.LOT_ID AS LotId,
+      Product.PMA_ID AS ProductId,
+      Inventory.INV_WHM_ID AS WarehouseId
+      ,lot.LOT_LTM_Lot as LTMLot,
+      lot.LOT_LTM_QRCode as  LTMQRCode,
+      LotMaster.LTM_Type as DOM,
+      CONVERT(varchar(100), Lot.LOT_LTM_ExpiredDate, 112) AS ExpiredDate
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      inner join  LotMaster (nolock) on  	 LotMaster. LTM_ID=LOT_LTM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="and" property="LotIds">
+          Lot.LOT_ID IN
+          <iterate  property="LotIds" open="(" close=")" conjunction=",">
+            #LotIds[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectCurrentCfnByDealer" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Product.PMA_ID AS Id,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Product.PMA_UPN AS UPN,
+      CFN.CFN_EnglishName AS EngName,
+      CFN.CFN_ChineseName AS ChnName,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN) AS row_number
+      FROM Product(nolock)
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLine">CFN.CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectCurrentSharedCfnByDealer" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Product.PMA_ID AS Id,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Product.PMA_UPN AS UPN,
+      CFN.CFN_EnglishName AS EngName,
+      CFN.CFN_ChineseName AS ChnName,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN) AS row_number
+      FROM Product(nolock)
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      WHERE CFN.CFN_Share = 1
+      <!--<isNotNull prepend="AND" property="ProductLine">CFN.CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>-->
+      <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+      <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+      <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+      <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+      <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+    </select>
+    <select id="SelectInventoryAdjustLotByLotIDs" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Lot.LOT_ID AS LotId,
+      Product.PMA_ID AS ProductId,
+      Inventory.INV_WHM_ID AS WarehouseId,
+      LOT_LTM_Lot	 as LtmLot,
+      LOT_LTM_QRCode as LotQRCode,
+      CONVERT(varchar(100), Lot.LOT_LTM_ExpiredDate, 112) AS ExpiredDate,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_SAPUnitPrice AS UnitPrice,
+      Lot.LOT_LTM_ID AS LtmId,
+      Lot.LOT_LTM_DOM AS DOM
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="and" property="LotIds">
+          Lot.LOT_ID IN
+          <iterate  property="LotIds" open="(" close=")" conjunction=",">
+            #LotIds[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectInventoryAdjustDetailByLotIDs" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT DISTINCT
+      Product.PMA_ID AS ProductId,
+      Product.PMA_SAPUnitPrice AS UnitPrice,
+      Lot.LOT_LTM_ID AS LtmId
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="and" property="LotIds">
+          Lot.LOT_ID IN
+          <iterate  property="LotIds" open="(" close=")" conjunction=",">
+            #LotIds[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="and" property="LtmIds">
+          Lot.LOT_LTM_ID IN
+          <iterate  property="LtmIds" open="(" close=")" conjunction=",">
+            #LtmIds[]#
+          </iterate>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectCurrentInvByLotNumber" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      LotMaster.LTM_LotNumber AS LotNumber,
+      CONVERT(varchar(100), MAX(LotMaster.LTM_ExpiredDate), 112) AS ExpiredDate,
+      SUM(Lot.LOT_OnHandQty) AS TotalQty
+      FROM Lot(nolock)
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Inventory(nolock) ON Lot.LOT_INV_ID = Inventory.INV_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductId">Inventory.INV_PMA_ID=#ProductId#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">LotMaster.LTM_LotNumber=#LotNumber#</isNotNull>
+      </dynamic>
+      GROUP BY LotMaster.LTM_LotNumber
+    </select>
+
+    <select id="SelectCurrentCfnProduct" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Product.PMA_ID AS PmaId,
+      CFN.CFN_CustomerFaceNbr AS CustomerFaceNbr,
+      Product.PMA_UPN AS Upn,
+      CFN.CFN_ChineseName AS ChineseName,
+      CFN.CFN_EnglishName AS EnglishName,
+      row_number() OVER (ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN) AS row_number
+      FROM Product(nolock)
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLine">CFN.CFN_ProductLine_BUM_ID=#ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN">CFN.CFN_CustomerFaceNbr like '%$ProductCFN$%'</isNotNull>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentOrderNoAuth" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT top 200
+      Lot.LOT_ID, Lot.LOT_ID AS LotId,
+      convert(decimal (18,6),Lot.LOT_OnHandQty) AS LotInvQty,
+      Lot.LOT_LTM_Lot AS LotNumber,
+      Lot.LOT_LTM_QRCode AS QRCode,
+      CONVERT(nvarchar(8), Lot.LOT_LTM_ExpiredDate, 112) AS LotExpiredDate,
+      Inventory.INV_WHM_ID AS WarehouseId,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_UPN AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Warehouse.WHM_Name AS WarehouseName,
+      PMA_ConvertFactor as ConvertFactor,
+      CASE
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+      WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end AS ExpiryDateTypes,
+      CASE WHEN Lot.LOT_LTM_ExpiredDate >=#ShipmentDate# then '是' else '否' End IsCanOrder
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ProductLineId">CFN_ProductLine_BUM_ID=#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="WarehouseId">Inventory.INV_WHM_ID=#WarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber1">Lot.LOT_LTM_Lot = #ProductLotNumber1#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber2">Lot.LOT_LTM_Lot = #ProductLotNumber2#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber3">Lot.LOT_LTM_Lot = #ProductLotNumber3#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber4">Lot.LOT_LTM_Lot = #ProductLotNumber4#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber5">Lot.LOT_LTM_Lot = #ProductLotNumber5#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber6">Lot.LOT_LTM_Lot = #ProductLotNumber6#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber7">Lot.LOT_LTM_Lot = #ProductLotNumber7#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber8">Lot.LOT_LTM_Lot = #ProductLotNumber8#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber9">Lot.LOT_LTM_Lot = #ProductLotNumber9#</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber10">Lot.LOT_LTM_Lot = #ProductLotNumber10#</isNotNull>
+        <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+        <isNotNull prepend="AND" property="QrCode"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="QrCode1">Lot.LOT_LTM_QRCode = #QrCode1#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode2">Lot.LOT_LTM_QRCode = #QrCode2#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode3">Lot.LOT_LTM_QRCode = #QrCode3#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode4">Lot.LOT_LTM_QRCode = #QrCode4#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode5">Lot.LOT_LTM_QRCode = #QrCode5#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode6">Lot.LOT_LTM_QRCode = #QrCode6#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode7">Lot.LOT_LTM_QRCode = #QrCode7#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode8">Lot.LOT_LTM_QRCode = #QrCode8#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode9">Lot.LOT_LTM_QRCode = #QrCode9#</isNotNull>
+        <isNotNull prepend="OR" property="QrCode10">Lot.LOT_LTM_QRCode = #QrCode10#</isNotNull>
+        <isNotNull prepend="" property="QrCode">) </isNotNull>
+        <isNotNull prepend="AND" property="QrCodes">
+          Lot.LOT_LTM_QRCode in (select VAL from dbo.GC_Fn_SplitStringToTable(#QrCodes#,','))
+        </isNotNull>
+        <isNotNull prepend="AND" property="WarehouseType">Warehouse.WHM_Type != #WarehouseType#</isNotNull>
+        <isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty > #LotInvQtyMin#</isNotNull>
+        <!--<isNotNull prepend="AND" property="ExpiryDateType">dbo.fn_getExpiryDateType(LotMaster.LTM_ExpiredDate,CFN_Property6)=#ExpiryDateType#</isNotNull>-->
+        <isNotNull prepend="AND" property="ExpiryDateType">
+          CASE
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 0 then 'Expired'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >= 0 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 30 then 'Valid1'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=30 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 90 then 'Valid2'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=90 and DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) &lt; 180 then 'Valid3'
+          WHEN DATEDIFF(DAY,#ShipmentDate#,Lot.LOT_LTM_ExpiredDate) >=180 then 'Valid4' end=#ExpiryDateType#
+        </isNotNull>
+        <isNotNull prepend="AND" property="OnlyShowQR">
+          Lot.LOT_LTM_QRCode NOT IN ('','NoQR')
+        </isNotNull>
+      </dynamic>
+      ORDER BY Warehouse.WHM_Name,Lot.LOT_LTM_ExpiredDate,CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, Lot.LOT_LTM_Lot, Lot.LOT_LTM_QRCode
+    </select>
+
+    //added by huyong 2015-06-08
+    <select id="SelectCTOSByFilterAll" parameterClass="System.Collections.Hashtable" resultClass="CurrentInv">
+      SELECT
+      Lot.LOT_ID, Lot.LOT_ID AS LotId,
+      Convert(decimal(18,6),Lot.LOT_OnHandQty) - isnull(IAL_LotQty,0) AS LotInvQty,
+      substring(LotMaster.LTM_LotNumber,1,CHARINDEX('@@',LotMaster.LTM_LotNumber,0)-1) AS LotNumber,
+      substring(LotMaster.LTM_LotNumber,CHARINDEX('@@',LotMaster.LTM_LotNumber,0)+2,LEN(LotMaster.LTM_LotNumber)-CHARINDEX('@@',LotMaster.LTM_LotNumber,0)) as QRCode,
+      case when CFN_Property6 = '0' then CONVERT(varchar(6), LotMaster.LTM_ExpiredDate, 112) else CONVERT(varchar(100), LotMaster.LTM_ExpiredDate, 112) END AS LotExpiredDate,
+      Inventory.INV_WHM_ID AS WarehouseId,
+      Product.PMA_ID AS ProductId,
+      Product.PMA_UPN AS UPN,
+      Product.PMA_UnitOfMeasure AS UnitOfMeasure,
+      CFN.CFN_CustomerFaceNbr AS CFN,
+      Warehouse.WHM_Name AS WarehouseName,
+      CFN.CFN_ChineseName AS ChineseName,
+      CFN.CFN_EnglishName AS EnglishName
+      FROM Inventory(nolock)
+      INNER JOIN Lot(nolock) ON Inventory.INV_ID = Lot.LOT_INV_ID
+      INNER JOIN LotMaster(nolock) ON Lot.LOT_LTM_ID = LotMaster.LTM_ID
+      INNER JOIN Product(nolock) ON Inventory.INV_PMA_ID = Product.PMA_ID
+      INNER JOIN CFN(nolock) ON Product.PMA_CFN_ID = CFN.CFN_ID
+      INNER JOIN Warehouse(nolock) ON Inventory.INV_WHM_ID = Warehouse.WHM_ID
+      left join (select IAD_PMA_ID,IAL_LOT_ID,IAL_LotNumber,IAL_WHM_ID,sum(IAL_LotQty) as IAL_LotQty
+      from InventoryAdjustHeader(nolock),InventoryAdjustDetail(nolock),InventoryAdjustLot(nolock)
+      where IAH_ID = IAD_IAH_ID
+      and IAD_ID = IAL_IAD_ID
+      and IAH_Reason = 'CTOS'
+      and IAH_Status in ('Submitted','Submit')
+      group by IAD_PMA_ID,IAL_LOT_ID,IAL_LotNumber,IAL_WHM_ID)  iah
+      ON PMA_ID = IAD_PMA_ID AND LOT_ID = IAL_LOT_ID AND LTM_LotNumber = IAL_LotNumber AND WHM_ID = IAL_WHM_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="WarehouseId">Inventory.INV_WHM_ID=#WarehouseId#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">Warehouse.WHM_DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">(CFN.CFN_ProductLine_BUM_ID=#ProductLine# or CFN.CFN_Share = 1)</isNotNull>
+        <isNotNull prepend="AND" property="ProductCFN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">CFN.CFN_CustomerFaceNbr like '%$ProductCFN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">CFN.CFN_CustomerFaceNbr like '%$ProductCFN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">CFN.CFN_CustomerFaceNbr like '%$ProductCFN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">CFN.CFN_CustomerFaceNbr like '%$ProductCFN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">CFN.CFN_CustomerFaceNbr like '%$ProductCFN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">CFN.CFN_CustomerFaceNbr like '%$ProductCFN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">CFN.CFN_CustomerFaceNbr like '%$ProductCFN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">CFN.CFN_CustomerFaceNbr like '%$ProductCFN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">CFN.CFN_CustomerFaceNbr like '%$ProductCFN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">CFN.CFN_CustomerFaceNbr like '%$ProductCFN10$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN1">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN1$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN2">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN2$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN3">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN3$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN4">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN4$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN5">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN5$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN6">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN6$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN7">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN7$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN8">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN8$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN9">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN9$')>0</isNotNull>
+        <isNotNull prepend="OR" property="ProductCFN10">PATINDEX('%'+CFN.CFN_Property7+'%','$ProductCFN10$')>0</isNotNull>
+        <isNotNull prepend="" property="ProductCFN">) </isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN1">Product.PMA_UPN like '%$ProductUPN1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN2">Product.PMA_UPN like '%$ProductUPN2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN3">Product.PMA_UPN like '%$ProductUPN3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN4">Product.PMA_UPN like '%$ProductUPN4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN5">Product.PMA_UPN like '%$ProductUPN5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN6">Product.PMA_UPN like '%$ProductUPN6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN7">Product.PMA_UPN like '%$ProductUPN7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN8">Product.PMA_UPN like '%$ProductUPN8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN9">Product.PMA_UPN like '%$ProductUPN9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductUPN10">Product.PMA_UPN like '%$ProductUPN10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductUPN"> ) </isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber"> ( 1=2 </isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber1">LotMaster.LTM_LotNumber like '%$ProductLotNumber1$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber2">LotMaster.LTM_LotNumber like '%$ProductLotNumber2$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber3">LotMaster.LTM_LotNumber like '%$ProductLotNumber3$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber4">LotMaster.LTM_LotNumber like '%$ProductLotNumber4$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber5">LotMaster.LTM_LotNumber like '%$ProductLotNumber5$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber6">LotMaster.LTM_LotNumber like '%$ProductLotNumber6$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber7">LotMaster.LTM_LotNumber like '%$ProductLotNumber7$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber8">LotMaster.LTM_LotNumber like '%$ProductLotNumber8$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber9">LotMaster.LTM_LotNumber like '%$ProductLotNumber9$%'</isNotNull>
+        <isNotNull prepend="OR" property="ProductLotNumber10">LotMaster.LTM_LotNumber like '%$ProductLotNumber10$%'</isNotNull>
+        <isNotNull prepend="" property="ProductLotNumber">) </isNotNull>
+
+        <!--<isNotNull prepend="AND" property="ProductCFN">CFN.CFN_CustomerFaceNbr like '%$ProductCFN$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductUPN">Product.PMA_UPN like '%$ProductUPN$%'</isNotNull>
+        <isNotNull prepend="AND" property="ProductLotNumber">LotMaster.LTM_LotNumber like '%$ProductLotNumber$%'</isNotNull>-->
+
+        <isNotNull prepend="AND" property="WarehouseType">Warehouse.WHM_Type != #WarehouseType#</isNotNull>
+        <isNotNull prepend="AND" property="QryWarehouseType">
+          Warehouse.WHM_Type IN
+          <iterate  property="QryWarehouseType" open="(" close=")" conjunction=",">
+            #QryWarehouseType[]#
+          </iterate>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LotInvQtyMin">Lot.LOT_OnHandQty - isnull(iah.IAL_LotQty,0)> #LotInvQtyMin#</isNotNull>
+      </dynamic>
+      ORDER BY CFN.CFN_CustomerFaceNbr, Product.PMA_UPN, LotMaster.LTM_LotNumber
+    </select>
+  </statements>
+</sqlMap>

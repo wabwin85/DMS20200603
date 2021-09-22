@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="HCPPassport.DealerAccount" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <statements>
+
+    <select id="HCPPassport.DealerAccount.SelectRoles" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT ID as [Key],ATTRIBUTE_NAME as [Value]
+      FROM Lafite_ATTRIBUTE
+      WHERE ATTRIBUTE_TYPE='Role'
+      <isNotEmpty prepend="AND" property="DESCRIPTION">
+        DESCRIPTION=#DESCRIPTION#
+      </isNotEmpty>
+    </select>
+
+    <select id="HCPPassport.DealerAccount.SelectIDENTITYInfoList" parameterClass="string" resultClass="System.Collections.Hashtable">
+
+      SELECT * FROM Lafite_IDENTITY
+      WHERE 1=1 
+      <isNotEmpty prepend="AND" property="ID">
+        ID=#ID#
+      </isNotEmpty>
+      ORDER BY CREATE_DATE DESC
+    </select>
+
+    <select id="HCPPassport.DealerAccount.SelectIDENTITYMAPInfo" parameterClass="string" resultClass="System.Collections.Hashtable">
+
+      SELECT B.ATTRIBUTE_NAME AS Value,B.ID AS [Key] FROM Lafite_IDENTITY_MAP A
+      LEFT JOIN Lafite_ATTRIBUTE B ON A.MAP_ID=B.ID
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="ID">
+         IDENTITY_ID=#ID#
+      </isNotEmpty>
+    </select>
+
+
+    <select id="HCPPassport.DealerAccount.SelectIDENTITYCODE" parameterClass="string" resultClass="System.Collections.Hashtable">
+
+      SELECT T.IDENTITY_CODE,T.SAPCODE FROM 
+      (SELECT  RIGHT(IDENTITY_CODE,3) AS IDENTITY_CODE,(SELECT DMA_SAP_Code FROM DealerMaster WHERE DMA_ID=#DMA_ID#) AS SAPCODE FROM Lafite_IDENTITY
+      WHERE IDENTITY_CODE LIKE '%'+(SELECT DMA_SAP_Code
+      FROM DealerMaster
+      WHERE DMA_ID=#DMA_ID#)+'%' AND Corp_ID=#DMA_ID#) T
+      WHERE T.IDENTITY_CODE NOT LIKE '%&amp;_%' ESCAPE  '&amp;'
+      UNION ALL 
+      SELECT '',DMA_SAP_Code
+      FROM DealerMaster
+      WHERE DMA_ID=#DMA_ID#
+      ORDER BY T.IDENTITY_CODE DESC
+      
+    </select>
+
+
+    <select id="HCPPassport.DealerAccount.SelectPhoneEmail" parameterClass="string" resultClass="System.Collections.Hashtable">
+
+      SELECT EMAIL1,PHONE FROM Lafite_IDENTITY WHERE ID=#ID#
+
+
+    </select>
+
+    
+    
+
+
+    <select id="HCPPassport.DealerAccount.SelectIDENTITYList" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT * ,
+      (CASE WHEN BOOLEAN_FLAG=1  AND DELETE_FLAG=0   THEN '是' ELSE '否' END) FLAG
+
+      FROM Lafite_IDENTITY
+      WHERE 1=1 
+      AND IDENTITY_Code not like '%_99'
+      AND DELETE_FLAG = 0
+      <isNotEmpty prepend="AND" property="Name">
+        IDENTITY_NAME like '%'+#Name#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Phone">
+        PHONE like '%'+#Phone#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Email">
+        EMAIL1 like '%'+#Email#+'%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="CorpID">
+        Corp_ID=#CorpID#
+      </isNotEmpty>
+      ORDER BY  CREATE_DATE DESC
+    </select>
+
+
+    <insert id="HCPPassport.DealerAccount.InsertIDENTITY" parameterClass="string">
+      INSERT INTO Lafite_IDENTITY
+      (Id,IDENTITY_CODE,LOWERED_IDENTITY_CODE,IDENTITY_NAME,EMAIL1,PHONE,BOOLEAN_FLAG,IDENTITY_TYPE,LastActivityDate,Corp_ID,APP_ID,DELETE_FLAG,CREATE_USER,CREATE_DATE,LAST_UPDATE_USER,LAST_UPDATE_DATE)
+      VALUES
+      (#ID#,#IDENTITY_CODE#,#IDENTITY_CODE#,#Name#,#Email#,#Phone#,1,'Dealer','1990-01-01',#CorpID#,'4028931b0f0fc135010f0fc1356a0001',0,#CreateUser#,GETDATE(),#CreateUser#,GETDATE())
+
+
+    </insert>
+
+    <insert id="HCPPassport.DealerAccount.InsertIDENTITYMAP" parameterClass="string">
+      INSERT INTO Lafite_IDENTITY_MAP
+      (
+	       Id,
+	       IDENTITY_ID,
+	       MAP_TYPE,
+	       MAP_ID,
+	       APP_ID,
+	       DELETE_FLAG,
+	       CREATE_USER,
+	       CREATE_DATE,
+	       LAST_UPDATE_USER,
+	       LAST_UPDATE_DATE
+		   )
+      SELECT NEWID(),#ID#,'Role',#Roles#,'4028931b0f0fc135010f0fc1356a0001',0,#CreateUser#,GETDATE(),#CreateUser#,GETDATE()
+    </insert>
+
+
+    <insert id="HCPPassport.DealerAccount.InsertMembership" parameterClass="string">
+      INSERT INTO dbo.Lafite_Membership
+      values(#ID#,'JwSWJpN51898uJjc7eriHZY/MSc=','1','rcmX5PF2DpzU5uP09ilGuA==',null,'','',null,null,'4028931b0f0fc135010f0fc1356a0001',1,0,GETDATE(),GETDATE(),'j3Mj1nPQ5V3HA5wvn6CvSvMq0qY=',GETDATE(),GETDATE(),0,GETDATE(),'0',GETDATE(),null)
+    </insert>
+
+    <select id="Login.SelectUserByPhone" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT IDENTITY_CODE,LOWERED_IDENTITY_CODE,IDENTITY_NAME,PHONE,EMAIL1,ADDRESS FROM  dbo.Lafite_IDENTITY WHERE (BOOLEAN_FLAG=1 AND DELETE_FLAG=0) AND (PHONE=#Account# OR IDENTITY_CODE=#Account#)
+    </select>
+    
+     <update id="HCPPassport.DealerAccount.UpdateIDENTITY" parameterClass="string" resultClass="System.Data.DataSet">
+      <![CDATA[
+       
+       UPDATE Lafite_IDENTITY SET BOOLEAN_FLAG=#BOOLEAN_FLAG#,DELETE_FLAG=#DELETE_FLAG#,LAST_UPDATE_USER=#CreateUser#,LAST_UPDATE_DATE=GETDATE()
+       WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <delete id="HCPPassport.DealerAccount.DeleteIDENTITYMAP" parameterClass="string">
+      DELETE FROM Lafite_IDENTITY_MAP
+      WHERE IDENTITY_ID = #ID#
+    </delete>
+
+
+    <update id="HCPPassport.DealerAccount.SaveHome" parameterClass="string" resultClass="System.Data.DataSet">
+      UPDATE Lafite_IDENTITY SET BOOLEAN_FLAG=1,LAST_UPDATE_DATE=GETDATE()
+      <isNotEmpty property="Phone">
+        ,PHONE=#Phone#
+      </isNotEmpty>
+      <isNotEmpty property="Email">
+        ,EMAIL1=#Email#
+      </isNotEmpty>
+    WHERE ID=#ID#
+    </update>
+
+
+  </statements>
+</sqlMap>

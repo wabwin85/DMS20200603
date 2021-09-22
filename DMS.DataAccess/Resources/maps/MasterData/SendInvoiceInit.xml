@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SendInvoiceInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SendInvoiceInit" assembly="DMS.Model.dll" type="DMS.Model.SendInvoiceInit" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SendInvoiceInitResult" class="SendInvoiceInit">
+            <result property="Id" column="SII_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="User" column="SII_USER" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UploadDate" column="SII_UploadDate" type="DateTime" dbType="datetime"/>
+            <result property="LineNbr" column="SII_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="SII_FileName" type="string" dbType="nvarchar"/>
+            <result property="ErrorFlag" column="SII_ErrorFlag" type="bool" dbType="bit"/>
+            <result property="ErrorDescription" column="SII_ErrorDescription" type="string" dbType="nvarchar"/>
+            <result property="SapCode" column="SII_SAPCode" type="string" dbType="nvarchar"/>
+            <result property="DmaChineseName" column="SII_DMA_ChineseName" type="string" dbType="nvarchar"/>
+            <result property="InvoiceNo" column="SII_InvoiceNo" type="string" dbType="nvarchar"/>
+            <result property="Carrier" column="SII_Carrier" type="string" dbType="nvarchar"/>
+            <result property="TrackingNo" column="SII_TrackingNo" type="string" dbType="nvarchar"/>
+            <result property="SendDate" column="SII_SendDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+      <parameterMap id="SendInvoiceInitParameterMap" class="System.Collections.Hashtable" >
+        <parameter property="UserId" column="UserId" />
+        <parameter property="IsValid" column="IsValid" direction="Output" />
+      </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectSendInvoiceInit" parameterClass="string" resultClass="SendInvoiceInit">
+            SELECT SII_ID AS Id,SII_USER AS [User],SII_UploadDate AS UploadDate,SII_LineNbr AS LineNbr,SII_FileName AS FileName,SII_ErrorFlag AS ErrorFlag,SII_ErrorDescription AS ErrorDescription,SII_SAPCode AS SapCode,SII_DMA_ChineseName AS DmaChineseName,SII_InvoiceNo AS InvoiceNo,SII_Carrier AS Carrier,SII_TrackingNo AS TrackingNo,SII_SendDate AS SendDate
+            FROM SendInvoiceInit
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    SII_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterSendInvoiceInit" parameterClass="SendInvoiceInit" resultClass="SendInvoiceInit">
+            SELECT SII_ID AS Id,SII_USER AS [User],SII_UploadDate AS UploadDate,SII_LineNbr AS LineNbr,SII_FileName AS FileName,SII_ErrorFlag AS ErrorFlag,SII_ErrorDescription AS ErrorDescription,SII_SAPCode AS SapCode,SII_DMA_ChineseName AS DmaChineseName,SII_InvoiceNo AS InvoiceNo,SII_Carrier AS Carrier,SII_TrackingNo AS TrackingNo,SII_SendDate AS SendDate
+            FROM SendInvoiceInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">SII_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="User">SII_USER=#User#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">SII_UploadDate=#UploadDate#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">SII_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">SII_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorFlag">SII_ErrorFlag=#ErrorFlag#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorDescription">SII_ErrorDescription=#ErrorDescription#</isNotNull>
+                <isNotNull prepend="AND" property="SapCode">SII_SAPCode=#SapCode#</isNotNull>
+                <isNotNull prepend="AND" property="DmaChineseName">SII_DMA_ChineseName=#DmaChineseName#</isNotNull>
+                <isNotNull prepend="AND" property="InvoiceNo">SII_InvoiceNo=#InvoiceNo#</isNotNull>
+                <isNotNull prepend="AND" property="Carrier">SII_Carrier=#Carrier#</isNotNull>
+                <isNotNull prepend="AND" property="TrackingNo">SII_TrackingNo=#TrackingNo#</isNotNull>
+                <isNotNull prepend="AND" property="SendDate">SII_SendDate=#SendDate#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertSendInvoiceInit" parameterClass="SendInvoiceInit">
+            INSERT INTO SendInvoiceInit
+            (SII_ID,SII_USER,SII_UploadDate,SII_LineNbr,SII_FileName,SII_ErrorFlag,SII_ErrorDescription,SII_SAPCode,SII_DMA_ChineseName,SII_InvoiceNo,SII_Carrier,SII_TrackingNo,SII_SendDate)
+            VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#SapCode#,#DmaChineseName#,#InvoiceNo#,#Carrier#,#TrackingNo#,#SendDate:DateTime:1/1/0001 12:00:00 AM#)
+        </insert>
+        <update id="UpdateSendInvoiceInit" parameterClass="SendInvoiceInit">
+            UPDATE SendInvoiceInit
+            SET SII_ID=#Id#,SII_USER=#User#,SII_UploadDate=#UploadDate#,SII_LineNbr=#LineNbr#,SII_FileName=#FileName#,SII_ErrorFlag=#ErrorFlag#,SII_ErrorDescription=#ErrorDescription#,SII_SAPCode=#SapCode#,SII_DMA_ChineseName=#DmaChineseName#,SII_InvoiceNo=#InvoiceNo#,SII_Carrier=#Carrier#,SII_TrackingNo=#TrackingNo#,SII_SendDate=#SendDate#
+            WHERE SII_ID = #Id#
+        </update>
+        <delete id="DeleteSendInvoiceInit" parameterClass="string">
+            DELETE FROM SendInvoiceInit
+            WHERE SII_ID = #value#
+        </delete>
+
+        <delete id="DeleteByUserIdSendInvoiceInit" parameterClass="string">
+          DELETE FROM SendInvoiceInit
+          WHERE SII_USER = #value#
+        </delete>
+
+        <select id="SelectByUserIdSendInvoiceInit" parameterClass="SendInvoiceInit" resultClass="SendInvoiceInit">
+          SELECT SII_ID AS Id,SII_USER AS SIIUser,SII_UploadDate AS UploadDate,SII_LineNbr AS LineNbr,SII_FileName AS FileName,SII_ErrorFlag AS ErrorFlag,SII_ErrorDescription AS ErrorDescription,SII_SAPCode AS SapCode,SII_DMA_ChineseName AS DmaChineseName,SII_InvoiceNo AS InvoiceNo,SII_Carrier AS Carrier,SII_TrackingNo AS TrackingNo,SII_SendDate AS SendDate
+          FROM SendInvoiceInit WHERE SII_ErrorFlag = 1
+          <isNotNull prepend="AND" property="User">SII_USER=#User#</isNotNull>
+        </select>
+
+        <procedure id="GC_UploadSendInvoice" parameterMap="SendInvoiceInitParameterMap">
+          dbo.GC_UploadSendInvoice
+        </procedure>
+    </statements>
+</sqlMap>

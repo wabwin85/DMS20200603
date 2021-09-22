@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="MailMessageAttachmentMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="MailMessageAttachment" assembly="DMS.Model.dll" type="DMS.Model.MailMessageAttachment" />
+  </alias>
+  <resultMaps>
+    <resultMap id="MailMessageAttachmentResult" class="MailMessageAttachment">
+      <result property="Id" column="MMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="MmqId" column="MMA_MMQ_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="FilePath" column="MMA_FilePath" type="string" dbType="nvarchar"/>
+      <result property="FileType" column="MMA_FileType" type="string" dbType="varchar"/>
+      <result property="FileIdentifier" column="MMA_FileIdentifier" type="string" dbType="varchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectMailMessageAttachment" parameterClass="string" resultClass="MailMessageAttachment">
+      SELECT MMA_ID AS Id,MMA_MMQ_ID AS MmqId,MMA_FilePath AS FilePath,MMA_FileType AS FileType,MMA_FileIdentifier AS FileIdentifier
+      FROM MailMessageAttachment
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          MMA_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterMailMessageAttachment" parameterClass="MailMessageAttachment" resultClass="MailMessageAttachment">
+      SELECT MMA_ID AS Id,MMA_MMQ_ID AS MmqId,MMA_FilePath AS FilePath,MMA_FileType AS FileType,MMA_FileIdentifier AS FileIdentifier
+      FROM MailMessageAttachment
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">MMA_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="MmqId">MMA_MMQ_ID=#MmqId#</isNotNull>
+        <isNotNull prepend="AND" property="FilePath">MMA_FilePath=#FilePath#</isNotNull>
+        <isNotNull prepend="AND" property="FileType">MMA_FileType=#FileType#</isNotNull>
+        <isNotNull prepend="AND" property="FileIdentifier">MMA_FileIdentifier=#FileIdentifier#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertMailMessageAttachment" parameterClass="MailMessageAttachment">
+      INSERT INTO MailMessageAttachment
+      (MMA_ID,MMA_MMQ_ID,MMA_FilePath,MMA_FileType,MMA_FileIdentifier)
+      VALUES(#Id#,#MmqId#,#FilePath#,#FileType#,#FileIdentifier#)
+    </insert>
+    <update id="UpdateMailMessageAttachment" parameterClass="MailMessageAttachment">
+      UPDATE MailMessageAttachment
+      SET MMA_ID=#Id#,MMA_MMQ_ID=#MmqId#,MMA_FilePath=#FilePath#,MMA_FileType=#FileType#,MMA_FileIdentifier=#FileIdentifier#
+      WHERE MMA_ID = #Id#
+    </update>
+    <delete id="DeleteMailMessageAttachment" parameterClass="string">
+      DELETE FROM MailMessageAttachment
+      WHERE MMA_ID = #value#
+    </delete>
+  </statements>
+</sqlMap>

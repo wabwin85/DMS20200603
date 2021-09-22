@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>促销终止</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">促销政策终止申请：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 130px;font-weight: 600;">申请编号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.TermainationNo}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">终止政策编号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;color:red;">#{Header.PolicyNo} </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">政策名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PolicyName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">归类名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.PolicyGroupName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品线：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.BU}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">SubBu：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.SubBu}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">终止类型：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.TemainationType}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">终止生效时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.TermainationDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">原政策开始时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.StartDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">原政策终止时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.EndDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">备注：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.Remark}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

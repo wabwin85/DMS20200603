@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerComplainMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <parameterMaps>
+    <parameterMap id="ParamGC_DealerComplain_Save" class="System.Collections.Hashtable">
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="CorpId" column="CorpId" />
+      <parameter property="ComplainInfo" column="ComplainInfo" dbType="xml" type="string" />
+      <parameter property="Result" column="Result" />
+    </parameterMap>
+    <parameterMap id="GC_DealerComplain_QABSCDealerComplainLock_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="DMSBSCCode" column="DMSBSCCode" />
+      <parameter property="Status" column="Status" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="CarrierNumber" column="CarrierNumber" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="InstanceId" column="InstanceId" />
+      <parameter property="ComplainNo" column="ComplainNo" />
+      <parameter property="DNNumber" column="DNNumber" />
+    </parameterMap>
+    <parameterMap id="GC_DealerComplain_QACRMDealerComplainLock_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="DMSBSCCode" column="DMSBSCCode" />
+      <parameter property="Status" column="Status" />
+      <parameter property="SubCompanyId" column="SubCompanyId" />
+      <parameter property="BrandId" column="BrandId" />
+      <parameter property="CarrierNumber" column="CarrierNumber" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="InstanceId" column="InstanceId" />
+      <parameter property="DNNumber" column="DNNumber" />
+      <parameter property="PI" column="PI" />
+      <parameter property="IAN" column="IAN" />
+    </parameterMap>
+    <parameterMap id="GC_DealerComplain_CheckUPNAndDate_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="WHMID" column="WHMID" />
+      <parameter property="DMAID" column="DMAID" />
+      <parameter property="UPN" column="UPN" />
+      <parameter property="LOT" column="LOT" />
+      <parameter property="RETURNNUM" column="RETURNNUM" />
+      <parameter property="ImplantDate" column="ImplantDate" />
+      <parameter property="EventDate" column="EventDate" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_DealerComplain_CheckUPNAndDateCRM_ParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="WHMID" column="WHMID" />
+      <parameter property="DMAID" column="DMAID" />
+      <parameter property="UPN" column="UPN" />
+      <parameter property="LOT" column="LOT" />
+      <parameter property="EventDate" column="EventDate" />
+      <parameter property="DealerDate" column="DealerDate" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="ParamGC_DealerComplain_SaveForNew" class="System.Collections.Hashtable">
+      <parameter property="InstanceId" column="InstanceId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="CorpId" column="CorpId" />
+      <parameter property="ComplainStatus" column="ComplainStatus" />
+      <parameter property="ComplainInfo" column="ComplainInfo" dbType="xml" type="string" />
+      <parameter property="Result" column="Result" direction="Output" />
+    </parameterMap>
+    <parameterMap id="ParamGC_DealerComplainForReturn_Save" class="System.Collections.Hashtable">
+      <parameter property="InstanceId" column="InstanceId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="CorpId" column="CorpId" />
+      <parameter property="ReturnStatus" column="ReturnStatus" />
+      <parameter property="ComplainInfo" column="ComplainInfo" dbType="xml" type="string" />
+      <parameter property="Result" column="Result" direction="Output" />
+    </parameterMap>
+
+    <parameterMap id="GC_DealerComplain_CheckUPNAndDateCRM_ForEkp_ParameterMap" class="System.Collections.Hashtable">
+      <parameter property="WHMID" column="WHMID" />
+      <parameter property="DMAID" column="DMAID" />
+      <parameter property="UPN" column="UPN" />
+      <parameter property="Lot" column="Lot" />
+      <parameter property="QrCode" column="QrCode" />
+      <parameter property="EventDate" column="EventDate" />
+      <parameter property="DealerDate" column="DealerDate" />
+      <parameter property="ImplanDate" column="ImplanDate" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+    <parameterMap id="GC_DealerComplain_CheckUPNAndDateCNF_ForEkp_ParameterMap" class="System.Collections.Hashtable">
+      <parameter property="WHMID" column="WHMID" />
+      <parameter property="DMAID" column="DMAID" />
+      <parameter property="UPN" column="UPN" />
+      <parameter property="Lot" column="Lot" />
+      <parameter property="QrCode" column="QrCode" />
+      <parameter property="ReturnNum" column="ReturnNum" />
+      <parameter property="ImplantDate" column="ImplantDate" />
+      <parameter property="EventDate" column="EventDate" />
+      <parameter property="ComplainType" column="ComplainType" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+    <procedure id="GC_DealerComplain_Save" parameterMap="ParamGC_DealerComplain_Save">
+      dbo.GC_DealerComplain_Save
+    </procedure>
+    <select id="SelectDealerComplainByHashtable" parameterClass="System.Collections.Hashtable">
+      SELECT A.*,CASE WHEN ld.VALUE1 IS NULL THEN DC_Status ELSE ld.VALUE1 END StatusName,ROW_NUMBER () OVER (ORDER BY A.DC_CreatedDate DESC) AS row_number
+      FROM (
+      SELECT DC.DC_ID,CONVERT(NVARCHAR(19),DC.DC_CreatedDate,121) DC_CreatedDate,'BSC' AS ComplainType,Case When DC_Status IN ('InApprove','Confirmed','Completed') and DC_ComplainStatus is not null then DC_ComplainStatus else DC_Status end as DC_Status ,DC.DC_CorpId,LI.IDENTITY_NAME,DC.DC_ComplainNbr,UPN,LOT,QRCode,COMPLAINTID AS DN,CarrierNumber,(select DM.DMA_ChineseName
+      from DealerMaster AS DM(nolock) where DM.DMA_ID=DC.DC_CorpId) AS CorpName,
+      (select DM.DMA_DealerType from DealerMaster AS DM(nolock) where DM.DMA_ID=DC.DC_CorpId) AS DealerType,
+      case  isnull(CONFIRMRETURNTYPE,RETURNTYPE) when 10 then '换货' WHEN 11 then '退款' when 12 then '只退不换' end  AS ReturnType,
+      case when WHM_ID = '00000000-0000-0000-0000-000000000000' then '销售到医院' else (select VALUE1 from Warehouse w,Lafite_DICT where WHM_Type = DICT_KEY and DICT_TYPE='MS_WarehouseType' and w.WHM_ID = DC.WHM_ID) end as WarehouseType
+      ,case when WHM_ID = '00000000-0000-0000-0000-000000000000' then '经销商物权' else (select VALUE1 from Warehouse w,Lafite_DICT where WHM_Type = DICT_KEY and DICT_TYPE='Product_PropertyRight' and w.WHM_ID = DC.WHM_ID) end as PropertyRight
+      FROM   DealerComplain DC(nolock), Lafite_IDENTITY LI(nolock)
+      WHERE  DC.DC_CreatedBy = LI.Id
+      UNION
+      SELECT DC.DC_ID,CONVERT(NVARCHAR(19),DC.DC_CreatedDate,121) DC_CreatedDate,'CRM' AS ComplainType,Case When DC_Status IN ('InApprove','Confirmed','Completed') and DC_ComplainStatus is not null then DC_ComplainStatus else DC_Status end as DC_Status ,DC.DC_CorpId,LI.IDENTITY_NAME,DC.DC_ComplainNbr,Model AS UPN,LOT,QRCode,PI AS DN,CarrierNumber,(select DM.DMA_ChineseName from DealerMaster AS DM where DM.DMA_ID=DC.DC_CorpId) AS CorpName,
+      (select DM.DMA_DealerType from DealerMaster AS DM where DM.DMA_ID=DC.DC_CorpId) AS DealerType,
+      case isnull(case when CONFIRMRETURNTYPE ='' then null else CONFIRMRETURNTYPE end ,RETURNTYPE) when 1 then '换货' WHEN 2 then '退款' when 5 then '只退不换' end  AS ReturnType,
+      case when WHMID = '00000000-0000-0000-0000-000000000000' then '销售到医院' else (select VALUE1 from Warehouse w,Lafite_DICT where WHM_Type = DICT_KEY and DICT_TYPE='MS_WarehouseType' and w.WHM_ID = DC.WHMID) end as WarehouseType
+      ,case when WHMID = '00000000-0000-0000-0000-000000000000' then '经销商物权' else (select VALUE1 from Warehouse w,Lafite_DICT where WHM_Type = DICT_KEY and DICT_TYPE='Product_PropertyRight' and w.WHM_ID = DC.WHMID) end as PropertyRight
+      FROM DealerComplainCRM DC(nolock), Lafite_IDENTITY LI(nolock)
+      WHERE DC.DC_CreatedBy = LI.Id) A
+      INNER JOIN DealerMaster B ON A.DC_CorpId=B.DMA_ID
+      LEFT JOIN Lafite_DICT ld ON A.DC_Status=ld.DICT_KEY AND DICT_TYPE='CONST_QAComplainReturn_Status'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ApplyDateStart">CONVERT(NVARCHAR(10),A.DC_CreatedDate,112)>=#ApplyDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyDateEnd">CONVERT(NVARCHAR(10),A.DC_CreatedDate,112)&lt;=#ApplyDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyUser">IDENTITY_NAME=#ApplyUser#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">DC_CorpId=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">DC_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ComplainNumber">DC_ComplainNbr like N'%$ComplainNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">  (Lot like N'%$LotNumber$%' OR QRCode like N'%$LotNumber$%' )</isNotNull>
+        <isNotNull prepend="AND" property="ComplainType">ComplainType = #ComplainType#</isNotNull>
+        <isNotNull prepend="AND" property="DN">DN like N'%$DN$%'</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="Dealer">
+          (B.DMA_Parent_DMA_ID=#OwnerCorpId# OR B.DMA_ID=#OwnerCorpId#)
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="GC_DealerComplain_Info" parameterClass="System.Collections.Hashtable">
+      dbo.GC_DealerComplain_Info #DC_ID#,#ComplainType#
+    </select>
+    <select id="GC_DealerComplain_Info_SpecialDateFormat" parameterClass="System.Collections.Hashtable">
+      dbo.GC_DealerComplain_Info_SpecialDateFormat #DC_ID#,#ComplainType#
+    </select>
+    <select id="SelectDealerComplainUPN" parameterClass="System.Collections.Hashtable">
+      SELECT P.PMA_UPN,C.CFN_ChineseName,LA.ATTRIBUTE_NAME
+      FROM Product P,CFN C,View_ProductLine LA
+      WHERE P.PMA_CFN_ID=C.CFN_ID AND C.CFN_ProductLine_BUM_ID=LA.Id AND LA.ATTRIBUTE_TYPE='Product_Line'
+      AND EXISTS (SELECT 1 FROM DealerAuthorizationTable DAT
+      WHERE DAT.DAT_ProductLine_BUM_ID=C.CFN_ProductLine_BUM_ID
+      AND (DAT.DAT_DMA_ID=#CorpId# OR #CorpId# IS NULL))
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="SubCompanyId">LA.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">LA.BrandId = #BrandId#</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateDealerComplainCancel" parameterClass="System.Collections.Hashtable">
+      IF #ComplainType# = 'BSC'
+      BEGIN
+      UPDATE DealerComplain SET DC_Status='Revoked',DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#DC_ID#;
+      END
+      ELSE
+      BEGIN
+      UPDATE DealerComplainCRM SET DC_Status='Revoked',DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#DC_ID#;
+      END
+    </update>
+
+    <!--<update id="UpdateDealerComplainConfirm" parameterClass="System.Collections.Hashtable">
+      IF #ComplainType# = 'BSC'
+      BEGIN
+      UPDATE DealerComplain SET DC_Status='Confirmed',DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#DC_ID#;
+      END
+      ELSE
+      BEGIN
+      UPDATE DealerComplainCRM SET DC_Status='Confirmed',DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#DC_ID#;
+      END
+    </update>-->
+
+    <!--<update id="UpdateCarrierNumber" parameterClass="System.Collections.Hashtable">
+      IF #ComplainType# = 'BSC'
+      BEGIN
+      UPDATE DealerComplain SET CarrierNumber=#CarrierNumber#,DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#DC_ID#;
+      END
+      ELSE
+      BEGIN
+      UPDATE DealerComplainCRM SET CarrierNumber=#CarrierNumber#,DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#DC_ID#;
+      END
+    </update>-->
+
+    <procedure id="UpdateBSCCarrierNumber" parameterMap="GC_DealerComplain_QABSCDealerComplainLock_ParameterMap">
+      interface.P_I_EW_QABSCDealerComplain_Lock
+    </procedure>
+
+    <procedure id="GC_DealerComplain_CheckUPNAndDate" parameterMap="GC_DealerComplain_CheckUPNAndDate_ParameterMap">
+      dbo.GC_DealerComplain_CheckUPNAndDate
+    </procedure>
+
+    <procedure id="UpdateDealerComplainConfirm" parameterMap="GC_DealerComplain_QABSCDealerComplainLock_ParameterMap">
+      interface.P_I_EW_QABSCDealerComplain_Lock
+    </procedure>
+
+
+    <procedure id="UpdateCRMCarrierNumber" parameterMap="GC_DealerComplain_QACRMDealerComplainLock_ParameterMap">
+      interface.P_I_EW_QACRMDealerComplain_Lock
+    </procedure>
+
+    <procedure id="GC_DealerComplain_CheckUPNAndDateCRM" parameterMap="GC_DealerComplain_CheckUPNAndDateCRM_ParameterMap">
+      dbo.GC_DealerComplain_CheckUPNAndDateCRM
+    </procedure>
+
+    <procedure id="UpdateDealerComplainConfirmCRM" parameterMap="GC_DealerComplain_QACRMDealerComplainLock_ParameterMap">
+      interface.P_I_EW_QACRMDealerComplain_Lock
+    </procedure>
+
+    <procedure id="UpdateBSCRevoke" parameterMap="GC_DealerComplain_QABSCDealerComplainLock_ParameterMap">
+      interface.P_I_EW_QABSCDealerComplain_Lock
+    </procedure>
+
+    <procedure id="UpdateCRMRevoke" parameterMap="GC_DealerComplain_QACRMDealerComplainLock_ParameterMap">
+      interface.P_I_EW_QACRMDealerComplain_Lock
+    </procedure>
+
+    <select id="DealerComplainExport" parameterClass="System.Collections.Hashtable">
+      SELECT DC_ComplainNbr as '投诉单号',DC_CreatedDate as '投诉时间',DMA_SAP_Code as '经销商编号',DMA_ChineseName as '经销商',ParentName as '对应平台名称',DISTRIBUTORCUSTOMER as '医院',ProductLineName as 'BU',UPN as '型号',LOT as '批次',qrcode as '二维码',ExpiredDate as '效期' ,ReturnNum as '数量',PMA_UPN as '换新UPN',lot2 as '换新批次',qrcode2 as '换新二维码',NewExpiredDate as '换新产品效期',case when isnull(WHMName,'') = '' then '销售到医院' else WHMName end as '仓库',WHMType as '产品物权',DN2 AS 'DN号',DN as '蓝威全球投诉号',ReturnType AS '投诉类型',VALUE1 as '状态'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote = 'eWorkflow提交投诉退货申请') as '波科发起投诉日期'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote like 'eWorkflow修改状态为:投诉已确认，请返回投诉产品,投诉号%') as '波科QA投诉上报日期'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote = 'eWorkflow修改状态为：投诉产品已收到') as '投诉产品已收到日期'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote = 'eWorkflow确认投诉换货类型') as 'BU/QA最终确认时间'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote = 'eWorkflow缺货') as '波科确认库存无法满足的日期'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote in ('eWorkflow修改状态为：波科货物已发送','eWorkflow修改状态为：波科已换货给平台/T1')) as '波科已换货给平台/T1'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote = 'eWorkflow已完成审批') as '波科已退款给平台/T1'
+      ,(select max(pol_operdate) from PurchaseOrderLog where POL_POH_ID= DC_ID and POL_OperNote = '平台确认已换货给T2或寄送退款协议给T2') as '平台确认已换货给T2或寄送退款协议给T2'
+      FROM (
+      SELECT DC.DC_ID,CONVERT(NVARCHAR(19),DC.DC_CreatedDate,121) DC_CreatedDate,'BSC' AS ComplainType,DC.DC_Status,DC.DC_CorpId,LI.IDENTITY_NAME,DC.DC_ComplainNbr,UPN
+      <!--,substring(LOT,1,charindex('@',lot,1)-1) as lot-->
+      ,case when LOT like '%@%' then  substring(LOT,1,charindex('@',LOT,1)-1) else Lot end as lot
+      <!--,substring(LOT,charindex('@',lot,1)+2,len(lot) -charindex('@',lot,1)-1) as qrcode-->
+      ,case when LOT like '%@%' then substring(LOT,charindex('@',lot,1)+2,len(lot) -charindex('@',lot,1)-1) else QrCode end as qrcode
+      ,COMPLAINTID AS DN,CarrierNumber,DM2.DMA_ChineseName as ParentName,SUBSOLDTONAME AS CorpName,case when CONFIRMRETURNTYPE = 10 then '换货' else case when CONFIRMRETURNTYPE = 11 then '退款' else '只退不换' end end AS ReturnType,DM.DMA_SAP_Code,DM.DMA_ChineseName,SUBSOLDTONAME,HOS_HospitalName as DISTRIBUTORCUSTOMER,ld.VALUE1,ReturnNum,DN as DN2,whm_name as WHMName,ld2.VALUE1 as WHMType,ProductLineName,
+      PMA_UPN
+      ,case when ISNULL(PRL_LotNumber,'') &lt;> '' then substring(PRL_LotNumber,1,charindex('@',PRL_LotNumber,1)-1) else '' end as lot2
+      ,case when ISNULL(PRL_LotNumber,'') &lt;> '' then substring(PRL_LotNumber,charindex('@',PRL_LotNumber,1)+2,len(PRL_LotNumber) -charindex('@',PRL_LotNumber,1)-1) else '' end as qrcode2
+      ,LTM_ExpiredDate as ExpiredDate,DM2.DMA_ID as ParentID,PRL_ExpiredDate as NewExpiredDate
+      FROM   DealerComplain DC
+      inner join DealerMaster DM on DC.DC_CorpId = DM.DMA_ID
+      inner join DealerMaster DM2 on DM.DMA_Parent_DMA_ID = DM2.DMA_ID
+      inner join Lafite_DICT LD on DC_Status = LD.DICT_KEY
+      inner join Lafite_IDENTITY LI on DC.DC_CreatedBy = LI.Id
+      inner join CFN on UPN = CFN_CustomerFaceNbr
+      inner join V_DivisionProductLineRelation vd on CFN_ProductLine_BUM_ID = ProductLineID
+      left join Hospital on DC.DISTRIBUTORCUSTOMER = HOS_Key_Account
+      inner join LotMaster ON (CASE WHEN ISNULL(QrCode,'')='' THEN  LOT ELSE LOT+'@@'+QrCode END) = LTM_LotNumber
+      left join Warehouse w on w.WHM_ID = dc.WHM_ID
+      left join Lafite_DICT ld2 on w.WHM_Type = ld2.DICT_KEY and  ld2.DICT_TYPE='MS_WarehouseType'
+      left join POReceiptHeader PRH on CASE WHEN dc.DN is null or dc.DN='' then 'NoDN' ELSE dc.DN END = PRH_SAPShipmentID
+      left join POReceipt por on PRH_ID = por.POR_PRH_ID
+      left join POReceiptLot on POR_ID = PRL_POR_ID
+      left join Product on POR_SAP_PMA_ID = PMA_ID
+      WHERE ld.DICT_TYPE = 'CONST_QAComplainReturn_Status'
+      union
+      SELECT DC.DC_ID,CONVERT(NVARCHAR(19),DC.DC_CreatedDate,121) DC_CreatedDate,'CRM' AS ComplainType,DC.DC_Status,DC.DC_CorpId,LI.IDENTITY_NAME,DC.DC_ComplainNbr,Model AS UPN
+      ,case when LOT like '%@%' then  substring(LOT,1,charindex('@',lot,1)-1) else Lot end as lot
+      <!--,substring(LOT,charindex('@',lot,1)+2,len(lot) -charindex('@',lot,1)-1) as qrcode-->
+      ,case when LOT like '%@%' then substring(LOT,charindex('@',lot,1)+2,len(lot) -charindex('@',lot,1)-1) else QrCode end as qrcode
+
+      ,IAN AS DN,CarrierNumber,DM2.DMA_ChineseName as ParentName,SUBSOLDTONAME AS CorpName,case when CONFIRMRETURNTYPE = 1 then '换货' else case when CONFIRMRETURNTYPE = 2 then '退款' else '只退不换' end end AS ReturnType,DM.DMA_SAP_Code,DM.DMA_ChineseName,SUBSOLDTONAME,HOS_HospitalName as DISTRIBUTORCUSTOMER,ld.VALUE1,Returned,DN,whm_name as WHMName,ld2.VALUE1 as WHMType,'心脏节律管理',
+      PMA_UPN
+      ,case when ISNULL(PRL_LotNumber,'') &lt;> '' then substring(PRL_LotNumber,1,charindex('@',PRL_LotNumber,1)-1) else '' end as lot2
+      ,case when ISNULL(PRL_LotNumber,'') &lt;> '' then substring(PRL_LotNumber,charindex('@',PRL_LotNumber,1)+2,len(PRL_LotNumber) -charindex('@',PRL_LotNumber,1)-1) else '' end as qrcode2
+      ,LTM_ExpiredDate as ExpiredDate,DM2.DMA_ID as ParentID,PRL_ExpiredDate as NewExpiredDate
+      FROM DealerComplainCRM DC
+      inner join DealerMaster DM on DC.DC_CorpId = DM.DMA_ID
+      inner join DealerMaster DM2 on DM.DMA_Parent_DMA_ID = DM2.DMA_ID
+      inner join Lafite_DICT LD on DC_Status = LD.DICT_KEY
+      inner join Lafite_IDENTITY LI on DC.DC_CreatedBy = LI.Id
+      left join Hospital on DC.DISTRIBUTORCUSTOMER = HOS_Key_Account
+      inner join LotMaster ON (CASE WHEN ISNULL(QrCode,'')='' THEN  LOT ELSE LOT+'@@'+QrCode END) = LTM_LotNumber
+      left join Warehouse w on w.WHM_ID = dc.WHMID
+      left join Lafite_DICT ld2 on w.WHM_Type = ld2.DICT_KEY and  ld2.DICT_TYPE='MS_WarehouseType'
+      left join POReceiptHeader PRH on CASE WHEN dc.DN is null or dc.DN='' then 'NoDN' ELSE dc.DN END = PRH_SAPShipmentID
+      left join POReceipt por on PRH_ID = por.POR_PRH_ID
+      left join POReceiptLot on POR_ID = PRL_POR_ID
+      left join Product on POR_SAP_PMA_ID = PMA_ID
+      where ld.DICT_TYPE = 'CONST_QAComplainReturn_Status') A
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ApplyDateStart">CONVERT(NVARCHAR(10),A.DC_CreatedDate,112)>=#ApplyDateStart#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyDateEnd">CONVERT(NVARCHAR(10),A.DC_CreatedDate,112)&lt;=#ApplyDateEnd#</isNotNull>
+        <isNotNull prepend="AND" property="ApplyUser">IDENTITY_NAME=#ApplyUser#</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">(DC_CorpId=#DealerId# or ParentID=#DealerId#)</isNotNull>
+        <isNotNull prepend="AND" property="Status">DC_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="ComplainNumber">DC_ComplainNbr like N'%$ComplainNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="Upn">UPN=#Upn#</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">Lot like N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="ComplainType">ComplainType = #ComplainType#</isNotNull>
+        <isNotNull prepend="AND" property="DN">DN like N'%$DN$%'</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="UpdateDealerComplainStatus" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerComplain SET DC_Status=#DC_Status# WHERE DC_ID=#DC_ID#
+    </update>
+
+    <update id="UpdateDealerComplainStatusCRM" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerComplainCRM SET DC_Status=#DC_Status# WHERE DC_ID=#DC_ID#
+    </update>
+
+    <update id="UpdateDealerComplainCourierCNF" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerComplain SET CourierCompany=#CourierCompany#,	CarrierNumber=#CarrierNumber# WHERE DC_ID=#DcId#
+    </update>
+
+    <update id="UpdateDealerComplainCourierCRM" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerComplainCRM SET CourierCompany=#CourierCompany#,	CarrierNumber=#CarrierNumber# WHERE DC_ID=#DcId#
+    </update>
+
+    <procedure id="GC_DealerComplain_SaveForNew" parameterMap="ParamGC_DealerComplain_SaveForNew">
+      dbo.GC_DealerComplain_SaveForNew
+    </procedure>
+
+    <procedure id="GC_DealerComplainForReturn_Save" parameterMap="ParamGC_DealerComplainForReturn_Save">
+      dbo.GC_DealerComplainForReturn_Save
+    </procedure>
+
+    <select id="SelectBscSrForComplain" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet" >
+      <!--select DISTINCT t4.Name+','+REPLACE(t4.Email,'@bsci.com','') AS UserName,REPLACE(t4.Email,'@bsci.com','') AS UserAccount
+      from CfnClassification t1, interface.ClassificationAuthorization t2,interface.Stage_MDM_HospitalRelationship_SubBU t3,interface.MDM_EmployeeMaster t4
+      where t1.ClassificationId=t2.CA_ID and t2.CA_ParentCode=t3.SubBUCode and t3.REPEID = t4.EID
+
+      <isNotNull prepend="AND" property="HosCode">t3.HospitalCode = #HosCode#</isNotNull>
+      <isNotNull prepend="AND" property="UPN">t1.CfnCustomerFaceNbr = #UPN#</isNotNull>
+      <isNotNull prepend="AND" property="IsActive">t4.Status=1</isNotNull>
+
+      ORDER BY REPLACE(t4.Email,'@bsci.com','')-->
+
+      SELECT a.IDENTITY_CODE AS UserAccount ,a.IDENTITY_NAME  AS UserName,DealerID,BUM_ID FROM dbo.Lafite_IDENTITY a  INNER JOIN  dbo.View_SalesOfDealer b
+      ON a.Id=b.SalesID
+      WHERE  b.DealerID=#DealerID#
+      <isNotNull prepend="AND" property="BU">b.BUM_ID = #BU#</isNotNull>
+
+    </select>
+
+    <update id="UpdateDealerComplainStatusByFilter" parameterClass="System.Collections.Hashtable">
+      IF #ComplainType# = 'BSC'
+      BEGIN
+      UPDATE DealerComplain SET DC_Status=#Status#,DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#ComplainId#;
+
+      IF #Status# = 'Reject'
+      BEGIN
+      UPDATE DealerComplain SET ComplainApprovelRemark=#ApprovelRemark# WHERE DC_ID=#ComplainId#;
+      END
+
+      END
+      ELSE
+      BEGIN
+      UPDATE DealerComplainCRM SET DC_Status=#Status#,DC_LastModifiedBy=#UserId#,DC_LastModifiedDate=GETDATE() WHERE DC_ID=#ComplainId#;
+
+      IF #Status# = 'Confirmed'
+      BEGIN
+      UPDATE DealerComplainCRM SET DC_ComplainStatus='Draft',DC_ConfirmUser=#UserId#,DC_ConfirmDate=GETDATE() WHERE DC_ID=#ComplainId#;
+      END
+
+      IF #Status# = 'Reject'
+      BEGIN
+      UPDATE DealerComplainCRM SET ComplainApprovelRemark=#ApprovelRemark# WHERE DC_ID=#ComplainId#;
+      END
+
+      END
+    </update>
+
+    <select id="QueryDealerComplainBscInfo" parameterClass="string" resultClass="System.Data.DataSet" >
+      SELECT 'CNF' AS ComplainType,COMPLAINTID,TWNbr AS TW,NULL AS [PI],NULL AS IAN,REFERBOX AS RN,ReturnFactoryTrackingNo,ReceiveReturnedGoods,ReceiveReturnedGoodsDate,ConfirmReturnOrRefund,RGA,Invoice,DN,CarrierNumber,DC_ConfirmUpdateDate AS LastUpdateDate FROM DealerComplain
+      WHERE DC_ID = #value#
+      UNION ALL
+      SELECT 'CRM' AS ComplainType,NULL AS COMPLAINTID,NULL AS TW,[PI],IAN,RN,NULL AS ReturnFactoryTrackingNo,NULL AS ReceiveReturnedGoods,NULL AS ReceiveReturnedGoodsDate,ConfirmReturnOrRefund,RGA,Invoice,DN,CarrierNumber,DC_ConfirmUpdateDate AS LastUpdateDate FROM dbo.DealerComplainCRM
+      WHERE DC_ID = #value#
+    </select>
+
+    <update id="SaveDealerComplainBsc" parameterClass="System.Collections.Hashtable">
+      IF #ComplainType# = 'CNF'
+      BEGIN
+      UPDATE DealerComplain
+      SET COMPLAINTID=#COMPLAINTID#
+      ,TWNbr=#TW#
+      ,REFERBOX=#RN#
+      ,ReturnFactoryTrackingNo=#ReturnFactoryTrackingNo#
+      ,ReceiveReturnedGoods=#ReceiveReturnedGoods#
+      ,ReceiveReturnedGoodsDate=#ReceiveReturnedGoodsDate#
+      ,ConfirmReturnOrRefund=#ConfirmReturnOrRefundCNF#
+      ,RGA=#RGA#
+      ,Invoice=#Invoice#
+      ,DN=#DN#
+      ,DC_ConfirmUpdateUser=#UpdateUser#
+      ,DC_ConfirmUpdateDate=#UpdateDate#
+      WHERE DC_ID=#ComplainId#;
+      END
+      ELSE IF #ComplainType# = 'CRM'
+      BEGIN
+      UPDATE DealerComplainCRM
+      SET PI=#PI#
+      ,IAN=#IAN#
+      ,RN=#RN#
+      ,ConfirmReturnOrRefund=#ConfirmReturnOrRefundCRM#
+      ,RGA=#RGA#
+      ,Invoice=#Invoice#
+      ,DN=#DN#
+      ,DC_ConfirmUpdateUser=#UpdateUser#
+      ,DC_ConfirmUpdateDate=#UpdateDate#
+      WHERE DC_ID=#ComplainId#;
+      END
+    </update>
+
+    <procedure id="GC_DealerComplain_CheckUPNAndDateCRM_ForEkp" parameterMap="GC_DealerComplain_CheckUPNAndDateCRM_ForEkp_ParameterMap">
+      dbo.GC_DealerComplain_CheckUPNAndDateCRM_ForEkp
+    </procedure>
+
+    <procedure id="GC_DealerComplain_CheckUPNAndDateCNF_ForEkp" parameterMap="GC_DealerComplain_CheckUPNAndDateCNF_ForEkp_ParameterMap">
+      dbo.GC_DealerComplain_CheckUPNAndDateCNF_ForEkp
+    </procedure>
+
+    <update id="UpdateDealerComplainIANCNF" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerComplain SET COMPLAINTID=#ComplaintID# WHERE DC_ID=#DcId#
+    </update>
+
+    <update id="UpdateDealerComplainIANCRM" parameterClass="System.Collections.Hashtable">
+      UPDATE DealerComplainCRM SET PI=#PI#,	IAN=#IAN# WHERE DC_ID=#DcId#
+    </update>
+
+    <select id="GC_SalesComplain_SendMail" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      EXEC dbo.GC_SalesComplain_SendMail #DC_ID#, #DC_Type#
+    </select>
+
+  </statements>
+</sqlMap>

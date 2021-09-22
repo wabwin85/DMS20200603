@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TProOutLinePointsMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TProOutLinePoints" assembly="DMS.Model.dll" type="DMS.Model.TProOutLinePoints" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TProOutLinePointsResult" class="TProOutLinePoints">
+      <result property="FlowId" column="FlowId" type="int" dbType="int"/>
+      <result property="Tier2DealerCode" column="Tier2DealerCode" type="string" dbType="nvarchar"/>
+      <result property="PointsAdjustDate" column="PointsAdjustDate" type="DateTime" dbType="datetime"/>
+      <result property="Bscbu" column="BSCBU" type="string" dbType="nvarchar"/>
+      <result property="PointsValidToDate" column="PointsValidToDate" type="DateTime" dbType="datetime"/>
+      <result property="PointsAmount" column="PointsAmount" type="decimal" dbType="decimal"/>
+      <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+      <result property="Clientid" column="Clientid" type="string" dbType="nvarchar"/>
+      <result property="BatchNbr" column="BatchNbr" type="string" dbType="nvarchar"/>
+      <result property="ErMassage" column="ERMassage" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="GC_Interface_PROOutLinePointsMap" class="System.Collections.Hashtable" >
+      <parameter property="BatchNbr" column="BatchNbr" />
+      <parameter property="ClientID" column="ClientID" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output" />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectTProOutLinePoints" parameterClass="string" resultClass="TProOutLinePoints">
+      SELECT FlowId AS FlowId,Tier2DealerCode AS Tier2DealerCode,PointsAdjustDate AS PointsAdjustDate,BSCBU AS Bscbu,PointsValidToDate AS PointsValidToDate,PointsAmount AS PointsAmount,Remark AS Remark,Clientid AS Clientid,BatchNbr AS BatchNbr,ERMassage AS ErMassage
+      FROM interface.T_PRO_OutLinePoints
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FlowId = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterTProOutLinePoints" parameterClass="TProOutLinePoints" resultClass="TProOutLinePoints">
+      SELECT FlowId AS FlowId,Tier2DealerCode AS Tier2DealerCode,PointsAdjustDate AS PointsAdjustDate,BSCBU AS Bscbu,PointsValidToDate AS PointsValidToDate,PointsAmount AS PointsAmount,Remark AS Remark,Clientid AS Clientid,BatchNbr AS BatchNbr,ERMassage AS ErMassage
+      FROM interface.T_PRO_OutLinePoints
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="FlowId">FlowId=#FlowId#</isNotNull>
+        <isNotNull prepend="AND" property="Tier2DealerCode">Tier2DealerCode=#Tier2DealerCode#</isNotNull>
+        <isNotNull prepend="AND" property="PointsAdjustDate">PointsAdjustDate=#PointsAdjustDate#</isNotNull>
+        <isNotNull prepend="AND" property="Bscbu">BSCBU=#Bscbu#</isNotNull>
+        <isNotNull prepend="AND" property="PointsValidToDate">PointsValidToDate=#PointsValidToDate#</isNotNull>
+        <isNotNull prepend="AND" property="PointsAmount">PointsAmount=#PointsAmount#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="Clientid">Clientid=#Clientid#</isNotNull>
+        <isNotNull prepend="AND" property="BatchNbr">BatchNbr=#BatchNbr#</isNotNull>
+        <isNotNull prepend="AND" property="ErMassage">ERMassage=#ErMassage#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertTProOutLinePoints" parameterClass="TProOutLinePoints">
+      INSERT INTO interface.T_PRO_OutLinePoints
+      (Tier2DealerCode,PointsAdjustDate,BSCBU,PointsValidToDate,PointsAmount,Remark,Clientid,BatchNbr,ERMassage)
+      VALUES(#Tier2DealerCode#,#PointsAdjustDate:DateTime:1/1/0001 12:00:00 AM#,#Bscbu#,#PointsValidToDate:DateTime:1/1/0001 12:00:00 AM#,#PointsAmount#,#Remark#,#Clientid#,#BatchNbr#,#ErMassage#)
+      <selectKey resultClass="int" type="post" property="FlowId">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+    <update id="UpdateTProOutLinePoints" parameterClass="TProOutLinePoints">
+      UPDATE interface.T_PRO_OutLinePoints
+      SET Tier2DealerCode=#Tier2DealerCode#,PointsAdjustDate=#PointsAdjustDate#,BSCBU=#Bscbu#,PointsValidToDate=#PointsValidToDate#,PointsAmount=#PointsAmount#,Remark=#Remark#,Clientid=#Clientid#,BatchNbr=#BatchNbr#,ERMassage=#ErMassage#
+      WHERE FlowId = #FlowId#
+    </update>
+    <delete id="DeleteTProOutLinePoints" parameterClass="string">
+      DELETE FROM interface.T_PRO_OutLinePoints
+      WHERE FlowId = #value#
+    </delete>
+    <procedure id="GC_Interface_PROOutLinePoints" parameterMap="GC_Interface_PROOutLinePointsMap">
+      dbo.GC_Interface_PROOutLinePoints
+    </procedure>
+    <select id="SelectInterfacePROOutLinePointsonByBatchNbrErrorOnly" parameterClass="string" resultClass="TProOutLinePoints">
+      SELECT A.FlowId AS FlowId,A.Tier2DealerCode AS Tier2DealerCode,A.PointsAdjustDate AS PointsAdjustDate,
+      A.BSCBU AS Bscbu,A.PointsValidToDate AS PointsValidToDate,A.PointsAmount AS PointsAmount,
+      A.Remark AS Remark,A.Clientid AS Clientid,A.BatchNbr AS BatchNbr,A.ERMassage AS ErMassage FROM interface.T_PRO_OutLinePoints A WHERE A.BatchNbr=#value# AND A.ERMassage IS NOT NULL
+    </select>
+    <select id="QueryDMSCalculatedPoints" parameterClass="string" resultClass="System.Data.DataSet">
+      SELECT C.DMA_SAP_Code AS Tier2DealerCode,D.PolicyNo AS PolicyCode,D.PolicyName AS PolicyName ,A.BU AS BSCBU,AccountMonth,
+      B.LargessDesc LargessDesc,ValidDate AS PointsValidToDate,B.AdjustNum AS PointsAmount
+      FROM Promotion.T_Pro_Flow A(nolock)
+      INNER JOIN Promotion.T_Pro_Flow_Detail B(nolock) ON A.FlowId=B.FlowId
+      INNER JOIN DealerMaster C(nolock) ON C.DMA_ID=B.DealerId
+      LEFT JOIN Promotion.PRO_POLICY D(nolock) ON D.PolicyId=B.PolicyId
+      WHERE A.Status='审批通过' AND FlowType='积分'
+      AND EXISTS (SELECT 1 FROM Client
+      WHERE (C.DMA_ID=Client.CLT_Corp_Id OR C.DMA_Parent_DMA_ID=Client.CLT_Corp_Id)
+      AND Client.CLT_ID=#value#)
+    </select>
+  </statements>
+</sqlMap>

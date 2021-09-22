@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SampleSyncStackMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="SampleSyncStack" assembly="DMS.Model.dll" type="DMS.Model.SampleSyncStack" />
+    </alias>
+    <resultMaps>
+        <resultMap id="SampleSyncStackResult" class="SampleSyncStack">
+            <result property="SyncId" column="SyncId" type="int" dbType="int"/>
+            <result property="SampleHeadId" column="SampleHeadId" type="Guid" dbType="uniqueidentifier"/>
+            <result property="ApplyType" column="ApplyType" type="string" dbType="nvarchar"/>
+            <result property="SampleType" column="SampleType" type="string" dbType="nvarchar"/>
+            <result property="SyncType" column="SyncType" type="string" dbType="nvarchar"/>
+            <result property="SampleNo" column="SampleNo" type="string" dbType="nvarchar"/>
+            <result property="ApplyUserId" column="ApplyUserId" type="string" dbType="nvarchar"/>
+            <result property="SyncContent" column="SyncContent" type="string" dbType="nvarchar"/>
+            <result property="SyncStatus" column="SyncStatus" type="string" dbType="nvarchar"/>
+            <result property="SyncErrCount" column="SyncErrCount" type="int" dbType="int"/>
+            <result property="SyncMsg" column="SyncMsg" type="string" dbType="nvarchar"/>
+            <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+            <result property="SyncDate" column="SyncDate" type="DateTime" dbType="datetime"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="InsertSampleSyncStack" parameterClass="SampleSyncStack">
+            INSERT INTO SampleSyncStack
+            (SampleHeadId, ApplyType, SampleType, SyncType, SampleNo, ApplyUserId, SyncContent, SyncStatus, SyncErrCount, SyncMsg, CreateDate, SyncDate)
+            VALUES(#SampleHeadId#, #ApplyType#, #SampleType#, #SyncType#, #SampleNo#, #ApplyUserId#, #SyncContent#, #SyncStatus#, #SyncErrCount#, #SyncMsg#, #CreateDate#, #SyncDate#)
+        </insert>
+    </statements>
+</sqlMap>

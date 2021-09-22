@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="From5.Information1" xml:space="preserve">
+    <value>我</value>
+  </data>
+  <data name="From5.Information2" xml:space="preserve">
+    <value>[姓名] 是</value>
+  </data>
+  <data name="From5.Information3" xml:space="preserve">
+    <value>（“第三方”）的合法授权代表，在&lt;br /&gt;
+                    此代表第三方保证：我或与第三方相关的其他任何人（包括但不仅限于第三方的各官员、董事、股东、雇员、代表及代&lt;br /&gt;
+                    理人），都没有直接或间接向任何“政府官员”或政党，提供或承诺向其提供任何贷款、礼品、捐赠、钱款或其他贵重&lt;br /&gt;
+                    物品，以获得或保留业务，或为蓝威或其关联公司或子公司获得任何不当利益。此处所说的“政府官员”&lt;br /&gt;
+                    指：
+                    &lt;p&gt;
+                        1. 任何政府雇员或官员，包括任何联邦、地区或地方部门、机构或外国政府拥有或控制的企业的雇员或官员；&lt;/p&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;
+                        2. 任何政党官员；&lt;/p&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;
+                        3. 任何公共国际组织雇员或官员；&lt;/p&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;
+                        4. 履行官方职责或代表此类实体的任何人；&lt;/p&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;
+                        5. 政体政党职位的候选人。&lt;/p&gt;
+                    &lt;br /&gt;
+                    我在此进一步保证：我或与第三方相关的其他任何人（包括但不仅限于第三方的各官员、董事、股东、雇员、&lt;br /&gt;
+                    代表及代理人），以后也不会直接或间接向任何“政府官员”或政党，提供（或承诺向其提供）任何贷款、礼品、捐&lt;br /&gt;
+                    赠、钱款或其他贵重物品，以获得或保留业务，或为蓝威或其关联公司或子公司获得任何不当利益。
+                    &lt;p&gt;
+                    &lt;/p&gt;
+                    &lt;br /&gt;
+                    我在此确认：如果我知道任何上述禁止活动，或第三方所有权或控制权发生任何变化，那么我将立即通知波士&lt;br /&gt;
+                    顿科技公司。
+                    &lt;p&gt;
+                    &lt;/p&gt;
+                    &lt;br /&gt;
+                    我在此确认：我或第三方的任何官员、董事、股东、雇员、代表或代理人，都不是第三方营运国（指第三方有&lt;br /&gt;
+                    权促销、销售或供应蓝威产品的国家）的政府官员。
+                    &lt;p&gt;
+                    &lt;/p&gt;
+                    &lt;br /&gt;
+                    我在此确认：对于在初步培训后及执行协议期间（我们与蓝威签订的协议）雇用的，没有参加过波&lt;br /&gt;
+                    士顿科技公司要求的初步诚信交易培训的所有面向客户和政府的雇员，我或我指派的人员（经过适当培训）将对他们进&lt;br /&gt;
+                    行诚信交易培训。该培训将在此类雇员开始推销或销售蓝威产品之前实施。在完成培训后，我们会尽快将包&lt;br /&gt;
+                    含各相关方参训人员签名的培训出勤表发给蓝威。</value>
+  </data>
+</root>

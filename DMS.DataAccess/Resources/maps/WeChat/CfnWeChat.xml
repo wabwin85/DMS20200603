@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CfnWeChatMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="CfnWeChat" assembly="DMS.Model.dll" type="DMS.Model.CfnWeChat" />
+    </alias>
+    <resultMaps>
+        <resultMap id="CfnWeChatResult" class="CfnWeChat">
+            <result property="Id" column="CW_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CfnId" column="CW_CFN_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Upn" column="CW_UPN" type="string" dbType="nvarchar"/>
+            <result property="ChineseName" column="CW_ChineseName" type="string" dbType="nvarchar"/>
+            <result property="EnglishName" column="CW_EnglishName" type="string" dbType="nvarchar"/>
+            <result property="ProductLineBumId" column="CW_ProductLine_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Level1TypeCode" column="CW_Level1TypeCode" type="string" dbType="nvarchar"/>
+            <result property="Level1TypeName" column="CW_Level1TypeName" type="string" dbType="nvarchar"/>
+            <result property="Level2TypeCode" column="CW_Level2TypeCode" type="string" dbType="nvarchar"/>
+            <result property="Level2TypeName" column="CW_Level2TypeName" type="string" dbType="nvarchar"/>
+            <result property="Spec" column="CW_Spec" type="string" dbType="nvarchar"/>
+            <result property="IsActive" column="CW_IsActive" type="bool" dbType="bit"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectCfnWeChat" parameterClass="string" resultClass="CfnWeChat">
+            SELECT CW_ID AS Id,CW_CFN_ID AS CfnId,CW_UPN AS Upn,CW_ChineseName AS ChineseName,CW_EnglishName AS EnglishName,CW_ProductLine_BUM_ID AS ProductLineBumId,CW_Level1TypeCode AS Level1TypeCode,CW_Level1TypeName AS Level1TypeName,CW_Level2TypeCode AS Level2TypeCode,CW_Level2TypeName AS Level2TypeName,CW_Spec AS Spec,CW_IsActive AS IsActive
+            FROM CFNWeChat
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    CW_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterCfnWeChat" parameterClass="CfnWeChat" resultClass="CfnWeChat">
+            SELECT CW_ID AS Id,CW_CFN_ID AS CfnId,CW_UPN AS Upn,CW_ChineseName AS ChineseName,CW_EnglishName AS EnglishName,CW_ProductLine_BUM_ID AS ProductLineBumId,CW_Level1TypeCode AS Level1TypeCode,CW_Level1TypeName AS Level1TypeName,CW_Level2TypeCode AS Level2TypeCode,CW_Level2TypeName AS Level2TypeName,CW_Spec AS Spec,CW_IsActive AS IsActive
+            FROM CFNWeChat
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">CW_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CfnId">CW_CFN_ID=#CfnId#</isNotNull>
+                <isNotNull prepend="AND" property="Upn">CW_UPN=#Upn#</isNotNull>
+                <isNotNull prepend="AND" property="ChineseName">CW_ChineseName=#ChineseName#</isNotNull>
+                <isNotNull prepend="AND" property="EnglishName">CW_EnglishName=#EnglishName#</isNotNull>
+                <isNotNull prepend="AND" property="ProductLineBumId">CW_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+                <isNotNull prepend="AND" property="Level1TypeCode">CW_Level1TypeCode=#Level1TypeCode#</isNotNull>
+                <isNotNull prepend="AND" property="Level1TypeName">CW_Level1TypeName=#Level1TypeName#</isNotNull>
+                <isNotNull prepend="AND" property="Level2TypeCode">CW_Level2TypeCode=#Level2TypeCode#</isNotNull>
+                <isNotNull prepend="AND" property="Level2TypeName">CW_Level2TypeName=#Level2TypeName#</isNotNull>
+                <isNotNull prepend="AND" property="Spec">CW_Spec=#Spec#</isNotNull>
+                <isNotNull prepend="AND" property="IsActive">CW_IsActive=#IsActive#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertCfnWeChat" parameterClass="CfnWeChat">
+            INSERT INTO CFNWeChat
+            (CW_ID,CW_CFN_ID,CW_UPN,CW_ChineseName,CW_EnglishName,CW_ProductLine_BUM_ID,CW_Level1TypeCode,CW_Level1TypeName,CW_Level2TypeCode,CW_Level2TypeName,CW_Spec,CW_IsActive)
+            VALUES(#Id#,#CfnId#,#Upn#,#ChineseName#,#EnglishName#,#ProductLineBumId#,#Level1TypeCode#,#Level1TypeName#,#Level2TypeCode#,#Level2TypeName#,#Spec#,#IsActive#)
+        </insert>
+        <update id="UpdateCfnWeChat" parameterClass="CfnWeChat">
+            UPDATE CFNWeChat
+            SET CW_ID=#Id#,CW_CFN_ID=#CfnId#,CW_UPN=#Upn#,CW_ChineseName=#ChineseName#,CW_EnglishName=#EnglishName#,CW_ProductLine_BUM_ID=#ProductLineBumId#,CW_Level1TypeCode=#Level1TypeCode#,CW_Level1TypeName=#Level1TypeName#,CW_Level2TypeCode=#Level2TypeCode#,CW_Level2TypeName=#Level2TypeName#,CW_Spec=#Spec#,CW_IsActive=#IsActive#
+            WHERE CW_ID = #Id#
+        </update>
+        <delete id="DeleteCfnWeChat" parameterClass="string">
+            DELETE FROM CFNWeChat
+            WHERE CW_ID = #value#
+        </delete>
+
+        <select id="GetCfnLevel1ByProductLine" parameterClass="string" resultClass="System.Data.DataSet">
+            SELECT DISTINCT CW_Level1TypeCode AS Level1TypeCode,CW_Level1TypeName AS Level1TypeName
+            FROM CFNWeChat
+            WHERE CW_Level1TypeCode IS NOT NULL AND CW_Level1TypeName IS NOT NULL
+            <dynamic prepend="AND">
+                <isParameterPresent>
+                    CW_ProductLine_BUM_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+            ORDER BY CW_Level1TypeCode
+        </select>
+
+        <select id="GetCfnLevel2ByProductLine" parameterClass="string" resultClass="System.Data.DataSet">
+            SELECT DISTINCT CW_Level1TypeCode AS Level1TypeCode,CW_Level1TypeName AS Level1TypeName,CW_Level2TypeCode AS Level2TypeCode,CW_Level2TypeName AS Level2TypeName
+            FROM CFNWeChat
+            WHERE CW_Level2TypeCode IS NOT NULL AND CW_Level2TypeName IS NOT NULL
+            <dynamic prepend="AND">
+                <isParameterPresent>
+                    CW_ProductLine_BUM_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+            ORDER BY CW_Level2TypeCode
+        </select>
+
+        <select id="GetCfnLevel2ByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            SELECT DISTINCT CW_Level1TypeCode AS Level1TypeCode,CW_Level1TypeName AS Level1TypeName,CW_Level2TypeCode AS Level2TypeCode,CW_Level2TypeName AS Level2TypeName
+            FROM CFNWeChat
+            WHERE CW_Level2TypeCode IS NOT NULL AND CW_Level2TypeName IS NOT NULL
+            <dynamic prepend="">
+                <isNotNull prepend="AND" property="Level1TypeCode">CW_Level1TypeCode=#Level1TypeCode#</isNotNull>
+                <isNotNull prepend="AND" property="Level1TypeName">CW_Level1TypeName=#Level1TypeName#</isNotNull>
+                <isNotNull prepend="AND" property="ProductLineBumId">CW_ProductLine_BUM_ID=#ProductLineBumId#</isNotNull>
+            </dynamic>
+        </select>
+    </statements>
+</sqlMap>

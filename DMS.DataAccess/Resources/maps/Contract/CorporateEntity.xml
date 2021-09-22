@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CorporateEntityMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="CorporateEntity" assembly="DMS.Model.dll" type="DMS.Model.CorporateEntity" />
+    </alias>
+    <resultMaps>
+        <resultMap id="CorporateEntityResult" class="CorporateEntity">
+            <result property="Id" column="CE_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CmId" column="CE_CM_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="Name" column="CE_Name" type="string" dbType="nvarchar"/>
+            <result property="Owership" column="CE_Owership" type="int" dbType="int"/>
+            <result property="Country" column="CE_Country" type="string" dbType="nvarchar"/>
+            <result property="Register" column="CE_Register" type="string" dbType="nvarchar"/>
+            <result property="CreateDate" column="CE_Create_Date" type="DateTime" dbType="datetime"/>
+            <result property="CreateUser" column="CE_Create_User" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateDate" column="CE_Update_Date" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="CE_Update_User" type="Guid" dbType="uniqueidentifier"/>
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="SelectCorporateEntity" parameterClass="string" resultClass="CorporateEntity">
+            SELECT CE_ID AS Id,CE_CM_ID AS CmId,CE_Name AS Name,CE_Owership AS Owership,CE_Country AS Country,CE_Register AS Register,CE_Create_Date AS CreateDate,CE_Create_User AS CreateUser,CE_Update_Date AS UpdateDate,CE_Update_User AS UpdateUser
+            FROM CorporateEntity
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    CE_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterCorporateEntity" parameterClass="CorporateEntity" resultClass="CorporateEntity">
+            SELECT CE_ID AS Id,CE_CM_ID AS CmId,CE_Name AS Name,CE_Owership AS Owership,CE_Country AS Country,CE_Register AS Register,CE_Create_Date AS CreateDate,CE_Create_User AS CreateUser,CE_Update_Date AS UpdateDate,CE_Update_User AS UpdateUser
+            FROM CorporateEntity
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">CE_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CmId">CE_CM_ID=#CmId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">CE_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Owership">CE_Owership=#Owership#</isNotNull>
+                <isNotNull prepend="AND" property="Country">CE_Country=#Country#</isNotNull>
+                <isNotNull prepend="AND" property="Register">CE_Register=#Register#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">CE_Update_Date=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">CE_Update_User=#UpdateUser#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertCorporateEntity" parameterClass="CorporateEntity">
+            INSERT INTO CorporateEntity
+            (CE_ID,CE_CM_ID,CE_Name,CE_Owership,CE_Country,CE_Register,CE_Create_Date,CE_Create_User,CE_Update_Date,CE_Update_User)
+            VALUES(#Id#,#CmId#,#Name#,#Owership#,#Country#,#Register#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#)
+        </insert>
+        <update id="UpdateCorporateEntity" parameterClass="CorporateEntity">
+            UPDATE CorporateEntity
+            SET CE_ID=#Id#,CE_CM_ID=#CmId#,CE_Name=#Name#,CE_Owership=#Owership#,CE_Country=#Country#,CE_Register=#Register#,CE_Update_Date=#UpdateDate#,CE_Update_User=#UpdateUser#
+            WHERE CE_ID = #Id#
+        </update>
+        <delete id="DeleteCorporateEntity" parameterClass="string">
+            DELETE FROM CorporateEntity
+            WHERE CE_ID = #value#
+        </delete>
+
+        <select id="SelectCorporateEntityByFilter" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+            SELECT CE_ID AS Id,CE_CM_ID AS CmId,CE_Name AS Name,CE_Owership AS Owership,CE_Country AS Country,CE_Register AS Register,CE_Create_Date AS CreateDate,CE_Create_User AS CreateUser,CE_Update_Date AS UpdateDate,CE_Update_User AS UpdateUser
+            FROM CorporateEntity
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">CE_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="CmId">CE_CM_ID=#CmId#</isNotNull>
+                <isNotNull prepend="AND" property="Name">CE_Name=#Name#</isNotNull>
+                <isNotNull prepend="AND" property="Owership">CE_Owership=#Owership#</isNotNull>
+                <isNotNull prepend="AND" property="Country">CE_Country=#Country#</isNotNull>
+                <isNotNull prepend="AND" property="Register">CE_Register=#Register#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">CE_Update_Date=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">CE_Update_User=#UpdateUser#</isNotNull>
+            </dynamic>
+            Order By CE_Name
+        </select>
+        
+        <update id="UpdateCorporateEntityByFilter" parameterClass="CorporateEntity">
+            UPDATE CorporateEntity
+            SET CE_Name=#Name#,CE_Owership=#Owership#,CE_Country=#Country#,CE_Register=#Register#,CE_Update_Date=#UpdateDate#,CE_Update_User=#UpdateUser#
+            WHERE CE_ID = #Id#
+        </update>
+        
+    </statements>
+</sqlMap>

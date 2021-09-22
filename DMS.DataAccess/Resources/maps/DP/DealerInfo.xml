@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerInfoMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DealerInfo" assembly="DMS.Model.dll" type="DMS.Model.DealerInfo" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DealerInfoResult" class="DealerInfo">
+      <result property="Id" column="Id" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CustCd" column="CustCd" type="string" dbType="nvarchar"/>
+      <result property="Modleid" column="Modleid" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Version" column="Version" type="string" dbType="nvarchar"/>
+      <result property="Column1" column="Column1" type="string" dbType="nvarchar"/>
+      <result property="Column2" column="Column2" type="string" dbType="nvarchar"/>
+      <result property="Column3" column="Column3" type="string" dbType="nvarchar"/>
+      <result property="Column4" column="Column4" type="string" dbType="nvarchar"/>
+      <result property="Column5" column="Column5" type="string" dbType="nvarchar"/>
+      <result property="Column6" column="Column6" type="string" dbType="nvarchar"/>
+      <result property="Column7" column="Column7" type="string" dbType="nvarchar"/>
+      <result property="Column8" column="Column8" type="string" dbType="nvarchar"/>
+      <result property="Column9" column="Column9" type="string" dbType="nvarchar"/>
+      <result property="Column10" column="Column10" type="string" dbType="nvarchar"/>
+      <result property="Column11" column="Column11" type="string" dbType="nvarchar"/>
+      <result property="Column12" column="Column12" type="string" dbType="nvarchar"/>
+      <result property="Column13" column="Column13" type="string" dbType="nvarchar"/>
+      <result property="Column14" column="Column14" type="string" dbType="nvarchar"/>
+      <result property="Column15" column="Column15" type="string" dbType="nvarchar"/>
+      <result property="Column16" column="Column16" type="string" dbType="nvarchar"/>
+      <result property="Column17" column="Column17" type="string" dbType="nvarchar"/>
+      <result property="Column18" column="Column18" type="string" dbType="nvarchar"/>
+      <result property="Column19" column="Column19" type="string" dbType="nvarchar"/>
+      <result property="Column20" column="Column20" type="string" dbType="nvarchar"/>
+      <result property="Column21" column="Column21" type="string" dbType="nvarchar"/>
+      <result property="Column22" column="Column22" type="string" dbType="nvarchar"/>
+      <result property="Column23" column="Column23" type="string" dbType="nvarchar"/>
+      <result property="Column24" column="Column24" type="string" dbType="nvarchar"/>
+      <result property="Column25" column="Column25" type="string" dbType="nvarchar"/>
+      <result property="Column26" column="Column26" type="string" dbType="nvarchar"/>
+      <result property="Column27" column="Column27" type="string" dbType="nvarchar"/>
+      <result property="Column28" column="Column28" type="string" dbType="nvarchar"/>
+      <result property="Column29" column="Column29" type="string" dbType="nvarchar"/>
+      <result property="Column30" column="Column30" type="string" dbType="nvarchar"/>
+      <result property="Column31" column="Column31" type="string" dbType="nvarchar"/>
+      <result property="Column32" column="Column32" type="string" dbType="nvarchar"/>
+      <result property="Column33" column="Column33" type="string" dbType="nvarchar"/>
+      <result property="Column34" column="Column34" type="string" dbType="nvarchar"/>
+      <result property="Column35" column="Column35" type="string" dbType="nvarchar"/>
+      <result property="Column36" column="Column36" type="string" dbType="nvarchar"/>
+      <result property="Column37" column="Column37" type="string" dbType="nvarchar"/>
+      <result property="Column38" column="Column38" type="string" dbType="nvarchar"/>
+      <result property="Column39" column="Column39" type="string" dbType="nvarchar"/>
+      <result property="Column40" column="Column40" type="string" dbType="nvarchar"/>
+      <result property="Column41" column="Column41" type="string" dbType="nvarchar"/>
+      <result property="Column42" column="Column42" type="string" dbType="nvarchar"/>
+      <result property="Column43" column="Column43" type="string" dbType="nvarchar"/>
+      <result property="Column44" column="Column44" type="string" dbType="nvarchar"/>
+      <result property="Column45" column="Column45" type="string" dbType="nvarchar"/>
+      <result property="Column46" column="Column46" type="string" dbType="nvarchar"/>
+      <result property="Column47" column="Column47" type="string" dbType="nvarchar"/>
+      <result property="Column48" column="Column48" type="string" dbType="nvarchar"/>
+      <result property="Column49" column="Column49" type="string" dbType="nvarchar"/>
+      <result property="Column50" column="Column50" type="string" dbType="nvarchar"/>
+      <result property="IsAction" column="IsAction" type="bool" dbType="bit"/>
+      <result property="CreateBy" column="CreateBy" type="string" dbType="nvarchar"/>
+      <result property="CreateDate" column="CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="ModifyBy" column="ModifyBy" type="string" dbType="nvarchar"/>
+      <result property="ModifyDate" column="ModifyDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+
+  <parameterMaps>
+    <parameterMap id="checkParams" class="System.Collections.Hashtable">
+      <parameter property="simsCode" column="simsCode"/>
+      <parameter property="dateValues" column="dateValues"/>
+      <parameter property="maintainType" column="maintainType"/>
+      <parameter property="userID" column="userID"/>
+      <parameter property="rightID" column="rightID"/>
+      <parameter property="dataType" column="dataType"/>
+      <parameter property="Result" column="Result" direction="Output"/>
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectDealerInfo" parameterClass="string" resultClass="DealerInfo">
+      SELECT ID AS Id,Cust_CD AS CustCd,ModleID AS Modleid,Version AS Version,Column1 AS Column1,Column2 AS Column2,Column3 AS Column3,Column4 AS Column4,Column5 AS Column5,Column6 AS Column6,Column7 AS Column7,Column8 AS Column8,Column9 AS Column9,Column10 AS Column10,Column11 AS Column11,Column12 AS Column12,Column13 AS Column13,Column14 AS Column14,Column15 AS Column15,Column16 AS Column16,Column17 AS Column17,Column18 AS Column18,Column19 AS Column19,Column20 AS Column20,Column21 AS Column21,Column22 AS Column22,Column23 AS Column23,Column24 AS Column24,Column25 AS Column25,Column26 AS Column26,Column27 AS Column27,Column28 AS Column28,Column29 AS Column29,Column30 AS Column30,Column31 AS Column31,Column32 AS Column32,Column33 AS Column33,Column34 AS Column34,Column35 AS Column35,Column36 AS Column36,Column37 AS Column37,Column38 AS Column38,Column39 AS Column39,Column40 AS Column40,Column41 AS Column41,Column42 AS Column42,Column43 AS Column43,Column44 AS Column44,Column45 AS Column45,Column46 AS Column46,Column47 AS Column47,Column48 AS Column48,Column49 AS Column49,Column50 AS Column50,IsAction AS IsAction,CreateBy AS CreateBy,CreateDate AS CreateDate,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate
+      FROM DealerInfo
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDealerInfo" parameterClass="DealerInfo" resultClass="DealerInfo">
+      SELECT ID AS Id,Cust_CD AS CustCd,ModleID AS Modleid,Version AS Version,Column1 AS Column1,Column2 AS Column2,Column3 AS Column3,Column4 AS Column4,Column5 AS Column5,Column6 AS Column6,Column7 AS Column7,Column8 AS Column8,Column9 AS Column9,Column10 AS Column10,Column11 AS Column11,Column12 AS Column12,Column13 AS Column13,Column14 AS Column14,Column15 AS Column15,Column16 AS Column16,Column17 AS Column17,Column18 AS Column18,Column19 AS Column19,Column20 AS Column20,Column21 AS Column21,Column22 AS Column22,Column23 AS Column23,Column24 AS Column24,Column25 AS Column25,Column26 AS Column26,Column27 AS Column27,Column28 AS Column28,Column29 AS Column29,Column30 AS Column30,Column31 AS Column31,Column32 AS Column32,Column33 AS Column33,Column34 AS Column34,Column35 AS Column35,Column36 AS Column36,Column37 AS Column37,Column38 AS Column38,Column39 AS Column39,Column40 AS Column40,Column41 AS Column41,Column42 AS Column42,Column43 AS Column43,Column44 AS Column44,Column45 AS Column45,Column46 AS Column46,Column47 AS Column47,Column48 AS Column48,Column49 AS Column49,Column50 AS Column50,IsAction AS IsAction,CreateBy AS CreateBy,CreateDate AS CreateDate,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate
+      FROM DealerInfo
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="CustCd">Cust_CD=#CustCd#</isNotNull>
+        <isNotNull prepend="AND" property="Modleid">ModleID=#Modleid#</isNotNull>
+        <isNotNull prepend="AND" property="Version">Version=#Version#</isNotNull>
+        <isNotNull prepend="AND" property="Column1">Column1=#Column1#</isNotNull>
+        <isNotNull prepend="AND" property="Column2">Column2=#Column2#</isNotNull>
+        <isNotNull prepend="AND" property="Column3">Column3=#Column3#</isNotNull>
+        <isNotNull prepend="AND" property="Column4">Column4=#Column4#</isNotNull>
+        <isNotNull prepend="AND" property="Column5">Column5=#Column5#</isNotNull>
+        <isNotNull prepend="AND" property="Column6">Column6=#Column6#</isNotNull>
+        <isNotNull prepend="AND" property="Column7">Column7=#Column7#</isNotNull>
+        <isNotNull prepend="AND" property="Column8">Column8=#Column8#</isNotNull>
+        <isNotNull prepend="AND" property="Column9">Column9=#Column9#</isNotNull>
+        <isNotNull prepend="AND" property="Column10">Column10=#Column10#</isNotNull>
+        <isNotNull prepend="AND" property="Column11">Column11=#Column11#</isNotNull>
+        <isNotNull prepend="AND" property="Column12">Column12=#Column12#</isNotNull>
+        <isNotNull prepend="AND" property="Column13">Column13=#Column13#</isNotNull>
+        <isNotNull prepend="AND" property="Column14">Column14=#Column14#</isNotNull>
+        <isNotNull prepend="AND" property="Column15">Column15=#Column15#</isNotNull>
+        <isNotNull prepend="AND" property="Column16">Column16=#Column16#</isNotNull>
+        <isNotNull prepend="AND" property="Column17">Column17=#Column17#</isNotNull>
+        <isNotNull prepend="AND" property="Column18">Column18=#Column18#</isNotNull>
+        <isNotNull prepend="AND" property="Column19">Column19=#Column19#</isNotNull>
+        <isNotNull prepend="AND" property="Column20">Column20=#Column20#</isNotNull>
+        <isNotNull prepend="AND" property="Column21">Column21=#Column21#</isNotNull>
+        <isNotNull prepend="AND" property="Column22">Column22=#Column22#</isNotNull>
+        <isNotNull prepend="AND" property="Column23">Column23=#Column23#</isNotNull>
+        <isNotNull prepend="AND" property="Column24">Column24=#Column24#</isNotNull>
+        <isNotNull prepend="AND" property="Column25">Column25=#Column25#</isNotNull>
+        <isNotNull prepend="AND" property="Column26">Column26=#Column26#</isNotNull>
+        <isNotNull prepend="AND" property="Column27">Column27=#Column27#</isNotNull>
+        <isNotNull prepend="AND" property="Column28">Column28=#Column28#</isNotNull>
+        <isNotNull prepend="AND" property="Column29">Column29=#Column29#</isNotNull>
+        <isNotNull prepend="AND" property="Column30">Column30=#Column30#</isNotNull>
+        <isNotNull prepend="AND" property="Column31">Column31=#Column31#</isNotNull>
+        <isNotNull prepend="AND" property="Column32">Column32=#Column32#</isNotNull>
+        <isNotNull prepend="AND" property="Column33">Column33=#Column33#</isNotNull>
+        <isNotNull prepend="AND" property="Column34">Column34=#Column34#</isNotNull>
+        <isNotNull prepend="AND" property="Column35">Column35=#Column35#</isNotNull>
+        <isNotNull prepend="AND" property="Column36">Column36=#Column36#</isNotNull>
+        <isNotNull prepend="AND" property="Column37">Column37=#Column37#</isNotNull>
+        <isNotNull prepend="AND" property="Column38">Column38=#Column38#</isNotNull>
+        <isNotNull prepend="AND" property="Column39">Column39=#Column39#</isNotNull>
+        <isNotNull prepend="AND" property="Column40">Column40=#Column40#</isNotNull>
+        <isNotNull prepend="AND" property="Column41">Column41=#Column41#</isNotNull>
+        <isNotNull prepend="AND" property="Column42">Column42=#Column42#</isNotNull>
+        <isNotNull prepend="AND" property="Column43">Column43=#Column43#</isNotNull>
+        <isNotNull prepend="AND" property="Column44">Column44=#Column44#</isNotNull>
+        <isNotNull prepend="AND" property="Column45">Column45=#Column45#</isNotNull>
+        <isNotNull prepend="AND" property="Column46">Column46=#Column46#</isNotNull>
+        <isNotNull prepend="AND" property="Column47">Column47=#Column47#</isNotNull>
+        <isNotNull prepend="AND" property="Column48">Column48=#Column48#</isNotNull>
+        <isNotNull prepend="AND" property="Column49">Column49=#Column49#</isNotNull>
+        <isNotNull prepend="AND" property="Column50">Column50=#Column50#</isNotNull>
+        <isNotNull prepend="AND" property="IsAction">IsAction=#IsAction#</isNotNull>
+        <isNotNull prepend="AND" property="CreateBy">CreateBy=#CreateBy#</isNotNull>
+        <isNotNull prepend="AND" property="CreateDate">CreateDate=#CreateDate#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyBy">ModifyBy=#ModifyBy#</isNotNull>
+        <isNotNull prepend="AND" property="ModifyDate">ModifyDate=#ModifyDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDealerInfo" parameterClass="DealerInfo">
+      INSERT INTO DealerInfo
+      (ID,Cust_CD,ModleID,Version,Column1,Column2,Column3,Column4,Column5,Column6,Column7,Column8,Column9,Column10,Column11,Column12,Column13,Column14,Column15,Column16,Column17,Column18,Column19,Column20,Column21,Column22,Column23,Column24,Column25,Column26,Column27,Column28,Column29,Column30,Column31,Column32,Column33,Column34,Column35,Column36,Column37,Column38,Column39,Column40,Column41,Column42,Column43,Column44,Column45,Column46,Column47,Column48,Column49,Column50,IsAction,CreateBy,CreateDate,ModifyBy,ModifyDate)
+      VALUES(#Id#,#CustCd#,#Modleid#,#Version#,#Column1#,#Column2#,#Column3#,#Column4#,#Column5#,#Column6#,#Column7#,#Column8#,#Column9#,#Column10#,#Column11#,#Column12#,#Column13#,#Column14#,#Column15#,#Column16#,#Column17#,#Column18#,#Column19#,#Column20#,#Column21#,#Column22#,#Column23#,#Column24#,#Column25#,#Column26#,#Column27#,#Column28#,#Column29#,#Column30#,#Column31#,#Column32#,#Column33#,#Column34#,#Column35#,#Column36#,#Column37#,#Column38#,#Column39#,#Column40#,#Column41#,#Column42#,#Column43#,#Column44#,#Column45#,#Column46#,#Column47#,#Column48#,#Column49#,#Column50#,#IsAction#,#CreateBy#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#ModifyBy#,#ModifyDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateDealerInfo" parameterClass="DealerInfo">
+      UPDATE DealerInfo
+      SET ID=#Id#,Cust_CD=#CustCd#,ModleID=#Modleid#,Version=#Version#,Column1=#Column1#,Column2=#Column2#,Column3=#Column3#,Column4=#Column4#,Column5=#Column5#,Column6=#Column6#,Column7=#Column7#,Column8=#Column8#,Column9=#Column9#,Column10=#Column10#,Column11=#Column11#,Column12=#Column12#,Column13=#Column13#,Column14=#Column14#,Column15=#Column15#,Column16=#Column16#,Column17=#Column17#,Column18=#Column18#,Column19=#Column19#,Column20=#Column20#,Column21=#Column21#,Column22=#Column22#,Column23=#Column23#,Column24=#Column24#,Column25=#Column25#,Column26=#Column26#,Column27=#Column27#,Column28=#Column28#,Column29=#Column29#,Column30=#Column30#,Column31=#Column31#,Column32=#Column32#,Column33=#Column33#,Column34=#Column34#,Column35=#Column35#,Column36=#Column36#,Column37=#Column37#,Column38=#Column38#,Column39=#Column39#,Column40=#Column40#,Column41=#Column41#,Column42=#Column42#,Column43=#Column43#,Column44=#Column44#,Column45=#Column45#,Column46=#Column46#,Column47=#Column47#,Column48=#Column48#,Column49=#Column49#,Column50=#Column50#,IsAction=#IsAction#,CreateBy=#CreateBy#,CreateDate=#CreateDate#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#
+      WHERE ID = #Id#
+    </update>
+    <delete id="DeleteDealerInfo" parameterClass="string">
+      DELETE FROM DealerInfo
+      WHERE ID = #value#
+    </delete>
+    <update id="FakeDeleteDealerInfo" parameterClass="DealerInfo">
+      UPDATE DealerInfo
+      SET ID=#Id#,Cust_CD=#CustCd#,ModleID=#Modleid#,Version=#Version#,Column1=#Column1#,Column2=#Column2#,Column3=#Column3#,Column4=#Column4#,Column5=#Column5#,Column6=#Column6#,Column7=#Column7#,Column8=#Column8#,Column9=#Column9#,Column10=#Column10#,Column11=#Column11#,Column12=#Column12#,Column13=#Column13#,Column14=#Column14#,Column15=#Column15#,Column16=#Column16#,Column17=#Column17#,Column18=#Column18#,Column19=#Column19#,Column20=#Column20#,Column21=#Column21#,Column22=#Column22#,Column23=#Column23#,Column24=#Column24#,Column25=#Column25#,Column26=#Column26#,Column27=#Column27#,Column28=#Column28#,Column29=#Column29#,Column30=#Column30#,Column31=#Column31#,Column32=#Column32#,Column33=#Column33#,Column34=#Column34#,Column35=#Column35#,Column36=#Column36#,Column37=#Column37#,Column38=#Column38#,Column39=#Column39#,Column40=#Column40#,Column41=#Column41#,Column42=#Column42#,Column43=#Column43#,Column44=#Column44#,Column45=#Column45#,Column46=#Column46#,Column47=#Column47#,Column48=#Column48#,Column49=#Column49#,Column50=#Column50#,IsAction=#IsAction#,CreateBy=#CreateBy#,CreateDate=#CreateDate#,ModifyBy=#ModifyBy#,ModifyDate=#ModifyDate#
+      WHERE ID = #Id#
+    </update>
+
+
+    <select id="SelectDealerInfoAllbyModleID" parameterClass="string" resultClass="DealerInfo">
+      SELECT * FROM DealerInfo
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ModleID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectDealerInfoByMain" parameterClass="string" resultClass="DealerInfo">
+      select Top 1 a.*,ROW_NUMBER() OVER(ORDER BY a.Version desc) AS [row_number],a.Column2+'-'+a.Column1 as dearCodeName
+      ,c.Code_Name CoopType ,d.Code_Name DearType,pum1.Name_C  UserName
+      from  DealerInfo  a
+      left join MasterData.T_Code c on c.Code_ID=a.Column4 and c.Codetype='UD2'
+      left join MasterData.T_Code d on  d.Code_ID=a.Column3 and d.Codetype='UD1'
+      left join Platform.User_Master pum1 on a.CreateBy=pum1.User_ID
+      where a.ModleID in (select b.ModleID from DP.DPModule b where b.ModleName='主要信息')
+      <dynamic >
+        <isNotNull prepend="AND" property="Column1">(Column1=#Column1# OR Column1 LIKE N'%$Column1$%')</isNotNull>
+        <isNotNull prepend="AND" property="Column2">Column2=#Column2#</isNotNull>
+        <isNotNull prepend="AND" property="Column3">Column3=#Column3#</isNotNull>
+        <isNotNull prepend="AND" property="Column4">Column4=#Column4#</isNotNull>
+        <isNotNull prepend="AND" property="Column5">Column5=#Column5#</isNotNull>
+        <isNotNull prepend="AND" property="Column6">Column6=#Column6#</isNotNull>
+        <isNotNull prepend="AND" property="strData">
+          CONVERT(NVARCHAR(10), CreateDate, 112) >= CONVERT(NVARCHAR(10), #strData#, 112)
+        </isNotNull>
+        <isNotNull prepend="AND" property="endData">
+          CONVERT(NVARCHAR(10), CreateDate, 112) &lt;= CONVERT(NVARCHAR(10), #endData#, 112)
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectVersionByCustCD" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      <!--修改于20130517-->
+      select tmp.* ,
+      ROW_NUMBER() OVER(ORDER BY Version desc) AS [row_number]
+      from ( select distinct  a.Version ,a.Cust_CD ,b.PID
+      from  DealerInfo a left join Lafite_DICT b on a.ModleID=b.Id ) as tmp
+
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Cust_CD">tmp.Cust_CD=#Cust_CD#</isNotNull>
+        <isNotNull prepend="AND" property="ParentModleID">tmp.PID=#ParentModleID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="InsertDealersInformation" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC [DP].[Proc_MaintainBasicInfo] #simsCode#,#dateValues#,#maintainType#,#userID#,#rightID#,#dataType#,#Result#
+    </select>
+
+    <select id="GetDearDataForLatest" parameterClass="string" resultClass="System.Collections.Hashtable" >
+      EXEC [DP].[Proc_GetDearMasterNew] #value#
+    </select>
+
+    <select id="GetDearDataByVersion" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC [DP].[Proc_GetBasicByVersion] #Cust_CD#,#Version#
+    </select>
+
+    <!--Update  by BSC Project-->
+    <select id="SelectVersionComparison" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC [dbo].[proc_MainGrpInfoVersionComapre]  #mCust_CD#,#mMainGrpModleID #,#mVersionSrc#,#mVersionTag#,#mUserID#,#mIsValid#
+    </select>
+
+
+    <select id="SelectGetKeyPerformance" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC  [DP].[proc_KPI_GetCompareDataByDealer]  #Udstr_CD#,#ModleID#,#StartDate#,#EndDate#
+    </select>
+
+    <select id="SelectGetKeyPerformanceForKPI" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      SELECT * FROM DealerInfo
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Udstr_CD">Cust_CD=#Udstr_CD#</isNotNull>
+        <isNotNull prepend="AND" property="ModleID">ModleID=#ModleID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectGridData" parameterClass="string" resultClass="System.Collections.Hashtable" >
+      select dr.* from (
+      select b.ModleName,a.*
+      from  DealerInfo a left join DP.DPModule b on a.ModleID=b.ModleID
+      where a.ModleID
+      in ( select c.ModleID from DP.DPModule c where c.IsGrid='true' and c.ModleLevel='2')) dr
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          dr.Cust_CD = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="SelectKPILogeDate" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      select * from DealerInfo_LogInfo
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Cust_CD">Cust_CD=#Cust_CD#</isNotNull>
+        <isNotNull prepend="AND" property="ModleID">ModleID=#ModleID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectKPIStandard" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      select * from  DP.KPI_Standard
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="AssessDate">Column18=#AssessDate#</isNotNull>
+        <isNotNull prepend="AND" property="ModleID">ModleID=#ModleID#</isNotNull>
+      </dynamic>
+    </select>
+
+    <delete id="DeleteDealerInfoByModleID" parameterClass="System.Collections.Hashtable" >
+      delete DealerInfo
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="simsCode">Cust_CD=#simsCode#</isNotNull>
+        <isNotNull prepend="AND" property="ModleID">ModleID=#ModleID#</isNotNull>
+        <isNotNull prepend="AND" property="AssessDate">Column18=#AssessDate#</isNotNull>
+      </dynamic>
+    </delete>
+
+
+    <select id="SelectDstrTwoByUdstrId" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+
+      SELECT tbdis.Dstr_CD AS DstrFather_CD,A.Dstr_CD AS DstrCd,A.Dstr_Desc_CN AS DstrDescCn,A.Dstr_Desc_EN AS DstrDescEn,A.Dstr_Type_CD AS DstrTypeCd,A.Email1 AS Email1,A.Email2 AS Email2,A.Dstr_Coop_Type_CD AS DstrCoopTypeCd,A.Province_CD AS ProvinceCd,A.City_CD AS CityCd,A.District_CD AS DistrictCd,A.County_CN AS CountyCn,A.Address AS Address,A.Zip_CD AS ZipCd,A.Ld_Phone_CD AS LdPhoneCd,A.Phone_NO AS PhoneNo,A.Ld_Fax_CD AS LdFaxCd,A.Fax_NO AS FaxNo,A.Remark1 AS Remark1,A.Remark2 AS Remark2,A.Remark3 AS Remark3,A.Remark4 AS Remark4,A.Ship_To_Address1 AS ShipToAddress1,A.Ship_To_Address2 AS ShipToAddress2,A.Ship_To_Address3 AS ShipToAddress3,A.Ship_To_Address4 AS ShipToAddress4,A.Ship_To_Address5 AS ShipToAddress5,A.Director AS Director,A.Director_NO AS DirectorNo,A.Director_Mobile AS DirectorMobile,A.Finance_Contact AS FinanceContact,A.Finance_Contact_NO AS FinanceContactNo,A.Finance_Contact_Mobile AS FinanceContactMobile,A.Fd_Operator AS FdOperator,A.Fd_OperatorNO AS FdOperatorno,A.Fd_Status_CD AS FdStatusCd,A.Fd_Software_CD AS FdSoftwareCd,A.Upload_DT AS UploadDt,A.Franchise AS Franchise,A.BU AS Bu,A.Major_Grp_CD AS MajorGrpCd,A.Dstr_Coop_Start_DT AS DstrCoopStartDt,A.Dstr_Coop_End_DT AS DstrCoopEndDt,A.Dstr_Coop_Status_CD AS DstrCoopStatusCd,A.Parent_Dstr_CD AS ParentDstrCd,A.Dstr_Lvl_CD AS DstrLvlCd,A.Dstr_Class_CD AS DstrClassCd,A.Credit_Lvl_CD AS CreditLvlCd,A.BP AS Bp,A.Biz_Contact AS BizContact,A.Biz_Contact_NO AS BizContactNo,A.Biz_Contact_Mobile AS BizContactMobile,A.Jde_CD AS JdeCd,A.E_Wf_Job_NO AS EWfJobNo,A.Sims_CD AS SimsCd,A.Company_CD AS CompanyCd,A.Mdm_Lock_Flag AS MdmLockFlag,A.Create_DT AS CreateDt,A.Update_DT AS UpdateDt,A.Create_By AS CreateBy,A.Update_By AS UpdateBy,A.Payment_By AS PaymentBy,cd1.Code_Name as Statuscodename,cd2.Code_Name as SoftWareName,cd3.Code_Name AS DstrLvlName,cd4.Code_Name as DstrCoopStatusName
+      FROM MasterData.T_Dstr AS A
+      left join MasterData.T_Udstr_Dstr AS B on B.Dstr_CD= A.Dstr_CD
+      left join MasterData.T_Code AS cd1 on cd1.Code_ID=Fd_Status_CD and cd1.Codetype='D3'
+      left join MasterData.T_Code AS cd2 on cd2.Code_ID=Fd_Software_CD and cd2.Codetype='D4'
+      left join MasterData.T_Code AS cd3 on cd3.Code_ID=Dstr_Lvl_CD and cd3.Codetype='D6'
+      left join MasterData.T_Code AS cd4 on cd4.Code_ID=Dstr_Coop_Status_CD and cd4.Codetype='D5'
+      left join (SELECT dis1.Dstr_CD  FROM MasterData.T_Dstr AS dis1
+      left join MasterData.T_Udstr_Dstr AS B on B.Dstr_CD= dis1.Dstr_CD
+      WHERE Udstr_CD IN (SELECT  #value#  AS UdstrCD
+      UNION
+      SELECT Udstr_CD
+      FROM DP.DPExcludeUdstr
+      WHERE     IsAction = 1
+      AND ParentUdstr_CD =  #value#)
+
+      ) as tbdis
+      on tbdis.Dstr_CD=A.Parent_Dstr_CD
+      WHERE A.Parent_Dstr_CD in (tbdis.Dstr_CD)
+    </select>
+
+    <select id="SelectFModePermissions" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select * from [DP].[func_GetAuthorityMajorGrp]('$UserId$','$RightId$')
+    </select>
+
+
+    <!--added by songyuqi on 2012.05.23-->
+    <select id="SelectDealerInfoBySmallClass" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT ID AS Id,Cust_CD AS Cust_CD,ud.Udstr_Desc_CN as CustName,ModleID AS Modleid,Version AS Version,Column1 AS Column1,Column2 AS Column2,Column3 AS Column3,Column4 AS Column4,Column5 AS Column5,Column6 AS Column6,Column7 AS Column7,Column8 AS Column8,Column9 AS Column9,Column10 AS Column10,Column11 AS Column11,Column12 AS Column12,Column13 AS Column13,Column14 AS Column14,Column15 AS Column15,Column16 AS Column16,Column17 AS Column17,Column18 AS Column18,Column19 AS Column19,Column20 AS Column20,Column21 AS Column21,Column22 AS Column22,Column23 AS Column23,Column24 AS Column24,Column25 AS Column25,Column26 AS Column26,Column27 AS Column27,Column28 AS Column28,Column29 AS Column29,Column30 AS Column30,Column31 AS Column31,Column32 AS Column32,Column33 AS Column33,Column34 AS Column34,Column35 AS Column35,Column36 AS Column36,Column37 AS Column37,Column38 AS Column38,Column39 AS Column39,Column40 AS Column40,Column41 AS Column41,Column42 AS Column42,Column43 AS Column43,Column44 AS Column44,Column45 AS Column45,Column46 AS Column46,Column47 AS Column47,Column48 AS Column48,Column49 AS Column49,Column50 AS Column50,IsAction AS IsAction,CreateBy AS CreateBy,CreateDate AS CreateDate,ModifyBy AS ModifyBy,ModifyDate AS ModifyDate
+      FROM DealerInfo dm LEFT JOIN MasterData.T_UDSTR ud on dm.Cust_CD = ud.Udstr_CD
+      <dynamic prepend="WHERE">
+        <iterate prepend="AND" property="ModleIDs"
+                  open="(" close=")" conjunction="OR">
+          ModleID = #ModleIDs[]#
+        </iterate>
+        <iterate prepend="AND" property="CustCds"
+                  open="(" close=")" conjunction="OR">
+          Cust_CD = #CustCds[]#
+        </iterate>
+        <isNotNull prepend="AND" property="VerBeginDate">CONVERT(varchar(8), dm.Version, 112)>=#VerBeginDate#</isNotNull>
+        <isNotNull prepend="AND" property="VerEndDate">CONVERT(varchar(8), dm.Version, 112)&lt;=#VerEndDate#</isNotNull>
+      </dynamic>
+      Order By Cust_CD,Version,ModleID
+    </select>
+
+    <select id="SelectDealerInfoByUdstrDP" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      select dm.ID AS Id,dm.Cust_CD AS Cust_CD,ud.UdstrDescCN as CustName,dm.ModleID AS Modleid,dm.Version AS Version,dm.Column1 AS Column1,dm.Column2 AS Column2,dm.Column3 AS Column3,dm.Column4 AS Column4,dm.Column5 AS Column5,dm.Column6 AS Column6,dm.Column7 AS Column7,dm.Column8 AS Column8,dm.Column9 AS Column9,dm.Column10 AS Column10,dm.Column11 AS Column11,dm.Column12 AS Column12,dm.Column13 AS Column13,dm.Column14 AS Column14,dm.Column15 AS Column15,dm.Column16 AS Column16,dm.Column17 AS Column17,dm.Column18 AS Column18,dm.Column19 AS Column19,dm.Column20 AS Column20,dm.Column21 AS Column21,dm.Column22 AS Column22,dm.Column23 AS Column23,dm.Column24 AS Column24,dm.Column25 AS Column25,dm.Column26 AS Column26,dm.Column27 AS Column27,dm.Column28 AS Column28,dm.Column29 AS Column29,dm.Column30 AS Column30,dm.Column31 AS Column31,dm.Column32 AS Column32,dm.Column33 AS Column33,dm.Column34 AS Column34,dm.Column35 AS Column35,dm.Column36 AS Column36,dm.Column37 AS Column37,dm.Column38 AS Column38,dm.Column39 AS Column39,dm.Column40 AS Column40,dm.Column41 AS Column41,dm.Column42 AS Column42,dm.Column43 AS Column43,dm.Column44 AS Column44,dm.Column45 AS Column45,dm.Column46 AS Column46,dm.Column47 AS Column47,dm.Column48 AS Column48,dm.Column49 AS Column49,dm.Column50 AS Column50,dm.IsAction AS IsAction,dm.CreateBy AS CreateBy,dm.CreateDate AS CreateDate,dm.ModifyBy AS ModifyBy,dm.ModifyDate AS ModifyDate
+      from DealerInfo dm ,[DP].[func_TUdstr_Qry_DP]('$UdstrDesc$','$DstrGrpCd$','$FDSTATUSCD$','$Franchise$','$FDSOFTWARECD$','$UdstrCoopTypeCd$','$ProvinceCd$','$CityCD$','$DstrLvlCD$','$DstrCoopStatusCD$','$TypeId$','$simsCd$','$UserId$','$RightId$','$DPMaintainState$') ud
+      where dm.Cust_CD = ud.UdstrCd
+      <dynamic prepend="">
+        <iterate prepend="AND" property="ModleIDs"
+                    open="(" close=")" conjunction="OR">
+          ModleID = #ModleIDs[]#
+        </iterate>
+      </dynamic>
+    </select>
+    <!---->
+
+    <select id="SelectKPIStandardList" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      SELECT b.ModleName,
+      a.*,
+      ROW_NUMBER () OVER (ORDER BY a.CreateDate DESC) AS [row_number]
+      FROM DP.KPI_Standard a LEFT JOIN DP.DPModule b ON a.ModleID = b.ModleID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ModleName">b.ModleName=#ModleName#</isNotNull>
+        <isNotNull prepend="AND" property="KPIDateBegin">a.KPIDate>=#KPIDateBegin#</isNotNull>
+        <isNotNull prepend="AND" property="KPIDateEnd">a.KPIDate&lt;=#KPIDateEnd#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectKPIStandardByKPIDateAndModleID" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      select b.ModleName, a.* from
+      DP.KPI_Standard  a left join DP.DPModule b on a.ModleID=b.ModleID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ModleID">a.ModleID = #ModleID#</isNotNull>
+        <isNotNull prepend="AND" property="KPIDate">a.KPIDate = #KPIDate#</isNotNull>
+      </dynamic>
+    </select>
+
+
+    <delete id="DeleteKPIStandardByModleIDAndKPIDate" parameterClass="System.Collections.Hashtable" >
+      delete DP.KPI_Standard
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ModleID">ModleID=#ModleID#</isNotNull>
+        <isNotNull prepend="AND" property="KPIDate">SUBSTRING(KPIDate,0,5)=#KPIDate#</isNotNull>
+        <isNotNull prepend="AND" property="KPIType">KPIType=#KPIType#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <delete id="CheckIsNoHaveYear" parameterClass="System.Collections.Hashtable" >
+      select a.* from DP.KPI_Standard a
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Year">SUBSTRING(a.KPIDate,0,5)=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="ModleID">ModleID=#ModleID#</isNotNull>
+        <isNotNull prepend="AND" property="KPIType">KPIType=#KPIType#</isNotNull>
+      </dynamic>
+    </delete>
+
+    <update id="UpdateDealerInfoForAssessData" parameterClass="System.Collections.Hashtable">
+      update DealerInfo
+      set Column18=#NewAssessData#
+      where ModleID=#ModleID# and Column18=#OldAssessData#
+    </update>
+
+
+    <select id="InsertKPIStandard" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC [DP].[Proc_MaintainKPIStandard] #KPIType#,#dateValues#,#KPIDate#,#userID#,#rightID#,#mIsValid#
+    </select>
+
+
+    <select id="SelectDepartment" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      select distinct Column9 as Department from DealerInfo
+      where 1=1
+      <isNotNull prepend="AND" property="ModleID">ModleID = #ModleID#</isNotNull>
+      <isNotNull prepend="AND" property="Cust_CD">Cust_CD = #Cust_CD#</isNotNull>
+      and Column9 is not null
+    </select>
+
+    <select id="SelectTDstrByUdstrId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT B.Udstr_CD as udstrcd,A.Dstr_CD AS DstrCd,A.Dstr_Desc_CN AS DstrDescCn,A.Dstr_Desc_EN AS DstrDescEn,A.Dstr_Type_CD AS DstrTypeCd,A.Email1 AS Email1,A.Email2 AS Email2,A.Dstr_Coop_Type_CD AS DstrCoopTypeCd,A.Province_CD AS ProvinceCd,A.City_CD AS CityCd,A.District_CD AS DistrictCd,A.County_CN AS CountyCn,A.Address AS Address,A.Zip_CD AS ZipCd,A.Ld_Phone_CD AS LdPhoneCd,A.Phone_NO AS PhoneNo,A.Ld_Fax_CD AS LdFaxCd,A.Fax_NO AS FaxNo,A.Remark1 AS Remark1,A.Remark2 AS Remark2,A.Remark3 AS Remark3,A.Remark4 AS Remark4,A.Ship_To_Address1 AS ShipToAddress1,A.Ship_To_Address2 AS ShipToAddress2,A.Ship_To_Address3 AS ShipToAddress3,A.Ship_To_Address4 AS ShipToAddress4,A.Ship_To_Address5 AS ShipToAddress5,A.Director AS Director,A.Director_NO AS DirectorNo,A.Director_Mobile AS DirectorMobile,A.Finance_Contact AS FinanceContact,A.Finance_Contact_NO AS FinanceContactNo,A.Finance_Contact_Mobile AS FinanceContactMobile,A.Fd_Operator AS FdOperator,A.Fd_OperatorNO AS FdOperatorno,A.Fd_Status_CD AS FdStatusCd,A.Fd_Software_CD AS FdSoftwareCd,A.Upload_DT AS UploadDt,A.Franchise AS Franchise,A.BU AS Bu,A.Major_Grp_CD AS MajorGrpCd,A.Dstr_Coop_Start_DT AS DstrCoopStartDt,A.Dstr_Coop_End_DT AS DstrCoopEndDt,A.Dstr_Coop_Status_CD AS DstrCoopStatusCd,A.Parent_Dstr_CD AS ParentDstrCd,A.Dstr_Lvl_CD AS DstrLvlCd,A.Dstr_Class_CD AS DstrClassCd,A.Credit_Lvl_CD AS CreditLvlCd,A.BP AS Bp,A.Biz_Contact AS BizContact,A.Biz_Contact_NO AS BizContactNo,A.Biz_Contact_Mobile AS BizContactMobile,A.Jde_CD AS JdeCd,A.E_Wf_Job_NO AS EWfJobNo,A.Sims_CD AS SimsCd,A.Company_CD AS CompanyCd,A.Mdm_Lock_Flag AS MdmLockFlag,A.Create_DT AS CreateDt,A.Update_DT AS UpdateDt,A.Create_By AS CreateBy,A.Update_By AS UpdateBy,A.Payment_By AS PaymentBy,cd1.Code_Name as Statuscodename,cd2.Code_Name as SoftWareName,cd3.Code_Name AS DstrLvlName,cd4.Code_Name as DstrCoopStatusName
+      FROM MasterData.T_Dstr AS A
+      left join MasterData.T_Udstr_Dstr AS B on B.Dstr_CD= A.Dstr_CD
+      left join MasterData.T_Code AS cd1 on cd1.Code_ID=Fd_Status_CD and cd1.Codetype='D3'
+      left join MasterData.T_Code AS cd2 on cd2.Code_ID=Fd_Software_CD and cd2.Codetype='D4'
+      left join MasterData.T_Code AS cd3 on cd3.Code_ID=Dstr_Lvl_CD and cd3.Codetype='D6'
+      left join MasterData.T_Code AS cd4 on cd4.Code_ID=Dstr_Coop_Status_CD and cd4.Codetype='D5'
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          Udstr_CD IN
+          (SELECT #value# AS UdstrCD
+          UNION
+          SELECT Udstr_CD
+          FROM DP.DPExcludeUdstr
+          WHERE IsAction = 1
+          AND ParentUdstr_CD = #value#)
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+
+    <!--获取合同记录列表-->
+    <select id="SelectContractDate" parameterClass="string" resultClass="DealerInfo">
+      SELECT b.ArchiveUrl, a.*
+      FROM    DealerInfo a
+      LEFT JOIN
+      (SELECT m.ArchiveName, m.ArchiveUrl, dp.CreateDate
+      FROM DP.DPArchive m,
+      (SELECT x.ArchiveName, max (x.CreateDate) AS CreateDate
+      FROM DP.DPArchive x
+      WHERE     x.ArchiveType = 2
+      AND x.Cust_CD = #value#
+      AND x.ModleID =
+      (SELECT p.ModleID
+      FROM DP.DPModule p
+      WHERE p.ModleName = '合同记录')
+      GROUP BY ArchiveName) AS dp
+      WHERE     m.ArchiveName = dp.ArchiveName
+      AND m.CreateDate = dp.CreateDate
+      AND m.ArchiveType = 2
+      AND m.Cust_CD = #value#
+      AND m.ModleID = (SELECT h.ModleID
+      FROM DP.DPModule h
+      WHERE h.ModleName = '合同记录')) b
+      ON a.Column6 = b.ArchiveName
+      WHERE     a.ModleID = (SELECT c.ModleID
+      FROM DP.DPModule c
+      WHERE c.ModleName = '合同记录')
+      AND a.Cust_CD = #value#
+    </select>
+
+    <!--获取文件记录列表-->
+    <select id="SelectAuthorizeDate" parameterClass="string" resultClass="DealerInfo">
+      SELECT b.ArchiveUrl, a.*
+      FROM    DealerInfo a
+      LEFT JOIN
+      (SELECT m.ArchiveName, m.ArchiveUrl, dp.CreateDate
+      FROM DP.DPArchive m,
+      (SELECT x.ArchiveName, max (x.CreateDate) AS CreateDate
+      FROM DP.DPArchive x
+      WHERE     x.ArchiveType = 2
+      AND x.Cust_CD = #value#
+      AND x.ModleID =
+      (SELECT p.ModleID
+      FROM DP.DPModule p
+      WHERE p.ModleName = '文件记录')
+      GROUP BY ArchiveName) AS dp
+      WHERE     m.ArchiveName = dp.ArchiveName
+      AND m.CreateDate = dp.CreateDate
+      AND m.ArchiveType = 2
+      AND m.Cust_CD = #value#
+      AND m.ModleID = (SELECT h.ModleID
+      FROM DP.DPModule h
+      WHERE h.ModleName = '文件记录')) b
+      ON a.Column1 = b.ArchiveName
+      WHERE     a.ModleID = (SELECT c.ModleID
+      FROM DP.DPModule c
+      WHERE c.ModleName = '文件记录')
+      AND a.Cust_CD = #value#
+    </select>
+
+
+    <!--获取奖励记录列表-->
+    <select id="SelectRewardDate" parameterClass="string" resultClass="DealerInfo">
+      SELECT b.ArchiveUrl, a.*
+      FROM    DealerInfo a
+      LEFT JOIN
+      (SELECT m.ArchiveName, m.ArchiveUrl, dp.CreateDate
+      FROM DP.DPArchive m,
+      (SELECT x.ArchiveName, max (x.CreateDate) AS CreateDate
+      FROM DP.DPArchive x
+      WHERE     x.ArchiveType = 2
+      AND x.Cust_CD = #value#
+      AND x.ModleID =
+      (SELECT p.ModleID
+      FROM DP.DPModule p
+      WHERE p.ModleName = '奖励记录')
+      GROUP BY ArchiveName) AS dp
+      WHERE     m.ArchiveName = dp.ArchiveName
+      AND m.CreateDate = dp.CreateDate
+      AND m.ArchiveType = 2
+      AND m.Cust_CD = #value#
+      AND m.ModleID = (SELECT h.ModleID
+      FROM DP.DPModule h
+      WHERE h.ModleName = '奖励记录')) b
+      ON a.Column8 = b.ArchiveName
+      WHERE     a.ModleID = (SELECT c.ModleID
+      FROM DP.DPModule c
+      WHERE c.ModleName = '奖励记录')
+      AND a.Cust_CD = #value#
+    </select>
+
+    <!--获取处罚记录列表-->
+    <select id="SelectPunishDate" parameterClass="string" resultClass="DealerInfo">
+      SELECT b.ArchiveUrl, a.*
+      FROM    DealerInfo a
+      LEFT JOIN
+      (SELECT m.ArchiveName, m.ArchiveUrl, dp.CreateDate
+      FROM DP.DPArchive m,
+      (SELECT x.ArchiveName, max (x.CreateDate) AS CreateDate
+      FROM DP.DPArchive x
+      WHERE     x.ArchiveType = 2
+      AND x.Cust_CD =#value#
+      AND x.ModleID =
+      (SELECT p.ModleID
+      FROM DP.DPModule p
+      WHERE p.ModleName = '处罚记录')
+      GROUP BY ArchiveName) AS dp
+      WHERE     m.ArchiveName = dp.ArchiveName
+      AND m.CreateDate = dp.CreateDate
+      AND m.ArchiveType = 2
+      AND m.Cust_CD =#value#
+      AND m.ModleID = (SELECT h.ModleID
+      FROM DP.DPModule h
+      WHERE h.ModleName = '处罚记录')) b
+      ON a.Column8 = b.ArchiveName
+      WHERE     a.ModleID = (SELECT c.ModleID
+      FROM DP.DPModule c
+      WHERE c.ModleName = '处罚记录')
+      AND a.Cust_CD =#value#
+    </select>
+
+
+    <!--获取导入导出权限-->
+    <select id="GetRight" parameterClass="System.Collections.Hashtable" resultClass="DealerInfo">
+      select a.Import,a.Export from Platform.Base_Role_Right a
+      where Right_ID=#Right_ID#
+      and Module_ID in (select distinct b.Module_ID from Platform.Base_Module b where b.Module_URL=#Url#)
+      and Role_ID =(select  c.Role_ID from Platform.User_Role c where c.[User_ID]=#User_ID#)
+    </select>
+
+    <select id="SelectGridDataByPMID" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      SELECT dr.*
+      FROM (SELECT b.ModleName, a.*
+      FROM    DealerInfo a
+      INNER JOIN
+      DP.DPModule b
+      ON a.ModleID = b.ModleID
+      WHERE     b.IsGrid = 'true'
+      AND b.ModleLevel = '2'
+      AND b.ParentModleID = #ParentModleID#) dr
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          dr.Cust_CD = #Cust_CD#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="GetDealerLatestDataByPMID" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT ud.Udstr_Desc_CN AS CustName, dm.*
+      FROM DealerInfo dm
+      INNER JOIN MasterData.T_UDSTR ud
+      ON dm.Cust_CD = ud.Udstr_CD
+      INNER JOIN (SELECT t1.ModleID, max (t1.Version) AS Version
+      FROM DealerInfo t1, DP.DPModule t2
+      WHERE     t1.ModleID = t2.ModleID
+      AND t1.Cust_CD = #Cust_CD#
+      AND t2.ParentModleID = #ParentModleID#
+      GROUP BY t1.ModleID) AS MaxVersion
+      ON (    dm.ModleID = MaxVersion.ModleID
+      AND dm.Version = MaxVersion.Version)
+      WHERE dm.Cust_CD = #Cust_CD#
+    </select>
+
+    <select id="GetDealerDetailByPMID" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      EXEC [dbo].[Proc_GetDealerDetailByPMID] #Cust_CD#,#ParentModleID#,#VersionID#
+    </select>
+
+    <select id="GetDateChanngNameGrid" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT  tUser.Udstr_CD OldNameCod,tUser.Udstr_Desc_CN OldName, dr.*
+      FROM (SELECT b.ModleName, a.*
+      FROM    DealerInfo a
+      INNER JOIN
+      DP.DPModule b
+      ON a.ModleID = b.ModleID
+      WHERE     b.IsGrid = 'true'
+      AND b.ModleLevel = '2'
+      <isNotNull prepend="AND" property="ParentModleID">b.ParentModleID = #ParentModleID#</isNotNull>
+      ) dr
+      left join  MasterData.T_Udstr tUser on tUser.Udstr_Desc_CN=dr.Column2
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          dr.Cust_CD = #Cust_CD#
+        </isParameterPresent>
+      </dynamic>
+
+    </select>
+
+    <!--Begin Add in 20130523 by BSC Project-->
+    <select id="SelectReminderTime" resultClass="System.Collections.Hashtable">
+      SELECT VALUE1 from dbo.Lafite_DICT where DICT_TYPE='CONST_DealerInfo_CertificatesRemind'
+    </select>
+    <select id="SelectDealerNameByID" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select DMA_ChineseName,DMA_ChineseShortName from dbo.DealerMaster(nolock) where DMA_ID=#value#
+    </select>
+    <select id="SelectRoleList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable" >
+      select Id,ATTRIBUTE_NAME as RoleName,row_number() OVER (ORDER BY [ATTRIBUTE_NAME] ASC) AS [row_number] from dbo.Lafite_ATTRIBUTE WHERE ATTRIBUTE_TYPE='Role' and BOOLEAN_FLAG='1' and DELETE_FLAG='0'
+
+      <isNotNull prepend="AND" property="RoleName">ATTRIBUTE_NAME like '%$RoleName$%'</isNotNull>
+      
+    </select>
+    <!--End Add in 20130523 by BSC Project-->
+
+  </statements>
+</sqlMap>

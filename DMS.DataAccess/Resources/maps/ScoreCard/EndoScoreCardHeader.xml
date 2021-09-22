@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EndoScoreCardHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="EndoScoreCardHeader" assembly="DMS.Model.dll" type="DMS.Model.EndoScoreCardHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="EndoScoreCardHeaderResult" class="EndoScoreCardHeader">
+      <result property="Id" column="ESCH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="ESCH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BumId" column="ESCH_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Year" column="ESCH_Year" type="string" dbType="nvarchar"/>
+      <result property="Quarter" column="ESCH_Quarter" type="string" dbType="nvarchar"/>
+      <result property="No" column="ESCH_No" type="string" dbType="nvarchar"/>
+      <result property="Status" column="ESCH_Status" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="ESCH_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="ESCH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateUser" column="ESCH_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UpdateDate" column="ESCH_UpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="UpdateRemark" column="ESCH_UpdateRemark" type="string" dbType="nvarchar"/>
+      <result property="Field1" column="ESCH_Field1" type="string" dbType="nvarchar"/>
+      <result property="Field2" column="ESCH_Field2" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectEndoScoreCardHeader" parameterClass="string" resultClass="EndoScoreCardHeader">
+      SELECT ESCH_ID AS Id,ESCH_DMA_ID AS DmaId,ESCH_BUM_ID AS BumId,ESCH_Year AS Year,ESCH_Quarter AS Quarter,ESCH_No AS No,ESCH_Status AS Status,ESCH_CreateUser AS CreateUser,ESCH_CreateDate AS CreateDate,ESCH_UpdateUser AS UpdateUser,ESCH_UpdateDate AS UpdateDate,ESCH_UpdateRemark AS UpdateRemark,ESCH_Field1 AS Field1,ESCH_Field2 AS Field2
+      FROM EndoScoreCardHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          ESCH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterEndoScoreCardHeader" parameterClass="EndoScoreCardHeader" resultClass="EndoScoreCardHeader">
+      SELECT ESCH_ID AS Id,ESCH_DMA_ID AS DmaId,ESCH_BUM_ID AS BumId,ESCH_Year AS Year,ESCH_Quarter AS Quarter,ESCH_No AS No,ESCH_Status AS Status,ESCH_CreateUser AS CreateUser,ESCH_CreateDate AS CreateDate,ESCH_UpdateUser AS UpdateUser,ESCH_UpdateDate AS UpdateDate,ESCH_UpdateRemark AS UpdateRemark,ESCH_Field1 AS Field1,ESCH_Field2 AS Field2
+      FROM EndoScoreCardHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESCH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ESCH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="BumId">ESCH_BUM_ID=#BumId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ESCH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Quarter">ESCH_Quarter=#Quarter#</isNotNull>
+        <isNotNull prepend="AND" property="No">ESCH_No=#No#</isNotNull>
+        <isNotNull prepend="AND" property="Status">ESCH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateUser">ESCH_UpdateUser=#UpdateUser#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateDate">ESCH_UpdateDate=#UpdateDate#</isNotNull>
+        <isNotNull prepend="AND" property="UpdateRemark">ESCH_UpdateRemark=#UpdateRemark#</isNotNull>
+        <isNotNull prepend="AND" property="Field1">ESCH_Field1=#Field1#</isNotNull>
+        <isNotNull prepend="AND" property="Field2">ESCH_Field2=#Field2#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertEndoScoreCardHeader" parameterClass="EndoScoreCardHeader">
+      INSERT INTO EndoScoreCardHeader
+      (ESCH_ID,ESCH_DMA_ID,ESCH_BUM_ID,ESCH_Year,ESCH_Quarter,ESCH_No,ESCH_Status,ESCH_CreateUser,ESCH_CreateDate,ESCH_UpdateUser,ESCH_UpdateDate,ESCH_UpdateRemark,ESCH_Field1,ESCH_Field2)
+      VALUES(#Id#,#DmaId#,#BumId#,#Year#,#Quarter#,#No#,#Status#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateRemark#,#Field1#,#Field2#)
+    </insert>
+    <update id="UpdateEndoScoreCardHeader" parameterClass="EndoScoreCardHeader">
+      UPDATE EndoScoreCardHeader
+      SET ESCH_ID=#Id#,ESCH_DMA_ID=#DmaId#,ESCH_BUM_ID=#BumId#,ESCH_Year=#Year#,ESCH_Quarter=#Quarter#,ESCH_No=#No#,ESCH_Status=#Status#,ESCH_UpdateUser=#UpdateUser#,ESCH_UpdateDate=#UpdateDate#,ESCH_UpdateRemark=#UpdateRemark#,ESCH_Field1=#Field1#,ESCH_Field2=#Field2#
+      WHERE ESCH_ID = #Id#
+    </update>
+    <delete id="DeleteEndoScoreCardHeader" parameterClass="string">
+      DELETE FROM EndoScoreCardHeader
+      WHERE ESCH_ID = #value#
+    </delete>
+
+    <select id="QueryEndoScoreCardHeaderByCondition" parameterClass="System.Collections.Hashtable" resultClass="EndoScoreCardHeader">
+      SELECT ESCH_ID AS Id,ESCH_DMA_ID AS DmaId,ESCH_BUM_ID AS BumId,ESCH_Year AS Year,ESCH_Quarter AS Quarter,ESCH_No AS No,ESCH_Status AS Status,DIC.VALUE1 AS StatusName
+      ,row_number() OVER (ORDER BY ESCH_CreateDate DESC) AS row_number
+      FROM EndoScoreCardHeader A(nolock)
+      INNER JOIN Lafite_DICT DIC(nolock)
+      ON DIC.DICT_KEY = A.ESCH_Status
+      and DIC.DICT_TYPE = 'CONST_ESC_Status'
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">ESCH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">ESCH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Year">ESCH_Year=#Year#</isNotNull>
+        <isNotNull prepend="AND" property="Quarter">ESCH_Quarter=#Quarter#</isNotNull>
+        <isNotNull prepend="AND" property="No">ESCH_No like N'%$No$%'</isNotNull>
+        <isNotNull prepend="AND" property="Status">ESCH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="LPId">
+          exists(select 1 from DealerMaster(nolock) where DMA_Parent_DMA_ID = #LPId#
+          and DMA_ID = ESCH_DMA_ID)
+        </isNotNull>
+        <isNotNull prepend="AND" property="BUMId">ESCH_BUM_ID=#BUMId#</isNotNull>
+        <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+          (
+          EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+          WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+          AND SD.DealerID = A.ESCH_DMA_ID AND SD.BUM_ID = A.ESCH_BUM_ID AND OU.AttributeId &lt;&gt; OU.RootId
+          <iterate prepend="AND" property="OwnerOrganizationUnits"
+                open="(" close=")" conjunction="OR">
+            OU.RootId = #OwnerOrganizationUnits[]#
+          </iterate>
+          )
+          OR
+          EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+          AND SD.DealerID = A.ESCH_DMA_ID AND SD.BUM_ID = A.ESCH_BUM_ID)
+          )
+
+        </isEqual>
+      </dynamic>
+    </select>
+    <select id="QueryEndoScoreCardHeaderByID" parameterClass="string" resultClass="EndoScoreCardHeader">
+      SELECT ESCH_ID AS Id,ESCH_DMA_ID AS DmaId,ESCH_BUM_ID AS BumId,ESCH_Year AS Year,ESCH_Quarter AS Quarter,ESCH_No AS No,ESCH_Status AS Status,ESCH_CreateUser AS CreateUser,ESCH_CreateDate AS CreateDate,ESCH_UpdateUser AS UpdateUser,ESCH_UpdateDate AS UpdateDate,ESCH_UpdateRemark AS UpdateRemark,ESCH_Field1 AS Field1,ESCH_Field2 AS Field2
+      FROM EndoScoreCardHeader
+      WHERE ESCH_ID=#value#
+    </select>
+    <select id="QueryEndoScoreCardByIDForDateSet" parameterClass="string" resultClass="EndoScoreCardHeader">
+      SELECT ESCH_ID AS Id,ESCH_DMA_ID AS DmaId,DM.DMA_ChineseName AS DmaChineseName,ESCH_BUM_ID AS BumId,PL.ATTRIBUTE_NAME AS BumName,ESCH_Year AS Year,ESCH_Quarter AS Quarter,ESCH_No AS No,ESCH_Status AS Status,LD.VALUE1 AS StatusName,ESCH_Field1 AS Field1,ESCH_Field2 AS Field2
+      FROM EndoScoreCardHeader ESC(nolock)
+      INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID=ESC.ESCH_DMA_ID
+      INNER JOIN View_ProductLine PL(nolock) ON PL.Id=ESC.ESCH_BUM_ID
+      INNER JOIN Lafite_DICT LD(nolock) ON LD.DICT_KEY=ESC.ESCH_Status AND LD.DICT_TYPE='CONST_ESC_Status'
+      WHERE ESCH_No=#value#
+    </select>
+    <update id="UpdateDealerConfirm" parameterClass="System.Collections.Hashtable" >
+      Update EndoScoreCardHeader
+      SET ESCH_Field1 = 1
+      <isEqual prepend="" property="DmaType" compareValue="T1">
+        ,ESCH_Status = 'Completed'
+      </isEqual>
+      WHERE ESCH_ID=#Id#
+    </update>
+    <update id="UpdateLPConfirm" parameterClass="string" >
+      Update EndoScoreCardHeader
+      SET ESCH_Field2 = 1,ESCH_Status = 'Completed'
+      WHERE ESCH_ID=#value#
+    </update>
+    <select id="GetScoreCardHeaderIdByNo" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select ESCH_ID from EndoScoreCardHeader where ESCH_NO = #value#
+    </select>
+  </statements>
+</sqlMap>

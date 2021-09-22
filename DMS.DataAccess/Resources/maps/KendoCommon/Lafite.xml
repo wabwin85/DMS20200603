@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="LafiteMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="LafiteMap.SelectUserMenu" parameterClass="string">
+      <![CDATA[
+            WITH T AS (
+                          SELECT DISTINCT SiteMap.MenuId MenuId,
+                                 SiteMap.MenuTitle MenuName,
+                                 SiteMap.ParentId ParentMenu,
+                                 SiteMap.ResourceKey,
+                                 SiteMap.[Helplink] MenuUrl,
+                                 CASE WHEN ISNULL(SiteMap.[Helplink], '') = '' THEN 0 ELSE 1 END IsLeaf,
+                                 SiteMap.PowerKey,
+                                 SiteMap.OrderBy SortNo
+                          FROM   Lafite_IDENTITY_MAP UserRole,
+                                 Lafite_ATTRIBUTE_MAP RoleStrategy,
+                                 Lafite_STRATEGY_MAP StrategyResource,
+                                 Lafite_FUNCTION [Resource],
+                                 Lafite_SiteMap SiteMap
+                          WHERE  UserRole.IDENTITY_ID = #value#
+                                 AND UserRole.MAP_ID = RoleStrategy.ATTRIBUTE_ID
+                                 AND RoleStrategy.MAP_ID = StrategyResource.STRATEGY_ID
+                                 AND StrategyResource.MAP_ID = [Resource].Id
+                                 AND [Resource].FUNCTION_CODE = SiteMap.PowerKey
+                                 AND SiteMap.ResourceKey = 'KendoSite'
+                                 AND SiteMap.MenuLevel > 1
+                                 AND SiteMap.IsEnabled=1
+                          UNION ALL
+                          SELECT SiteMap.MenuId MenuId,
+                                 SiteMap.MenuTitle MenuName,
+                                 0 ParentMenu,
+                                 SiteMap.ResourceKey,
+                                 SiteMap.[Helplink] MenuUrl,
+                                 0 IsLeaf,
+                                 SiteMap.PowerKey,
+                                 SiteMap.OrderBy SortNo
+                          FROM   Lafite_SiteMap SiteMap,
+                                 T
+                          WHERE  SiteMap.MenuId = T.ParentMenu
+                                 AND SiteMap.MenuLevel = 1
+                                 AND SiteMap.IsEnabled=1
+                      )
+            SELECT DISTINCT *
+            FROM   T
+            ORDER BY
+                   T.SortNo
+            ]]>
+    </select>
+    <select id="LafiteMap.SelectLafiteDictREV" parameterClass="System.Collections.Hashtable" resultClass="string">
+      SELECT TOP 1 REV1 + '-' + REV3
+      FROM Lafite_DICT
+      WHERE 1=1
+      <isNotEmpty prepend="AND" property="TYPE">
+        DICT_TYPE = #TYPE#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="KEY">
+        DICT_KEY = #KEY#
+      </isNotEmpty>
+    </select>
+  </statements>
+</sqlMap>

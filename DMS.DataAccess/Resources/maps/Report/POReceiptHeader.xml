@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="POReceiptHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <!--经销商收货数据报表-->
+    <select id="SelectDealerBuyInReport" parameterClass="System.Collections.Hashtable">
+      SELECT DM.DMA_ChineseName,
+      DM.DMA_EnglishName,
+      DM.DMA_SAP_Code,
+      TAB.PRH_PurchaseOrderNbr,
+      TAB.PRH_SAPShipmentID,
+      TAB.PRH_PONumber,
+      CONVERT (VARCHAR (10), POH.POH_SubmitDate, 120) AS POH_SubmitDate,
+      CONVERT (VARCHAR (10), TAB.PRH_SAPShipmentDate, 120)
+      AS PRH_SAPShipmentDate,
+      datepart (yy, TAB.PRH_SAPShipmentDate) AS Year,
+      datepart (mm, TAB.PRH_SAPShipmentDate) AS Month,
+      VPL.Attribute_Name AS ProductLineName,
+      CFN.CFN_CustomerFaceNbr,
+      CFN.CFN_ChineseName,
+      CFN.CFN_EnglishName,
+      Pd.PMA_UPN AS UPN,
+      CASE WHEN charindex('@@',TAB.PRL_LotNumber) > 0
+      THEN substring(TAB.PRL_LotNumber,1,charindex('@@',TAB.PRL_LotNumber)-1)
+      ELSE TAB.PRL_LotNumber
+      END AS LTM_LotNumber,
+      CASE WHEN charindex('@@',TAB.PRL_LotNumber) > 0
+      THEN substring(TAB.PRL_LotNumber,charindex('@@',TAB.PRL_LotNumber)+2,len(TAB.PRL_LotNumber))
+      ELSE ''
+      END AS QRCode,
+      CASE
+      WHEN CFN_Property6 = '1'
+      THEN
+      CONVERT (VARCHAR (10), TAB.PRL_ExpiredDate, 120)
+      WHEN CFN_Property6 = '0'
+      THEN
+      CONVERT (NVARCHAR (7), TAB.PRL_ExpiredDate, 120)
+      END
+      AS LTM_ExpiredDate,
+      TAB.PRL_ReceiptQty,
+      CASE
+      WHEN isnull (POH.POH_OrderType, '') IN ('EEGoodsReturn',
+      'PEGoodsReturn')
+      THEN
+      0
+      ELSE
+      ISNULL (POD.POD_CFN_Price, 0)
+      END
+      AS Price,
+      CASE
+      WHEN isnull (POH.POH_OrderType, '') IN ('EEGoodsReturn',
+      'PEGoodsReturn')
+      THEN
+      0
+      ELSE
+      TAB.PRL_ReceiptQty * ISNULL (POD.POD_CFN_Price, 0)
+      END
+      AS Amount,
+      ISNULL (T1.InvoiceAmount, 0) AS InvoiceAmount,
+      T1.InvoiceList,
+      (SELECT CASE TAB.PRH_Status WHEN 'Complete' THEN '是' ELSE '否' END)
+      AS PRH_StatusName,
+      CFN.CFN_Property1,
+      CFN.CFN_Property2,
+      CFN.CFN_Property3,
+      CFN.CFN_Property4,
+      CFN.CFN_Property5,
+      CFN.CFN_Property6,
+      CFN.CFN_Property7,
+      CFN.CFN_Property8,
+      CFN_Level1Code,
+      CFN_Level1Desc,
+      CFN_Level2Code,
+      CFN_Level2Desc,
+      CFN_Level3Code,
+      CFN_Level3Desc,
+      CFN_Level4Code,
+      CFN_Level4Desc,
+      CFN_Level5Code,
+      CFN_Level5Desc,
+      LI.IDENTITY_NAME,
+      (SELECT VALUE1
+      FROM Lafite_DICT(nolock)
+      WHERE DICT_TYPE = 'CONST_Receipt_Type' AND DICT_KEY = TAB.PRH_Type)
+      AS PRH_TypeName,
+      TAB.RFU_CurRegNo,
+      TAB.RFU_CurManuName,
+      TAB.RFU_LastRegNo,
+      TAB.RFU_LastManuName,
+      LM.LTM_Type
+      FROM (SELECT Header.PRH_PurchaseOrderNbr,
+      Header.PRH_Dealer_DMA_ID,
+      ISNULL((select top 1 PO.POH_ProductLine_BUM_ID from PurchaseOrderHeader PO(nolock) where PO.POH_OrderNo = Header.PRH_PurchaseOrderNbr and POH_CreateType NOT IN ('Temporary')),Header.PRH_ProductLine_BUM_ID) AS PRH_ProductLine_BUM_ID,
+      Header.PRH_SAPShipmentID,
+      Header.PRH_PONumber,
+      Header.PRH_SAPShipmentDate,
+      Line.POR_SAP_PMA_ID,
+      Lot.PRL_LotNumber,
+      Lot.PRL_ExpiredDate,
+      SUM (Lot.PRL_ReceiptQty) AS PRL_ReceiptQty,
+      Header.PRH_Status,
+      Header.PRH_Type,
+      Header.PRH_Receipt_USR_UserID,
+      RFU.RFU_CurRegNo,
+      RFU.RFU_CurManuName,
+      RFU.RFU_LastRegNo,
+      RFU.RFU_LastManuName
+      FROM POReceiptHeader AS Header(nolock)
+      INNER JOIN POReceipt AS Line(nolock)
+      ON Line.POR_PRH_ID = Header.PRH_ID
+      INNER JOIN POReceiptLot AS Lot(nolock) ON Lot.PRL_POR_ID = Line.POR_ID
+      LEFT JOIN RegInfo_FormUPN_History RFU(nolock) ON (RFU.RFU_FormID = Header.PRH_ID and RFU.RFU_PmaID = Line.POR_SAP_PMA_ID)
+      GROUP BY Header.PRH_PurchaseOrderNbr,
+      Header.PRH_Dealer_DMA_ID,
+      Header.PRH_ProductLine_BUM_ID,
+      Header.PRH_SAPShipmentID,
+      Header.PRH_PONumber,
+      Header.PRH_SAPShipmentID,
+      Header.PRH_SAPShipmentDate,
+      Line.POR_SAP_PMA_ID,
+      Lot.PRL_LotNumber,
+      Lot.PRL_ExpiredDate,
+      Header.PRH_Status,
+      Header.PRH_Type,
+      Header.PRH_Receipt_USR_UserID,
+      RFU.RFU_CurRegNo,
+      RFU.RFU_CurManuName,
+      RFU.RFU_LastRegNo,
+      RFU.RFU_LastManuName) TAB
+      INNER JOIN DealerMaster AS DM(nolock) ON DM.DMA_ID = TAB.PRH_Dealer_DMA_ID
+      INNER JOIN View_ProductLine AS VPL(nolock)
+      ON VPL.Id = TAB.PRH_ProductLine_BUM_ID
+      INNER JOIN Product Pd(nolock) ON pd.PMA_ID = TAB.POR_SAP_PMA_ID
+      INNER JOIN CFN CFN(nolock) ON CFN.CFN_ID = Pd.PMA_CFN_ID
+      LEFT JOIN Lafite_IDENTITY LI(nolock) ON LI.Id = TAB.PRH_Receipt_USR_UserID
+      LEFT JOIN PurchaseOrderHeader POH(nolock)
+      ON TAB.PRH_PurchaseOrderNbr = POH.POH_OrderNo
+      LEFT JOIN PurchaseOrderDetail POD(nolock)
+      ON (POD.POD_POH_ID = POH.POH_ID AND POD.POD_CFN_ID = CFN.CFN_ID AND isnull(POD.POD_LotNumber,'') = case when POH.POH_OrderType = 'Transfer' then Tab.PRL_LotNumber else '' end)
+      LEFT JOIN
+      (SELECT OrderNo,
+      DeliveryNo,
+      SUM (InvoiceAmount) AS InvoiceAmount,
+      STUFF (
+      (SELECT ',' + ID733
+      FROM interface.T_I_IF_Invoice B(nolock)
+      WHERE     A.OrderNo = B.OrderNo
+      AND B.DeliveryNo = A.DeliveryNo
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')
+      AS InvoiceList
+      FROM interface.T_I_IF_Invoice A(nolock)
+      GROUP BY OrderNo, DeliveryNo) T1
+      ON     T1.OrderNo = TAB.PRH_PurchaseOrderNbr AND T1.DeliveryNo = TAB.PRH_SAPShipmentID
+      LEFT JOIN LotMaster LM(nolock) on (LM.LTM_LotNumber =TAB.PRL_LotNumber and LM.LTM_Product_PMA_ID = pd.PMA_ID  )
+      WHERE TAB.PRH_Type = 'PurchaseOrder'
+      AND TAB.PRH_Status IN ('Waiting', 'Complete')
+      AND (POH.POH_CreateType IS NULL OR POH.POH_CreateType = 'Manual')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="StartDate">TAB.PRH_SAPShipmentDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">TAB.PRH_SAPShipmentDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">VPL.Id = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStartDate">POH.POH_SubmitDate >= #OrderStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="OrderEndDate">POH.POH_SubmitDate &lt; DateAdd (Day, 1, #OrderEndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="CfnNumber">CFN.CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">TAB.PRL_LotNumber LIKE N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">TAB.PRH_Dealer_DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">
+          (dbo.GC_FilterByDealer (#UserId#, TAB.PRH_Dealer_DMA_ID, TAB.PRH_ProductLine_BUM_ID) = 1)
+        </isNotNull>-->
+      </dynamic>
+      GROUP BY DM.DMA_ChineseName,
+      DM.DMA_EnglishName,
+      DM.DMA_SAP_Code,
+      TAB.PRH_PurchaseOrderNbr,
+      TAB.PRH_SAPShipmentID,
+      TAB.PRH_PONumber,
+      POH.POH_SubmitDate,
+      POH_OrderType,
+      TAB.PRH_SAPShipmentDate,
+      VPL.Attribute_Name,
+      CFN.CFN_CustomerFaceNbr,
+      CFN.CFN_ChineseName,
+      CFN.CFN_EnglishName,
+      Pd.PMA_UPN,
+      TAB.PRL_LotNumber,
+      TAB.PRL_ExpiredDate,
+      TAB.PRL_ReceiptQty,
+      POD.POD_CFN_Price,
+      T1.InvoiceAmount,
+      T1.InvoiceList,
+      TAB.PRH_Status,
+      CFN.CFN_Property1,
+      CFN.CFN_Property2,
+      CFN.CFN_Property3,
+      CFN.CFN_Property4,
+      CFN.CFN_Property5,
+      CFN.CFN_Property6,
+      CFN.CFN_Property7,
+      CFN.CFN_Property8,
+      CFN_Level1Code,
+      CFN_Level1Desc,
+      CFN_Level2Code,
+      CFN_Level2Desc,
+      CFN_Level3Code,
+      CFN_Level3Desc,
+      CFN_Level4Code,
+      CFN_Level4Desc,
+      CFN_Level5Code,
+      CFN_Level5Desc,
+      PRH_Type,
+      LI.IDENTITY_NAME,
+      TAB.RFU_CurRegNo,
+      TAB.RFU_CurManuName,
+      TAB.RFU_LastRegNo,
+      TAB.RFU_LastManuName,
+      LM.LTM_Type
+      ORDER BY DM.DMA_ChineseName, PRH_PONumber DESC
+    </select>
+
+    <select id="ExportDealerBuyInReport" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DM.DMA_ChineseName AS '经销商名称',
+      DM.DMA_EnglishName AS '经销商英文名称',
+      DM.DMA_SAP_Code AS '经销商ERP Account',
+      CONVERT (VARCHAR (10), POH.POH_SubmitDate, 120) AS '订单提交日期',
+      TAB.PRH_SAPShipmentID AS '运单号',
+      (SELECT VALUE1
+      FROM Lafite_DICT(nolock)
+      WHERE DICT_TYPE = 'CONST_Receipt_Type' AND DICT_KEY = TAB.PRH_Type)
+      AS '收货类型',
+      LI.IDENTITY_NAME AS '操作人',
+      TAB.PRH_PONumber AS '收货单单号',
+      CONVERT (VARCHAR (10), TAB.PRH_SAPShipmentDate, 120)
+      AS '发货日期',
+      datepart (yy, TAB.PRH_SAPShipmentDate) AS '年度',
+      datepart (mm, TAB.PRH_SAPShipmentDate) AS '月度',
+      VPL.Attribute_Name AS '产品线',
+      CFN.CFN_Property1 AS '产品等级',
+      CFN.CFN_CustomerFaceNbr AS '产品编号',
+      CFN.CFN_ChineseName AS '产品中文名',
+      CFN.CFN_EnglishName AS '产品英文名',
+      CASE WHEN charindex('@@',TAB.PRL_LotNumber) > 0
+      THEN substring(TAB.PRL_LotNumber,1,charindex('@@',TAB.PRL_LotNumber)-1)
+      ELSE TAB.PRL_LotNumber
+      END AS '产品批号',
+      CASE WHEN charindex('@@',TAB.PRL_LotNumber) > 0
+      THEN substring(TAB.PRL_LotNumber,charindex('@@',TAB.PRL_LotNumber)+2,len(TAB.PRL_LotNumber))
+      ELSE ''
+      END AS '二维码',
+      CASE
+      WHEN CFN_Property6 = '1'
+      THEN
+      CONVERT (VARCHAR (10), TAB.PRL_ExpiredDate, 120)
+      WHEN CFN_Property6 = '0'
+      THEN
+      CONVERT (NVARCHAR (7), TAB.PRL_ExpiredDate, 120)
+      END
+      AS '产品有效期',
+      TAB.PRL_ReceiptQty AS '发货数量',
+      CASE
+      WHEN isnull (POH.POH_OrderType, '') IN ('EEGoodsReturn',
+      'PEGoodsReturn')
+      THEN
+      0
+      ELSE
+      ISNULL (POD.POD_CFN_Price, 0)
+      END
+      AS '价格',
+      CASE
+      WHEN isnull (POH.POH_OrderType, '') IN ('EEGoodsReturn',
+      'PEGoodsReturn')
+      THEN
+      0
+      ELSE
+      TAB.PRL_ReceiptQty * ISNULL (POD.POD_CFN_Price, 0)
+      END
+      AS '金额',
+      ISNULL (T1.InvoiceAmount, 0) AS '系统发票金额',
+      T1.InvoiceList AS '系统发票号',
+      (SELECT CASE TAB.PRH_Status WHEN 'Complete' THEN '是' ELSE '否' END)
+      AS '是否接收',
+      CFN_Level1Code AS 'Level1 Code',
+      CFN_Level1Desc AS 'Level1 Desc',
+      CFN_Level2Code AS 'Level2 Code',
+      CFN_Level2Desc AS 'Level2 Desc',
+      CFN_Level3Code AS 'Level3 Code',
+      CFN_Level3Desc AS 'Level3 Desc',
+      CFN_Level4Code AS 'Level4 Code',
+      CFN_Level4Desc AS 'Level4 Desc',
+      CFN_Level5Code AS 'Level5 Code',
+      CFN_Level5Desc AS 'Level5 Desc',
+      LM.LTM_Type AS '产品生产日期'
+      FROM (SELECT Header.PRH_PurchaseOrderNbr,
+      Header.PRH_Dealer_DMA_ID,
+      ISNULL((select top 1 PO.POH_ProductLine_BUM_ID from PurchaseOrderHeader PO where PO.POH_OrderNo = Header.PRH_PurchaseOrderNbr and POH_CreateType NOT IN ('Temporary')),Header.PRH_ProductLine_BUM_ID) AS PRH_ProductLine_BUM_ID,
+      Header.PRH_SAPShipmentID,
+      Header.PRH_PONumber,
+      Header.PRH_SAPShipmentDate,
+      Line.POR_SAP_PMA_ID,
+      Lot.PRL_LotNumber,
+      Lot.PRL_ExpiredDate,
+      SUM (Lot.PRL_ReceiptQty) AS PRL_ReceiptQty,
+      Header.PRH_Status,
+      Header.PRH_Type,
+      Header.PRH_Receipt_USR_UserID,
+      RFU.RFU_CurRegNo,
+      RFU.RFU_CurManuName,
+      RFU.RFU_LastRegNo,
+      RFU.RFU_LastManuName
+      FROM POReceiptHeader AS Header(nolock)
+      INNER JOIN POReceipt AS Line(nolock)
+      ON Line.POR_PRH_ID = Header.PRH_ID
+      INNER JOIN POReceiptLot AS Lot(nolock) ON Lot.PRL_POR_ID = Line.POR_ID
+      LEFT JOIN RegInfo_FormUPN_History RFU(nolock) ON (RFU.RFU_FormID = Header.PRH_ID and RFU.RFU_PmaID = Line.POR_SAP_PMA_ID)
+      GROUP BY Header.PRH_PurchaseOrderNbr,
+      Header.PRH_Dealer_DMA_ID,
+      Header.PRH_ProductLine_BUM_ID,
+      Header.PRH_SAPShipmentID,
+      Header.PRH_PONumber,
+      Header.PRH_SAPShipmentID,
+      Header.PRH_SAPShipmentDate,
+      Line.POR_SAP_PMA_ID,
+      Lot.PRL_LotNumber,
+      Lot.PRL_ExpiredDate,
+      Header.PRH_Status,
+      Header.PRH_Type,
+      Header.PRH_Receipt_USR_UserID,
+      RFU.RFU_CurRegNo,
+      RFU.RFU_CurManuName,
+      RFU.RFU_LastRegNo,
+      RFU.RFU_LastManuName) TAB
+      INNER JOIN DealerMaster AS DM(nolock) ON DM.DMA_ID = TAB.PRH_Dealer_DMA_ID
+      INNER JOIN View_ProductLine AS VPL(nolock)
+      ON VPL.Id = TAB.PRH_ProductLine_BUM_ID
+      INNER JOIN Product Pd(nolock) ON pd.PMA_ID = TAB.POR_SAP_PMA_ID
+      INNER JOIN CFN CFN(nolock) ON CFN.CFN_ID = Pd.PMA_CFN_ID
+      LEFT JOIN Lafite_IDENTITY LI(nolock) ON LI.Id = TAB.PRH_Receipt_USR_UserID
+      LEFT JOIN PurchaseOrderHeader POH(nolock)
+      ON TAB.PRH_PurchaseOrderNbr = POH.POH_OrderNo
+      LEFT JOIN PurchaseOrderDetail POD(nolock)
+      ON (POD.POD_POH_ID = POH.POH_ID AND POD.POD_CFN_ID = CFN.CFN_ID AND isnull(POD.POD_LotNumber,'') = case when POH.POH_OrderType = 'Transfer' then Tab.PRL_LotNumber else '' end)
+      LEFT JOIN
+      (SELECT OrderNo,
+      DeliveryNo,
+      SUM (InvoiceAmount) AS InvoiceAmount,
+      STUFF (
+      (SELECT ',' + ID733
+      FROM interface.T_I_IF_Invoice B(nolock)
+      WHERE     A.OrderNo = B.OrderNo
+      AND B.DeliveryNo = A.DeliveryNo
+      FOR XML PATH ( '' )),
+      1,
+      1,
+      '')
+      AS InvoiceList
+      FROM interface.T_I_IF_Invoice A(nolock)
+      GROUP BY OrderNo, DeliveryNo) T1
+      ON     T1.OrderNo = TAB.PRH_PurchaseOrderNbr AND T1.DeliveryNo = TAB.PRH_SAPShipmentID
+      LEFT JOIN LotMaster LM(nolock) on (LM.LTM_LotNumber =TAB.PRL_LotNumber and LM.LTM_Product_PMA_ID = pd.PMA_ID)
+      WHERE TAB.PRH_Type = 'PurchaseOrder'
+      AND TAB.PRH_Status IN ('Waiting', 'Complete')
+      AND (POH.POH_CreateType IS NULL OR POH.POH_CreateType = 'Manual')
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="StartDate">TAB.PRH_SAPShipmentDate >= #StartDate#</isNotNull>
+        <isNotNull prepend="AND" property="EndDate">TAB.PRH_SAPShipmentDate &lt; DateAdd (Day, 1, #EndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="ProductLine">VPL.Id = #ProductLine#</isNotNull>
+        <isNotNull prepend="AND" property="SubCompanyId">VPL.SubCompanyId = #SubCompanyId#</isNotNull>
+        <isNotNull prepend="AND" property="BrandId">VPL.BrandId = #BrandId#</isNotNull>
+        <isNotNull prepend="AND" property="OrderStartDate">POH.POH_SubmitDate >= #OrderStartDate#</isNotNull>
+        <isNotNull prepend="AND" property="OrderEndDate">POH.POH_SubmitDate &lt; DateAdd (Day, 1, #OrderEndDate#)</isNotNull>
+        <isNotNull prepend="AND" property="CfnNumber">CFN.CFN_CustomerFaceNbr LIKE N'%$CfnNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="LotNumber">TAB.PRL_LotNumber LIKE N'%$LotNumber$%'</isNotNull>
+        <isNotNull prepend="AND" property="DealerId">TAB.PRH_Dealer_DMA_ID = #DealerId#</isNotNull>
+        <!--<isNotNull prepend="AND" property="UserId">
+          (dbo.GC_FilterByDealer (#UserId#, TAB.PRH_Dealer_DMA_ID, TAB.PRH_ProductLine_BUM_ID) = 1)
+        </isNotNull>-->
+      </dynamic>
+      GROUP BY DM.DMA_ChineseName,
+      DM.DMA_EnglishName,
+      DM.DMA_SAP_Code,
+      TAB.PRH_PurchaseOrderNbr,
+      TAB.PRH_SAPShipmentID,
+      TAB.PRH_PONumber,
+      POH.POH_SubmitDate,
+      POH_OrderType,
+      TAB.PRH_SAPShipmentDate,
+      VPL.Attribute_Name,
+      CFN.CFN_CustomerFaceNbr,
+      CFN.CFN_ChineseName,
+      CFN.CFN_EnglishName,
+      Pd.PMA_UPN,
+      TAB.PRL_LotNumber,
+      TAB.PRL_ExpiredDate,
+      TAB.PRL_ReceiptQty,
+      POD.POD_CFN_Price,
+      T1.InvoiceAmount,
+      T1.InvoiceList,
+      TAB.PRH_Status,
+      CFN.CFN_Property1,
+      CFN.CFN_Property2,
+      CFN.CFN_Property3,
+      CFN.CFN_Property4,
+      CFN.CFN_Property5,
+      CFN.CFN_Property6,
+      CFN.CFN_Property7,
+      CFN.CFN_Property8,
+      CFN_Level1Code,
+      CFN_Level1Desc,
+      CFN_Level2Code,
+      CFN_Level2Desc,
+      CFN_Level3Code,
+      CFN_Level3Desc,
+      CFN_Level4Code,
+      CFN_Level4Desc,
+      CFN_Level5Code,
+      CFN_Level5Desc,
+      PRH_Type,
+      LI.IDENTITY_NAME,
+      TAB.RFU_CurRegNo,
+      TAB.RFU_CurManuName,
+      TAB.RFU_LastRegNo,
+      TAB.RFU_LastManuName,
+      LM.LTM_Type
+      ORDER BY DM.DMA_ChineseName, PRH_PONumber DESC
+    </select>
+    <!--End 经销商收货数据报表-->
+  
+  </statements>
+</sqlMap>

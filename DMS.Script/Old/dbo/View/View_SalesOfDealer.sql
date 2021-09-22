@@ -1,0 +1,18 @@
+DROP VIEW [dbo].[View_SalesOfDealer]
+GO
+
+CREATE VIEW [dbo].[View_SalesOfDealer]
+AS
+
+SELECT A.SalesID,A.BUM_ID,A.DealerID,
+(SELECT TOP 1 Id FROM dbo.Lafite_IDENTITY WHERE Corp_ID = A.DealerID and DELETE_FLAG = 0) AS DealerUserID
+FROM 
+(SELECT DISTINCT SH.SRH_USR_UserID AS SalesID, DA.DAT_ProductLine_BUM_ID AS BUM_ID, DC.DCL_DMA_ID AS DealerID
+FROM dbo.DealerAuthorizationTable AS DA 
+INNER JOIN dbo.DealerContract AS DC ON DA.DAT_DCL_ID = DC.DCL_ID 
+INNER JOIN dbo.SalesRepHospital AS SH ON DA.DAT_ProductLine_BUM_ID = SH.BUM_ID
+WHERE EXISTS (SELECT 1 FROM dbo.HospitalList AS DAH 
+WHERE HLA_DAT_ID = DA.DAT_ID AND SH.SRN_HOS_ID = HLA_HOS_ID)) AS A
+GO
+
+

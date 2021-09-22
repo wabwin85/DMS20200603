@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TerritoryHierarchyMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="TerritoryHierarchy" assembly="DMS.Model.dll" type="DMS.Model.TerritoryHierarchy" />
+	</alias>
+	<resultMaps>
+		<resultMap id="TerritoryHierarchyResult" class="TerritoryHierarchy">
+			<result property="Id" column="TH_ID" type="Guid" dbType="uniqueidentifier"/>
+			<result property="Code" column="TH_Code" type="string" dbType="nvarchar"/>
+			<result property="Name" column="TH_Name" type="string" dbType="nvarchar"/>
+			<result property="Level" column="TH_Level" type="string" dbType="nvarchar"/>
+			<result property="Description" column="TH_Description" type="string" dbType="nvarchar"/>
+			<result property="BumId" column="TH_BUM_ID" type="Guid" dbType="uniqueidentifier"/>
+			<result property="ParentId" column="TH_Parent_ID" type="Guid" dbType="uniqueidentifier"/>
+			<result property="DeleteFlag" column="TH_DeleteFlag" type="bool" dbType="bit"/>
+			<result property="UpdateDate" column="TH_UpdateDate" type="DateTime" dbType="datetime"/>
+		</resultMap>
+	</resultMaps>
+	<statements>
+
+		<select id="SelectTerritoryHierarchy" parameterClass="string" resultClass="TerritoryHierarchy">
+			SELECT TH_ID AS Id,TH_Code AS Code,TH_Name AS Name,TH_Level AS Level,TH_Description AS Description,TH_BUM_ID AS BumId,TH_Parent_ID AS ParentId,TH_DeleteFlag AS DeleteFlag,TH_UpdateDate AS UpdateDate
+			FROM TerritoryHierarchy
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					TH_ID = #value#
+				</isParameterPresent>
+			</dynamic>
+		</select>
+		<select id="SelectByFilterTerritoryHierarchy" parameterClass="TerritoryHierarchy" resultClass="TerritoryHierarchy">
+			SELECT TH_ID AS Id,TH_Code AS Code,TH_Name AS Name,TH_Level AS Level,TH_Description AS Description,TH_BUM_ID AS BumId,TH_Parent_ID AS ParentId,TH_DeleteFlag AS DeleteFlag,TH_UpdateDate AS UpdateDate
+			FROM TerritoryHierarchy
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="Id">TH_ID=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="Code">TH_Code=#Code#</isNotNull>
+				<isNotNull prepend="AND" property="Name">TH_Name=#Name#</isNotNull>
+				<isNotNull prepend="AND" property="Level">TH_Level=#Level#</isNotNull>
+				<isNotNull prepend="AND" property="Description">TH_Description=#Description#</isNotNull>
+				<isNotNull prepend="AND" property="BumId">TH_BUM_ID=#BumId#</isNotNull>
+				<isNotNull prepend="AND" property="ParentId">TH_Parent_ID=#ParentId#</isNotNull>
+				<isNotNull prepend="AND" property="DeleteFlag">TH_DeleteFlag=#DeleteFlag#</isNotNull>
+				<isNotNull prepend="AND" property="UpdateDate">TH_UpdateDate=#UpdateDate#</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="InsertTerritoryHierarchy" parameterClass="TerritoryHierarchy">
+			INSERT INTO TerritoryHierarchy
+			(TH_ID,TH_Code,TH_Name,TH_Level,TH_Description,TH_BUM_ID,TH_Parent_ID,TH_DeleteFlag,TH_UpdateDate)
+			VALUES(#Id#,#Code#,#Name#,#Level#,#Description#,#BumId#,#ParentId#,0,getdate())
+		</insert>
+
+		<insert id="InsertTerritoryForDealer" parameterClass="System.Collections.Hashtable">
+			insert into DealerTerritory   (DT_ID
+			,DT_TEM_ID
+			,DT_DMA_ID
+			,DT_DeleteFlag
+			,DT_UpdateDate) values(#DTID#,#TemId#,#DmaId#,0,GETDATE())
+		</insert>
+		
+		<update id="UpdateTerritoryHierarchy" parameterClass="TerritoryHierarchy">
+			UPDATE TerritoryHierarchy
+			SET TH_ID=#Id#,TH_Code=#Code#,TH_Name=#Name#,TH_Level=#Level#,TH_Description=#Description#,TH_BUM_ID=#BumId#,TH_Parent_ID=#ParentId#,TH_DeleteFlag=0,TH_UpdateDate=getdate()
+			WHERE TH_ID = #Id#
+		</update>
+		<delete id="DeleteTerritoryHierarchy" parameterClass="string">
+			update TerritoryHierarchy set TH_DeleteFlag=1 ,TH_UpdateDate=GETDATE() where TH_ID=#value#
+		</delete>
+
+		<!-- added by huxiang on 2011-2-11 -->
+		<select id="SelectLafiteATTRIBUTE" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select Id,ATTRIBUTE_NAME from dbo.Lafite_ATTRIBUTE where ATTRIBUTE_TYPE='BU'
+		</select>
+
+		<select id="SelectBuList" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select TH_ID as Id,TH_Name as ATTRIBUTE_NAME from TerritoryHierarchy where TH_DeleteFlag=0 and TH_Level='BU'
+		</select>
+
+		<select id="SelectLevel" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select DICT_KEY from Lafite_DICT
+			where DICT_TYPE = 'CONST_Territory_Level' and SORT_COL=
+			(
+			select SORT_COL+1 as SortCol from Lafite_DICT,TerritoryHierarchy
+			where Lafite_DICT.DICT_KEY=TerritoryHierarchy.th_level
+			and DICT_TYPE='CONST_Territory_Level'
+			and th_id=#value#
+			)
+		</select>
+
+		<select id="SelectCurrentLevel" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select DICT_KEY from Lafite_DICT
+			where DICT_TYPE = 'CONST_Territory_Level' and SORT_COL=
+			(
+			select SORT_COL as SortCol from Lafite_DICT,TerritoryHierarchy
+			where Lafite_DICT.DICT_KEY=TerritoryHierarchy.th_level
+			and DICT_TYPE='CONST_Territory_Level'
+			and th_id=#value#
+			)
+		</select>
+
+
+
+		<select id="SelectProductLineList" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select AttributeID,AttributeName from dbo.Cache_OrganizationUnits
+			where AttributeType='Product_Line'
+			and RootID=#value#
+		</select>
+
+		<select id="SelectChildNode" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select TH_ID as Id,TH_Name as ATTRIBUTE_NAME from TerritoryHierarchy  where TH_DeleteFlag=0 and TH_Parent_ID=#value#
+		</select>
+
+		<select id="SelectProductLineByParentId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      select Id,ATTRIBUTE_NAME from dbo.View_ProductLine
+      where ATTRIBUTE_TYPE='Product_Line' and id=(
+      select TH_BUM_ID from TerritoryHierarchy where TH_ID=#value#)
+    </select>
+
+		<select id="SelectProductLineByBuid" parameterClass="string" resultClass="System.Collections.Hashtable">
+
+      select Id,ATTRIBUTE_NAME from dbo.View_ProductLine
+      where ATTRIBUTE_TYPE='Product_Line'
+      and id=#value#
+    </select>
+
+
+
+		<select id="SelectTerritoryByProvinceId" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select TM.TEM_ID AS TemId,
+			TM.TEM_Code AS TemCode,
+			TM.TEM_Name AS TemName ,
+			TM.TEM_Description AS TemDescription,
+			TM.TEM_Parent_ID AS TemParentId ,
+			'Territory' AS lEVEL,
+			LA.ATTRIBUTE_NAME AS AttributeName,
+			ROW_NUMBER () OVER (ORDER BY TEM_ID ASC) AS row_number
+			from TerritoryMaster TM
+			INNER JOIN TerritoryHierarchy  TH on TM.TEM_Parent_ID=TH.TH_ID
+			INNER JOIN Lafite_ATTRIBUTE LA ON TH.TH_BUM_ID=LA.Id
+			where LA.ATTRIBUTE_TYPE='Product_Line'
+			and TM.TEM_DeleteFlag='0'
+			and TEM_Parent_ID=#value#
+		</select>
+
+		<select id="SelectByFilterTerritory" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			select *,ROW_NUMBER () OVER (ORDER BY TemId ASC) AS row_number
+			from (
+			select  TM.TEM_ID AS TemId,
+			TM.TEM_Code AS TemCode,
+			TM.TEM_Name AS TemName ,
+			TM.TEM_Description AS TemDescription,
+			TM.TEM_Parent_ID AS TemParentId ,
+			case  when TEM_Parent_ID IS NULL  then '0' else '1' end AS ParentIDFlag
+			from TerritoryMaster TM
+			where TM.TEM_DeleteFlag='0'
+			) A
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="TemCode">TemCode like '%$TemCode$%'</isNotNull>
+				<isNotNull prepend="AND" property="TemName">TemName like '%$TemName$%'</isNotNull>
+				<isNotNull prepend="AND" property="ParentIDFlag">ParentIDFlag=#ParentIDFlag#</isNotNull>
+			</dynamic>
+		</select>
+
+		<update id="AddTerritory" parameterClass="System.Collections.Hashtable">
+			update TerritoryMaster set TEM_Parent_ID=#ProvinceId# where TEM_ID=#TemId#
+		</update>
+
+		<update id="deleteTerritory" parameterClass="string">
+			update TerritoryMaster set TEM_Parent_ID=null where TEM_ID=#TemId#
+		</update>
+
+		<select id="SelectDealerTerritoryByTemId" parameterClass="string" resultClass="System.Collections.Hashtable">
+      SELECT	DT_ID as id,
+      DT_TEM_ID AS TemId,
+      DM.DMA_ID AS DmaId,
+      DM.DMA_ChineseName AS CName,
+      DMA_SAP_Code AS SpaCode,
+      ROW_NUMBER () OVER (ORDER BY DT_ID ASC) AS row_number
+      FROM DealerTerritory DT(nolock)
+      inner join DealerMaster DM(nolock) on DT.DT_DMA_ID=dm.DMA_ID
+      where DT_DeleteFlag=0 and DT_TEM_ID=#value#
+    </select>
+
+		<delete id="deleteDealerTerritory" parameterClass="string">
+			delete DealerTerritory where DT_ID=#value#
+		</delete>
+
+		<delete id="deleteDealerTerritoryByTemId" parameterClass="string">
+			delete DealerTerritory where DT_TEM_ID=#value#
+		</delete>
+
+		<!--在区域里面查询经销商-->
+		<select id="SelectDealerByTerritory" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT DMA_ID AS Id,DMA_ChineseName AS ChineseName,DMA_SAP_Code AS SapCode,
+      row_number() OVER (ORDER BY [DMA_ChineseName] ASC) AS [row_number]
+      FROM DealerMaster(nolock) WHERE DMA_DeletedFlag = 0 and DMA_ID not in(select DT_DMA_ID from DealerTerritory where DT_TEM_ID =#TemId# and DealerTerritory.DT_DeleteFlag=0)
+      <dynamic prepend="">
+				<isNotNull prepend="AND" property="Id">DMA_ID=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="ChineseName">DMA_ChineseName like '%$ChineseName$%'</isNotNull>
+				<isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like '%$SapCode$%'</isNotNull>
+			</dynamic>			
+		</select>
+
+		<!--查询编号是否有重复-->
+		<select id="validateCodeIdentical" parameterClass="string" resultClass="System.Collections.Hashtable">
+			select COUNT(TH_Code) as num from  TerritoryHierarchy where TH_Code=#value#  and TH_DeleteFlag='false'
+		</select>
+		
+		
+	</statements>
+</sqlMap>

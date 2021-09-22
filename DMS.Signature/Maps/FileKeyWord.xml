@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="FileKeyWordMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="FileKeyWord" assembly="DMS.Signature.dll" type="DMS.Signature.Model.FileKeyWord" />
+  </alias>
+  <resultMaps>
+    <resultMap id="FileKeyWordResult" class="FileKeyWord">
+      <result property="Id" column="FK_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SealType" column="FK_SealType" type="string" dbType="nvarchar"/>
+      <result property="UserType" column="FK_UserType" type="string" dbType="nvarchar"/>
+      <result property="FileType" column="FK_FileType" type="string" dbType="nvarchar"/>
+      <result property="KeyWord" column="FK_KeyWord" type="string" dbType="nvarchar"/>
+      <result property="Xpadding" column="FK_XPadding" type="double" dbType="float"/>
+      <result property="Ypadding" column="FK_YPadding" type="double" dbType="float"/>
+      <result property="IsActive" column="FK_IsActive" type="int" dbType="int"/>
+      <result property="CreateDate" column="FK_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="CreateUser" column="FK_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateUserName" column="FK_CreateUserName" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectFileKeyWord" parameterClass="string" resultClass="FileKeyWord">
+      SELECT FK_ID AS Id,FK_SealType AS SealType,FK_UserType AS UserType,FK_FileType AS FileType,FK_KeyWord AS KeyWord,FK_XPadding AS Xpadding,FK_YPadding AS Ypadding,FK_IsActive AS IsActive,FK_CreateDate AS CreateDate,FK_CreateUser AS CreateUser,FK_CreateUserName AS CreateUserName
+      FROM ESign.FileKeyWord
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          FK_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterFileKeyWord" parameterClass="FileKeyWord" resultClass="FileKeyWord">
+      SELECT FK_ID AS Id,FK_SealType AS SealType,FK_UserType AS UserType,FK_FileType AS FileType,FK_KeyWord AS KeyWord,FK_XPadding AS Xpadding,FK_YPadding AS Ypadding,FK_IsActive AS IsActive,FK_CreateDate AS CreateDate,FK_CreateUser AS CreateUser,FK_CreateUserName AS CreateUserName
+      FROM ESign.FileKeyWord
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">FK_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="UserType">FK_UserType=#UserType#</isNotNull>
+        <isNotNull prepend="AND" property="FileType">FK_FileType=#FileType#</isNotNull>
+        <isNotNull prepend="AND" property="KeyWord">FK_KeyWord=#KeyWord#</isNotNull>
+        <isNotNull prepend="AND" property="Xpadding">FK_XPadding=#Xpadding#</isNotNull>
+        <isNotNull prepend="AND" property="Ypadding">FK_YPadding=#Ypadding#</isNotNull>
+        <isNotNull prepend="AND" property="IsActive">FK_IsActive=#IsActive#</isNotNull>
+        <isNotNull prepend="AND" property="CreateUserName">FK_CreateUserName=#CreateUserName#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertFileKeyWord" parameterClass="FileKeyWord">
+      INSERT INTO FileKeyWord
+      (FK_ID,FK_SealType,FK_UserType,FK_FileType,FK_KeyWord,FK_XPadding,FK_YPadding,FK_IsActive,FK_CreateDate,FK_CreateUser,FK_CreateUserName)
+      VALUES(#Id#,#SealType#,#UserType#,#FileType#,#KeyWord#,#Xpadding#,#Ypadding#,#IsActive#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#CreateUser#,#CreateUserName#)
+    </insert>
+    <update id="UpdateFileKeyWord" parameterClass="FileKeyWord">
+      UPDATE FileKeyWord
+      SET FK_ID=#Id#,FK_SealType=#SealType#,FK_UserType=#UserType#,FK_FileType=#FileType#,FK_KeyWord=#KeyWord#,FK_XPadding=#Xpadding#,FK_YPadding=#Ypadding#,FK_IsActive=#IsActive#,FK_CreateUserName=#CreateUserName#
+      WHERE FK_ID = #Id#
+    </update>
+    <delete id="DeleteFileKeyWord" parameterClass="string">
+      DELETE FROM ESign.FileKeyWord
+      WHERE FK_ID = #value#
+    </delete>
+
+    <select id="QueryFileKeyWordByFilter" parameterClass="FileKeyWord" resultClass="FileKeyWord">
+      SELECT FK_ID AS Id,FK_SealType AS SealType,FK_UserType AS UserType,FK_FileType AS FileType,FK_KeyWord AS KeyWord,FK_XPadding AS Xpadding,FK_YPadding AS Ypadding,FK_EdgesYPosition AS EdgesYPosition,FK_IsActive AS IsActive,FK_CreateDate AS CreateDate,FK_CreateUser AS CreateUser,FK_CreateUserName AS CreateUserName
+      FROM ESign.FileKeyWord
+      WHERE FK_IsActive = 1
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="UserType">FK_UserType=#UserType#</isNotNull>
+        <isNotNull prepend="AND" property="FileType">FK_FileType=#FileType#</isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

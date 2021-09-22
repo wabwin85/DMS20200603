@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="BusinessWechatUserMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="BusinessWechatUser" assembly="DMS.Model.dll" type="DMS.Model.BusinessWechatUser" />
+  </alias>
+  <resultMaps>
+    <resultMap id="BusinessWechatUserResult" class="BusinessWechatUser">
+      <result property="Id" column="BWU_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="UserName" column="BWU_UserName" type="string" dbType="nvarchar"/>
+      <result property="Phone" column="BWU_Phone" type="string" dbType="nvarchar"/>
+      <result property="WeChat" column="BWU_WeChat" type="string" dbType="nvarchar"/>
+      <result property="Post" column="BWU_Post" type="string" dbType="nvarchar"/>
+      <result property="DealerName" column="BWU_DealerName" type="string" dbType="nvarchar"/>
+      <result property="DealerId" column="BWU_DealerId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DealerType" column="BWU_DealerType" type="string" dbType="nvarchar"/>
+      <result property="NickName" column="BWU_NickName" type="string" dbType="nvarchar"/>
+      <result property="Sex" column="BWU_Sex" type="string" dbType="nvarchar"/>
+      <result property="Email" column="BWU_Email" type="string" dbType="nvarchar"/>
+      <result property="Integral" column="BWU_Integral" type="int" dbType="int"/>
+      <result property="SignInDate" column="BWU_SignInDate" type="DateTime" dbType="datetime"/>
+      <result property="Rv1" column="BWU_RV1" type="string" dbType="nvarchar"/>
+      <result property="Rv2" column="BWU_RV2" type="string" dbType="nvarchar"/>
+      <result property="Rv3" column="BWU_RV3" type="string" dbType="nvarchar"/>
+      <result property="Status" column="BWU_Status" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <parameterMaps>
+    <parameterMap id="InsertWeChatComplaintWcToDmsMap" class="System.Collections.Hashtable" >
+      <parameter property="Id" column="Id"  />
+      <parameter property="WdtId" column="WdtId"  />
+      <parameter property="WupId" column="WupId" />
+      <parameter property="Title" column="Title" />
+      <parameter property="Body" column="Body" />
+      <parameter property="CreateDate" column="CreateDate" />
+      <parameter property="UserID" column="UserID" />
+      <parameter property="Status" column="Status" />
+      <parameter property="RtnVal" column="RtnVal" direction="Output"  />
+      <parameter property="RtnMsg" column="RtnMsg" direction="Output"   />
+    </parameterMap>
+    <parameterMap id="GetWechatQRCodeHeaderNoParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="DealerId" column="DealerId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="HeaderNo" column="HeaderNo" direction="Output"/>
+    </parameterMap>
+    <parameterMap id="InsertWechatQRCodeDetailParameterMap" class="System.Collections.Hashtable" >
+      <parameter property="QRCode" column="QRCode" />
+      <parameter property="HeaderId" column="HeaderId" />
+      <parameter property="UserId" column="UserId" />
+      <parameter property="DetailId" column="DetailId" direction="Output"/>
+      <parameter property="IsSuccess" column="IsSuccess" direction="Output"/>
+      <parameter property="Message" column="Message" direction="Output"/>
+    </parameterMap>
+  </parameterMaps>
+  <statements>
+
+    <select id="SelectBusinessWechatUser" parameterClass="string" resultClass="BusinessWechatUser">
+      SELECT BWU_ID AS Id,BWU_UserName AS UserName,BWU_Phone AS Phone,BWU_WeChat AS WeChat,BWU_Post AS Post,BWU_DealerName AS DealerName,BWU_DealerId AS DealerId,BWU_DealerType AS DealerType,BWU_NickName AS NickName,BWU_Sex AS Sex,BWU_Email AS Email,BWU_Integral AS Integral,BWU_SignInDate AS SignInDate,BWU_RV1 AS Rv1,BWU_RV2 AS Rv2,BWU_RV3 AS Rv3,BWU_Status AS Status
+      FROM BusinessWechatUser
+      WHERE BWU_Status='Active'
+      <isParameterPresent>
+        AND BWU_ID = #value#
+      </isParameterPresent>
+    </select>
+    <select id="SelectByFilterBusinessWechatUser" parameterClass="BusinessWechatUser" resultClass="BusinessWechatUser">
+      SELECT BWU_ID AS Id,BWU_UserName AS UserName,BWU_Phone AS Phone,BWU_WeChat AS WeChat,BWU_Post AS Post,BWU_DealerName AS DealerName,BWU_DealerId AS DealerId,BWU_DealerType AS DealerType,BWU_NickName AS NickName,BWU_Sex AS Sex,BWU_Email AS Email,BWU_Integral AS Integral,BWU_SignInDate AS SignInDate,BWU_RV1 AS Rv1,BWU_RV2 AS Rv2,BWU_RV3 AS Rv3,BWU_Status AS Status
+      FROM BusinessWechatUser
+      WHERE BWU_Status='Active'
+      <isNotNull prepend="AND" property="Id">BWU_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="UserName">BWU_UserName=#UserName#</isNotNull>
+      <isNotNull prepend="AND" property="Phone">BWU_Phone=#Phone#</isNotNull>
+      <isNotNull prepend="AND" property="WeChat">BWU_WeChat=#WeChat#</isNotNull>
+      <isNotNull prepend="AND" property="Post">BWU_Post=#Post#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">BWU_DealerName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">BWU_DealerId=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerType">BWU_DealerType=#DealerType#</isNotNull>
+      <isNotNull prepend="AND" property="NickName">BWU_NickName=#NickName#</isNotNull>
+      <isNotNull prepend="AND" property="Sex">BWU_Sex=#Sex#</isNotNull>
+      <isNotNull prepend="AND" property="Email">BWU_Email=#Email#</isNotNull>
+      <isNotNull prepend="AND" property="Integral">BWU_Integral=#Integral#</isNotNull>
+      <isNotNull prepend="AND" property="SignInDate">BWU_SignInDate=#SignInDate#</isNotNull>
+      <isNotNull prepend="AND" property="Rv1">BWU_RV1=#Rv1#</isNotNull>
+      <isNotNull prepend="AND" property="Rv2">BWU_RV2=#Rv2#</isNotNull>
+      <isNotNull prepend="AND" property="Rv3">BWU_RV3=#Rv3#</isNotNull>
+    </select>
+    <select id="SelectUserInformation"  resultClass="System.Data.DataSet">
+      <!--合同终止三个月后关闭该产品线账号-->
+      SELECT BWU_ID ,BWU_UserName ,BWU_Phone ,BWU_WeChat ,BWU_Post ,BWU_DealerName ,BWU_DealerId ,BWU_DealerType ,BWU_NickName ,BWU_Sex ,BWU_Email,BWU_Integral,BWU_SignInDate ,BWU_RV1 ,BWU_RV2 ,BWU_RV3
+      FROM BusinessWechatUser U
+      INNER JOIN (SELECT DISTINCT DMA_ID FROM  V_DealerContractMaster C WHERE CONVERT(nvarchar(10),DATEADD(month,3,c.MinDate),120)>CONVERT(nvarchar(10),GETDATE(),120) ) DCM ON DCM.DMA_ID=U.BWU_DealerId
+      WHERE U.BWU_Status='Active'
+    </select>
+
+    <update id="UpdateWechatUserOpenId" parameterClass="System.Collections.Hashtable">
+      UPDATE BusinessWechatUser
+      SET BWU_WeChat=#BwuWeChat#,BWU_BindDate=#BwuBindDate#,BWU_NickName=#BWUNickName#
+      WHERE BWU_ID=#BwuId#
+    </update>
+
+    <select id="SelectUserProduct"  resultClass="System.Data.DataSet">
+      <!--合同终止三个月后关闭该产品线账号-->
+      SELECT NEWID() WUP_ID ,U.BWU_ID WUP_BWU_ID,CONVERT(uniqueidentifier,PL.ProductLineID) WUP_ProductLineID,PL.ProductLineName WUP_ProductLineName
+      FROM BusinessWechatUser U
+      INNER JOIN (SELECT DISTINCT DMA_ID,Division FROM  V_DealerContractMaster WHERE CONVERT(nvarchar(10),DATEADD(month,3,MinDate),120)>CONVERT(nvarchar(10),GETDATE(),120) ) DM ON U.BWU_DealerId=DM.DMA_ID
+      INNER JOIN V_DivisionProductLineRelation PL ON DM.Division=PL.DivisionCode and PL.IsEmerging='0'
+      WHERE U.BWU_Status='Active'
+    </select>
+
+    <insert id="InsertBusinessWechatUser" parameterClass="BusinessWechatUser">
+      INSERT INTO BusinessWechatUser
+      (BWU_ID,BWU_UserName,BWU_Phone,BWU_WeChat,BWU_Post,BWU_DealerName,BWU_DealerId,BWU_DealerType,BWU_NickName,BWU_Sex,BWU_Email,BWU_Integral,BWU_SignInDate,BWU_RV1,BWU_RV2,BWU_RV3,BWU_Status)
+      VALUES(#Id#,#UserName#,#Phone#,#WeChat#,#Post#,#DealerName#,#DealerId#,#DealerType#,#NickName#,#Sex#,#Email#,#Integral#,#SignInDate:DateTime:1/1/0001 12:00:00 AM#,#Rv1#,#Rv2#,#Rv3#,#Status#)
+    </insert>
+
+    <insert id="InsertUserProductLine" parameterClass="System.Collections.Hashtable">
+      INSERT INTO WechatUserProductLine (WUP_ID,WUP_BWU_ID,WUP_ProductLineID)
+      SELECT NEWID(),#UserId#,DAT_ProductLine_BUM_ID FROM DealerAuthorizationTable WHERE DAT_DMA_ID=#DmaId# AND DAT_PMA_ID  not in ('0a3b34da-43d6-4fed-b62b-a253010d7dd0','a2cf5034-52ca-4f7e-b6f7-a26700e82bd9','C3A82E41-8248-4B75-A58C-A348017D9901')
+    </insert>
+
+    <update id="UpdateBusinessWechatUser" parameterClass="BusinessWechatUser">
+      UPDATE BusinessWechatUser
+      SET BWU_UserName=#UserName#,BWU_Phone=#Phone#,BWU_Post=#Post#,BWU_NickName=#NickName#,BWU_Sex=#Sex#,BWU_Email=#Email#
+      WHERE BWU_ID = #Id#
+    </update>
+    <delete id="DeleteBusinessWechatUser" parameterClass="string">
+      DELETE FROM BusinessWechatUser
+      WHERE BWU_ID = #value#
+    </delete>
+
+    <update id="UpdateWechatUserStatus" parameterClass="BusinessWechatUser">
+      UPDATE BusinessWechatUser
+      SET BWU_Status=#Status#
+      WHERE BWU_ID=#Id#
+    </update>
+
+    <delete id="DeleteUserProductLineId" parameterClass="string">
+      DELETE FROM WechatUserProductLine WHERE WUP_BWU_ID=#value#
+    </delete>
+
+    <select id="SelectByBusinessWechatUser" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT BWU_ID AS Id,BWU_UserName AS UserName,BWU_Phone AS Phone,BWU_WeChat AS WeChat,BWU_Post AS Post,BWU_DealerName AS DealerName,BWU_DealerId AS DealerId,BWU_DealerType AS DealerType,BWU_NickName AS NickName,BWU_Sex AS Sex,BWU_Email AS Email,BWU_Integral AS Integral,BWU_SignInDate AS SignInDate,BWU_RV1 AS Rv1,BWU_RV2 AS Rv2,BWU_RV3 AS Rv3
+      ,ROW_NUMBER () OVER (ORDER BY BWU_ID DESC) AS [row_number]
+      FROM BusinessWechatUser
+      WHERE BWU_Status='Active'
+      <isNotNull prepend="AND" property="Id">BWU_ID=#Id#</isNotNull>
+      <isNotNull prepend="AND" property="UserName">BWU_UserName=#UserName#</isNotNull>
+      <isNotNull prepend="AND" property="Phone">BWU_Phone=#Phone#</isNotNull>
+      <isNotNull prepend="AND" property="WeChat">BWU_WeChat=#WeChat#</isNotNull>
+      <isNotNull prepend="AND" property="Post">BWU_Post=#Post#</isNotNull>
+      <isNotNull prepend="AND" property="DealerName">BWU_DealerName=#DealerName#</isNotNull>
+      <isNotNull prepend="AND" property="DealerId">BWU_DealerId=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="DealerType">BWU_DealerType=#DealerType#</isNotNull>
+      <isNotNull prepend="AND" property="NickName">BWU_NickName=#NickName#</isNotNull>
+      <isNotNull prepend="AND" property="Sex">BWU_Sex=#Sex#</isNotNull>
+      <isNotNull prepend="AND" property="Email">BWU_Email=#Email#</isNotNull>
+      <isNotNull prepend="AND" property="Integral">BWU_Integral=#Integral#</isNotNull>
+      <isNotNull prepend="AND" property="SignInDate">BWU_SignInDate=#SignInDate#</isNotNull>
+      <isNotNull prepend="AND" property="Rv1">BWU_RV1=#Rv1#</isNotNull>
+      <isNotNull prepend="AND" property="Rv2">BWU_RV2=#Rv2#</isNotNull>
+      <isNotNull prepend="AND" property="Rv3">BWU_RV3=#Rv3#</isNotNull>
+    </select>
+
+    <select id="SelectUserPosition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select WDP_PositKey as PositKey,WDP_PositName as PositName from WechatDealerPosition
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PositKey">WDP_PositKey=#PositKey#</isNotNull>
+        <isNotNull prepend="AND" property="PositName">WDP_PositName=#PositName#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectPosition" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select WDP_PositKey as PositKey,WDP_PositName as PositName
+      ,ROW_NUMBER () OVER (ORDER BY WDP_PositKey DESC) AS [row_number]
+      FROM WechatDealerPosition
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PositName">WDP_PositName like  N'%$PositName$%'</isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="InsertPosition" parameterClass="System.Collections.Hashtable">
+      INSERT INTO WechatDealerPosition ( WDP_PositKey,WDP_PositName) VALUES (#PositKey#,#PositName#)
+    </insert>
+
+    <update id="UpdatePosition" parameterClass="System.Collections.Hashtable">
+      UPDATE WechatDealerPosition SET WDP_PositKey=#PositKey# , WDP_PositName=#PositName# WHERE WDP_PositKey =#PositKey#
+    </update>
+
+    <delete id="DeletePosition" parameterClass="string">
+      DELETE FROM WechatDealerPosition
+      WHERE WDP_PositKey = #value#
+    </delete>
+
+    <select id="SelectPositionPermits" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select main.WCM_MenuKey as MenuKey ,main.WCM_MenuName as MenuName,main.WCM_MenuLevel as MenuLevel,main.WCM_MenuParent as MenuParentKey,pos.WDP_PositKey as PositKey,pos.WDP_PositName as PositName
+      from WechatMenu main
+      left join WechatAccess acc on acc.WAC_MenuKey=main.WCM_MenuKey
+      <isNotNull prepend="AND" property="PositKey"> acc.WAC_PositKey = #PositKey#</isNotNull>
+      left join WechatDealerPosition pos on pos.WDP_PositKey=acc.WAC_PositKey
+      <isNotNull prepend="AND" property="PositKey">pos.WDP_PositKey=#PositKey#</isNotNull>
+      order by main.WCM_MenuParent,main.WCM_MenuLevel asc
+    </select>
+
+    <delete id="DeletePositionAccess" parameterClass="string">
+      DELETE FROM WechatAccess WHERE WAC_PositKey = #value#
+    </delete>
+
+    <insert id="InsertPositionPermits" parameterClass="System.Collections.Hashtable">
+      INSERT INTO WechatAccess ( WAC_ID,WAC_PositKey,WAC_MenuKey) VALUES (newid(),#PositKey#,#MenuKey#)
+    </insert>
+
+    <select id="SelectUserPermissions"  resultClass="System.Data.DataSet">
+      select WAC_ID as Id,WAC_PositKey as PositKey,WAC_MenuKey as MenuKey
+      FROM WechatAccess
+    </select>
+
+
+    <select id="SelectDealerAchievingRate" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT B.ProductLineName,B.DivisionName,C.CC_NameCN AS SubBu ,年月,D.DMA_ChineseName as '经销商名称',当月采购_RMB,当月指标额_RMB,DQuotaM,季度采购_RMB,季度指标额_RMB,DQuotaQ,年度采购_RMB,年指标额_RMB,DQuotaY,E.ActiveFlag
+      FROM interface.T_I_QV_Dealer_Quota_B A(nolock)
+      INNER JOIN V_DivisionProductLineRelation B(nolock) ON CONVERT(NVARCHAR(10),A.DivisionCode)=B.DivisionCode AND B.IsEmerging='0'
+      INNER JOIN INTERFACE.ClassificationContract C(nolock) ON C.CC_Code=A.SubDept
+      INNER JOIN DealerMaster D(nolock) ON D.DMA_SAP_Code=A.SAPCode
+      LEFT JOIN V_DealerContractMaster E(nolock) ON E.DMA_ID=D.DMA_ID AND E.CC_ID=C.CC_ID AND E.Division=A.DivisionCode
+      WHERE 1=1  and 年月='201703'
+
+      <isNotNull prepend="AND" property="DealerId">D.DMA_ID=#DealerId#</isNotNull>
+    </select>
+
+    <select id="SelectDealerHospitalAchievingRate" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      select c.ProductLineName,c.DivisionName,d.CC_NameCN AS SubBu ,a.YearMonth,b.DMA_SAP_Code AS SAPCode,b.DMA_ChineseName as DealerName,
+      MActual,	MPlan,	QTDActual,	QTDPlan	,	YTDActual,	YTDPlan	,MRate_D,	QTDRate_D,	YTDRate_D ,e.ActiveFlag
+      from interface.T_I_QV_DealerHospital_Quota  a(nolock)
+      INNER JOIN DealerMaster b(nolock) on SAPCode=b.DMA_SAP_Code
+      INNER JOIN V_DivisionProductLineRelation c(nolock) ON a.Division=c.DivisionCode AND c.IsEmerging='0'
+      INNER JOIN INTERFACE.ClassificationContract d(nolock) on d.CC_Code=a.SubDept
+      left join V_DealerContractMaster e(nolock) on e.DMA_ID=b.DMA_ID and e.Division=a.Division and e.CC_ID=d.CC_ID
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DealerId">b.DMA_ID=#DealerId#</isNotNull>
+        <isNotNull prepend="AND" property="YearMonth">a.YearMonth=#YearMonth#</isNotNull>
+      </dynamic>
+    </select>
+
+
+
+
+    <select id="SelectUploadTimely" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT b.InDueTime as LastInDueTime,b.Division as LastDivision ,a.InDueTime,a.Division
+      FROM [interface].[V_I_QV_SalesStatisticsCurrent] a
+      LEFT JOIN [interface].[V_I_QV_SalesStatistics] b
+      ON a.DealerID=b.DealerID AND a.Divisionid=b.Divisionid
+      WHERE b.EndTime=DATEADD(mi, 00, DATEADD(hh, 12, DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)))
+      <isNotNull prepend="AND" property="DealerId">a.DealerID =#DealerId#</isNotNull>
+    </select>
+
+    <select id="SelectProductInfor" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT PMA_ID,PMA_UPN,PMA_UnitOfMeasure,PMA_Name,PMA_LotTrack,PMA_Version,PMA_DMA_ID,PMA_SAPUnitPrice,PMA_Desc_Chinese,PMA_Desc_English,PMA_ConvertFromPart_PMA_ID,PMA_ConvertFactor,PMA_LastModifiedDate,PMA_LastModifiedBy_USR_UserID,PMA_DeletedFlag,PMA_CFN_ID,PMA_PackageFactor
+      FROM Product
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="UPN">PMA_UPN =#UPN#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectLPInventory" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT b.DMA_ChineseName AS DealerName, d.WHM_Name AS WhmName,a.UPN ,SUM(a.QTY) Qtyfrom
+      FROM interface.V_I_QV_DealerInventory a(nolock)
+      INNER JOIN Warehouse d(nolock) ON a.WHM_Code=d.WHM_Code
+      INNER JOIN DealerMaster b(nolock) on a.DealerID=b.DMA_ID
+      WHERE a.DealerID IN ('A00FCD75-951D-4D91-8F24-A29900DA5E85','84C83F71-93B4-4EFD-AB51-12354AFABAC3',#DealerId#)
+      AND Aging  > 0
+      <isNotNull prepend="AND" property="UPN">a.UPN =#UPN#</isNotNull>
+      GROUP BY b.DMA_ChineseName,d.WHM_Name,a.UPN
+    </select>
+
+    <select id="SelectT1Inventory" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT b.DMA_ChineseName AS DealerName, d.WHM_Name AS WhmName,a.UPN ,SUM(a.QTY) Qtyfrom
+      FROM interface.V_I_QV_DealerInventory a(nolock)
+      INNER JOIN Warehouse d(nolock) ON a.WHM_Code=d.WHM_Code
+      INNER JOIN DealerMaster b(nolock) on a.DealerID=b.DMA_ID
+      WHERE a.DealerID IN (#DealerId#)
+      AND Aging  > 0
+      <isNotNull prepend="AND" property="UPN">a.UPN =#UPN#</isNotNull>
+      GROUP BY b.DMA_ChineseName,d.WHM_Name,a.UPN
+    </select>
+
+    <select id="SelectDealerType" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT DMA_DealerType FROM DealerMaster(nolock) WHERE DMA_ID =#DealerId#
+    </select>
+
+    <select id="SelectComplaintType" parameterClass="string" resultClass="System.Data.DataSet">
+      select WDT_ID as ID ,WDT_NameEN as NameEN ,WDT_NameCN as NameCN,WDT_DeleteFlag as  DeleteFlag
+      ,ROW_NUMBER () OVER (ORDER BY WDT_Sort ASC) AS [row_number]
+      from  dbo.WechatComplaintType
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DeleteFlag">WDT_DeleteFlag =#DeleteFlag#</isNotNull>
+        <isNotNull prepend="AND" property="Type">WDT_Type =#Type#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectComplaintQuery" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT WQA_ID AS Id,
+      WQA_WDT_ID AS WdtId,
+      WQA_WUP_ID AS WupId,
+      WQA_QuestionTitle AS QuestionTitle,
+      WQA_QuestionBody AS QuestionBody,
+      WQA_Answer AS Answer,
+      WQA_CreateDate AS CreateDate,
+      WQA_UserID AS UserID ,
+      US.BWU_UserName AS UserName,
+      US.BWU_DealerName AS DealerName,
+      US.BWU_Phone AS UserPhone,
+      WQA_AnswerDate AS AnswerDate,
+      WQA_AnswerUserId AS AnswerUserId ,
+      RUS.WRU_User AS AnswerUserName,
+      WQA_Status AS Status,
+      ROW_NUMBER () OVER (ORDER BY WQA_Status) AS [row_number]
+      FROM WechatQuestion(nolock)
+      INNER JOIN BusinessWechatUser US(nolock) ON US.BWU_ID=WQA_UserID
+      INNER JOIN DealerMaster dm(nolock) ON dm.DMA_ID=US.BWU_DealerId
+      left  JOIN WechatReplyUser RUS(nolock) ON RUS.WRU_UserId=WQA_AnswerUserId     AND     WQA_WDT_ID= RUS.WRU_WDT_ID AND WQA_WUP_ID=RUS.WRU_ProductLineID AND dm.DMA_Parent_DMA_ID=RUS.WRU_Comp_To
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ComplaintType">WQA_WDT_ID =#ComplaintType#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">WQA_WUP_ID =#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="AnswerStatus">WQA_Status =#AnswerStatus#</isNotNull>
+        <isNotNull prepend="AND" property="AnswerUserID">WQA_AnswerUserId =#AnswerUserID#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">US.BWU_DealerType =#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="Id">WQA_ID =#Id#</isNotNull>
+        <isNotNull prepend="AND" property="ParentDealerId">dm.DMA_Parent_DMA_ID =#ParentDealerId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <update id="UpdateComplaint" parameterClass="System.Collections.Hashtable">
+      UPDATE WechatQuestion SET WQA_Answer=#Answer# ,WQA_AnswerDate=GETDATE(),WQA_Status=#Status# WHERE WQA_ID=#Id#
+    </update>
+
+
+    <select id="SelectDealerNews" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT  WRU_ID as Id,	WRU_ProductLineID as ProductLineId,	WRU_Tital as Tital,	WRU_Body as Body,	WRU_CreateUserId as CreateUserId,	WRU_CreateDate as CreateDate , b.AT_Url as Url
+      ,U.BWU_DealerName as DealerName ,U.BWU_UserName as UserName  ,U.BWU_Post as Post
+      ,ROW_NUMBER () OVER (ORDER BY WRU_CreateDate) AS [row_number]
+      FROM WechatDealerNews a(nolock)
+      LEFT JOIN Attachment  b(nolock) on a.WRU_ID=b.AT_Main_ID and b.AT_Type='WechatDNews'
+      INNER JOIN BusinessWechatUser U(nolock) ON U.BWU_ID=a.WRU_CreateUserId
+      INNER JOIN DealerMaster dm(nolock) ON dm.DMA_ID=U.BWU_DealerId
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ComplaintType">a.WRU_Tital =#ComplaintType#</isNotNull>
+        <isNotNull prepend="AND" property="ProductLineId">a.WRU_ProductLineID =#ProductLineId#</isNotNull>
+        <isNotNull prepend="AND" property="Id">a.WRU_ID =#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DealerType">U.BWU_DealerType =#DealerType#</isNotNull>
+        <isNotNull prepend="AND" property="ParentDealerId">dm.DMA_Parent_DMA_ID =#ParentDealerId#</isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectQuestionList" resultClass="System.Data.DataSet">
+      SELECT WQA_ID,	WQA_WDT_ID,	WQA_WUP_ID,	WQA_QuestionTitle,	WQA_QuestionBody,	WQA_Answer,	WQA_CreateDate,	WQA_UserID,	WQA_AnswerDate,	WQA_AnswerUserId,	WQA_Status,	WQA_WC_DMS,	WQA_DMS_WC
+      FROM WechatQuestion
+      WHERE WQA_Status='1' AND WQA_DMS_WC ='0'
+    </select>
+
+    <update id="UpdateQuestionDmsToWc" parameterClass="System.Collections.Hashtable">
+      UPDATE WechatQuestion SET WQA_DMS_WC='1'
+      WHERE WQA_Status='1' AND WQA_DMS_WC ='0'
+    </update>
+
+    <procedure id="GC_InsertWeChatComplaintWcToDms" parameterMap="InsertWeChatComplaintWcToDmsMap">
+      dbo.GC_InsertWeChatComplaintWcToDms
+    </procedure>
+
+    <insert id="InsertDealerNews" parameterClass="System.Collections.Hashtable">
+      INSERT INTO WechatDealerNews (WRU_ID,WRU_ProductLineID,WRU_Tital,WRU_Body,WRU_CreateUserId,WRU_CreateDate) VALUES (#Id#,#ProductLineID#,#Tital#,#Body#,#UserId#,#CreateDate#)
+    </insert>
+
+    <insert id="InsertDealerNewsAnnex" parameterClass="System.Collections.Hashtable">
+      INSERT INTO Attachment (AT_ID,	AT_Main_ID,	AT_Name,	AT_Url,	AT_Type,	AT_UploadUser,	AT_UploadDate)
+      VALUES(#Id#,#MainId#,#Name#,#Url#,#Type#,#UploadUser#,#UploadDate#)
+    </insert>
+
+    <insert id="InsertFunctionSuggest" parameterClass="System.Collections.Hashtable">
+      INSERT INTO WechatFunctionSuggest
+      (WFS_ID,WFS_Body,WFS_CreateUserId,WFS_CreateDate,WFS_Sny_Status)
+      VALUES(#Id#,#Body#,#CreateUserId#,#CreateDate#,#Sny_Status#)
+    </insert>
+
+    <delete id="DeleteDealerNews" parameterClass="string">
+      DELETE FROM WechatDealerNews
+    </delete>
+
+    <delete id="DeleteDealerNewsAnnex" parameterClass="string">
+      DELETE FROM Attachment where AT_Type='WechatDNews'
+    </delete>
+
+    <select id="SelectWechatUserByWeChat" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT *
+      FROM V_WeChatUser
+      WHERE OpenId = #OpenId#
+      ORDER BY DealerName;
+    </select>
+
+    <procedure id="USP_GetWechatQRCodeHeaderNo" parameterMap="GetWechatQRCodeHeaderNoParameterMap">
+      dbo.USP_GetWechatQRCodeHeaderNo
+    </procedure>
+
+    <select id="SelectWechatQRCodeHeader" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT T_WechatQRCodeHeader.*,
+      T_DealerMaster.DMA_SAP_Code,
+      T_DealerMaster.DMA_ChineseName,
+      (SELECT COUNT(*) FROM dbo.WechatQRCodeDetail T_WechatQRCodeDetail WHERE T_WechatQRCodeDetail.WQD_WQH_ID=T_WechatQRCodeHeader.WQH_ID
+      AND T_WechatQRCodeDetail.WQD_Status=1) AS DetailCount,
+      ROW_NUMBER () OVER (ORDER BY T_WechatQRCodeHeader.WQH_No) AS [row_number]
+      FROM dbo.WechatQRCodeHeader T_WechatQRCodeHeader (NOLOCK)
+      LEFT JOIN dbo.DealerMaster T_DealerMaster (NOLOCK)
+      ON T_WechatQRCodeHeader.WQH_DealerID = T_DealerMaster.DMA_ID
+      WHERE T_WechatQRCodeHeader.WQH_DealerID=#DealerId# AND T_WechatQRCodeHeader.WQH_Status=1
+      <dynamic>
+        <isNotNull prepend="AND" property="HeaderId">T_WechatQRCodeHeader.WQH_ID =#HeaderId#</isNotNull>
+        <isNotNull prepend="AND" property="HeaderNo">T_WechatQRCodeHeader.WQH_No =#HeaderNo#</isNotNull>
+        <isNotNull prepend="AND" property="KeyWord">
+          EXISTS(
+          SELECT 1 FROM dbo.WechatQRCodeDetail T_WechatQRCodeDetail WHERE T_WechatQRCodeDetail.WQD_WQH_ID=T_WechatQRCodeHeader.WQH_ID
+          AND T_WechatQRCodeDetail.WQD_Status=1
+          AND T_WechatQRCodeDetail.WQD_QRCode LIKE N'%$KeyWord$%')
+          OR T_WechatQRCodeHeader.WQH_No LIKE N'%$KeyWord$%'
+          OR T_WechatQRCodeHeader.WQH_Remark LIKE N'%$KeyWord$%'
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectWechatQRCodeDetail" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT *,ROW_NUMBER () OVER (ORDER BY T_WechatQRCodeDetail.WQD_CreateDate) AS [row_number]
+      FROM WechatQRCodeDetail T_WechatQRCodeDetail (NOLOCK) WHERE T_WechatQRCodeDetail.WQD_WQH_ID=#HeaderId#
+      AND T_WechatQRCodeDetail.WQD_Status=1
+      <dynamic>
+        <isNotNull prepend="AND" property="DetailId">
+          T_WechatQRCodeDetail.WQD_ID=#DetailId#
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <procedure id="USP_InsertWechatQRCodeDetail" parameterMap="InsertWechatQRCodeDetailParameterMap">
+      dbo.USP_InsertWechatQRCodeDetail
+    </procedure>
+
+    <delete id="DeleteWechatQRCodeDetail" parameterClass="System.Collections.Hashtable">
+      DELETE FROM WechatQRCodeDetail WHERE WQD_ID=#DetailId#
+    </delete>
+
+    <update id="FakeDeleteWechatQRCodeDetail" parameterClass="System.Collections.Hashtable">
+      UPDATE WechatQRCodeDetail SET WQD_Status=0,WQD_UpdateDate=GETDATE(),WQD_UpdateUser=#UserId# WHERE WQD_ID=#DetailId#
+    </update>
+
+    <update id="UpdateWechatQRCodeInfo" parameterClass="System.Collections.Hashtable">
+      UPDATE dbo.WechatQRCodeHeader SET WQH_UploadStatus=1,WQH_UploadDate=GETDATE(),WQH_UploadResult=#UploadResult#,WQH_Remark=#Remark# WHERE WQH_ID=#HeaderId#
+      UPDATE WechatQRCodeDetail SET WQD_WeChatStatus=1,WQD_DMSStatus=#DMSStatus# WHERE WQD_WQH_ID=#HeaderId#
+    </update>
+
+    <select id="ExportWechatQRCodeInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT T_WechatQRCodeHeader.WQH_No AS '单据号',
+      T_WechatQRCodeHeader.WQH_Remark AS '备注',
+      T_WechatQRCodeDetail.WQD_QRCode AS 'QR',
+      T_WechatQRCodeDetail.WQD_UPN AS 'UPN',
+      T_WechatQRCodeDetail.WQD_Lot AS 'LOT',
+      (CASE T_WechatQRCodeDetail.WQD_WeChatStatus WHEN 1 THEN '已提交' ELSE '未提交' END) AS '状态',
+      (CASE T_WechatQRCodeDetail.WQD_DMSStatus WHEN 1 THEN '已接收' ELSE '未接收' END) AS 'DMS状态',
+      CONVERT(varchar(100), T_WechatQRCodeDetail.WQD_UpdateDate, 121) AS '更新时间'
+      FROM dbo.WechatQRCodeHeader T_WechatQRCodeHeader (NOLOCK)
+      LEFT JOIN dbo.WechatQRCodeDetail T_WechatQRCodeDetail (NOLOCK)
+      ON T_WechatQRCodeDetail.WQD_WQH_ID = T_WechatQRCodeHeader.WQH_ID
+      WHERE (T_WechatQRCodeDetail.WQD_Status = 1 OR T_WechatQRCodeDetail.WQD_Status IS NULL)
+      AND T_WechatQRCodeHeader.WQH_DealerID=#DealerId#
+      AND T_WechatQRCodeHeader.WQH_ID =#HeaderId#
+      ORDER BY T_WechatQRCodeHeader.WQH_No,T_WechatQRCodeDetail.WQD_CreateDate
+    </select>
+
+    <update id="FakeDeleteWechatQRCodeHeader" parameterClass="System.Collections.Hashtable">
+      UPDATE dbo.WechatQRCodeHeader SET WQH_Status=0,WQH_UpdateDate=GETDATE(),WQH_UpdateUser=#UserId# WHERE WQH_ID=#HeaderId#
+    </update>
+    
+    <update id="BindWechatUser" parameterClass="System.Collections.Hashtable">
+      UPDATE dbo.BusinessWechatUser SET BWU_Status = 'Deactive' WHERE BWU_WeChat = #OpenId# AND BWU_Status = 'Active';
+      INSERT INTO BusinessWechatUser(
+        BWU_ID,
+        BWU_UserName,
+        BWU_WeChat,
+        BWU_SignInDate,
+        BWU_BindDate,
+        BWU_Status)
+      VALUES
+        (NEWID(),
+         #UserName#,
+         #OpenId#,
+         GETDATE(),
+         GETDATE(),
+         N'Active');
+    </update>
+
+    <update id="UnbindWechatUser" parameterClass="System.Collections.Hashtable">
+      UPDATE dbo.BusinessWechatUser SET BWU_Status = 'Deactive' WHERE BWU_WeChat = #OpenId# AND BWU_Status = 'Active';
+    </update>
+
+  </statements>
+</sqlMap>

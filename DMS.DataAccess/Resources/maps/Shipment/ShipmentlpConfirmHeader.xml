@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShipmentlpConfirmHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="ShipmentlpConfirmHeader" assembly="DMS.Model.dll" type="DMS.Model.ShipmentlpConfirmHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="ShipmentlpConfirmHeaderResult" class="ShipmentlpConfirmHeader">
+      <result property="Id" column="SCH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SalesNo" column="SCH_SalesNo" type="string" dbType="nvarchar"/>
+      <result property="OrderNo" column="SCH_OrderNo" type="string" dbType="nvarchar"/>
+      <result property="ConfirmDate" column="SCH_ConfirmDate" type="DateTime" dbType="datetime"/>
+      <result property="Remark" column="SCH_Remark" type="string" dbType="nvarchar"/>
+      <result property="ImportUser" column="SCH_ImportUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="ImportDate" column="SCH_ImportDate" type="DateTime" dbType="datetime"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectShipmentlpConfirmHeader" parameterClass="string" resultClass="ShipmentlpConfirmHeader">
+      SELECT SCH_ID AS Id,SCH_SalesNo AS SalesNo,SCH_OrderNo AS OrderNo,SCH_ConfirmDate AS ConfirmDate,SCH_Remark AS Remark,SCH_ImportUser AS ImportUser,SCH_ImportDate AS ImportDate
+      FROM ShipmentLPConfirmHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SCH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterShipmentlpConfirmHeader" parameterClass="ShipmentlpConfirmHeader" resultClass="ShipmentlpConfirmHeader">
+      SELECT SCH_ID AS Id,SCH_SalesNo AS SalesNo,SCH_OrderNo AS OrderNo,SCH_ConfirmDate AS ConfirmDate,SCH_Remark AS Remark,SCH_ImportUser AS ImportUser,SCH_ImportDate AS ImportDate
+      FROM ShipmentLPConfirmHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">SCH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SalesNo">SCH_SalesNo=#SalesNo#</isNotNull>
+        <isNotNull prepend="AND" property="OrderNo">SCH_OrderNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="ConfirmDate">SCH_ConfirmDate=#ConfirmDate#</isNotNull>
+        <isNotNull prepend="AND" property="Remark">SCH_Remark=#Remark#</isNotNull>
+        <isNotNull prepend="AND" property="ImportUser">SCH_ImportUser=#ImportUser#</isNotNull>
+        <isNotNull prepend="AND" property="ImportDate">SCH_ImportDate=#ImportDate#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertShipmentlpConfirmHeader" parameterClass="ShipmentlpConfirmHeader">
+      INSERT INTO ShipmentLPConfirmHeader
+      (SCH_ID,SCH_SalesNo,SCH_OrderNo,SCH_ConfirmDate,SCH_Remark,SCH_ImportUser,SCH_ImportDate)
+      VALUES(#Id#,#SalesNo#,#OrderNo#,#ConfirmDate:DateTime:1/1/0001 12:00:00 AM#,#Remark#,#ImportUser#,#ImportDate:DateTime:1/1/0001 12:00:00 AM#)
+    </insert>
+    <update id="UpdateShipmentlpConfirmHeader" parameterClass="ShipmentlpConfirmHeader">
+      UPDATE ShipmentLPConfirmHeader
+      SET SCH_ID=#Id#,SCH_SalesNo=#SalesNo#,SCH_OrderNo=#OrderNo#,SCH_ConfirmDate=#ConfirmDate#,SCH_Remark=#Remark#,SCH_ImportUser=#ImportUser#,SCH_ImportDate=#ImportDate#
+      WHERE SCH_ID = #Id#
+    </update>
+    <delete id="DeleteShipmentlpConfirmHeader" parameterClass="string">
+      DELETE FROM ShipmentLPConfirmHeader
+      WHERE SCH_ID = #value#
+    </delete>
+    <select id="GetShipmentlpConfirmHeaderByOrderNo" parameterClass="string" resultClass="ShipmentlpConfirmHeader">
+      SELECT SCH_ID AS Id,SCH_SalesNo AS SalesNo,SCH_OrderNo AS OrderNo,SCH_ConfirmDate AS ConfirmDate,SCH_Remark AS Remark,SCH_ImportUser AS ImportUser,SCH_ImportDate AS ImportDate
+      FROM ShipmentLPConfirmHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          SCH_SalesNo = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="QueryShipmentlpConfirmHeaderInfoByOrderUpnLot" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+      SELECT B.SCD_ID AS Id,A.SCH_OrderNo AS OrderNo,B.SCD_UPN AS UPN ,B.SCD_Lot AS Lot,B.SCD_Qty AS Qty,B.SCD_UnitPrice AS UnitPric,C.CFN_ChineseName AS ChineseName, row_number() OVER (ORDER BY A.SCH_ConfirmDate desc) AS row_number   FROM ShipmentLPConfirmHeader A INNER JOIN ShipmentLPConfirmDetail B
+      ON A.SCH_ID=B.SCD_SCH_ID
+      LEFT JOIN CFN C ON B.SCD_UPN=C.CFN_CustomerFaceNbr
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="OrderNo">A.SCH_SalesNo=#OrderNo#</isNotNull>
+        <isNotNull prepend="AND" property="UPN">B.SCD_UPN like N'%$UPN$%'</isNotNull>
+        <isNotNull prepend="AND" property="lot">B.SCD_Lot like N'%$lot$%'</isNotNull>
+      </dynamic>
+    </select>
+    <update id="UpdateSCHConfirmDateByOrderNo" parameterClass="System.Collections.Hashtable">
+      UPDATE ShipmentlpConfirmHeader SET SCH_ConfirmDate=#ConfirmDate# WHERE SCH_SalesNo=#OrderNo#
+    </update>
+    <update id="UpdateAdjustItemPriceById" parameterClass="System.Collections.Hashtable">
+      UPDATE ShipmentLPConfirmDetail SET SCD_UnitPrice=#Price# WHERE SCD_ID=#Id#
+    </update>
+    
+  </statements>
+</sqlMap>

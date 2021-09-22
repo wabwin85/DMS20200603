@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DealerPriceInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <parameterMaps>
+        <parameterMap id="DealerPriceInitParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="Remark" column="Remark" />
+            <parameter property="UserId" column="UserId" />
+            <parameter property="ImportType" column="ImportType" />
+            <parameter property="IsValid" column="IsValid" direction="Output" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+        <!--added by bozhenfei on 20110617-->
+        <delete id="DeleteDealerPriceInitByUser" parameterClass="string">
+            DELETE FROM DealerPriceInit
+            WHERE DPI_USER = #value#
+        </delete>
+        <select id="SelectDealerPriceInitByHashtable" parameterClass="System.Collections.Hashtable">
+            SELECT *,
+            ROW_NUMBER () OVER (ORDER BY DPI_ErrorFlag DESC,DPI_LineNbr ASC) AS row_number
+            FROM DealerPriceInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="User">DPI_USER=#User#</isNotNull>
+            </dynamic>
+        </select>
+        <update id="UpdateDealerPriceInitForEdit" parameterClass="System.Collections.Hashtable">
+            UPDATE DealerPriceInit
+            SET DPI_ArticleNumber = #ArticleNumber#,DPI_Dealer=#Dealer#,DPI_Price=#Price#,DPI_PriceTypeName=#PriceTypeName#,
+            DPI_ArticleNumber_ErrMsg = null,DPI_CFN_ID = null,
+            DPI_Dealer_ErrMsg=null,DPI_DMA_ID=null,DPI_Price_ErrMsg=null,DPI_PriceTypeName_ErrMsg=null,DPI_PriceType=null
+            WHERE DPI_ID = #Id#
+        </update>
+        <delete id="DeleteDealerPriceInit" parameterClass="string">
+            DELETE FROM DealerPriceInit
+            WHERE DPI_ID = #value#
+        </delete>
+        <procedure id="GC_DealerPriceInit" parameterMap="DealerPriceInitParameterMap">
+            dbo.GC_DealerPriceInit
+        </procedure>
+        <select id="SelectDealerPriceHeadByHashtable" parameterClass="System.Collections.Hashtable">
+          SELECT A.DPH_ID DPH_ID,A.DPH_Remark DPH_Remark,B.IDENTITY_NAME DPH_USER,A.DPH_UploadDate DPH_UploadDate,CASE WHEN A.DPH_Status='Success' THEN '导入成功' WHEN A.DPH_Status is null THEN '未处理' ELSE '导入失败' END AS DPH_STATUS,
+          C.DMA_ChineseName AS DPH_LP,
+          C.DMA_EnglishShortName+ convert(nvarchar(8),A.DPH_UploadDate,112)+replace(convert(nvarchar(8),A.DPH_UploadDate,114),':','') AS DPH_NBR,
+          ROW_NUMBER () OVER (ORDER BY A.DPH_UploadDate DESC) AS row_number
+          FROM DealerPriceHead A(nolock),Lafite_IDENTITY B(nolock), DealerMaster C(nolock)
+          WHERE A.DPH_USER=B.Id and A.DPH_LP = C.DMA_ID
+          AND (A.DPH_LP=#LPId# OR  #LPId# Is null)
+          <isNotNull prepend="AND" property="UploadDateStart">CONVERT(NVARCHAR(10),A.DPH_UploadDate,112)>=#UploadDateStart#</isNotNull>
+          <isNotNull prepend="AND" property="UploadDateEnd">CONVERT(NVARCHAR(10),A.DPH_UploadDate,112)&lt;=#UploadDateEnd#</isNotNull>
+          <isNotNull prepend="AND" property="UploadNbr">(C.DMA_EnglishShortName+ convert(nvarchar(8),A.DPH_UploadDate,112)+replace(convert(nvarchar(8),A.DPH_UploadDate,114),':','')) LIKE '%'+#UploadNbr#+'%' </isNotNull>
+          <isNotNull prepend="AND" property="Cfn">EXISTS (SELECT 1 FROM DealerPriceDetail C WHERE A.DPH_ID=C.DPD_DPH_ID AND C.DPD_ArticleNumber LIKE '%'+#Cfn#+'%')</isNotNull>
+        </select>
+        <select id="SelectDealerPriceDetailByHead" parameterClass="string">
+            SELECT *,
+            ROW_NUMBER () OVER (ORDER BY DPD_LineNbr) AS row_number
+            FROM DealerPriceDetail
+            WHERE DPD_DPH_ID=#value#
+        </select>
+        <!--end-->
+    </statements>
+</sqlMap>

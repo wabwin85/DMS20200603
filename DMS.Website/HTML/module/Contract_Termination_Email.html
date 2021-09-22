@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>蓝威 DMS</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">申请信息：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;" colspan="2"><!--平台和一级经销商，请用英文输入！<br />-->若申请原因选择新经销商，指该公司之前与蓝威无任何形式的经销业务往来。<br /></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请单号：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ContractNo}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">产品线：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.DepIdShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">合同分类：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.SUBDEPIDShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请人：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.EName}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请日期：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.RequestDate}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">申请部门：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ApplicantDepShow}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">市场类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.MarketTypeShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Main.DealerTypeShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">经销商：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Main.DealerNameShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">协议生效日：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">#{Main.DealerBeginDate}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">协议到期日：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">#{Main.DealerEndDate}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">终止类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">#{Main.DealerEndTypShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">终止生效日：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">#{Main.PlanExpiration}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">终止原因：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">#{Main.DealerEndReasonShow}</td>
+                </tr>
+                <tr style="#{Display.Display_OtherReason}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">其他终止原因：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.OtherReason}</td>
+                </tr>
+                <tr style="#{Display.Display_IAF}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">IAF：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.IAF}</td>
+                </tr>
+                <tr style="#{Display.Display_ReagionRSM}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">RSM：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.ReagionRSMShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">指标总额(CNY)不含税：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.QuotaTotal}</td>
+                </tr>
+                <tr style="display:none;">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">指标总额(USD)不含税：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Main.QUOTAUSD}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">经销商当前状态：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">1. ) 是否有未完成的投标工作?</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">#{Status.TenderIssueShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">备注：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.TenderIssueRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_RebateShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">2. ) 代理商的返利 (CNY，Exculde VAT):</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.RebateShow}</td>
+                </tr>
+                <tr style="#{Display.Display_RebateAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">返利金额(CNY, inc. VAT)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.RebateAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_PromotionShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">3. ) 代理商促销 (CNY，Exculde VAT):</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.PromotionShow}</td>
+                </tr>
+                <tr style="#{Display.Display_PromotionAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">促销金额(CNY, inc. VAT)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.PromotionAmt}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">4. ) 代理商投诉换货 (CNY，Exculde VAT):</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.ComplaintShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">投诉换货金额(CNY, inc. VAT)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.ComplaintAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_GoodsReturnShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">5. ) 代理商终止后是否有退货:</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.GoodsReturnShow}</td>
+                </tr>
+                <tr style="#{Display.Display_GoodsReturnAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">退换货金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.GoodsReturnAmt}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">交接货原因：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.ReturnReasonShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">交接货产品清单：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.IsRGAAttachShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">清单附件：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.RGAAttach}</td>
+                </tr>
+                <tr style="#{Display.Display_CreditMemoShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">6. ) 代理商是否有资质开红字通知单:</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.CreditMemoShow}</td>
+                </tr>
+                <tr style="#{Display.Display_CreditMemoRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">备注：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.CreditMemoRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_IsPendingPaymentShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">7. ) 是否和代理商存在争议款项，需要蓝威支付代理商:</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Status.IsPendingPaymentShow}</td>
+                </tr>
+                <tr style="#{Display.Display_PendingAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.PendingAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_PendingRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">争议款项原因：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.PendingRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_CurrentAR}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">8.) 经销商应付账款 (CNY, inc. VAT):</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.CurrentAR}</td>
+                </tr>
+                <tr style="#{Display.Display_PendingAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.PendingAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_CashDepositShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">9.) ① 现金抵押：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.CashDepositShow}</td>
+                </tr>
+                <tr style="#{Display.Display_CashDepositAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.CashDepositAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_BGuaranteeShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">9.) ② 银行保函：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.BGuaranteeShow}</td>
+                </tr>
+                <tr style="#{Display.Display_BGuaranteeAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.BGuaranteeAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_CGuaranteeShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">9.) ③公司保函：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.CGuaranteeShow}</td>
+                </tr>
+                <tr style="#{Display.Display_CGuaranteeAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.CGuaranteeAmt}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">10.) 代理商缺货和未清的短期寄售 (CNY, inc. VAT)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.InventoryShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.InventoryAmt}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">库存清单：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.InventoryList}</td>
+                </tr>
+                <tr style="#{Display.Display_EstimatedAR}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">11.) 结算金额 (CNY, inc. VAT)：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.EstimatedAR}</td>
+                </tr>
+                <tr style="#{Display.Display_Wirteoff}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">其中申请坏账损失(wirte off)s：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.Wirteoff}</td>
+                </tr>
+                <tr style="#{Display.Display_Wirteoff}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">12.) 如果清算后仍有欠款，请填写付款计划：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.Wirteoff}</td>
+                </tr>
+                <tr style="#{Display.Display_ReserveShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">13.) 坏帐计提？：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.ReserveShow}</td>
+                </tr>
+                <tr style="#{Display.Display_ReserveAmt}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">坏帐金额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.ReserveAmt}</td>
+                </tr>
+                <tr style="#{Display.Display_ReserveTypeShow}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">坏帐类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Status.ReserveTypeShow}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">业务交接：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">谁来接管此经销商业务？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{Handover.TakeOver}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">接管经销商类型：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.TakeOverTypeShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">如果是新经销商，是否已经提交新经销商申请？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.TakeOverIsNewShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否已经通知经销商不续约或终止？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.HandoverNotifiedShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">何时通知经销商不续约或终止？提案？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.WhenNotify}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">何时完成结算？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.WhenSettlement}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">何时完成交接工作？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.WhenHandover}</td>
+                </tr>
+                <tr style="#{Display.Display_FollowUp}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">该代理商是否有涉及患者随访：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.FollowUpShow}</td>
+                </tr>
+                <tr style="#{Display.Display_FollowUpRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;如果是，患者随访跟进措施：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.FollowUpRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_FieldOperation}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">该代理商是否正在执行任何现场行动：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.FieldOperationShow}</td>
+                </tr>
+                <tr style="#{Display.Display_FieldOperationRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;如果是，现场行动进展：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.FieldOperationRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_AdverseEvent}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">该代理上是否有正在上报中的不良事件：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.AdverseEventShow}</td>
+                </tr>
+                <tr style="#{Display.Display_AdverseEventRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;如果是，不良事件上报进展：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.AdverseEventRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_SubmitImplant}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">如为CRM代理商，已使用产品的植入单是否已提交到蓝威：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.SubmitImplantShow}</td>
+                </tr>
+                <tr style="#{Display.Display_SubmitImplantRemark}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;如果否，预计完成时间是：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.SubmitImplantRemark}</td>
+                </tr>
+                <tr style="#{Display.Display_InventoryDispose}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">代理商库存产品处置情况：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.InventoryDisposeShow}</td>
+                </tr>
+                <tr style="#{Display.Display_InventoryDisposeRemark1}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;如果是转移给其他代理商，代理商是：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.InventoryDisposeRemark1}</td>
+                </tr>
+                <tr style="#{Display.Display_InventoryDisposeRemark2}">
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;如果是其他，请说明：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{Handover.InventoryDisposeRemark2}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">交接：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否将此事通知到DRM, Finance, Operations & HEGA？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{NCM.NotifiedShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">是否已审阅并确认以上结算提案？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{NCM.ReviewedShow}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">是否已为交接工作提交新经销商申请表格？</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{NCM.HandoverShow}</td>
+                </tr>
+
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">如果没有，请说明</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{NCM.HandoverRemark}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">第三方不续约 / 终止表格：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px;">截至到当前季度指标：总额</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{EndForm.CurrentQuota}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">截至当前季度实际采购总额：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;"> #{EndForm.ActualSales}</td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;width: 300px">蓝威在经销商终止协议之后<br />若要继续参加投标，请提供详细信息：</td>
+                    <td style="word-wrap: break-word;word-break: break-all;padding:5px 0;border-bottom:1px solid #eee;">  #{EndForm.TenderDetails}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

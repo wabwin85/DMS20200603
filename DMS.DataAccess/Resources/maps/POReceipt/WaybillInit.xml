@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WaybillInitMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="WaybillInit" assembly="DMS.Model.dll" type="DMS.Model.WaybillInit" />
+    </alias>
+    <resultMaps>
+        <resultMap id="WaybillInitResult" class="WaybillInit">
+            <result property="Id" column="WI_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="User" column="WI_USER" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UploadDate" column="WI_UploadDate" type="DateTime" dbType="datetime"/>
+            <result property="LineNbr" column="WI_LineNbr" type="int" dbType="int"/>
+            <result property="FileName" column="WI_FileName" type="string" dbType="nvarchar"/>
+            <result property="ErrorFlag" column="WI_ErrorFlag" type="bool" dbType="bit"/>
+            <result property="ErrorDescription" column="WI_ErrorDescription" type="string" dbType="nvarchar"/>
+            <result property="SapDeliveryNo" column="WI_SapDeliveryNo" type="string" dbType="nvarchar"/>
+            <result property="ShippingDate" column="WI_ShippingDate" type="DateTime" dbType="datetime"/>
+            <result property="Carrier" column="WI_Carrier" type="string" dbType="nvarchar"/>
+            <result property="TrackingNo" column="WI_TrackingNo" type="string" dbType="nvarchar"/>
+            <result property="ShipType" column="WI_ShipType" type="string" dbType="nvarchar"/>
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+      <parameterMap id="WaybillInitParameterMap" class="System.Collections.Hashtable" >
+        <parameter property="UserId" column="UserId" />
+        <parameter property="IsValid" column="IsValid" direction="Output" />
+      </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectWaybillInit" parameterClass="string" resultClass="WaybillInit">
+            SELECT WI_ID AS Id,WI_USER AS [User],WI_UploadDate AS UploadDate,WI_LineNbr AS LineNbr,WI_FileName AS FileName,WI_ErrorFlag AS ErrorFlag,WI_ErrorDescription AS ErrorDescription,WI_SapDeliveryNo AS SapDeliveryNo,WI_ShippingDate AS ShippingDate,WI_Carrier AS Carrier,WI_TrackingNo AS TrackingNo,WI_ShipType AS ShipType
+            FROM WaybillInit
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    WI_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterWaybillInit" parameterClass="WaybillInit" resultClass="WaybillInit">
+            SELECT WI_ID AS Id,WI_USER AS [User],WI_UploadDate AS UploadDate,WI_LineNbr AS LineNbr,WI_FileName AS FileName,WI_ErrorFlag AS ErrorFlag,WI_ErrorDescription AS ErrorDescription,WI_SapDeliveryNo AS SapDeliveryNo,WI_ShippingDate AS ShippingDate,WI_Carrier AS Carrier,WI_TrackingNo AS TrackingNo,WI_ShipType AS ShipType
+            FROM WaybillInit
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">WI_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="User">WI_USER=#User#</isNotNull>
+                <isNotNull prepend="AND" property="UploadDate">WI_UploadDate=#UploadDate#</isNotNull>
+                <isNotNull prepend="AND" property="LineNbr">WI_LineNbr=#LineNbr#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">WI_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorFlag">WI_ErrorFlag=#ErrorFlag#</isNotNull>
+                <isNotNull prepend="AND" property="ErrorDescription">WI_ErrorDescription=#ErrorDescription#</isNotNull>
+                <isNotNull prepend="AND" property="SapDeliveryNo">WI_SapDeliveryNo=#SapDeliveryNo#</isNotNull>
+                <isNotNull prepend="AND" property="ShippingDate">WI_ShippingDate=#ShippingDate#</isNotNull>
+                <isNotNull prepend="AND" property="Carrier">WI_Carrier=#Carrier#</isNotNull>
+                <isNotNull prepend="AND" property="TrackingNo">WI_TrackingNo=#TrackingNo#</isNotNull>
+                <isNotNull prepend="AND" property="ShipType">WI_ShipType=#ShipType#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertWaybillInit" parameterClass="WaybillInit">
+            INSERT INTO WaybillInit
+            (WI_ID,WI_USER,WI_UploadDate,WI_LineNbr,WI_FileName,WI_ErrorFlag,WI_ErrorDescription,WI_SapDeliveryNo,WI_ShippingDate,WI_Carrier,WI_TrackingNo,WI_ShipType)
+            VALUES(#Id#,#User#,#UploadDate:DateTime:1/1/0001 12:00:00 AM#,#LineNbr#,#FileName#,#ErrorFlag#,#ErrorDescription#,#SapDeliveryNo#,#ShippingDate:DateTime:1/1/0001 12:00:00 AM#,#Carrier#,#TrackingNo#,#ShipType#)
+        </insert>
+        <update id="UpdateWaybillInit" parameterClass="WaybillInit">
+            UPDATE WaybillInit
+            SET WI_ID=#Id#,WI_USER=#User#,WI_UploadDate=#UploadDate#,WI_LineNbr=#LineNbr#,WI_FileName=#FileName#,WI_ErrorFlag=#ErrorFlag#,WI_ErrorDescription=#ErrorDescription#,WI_SapDeliveryNo=#SapDeliveryNo#,WI_ShippingDate=#ShippingDate#,WI_Carrier=#Carrier#,WI_TrackingNo=#TrackingNo#,WI_ShipType=#ShipType#
+            WHERE WI_ID = #Id#
+        </update>
+        <delete id="DeleteWaybillInit" parameterClass="string">
+            DELETE FROM WaybillInit
+            WHERE WI_ID = #value#
+        </delete>
+
+        <delete id="DeleteByUserIdWaybillInit" parameterClass="string">
+          DELETE FROM WaybillInit
+          WHERE WI_USER = #value#
+        </delete>
+
+        <select id="SelectErrorWaybillInit" parameterClass="string" resultClass="WaybillInit">
+          SELECT WI_ID AS Id,WI_USER AS [User],WI_UploadDate AS UploadDate,WI_LineNbr AS LineNbr,WI_FileName AS FileName,WI_ErrorFlag AS ErrorFlag,WI_ErrorDescription AS ErrorDescription,WI_SapDeliveryNo AS SapDeliveryNo,WI_ShippingDate AS ShippingDate,WI_Carrier AS Carrier,WI_TrackingNo AS TrackingNo,WI_ShipType AS ShipType
+          FROM WaybillInit WHERE WI_ErrorFlag=1 AND WI_USER = #value#
+        </select>
+
+        <procedure id="GC_UploadWaybill" parameterMap="WaybillInitParameterMap">
+          dbo.GC_UploadWaybill
+        </procedure>
+    </statements>
+</sqlMap>

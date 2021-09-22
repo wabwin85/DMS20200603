@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>合同终止</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #ddd;
+            -webkit-border-radius: 4px;
+            outline-offset: -2px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body style="margin:5px;box-sizing: border-box;font-family: 黑体,tahoma,arial,helvetica,sans-serif;font-size: 12px;background-color: white;">
+    <span style="color:#1f4e81;font-weight:700;font-size: 15px;">合同终止申请：</span>
+    <div style="margin: 0 0 9px;border-bottom: 1px solid #eee;padding-bottom: 9px;position: relative;">
+        <div style="height: auto;min-height: 20px;padding: 5px;margin-bottom: 0;border: 1px solid #e3e3e3;">
+            <table style="width:100%;border-width:0px;">
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;width: 130px;font-weight: 600;">单据编号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CST_No}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">申请人：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;">#{Header.IDENTITY_NAME} </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">申请日期：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CST_CreateDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">状态：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.VALUE1}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">产品线：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.ProductLineName}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">终止原因：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CST_Remark}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">寄售合同名称：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_Name}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">寄售合同编号：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_No}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">寄售天数：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_ConsignmentDay}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">可延期次数：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_DelayNumber}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">合同时间：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.ContractDate}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">自动补货：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_IsKB}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">控制总金额：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCh_IsFixedMoney}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">控制总数量：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_IsFixedQty}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">有效期折扣规则：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_IsUseDiscount}</td>
+                </tr>
+                <tr>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;font-weight: 600;">备注：</td>
+                    <td style="padding:5px 0;border-bottom:1px solid #eee;"> #{Header.CCH_Remark}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

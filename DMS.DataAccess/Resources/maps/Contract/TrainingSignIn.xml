@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="TrainingSignInMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="TrainingSignIn" assembly="DMS.Model.dll" type="DMS.Model.TrainingSignIn" />
+  </alias>
+  <resultMaps>
+    <resultMap id="TrainingSignInResult" class="TrainingSignIn">
+      <result property="TsiId" column="TsiId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TsiCmId" column="TsiCmId" type="Guid" dbType="uniqueidentifier"/>
+      <result property="TsiName" column="TsiName" type="string" dbType="nvarchar"/>
+      <result property="TsiDealerName" column="TsiDealerName" type="string" dbType="nvarchar"/>
+      <result property="TsiTrainingDate" column="TsiTrainingDate" type="DateTime" dbType="datetime"/>
+      <result property="BlCreateDate" column="BlCreateDate" type="DateTime" dbType="datetime"/>
+      <result property="BlCreateUser" column="BlCreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="BlUpdateDate" column="BlUpdateDate" type="DateTime" dbType="datetime"/>
+      <result property="BlUpdateUser" column="BlUpdateUser" type="Guid" dbType="uniqueidentifier"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+    
+    <insert id="InsertTrainingSignIn" parameterClass="TrainingSignIn">
+      INSERT INTO TrainingSignIn
+      (TSI_ID,TSI_CM_ID,TSI_Name,TSI_DealerName,TSI_TrainingDate,BL_Update_Date,BL_Update_User)
+      VALUES(#TsiId#,#TsiCmId#,#TsiName#,#TsiDealerName#,#TsiTrainingDate:DateTime:1/1/0001 12:00:00 AM#,#BlUpdateDate:DateTime:1/1/0001 12:00:00 AM#,#BlUpdateUser#)
+    </insert>
+    
+    <update id="UpdateTrainingSignIn" parameterClass="TrainingSignIn">
+      UPDATE TrainingSignIn
+      SET TSI_CM_ID=#TsiCmId#,TSI_Name=#TsiName#,TSI_DealerName=#TsiDealerName#,TSI_TrainingDate=#TsiTrainingDate:DateTime:1/1/0001 12:00:00 AM#,BL_Update_Date=#BlUpdateDate:DateTime:1/1/0001 12:00:00 AM#,BL_Update_User=#BlUpdateUser#
+      WHERE TSI_ID = #TsiId#
+    </update>
+    
+    <delete id="DeleteTrainingSignIn" parameterClass="string">
+      DELETE FROM TrainingSignIn
+      WHERE TSI_ID = #value#
+    </delete>
+
+    <select id="SelectTrainingSignIn" parameterClass="Guid" resultClass="TrainingSignIn">
+      SELECT TSI_ID AS TsiId,
+      TSI_CM_ID AS TsiCmId,
+      TSI_Name AS TsiName,
+      TSI_DealerName AS TsiDealerName,
+      TSI_TrainingDate AS TsiTrainingDate,
+      BL_Create_Date AS BlCreateDate,
+      BL_Create_User AS BlCreateUser,
+      BL_Update_Date AS BlUpdateDate,
+      BL_Update_User AS BlUpdateUser
+      FROM TrainingSignIn
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TSI_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+ 
+
+    <select id="SelectTrainingSignInByContId" parameterClass="Guid" resultClass="System.Collections.Hashtable">
+      SELECT TSI_ID AS TsiId,
+      TSI_CM_ID AS TsiCmId,
+      TSI_Name AS TsiName,
+      TSI_DealerName AS TsiDealerName,
+      TSI_TrainingDate AS TsiTrainingDate,
+      BL_Create_Date AS BlCreateDate,
+      BL_Create_User AS BlCreateUser,
+      BL_Update_Date AS BlUpdateDate,
+      BL_Update_User AS BlUpdateUser,
+      ROW_NUMBER() OVER(ORDER BY TSI_ID desc) AS [row_number]
+      FROM TrainingSignIn
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          TSI_CM_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

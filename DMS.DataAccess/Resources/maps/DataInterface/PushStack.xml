@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PushStackMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <statements>
+        <insert id="PushStackMap.Insert" parameterClass="System.Collections.Hashtable">
+          INSERT INTO PushStack
+          (PrimaryKey, PushType, PushMethod, PushContent, PushStatus, PushErrCount, PushMsg, CreateDate)
+          VALUES(#PrimaryKey#,#PushType#,#PushMethod#,#PushContent#,'Wait',0,'',GETDATE())
+        </insert>
+    </statements>
+</sqlMap>

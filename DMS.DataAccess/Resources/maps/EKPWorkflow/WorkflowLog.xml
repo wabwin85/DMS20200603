@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="WorkflowLogMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="SelectWorkflowLogListByFilter" parameterClass="System.Collections.Hashtable" resultClass="DMS.Model.EKPWorkflow.WorkflowLog">
+      SELECT [Id]
+      ,[ApplyId]
+      ,[Name]
+      ,[StartTime]
+      ,[EndTime]
+      ,[Status]
+      ,[FileName]
+      ,[RequestMessage]
+      ,[ResponseMessage]
+      ,[ClientId]
+      ,[BatchNbr]
+      FROM [Workflow].[WorkflowLog]
+    </select>
+
+    <insert id="InsertWorkflowLog" parameterClass="DMS.Model.EKPWorkflow.WorkflowLog">
+      INSERT INTO [Workflow].[WorkflowLog] (Id,ApplyId,Name,StartTime,EndTime,Status,FileName,RequestMessage,ResponseMessage,ClientId,BatchNbr)
+      VALUES (#Id#,#ApplyId#,#Name#,#StartTime#,#EndTime#,#Status#,#FileName#,#RequestMessage#,#ResponseMessage#,#ClientId#,#BatchNbr#)
+    </insert>
+
+  </statements>
+</sqlMap>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DpStatementScorecardHeaderMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DpStatementScorecardHeader" assembly="DMS.Model.dll" type="DMS.Model.DpStatementScorecardHeader" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DpStatementScorecardHeaderResult" class="DpStatementScorecardHeader">
+      <result property="Id" column="STH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="DmaId" column="STH_DMA_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Status" column="STH_Status" type="string" dbType="nvarchar"/>
+      <result property="Version" column="STH_Version" type="string" dbType="nvarchar"/>
+      <result property="CreateUser" column="STH_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+      <result property="CreateDate" column="STH_CreateDate" type="DateTime" dbType="datetime"/>
+      <result property="SelYearMonth1" column="STH_SelYearMonth1" type="string" dbType="nvarchar"/>
+      <result property="SelYearMonth2" column="STH_SelYearMonth2" type="string" dbType="nvarchar"/>
+      <result property="RefYearMonth1" column="STH_RefYearMonth1" type="string" dbType="nvarchar"/>
+      <result property="RefYearMonth2" column="STH_RefYearMonth2" type="string" dbType="nvarchar"/>
+      <result property="RefYearMonth3" column="STH_RefYearMonth3" type="string" dbType="nvarchar"/>
+      <result property="RefYearMonth4" column="STH_RefYearMonth4" type="string" dbType="nvarchar"/>
+      <result property="RefYearMonth5" column="STH_RefYearMonth5" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDpStatementScorecardHeader" parameterClass="string" resultClass="DpStatementScorecardHeader">
+      SELECT STH_ID AS Id,STH_DMA_ID AS DmaId,STH_Status AS Status,STH_Version AS Version,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_SelYearMonth1 AS SelYearMonth1,STH_SelYearMonth2 AS SelYearMonth2,STH_RefYearMonth1 AS RefYearMonth1,STH_RefYearMonth2 AS RefYearMonth2,STH_RefYearMonth3 AS RefYearMonth3,STH_RefYearMonth4 AS RefYearMonth4,STH_RefYearMonth5 AS RefYearMonth5
+      FROM DPStatementScorecardHeader
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STH_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDpStatementScorecardHeader" parameterClass="DpStatementScorecardHeader" resultClass="DpStatementScorecardHeader">
+      SELECT STH_ID AS Id,STH_DMA_ID AS DmaId,STH_Status AS Status,STH_Version AS Version,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_SelYearMonth1 AS SelYearMonth1,STH_SelYearMonth2 AS SelYearMonth2,STH_RefYearMonth1 AS RefYearMonth1,STH_RefYearMonth2 AS RefYearMonth2,STH_RefYearMonth3 AS RefYearMonth3,STH_RefYearMonth4 AS RefYearMonth4,STH_RefYearMonth5 AS RefYearMonth5
+      FROM DPStatementScorecardHeader
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STH_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="DmaId">STH_DMA_ID=#DmaId#</isNotNull>
+        <isNotNull prepend="AND" property="Status">STH_Status=#Status#</isNotNull>
+        <isNotNull prepend="AND" property="Version">STH_Version=#Version#</isNotNull>
+        <isNotNull prepend="AND" property="SelYearMonth1">STH_SelYearMonth1=#SelYearMonth1#</isNotNull>
+        <isNotNull prepend="AND" property="SelYearMonth2">STH_SelYearMonth2=#SelYearMonth2#</isNotNull>
+        <isNotNull prepend="AND" property="RefYearMonth1">STH_RefYearMonth1=#RefYearMonth1#</isNotNull>
+        <isNotNull prepend="AND" property="RefYearMonth2">STH_RefYearMonth2=#RefYearMonth2#</isNotNull>
+        <isNotNull prepend="AND" property="RefYearMonth3">STH_RefYearMonth3=#RefYearMonth3#</isNotNull>
+        <isNotNull prepend="AND" property="RefYearMonth4">STH_RefYearMonth4=#RefYearMonth4#</isNotNull>
+        <isNotNull prepend="AND" property="RefYearMonth5">STH_RefYearMonth5=#RefYearMonth5#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDpStatementScorecardHeader" parameterClass="DpStatementScorecardHeader">
+      INSERT INTO DPStatementScorecardHeader
+      (STH_ID,STH_DMA_ID,STH_Status,STH_Version,STH_CreateUser,STH_CreateDate,STH_SelYearMonth1,STH_SelYearMonth2,STH_RefYearMonth1,STH_RefYearMonth2,STH_RefYearMonth3,STH_RefYearMonth4,STH_RefYearMonth5)
+      VALUES(#Id#,#DmaId#,#Status#,#Version#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#SelYearMonth1#,#SelYearMonth2#,#RefYearMonth1#,#RefYearMonth2#,#RefYearMonth3#,#RefYearMonth4#,#RefYearMonth5#)
+    </insert>
+    <update id="UpdateDpStatementScorecardHeader" parameterClass="DpStatementScorecardHeader">
+      UPDATE DPStatementScorecardHeader
+      SET STH_ID=#Id#,STH_DMA_ID=#DmaId#,STH_Status=#Status#,STH_Version=#Version#,STH_SelYearMonth1=#SelYearMonth1#,STH_SelYearMonth2=#SelYearMonth2#,STH_RefYearMonth1=#RefYearMonth1#,STH_RefYearMonth2=#RefYearMonth2#,STH_RefYearMonth3=#RefYearMonth3#,STH_RefYearMonth4=#RefYearMonth4#,STH_RefYearMonth5=#RefYearMonth5#
+      WHERE STH_ID = #Id#
+    </update>
+    <delete id="DeleteDpStatementScorecardHeader" parameterClass="string">
+      DELETE FROM DPStatementScorecardHeader
+      WHERE STH_ID = #value#
+    </delete>
+
+    <!--added by bozhenfei on 20151202-->
+    <select id="QueryDealerFinanceScoreCard" parameterClass="System.Collections.Hashtable" resultClass="DpStatementScorecardHeader">
+      SELECT DMA_ID AS Id,
+      DMA_ChineseName AS ChineseName,
+      DMA_ChineseShortName AS ChineseShortName,
+      DMA_SAP_Code AS SapCode,
+      DMA_DealerType AS DealerType,
+      ROW_NUMBER () OVER (ORDER BY DMA_ChineseName) AS row_number
+      FROM DealerMaster(nolock)
+      WHERE DMA_DeletedFlag = 0 AND DMA_ActiveFlag = 1 AND DMA_HostCompanyFlag = 0
+      <isNotNull prepend="AND" property="DealerId">DMA_ID=#DealerId#</isNotNull>
+      <isNotNull prepend="AND" property="SapCode">DMA_SAP_Code like N'%'+#SapCode#+'%'</isNotNull>
+      <isNotNull prepend="AND" property="DealerType">DMA_DealerType=#DealerType#</isNotNull>
+      <isEqual prepend="AND" property="OwnerIdentityType" compareValue="User">
+        (
+        EXISTS( SELECT 1 FROM Cache_OrganizationUnits OU, Lafite_IDENTITY_MAP IM , Cache_SalesOfDealer SD
+        WHERE OU.AttributeId = IM.MAP_ID AND IM.MAP_TYPE='Organization' AND convert(varchar(36),SD.SalesID) = IM.IDENTITY_ID
+        AND SD.DealerID = DMA_ID AND OU.AttributeId &lt;&gt; OU.RootId
+        <iterate prepend="AND" property="OwnerOrganizationUnits"
+              open="(" close=")" conjunction="OR">
+          OU.RootId = #OwnerOrganizationUnits[]#
+        </iterate>
+        )
+        OR
+        EXISTS( SELECT 1 FROM Cache_SalesOfDealer SD WHERE SD.SalesID = #OwnerId#
+        AND SD.DealerID = DMA_ID)
+        )
+      </isEqual>
+    </select>
+    <!--end-->
+
+
+      <select id="GetCurrentScoreCardVersion" parameterClass="string" resultClass="DpStatementScorecardHeader">
+          SELECT TOP 1 STH_ID AS Id,STH_DMA_ID AS DmaId,STH_Status AS Status,STH_Version AS Version,STH_CreateUser AS CreateUser,STH_CreateDate AS CreateDate,STH_SelYearMonth1 AS SelYearMonth1,STH_SelYearMonth2 AS SelYearMonth2,STH_RefYearMonth1 AS RefYearMonth1,STH_RefYearMonth2 AS RefYearMonth2,STH_RefYearMonth3 AS RefYearMonth3,STH_RefYearMonth4 AS RefYearMonth4,STH_RefYearMonth5 AS RefYearMonth5
+          FROM   DpStatementScorecardHeader
+          WHERE  STH_DMA_ID = #value#
+          ORDER BY STH_Version DESC
+      </select>
+      <select id="GetDealerCooperationYears" parameterClass="string">
+        SELECT Column7 FirstSign,Column11 CooperationYear FROM DP.DealerMaster(nolock) WHERE ModleID='00000001-0001-0001-0000-000000000000'
+        AND DealerId=#value#
+        ORDER BY [Version] DESC
+      </select>
+  </statements>
+</sqlMap>

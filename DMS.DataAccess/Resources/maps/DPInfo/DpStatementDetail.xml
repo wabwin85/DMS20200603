@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DpStatementDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <alias>
+    <typeAlias alias="DpStatementDetail" assembly="DMS.Model.dll" type="DMS.Model.DpStatementDetail" />
+  </alias>
+  <resultMaps>
+    <resultMap id="DpStatementDetailResult" class="DpStatementDetail">
+      <result property="Id" column="STD_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="SthId" column="STD_STH_ID" type="Guid" dbType="uniqueidentifier"/>
+      <result property="Key" column="STD_Key" type="string" dbType="nvarchar"/>
+      <result property="Value" column="STD_Value" type="string" dbType="nvarchar"/>
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectDpStatementDetail" parameterClass="string" resultClass="DpStatementDetail">
+      SELECT STD_ID AS Id,STD_STH_ID AS SthId,STD_Key AS [Key],STD_Value AS Value
+      FROM DPStatementDetail
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          STD_ID = #value#
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="SelectByFilterDpStatementDetail" parameterClass="DpStatementDetail" resultClass="DpStatementDetail">
+      SELECT STD_ID AS Id,STD_STH_ID AS SthId,STD_Key AS [Key],STD_Value AS Value
+      FROM DPStatementDetail
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="Id">STD_ID=#Id#</isNotNull>
+        <isNotNull prepend="AND" property="SthId">STD_STH_ID=#SthId#</isNotNull>
+        <isNotNull prepend="AND" property="Key">STD_Key=#Key#</isNotNull>
+        <isNotNull prepend="AND" property="Value">STD_Value=#Value#</isNotNull>
+      </dynamic>
+    </select>
+    <insert id="InsertDpStatementDetail" parameterClass="DpStatementDetail">
+      INSERT INTO DPStatementDetail
+      (STD_ID,STD_STH_ID,STD_Key,STD_Value)
+      VALUES(#Id#,#SthId#,#Key#,#Value#)
+    </insert>
+    <update id="UpdateDpStatementDetail" parameterClass="DpStatementDetail">
+      UPDATE DPStatementDetail
+      SET STD_ID=#Id#,STD_STH_ID=#SthId#,STD_Key=#Key#,STD_Value=#Value#
+      WHERE STD_ID = #Id#
+    </update>
+    <delete id="DeleteDpStatementDetail" parameterClass="string">
+      DELETE FROM DPStatementDetail
+      WHERE STD_ID = #value#
+    </delete>
+    
+    <!--added by bozhenfei on 20151207-->
+    <select id="SelectDealerFinanceStatementDetailById" parameterClass="string" resultClass="DpStatementDetail">
+      SELECT STD_ID AS Id,STD_STH_ID AS SthId,STD_Key AS [Key],STD_Value AS Value
+      FROM DPStatementDetail
+      WHERE STD_STH_ID=#value#
+    </select>
+
+    <select id="SelectChangedDealerFinanceStatementDetailById" parameterClass="string" resultClass="DpStatementDetail">
+      SELECT STD_ID AS Id,STD_STH_ID AS SthId,STD_Key AS [Key],STD_Value AS Value
+      FROM DPStatementDetail
+      WHERE STD_STH_ID=#value#
+      AND EXISTS (SELECT 1 FROM DPStatementChangeLog WHERE STL_STD_ID = STD_ID)
+    </select>
+
+    <select id="SelectDealerFinanceStatementDetailForCalculation" parameterClass="System.Collections.Hashtable" resultClass="DpStatementDetail">
+      <![CDATA[
+      SELECT #LastYear# AS [Year],STF_Key AS [Key],ISNULL(T.STD_Value,'0') AS Value
+      FROM DPStatementField LEFT OUTER JOIN
+      (SELECT * FROM DPStatementHeader, DPStatementDetail
+      WHERE STH_ID = STD_STH_ID AND STH_DMA_ID = #DealerId#
+      AND STH_Year = #LastYear# AND STH_Month = #Month#) AS T ON T.STD_Key = STF_Key
+      WHERE STF_Type = '资产负债表&利润表'
+      UNION ALL
+      SELECT #Year# AS [Year],REPLACE(STF_Key,'C','F') AS [Key],ISNULL(T.STD_Value,'0') AS Value
+      FROM DPStatementField LEFT OUTER JOIN
+      (SELECT * FROM DPStatementHeader, DPStatementDetail
+      WHERE STH_ID = STD_STH_ID AND STH_DMA_ID = #DealerId#
+      AND STH_Year = #Year# AND STH_Month = #Month#) AS T ON T.STD_Key = STF_Key
+      WHERE STF_Type = '资产负债表&利润表'
+      ORDER BY [Key]
+      ]]>
+    </select>
+
+    <select id="SelectDealerFinanceStatementDetailForCalculationScoreCard" parameterClass="System.Collections.Hashtable" resultClass="DpStatementDetail">
+      <![CDATA[
+      SELECT #CY# AS [YearMonth],STF_Key AS [Key],ISNULL(T.STD_Value,'0') AS Value
+      FROM DPStatementField LEFT OUTER JOIN
+      (SELECT * FROM DPStatementHeader, DPStatementDetail
+      WHERE STH_ID = STD_STH_ID AND STH_DMA_ID = #DealerId#
+      AND STH_Year + STH_Month = #CY#) AS T ON T.STD_Key = STF_Key
+      WHERE STF_Type = '资产负债表&利润表'
+      UNION ALL
+      SELECT #FY# AS [YearMonth],REPLACE(STF_Key,'C','F') AS [Key],ISNULL(T.STD_Value,'0') AS Value
+      FROM DPStatementField LEFT OUTER JOIN
+      (SELECT * FROM DPStatementHeader, DPStatementDetail
+      WHERE STH_ID = STD_STH_ID AND STH_DMA_ID = #DealerId#
+      AND STH_Year + STH_Month = #FY#) AS T ON T.STD_Key = STF_Key
+      WHERE STF_Type = '资产负债表&利润表'
+      ORDER BY [Key]
+      ]]>
+    </select>
+
+    <select id="SelectDealerFinanceStatementDetailByDealer" parameterClass="System.Collections.Hashtable" resultClass="DpStatementDetail">
+      SELECT STD_ID AS Id,STD_STH_ID AS SthId,STD_Key AS [Key],STD_Value AS Value
+      FROM DPStatementDetail
+      INNER JOIN DPStatementHeader ON STH_ID = STD_STH_ID
+      WHERE STH_DMA_ID = #DealerId#
+      AND STH_Year + STH_Month = #YearMonth#
+    </select>
+    <!--end-->
+  </statements>
+</sqlMap>

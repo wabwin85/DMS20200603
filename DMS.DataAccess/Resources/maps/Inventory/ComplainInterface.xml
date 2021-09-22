@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ComplainInterfaceMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <alias>
+        <typeAlias alias="ComplainInterface" assembly="DMS.Model.dll" type="DMS.Model.ComplainInterface" />
+        <typeAlias alias="LpComplainData" assembly="DMS.Model.dll" type="DMS.Model.DataInterface.LpComplainData" />
+    </alias>
+    <resultMaps>
+        <resultMap id="ComplainInterfaceResult" class="ComplainInterface">
+            <result property="Id" column="CI_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="BatchNbr" column="CI_BatchNbr" type="string" dbType="nvarchar"/>
+            <result property="RecordNbr" column="CI_RecordNbr" type="string" dbType="nvarchar"/>
+            <result property="PohId" column="CI_POH_ID" type="Guid" dbType="uniqueidentifier"/>
+            <result property="PohOrderNo" column="CI_POH_OrderNo" type="string" dbType="nvarchar"/>
+            <result property="Status" column="CI_Status" type="string" dbType="nvarchar"/>
+            <result property="ProcessType" column="CI_ProcessType" type="string" dbType="nvarchar"/>
+            <result property="FileName" column="CI_FileName" type="string" dbType="nvarchar"/>
+            <result property="CreateUser" column="CI_CreateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="CreateDate" column="CI_CreateDate" type="DateTime" dbType="datetime"/>
+            <result property="UpdateUser" column="CI_UpdateUser" type="Guid" dbType="uniqueidentifier"/>
+            <result property="UpdateDate" column="CI_UpdateDate" type="DateTime" dbType="datetime"/>
+            <result property="Clientid" column="CI_ClientID" type="string" dbType="nvarchar"/>
+        </resultMap>
+        <resultMap id="LpComplainDataResult" class="LpComplainData">
+            <result property="ComplainNo" column="ComplainNo" type="string" dbType="nvarchar"/>
+            <result property="ComplainDate" column="ComplainDate" type="DateTime" dbType="datetime"/>
+            <result property="DistributorID" column="DistributorID" type="string" dbType="nvarchar"/>
+            <result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+            <result property="UPN" column="UPN" type="string" dbType="nvarchar"/>
+            <result property="Lot" column="Lot" type="string" dbType="nvarchar"/>
+            <result property="Qty" column="Qty" type="decimal" dbType="decimal"/>
+            <result property="UnitPrice" column="UnitPrice" type="decimal" dbType="decimal"/>
+            <result property="QRCode" column="QRCode" type="string" dbType="nvarchar"/>
+            <result property="WarehouseCode" column="WarehouseCode" type="string" dbType="nvarchar"/>
+            
+        </resultMap>
+    </resultMaps>
+    <parameterMaps>
+        <parameterMap id="GC_LpComplain_AfterDownload_ParameterMap" class="System.Collections.Hashtable" >
+            <parameter property="RtnVal" column="RtnVal" direction="Output" />
+            <parameter property="BatchNbr" column="BatchNbr" />
+            <parameter property="ClientID" column="ClientID" />
+            <parameter property="Success" column="Success" />
+        </parameterMap>
+    </parameterMaps>
+    <statements>
+
+        <select id="SelectComplainInterface" parameterClass="string" resultClass="ComplainInterface">
+            SELECT CI_ID AS Id,CI_BatchNbr AS BatchNbr,CI_RecordNbr AS RecordNbr,CI_POH_ID AS PohId,CI_POH_OrderNo AS PohOrderNo,CI_Status AS Status,CI_ProcessType AS ProcessType,CI_FileName AS FileName,CI_CreateUser AS CreateUser,CI_CreateDate AS CreateDate,CI_UpdateUser AS UpdateUser,CI_UpdateDate AS UpdateDate,CI_ClientID AS Clientid
+            FROM ComplainInterface
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    CI_ID = #value#
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="SelectByFilterComplainInterface" parameterClass="ComplainInterface" resultClass="ComplainInterface">
+            SELECT CI_ID AS Id,CI_BatchNbr AS BatchNbr,CI_RecordNbr AS RecordNbr,CI_POH_ID AS PohId,CI_POH_OrderNo AS PohOrderNo,CI_Status AS Status,CI_ProcessType AS ProcessType,CI_FileName AS FileName,CI_CreateUser AS CreateUser,CI_CreateDate AS CreateDate,CI_UpdateUser AS UpdateUser,CI_UpdateDate AS UpdateDate,CI_ClientID AS Clientid
+            FROM ComplainInterface
+            <dynamic prepend="WHERE">
+                <isNotNull prepend="AND" property="Id">CI_ID=#Id#</isNotNull>
+                <isNotNull prepend="AND" property="BatchNbr">CI_BatchNbr=#BatchNbr#</isNotNull>
+                <isNotNull prepend="AND" property="RecordNbr">CI_RecordNbr=#RecordNbr#</isNotNull>
+                <isNotNull prepend="AND" property="PohId">CI_POH_ID=#PohId#</isNotNull>
+                <isNotNull prepend="AND" property="PohOrderNo">CI_POH_OrderNo=#PohOrderNo#</isNotNull>
+                <isNotNull prepend="AND" property="Status">CI_Status=#Status#</isNotNull>
+                <isNotNull prepend="AND" property="ProcessType">CI_ProcessType=#ProcessType#</isNotNull>
+                <isNotNull prepend="AND" property="FileName">CI_FileName=#FileName#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateUser">CI_UpdateUser=#UpdateUser#</isNotNull>
+                <isNotNull prepend="AND" property="UpdateDate">CI_UpdateDate=#UpdateDate#</isNotNull>
+                <isNotNull prepend="AND" property="Clientid">CI_ClientID=#Clientid#</isNotNull>
+            </dynamic>
+        </select>
+        <insert id="InsertComplainInterface" parameterClass="ComplainInterface">
+            INSERT INTO ComplainInterface
+            (CI_ID,CI_BatchNbr,CI_RecordNbr,CI_POH_ID,CI_POH_OrderNo,CI_Status,CI_ProcessType,CI_FileName,CI_CreateUser,CI_CreateDate,CI_UpdateUser,CI_UpdateDate,CI_ClientID)
+            VALUES(#Id#,#BatchNbr#,#RecordNbr#,#PohId#,#PohOrderNo#,#Status#,#ProcessType#,#FileName#,#CreateUser#,#CreateDate:DateTime:1/1/0001 12:00:00 AM#,#UpdateUser#,#UpdateDate:DateTime:1/1/0001 12:00:00 AM#,#Clientid#)
+        </insert>
+        <update id="UpdateComplainInterface" parameterClass="ComplainInterface">
+            UPDATE ComplainInterface
+            SET CI_ID=#Id#,CI_BatchNbr=#BatchNbr#,CI_RecordNbr=#RecordNbr#,CI_POH_ID=#PohId#,CI_POH_OrderNo=#PohOrderNo#,CI_Status=#Status#,CI_ProcessType=#ProcessType#,CI_FileName=#FileName#,CI_UpdateUser=#UpdateUser#,CI_UpdateDate=#UpdateDate#,CI_ClientID=#Clientid#
+            WHERE CI_ID = #Id#
+        </update>
+        <delete id="DeleteComplainInterface" parameterClass="string">
+            DELETE FROM ComplainInterface
+            WHERE CI_ID = #value#
+        </delete>
+        <!--根据客户端ID初始化LP自己的投诉订单数据-->
+        <update id="UpdateComplainInterfaceForLpInitByClientID" parameterClass="System.Collections.Hashtable">
+            WITH CI (CI_ID, RECORD_NBR) AS
+            (SELECT CI_ID,ROW_NUMBER() OVER (ORDER BY CI_POH_OrderNo) AS RECORD_NBR
+            from ComplainInterface
+            INNER JOIN (SELECT DC_ID, DC_CorpId FROM DealerComplain
+            UNION
+            SELECT DC_ID, DC_CorpId FROM DealerComplainCRM
+            ) AS DC ON DC.DC_ID = CI_POH_ID
+            INNER JOIN Client ON CLT_ID = CI_ClientID
+            WHERE CI_ClientID=#Clientid# AND CI_Status='Pending' )
+            UPDATE ComplainInterface SET CI_BatchNbr=#BatchNbr#, CI_RecordNbr = CI.RECORD_NBR, CI_Status='Processing', CI_UpdateDate = #UpdateDate#
+            FROM CI WHERE CI.CI_ID = ComplainInterface.CI_ID
+        </update>
+        <select id="QueryComplainInfoByBatchNbrForLp" parameterClass="string" resultClass="LpComplainData">
+            <!--SELECT
+        ISNULL(POH.POH_OrderNo,'') AS ComplainNo,
+        POH.POH_SubmitDate AS ComplainDate,
+        ISNULL(POH.POH_Remark,'') AS Remark,
+        ISNULL(CFN.CFN_CustomerFaceNbr,'') AS UPN,       
+        --><!--二维码更新 Edit By SongWeiming on 2016-1-3--><!--
+        CASE WHEN charindex('@@',POD.POD_LotNumber) > 0
+        THEN substring(POD.POD_LotNumber,1,charindex('@@',POD.POD_LotNumber)-1)
+        ELSE POD.POD_LotNumber
+        END AS Lot,
+        CASE WHEN charindex('@@',POD.POD_LotNumber) > 0
+        THEN substring(POD.POD_LotNumber,charindex('@@',POD.POD_LotNumber)+2,len(POD.POD_LotNumber))
+        ELSE ''
+        END AS QRCode,
+        --><!--二维码更新 Edit By SongWeiming on 2016-1-3--><!--
+      Convert(decimal(18,6),POD.POD_RequiredQty) AS Qty,
+      POD.POD_CFN_Price as UnitPrice
+      FROM ComplainInterface CI
+      INNER JOIN PurchaseOrderHeader POH ON CI.CI_POH_ID = POH.POH_ID
+      INNER JOIN PurchaseOrderDetail POD ON POD.POD_POH_ID = POH.POH_ID
+      INNER JOIN CFN ON CFN.CFN_ID = POD.POD_CFN_ID
+      INNER JOIN (SELECT DICT_KEY, REV1, REV2 FROM Lafite_DICT WHERE DICT_TYPE = 'CONST_Order_Type') AS ORDERTYPE ON ORDERTYPE.DICT_KEY = POH.POH_OrderType
+      WHERE CI.CI_BatchNbr = #BatchNbr#
+      ORDER BY POH.POH_OrderNo, CFN.CFN_CustomerFaceNbr-->
+          SELECT
+          ISNULL(DC.DC_ComplainNbr,'') AS ComplainNo,
+          (select t2.CC_DivisionName from CfnClassification t1(nolock), V_ProductClassificationStructure t2(nolock)  where t1.ClassificationId =t2.CA_ID and t1.CfnCustomerFaceNbr = DC.UPN) AS ProductLine,
+          DM.DMA_SAP_Code AS DistributorID,
+          DC.DC_CreatedDate AS ComplainDate,
+          '' AS Remark,
+          ISNULL(DC.UPN,'') AS UPN,
+          <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+            CASE WHEN charindex('@@',DC.Lot) > 0
+            THEN substring(DC.Lot,1,charindex('@@',DC.Lot)-1)
+            ELSE DC.Lot
+            END AS Lot,
+            CASE WHEN charindex('@@',DC.Lot) > 0
+            THEN substring(DC.Lot,charindex('@@',DC.Lot)+2,len(DC.Lot))
+            ELSE ''
+            END AS QRCode,
+            <!--二维码更新 Edit By SongWeiming on 2016-1-3-->
+            DC.returnNum AS Qty,
+            Convert(decimal(18,2),0) as UnitPrice,
+            WH.WHM_Code as WarehouseCode
+            FROM ComplainInterface CI(nolock)
+            INNER JOIN (select DC_ID, DC_CorpId, DC_ComplainNbr,DC_CreatedDate,upn,Lot,Convert(decimal(18,6),returnNum) AS returnNum, WHM_ID FROM DealerComplain
+            UNION
+            select DC_ID, DC_CorpId,DC_ComplainNbr,DC_CreatedDate,serial,Lot, Convert(decimal(18,2),1) AS returnNum, WHMID  FROM DealerComplainCRM
+            ) AS DC ON DC.DC_ID = CI.CI_POH_ID
+            INNER JOIN DealerMaster DM(nolock) ON DM.DMA_ID = DC.DC_CorpId
+            INNER JOIN Warehouse WH(nolock) ON WH.WHM_ID = DC.WHM_ID
+            WHERE CI.CI_BatchNbr = #BatchNbr#
+            ORDER BY DC.DC_ComplainNbr,DC.upn
+        </select>
+        <!--客户端下载完订单后更新数据-->
+        <procedure id="GC_LpComplain_AfterDownload" parameterMap="GC_LpComplain_AfterDownload_ParameterMap">
+            dbo.GC_LpComplain_AfterDownload
+        </procedure>
+        <!--end-->
+    </statements>
+</sqlMap>
