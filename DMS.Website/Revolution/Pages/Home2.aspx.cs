@@ -11,7 +11,7 @@ namespace DMS.Website.Revolution.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string a = "wang";
+            
         }
     }
 }
