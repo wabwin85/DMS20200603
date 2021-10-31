@@ -640,12 +640,16 @@
     <Content Include="Revolution\Pages\MasterDatas\DealerAttachDetailForDD.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\DealerContractEditor.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\DealerMaintainListForDD.aspx" />
+    <Content Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfg.aspx" />
+    <Content Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfgImport.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\MasterDataInfo.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\MasterDatasList.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\OperationManualManage.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\HospitalBaseAop.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\HospitalBaseAopImport.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\Script\DealerContractEditor.js" />
+    <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvGoodsCfg.js" />
+    <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvGoodsCfgImport.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\MasterDatasInfo.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\MasterDatasList.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\OperationManualManage.js" />
@@ -740,6 +744,10 @@
     <Content Include="Revolution\Pages\Report\Script\DealerTransfer.js" />
     <Content Include="Revolution\Pages\Report\Script\SalesAOP.js" />
     <Content Include="Revolution\Pages\Report\Script\SalesHospitalReport.js" />
+    <Content Include="Revolution\Pages\Shipment\Extense\InvReconcile.aspx" />
+    <Content Include="Revolution\Pages\Shipment\Extense\ReconcileRule.aspx" />
+    <Content Include="Revolution\Pages\Shipment\Script\Extense\InvReconcile.js" />
+    <Content Include="Revolution\Pages\Shipment\Script\Extense\ReconcileRule.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentInit.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentInitList.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentListInfoForBSC.js" />
@@ -6582,6 +6590,20 @@
     <Compile Include="Revolution\Pages\MasterDatas\DealerMasterEditor.aspx.designer.cs">
       <DependentUpon>DealerMasterEditor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfg.aspx.cs">
+      <DependentUpon>InvGoodsCfg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfg.aspx.designer.cs">
+      <DependentUpon>InvGoodsCfg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfgImport.aspx.cs">
+      <DependentUpon>InvGoodsCfgImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfgImport.aspx.designer.cs">
+      <DependentUpon>InvGoodsCfgImport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Revolution\Pages\MasterDatas\MasterDataInfo.aspx.cs">
       <DependentUpon>MasterDataInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7085,6 +7107,20 @@
     </Compile>
     <Compile Include="Revolution\Pages\Report\SalesHospitalReport.aspx.designer.cs">
       <DependentUpon>SalesHospitalReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\InvReconcile.aspx.cs">
+      <DependentUpon>InvReconcile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\InvReconcile.aspx.designer.cs">
+      <DependentUpon>InvReconcile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\ReconcileRule.aspx.cs">
+      <DependentUpon>ReconcileRule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\ReconcileRule.aspx.designer.cs">
+      <DependentUpon>ReconcileRule.aspx</DependentUpon>
     </Compile>
     <Compile Include="Revolution\Pages\Shipment\ShipmentInit.aspx.cs">
       <DependentUpon>ShipmentInit.aspx</DependentUpon>

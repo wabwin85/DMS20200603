@@ -252,6 +252,8 @@
     <Compile Include="MasterData\ConsignmentDiscountRuleDao.cs" />
     <Compile Include="MasterData\COPDao.cs" />
     <Compile Include="MasterData\HospitalPositionInitDao.cs" />
+    <Compile Include="MasterData\InvGoodsCfgDao.cs" />
+    <Compile Include="MasterData\InvGoodsCfgImportDao.cs" />
     <Compile Include="MasterData\MasterDatasDao.cs" />
     <Compile Include="MasterData\PositionHospitalDao.cs" />
     <Compile Include="MasterData\DealerAuthorizationDao.cs" />
@@ -364,6 +366,8 @@
     <Compile Include="Shipment\DealerCommonSettingDao.cs" />
     <Compile Include="Shipment\DealerProductPriceHistoryDao.cs" />
     <Compile Include="Shipment\HospitalShipmentbscBeforeSubmitInitDao.cs" />
+    <Compile Include="Shipment\InvReconcileDao.cs" />
+    <Compile Include="Shipment\ReconcileRuleDao.cs" />
     <Compile Include="Shipment\SalesInterfaceDao.cs" />
     <Compile Include="Shipment\ShipmentAdjustLotDao.cs" />
     <Compile Include="Shipment\ShipmentConsignmentDao.cs" />
@@ -1028,6 +1032,12 @@
     <EmbeddedResource Include="Resources\maps\Log\LafiteLog.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\InvReconcileDetailTemp.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\InvReconcileDetail.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\InvReconcile.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\InvGoodsCfgInit.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\InvGoodsConfig.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\ReconcileRule.xml" />
     <EmbeddedResource Include="Resources\maps\MasterData\MasterDatas.xml" />
     <EmbeddedResource Include="Resources\maps\MasterData\HospitalPositionInit.xml" />
     <EmbeddedResource Include="Resources\maps\Transfer\TransferBorrowInit.xml">

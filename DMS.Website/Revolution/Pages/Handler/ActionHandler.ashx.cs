@@ -22,6 +22,7 @@ namespace DMS.Website.Revolution.Pages.Handler
     {
         public void ProcessRequest(HttpContext context)
        {
+            
             String Business = context.Request.QueryString["Business"].ToSafeString();
 
             //String ViewModel = context.Request.QueryString["ViewModel"].ToSafeString();

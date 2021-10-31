@@ -28,3 +28,19 @@
     margin-bottom: -3px;
     text-align: center;
 }
+
+
+
+.col6-primary {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 4px solid #d2d6de;
+    margin-bottom: 5px;
+    
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.col6-box {
+    border-top-color: #3c8dbc;
+}

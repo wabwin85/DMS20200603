@@ -282,6 +282,12 @@
     <Compile Include="Inventory\TIWcDealerBarcodeqRcodeScanBLL.cs" />
     <Compile Include="Log\ILafite_LogBLL.cs" />
     <Compile Include="Log\Lafite_LogBLL.cs" />
+    <Compile Include="MasterData\IInvGoodsCfgBLL.cs" />
+    <Compile Include="MasterData\IInvGoodsCfgImportBLL.cs" />
+    <Compile Include="Shipment\IInvReconcileBLL.cs" />
+    <Compile Include="MasterData\InvGoodsCfgBLL.cs" />
+    <Compile Include="MasterData\InvGoodsCfgImportBLL.cs" />
+    <Compile Include="Shipment\InvReconcileBLL.cs" />
     <Compile Include="MasterData\PositionHospitalBLL.cs" />
     <Compile Include="MasterData\ProductLineBLL.cs" />
     <Compile Include="MasterData\AutoNumberBLL.cs" />

@@ -148,6 +148,8 @@
     <Compile Include="MasterDatas\DealerMaintainListForDDService.cs" />
     <Compile Include="MasterDatas\DealerMaintainListService.cs" />
     <Compile Include="MasterDatas\DealerMasterEditorService.cs" />
+    <Compile Include="MasterDatas\InvGoodsCfgImportService.cs" />
+    <Compile Include="MasterDatas\InvGoodsCfgService.cs" />
     <Compile Include="MasterDatas\MasterDatasInfoService.cs" />
     <Compile Include="MasterDatas\MasterDatasListService.cs" />
     <Compile Include="MasterDatas\OperationManualManageService.cs" />
@@ -244,6 +246,8 @@
     <Compile Include="Report\DealerSalesReport_NewService.cs" />
     <Compile Include="Report\SalesAOPService.cs" />
     <Compile Include="Report\SalesHospitalReportService.cs" />
+    <Compile Include="Shipment\InvReconcileService.cs" />
+    <Compile Include="Shipment\ReconcileRuleService.cs" />
     <Compile Include="Shipment\ShipmentInitListService.cs" />
     <Compile Include="Shipment\ShipmentPrintSettingService.cs" />
     <Compile Include="Transfer\TransferDistributionListService.cs" />

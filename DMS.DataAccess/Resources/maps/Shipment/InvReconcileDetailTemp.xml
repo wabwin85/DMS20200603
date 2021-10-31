@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InvReconcileDetailTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="InvReconcileDetailTemp" assembly="DMS.Model.dll" type="DMS.Model.InvReconcileDetailTemp" />
+	</alias>
+	<resultMaps>
+		<resultMap id="InvReconcileDetailTempResult" class="InvReconcileDetailTemp">
+			<result property="Id" column="Id" type="Guid" dbType="Guid"/>
+			<result property="SPH_ID" column="SPH_ID" type="Guid" dbType="Guid"/>
+			<result property="CFN_ID" column="CFN_ID" type="Guid" dbType="Guid"/>
+			<result property="CFN" column="CFN" type="string" dbType="nvarchar"/>
+			<result property="OrderNumber" column="OrderNumber" type="string" dbType="varchar"/>
+			<result property="CompareUser" column="CompareUser" type="Guid" dbType="Guid"/>
+			<result property="DMA_ID" column="DMA_ID" type="Guid" dbType="Guid"/>
+			<result property="DMA_Name" column="DMA_Name" type="string" dbType="nvarchar"/>
+			<result property="HospitalName" column="HospitalName" type="string" dbType="nvarchar"/>
+			<result property="Hospital_ID" column="Hospital_ID" type="Guid" dbType="Guid"/>
+			<result property="ProductLineId" column="ProductLineId" type="Guid" dbType="Guid"/>
+			<result property="TotalNumber" column="TotalNumber" type="decimal" dbType="decimal"/>
+			<result property="CompareStatus" column="CompareStatus" type="string" dbType="nvarchar"/>
+			<result property="IsDelete" column="IsDelete" type="bool" dbtype="bit"/>
+		</resultMap>
+	</resultMaps>
+	<parameterMaps>
+		<parameterMap id="InvRecDetailTempParameter" class="System.Collections.Hashtable">
+			<parameter property="CompareUser" column="CompareUser" />
+			 <parameter property="CompareStatus" column="CompareStatus" />
+			 <parameter property="RtnVal" column="RtnVal" direction="Output" />
+			 <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+		</parameterMap>
+	</parameterMaps>
+	<statements>
+		<update id="DeleteReconcileDetailResultByUser" parameterClass="string">
+			update InvReconcileDetailTemp set isDelete = 'true'
+			where CompareUser = #value#
+		</update>
+		<select id="SelectInvReconcileTempByUser" parameterClass="string" resultClass="System.Collections.Hashtable">
+			SELECT *
+			FROM InvReconcileDetailTemp
+			WHERE IsDelete = 'false' and CompareUser = #value#
+		</select>
+		<procedure id="SaveCompareStatus" parameterMap ="InvRecDetailTempParameter">
+			dbo.GC_SaveCompareStatus
+		</procedure>
+	</statements>
+</sqlMap>
+

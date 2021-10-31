@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InvReconcileSummaryMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="InvReconcileSummary" assembly="DMS.Model.dll" type="DMS.Model.InvReconcileSummary" />
+	</alias>
+	<resultMaps>
+		<resultMap id="InvReconcileSummaryResult" class="InvReconcileSummary">
+			<result property="Id" column="RCE_INV_ID" type="Guid" dbType="Guid"/>
+			<result property="RCE_SPH_ID" column="RCE_SPH_ID" type="Guid" dbType="Guid" />
+			<result property="FailMsg" column="FailMsg" type="string" dbType="nvarchar" />
+			<result property="CompareStatus" column="CompareStatus" type="string" dbType="nvarchar" />
+			<result property="IsSystemCompare" column="IsSystemCompare" type="bool" dbType="bit" />
+			<result property="CompareTime" column="CompareTime" type="dateTime" dbType="DateTime" />
+			<result property="UpdateUser" column="UpdateUser" type="Guid" dbType="Guid" />
+			<result property="CreateTime" column="CreateTime" type="dateTime" dbType="DateTime" />
+			<result property="UpdateTime" column="UpdateTime" type="dateTime" dbType="DateTime" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<select id="QueryInvReconcileInfos" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			SELECT *,row_number() over (ORDER BY isnull(SPH_ShipmentDate,SPH_UpdateDate) desc) AS row_number FROM
+			(
+			SELECT
+			A.SPH_ID as Id,
+			B.RCE_INV_ID,
+			B.CompareTime,
+			(SELECT TOP 1 DMA_ChineseName FROM DealerMaster WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerName,
+			(SELECT TOP 1 DMA_ID FROM DealerMaster WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerId,
+			A.SubCompanyName,
+			A.BrandName,
+			A.SPH_ProductLine_BUM_ID AS ProductLineId,
+			(select ATTRIBUTE_NAME from Lafite_ATTRIBUTE (nolock) where Id = A.SPH_ProductLine_BUM_ID) AS ProductLine,
+			(SELECT TOP 1 HOS_HospitalName FROM Hospital (nolock) WHERE HOS_ID = A.SPH_Hospital_HOS_ID) AS HospitalName
+			,A.SPH_ShipmentNbr AS OrderNumber,A.SPH_ShipmentDate,A.SPH_UpdateDate,
+			(SELECT ISNULL(SUM(CONVERT(DECIMAL(18,1),A.SLT_LotShippedQty)),0) FROM ShipmentLot A (nolock) inner join ShipmentLine B (nolock) ON A.SLT_SPL_ID = B.SPL_ID AND B.SPL_SPH_ID = SPH_ID)AS TotalQty,
+			(SELECT COUNT(0) FROM ShipmentInvoice (NOLOCK) WHERE SPI_SPH_ID = SPH_ID) AS InvQty,
+			B.CompareStatus,
+			B.FailMsg,
+			(case when IsSystemCompare = 'true' then '系统对账' when IsSystemCompare = 'false' then '人工对账' else '' end) as CompareInfo,
+			B.UpdateTime
+			FROM ShipmentHeader (nolock) A left join InvReconcileSummary (nolock) B on A.SPH_ID =B.RCE_SPH_ID
+			) AS T
+			WHERE ISNULL(SubCompanyName,'')!= '' and ISNULL(BrandName,'')!=''
+			<dynamic prepend="">
+				<isNotNull prepend="AND" property="DealerId">DealerId=#DealerId#</isNotNull>
+				<isNotNull prepend="AND" property="ProductLineId">ProductLine=#ProductLineId#</isNotNull>
+				<isNotNull prepend="AND" property="OrderNumber">OrderNumber like N'$OrderNumber$%'</isNotNull>
+				<isNotNull prepend="AND" property="RecileStartDate">CompareTime>=#RecileStartDate#</isNotNull>
+				<isNotNull prepend="AND" property="RecileEndDate">CompareTime&lt;=#RecileEndDate#</isNotNull>
+				<isNotNull prepend="AND" property="HospitalName">HospitalName like N'%$HospitalName$%'</isNotNull>
+				<isNotNull prepend="AND" property="CompareInfo">CompareInfo=#CompareInfo#</isNotNull>
+			</dynamic>
+
+		</select>
+		<select id="QueryProductDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
+			SELECT *
+			FROM
+			(
+			SELECT A.SPH_ID as Id,A.SPH_ShipmentNbr AS OrderNumber,
+			(SELECT TOP 1 DMA_ChineseName FROM DealerMaster NOLOCK WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerName,
+			A.SPH_Dealer_DMA_ID AS DealerId,
+			A.SPH_ProductLine_BUM_ID AS ProductLineId,
+			(select top 1 ATTRIBUTE_NAME from Lafite_ATTRIBUTE (nolock) where id =A.SPH_ProductLine_BUM_ID) AS ProductLineName,
+			D.CFN_CustomerFaceNbr AS CFN,
+			D.CFN_ID AS CFN_ID,
+			ISNULL(E.Id ,'') as INVRecDetailId,
+			A.SPH_Hospital_HOS_ID AS Hos_ID,
+			D.CFN_ChineseName,
+			(SELECT top 1 HOS_HospitalName FROM Hospital (NOLOCK) WHERE HOS_ID = A.SPH_Hospital_HOS_ID) AS HospitalName,
+			(SELECT ISNULL( SUM(convert(decimal(18,6), SLT_LotShippedQty)),0)  FROM ShipmentLot NOLOCK WHERE SLT_SPL_ID = B.SPL_ID) AS ShipmentQty,
+			(CASE WHEN ISNULL(E.CompareStatus,'' ) ='' THEN '未对账' ELSE E.CompareStatus END) AS CompareStatus,
+			row_number() over (order by A.SPH_ID) AS row_number
+			from ShipmentHeader A inner join ShipmentLine B on A.SPH_ID = B.SPL_SPH_ID
+			INNER JOIN  Product C ON B.SPL_Shipment_PMA_ID = C.PMA_ID INNER JOIN CFN D
+			ON C.PMA_CFN_ID = D.CFN_ID
+			LEFT JOIN InvReconcileDetail E ON A.SPH_ID = E.SPH_ID AND A.SPH_ProductLine_BUM_ID = E.ProductLineId AND
+			D.CFN_ID = E.CFN_ID
+			) AS T
+			where Id IN ($IDs$)
+			ORDER BY OrderNumber,CFN
+		</select>
+		<select id="QueryInvDetailRecords" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			SELECT * FROM InvReconcileDetail
+			WHERE 1=1
+			<dynamic prepend="">
+				<isNotNull prepend="AND" property="SPH_ID">SPH_ID=#SPH_ID#</isNotNull>
+				<isNotNull prepend="AND" property="OrderNumber">OrderNumber=#OrderNumber#</isNotNull>
+				<isNotNull prepend="AND" property="CFN_ID">CFN_ID=#CFN_ID#</isNotNull>
+			</dynamic>
+		</select>
+		<select id="QueryInvoiceDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
+			SELECT * FROM
+			(
+			SELECT
+			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo, B.SPI_InvoiceDate AS InvoiceDate,
+			D.SID_commodityName AS CommodityName,
+			D.SID_specificationModel AS SpecificationModel,
+			D.SID_rowNo AS RowNo, D.SID_quantity AS Quantity,
+			row_number() over (order by A.SPH_ID) AS row_number
+			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
+			ON A.SPH_ID = B.SPI_SPH_ID WHERE B.SPI_IsValid = 1
+			) AS T
+			where Id IN ($IDs$)
+			ORDER BY OrderNumber,SpecificationModel
+		</select>
+		<select id="QueryProductInvoiceDetail" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			SELECT
+			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo, B.SPI_InvoiceDate AS InvoiceDate,
+			D.SID_commodityName AS CommodityName,
+			D.SID_specificationModel AS SpecificationModel,
+			D.SID_rowNo AS RowNo, D.SID_quantity AS Quantity,
+			(SELECT TOP 1 DMA_ChineseName FROM DealerMaster NOLOCK WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerName,
+			A.SPH_Dealer_DMA_ID AS DealerId,
+			A.SPH_ProductLine_BUM_ID AS ProductLineId,
+			(select top 1 ATTRIBUTE_NAME from Lafite_ATTRIBUTE (nolock) where id =A.SPH_ProductLine_BUM_ID) AS ProductLineName,
+			G.CFN_CustomerFaceNbr AS CFN,
+			G.CFN_ChineseName,
+			(SELECT top 1 HOS_HospitalName FROM Hospital (NOLOCK) WHERE HOS_ID = A.SPH_Hospital_HOS_ID) AS HospitalName,
+			(SELECT ISNULL( SUM(convert(decimal(18,6), SLT_LotShippedQty)),0)  FROM ShipmentLot NOLOCK WHERE SLT_SPL_ID = E.SPL_ID) AS ShipmentQty,
+			row_number() over (order by A.SPH_ID) AS row_number
+			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B ON A.SPH_ID = B.SPI_SPH_ID
+			INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID
+			INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
+			INNER JOIN ShipmentLine E ON A.SPH_ID = SPL_SPH_ID
+			INNER JOIN Product F ON E.SPL_Shipment_PMA_ID = F.PMA_ID
+			INNER JOIN CFN G ON F.PMA_CFN_ID = G.CFN_ID
+			WHERE B.SPI_IsValid = 1
+			<dynamic prepend="">
+				<isNotNull prepend="AND" property="SPH_IDs">A.SPH_ID IN ($SPH_IDs$)</isNotNull>
+			</dynamic>
+		</select>
+		<select id="QueryInvoiceTotalNumber" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+			SELECT SUM(Quantity) AS Quantity FROM
+			(
+			SELECT
+			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber, A.SPH_ShipmentDate AS ShipmentDate,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo, B.SPI_InvoiceDate AS InvoiceDate,
+			D.SID_commodityName AS CommodityName,
+			D.SID_specificationModel AS SpecificationModel,
+			D.SID_rowNo AS RowNo, ISNULL( convert(decimal(18,6), D.SID_quantity),0)AS Quantity,
+			row_number() over (order by A.SPH_ID) AS row_number
+			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
+			ON A.SPH_ID = B.SPI_SPH_ID WHERE B.SPI_IsValid = 1 AND D.SID_deleteFlag = 0) AS T1
+			WHERE 1= 1
+			<dynamic prepend="">
+				<isNotNull prepend="AND" property="SPH_ID">Id=#SPH_ID#</isNotNull>
+				<isNotNull prepend="AND" property="OrderNumber">OrderNumber=#OrderNumber#</isNotNull>
+				<isEqual property="ProductRule" compareValue="产品型号"> 
+					<isNotNull prepend="AND" property="CFN">
+						 
+						( SpecificationModel = #CFN#  OR SpecificationModel = 
+						 (
+							SELECT TOP 1 ISNULL(QryCFN,'NOT Exist') FROM InvGoodsConfig WHERE SubCompanyName =  #SubCompanyName# 
+							and BrandName = #BrandName# and ProductLine = (
+							SELECT TOP 1 ATTRIBUTE_NAME FROM Lafite_ATTRIBUTE where Id = #ProductLineId# AND DELETE_FLAG = '0') AND QryCFN = #CFN#
+					     )
+						 )
+					</isNotNull> 
+				</isEqual>
+				<isEqual property="InvoiceRule" compareValue="发票日期">
+					And  ABS(DATEDIFF(day,ShipmentDate,InvoiceDate))=0
+				</isEqual>
+				<isEqual property="HosRule" compareValue="销售医院">
+					<isNotNull prepend="AND" property="HospitalName">
+						  InvoiceTitle = #HospitalName#
+					</isNotNull>
+				</isEqual>
+			</dynamic>
+		</select>
+		<update id="UpdateInvRecSummary" parameterClass="System.Collections.Hashtable">
+			UPDATE InvReconcileSummary SET CompareStatus = #CompareStatus#,
+			UpdateUser = #CompareUser#, UpdateTime =getdate(),IsSystemCompare = #IsSystemCompare#
+			WHERE RCE_INV_ID in($Ids$)
+		</update>
+	</statements>
+</sqlMap>

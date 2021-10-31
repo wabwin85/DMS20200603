@@ -102,6 +102,8 @@
     <Compile Include="EKPWorkflow\KmReviewParamterForm.cs" />
     <Compile Include="MasterData\CfnPriceImportInit.cs" />
     <Compile Include="MasterData\HospitalPositionInit.cs" />
+    <Compile Include="MasterData\InvGoodsCfgInit.cs" />
+    <Compile Include="MasterData\InvGoodsConfig.cs" />
     <Compile Include="MasterData\MasterDatasPO.cs" />
     <Compile Include="MasterData\TerritoryEx.cs" />
     <Compile Include="MasterData\ViewProductLine.cs" />
@@ -111,6 +113,10 @@
     <Compile Include="Platform\OperLogMasterPO.cs" />
     <Compile Include="Promotion\ProLargessFort2Init.cs" />
     <Compile Include="Shipment\HospitalShipmentbscBeforeSubmitInit.cs" />
+    <Compile Include="Shipment\InvReconcileDetail.cs" />
+    <Compile Include="Shipment\InvReconcileDetailTemp.cs" />
+    <Compile Include="Shipment\InvReconcileSummary.cs" />
+    <Compile Include="Shipment\ReconcileRule.cs" />
     <Compile Include="TenderAuthorizationList\TenderAuthorizationListVO.cs" />
     <Compile Include="Transfer\TransferBorrowInit.cs" />
     <Compile Include="ViewModel\ContractElectronic\ContractDetailView.cs" />
@@ -487,7 +493,9 @@
   <ItemGroup>
     <None Include="Inventory\OnHandQtyGTZero.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MasterData\Extense\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

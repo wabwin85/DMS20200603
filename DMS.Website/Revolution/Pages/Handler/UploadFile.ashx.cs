@@ -226,6 +226,10 @@ namespace DMS.Website.Revolution.Pages.Handler
                             case "HospitalBaseAopImport":
                                 HospitalBaseAopImport(dt);
                                 break;
+                            //商品发票配置导入
+                            case "InvGoodsCfgImport":
+                                InvGoodsCfgImport(dt);
+                            break;
                             default:
                                 break;
                         }
@@ -1383,6 +1387,30 @@ namespace DMS.Website.Revolution.Pages.Handler
                 HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
             }
         }
+
+        protected void InvGoodsCfgImport(DataTable dt)
+        {
+            InvGoodsCfgImportService business = new InvGoodsCfgImportService();
+            string IsValid = string.Empty;
+            if(business.Import(dt))
+            {
+                business.VerifyInvGoodsCfgImport("Import", out IsValid);
+            }
+            else
+            {
+                IsValid = "Error";
+            }
+            if (IsValid == "Success")
+            {
+                var lstresult = new { result = "Success", msg = "", count = dt.Rows.Count };
+                HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+            }
+            else
+            {
+                var lstresult = new { result = "DataError", msg = "" };
+                HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+            }
+        }
         private bool CheckData(string type, DataTable dt)
         {
             return true;
@@ -1777,6 +1805,13 @@ namespace DMS.Website.Revolution.Pages.Handler
                 //医院标准指标导入
                 case "HospitalBaseAopImport":
                     if (!checkCaptions(dt, new string[] { "分子公司", "品牌", "产品线", "产品分类", "年份", "医院名称", "医院编号", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月","是否删除" }))
+                    {
+                        templateFlag = false;
+                        msg = "模板错误，请从当前页面下载模板导入！";
+                    }
+                    break;
+                case "InvGoodsCfgImport":
+                    if(!checkCaptions(dt, new string[] { "分子公司", "品牌", "产品线" ,"产品型号","产品中文名称","发票规格型号"}))
                     {
                         templateFlag = false;
                         msg = "模板错误，请从当前页面下载模板导入！";

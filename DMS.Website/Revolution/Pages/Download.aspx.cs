@@ -94,6 +94,12 @@ namespace DMS.Website.Revolution.Pages
                     string filename = Request.QueryString["filename"];
                     DownloadFile(filename, downname);
                 }
+                else if(Request.QueryString["downtype"].ToString() == "InvoiceAttachment")
+                {
+                    string downname = Request.QueryString["downloadname"];
+                    string filename = Request.QueryString["filename"];
+                    DownloadFileForTender(filename, downname);
+                }
                 else
                 {
                     string downname = Request.QueryString["downloadname"];
@@ -377,6 +383,36 @@ namespace DMS.Website.Revolution.Pages
 
             }
         }
+
+        protected void DownloadInvoiceAttachment(string filename, string downname)
+        {
+            string savename = downname;
+
+            try
+            {
+                filename = AppDomain.CurrentDomain.BaseDirectory.ToString() + "/" + filename;
+
+                Response.Clear();
+                Response.Buffer = true;
+
+                //以字符流的形式下载文件 
+                System.IO.FileStream fs = new System.IO.FileStream(filename, System.IO.FileMode.Open);
+                byte[] bytes = new byte[(int)fs.Length];
+                fs.Read(bytes, 0, bytes.Length);
+                fs.Close();
+                Response.ContentType = "application/octet-stream";
+                //通知浏览器下载文件而不是打开 
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode(savename, System.Text.Encoding.UTF8));
+                Response.BinaryWrite(bytes);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         //授权导出pdf
         protected void DownloadFileForTender(string filename, string downname)
         {

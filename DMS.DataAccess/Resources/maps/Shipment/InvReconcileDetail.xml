@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InvReconcileDetailMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="InvReconcileDetail" assembly="DMS.Model.dll" type="DMS.Model.InvReconcileDetail" />
+	</alias>
+	<resultMaps>
+		<resultMap id="InvReconcileDetailResult" class="InvReconcileDetail">
+			<result property="Id" column="Id" type="Guid" dbType="Guid"/>
+			<result property="RCE_INV_ID" column="RCE_INV_ID" type="Guid" dbType="Guid"/>
+			<result property="CFN_ID" column="CFN_ID" type="Guid" dbType="Guid"/>
+			<result property="CFN" column="CFN" type="string" dbType="nvarchar"/>
+			<result property="OrderNumber" column="OrderNumber" type="string" dbType="varchar"/>
+			<result property="CompareUser" column="CompareUser" type="Guid" dbType="Guid"/>
+			<result property="DMA_ID" column="DMA_ID" type="Guid" dbType="Guid"/>
+			<result property="DMA_Name" column="DMA_Name" type="string" dbType="nvarchar"/>
+			<result property="HospitalName" column="HospitalName" type="string" dbType="nvarchar"/>
+			<result property="Hospital_ID" column="Hospital_ID" type="Guid" dbType="Guid"/>
+			<result property="ProductLineId" column="ProductLineId" type="Guid" dbType="Guid"/>
+			<result property="TotalNumber" column="TotalNumber" type="decimal" dbType="decimal"/>
+			<result property="CompareStatus" column="CompareStatus" type="string" dbType="nvarchar"/>
+			<result property="CompareDate" column="CompareDate" type="datetime" dbType="DateTime"/>
+		</resultMap>
+	</resultMaps>
+	<parameterMaps>
+		<parameterMap id="InvReconcileDetailPara" class="System.Collections.Hashtable">
+			<parameter property="SPH_ID" column="SPH_ID" />
+			<parameter property="OrderNumber" column="OrderNumber" />
+			<parameter property="CFN_ID" column="CFN_ID" />
+			<parameter property="SubCompanyId" column="SubCompanyId" />
+			<parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+		</parameterMap>
+		<parameterMap id="InvRecDetailTempParameter" class="System.Collections.Hashtable">
+			<parameter property="SPH_ID" column="SPH_ID" />
+			<parameter property="OrderNumber" column="OrderNumber" />
+			<parameter property="CFN" column="CFN" />
+			<parameter property="CompareUser" column="CompareUser" />
+			<parameter property="CompareStatus" column="CompareStatus" />
+			<parameter property="RtnVal" column="RtnVal" direction="Output" />
+			<parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+		</parameterMap>
+	</parameterMaps>
+	<statements>
+		<procedure id="SaveInvReconcileDetailCompareInfo" parameterMap="InvReconcileDetailPara">
+			dbo.GC_SaveInvReconcileDetailCompareInfo
+		</procedure>
+		<procedure id="UpdateCompareStatus" parameterMap="InvReconcileDetailPara">
+			dbo.GC_UpdateCompareStatus
+		</procedure>
+	</statements>
+</sqlMap>

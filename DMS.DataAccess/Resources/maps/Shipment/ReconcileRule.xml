@@ -1,0 +1,38 @@
+﻿<sqlMap namespace="ReconcileRuleMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="ReconcileRule" assembly="DMS.Model.dll" type="DMS.Model.ReconcileRule" />
+	</alias>
+	<resultMaps>
+		<resultMap id="ReconcileRuleResult" class="ReconcileRule">
+			<result property="SubCompanyId" column="PRE_SubCompanyId" type="Guid" dbType="Guid"/>
+			<result property="Rules" column="Rules" type="string" dbType="varchar"/>
+			<result property="UpdateTime" column="UpdateTime" type="DateTime" dbType="datetime"/>
+			<result property="UpdatedBy" column="UpdatedBy" type="string" dbType="nvarchar"/>
+			<result property="DeleteFlag" column="DeleteFlag" type="bool" dbType="bit"/>
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<select id="SelectReconcileRuleBySubCompany" parameterClass="ReconcileRule" resultClass="System.Collections.Hashtable">
+			SELECT PRE_SubCompanyId AS SubCompanyId,Rules,(SELECT Attribute_Name FROM Lafite_ATTRIBUTE WHERE Id = PRE_SubCompanyId) as SubCompanyName,
+			CONVERT(varchar(100),UpdateTime,20) AS UpdateTime, UpdatedBy,row_number() OVER (ORDER BY [PRE_SubCompanyId] ASC) AS [row_number]
+			FROM ReconcileRule
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="And" property="SubCompanyId">PRE_SubCompanyId=#SubCompanyId#</isNotNull>
+			</dynamic>
+		</select>
+		<select id="SelectReconcileRuleAll" parameterClass="string" resultClass="System.Collections.Hashtable">
+			SELECT SubCompanyId,Rules, UpdatedTime, UpdatedBy FROM ReconcileRule
+		</select>
+		<select id="SelectSubCompanyAll" parameterClass="string" resultClass="System.Collections.Hashtable">
+			SELECT Id as SubCompanyId, Attribute_Name as SubCompanyName
+			from Lafite_ATTRIBUTE
+			where ATTRIBUTE_TYPE = 'SubCompany' and DELETE_FLAG = 0
+		</select>
+		<update id="UpdateReconcileRule" parameterClass="ReconcileRule">
+			UPDATE ReconcileRule SET Rules = #Rules#
+			<dynamic prepend="WHERE">
+				<isParameterPresent>PRE_SubCompanyId = #SubCompanyId#</isParameterPresent>
+			</dynamic>
+		</update>
+	</statements>
+</sqlMap>
