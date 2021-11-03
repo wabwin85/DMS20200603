@@ -40,7 +40,7 @@ namespace DMS.Business.Excel
         {
             try
             {
-                app = new Microsoft.Office.Interop.Excel.Application();
+                app = new Microsoft.Office.Interop.Excel.Application(); 
                 //app.Visible = true;
                 wbs = app.Workbooks;
                 //wb = wbs.Add(FileName);

@@ -19,13 +19,14 @@
 			<result property="TotalNumber" column="TotalNumber" type="decimal" dbType="decimal"/>
 			<result property="CompareStatus" column="CompareStatus" type="string" dbType="nvarchar"/>
 			<result property="CompareDate" column="CompareDate" type="datetime" dbType="DateTime"/>
+			<result property="IsDelete" column="IsDelete" type="bool" dbType="bit" />
 		</resultMap>
 	</resultMaps>
 	<parameterMaps>
 		<parameterMap id="InvReconcileDetailPara" class="System.Collections.Hashtable">
 			<parameter property="SPH_ID" column="SPH_ID" />
 			<parameter property="OrderNumber" column="OrderNumber" />
-			<parameter property="CFN_ID" column="CFN_ID" />
+			<parameter property="CFN" column="CFN" />
 			<parameter property="SubCompanyId" column="SubCompanyId" />
 			<parameter property="RtnMsg" column="RtnMsg" direction="Output" />
 		</parameterMap>

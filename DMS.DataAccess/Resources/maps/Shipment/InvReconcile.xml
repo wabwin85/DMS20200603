@@ -14,6 +14,7 @@
 			<result property="UpdateUser" column="UpdateUser" type="Guid" dbType="Guid" />
 			<result property="CreateTime" column="CreateTime" type="dateTime" dbType="DateTime" />
 			<result property="UpdateTime" column="UpdateTime" type="dateTime" dbType="DateTime" />
+			<result property="IsDelete" column="IsDelete" type="bool" dbType="bit" />
 		</resultMap>
 	</resultMaps>
 	<statements>
@@ -36,11 +37,12 @@
 			(SELECT COUNT(0) FROM ShipmentInvoice (NOLOCK) WHERE SPI_SPH_ID = SPH_ID) AS InvQty,
 			B.CompareStatus,
 			B.FailMsg,
-			(case when IsSystemCompare = 'true' then '系统对账' when IsSystemCompare = 'false' then '人工对账' else '' end) as CompareInfo,
+			ISNULL(IsDelete , 'false') as IsDelete,
+			(case when IsSystemCompare = 'true' then '系统对账' when IsSystemCompare = 'false' then '人工对账' else '未对账' end) as CompareInfo,
 			B.UpdateTime
-			FROM ShipmentHeader (nolock) A left join InvReconcileSummary (nolock) B on A.SPH_ID =B.RCE_SPH_ID
+			FROM ShipmentHeader (nolock) A LEFT join InvReconcileSummary (nolock) B on A.SPH_ID =B.RCE_SPH_ID
 			) AS T
-			WHERE ISNULL(SubCompanyName,'')!= '' and ISNULL(BrandName,'')!=''
+			WHERE ISNULL(SubCompanyName,'')!= '' and ISNULL(BrandName,'')!='' and IsDelete = 'false' and isnull(OrderNumber,'') != ''
 			<dynamic prepend="">
 				<isNotNull prepend="AND" property="DealerId">DealerId=#DealerId#</isNotNull>
 				<isNotNull prepend="AND" property="ProductLineId">ProductLine=#ProductLineId#</isNotNull>
@@ -55,17 +57,19 @@
 		<select id="QueryProductDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
 			SELECT *
 			FROM
-			(
+			( 
 			SELECT A.SPH_ID as Id,A.SPH_ShipmentNbr AS OrderNumber,
+			NEWID() AS ProductIndex,
 			(SELECT TOP 1 DMA_ChineseName FROM DealerMaster NOLOCK WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerName,
 			A.SPH_Dealer_DMA_ID AS DealerId,
 			A.SPH_ProductLine_BUM_ID AS ProductLineId,
 			(select top 1 ATTRIBUTE_NAME from Lafite_ATTRIBUTE (nolock) where id =A.SPH_ProductLine_BUM_ID) AS ProductLineName,
 			D.CFN_CustomerFaceNbr AS CFN,
 			D.CFN_ID AS CFN_ID,
-			ISNULL(E.Id ,'') as INVRecDetailId,
+			ISNULL(CAST(E.Id AS VARCHAR(60))  ,'') as INVRecDetailId,
 			A.SPH_Hospital_HOS_ID AS Hos_ID,
 			D.CFN_ChineseName,
+			isnull(E.IsDelete,'false') as IsDelete,
 			(SELECT top 1 HOS_HospitalName FROM Hospital (NOLOCK) WHERE HOS_ID = A.SPH_Hospital_HOS_ID) AS HospitalName,
 			(SELECT ISNULL( SUM(convert(decimal(18,6), SLT_LotShippedQty)),0)  FROM ShipmentLot NOLOCK WHERE SLT_SPL_ID = B.SPL_ID) AS ShipmentQty,
 			(CASE WHEN ISNULL(E.CompareStatus,'' ) ='' THEN '未对账' ELSE E.CompareStatus END) AS CompareStatus,
@@ -76,7 +80,7 @@
 			LEFT JOIN InvReconcileDetail E ON A.SPH_ID = E.SPH_ID AND A.SPH_ProductLine_BUM_ID = E.ProductLineId AND
 			D.CFN_ID = E.CFN_ID
 			) AS T
-			where Id IN ($IDs$)
+			where Id IN ($IDs$) and IsDelete='false'
 			ORDER BY OrderNumber,CFN
 		</select>
 		<select id="QueryInvDetailRecords" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
@@ -97,8 +101,11 @@
 			D.SID_specificationModel AS SpecificationModel,
 			D.SID_rowNo AS RowNo, D.SID_quantity AS Quantity,
 			row_number() over (order by A.SPH_ID) AS row_number
-			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
-			ON A.SPH_ID = B.SPI_SPH_ID WHERE B.SPI_IsValid = 1
+			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B
+			ON A.SPH_ID = B.SPI_SPH_ID
+			INNER JOIN  ShipmentInvoiceHead C
+			ON B.SPI_ID = C.SIH_SPI_ID INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
+			WHERE B.SPI_IsValid = 1 and D.SID_deleteFlag = 'false'
 			) AS T
 			where Id IN ($IDs$)
 			ORDER BY OrderNumber,SpecificationModel
@@ -124,7 +131,7 @@
 			INNER JOIN ShipmentLine E ON A.SPH_ID = SPL_SPH_ID
 			INNER JOIN Product F ON E.SPL_Shipment_PMA_ID = F.PMA_ID
 			INNER JOIN CFN G ON F.PMA_CFN_ID = G.CFN_ID
-			WHERE B.SPI_IsValid = 1
+			WHERE B.SPI_IsValid = 1 AND A.SPH_Status = 'Complete'
 			<dynamic prepend="">
 				<isNotNull prepend="AND" property="SPH_IDs">A.SPH_ID IN ($SPH_IDs$)</isNotNull>
 			</dynamic>
@@ -139,7 +146,7 @@
 			D.SID_rowNo AS RowNo, ISNULL( convert(decimal(18,6), D.SID_quantity),0)AS Quantity,
 			row_number() over (order by A.SPH_ID) AS row_number
 			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
-			ON A.SPH_ID = B.SPI_SPH_ID WHERE B.SPI_IsValid = 1 AND D.SID_deleteFlag = 0) AS T1
+			ON A.SPH_ID = B.SPI_SPH_ID WHERE B.SPI_IsValid = 1 AND D.SID_deleteFlag = 0 AND A.SPH_Status = 'Complete') AS T1
 			WHERE 1= 1
 			<dynamic prepend="">
 				<isNotNull prepend="AND" property="SPH_ID">Id=#SPH_ID#</isNotNull>
@@ -149,7 +156,7 @@
 						 
 						( SpecificationModel = #CFN#  OR SpecificationModel = 
 						 (
-							SELECT TOP 1 ISNULL(QryCFN,'NOT Exist') FROM InvGoodsConfig WHERE SubCompanyName =  #SubCompanyName# 
+							SELECT TOP 1 ISNULL(InvType,'NOT Exist') FROM InvGoodsConfig WHERE SubCompanyName =  #SubCompanyName# 
 							and BrandName = #BrandName# and ProductLine = (
 							SELECT TOP 1 ATTRIBUTE_NAME FROM Lafite_ATTRIBUTE where Id = #ProductLineId# AND DELETE_FLAG = '0') AND QryCFN = #CFN#
 					     )
@@ -169,7 +176,11 @@
 		<update id="UpdateInvRecSummary" parameterClass="System.Collections.Hashtable">
 			UPDATE InvReconcileSummary SET CompareStatus = #CompareStatus#,
 			UpdateUser = #CompareUser#, UpdateTime =getdate(),IsSystemCompare = #IsSystemCompare#
-			WHERE RCE_INV_ID in($Ids$)
+			WHERE RCE_SPH_ID in($Ids$)
+		</update>
+		<update id="UpdateInvRecDetail"  parameterClass="string">
+			Update InvReconcileDetail SET CompareStatus = '对账成功'
+			WHERE Id in ( $value$ )
 		</update>
 	</statements>
 </sqlMap>

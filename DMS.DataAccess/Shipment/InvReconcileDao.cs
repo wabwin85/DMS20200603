@@ -87,11 +87,14 @@ namespace DMS.DataAccess
             return ds;
         }
 
-        public void ExeSaveCompareStatus( Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg)
+        public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg)
         {
             RtnMsg = string.Empty;
             RtnVal = string.Empty;
             Hashtable table = new Hashtable();
+            table.Add("SPH_ID", SPH_ID);
+            table.Add("OrderNumber", OrderNumber);
+            table.Add("CFN",CFN);
             table.Add("CompareUser", compareUser);
             table.Add("CompareStatus", compareStatus); 
             table.Add("RtnVal", RtnVal);
@@ -124,6 +127,12 @@ namespace DMS.DataAccess
         public int UpdateInvRecSummary(Hashtable ht)
         {
             int cnt = this.ExecuteUpdate("UpdateInvRecSummary", ht);
+            return cnt;
+        }
+
+        public int UpdateInvRecDetail(string ids)
+        {
+            int cnt = this.ExecuteUpdate("UpdateInvRecDetail", ids);
             return cnt;
         }
     }

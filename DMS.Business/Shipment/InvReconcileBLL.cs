@@ -141,13 +141,13 @@ namespace DMS.Business
             return ds;
         }
 
-        public void ExeSaveCompareStatus(Guid SPH_ID, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg)
+        public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg)
         {
             RtnVal = string.Empty;
             RtnMsg = string.Empty;
             using (InvReconcileDao dao = new InvReconcileDao())
             {
-                dao.ExeSaveCompareStatus(compareUser, compareStatus, out RtnVal, out RtnMsg);
+                dao.ExeSaveCompareStatus(SPH_ID,OrderNumber ,CFN, compareUser, compareStatus, out RtnVal, out RtnMsg);
             }
         }
 
@@ -171,5 +171,14 @@ namespace DMS.Business
             return cnt;
         }
 
+        public int UpdateInvRecDetail(string ids)
+        {
+            int cnt = 0;
+            using (InvReconcileDao dao = new InvReconcileDao())
+            {
+                cnt = dao.UpdateInvRecDetail(ids);
+            }
+            return cnt;
+        }
     }
 }

@@ -25,5 +25,7 @@ namespace DMS.Model
         public DateTime? CreateTime { get; set; }
 
         public DateTime? UpdateTime { get; set; }
+
+        public bool? IsDelete { get; set; }
     }
 }

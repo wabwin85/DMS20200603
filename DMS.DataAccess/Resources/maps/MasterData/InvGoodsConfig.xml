@@ -25,7 +25,7 @@
 			</dynamic>
 		</select>
 		<select id="SelectByFilterInvGoodsConfig" parameterClass ="InvGoodsConfig" resultClass="InvGoodsConfig">
-			SELECT Id,ProductLine,ProductNameCN,InvType,CONVERT(varchar(100),UpdateTime,20) AS UpdateTime,Modifier,Convert(varchar(100),Created,20) AS Created,QryCFN,row_number() OVER (ORDER BY [ID] ASC) AS [row_number] FROM InvGoodsConfig
+			SELECT Id,SubCompanyName,BrandName,ProductLine,ProductNameCN,InvType,CONVERT(varchar(100),UpdateTime,20) AS UpdateTime,Modifier,Convert(varchar(100),Created,20) AS Created,QryCFN,row_number() OVER (ORDER BY [ID] ASC) AS [row_number] FROM InvGoodsConfig
 			<dynamic prepend="WHERE">
 				<isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
 				<isNotNull prepend="AND" property="ProductLine">ProductLine='$ProductLine$'</isNotNull>

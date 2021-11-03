@@ -99,9 +99,9 @@
                 </div>
             </div>
 
-            <div id="divDetailInfo" class="row" style="display:none;"> 
-                 <br />
-                <div class="col-xs-5">
+            <div id="divDetailInfo" class="row">  
+                <div class="col-xs-5" id="divProductDetail"  style="display:none;">
+                    <br />
                     <div class="box-header with-border">
                         <h3 class="box-title"><i class='fa fa-fw fa-list-alt'></i>&nbsp;产品明细</h3>
                     </div>
@@ -113,7 +113,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-7"> 
+                <div class="col-xs-7" id="divInvoiceDetail"  style="display:none;"> 
+                     <br />
                     <div class="box-header with-border">
                         <h3 class="box-title"><i class='fa fa-fw fa-list-alt'></i>&nbsp;发票明细</h3>
                     </div>

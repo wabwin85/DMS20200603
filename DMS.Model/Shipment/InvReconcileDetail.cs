@@ -31,5 +31,7 @@ namespace DMS.Model
         public DateTime? CompareDate { get; set; }
 
         public Guid? ProductLineId { get; set; }
+
+        public bool? IsDelete { get; set; }
     }
 }

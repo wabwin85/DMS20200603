@@ -3,9 +3,11 @@
 InvReconcile = function () {
     var that = {};
     var business = 'Shipment.Extense.InvReconcile';
-    var globalBrandId = $('#IptSubCompanyId').val();
-    var globalSubCompanyId = $('#IptSubCompanyId').val();
-    var pickedList = [], pickedProductList = [];
+    var globalBrandId = parent.$('#IptBrandId').val();
+    var globalSubCompanyId = parent.$('#IptSubCompanyId').val();
+    var globalSubCompanyName = parent.$('#IptSubCompanyName').html();
+    var globalBrandName = parent.$('#IptBrandName').html();
+    var pickedList = [], pickedProductList = [], pickedProductIdsList = [];
     that.GetModel = function () {
         var model = FrameUtil.GetModel();
         return model;
@@ -63,6 +65,7 @@ InvReconcile = function () {
                     icon: 'search',
                     onClick: function () {
                         that.Query();
+                        pickedList = [], pickedProductList = [], pickedProductIdsList = [];
                         that.ShowProductDetailInfo(pickedList);
                     }
                 });
@@ -79,7 +82,7 @@ InvReconcile = function () {
                     text: '人工对账',
                     icon: 'search',
                     onClick: function () {
-                        that.CompareReconcile(pickedList,pickedProductList, "manual");
+                        that.CompareReconcile(pickedProductIdsList, pickedProductList, "manual");
                     }
                 });
 
@@ -94,6 +97,7 @@ InvReconcile = function () {
                     text: '导出详细',
                     icon: 'file-excel-o',
                     onClick: function () {
+                        
                     }
                 });
                 FrameWindow.HideLoading();
@@ -131,7 +135,7 @@ InvReconcile = function () {
                 {
                     title: "全选", width: '50px', encoded: false,
                     headerTemplate: '<input id="CheckAll" type="checkbox" class="k-checkbox Check-All" /><label class="k-checkbox-label" for="CheckAll"></label>',
-                    template: '<input type="checkbox" id="Check_#=Id#" class="k-checkbox Check-Item" /><label class="k-checkbox-label" for="Check_#=Id#"></label>',
+                    template: '<input type="checkbox" id="Check_#=Id#" class="k-checkbox Check-Item"  /> <label class="k-checkbox-label" for="Check_#=Id#"></label>',
                     headerAttributes: { "class": "center bold", "title": "全选", "style": "vertical-align: middle;" },
                     attributes: { "class": "center" }
                 },
@@ -194,7 +198,7 @@ InvReconcile = function () {
                 }
             ],
             dataBound: function (e) {
-                var grid = e.sender;
+                var grid = e.sender; 
                 $("#RstResultList").find(".Check-Item").unbind("click");
                 $("#RstResultList").find(".Check-Item").on('click', function () {
                     var checked = this.checked,
@@ -269,6 +273,8 @@ InvReconcile = function () {
                 data.Page = 1;
                 data.SubCompanyId = globalSubCompanyId;
                 data.BrandId = globalBrandId;
+                data.SubCompanyName = globalSubCompanyName == null ? "瑞奇" : globalSubCompanyName;
+                data.BrandName = globalBrandName == null ? "瑞奇" : globalBrandName;
                 FrameUtil.SubmitAjax({
                     business: business,
                     method: 'CompareInvReconcile',
@@ -282,6 +288,7 @@ InvReconcile = function () {
                                 message: '对账结束',
                                 callback: function () {
                                     getProductInvoiceDetailInfos(ids);
+                                    createResultList();
                                 }
                             });
                         }
@@ -294,13 +301,14 @@ InvReconcile = function () {
                                 }
                             });
                         }
+                        pickedList = [], pickedProductList = [], pickedProductIdsList = [];
                         FrameWindow.HideLoading();
                     }
                 });
             }
         }
         else {
-            if (confirm('确定要手工对账吗')) {
+            if (confirm('确定要人工对账吗')) {
                 FrameWindow.ShowLoading();
                 if (isExistsProduct("") == true) {
                     FrameWindow.ShowAlert({
@@ -310,16 +318,20 @@ InvReconcile = function () {
                         callback: function () { 
                         }
                     });
-                    return;
+                    FrameWindow.HideLoading();
+                    return false;
                 }
 
                 var data = FrameUtil.GetModel();
-                data.Ids = generateQueryFromArray(iNVRecDetailIds);
+                data.Ids = generateQueryFromArray(ids,true);
+                data.DetailIds = generateQueryFromArray(iNVRecDetailIds,true);
                 data.IsSystemCompare = false;
                 data.PageSize = 10;
-                data.Page = 1;
+                data.Page = 1; 
                 data.SubCompanyId = globalSubCompanyId;
                 data.BrandId = globalBrandId;
+                data.SubCompanyName = globalSubCompanyName == null ? "瑞奇" : globalSubCompanyName;
+                data.BrandName = globalBrandName == null ? "瑞奇" : globalBrandName;
                 FrameUtil.SubmitAjax({
                     business: business,
                     method: 'CompareInvReconcile',
@@ -332,7 +344,9 @@ InvReconcile = function () {
                                 alertType: 'info',
                                 message: '对账成功!',
                                 callback: function () {
-                                    getProductInvoiceDetailInfos(ids);
+                                    var data = FrameUtil.GetModel();
+                                    getProductInvoiceDetailInfos(ids,true); 
+                                    createResultList();
                                 }
                             });
                         }
@@ -345,6 +359,7 @@ InvReconcile = function () {
                                 }
                             });
                         }
+                        pickedList = [], pickedProductList = [], pickedProductIdsList = [];
                         FrameWindow.HideLoading();
                     }
                 });
@@ -386,7 +401,7 @@ InvReconcile = function () {
             columns: [
                 {
                     title: "选择", width: '50px', encoded: false,
-                    template: '<input type="checkbox" id="Check_Product_#=CFN_ID#" class="k-checkbox Check-Item" /><label class="k-checkbox-label" for="Check_Product_#=CFN_ID#"></label>',
+                    template: '#if(CompareStatus !="对账成功") {# <input type="checkbox" id="Check_Product_#=ProductIndex#" class="k-checkbox Check-Item" /><label class="k-checkbox-label" for="Check_Product_#=ProductIndex#"></label>#}#',
                     attributes: { "class": "center" }
                 },
                 {
@@ -443,21 +458,21 @@ InvReconcile = function () {
             ],
             dataBound: function (e) {
                 var grid = e.sender;
-                $("id=[^Check_Product_]").find(".Check-Item").unbind("click");
-                $("id=[^Check_Product_]").find(".Check-Item").on('click', function () {
+                $("#RstProductDetail").find(".Check-Item").unbind("click");
+                $("#RstProductDetail").find(".Check-Item").on('click', function () {
                     var checked = this.checked,
                         row = $(this).closest("tr"),
                         grid = $("#RstProductDetail").data("kendoGrid"),
-                        dataItem = grid.dataItem(row);
-                    if (dataItem.CompareStatus == '已对账')
-                        $(this).attr('disabled','disabled');
+                        dataItem = grid.dataItem(row); 
                     if (checked) {
                         dataItem.IsChecked = true;
                         addProductItem(dataItem);
+                        addProductIds(dataItem);
                         row.addClass("k-state-selected");
                     } else {
                         dataItem.IsChecked = false;
                         removeProductItem(dataItem);
+                        removeProductIds(dataItem);
                         row.removeClass("k-state-selected");
                     }
                     //that.ShowProductDetailInfo(pickedList);
@@ -549,12 +564,19 @@ InvReconcile = function () {
         });
     };
 
-    function getProductInvoiceDetailInfos(ids) {
+   
+
+    function getProductInvoiceDetailInfos(ids, tag = false) {
         FrameWindow.ShowLoading();
         var data = FrameUtil.GetModel();
-        data.Ids = generateQueryFromArray(ids);
+        if (tag)
+            data.Ids = generateQueryFromArray(ids, true);
+        else
+            data.Ids = generateQueryFromArray(ids);
         data.PageSize = 10;
         data.Page = 1;
+        data.SubCompanyName = globalSubCompanyName == null ? "瑞奇" : globalSubCompanyName;
+        data.BrandName = globalBrandName == null ? "瑞奇" : globalBrandName;
         FrameUtil.SubmitAjax({
             business: business,
             method: 'QueryProductDetail',
@@ -566,9 +588,9 @@ InvReconcile = function () {
                         dataSource: { data: model.RstProductDetail}
                     }); 
                     if (model.RstProductDetail.length > 0)
-                        $('#divDetailInfo').show();
+                        $('#divProductDetail').show();
                     else
-                        $('#divDetailInfo').hide();
+                        $('#divProductDetail').hide();
                 }
                 FrameWindow.HideLoading();
             }
@@ -584,24 +606,28 @@ InvReconcile = function () {
                         dataSource: { data: model.RstInvoiceDetail }
                     });
                     if (model.RstInvoiceDetail.length > 0)
-                        $('#divDetailInfo').show();
+                        $('#divInvoiceDetail').show();
                     else
-                        $('#divDetailInfo').hide();
+                        $('#divInvoiceDetail').hide();
                 }
                 FrameWindow.HideLoading();
             }
         }); 
     }
 
-    var generateQueryFromArray = function (ids) { 
-        return ids.map(function (id) {
-            return "'" + id + "'";
+    var generateQueryFromArray = function (idsArray, tag = false) {
+        if (tag == true)
+            return idsArray.map(function (id) {
+                return "'" + id + "'";
+            }).join(',');;
+        return idsArray.map(function (id) {
+            return "'" + id.Id + "'";
         }).join(',');
     }
 
     var addItem = function (data) {
         if (!isExists(data)) {
-            pickedList.push(data.Id);
+            pickedList.push({ Id: data.Id, ShipmentDate:data.SPH_ShipmentDate});
         }
     }
 
@@ -611,10 +637,26 @@ InvReconcile = function () {
         }
     }
 
+    var addProductIds= function (data) {
+        if (!isExistsProductIds(data)) {
+            pickedProductIdsList.push(data.Id);
+        }
+    }
+
+    var isExistsProductIds = function (data) {
+        var exists = false;
+        for (var i = 0; i < pickedProductIdsList.length; i++) {
+            if (pickedProductIdsList[i] == data.Id) {
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
     var isExistsProduct = function (data) {
         var exists = false;
         for (var i = 0; i < pickedProductList.length; i++) {
-            if (pickedProductList[i] == data.INVRecDetailId) {
+            if (pickedProductList[i] == data.INVRecDetailId || pickedProductList[i] == data) {
                 exists = true;
             }
         }
@@ -624,7 +666,7 @@ InvReconcile = function () {
     var isExists = function (data) {
         var exists = false;
         for (var i = 0; i < pickedList.length; i++) {
-            if (pickedList[i] == data.Id) {
+            if (pickedList[i].Id == data.Id) {
                 exists = true;
             }
         }
@@ -633,7 +675,7 @@ InvReconcile = function () {
 
     var removeItem = function (data) {
         for (var i = 0; i < pickedList.length; i++) {
-            if (pickedList[i] == data.Id) {
+            if (pickedList[i].Id == data.Id) {
                 pickedList.splice(i, 1);
                 break;
             }
@@ -643,6 +685,15 @@ InvReconcile = function () {
         for (var i = 0; i < pickedProductList.length; i++) {
             if (pickedProductList[i] == data.INVRecDetailId) {
                 pickedProductList.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    var removeProductIds = function (data) {
+        for (var i = 0; i < pickedProductIdsList.length; i++) {
+            if (pickedProductIdsList[i] == data.Id) {
+                pickedProductIdsList.splice(i, 1);
                 break;
             }
         }

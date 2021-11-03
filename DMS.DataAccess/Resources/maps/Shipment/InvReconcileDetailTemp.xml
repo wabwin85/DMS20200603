@@ -23,6 +23,9 @@
 	</resultMaps>
 	<parameterMaps>
 		<parameterMap id="InvRecDetailTempParameter" class="System.Collections.Hashtable">
+			<parameter property="SPH_ID" column="SPH_ID" />
+			<parameter property="OrderNumber" column="OrderNumber" />
+			<parameter property="CFN" column="CFN" />
 			<parameter property="CompareUser" column="CompareUser" />
 			 <parameter property="CompareStatus" column="CompareStatus" />
 			 <parameter property="RtnVal" column="RtnVal" direction="Output" />

@@ -151,10 +151,13 @@ namespace DMS.BusinessService.MasterDatas
                 {
                     Dictionary<string, string> dict = new Dictionary<string, string>
                         {
-                            {"QryBu", "产品线"},
+                            {"SubCompanyName", "子公司"},
+                            {"BrandName", "品牌"},
+                            {"ProductLine", "产品线"},
                             {"QryCFN", "产品型号"},
                             {"ProductNameCN", "产品中文名称"},
-                            {"InvType", "发票规格型号"}
+                            {"InvType", "发票规格型号"},
+                            {"UpdateTime","更新时间"}
                         };
 
                     CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);

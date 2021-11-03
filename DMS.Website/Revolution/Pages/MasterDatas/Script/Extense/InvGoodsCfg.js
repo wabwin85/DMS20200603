@@ -17,10 +17,10 @@ InvGoodsCfg = function () {
 
         urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
         urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'InvGoodsCfgExport');
-        urlExport = Common.UpdateUrlParams(urlExport, 'Dealer', data.QryBu.Key);
-        urlExport = Common.UpdateUrlParams(urlExport, 'QryProductLine', data.QryCFN);
-        urlExport = Common.UpdateUrlParams(urlExport, 'QryOrderNumber', data.ProductNameCN);
-        urlExport = Common.UpdateUrlParams(urlExport, 'ShipmentDateStart', data.InvType); 
+        urlExport = Common.UpdateUrlParams(urlExport, 'Bu', data.QryBu.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'QryCFN', data.QryCFN);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ProductNameCN', data.ProductNameCN);
+        urlExport = Common.UpdateUrlParams(urlExport, 'InvType', data.InvType);
         startDownload(urlExport, 'InvGoodsCfgExport');
     }
 

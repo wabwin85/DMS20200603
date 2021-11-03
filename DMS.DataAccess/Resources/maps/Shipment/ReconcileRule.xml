@@ -15,13 +15,14 @@
 		<select id="SelectReconcileRuleBySubCompany" parameterClass="ReconcileRule" resultClass="System.Collections.Hashtable">
 			SELECT PRE_SubCompanyId AS SubCompanyId,Rules,(SELECT Attribute_Name FROM Lafite_ATTRIBUTE WHERE Id = PRE_SubCompanyId) as SubCompanyName,
 			CONVERT(varchar(100),UpdateTime,20) AS UpdateTime, UpdatedBy,row_number() OVER (ORDER BY [PRE_SubCompanyId] ASC) AS [row_number]
-			FROM ReconcileRule
-			<dynamic prepend="WHERE">
+			FROM ReconcileRule WHERE 1= 1 AND DeleteFlag = 'false'
+			<dynamic prepend="">
 				<isNotNull prepend="And" property="SubCompanyId">PRE_SubCompanyId=#SubCompanyId#</isNotNull>
 			</dynamic>
 		</select>
 		<select id="SelectReconcileRuleAll" parameterClass="string" resultClass="System.Collections.Hashtable">
 			SELECT SubCompanyId,Rules, UpdatedTime, UpdatedBy FROM ReconcileRule
+			where DeleteFlag = 'false'
 		</select>
 		<select id="SelectSubCompanyAll" parameterClass="string" resultClass="System.Collections.Hashtable">
 			SELECT Id as SubCompanyId, Attribute_Name as SubCompanyName

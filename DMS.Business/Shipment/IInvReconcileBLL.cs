@@ -33,10 +33,12 @@ namespace DMS.Business
 
         DataSet QueryInvTotalNumber(Hashtable ht);
 
-        void ExeSaveCompareStatus( Guid SPH_ID, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg);
+        void ExeSaveCompareStatus( Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg);
 
         void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare);
 
         int UpdateInvRecSummary(Hashtable ht);
+
+        int UpdateInvRecDetail(string ids);
     }
 }

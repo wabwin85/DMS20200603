@@ -13,6 +13,8 @@ namespace DMS.ViewModel.Shipment.Extense
 
         public string Ids { get; set; }
 
+        public string DetailIds { get; set; }
+
         public string SubCompanyId { get; set; }
 
         public string BrandId { get; set; }
@@ -52,6 +54,12 @@ namespace DMS.ViewModel.Shipment.Extense
         public ArrayList RstInvoiceDetail = null;
 
         public ArrayList RstProductInvoiceDetail = null;
+
+        public string OrderNumbers { get; set; }
+
+        public string BrandName { get; set; }
+
+        public string SubCompanyName { get; set; }
 
     }
 }

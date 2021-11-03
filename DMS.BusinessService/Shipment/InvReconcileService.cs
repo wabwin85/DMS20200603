@@ -212,13 +212,66 @@ namespace DMS.BusinessService.Shipment
                 else
                 {
                     IInvReconcileBLL business = new InvReconcileBLL();
-                    Hashtable ht = new Hashtable();
-                    ht.Add("CompareStatus","自动对账");
-                    ht.Add("CompareUser", _context.User.Id);
-                    ht.Add("IsSystemCompare", false);
-                    ht.Add("Ids",model.Ids);
-                    business.UpdateInvRecSummary(ht);
-                    model.IsSuccess = true;
+                    business.UpdateInvRecDetail(model.DetailIds);
+                    string ids = model.Ids;
+                    string[] idArray = ids.Split(',');
+                    if(idArray.Length>0)
+                    {
+                        for(int i = 0; i<idArray.Length;i++)
+                        {
+                            string id = idArray[i];
+                            DataTable dt = business.QueryProductDetail(id).Tables[0];
+                            if(dt.Rows.Count>0)
+                            {
+                                string recStatus = "";
+                                for(int j=0;j< dt.Rows.Count;j++)
+                                {
+                                    string tempstatus = dt.Rows[j]["CompareStatus"].ToString();
+                                    if (!recStatus.Contains(tempstatus))
+                                        recStatus += tempstatus; 
+                                }
+
+                                Hashtable ht = new Hashtable();
+                                if(recStatus.Contains("对账成功") && !(recStatus.Contains("对账失败") || recStatus.Contains("未对账")))
+                                {
+                                    ht.Add("CompareStatus", "已对账");
+                                    ht.Add("CompareUser", _context.User.Id);
+                                    ht.Add("IsSystemCompare", false);
+                                    ht.Add("Ids", model.Ids);
+                                    business.UpdateInvRecSummary(ht);
+                                    model.IsSuccess = true;
+                                }
+                                else if (recStatus.Contains("对账成功") && (recStatus.Contains("对账失败") || recStatus.Contains("未对账")))
+                                {
+                                    ht.Add("CompareStatus", "部分对账成功");
+                                    ht.Add("CompareUser", _context.User.Id);
+                                    ht.Add("IsSystemCompare", false);
+                                    ht.Add("Ids", model.Ids);
+                                    business.UpdateInvRecSummary(ht);
+                                    model.IsSuccess = true;
+                                }
+                                else if (recStatus.Contains("对账失败"))
+                                {
+                                    ht.Add("CompareStatus", "对账失败");
+                                    ht.Add("CompareUser", _context.User.Id);
+                                    ht.Add("IsSystemCompare", false);
+                                    ht.Add("Ids", model.Ids);
+                                    business.UpdateInvRecSummary(ht);
+                                    model.IsSuccess = true;
+                                }
+                                else
+                                {
+                                    ht.Add("CompareStatus", "未对账");
+                                    ht.Add("CompareUser", _context.User.Id);
+                                    ht.Add("IsSystemCompare", false);
+                                    ht.Add("Ids", model.Ids);
+                                    business.UpdateInvRecSummary(ht);
+                                    model.IsSuccess = true;
+                                }
+                            }
+                        }
+                    } 
+                    
                 }
 
             }
@@ -238,7 +291,7 @@ namespace DMS.BusinessService.Shipment
             int totalCount = 0;
             string subCompanyId = BaseService.CurrentSubCompany?.Key;
             if (subCompanyId == null)
-                subCompanyId = "27F85223-24FD-458E-81E7-AABD0161AAB9";
+                subCompanyId = "dc65a961-b92e-4639-9b82-abf701162396";
             Hashtable param = new Hashtable();
             param.Add("SubCompanyId", subCompanyId);
             int start = (model.Page - 1) * model.PageSize;
@@ -300,6 +353,8 @@ namespace DMS.BusinessService.Shipment
             ht.Add("CFN", drTemp["CFN"].ToString());
             ht.Add("HospitalName", drTemp["HospitalName"].ToString());
             ht.Add("ProductLineId",drTemp["ProductLineId"].ToString());
+            ht.Add("BrandName",model.BrandName);
+            ht.Add("SubCompanyName",model.SubCompanyName);
             DataSet dsDetail = business.QueryInvRecDetail(ht);
             if (dsDetail.Tables[0].Rows.Count > 0) // already exist
             {
@@ -333,7 +388,7 @@ namespace DMS.BusinessService.Shipment
                     compareStatus = "对账失败";
                 }
                 string RtnVal = "", RtnMsg ="";
-                business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), new Guid(_context.User.Id), compareStatus, out RtnVal, out RtnMsg);
+                business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus, out RtnVal, out RtnMsg);
                 
             }
         }
@@ -368,8 +423,8 @@ namespace DMS.BusinessService.Shipment
                         dtTemp.Columns.Add("Hospital_ID", typeof(Guid));
                         dtTemp.Columns.Add("ProductLineId", typeof(Guid));
                         dtTemp.Columns.Add("TotalNumber", typeof(decimal));
-                        dtTemp.Columns.Add("CompareStatus");
-                        //dtTemp.Columns.Add("IsDelete",typeof(bool));
+                        dtTemp.Columns.Add("IsDelete",typeof(bool));
+                        dtTemp.Columns.Add("CompareStatus"); 
                         foreach (DataRow dr in dt.Rows)
                         {
                             DataRow drTemp = dtTemp.NewRow();
@@ -385,6 +440,7 @@ namespace DMS.BusinessService.Shipment
                             drTemp["ProductLineId"] = dr["ProductLineId"];
                             drTemp["TotalNumber"] = dr["ShipmentQty"];
                             drTemp["CompareStatus"] = "";
+                            drTemp["IsDelete"] = false;
                             dtTemp.Rows.Add(drTemp);
                         }
                         tag = business.BatchInsertData(dtTemp);
