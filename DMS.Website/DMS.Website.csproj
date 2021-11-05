@@ -2300,6 +2300,7 @@
     <Content Include="Revolution\Pages\Transfer\Script\TransferEditorInfo.js" />
     <Content Include="Revolution\Pages\Transfer\TransferEditor.aspx" />
     <Content Include="Revolution\Pages\Transfer\TransferEditorInfo.aspx" />
+    <Content Include="Upload\UploadFile\InvoiceAttachment\132742434112076393.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -8025,6 +8026,7 @@
     <Content Include="Upload\ExcelTemplate\Template_DeviceAuthorization.xls" />
     <Content Include="Upload\ExcelTemplate\Template_ExportShipmentAttachment.xls" />
     <Content Include="Upload\ExcelTemplate\Template_HospitalBaseAop.xlsx" />
+    <Content Include="Upload\ExcelTemplate\Template_InvGoodsInit.xls" />
     <None Include="Upload\ExcelTemplate\Template_LPRLD_Delivery.xls" />
     <None Include="Upload\ExcelTemplate\Template_LPRLD_T2ReturnConfirm.xls" />
     <Content Include="Upload\ExcelTemplate\Template_OrderDealerPrice.xlsx" />

@@ -23,6 +23,8 @@ namespace DMS.ViewModel.MasterDatas.Extense
         public int PageSize = 0;
         public int DataCount = 0;
 
+        public string Msg;
+
         public ArrayList RstResultList;
     }
 }

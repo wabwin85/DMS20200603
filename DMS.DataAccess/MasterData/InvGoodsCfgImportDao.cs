@@ -27,6 +27,11 @@ namespace DMS.DataAccess.MasterData
             return this.ExecuteQueryForDataSet("QueryInvGoodsCfgImportCheck", UserId);
         }
 
+        public void DeleteGoodsCfg(Guid id)
+        {
+            this.ExecuteDelete("DelInvGoodsCfgById",id);
+        }
+
         public int UpdateInvGoodsCfgImportValid(DataTable dt)
         { 
             int cnt = 0;
@@ -38,7 +43,8 @@ namespace DMS.DataAccess.MasterData
                 ht.Add("BrandName", dt.Rows[i]["BrandName"].ToString());
                 ht.Add("ProductLine", dt.Rows[i]["ProductLine"].ToString());
                 ht.Add("ProductNameCN", dt.Rows[i]["ProductNameCN"].ToString());
-                cnt = this.ExecuteUpdate("UpdateInvGoodsCfgImportValid", ht);
+                ht.Add("Id",dt.Rows[i]["Id"].ToString());
+                cnt = this.ExecuteUpdate("UpdateExistInvGoodsCfgImportStatus", ht);
             }
             return cnt;
         }

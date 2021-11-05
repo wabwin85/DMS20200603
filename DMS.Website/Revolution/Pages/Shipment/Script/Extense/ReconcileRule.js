@@ -45,7 +45,7 @@ ReconcileRule = function () {
                     }
                 });
 
-                $('#BtnExpDetail').FrameButton({
+                $('#BtnExpDetail').hide().FrameButton({
                     text: '导出明细',
                     icon: 'file-excel-o',
                     onClick: function () {

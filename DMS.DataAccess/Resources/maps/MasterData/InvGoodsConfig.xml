@@ -28,6 +28,8 @@
 			SELECT Id,SubCompanyName,BrandName,ProductLine,ProductNameCN,InvType,CONVERT(varchar(100),UpdateTime,20) AS UpdateTime,Modifier,Convert(varchar(100),Created,20) AS Created,QryCFN,row_number() OVER (ORDER BY [ID] ASC) AS [row_number] FROM InvGoodsConfig
 			<dynamic prepend="WHERE">
 				<isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="SubCompanyName">SubCompanyName='$SubCompanyName$'</isNotNull>
+				<isNotNull prepend="AND" property="BrandName">BrandName='$BrandName$'</isNotNull>
 				<isNotNull prepend="AND" property="ProductLine">ProductLine='$ProductLine$'</isNotNull>
 				<isNotNull prepend="AND" property="ProductNameCN">ProductNameCN='$ProductNameCN$'</isNotNull>
 				<isNotNull prepend="AND" property="InvType">InvType='$InvType$'</isNotNull>

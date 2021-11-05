@@ -13,6 +13,8 @@
 </asp:Content>
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
      <input type="hidden" id="DealerListType" class="FrameControl" />
+     <input type="hidden" id="SubCompanyName" class="FrameControl" />
+     <input type="hidden" id="BrandName" class="FrameControl" />
     <input type="hidden" id="IsDealer" value="" />
     <input type="hidden" id="hidCorpType" value="" />
     <input type="hidden" id="hidHeaderId" value="" />

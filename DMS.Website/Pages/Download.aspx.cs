@@ -258,7 +258,7 @@ namespace DMS.Website.Pages
             string savename = downname;
 
             try
-            {
+            { 
                 filename = AppDomain.CurrentDomain.BaseDirectory.ToString() + "Upload\\UploadFile\\" + documentName + "\\" + filename;
 
                 Response.Clear();

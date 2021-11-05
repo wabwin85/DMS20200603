@@ -27,7 +27,11 @@
 			<parameter property="SPH_ID" column="SPH_ID" />
 			<parameter property="OrderNumber" column="OrderNumber" />
 			<parameter property="CFN" column="CFN" />
-			<parameter property="SubCompanyId" column="SubCompanyId" />
+			<parameter property="ProductLineId" column="ProductLineId" />
+			<parameter property="CompareUser" column="CompareUser" />
+			<parameter property="CompareStatus" column="CompareStatus" /> 
+			<parameter property="IsSystemCompare" column="IsSystemCompare" /> 
+			<parameter property="RtnVal" column="RtnVal" direction="Output" />
 			<parameter property="RtnMsg" column="RtnMsg" direction="Output" />
 		</parameterMap>
 		<parameterMap id="InvRecDetailTempParameter" class="System.Collections.Hashtable">

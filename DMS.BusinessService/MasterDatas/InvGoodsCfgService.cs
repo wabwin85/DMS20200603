@@ -69,6 +69,10 @@ namespace DMS.BusinessService.MasterDatas
                 {
                     param.Add("InvType", model.InvType);
                 }
+                if (!string.IsNullOrEmpty(model.SubCompanyName.ToSafeString()))
+                    param.Add("SubCompanyName",model.SubCompanyName);
+                if (!string.IsNullOrEmpty(model.BrandName.ToSafeString()))
+                    param.Add("BrandName",model.BrandName);
                 int totalCount = 0;
                 int start = (model.Page - 1) * model.PageSize;
                 DataSet ds = business.QueryInvGoodsCfg(param, start, model.PageSize, out totalCount);
@@ -138,6 +142,10 @@ namespace DMS.BusinessService.MasterDatas
             {
                 param.Add("InvType", Parameters["InvType"].ToSafeString());
             }
+            if (!string.IsNullOrEmpty(Parameters["SubCompanyName"].ToSafeString()))
+                param.Add("SubCompanyName", Parameters["SubCompanyName"].ToSafeString());
+            if (!string.IsNullOrEmpty(Parameters["BrandName"].ToSafeString()))
+                param.Add("BrandName", Parameters["BrandName"].ToSafeString());
             DataSet ds = business.QueryInvGoodsCfgForExport(param);
             //DataSet ds = null;
             DataSet dsExport = new DataSet("发票商品映射表");

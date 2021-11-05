@@ -11,6 +11,8 @@
 <asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
+    <input type="hidden" id="SubCompanyName" class="FrameControl" />
+    <input type="hidden" id="BrandName" class="FrameControl" />
     <div class="content-main" style="padding: 5px;">
         <div class="col-xs-12">
             <div class="row">

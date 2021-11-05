@@ -31,7 +31,7 @@
                                         <input name="files" id="files" type="file" />
                                     </div>
                                     <div class="col-xs-1 col-label">
-                                        <a onclick="window.open('/Upload/ExcelTemplate/Template_LPRLD_Delivery.xls')" style="padding-right: 20px; cursor: pointer;">下载模板</a>
+                                        <a onclick="window.open('Extense/Upload/ExcelTemplate/Template_InvGoodsInit.xls')" style="padding-right: 20px; cursor: pointer;">下载模板</a>
                                         <%--                                        <div class="col-xs-11 col-buttom" id="PnlButton">
                                             <a id="BtnRemove"></a>
                                         </div>--%>
@@ -65,7 +65,7 @@
 <asp:Content ID="ContentFoot" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>
 <asp:Content ID="ContentScript" ContentPlaceHolderID="ScriptContent" runat="server">
-    <script type="text/javascript" src="../Script/Extense/InvGoodsCfgImport.js?v=<%=DMS.Common.SR.CONST_JAVA_SCRIPT_VERSION %>"></script>
+    <script type="text/javascript" src="../Script/Extense/InvGoodsCfgImport.js?v=<%=Guid.NewGuid() %>"></script>
     <script type="text/javascript">
         $(function () {
             InvGoodsCfgImport.Init();

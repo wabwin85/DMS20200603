@@ -15,6 +15,9 @@ InvGoodsCfgImport = function () {
 
     that.Init = function () { 
         createResultList();
+        //$("#ImportErrorGrid").data('kendoGrid').setOptions({
+        //    dataSource: kendoDataSource
+        //});
         $("#files").kendoUpload({
             async: {
                 saveUrl: "../../Handler/UploadFile.ashx?Type=" + IMPORT_TYPE + "&SheetName=" + IMPORT_NAME,
@@ -69,39 +72,76 @@ InvGoodsCfgImport = function () {
     function onSuccess(e) {
         if (e.XMLHttpRequest.responseText != "") {
             var obj = $.parseJSON(e.XMLHttpRequest.responseText);
-            if (obj.result == "Error") {
-                that.Query();
+            var data = that.GetModel(); 
+            if (obj.result == "Success") {
+                $("#ImportErrorGrid").data('kendoGrid').setOptions({
+                    dataSource: kendoDataSource
+                });
+                FrameWindow.ShowConfirm({
+                    target: 'top',
+                    message: obj.msg,
+                    confirmCallback: function () {
+                        FrameUtil.SubmitAjax({
+                            business: business,
+                            method: 'InvGoodsCfgImportToDB',
+                            url: Common.AppHandler,
+                            data: data,
+                            callback: function (data) {
+                                if (data.IsSuccess == true) {
+                                    FrameWindow.ShowAlert({
+                                        target: 'top',
+                                        alertType: 'info',
+                                        message: data.Msg,
+                                        callback: function () {
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }); 
+            }
+            else if (obj.result == "DataDuplicate") {//如果是导入的数据问题，则刷新列表显示错误内容；
+                //that.Query();
+                $("#ImportErrorGrid").data('kendoGrid').setOptions({
+                    dataSource: kendoDataSource
+                });
+                FrameWindow.ShowConfirm({
+                    target: 'top',
+                    message: '确定要覆盖重复数据吗？',
+                    confirmCallback: function () {
+                        FrameUtil.SubmitAjax({
+                            business: business,
+                            method: 'InvGoodsCfgImportToDB',
+                            url: Common.AppHandler,
+                            data: data,
+                            callback: function (data) {
+                                if (data.IsSuccess == true) {
+                                    FrameWindow.ShowAlert({
+                                        target: 'top',
+                                        alertType: 'info',
+                                        message: data.Msg,
+                                        callback: function () {
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                $("#ImportErrorGrid").data('kendoGrid').setOptions({
+                    dataSource: kendoDataSource
+                });
                 FrameWindow.ShowAlert({
                     target: 'top',
                     alertType: 'info',
                     message: obj.msg,
                     callback: function () {
 
-                    }
-                });
-                //dms.common.alert(obj.msg);
-            }
-            if (obj.result == "DataError") {//如果是导入的数据问题，则刷新列表显示错误内容；
-                that.Query();
-                FrameWindow.ShowAlert({
-                    target: 'top',
-                    alertType: 'info',
-                    message: "导入数据有问题，详见错误信息列表。",
-                    callback: function () {
-                    }
-                });
-                //dms.common.alert("导入数据有问题，详见错误信息列表。");
-            }
-            else if (obj.result == "Success") {
-                var dataSource = $("#ImportErrorGrid").data("kendoGrid").dataSource;
-                dataSource.data([]);
-
-                FrameWindow.ShowAlert({
-                    target: 'top',
-                    alertType: 'info',
-                    message: '导入成功',
-                    callback: function () {
-                        //top.deleteTabsCurrent();
                     }
                 });
             }
@@ -139,7 +179,7 @@ InvGoodsCfgImport = function () {
 
     var createResultList = function () {
         $("#ImportErrorGrid").kendoGrid({
-            dataSource: kendoDataSource,
+            dataSource: [],
             resizable: true,
             sortable: true,
             scrollable: true,
@@ -160,6 +200,12 @@ InvGoodsCfgImport = function () {
                 {
                     field: "InvType", title: "发票规格型号", width: '100px',
                     headerAttributes: { "class": "text-center text-bold", "title": "产品型号" }
+                },
+                {
+                    field: 'ErrorMsg', title: '错误信息', width: '100px',
+                    headerAttributes: { "class": "text-center text-bold", "title": "错误信息" },
+                    template:'#if(ErrorMsg != ""){# <div style="background-color:red; width:100%;height:100%;">#=ErrorMsg#</div>#}#'
+
                 }
             ],
             pageable: {

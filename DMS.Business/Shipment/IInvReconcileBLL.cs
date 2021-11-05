@@ -35,7 +35,7 @@ namespace DMS.Business
 
         void ExeSaveCompareStatus( Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg);
 
-        void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare);
+        void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare);
 
         int UpdateInvRecSummary(Hashtable ht);
 

@@ -1,8 +1,14 @@
 ﻿var InvGoodsCfg = {};
 InvGoodsCfg = function () {
     var that = {};
-
+    var developModel = false;
     var business = "MasterDatas.Extense.InvGoodsCfg";
+    var globalBrandId = parent.$('#IptBrandId').val();
+    var globalSubCompanyId = parent.$('#IptSubCompanyId').val();
+    var globalSubCompanyName = parent.$('#IptSubCompanyName').html() == undefined ? "瑞奇" : parent.$('#IptSubCompanyName').html();
+    var globalBrandName = parent.$('#IptBrandName').html() == undefined ? "瑞奇" : parent.$('#IptBrandName').html();
+    $('#SubCompanyName').val(globalSubCompanyName == undefined ? "瑞奇" : globalSubCompanyName);
+    $('#BrandName').val(globalBrandName == undefined ? "瑞奇" : globalBrandName);
     var pickedList = [];
 
     that.GetModel = function () {
@@ -17,6 +23,8 @@ InvGoodsCfg = function () {
 
         urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
         urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'InvGoodsCfgExport');
+        urlExport = Common.UpdateUrlParams(urlExport, 'SubCompanyName', globalSubCompanyName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'BrandName', globalBrandName);
         urlExport = Common.UpdateUrlParams(urlExport, 'Bu', data.QryBu.Key);
         urlExport = Common.UpdateUrlParams(urlExport, 'QryCFN', data.QryCFN);
         urlExport = Common.UpdateUrlParams(urlExport, 'ProductNameCN', data.ProductNameCN);
@@ -230,7 +238,7 @@ InvGoodsCfg = function () {
         top.createTab({
             id: 'M_发票商品导入',
             title: '发票商品导入',
-            url: 'Revolution/Pages/MasterDatas/Extense/InvGoodsCfgImport.aspx'
+            url: developModel == true ? 'Revolution/Pages/MasterDatas/Extense/InvGoodsCfgImport.aspx': 'Extense/Revolution/Pages/MasterDatas/Extense/InvGoodsCfgImport.aspx'
         });
     }
 

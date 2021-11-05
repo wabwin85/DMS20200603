@@ -41,16 +41,19 @@
 			(case when IsSystemCompare = 'true' then '系统对账' when IsSystemCompare = 'false' then '人工对账' else '未对账' end) as CompareInfo,
 			B.UpdateTime
 			FROM ShipmentHeader (nolock) A LEFT join InvReconcileSummary (nolock) B on A.SPH_ID =B.RCE_SPH_ID
+			WHERE A.SPH_Status = 'Complete'
 			) AS T
 			WHERE ISNULL(SubCompanyName,'')!= '' and ISNULL(BrandName,'')!='' and IsDelete = 'false' and isnull(OrderNumber,'') != ''
 			<dynamic prepend="">
+				<isNotNull prepend="AND" property="SubCompanyName">SubCompanyName=#SubCompanyName#</isNotNull>
+				<isNotNull prepend="AND" property="BrandName">BrandName=#BrandName#</isNotNull>
 				<isNotNull prepend="AND" property="DealerId">DealerId=#DealerId#</isNotNull>
-				<isNotNull prepend="AND" property="ProductLineId">ProductLine=#ProductLineId#</isNotNull>
+				<isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
 				<isNotNull prepend="AND" property="OrderNumber">OrderNumber like N'$OrderNumber$%'</isNotNull>
 				<isNotNull prepend="AND" property="RecileStartDate">CompareTime>=#RecileStartDate#</isNotNull>
 				<isNotNull prepend="AND" property="RecileEndDate">CompareTime&lt;=#RecileEndDate#</isNotNull>
 				<isNotNull prepend="AND" property="HospitalName">HospitalName like N'%$HospitalName$%'</isNotNull>
-				<isNotNull prepend="AND" property="CompareInfo">CompareInfo=#CompareInfo#</isNotNull>
+				<isNotNull prepend="AND" property="CompareStatus">CompareStatus=#CompareStatus#</isNotNull>
 			</dynamic>
 
 		</select>
@@ -89,7 +92,9 @@
 			<dynamic prepend="">
 				<isNotNull prepend="AND" property="SPH_ID">SPH_ID=#SPH_ID#</isNotNull>
 				<isNotNull prepend="AND" property="OrderNumber">OrderNumber=#OrderNumber#</isNotNull>
+				<isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
 				<isNotNull prepend="AND" property="CFN_ID">CFN_ID=#CFN_ID#</isNotNull>
+				<isNotNull prepend="AND" property="CFN">CFN=#CFN#</isNotNull>
 			</dynamic>
 		</select>
 		<select id="QueryInvoiceDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
@@ -100,6 +105,8 @@
 			D.SID_commodityName AS CommodityName,
 			D.SID_specificationModel AS SpecificationModel,
 			D.SID_rowNo AS RowNo, D.SID_quantity AS Quantity,
+			(SELECT top 1 AT_Url FROM Attachment WHERE AT_Main_ID = A.SPH_ID order by AT_UploadDate desc) AS Url,
+			(SELECT top 1 AT_Name FROM Attachment WHERE AT_Main_ID = A.SPH_ID order by AT_UploadDate desc) AS AT_Name,
 			row_number() over (order by A.SPH_ID) AS row_number
 			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B
 			ON A.SPH_ID = B.SPI_SPH_ID

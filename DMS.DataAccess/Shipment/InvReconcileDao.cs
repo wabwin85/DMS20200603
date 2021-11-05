@@ -105,20 +105,21 @@ namespace DMS.DataAccess
             RtnVal = table["RtnVal"].ToString();
         }
 
-        public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus,bool isSystemCompare, out string RtnVal, out string RtnMsg)
+        public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus,bool isSystemCompare, out string RtnVal, out string RtnMsg)
         {
             RtnMsg = string.Empty;
             RtnVal = string.Empty;
             Hashtable table = new Hashtable();
             table.Add("SPH_ID", SPH_ID);
             table.Add("OrderNumber", OrderNumber);
-            table.Add("CFN", CFN); 
+            table.Add("CFN", CFN);
+            table.Add("ProductLineId", ProductLineId);
             table.Add("CompareUser", compareUser);
             table.Add("CompareStatus", compareStatus);
             table.Add("IsSystemCompare",isSystemCompare);
             table.Add("RtnVal", RtnVal);
             table.Add("RtnMsg", RtnMsg);
-            this.ExecuteInsert("UpdateCompareStatus", table);
+            this.ExecuteUpdate("UpdateCompareStatus", table);
 
             RtnMsg = table["RtnMsg"].ToString();
             RtnVal = table["RtnVal"].ToString();

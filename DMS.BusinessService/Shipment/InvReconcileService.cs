@@ -51,6 +51,10 @@ namespace DMS.BusinessService.Shipment
             {
                 Hashtable ht = new Hashtable();
                 int totalCount = 0;
+                if (!string.IsNullOrEmpty(model.SubCompanyName))
+                    ht.Add("SubCompanyName",model.SubCompanyName);
+                if (!string.IsNullOrEmpty(model.BrandName))
+                    ht.Add("BrandName",model.BrandName);
                 if (null != model.Dealer && !string.IsNullOrEmpty(model.Dealer.Key))
                     ht.Add("DealerId", model.Dealer.Key);
                 if (null != model.QryProductLine && !string.IsNullOrEmpty(model.QryProductLine.Key))
@@ -64,7 +68,9 @@ namespace DMS.BusinessService.Shipment
                 if (!string.IsNullOrEmpty(model.QryHospital))
                     ht.Add("HospitalName", model.QryHospital);
                 if (model.CompareInfo!=null &&!string.IsNullOrEmpty(model.CompareInfo.Key))
-                    ht.Add("CompareInfo", model.CompareInfo.Value);
+                    if(model.CompareInfo.Key != "全部")
+                        ht.Add("CompareStatus", model.CompareInfo.Value);
+                
                 int start = (model.Page - 1) * model.PageSize;
                 ht.Add("start", start);
                 ht.Add("limit", model.PageSize);
@@ -371,7 +377,7 @@ namespace DMS.BusinessService.Shipment
                 }
                 string RtnVal = "", RtnMsg = "";
                 business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()),drTemp["OrderNumber"].ToString(),
-                    drTemp["CFN"].ToString(), new Guid(_context.User.Id) , compareStatus,  out RtnVal, out RtnMsg, true);
+                    drTemp["CFN"].ToString(),new Guid(drTemp["ProductLineId"].ToString()), new Guid(_context.User.Id) , compareStatus,  out RtnVal, out RtnMsg, true);
             }
             else
             {
@@ -455,26 +461,34 @@ namespace DMS.BusinessService.Shipment
 
         public void Export(NameValueCollection Parameters, string DownloadCookie)
         {
-            Hashtable param = new Hashtable(); 
-            if (!string.IsNullOrEmpty(Parameters["Dealer"].ToSafeString()))
+            Hashtable param = new Hashtable();
+            if (!string.IsNullOrEmpty(Parameters["SubCompanyName"].ToSafeString()))
             {
-                param.Add("DealerId", Parameters["Dealer"].ToSafeString());
+                param.Add("SubCompanyName", Parameters["SubCompanyName"].ToSafeString());
             }
-            if (!string.IsNullOrEmpty(Parameters["QryProductLine"].ToSafeString()))
+            if (!string.IsNullOrEmpty(Parameters["BrandName"].ToSafeString()))
             {
-                param.Add("ProductLineId", Parameters["QryProductLine"].ToSafeString());
+                param.Add("BrandName", Parameters["BrandName"].ToSafeString());
             }
-            if (!string.IsNullOrEmpty(Parameters["QryOrderNumber"].ToSafeString()))
+            if (!string.IsNullOrEmpty(Parameters["DealerId"].ToSafeString()))
             {
-                param.Add("OrderNumber", Parameters["QryOrderNumber"].ToSafeString());
+                param.Add("DealerId", Parameters["DealerId"].ToSafeString());
             }
-            if (!string.IsNullOrEmpty(Parameters["ShipmentDateStart"].ToSafeString()))
+            if (!string.IsNullOrEmpty(Parameters["ProductLineId"].ToSafeString()))
             {
-                param.Add("RecileStartDate", Parameters["ShipmentDateStart"].ToSafeString());
+                param.Add("ProductLineId", Parameters["ProductLineId"].ToSafeString());
             }
-            if (!string.IsNullOrEmpty(Parameters["ShipmentDateEnd"].ToSafeString()))
+            if (!string.IsNullOrEmpty(Parameters["OrderNumber"].ToSafeString()))
             {
-                param.Add("RecileEndDate", Parameters["ShipmentDateEnd"].ToSafeString());
+                param.Add("OrderNumber", Parameters["OrderNumber"].ToSafeString());
+            }
+            if (!string.IsNullOrEmpty(Parameters["ReconcileStartDate"].ToSafeString()))
+            {
+                param.Add("RecileStartDate", Parameters["ReconcileStartDate"].ToSafeString());
+            }
+            if (!string.IsNullOrEmpty(Parameters["ReconcileEndDate"].ToSafeString()))
+            {
+                param.Add("ReconcileEndDate", Parameters["ReconcileEndDate"].ToSafeString());
             }
             if (!string.IsNullOrEmpty(Parameters["HospitalName"].ToSafeString()))
             {

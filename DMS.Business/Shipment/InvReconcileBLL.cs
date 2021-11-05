@@ -151,13 +151,13 @@ namespace DMS.Business
             }
         }
 
-       public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare = true)
+       public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN,Guid ProductLineId, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare = true)
         {
             RtnVal = string.Empty;
             RtnMsg = string.Empty;
             using (InvReconcileDao dao = new InvReconcileDao())
             {
-                dao.ExeUpdateCompareStatus(SPH_ID, OrderNumber, CFN, compareUser, compareStatus, isSystemCompare, out RtnVal, out RtnMsg);
+                dao.ExeUpdateCompareStatus(SPH_ID, OrderNumber, CFN,ProductLineId, compareUser, compareStatus, isSystemCompare, out RtnVal, out RtnMsg);
             }
         }
 

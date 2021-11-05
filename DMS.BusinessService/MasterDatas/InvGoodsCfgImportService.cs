@@ -12,6 +12,7 @@ using DMS.Business.MasterData;
 using DMS.Common;
 using DMS.Common.Common;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace DMS.BusinessService.MasterDatas
 {
@@ -34,10 +35,11 @@ namespace DMS.BusinessService.MasterDatas
             }
             return model;
         }
-        public bool Import(DataTable dt)
+        public bool ImportTemp(DataTable dt, out bool isError)
         {
             System.Diagnostics.Debug.WriteLine("Import Start : " + DateTime.Now.ToString());
             bool result = false;
+            isError = false;
             try
             { 
                 using (TransactionScope trans = new TransactionScope())
@@ -79,7 +81,10 @@ namespace DMS.BusinessService.MasterDatas
                                 data.ErrorMsg = "";
                             }
                             else
+                            {
                                 data.IsError = true;
+                                isError = true;
+                            }
                             list.Add(data);
                         }
                         lineNbr += 1;
@@ -87,32 +92,78 @@ namespace DMS.BusinessService.MasterDatas
                     }
                     dao.BatchInsert(list);
                     result = true;
-                    trans.Complete();
-
-                   
+                    trans.Complete();  
                 }
-                using (InvGoodsCfgImportDao dao = new InvGoodsCfgImportDao())
-                {
-                    DataSet ds = dao.GetInvGoodsCfgInitCheckData(new Guid(UserInfo.Id));
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        dao.UpdateInvGoodsCfgImportValid(ds.Tables[0]);
-                        result = false;
-                    }
-                }
+                bool tag = IsExistsInvGoodsImport();
+                if (tag)
+                    result = false;
 
             }
             catch(Exception ex)
             {
-
+                result = false;
             }
 
             return result;
         }
 
-        public bool VerifyInvGoodsCfgImport(string importType, out string IsValid)
+        private bool IsExistsInvGoodsImport()
         {
             bool result = false;
+            using (InvGoodsCfgImportDao dao = new InvGoodsCfgImportDao())
+            {
+                DataSet ds = dao.GetInvGoodsCfgInitCheckData(new Guid(UserInfo.Id));
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    //data.ErrorMsg += "发票规格型号为空"; 
+                    dao.UpdateInvGoodsCfgImportValid(ds.Tables[0]);
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        private void DeleteDuplicateInvRecords()
+        {
+            using (InvGoodsCfgImportDao dao = new InvGoodsCfgImportDao())
+            {
+                DataSet ds = dao.GetInvGoodsCfgInitCheckData(new Guid(UserInfo.Id));
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    for(int i = 0; i< ds.Tables[0].Rows.Count;i++)
+                     dao.DeleteGoodsCfg(new Guid(ds.Tables[0].Rows[i]["InvGoodsCfgId"].ToString()));
+                }
+            }
+        }
+
+        public InvGoodsCfgInitVO InvGoodsCfgImportToDB(InvGoodsCfgInitVO model)
+        {
+            InvGoodsCfgImportService business = new InvGoodsCfgImportService();
+            string IsValid = string.Empty;
+            bool tag = business.InvGoodsCfgImport("Import", out IsValid);
+            if (tag)
+            {
+                //var lstresult = new { result = "Success", msg = "上传数据成功" };
+                //HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                model.IsSuccess = true;
+                model.Msg = "上传数据成功";
+            }
+            else
+            {
+                //var lstresult = new { result = "Failed", msg = "上传数据失败，请检查原因" };
+                //HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                model.IsSuccess = false;
+                model.Msg = "上传数据失败，请管理员检查原因";
+            }
+            return model;
+
+        }
+
+        public bool InvGoodsCfgImport(string importType, out string IsValid)
+        {
+            bool result = false;
+            DeleteDuplicateInvRecords();
+
             using (InvGoodsCfgImportDao dao = new InvGoodsCfgImportDao())
             {
                 IsValid = dao.InitializeInvGoodsInitImport(importType, new Guid(UserInfo.Id));

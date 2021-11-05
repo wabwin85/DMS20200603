@@ -228,7 +228,7 @@ namespace DMS.Website.Revolution.Pages.Handler
                                 break;
                             //商品发票配置导入
                             case "InvGoodsCfgImport":
-                                InvGoodsCfgImport(dt);
+                                VerifyInvGoodsCfgImport(dt);
                             break;
                             default:
                                 break;
@@ -1388,29 +1388,40 @@ namespace DMS.Website.Revolution.Pages.Handler
             }
         }
 
-        protected void InvGoodsCfgImport(DataTable dt)
+        protected void VerifyInvGoodsCfgImport(DataTable dt)
         {
             InvGoodsCfgImportService business = new InvGoodsCfgImportService();
             string IsValid = string.Empty;
-            if(business.Import(dt))
+            bool isError;
+            bool tag = business.ImportTemp(dt,out isError);
+            if (isError)
             {
-                business.VerifyInvGoodsCfgImport("Import", out IsValid);
-            }
-            else
-            {
-                IsValid = "Error";
-            }
-            if (IsValid == "Success")
-            {
-                var lstresult = new { result = "Success", msg = "", count = dt.Rows.Count };
+                var lstresult = new { result = "DataError", msg = "上传数据中有误，请检查错误信息", count = dt.Rows.Count };
                 HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
             }
             else
             {
-                var lstresult = new { result = "DataError", msg = "" };
-                HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                if (!tag)
+                {
+                    IsValid = "Duplicate Data";
+                }
+                else
+                {
+                    IsValid = "Success";
+                } 
+                if (IsValid == "Success")
+                {
+                    var lstresult = new { result = "Success", msg = "是否要上传数据", count = dt.Rows.Count };
+                    HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                }
+                else
+                {
+                    var lstresult = new { result = "DataDuplicate", msg = "数据有重复，是否需要覆盖" };
+                    HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                }
             }
-        }
+        } 
+
         private bool CheckData(string type, DataTable dt)
         {
             return true;

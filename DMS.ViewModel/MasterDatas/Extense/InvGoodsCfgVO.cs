@@ -16,6 +16,10 @@ namespace DMS.ViewModel.MasterDatas.Extense
 
         public string ProductLine;
 
+        public string SubCompanyName;
+
+        public string BrandName;
+
         public string InvType;
 
         public KeyValue QryBu;

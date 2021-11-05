@@ -7,6 +7,8 @@ InvReconcile = function () {
     var globalSubCompanyId = parent.$('#IptSubCompanyId').val();
     var globalSubCompanyName = parent.$('#IptSubCompanyName').html();
     var globalBrandName = parent.$('#IptBrandName').html();
+    $('#SubCompanyName').val(globalSubCompanyName == null ? "瑞奇" : globalSubCompanyName);
+    $('#BrandName').val(globalBrandName == null ?"瑞奇":globalBrandName);
     var pickedList = [], pickedProductList = [], pickedProductIdsList = [];
     that.GetModel = function () {
         var model = FrameUtil.GetModel();
@@ -53,7 +55,7 @@ InvReconcile = function () {
                     value: model.QryHospital
                 });
                 $('#CompareInfo').FrameDropdownList({
-                    dataSource: [{ Key: "", Value: "全部" }, { Key: "对账失败", Value: "对账失败" }, { Key: "未对账", Value: "未对账" }, { Key: "已对账", Value: "已对账" }],
+                    dataSource: [{ Key: "全部", Value: "全部" }, { Key: "对账失败", Value: "对账失败" }, { Key: "未对账", Value: "未对账" }, { Key: "已对账", Value: "已对账" }],
                     dataKey: 'Key',
                     dataValue: 'Value',
                     selectType: 'select',
@@ -74,7 +76,18 @@ InvReconcile = function () {
                     text: '自动对账',
                     icon: 'search',
                     onClick: function () {
-                        that.CompareReconcile(pickedList,null,"auto");
+                        if (that.CheckNotExceedOneMonth() > 30) {
+                            FrameWindow.ShowAlert({
+                                target: 'top',
+                                alertType: 'info',
+                                message: "批量对账的单据日期必须小于30天",
+                                callback: function () {
+                                }
+                            });
+                        }
+                        else {
+                            that.CompareReconcile(pickedList, null, "auto");
+                        }
                     }
                 });
 
@@ -110,6 +123,24 @@ InvReconcile = function () {
         if (grid) {
             grid.dataSource.page(1);
             return;
+        }
+    }
+
+    that.OpenDetailWin = function (OrderId, IsShipmentUpdate, IsModified, ShipmentType, DealerId, DealerType) {
+        if (OrderId) {
+            top.createTab({
+                id: 'M_' + OrderId,
+                title: '销售出库单明细',
+                url: 'Revolution/Pages/Shipment/ShipmentListInfo.aspx?OrderId=' + OrderId + '&&IsShipmentUpdate=' + IsShipmentUpdate + '&&IsModified=' + IsModified + '&&ShipmentType=' + ShipmentType + '&&DealerId=' + DealerId,
+                refresh: true
+            });
+        } else {
+            top.createTab({
+                id: 'M_ShipmentList_New',
+                title: '销售出库单明细',
+                url: 'Revolution/Pages/Shipment/ShipmentListInfo.aspx?OrderId=' + OrderId + '&&IsShipmentUpdate=' + IsShipmentUpdate + '&&IsModified=' + IsModified + '&&ShipmentType=' + ShipmentType + '&&DealerId=' + DealerId,
+                refresh: true
+            });
         }
     }
 
@@ -195,10 +226,28 @@ InvReconcile = function () {
                 {
                     field: 'UpdateTime', title: "最新更新日期", width: '120px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '最新更新日期' }
+                },
+                {
+                    title: "明细",
+                    headerAttributes: {
+                        "class": "text-center text-bold"
+                    },
+                    width: 50,
+                    template: "#if ($('\\#Id').val() != '') {#<i class='fa fa-edit' style='font-size: 14px; cursor: pointer;' name='detail'></i>#}#",
+                    attributes: {
+                        "class": "text-center text-bold"
+                    }
                 }
             ],
             dataBound: function (e) {
-                var grid = e.sender; 
+                var grid = e.sender;
+                $("#RstResultList").find("i[name='detail']").bind('click', function (e) {
+                    var tr = $(this).closest("tr");
+                    var data = grid.dataItem(tr); 
+                    //that.ShowDetails();
+                    that.OpenDetailWin(data.Id, "", "", "", data.DealerId, $('#HidDealerType').val());
+                });
+
                 $("#RstResultList").find(".Check-Item").unbind("click");
                 $("#RstResultList").find(".Check-Item").on('click', function () {
                     var checked = this.checked,
@@ -259,6 +308,21 @@ InvReconcile = function () {
         urlExport = Common.UpdateUrlParams(urlExport, 'HospitalName', data.QryHospital);
         urlExport = Common.UpdateUrlParams(urlExport, 'CompareInfo', data.CompareInfo.Key);
         startDownload(urlExport, 'InvReconcileSummaryExport');
+    }
+
+    that.CheckNotExceedOneMonth = function () {
+        if (pickedList.length > 1) {
+            pickedList.sort(function (x, y) {
+                var date1 = new Date(x.ShipmentDate), date2 = new Date(y.ShipmentDate);
+                return date1.getTime() > date2.getTime();
+            })
+            var maxDate = new Date(pickedList[0].ShipmentDate),
+                minDate = new Date(pickedList[pickedList.length - 1].ShipmentDate);
+            var day = parseInt((Date.parse(maxDate) - Date.parse(minDate)) / (1000 * 60 * 60 * 24));
+            if (day > 30)
+                return false;
+            return true;
+        }
     }
 
     that.CompareReconcile = function (ids, iNVRecDetailIds, reconcileType) {
@@ -365,6 +429,24 @@ InvReconcile = function () {
                 });
             }
         }
+    }
+
+    that.ExportSummary = function () {
+        var data = that.GetModel();
+        var urlExport = Common.ExportUrl;
+
+        urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'InvRecSummaryExport');
+        urlExport = Common.UpdateUrlParams(urlExport, 'SubCompanyName', globalSubCompanyName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'BrandName', globalBrandName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DealerId', data.Dealer.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ProductLineId', data.QryProductLine.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'OrderNumber', data.QryOrderNumber);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ReconcileStartDate', data.QryReconcileDate.StartDate);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ReconcileEndDate', data.QryReconcileDate.EndDate);
+        urlExport = Common.UpdateUrlParams(urlExport, 'HospitalName', data.QryHospital);
+        urlExport = Common.UpdateUrlParams(urlExport, 'CompareInfo', data.CompareInfo.Key);
+        startDownload(urlExport, 'InvRecSummaryExport');
     }
 
     /**
@@ -556,9 +638,12 @@ InvReconcile = function () {
             ],
             dataBound: function (e) {
                 var grid = e.sender;
-                $('#RstInvDetail').find('i[name="downloadAttach"]').bind('click', function () {
+                $('#RstInvDetail').find('i[name="downloadAttach"]').bind('click', function () { 
                     var tr = $(this).closest("tr");
-                    that.DownloadAttach(data.Name, data.Url);
+                        grid = $("#RstInvDetail").data("kendoGrid"),
+                        dataItem = grid.dataItem(tr);
+                    console.log(dataItem);
+                    that.DownloadAttach(dataItem.AT_Name, dataItem.Url);
                 });
             }
         });
@@ -701,3 +786,5 @@ InvReconcile = function () {
 
     return that;
 }();
+
+ 
