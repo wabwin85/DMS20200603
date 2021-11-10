@@ -7558,7 +7558,6 @@
     <Content Include="PagesKendo\ContractElectronic\handlers\DealerMasterDDBscHandler.ashx" />
     <Content Include="Pages\EKPWorkflow\StartInstanceHanderNew.ashx" />
     <Content Include="Pages\EKPWorkflow\GetCurrentHanderNew.ashx" />
-    <Fakes Include="Fakes\Microsoft.Office.Interop.Excel.fakes" />
     <None Include="Properties\PublishProfiles\BSC_DMS.pubxml" />
     <None Include="Properties\PublishProfiles\DMS.pubxml" />
     <None Include="Properties\PublishProfiles\DMS_TEST.pubxml" />

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.Script", "DMS.Script\DMS.Script.csproj", "{8E88DAAC-C6FA-48D1-9599-EB9547E6B690}"
 EndProject
@@ -34,11 +34,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.WeChatServer", "DMS.WeC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.WeChatClient", "DMS.WeChatClient\DMS.WeChatClient.csproj", "{61FD1621-7FA3-47EF-92F5-A5D3E8D7C4C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.ConsoleTest", "DMS.ConsoleTest\DMS.ConsoleTest.csproj", "{365A64F2-9666-43B9-A275-EA3622DB1533}"
+EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU
@@ -238,8 +236,27 @@ Global
 		{61FD1621-7FA3-47EF-92F5-A5D3E8D7C4C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61FD1621-7FA3-47EF-92F5-A5D3E8D7C4C5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{61FD1621-7FA3-47EF-92F5-A5D3E8D7C4C5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Debug|.NET.Build.0 = Debug|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Release|.NET.ActiveCfg = Release|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Release|.NET.Build.0 = Release|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{365A64F2-9666-43B9-A275-EA3622DB1533}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2541B807-7779-457F-8C24-A163FD01FFAF}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
