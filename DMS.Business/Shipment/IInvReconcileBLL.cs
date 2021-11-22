@@ -13,6 +13,8 @@ namespace DMS.Business
 
         DataSet QueryInvReconcile(Hashtable table);
 
+        DataSet QueryInvRecDetailReport(Hashtable ht);
+
         DataSet QueryProductDetail(Hashtable table, int start, int limit, out int totalRowCount);
 
         DataSet QueryProductDetail(string ids);
@@ -33,12 +35,15 @@ namespace DMS.Business
 
         DataSet QueryInvTotalNumber(Hashtable ht);
 
-        void ExeSaveCompareStatus( Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg);
+        DataSet QueryCheckInv(Hashtable ht);
 
-        void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare);
+        void ExeSaveCompareStatus( Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg);
+
+        void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg, bool isSystemCompare);
 
         int UpdateInvRecSummary(Hashtable ht);
 
         int UpdateInvRecDetail(string ids);
+
     }
 }

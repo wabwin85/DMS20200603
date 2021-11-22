@@ -41,6 +41,12 @@ namespace DMS.DataAccess
             return ds; 
         }
 
+        public DataSet SelectInvRecDetailReport(Hashtable table)
+        {
+            DataSet ds = this.ExecuteQueryForDataSet("QueryInvRecDetailExport", table);
+            return ds;
+        }
+
         public DataSet SelectInvoiceDetail(string ids)
         {
             DataSet ds = this.ExecuteQueryForDataSet("QueryInvoiceDetail", ids);
@@ -87,7 +93,13 @@ namespace DMS.DataAccess
             return ds;
         }
 
-        public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg)
+        public DataSet SelectMatchRule(Hashtable ht)
+        {
+            DataSet ds = this.ExecuteQueryForDataSet("QueryCheckMatchRule", ht);
+            return ds;
+        }
+
+        public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg)
         {
             RtnMsg = string.Empty;
             RtnVal = string.Empty;
@@ -96,7 +108,8 @@ namespace DMS.DataAccess
             table.Add("OrderNumber", OrderNumber);
             table.Add("CFN",CFN);
             table.Add("CompareUser", compareUser);
-            table.Add("CompareStatus", compareStatus); 
+            table.Add("CompareStatus", compareStatus);
+            table.Add("CompareInfos", compareInfos);
             table.Add("RtnVal", RtnVal);
             table.Add("RtnMsg", RtnMsg);
             this.ExecuteInsert("SaveCompareStatus", table);
@@ -105,7 +118,7 @@ namespace DMS.DataAccess
             RtnVal = table["RtnVal"].ToString();
         }
 
-        public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus,bool isSystemCompare, out string RtnVal, out string RtnMsg)
+        public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus,bool isSystemCompare,string compareInfos, out string RtnVal, out string RtnMsg)
         {
             RtnMsg = string.Empty;
             RtnVal = string.Empty;
@@ -116,6 +129,7 @@ namespace DMS.DataAccess
             table.Add("ProductLineId", ProductLineId);
             table.Add("CompareUser", compareUser);
             table.Add("CompareStatus", compareStatus);
+            table.Add("CompareInfos",compareInfos);
             table.Add("IsSystemCompare",isSystemCompare);
             table.Add("RtnVal", RtnVal);
             table.Add("RtnMsg", RtnMsg);

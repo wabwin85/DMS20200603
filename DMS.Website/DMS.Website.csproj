@@ -7516,12 +7516,12 @@
     <Content Include="Pages\Shipment\QueryHospital.ashx" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
-    <EmbeddedResource Include="Excel\Export\Excel2003Module.xls">
+    <Content Include="Excel\Export\Excel2003Module.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Excel\Export\Excel2007Module.xlsx">
+    </Content>
+    <Content Include="Excel\Export\Excel2007Module.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <EmbeddedResource Include="Excel\Export\module\DealerPurchaseForecastAdjust.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

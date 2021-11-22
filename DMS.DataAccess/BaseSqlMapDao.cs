@@ -363,6 +363,7 @@ namespace DMS.DataAccess
                     string sqlText = scope.IDbCommand.CommandText;
 
                     string cmdText = string.Format("select count(*) c from ({0}) [Extent1] ", sqlText);
+
                     cmd.CommandText = cmdText;
 
                     scope.Session.OpenConnection();

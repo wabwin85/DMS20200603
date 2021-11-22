@@ -25,7 +25,7 @@
 		<select id="QueryInvGoodsCfgImportCheck" parameterClass="string" resultClass="System.Data.DataSet">
 			SELECT A.ID,A.SubCompanyName,A.BrandName, A.ProductLine,A.ProductNameCN,A.InvType,A.ImportUser,A.QryCFN,A.ErrorMsg,A.IsError,A.ImportDate, B.Id as InvGoodsCfgId,
 			ROW_NUMBER() OVER(ORDER BY A.ImportDate DESC) AS [row_number] FROM InvGoodsCfgInit A inner join InvGoodsConfig B on A.SubCompanyName=B.SubCompanyName
-			AND A.BrandName=B.BrandName AND A.ProductLine = B.ProductLine AND A.QryCFN=B.QryCFN
+			AND A.BrandName=B.BrandName AND A.ProductLine = B.ProductLine AND A.QryCFN=B.QryCFN AND A.InvType = B.InvType
 			WHERE A.ImportUser=#UserId#
 		</select>
 		<update id="UpdateExistInvGoodsCfgImportStatus" parameterClass="System.Collections.Hashtable">

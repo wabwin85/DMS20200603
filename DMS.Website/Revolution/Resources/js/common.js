@@ -22,6 +22,58 @@ dms.config = {
 };
 
 dms.common = {
+    dynamicSetmouseStretchText: function (option) {
+        var setting = $.extend({}, {
+            id: '',
+            field: '',
+            splitkey: ','
+        }, option);
+        $("#" + setting.id).kendoTooltip({
+            show: function (e) {
+                if ($.trim(this.content.text()) != "") {
+                    $('[role="tooltip"]').css("visibility", "visible");
+                }
+            },
+            hide: function () {
+                $('[role="tooltip"]').css("visibility", "hidden");
+            },
+            filter: "td:nth-child(n)",
+            content: function (e) {
+                var element = e.target[0];
+                if (element.offsetWidth == element.scrollWidth && element.scrollWidth == element.clientWidth) {
+                    $('[role="tooltip"]').css("visibility", "hidden");
+                    return "";
+                }
+                if (element.offsetWidth < element.scrollWidth + 1) {
+                    var text = $(e.target).text();
+                    if ('' != setting.field) {
+                        if (setting.field == $("#" + setting.id).data("kendoGrid").columns[e.target.closest("tr").context.cellIndex].field)
+                            //text = text.replace(/,/g, '<br/>');
+                            text = text.replace(new RegExp(setting.splitkey, 'g'), '<br/>');
+                    }
+                    var length = text.length > 200 ? text.length : (element.offsetWidth <= 100 ? 100 : element.offsetWidth);
+                    return '<div style="min-width:100px;max-width: 1000px;word-break: break-word; white-space: normal; text-align: left;width:' + length + 'px !important;">' + text + '</div>';
+                } else {
+                    $('[role="tooltip"]').css("visibility", "hidden");//解决鼠标一开始放在上面出现空模块
+                    return "";
+                }
+            }
+        }).data("kendoTooltip");
+    },
+
+    dynamicSettableWidth: function (option) {
+        var setting = $.extend({}, {
+            id: ''
+        }, option);
+        //var maxwidth = document.body.clientWidth;
+        var maxwidth = $("div[id='" + setting.id + "']").width() - 17;
+        var currentwidth = $($("#" + setting.id).find("table")[0]).width();
+        if (currentwidth < maxwidth) {
+            $($("#" + setting.id).find("table").each(function (index, item) {
+                $(item).css("width", maxwidth);
+            }))
+        }
+    },
     ToLowerCaseFn: function (obj) {
         if (obj != null) {
             return obj.toLowerCase();

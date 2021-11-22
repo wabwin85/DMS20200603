@@ -57,8 +57,9 @@ namespace DMS.BusinessService.Shipment
                     ht.Add("BrandName",model.BrandName);
                 if (null != model.Dealer && !string.IsNullOrEmpty(model.Dealer.Key))
                     ht.Add("DealerId", model.Dealer.Key);
-                if (null != model.QryProductLine && !string.IsNullOrEmpty(model.QryProductLine.Key))
-                    ht.Add("ProductLineId", model.QryProductLine.Key);
+                if (null != model.QryProductLine && !string.IsNullOrEmpty(model.QryProductLine.Value))
+                    if(model.QryProductLine.Value!= "请选择")
+                        ht.Add("ProductLine", model.QryProductLine.Value);
                 if (!string.IsNullOrEmpty(model.QryOrderNumber))
                     ht.Add("OrderNumber", model.QryOrderNumber);
                 if (null != model.QryReconcileDate && !string.IsNullOrEmpty(model.QryReconcileDate.StartDate))
@@ -69,7 +70,7 @@ namespace DMS.BusinessService.Shipment
                     ht.Add("HospitalName", model.QryHospital);
                 if (model.CompareInfo!=null &&!string.IsNullOrEmpty(model.CompareInfo.Key))
                     if(model.CompareInfo.Key != "全部")
-                        ht.Add("CompareStatus", model.CompareInfo.Value);
+                        ht.Add("CompareStatus", model.CompareInfo.Key);
                 
                 int start = (model.Page - 1) * model.PageSize;
                 ht.Add("start", start);
@@ -171,23 +172,26 @@ namespace DMS.BusinessService.Shipment
             {
                 if (model.Ids != null)
                 {
-                    Hashtable ht = new Hashtable();
-                    int totalCount = 0;
-                    int start = (model.Page - 1) * model.PageSize;
-                    if (!string.IsNullOrEmpty(model.Ids ))
+                    //Hashtable ht = new Hashtable();
+                    //int totalCount = 0;
+                    //int start = (model.Page - 1) * model.PageSize;
+                    if (!string.IsNullOrEmpty(model.Ids))
                     {
-                        ht.Add("SPH_IDs", model.Ids);
+                        //ht.Add("SPH_IDs",model.Ids);
                     }
                     else
                     {
-                        ht.Add("SPH_IDs", "'00000000-0000-0000-0000-000000000000'");
+                        //ht.Add("SPH_IDs", "'00000000-0000-0000-0000-000000000000'");
+                        model.Ids = "'00000000-0000-0000-0000-000000000000'";
                     }
-                    ht.Add("start", start);
-                    ht.Add("limit", model.PageSize);
+                    //ht.Add("start", start);
+                    //ht.Add("limit", model.PageSize);
                     IInvReconcileBLL business = new InvReconcileBLL();
-                    DataSet ds = business.QueryProductInvoiceDetail(ht, start, model.PageSize, out totalCount);
-                    model.RstProductInvoiceDetail = JsonHelper.DataTableToArrayList(ds.Tables[0]);
-                    model.DataCount = totalCount;
+                    DataSet dsProduct = business.QueryProductDetail(model.Ids);
+                    model.RstProductDetail = JsonHelper.DataTableToArrayList(dsProduct.Tables[0]);
+                    DataSet dsInvoice = business.QueryInvoiceDetail(model.Ids);
+                    model.RstInvoiceDetail = JsonHelper.DataTableToArrayList(dsInvoice.Tables[0]);
+                    //model.DataCount = totalCount;
                     model.IsSuccess = true;
                 }
             }
@@ -211,7 +215,7 @@ namespace DMS.BusinessService.Shipment
                 {
                     bool tag = InsertRecordsToTemp(model);
                     if (!tag)
-                        throw new Exception("导入数据出错");
+                        throw new Exception("比对数据出错");
                     IsExistInvRecDetailData(model);
                     model.IsSuccess = true;
                 }
@@ -238,7 +242,7 @@ namespace DMS.BusinessService.Shipment
                                 }
 
                                 Hashtable ht = new Hashtable();
-                                if(recStatus.Contains("对账成功") && !(recStatus.Contains("对账失败") || recStatus.Contains("未对账")))
+                                if(recStatus.Contains("已对账") && !(recStatus.Contains("无法匹配")))
                                 {
                                     ht.Add("CompareStatus", "已对账");
                                     ht.Add("CompareUser", _context.User.Id);
@@ -247,7 +251,7 @@ namespace DMS.BusinessService.Shipment
                                     business.UpdateInvRecSummary(ht);
                                     model.IsSuccess = true;
                                 }
-                                else if (recStatus.Contains("对账成功") && (recStatus.Contains("对账失败") || recStatus.Contains("未对账")))
+                                else if (recStatus.Contains("已对账") && (recStatus.Contains("无法匹配")))
                                 {
                                     ht.Add("CompareStatus", "部分对账成功");
                                     ht.Add("CompareUser", _context.User.Id);
@@ -256,7 +260,7 @@ namespace DMS.BusinessService.Shipment
                                     business.UpdateInvRecSummary(ht);
                                     model.IsSuccess = true;
                                 }
-                                else if (recStatus.Contains("对账失败"))
+                                else if (recStatus.Contains("无法匹配"))
                                 {
                                     ht.Add("CompareStatus", "对账失败");
                                     ht.Add("CompareUser", _context.User.Id);
@@ -320,21 +324,29 @@ namespace DMS.BusinessService.Shipment
                     SaveCompareDataInTempTable(dr, model);
                 }
 
-            }
-            //DataSet dsDetail = business.QueryInvRecDetail();
+            } 
 
         }
 
         private void SaveCompareDataInTempTable(DataRow drTemp, InvReconcileSummaryVO model)
         {
             string compareStatus = string.Empty;
+            string compareInfos = string.Empty;
             IInvReconcileBLL business = new InvReconcileBLL();
             decimal tempQuantity = drTemp["TotalNumber"]== DBNull.Value?0: decimal.Parse(drTemp["TotalNumber"].ToString(), CultureInfo.InvariantCulture);
             //找出发票明细中的quantity
             DataSet dsRule = GetRuleBySubCompany(model);
-            Hashtable ht = new Hashtable();
+            Hashtable ht = new Hashtable(); 
             if (dsRule.Tables[0].Rows.Count > 0)
             {
+                ht.Add("SPH_ID", drTemp["SPH_ID"].ToString());
+                ht.Add("OrderNumber", drTemp["OrderNumber"].ToString());
+                ht.Add("CFN", drTemp["CFN"].ToString());
+                ht.Add("HospitalName", drTemp["HospitalName"].ToString());
+                ht.Add("ProductLineId", drTemp["ProductLineId"].ToString());
+                ht.Add("BrandName", model.BrandName);
+                ht.Add("SubCompanyName", model.SubCompanyName); 
+
                 string rules = dsRule.Tables[0].Rows[0]["Rules"].ToString();
                 string[] arr = rules.Split(',');
                 if (arr[0] == "1")
@@ -353,48 +365,197 @@ namespace DMS.BusinessService.Shipment
             else
             {
                 throw new Exception("规则没有查到");
-            }
-            ht.Add("SPH_ID", drTemp["SPH_ID"].ToString());
-            ht.Add("OrderNumber", drTemp["OrderNumber"].ToString());
-            ht.Add("CFN", drTemp["CFN"].ToString());
-            ht.Add("HospitalName", drTemp["HospitalName"].ToString());
-            ht.Add("ProductLineId",drTemp["ProductLineId"].ToString());
-            ht.Add("BrandName",model.BrandName);
-            ht.Add("SubCompanyName",model.SubCompanyName);
+            } 
             DataSet dsDetail = business.QueryInvRecDetail(ht);
+
+
             if (dsDetail.Tables[0].Rows.Count > 0) // already exist
             {
+                string RtnVal = "", RtnMsg = "";
+                if (ht["ProductRule"].ToString() == "产品型号")
+                { 
+                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                    if (dtInvCheck.Rows.Count == 0)
+                    {
+                        compareStatus = "型号无法匹配";
+                        compareInfos = "无法关联发票型号";
+                        business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
+                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg, true);
+                        return;
+                    }
+                }
+                if (ht["InvoiceRule"].ToString() == "发票日期")
+                { 
+                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                    if (dtInvCheck.Rows.Count > 0)
+                    {
+                        bool tag = false;
+                        for (int i = 0; i < dtInvCheck.Rows.Count; i++)
+                        {
+                            int invoiceDateDiff = Convert.ToInt32(dtInvCheck.Rows[i]["InvoiceDateDiff"]);
+                            if (invoiceDateDiff==0)
+                            {
+                                tag = true;
+                                break;
+                            }
+                        }
+                        if (!tag)
+                        {
+                            compareStatus = compareInfos = "发票日期无法匹配"; 
+                            business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
+                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg, true);
+                            
+                            return;
+                        }
+                    }
+                }
+                if (ht["HosRule"].ToString() == "销售医院")
+                {
+                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                    if (dtInvCheck.Rows.Count > 0)
+                    {
+                        bool tag = false;
+                        for (int i = 0; i < dtInvCheck.Rows.Count; i++)
+                        {
+                            string hospitalName = dtInvCheck.Rows[i]["InvoiceTitle"].ToString();
+                            if (hospitalName == ht["HospitalName"].ToString())
+                            {
+                                tag = true;
+                                break;
+                            }
+                        }
+                        if (!tag)
+                        {
+                            compareInfos = compareStatus = "医院无法匹配";
+                            business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
+                     drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg, true);
+                            return;
+                        }
+                    }
+                }  
+
                 decimal invoiceTotal;
                 DataTable dtInvQuantity = business.QueryInvTotalNumber(ht).Tables[0];
                 decimal.TryParse(dtInvQuantity.Rows[0]["Quantity"].ToString(), out invoiceTotal);
                 if (tempQuantity == invoiceTotal && invoiceTotal != 0)
                 {
-                    compareStatus = "已对账";
+                    compareInfos = compareStatus = "已对账";
+                    
                 }
                 else
                 {
-                    compareStatus = "对账失败";
-                }
-                string RtnVal = "", RtnMsg = "";
+                    if (invoiceTotal == 0 && tempQuantity != invoiceTotal)
+                    {
+                        compareInfos = "无对应发票";
+                    }
+                    else if (tempQuantity > invoiceTotal)
+                    {
+                        decimal quantity = tempQuantity - invoiceTotal;
+                        compareInfos = $"销售出库单数量少{quantity}个";
+                    }
+                    else
+                    {
+                        decimal quantity = invoiceTotal - tempQuantity;
+                        compareInfos = $"销售出库单数量多{quantity}";
+                    }
+                    compareStatus = "数量无法匹配";
+                } 
                 business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()),drTemp["OrderNumber"].ToString(),
-                    drTemp["CFN"].ToString(),new Guid(drTemp["ProductLineId"].ToString()), new Guid(_context.User.Id) , compareStatus,  out RtnVal, out RtnMsg, true);
+                    drTemp["CFN"].ToString(),new Guid(drTemp["ProductLineId"].ToString()), new Guid(_context.User.Id) , compareStatus,compareInfos,  out RtnVal, out RtnMsg, true);
             }
             else
             {
+                string RtnVal = "", RtnMsg = "";
+                if (ht["ProductRule"].ToString() == "产品型号")
+                { 
+                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                    if (dtInvCheck.Rows.Count == 0)
+                    {
+                        compareStatus = "无法关联发票型号";
+                        compareStatus = "型号无法匹配";
+                        business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg);
+                        return;
+                    }
+                }
+                if(ht["InvoiceRule"].ToString() == "发票日期")
+                {
+                    //htCheck.Add("InvoiceRule", "产品型号");
+                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0]; 
+                    if (dtInvCheck.Rows.Count > 0)
+                    { 
+                        bool tag = false;
+                        for (int i = 0; i<dtInvCheck.Rows.Count;i++)
+                        {
+                            int invoiceDateDiff = Convert.ToInt32(dtInvCheck.Rows[i]["InvoiceDateDiff"]);
+                            if (invoiceDateDiff == 0)
+                            {
+                                tag = true;
+                                break;
+                            }
+                        }
+                        if (!tag)
+                        {
+                           compareInfos =  compareStatus = "发票日期无法匹配";
+                            business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg);
+                            return;
+                        }
+                    }
+                }
+                if (ht["HosRule"].ToString() == "销售医院")
+                {
+                    //htCheck.Add("HosRule", "销售医院");
+                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                    if (dtInvCheck.Rows.Count > 0)
+                    {
+                        bool tag = false;
+                        for (int i = 0; i < dtInvCheck.Rows.Count; i++)
+                        {
+                            string hospitalName = dtInvCheck.Rows[i]["InvoiceTitle"].ToString();
+                            if (hospitalName == ht["HospitalName"].ToString())
+                            {
+                                tag = true;
+                                break;
+                            }
+                        }
+                        if (!tag)
+                        {
+                            compareInfos = compareStatus = "医院无法匹配";
+                            business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg);
+                            return;
+                        }
+                    }
+                } 
+
                 decimal invoiceTotal;
 
                 DataTable dtInvQuantity = business.QueryInvTotalNumber(ht).Tables[0];
                 decimal.TryParse(dtInvQuantity.Rows[0]["Quantity"].ToString(), out invoiceTotal);
-                if(tempQuantity <= invoiceTotal && invoiceTotal != 0)
+                 
+                if(tempQuantity == invoiceTotal && invoiceTotal != 0)
                 {
-                    compareStatus = "已对账";
+                    compareInfos = compareStatus = "已对账";
                 }
                 else
                 {
-                    compareStatus = "对账失败";
+                    if(invoiceTotal==0 && tempQuantity!=invoiceTotal)
+                    {
+                        compareInfos = "无对应发票";
+                    }
+
+                    else if (tempQuantity > invoiceTotal)
+                    {
+                        decimal quantity = tempQuantity - invoiceTotal;
+                        compareInfos =  $"销售出库单数量少{quantity}个";
+                    }
+                    else
+                    {
+                        decimal quantity = invoiceTotal - tempQuantity;
+                        compareInfos = $"销售出库单数量多{quantity}";
+                    }
+                    compareStatus = "数量无法匹配";
                 }
-                string RtnVal = "", RtnMsg ="";
-                business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus, out RtnVal, out RtnMsg);
+                
+                business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg);
                 
             }
         }
@@ -497,19 +658,21 @@ namespace DMS.BusinessService.Shipment
             if (!string.IsNullOrEmpty(Parameters["CompareInfo"].ToSafeString()))
             {
                 param.Add("CompareInfo", Parameters["CompareInfo"].ToSafeString());
-            } 
-            IInvReconcileBLL business = new InvReconcileBLL();
-            DataSet dsQuery = business.QueryInvReconcile(param);
-            DataTable dt = dsQuery.Tables[0].Copy();
-            DataSet ds = new DataSet("报量对账销售单表");
-            DataTable dtData = dt;
-
-            dtData.TableName = "报量对账销售单表";
-            if (null != dtData)
+            }
+            if (DownloadCookie == "InvRecSummaryExport")
             {
-                #region 调整列的顺序,并重命名列名
+                IInvReconcileBLL business = new InvReconcileBLL();
+                DataSet dsQuery = business.QueryInvReconcile(param);
+                DataTable dt = dsQuery.Tables[0].Copy();
+                DataSet ds = new DataSet("报量对账销售单表");
+                DataTable dtData = dt;
 
-                Dictionary<string, string> dict = new Dictionary<string, string>
+                dtData.TableName = "报量对账销售单表";
+                if (null != dtData)
+                {
+                    #region 调整列的顺序,并重命名列名
+
+                    Dictionary<string, string> dict = new Dictionary<string, string>
                         {
                             {"DealerName", "经销商名称"},
                             {"ProductLine", "产品线"},
@@ -521,15 +684,65 @@ namespace DMS.BusinessService.Shipment
                             {"InvQty", "发票数量"},
                             {"CompareStatus", "对账情况"},
                             {"CompareInfo", "是否对账"},
-                            {"UpdateTime", "最新对账日期"} 
+                            {"UpdateTime", "最新对账日期"}
                         };
 
-                CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);
+                    CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);
 
-                #endregion 调整列的顺序,并重命名列名
-                ds.Tables.Add(dtData); 
+                    #endregion 调整列的顺序,并重命名列名
+                    ds.Tables.Add(dtData);
+                }
+                ExportFile(ds, DownloadCookie);
             }
-            ExportFile(ds, DownloadCookie); 
+            else
+            {
+                IInvReconcileBLL business = new InvReconcileBLL();
+                DataSet dsQuery = business.QueryInvRecDetailReport(param);
+                DataTable dt = dsQuery.Tables[0].Copy();
+                DataSet ds = new DataSet("报量对账明细表");
+                DataTable dtData = dt;
+
+                dtData.TableName = "报量对账明细表";
+
+                if (null != dtData)
+                {
+                    #region 调整列的顺序,并重命名列名
+
+                    Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            {"DealerName", "经销商名称"},
+                            {"ProductLine", "产品线"},
+                            {"SubCompanyName", "分子公司"},
+                            {"BrandName", "品牌"},
+                            {"OrderNumber", "销售单号"},
+                            {"HospitalName", "销售医院"},
+                            {"TotalQty", "总数量"},
+                            {"InvQty", "发票总数量"},
+                            {"CompareStatus", "对账情况"},
+                            {"CompareInfo", "是否对账"},
+                            {"UpdateTime", "最新对账日期"},
+                            {"CFN_ChineseName","产品名称" },
+                            {"CFN","产品型号" },
+                            {"ShipmentQty","产品数量" },
+                            {"ProductCompareStatus","状态" },
+                            {"InvoiceNo","发票号" },
+                            {"InvoiceTitle","发票抬头" },
+                            {"InvoiceDate","发票日期" },
+                            {"RowNo","发票行号" },
+                            {"CommodityName","发票商品名称" },
+                            {"SpecificationModel","规格型号" },
+                            {"InvoiceQuantity","发票数量" }
+                    };
+
+                    CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);
+
+                    #endregion 调整列的顺序,并重命名列名
+                    ds.Tables.Add(dtData);
+                }
+                ExportFile(ds, DownloadCookie);
+
+            }
+           
         }
 
         protected void ExportFile(DataSet ds, string Cookie)

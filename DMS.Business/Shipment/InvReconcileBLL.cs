@@ -131,6 +131,16 @@ namespace DMS.Business
             return ds;
         }
 
+        public DataSet QueryInvRecDetailReport(Hashtable ht)
+        {
+            DataSet ds = new DataSet();
+            using (var dao = new InvReconcileDao())
+            {
+                ds = dao.SelectInvRecDetailReport(ht);
+            }
+            return ds;
+        }
+
         public DataSet QueryInvTotalNumber(Hashtable ht)
         {
             DataSet ds = new DataSet();
@@ -141,23 +151,33 @@ namespace DMS.Business
             return ds;
         }
 
-        public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg)
+        public DataSet QueryCheckInv(Hashtable ht)
+        {
+            DataSet ds = new DataSet();
+            using (var dao = new InvReconcileDao())
+            {
+                ds = dao.SelectMatchRule(ht);
+            }
+            return ds;
+        }
+
+        public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg)
         {
             RtnVal = string.Empty;
             RtnMsg = string.Empty;
             using (InvReconcileDao dao = new InvReconcileDao())
             {
-                dao.ExeSaveCompareStatus(SPH_ID,OrderNumber ,CFN, compareUser, compareStatus, out RtnVal, out RtnMsg);
+                dao.ExeSaveCompareStatus(SPH_ID,OrderNumber ,CFN, compareUser, compareStatus,compareInfos, out RtnVal, out RtnMsg);
             }
         }
 
-       public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN,Guid ProductLineId, Guid compareUser, string compareStatus, out string RtnVal, out string RtnMsg, bool isSystemCompare = true)
+       public void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN,Guid ProductLineId, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg, bool isSystemCompare = true)
         {
             RtnVal = string.Empty;
             RtnMsg = string.Empty;
             using (InvReconcileDao dao = new InvReconcileDao())
             {
-                dao.ExeUpdateCompareStatus(SPH_ID, OrderNumber, CFN,ProductLineId, compareUser, compareStatus, isSystemCompare, out RtnVal, out RtnMsg);
+                dao.ExeUpdateCompareStatus(SPH_ID, OrderNumber, CFN,ProductLineId, compareUser, compareStatus, isSystemCompare, compareInfos, out RtnVal, out RtnMsg);
             }
         }
 

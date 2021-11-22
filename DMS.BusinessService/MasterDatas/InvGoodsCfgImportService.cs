@@ -68,9 +68,7 @@ namespace DMS.BusinessService.MasterDatas
                         data.QryCFN = dr[3] == DBNull.Value ? null : dr[3].ToString();
                         if (string.IsNullOrEmpty(data.QryCFN))
                             data.ErrorMsg += "产品型号为空";
-                        data.ProductNameCN = dr[4] == DBNull.Value ? null : dr[4].ToString();
-                        if (string.IsNullOrEmpty(data.ProductNameCN))
-                            data.ErrorMsg += "产品中文名称为空";
+                        data.ProductNameCN = dr[4] == DBNull.Value ? null : dr[4].ToString(); 
                         data.InvType = dr[5] == DBNull.Value ? null : dr[5].ToString();
                         if (string.IsNullOrEmpty(data.InvType))
                             data.ErrorMsg += "发票规格型号为空";

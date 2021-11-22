@@ -125,8 +125,8 @@ ReconcileRule = function () {
         var isProductTypeChecked = model.ProductType == '0' ? false : true, isInvoiceDateChecked = model.InvoiceDate == '0' ? false : true,
             isSalesHospitalChecked = model.SalesHospital == '0' ? false : true; 
         $('#ProductType').prop({ 'checked': isProductTypeChecked, 'disabled': true });
-        $('#InvoiceDate').prop('checked', isInvoiceDateChecked);
-        $('#SalesHospital').prop('checked', isSalesHospitalChecked);
+        $('#InvoiceDate').prop({ 'checked': isInvoiceDateChecked, 'disabled': true  });
+        $('#SalesHospital').prop({ 'checked': isSalesHospitalChecked, 'disabled': true  });
         $('#hidSubCompanyId').val(model.SubCompanyId);
     };
 
@@ -172,8 +172,8 @@ ReconcileRule = function () {
                         var subcompanyid = gridrow.SubCompanyId;
                         if (status.length > 0) {
                             radlist += '<input type="checkbox" id="productType_' + subcompanyid + '" checked="true" disabled /> <label>产品型号</label> &nbsp;&nbsp;';
-                            radlist += '<input type="checkbox" id="InvoiceDate_' + subcompanyid + '" ' + (status[1] ==0? "":"checked='true'") +' /> <label>发票日期</label> &nbsp;&nbsp;';
-                            radlist += '<input type="checkbox" id="Hospital_' + subcompanyid + '" ' + (status[2] == 0 ? "" : "checked='true'") +' /> <label>销售医院</label>';
+                            radlist += '<input type="checkbox" id="InvoiceDate_' + subcompanyid + '" ' + (status[1] ==0? "":"checked='true' disabled") +' /> <label>发票日期</label> &nbsp;&nbsp;';
+                            radlist += '<input type="checkbox" id="Hospital_' + subcompanyid + '" ' + (status[2] == 0 ? "" : "checked='true' disabled") +' /> <label>销售医院</label>';
                            
                         }
                         return radlist;

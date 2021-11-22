@@ -5,10 +5,10 @@ InvReconcile = function () {
     var business = 'Shipment.Extense.InvReconcile';
     var globalBrandId = parent.$('#IptBrandId').val();
     var globalSubCompanyId = parent.$('#IptSubCompanyId').val();
-    var globalSubCompanyName = parent.$('#IptSubCompanyName').html();
-    var globalBrandName = parent.$('#IptBrandName').html();
-    $('#SubCompanyName').val(globalSubCompanyName == null ? "瑞奇" : globalSubCompanyName);
-    $('#BrandName').val(globalBrandName == null ?"瑞奇":globalBrandName);
+    var globalSubCompanyName = parent.$('#IptSubCompanyName').html() == undefined ? "瑞奇" : parent.$('#IptSubCompanyName').html();
+    var globalBrandName = parent.$('#IptBrandName').html() == undefined ? "瑞奇" : parent.$('#IptBrandName').html();
+    $('#SubCompanyName').val(globalSubCompanyName == undefined ? "瑞奇" : globalSubCompanyName);
+    $('#BrandName').val(globalBrandName == undefined ? "瑞奇" : globalBrandName);
     var pickedList = [], pickedProductList = [], pickedProductIdsList = [];
     that.GetModel = function () {
         var model = FrameUtil.GetModel();
@@ -103,6 +103,7 @@ InvReconcile = function () {
                     text: '导出',
                     icon: 'file-excel-o',
                     onClick: function () {
+                        that.ExportSummary("InvRecSummaryExport");
                     }
                 });
 
@@ -110,7 +111,7 @@ InvReconcile = function () {
                     text: '导出详细',
                     icon: 'file-excel-o',
                     onClick: function () {
-                        
+                        that.ExportDetail("InvRecDetailExport");
                     }
                 });
                 FrameWindow.HideLoading();
@@ -241,12 +242,14 @@ InvReconcile = function () {
             ],
             dataBound: function (e) {
                 var grid = e.sender;
+                dms.common.dynamicSetmouseStretchText({id:grid.wrapper.attr("Id")});
                 $("#RstResultList").find("i[name='detail']").bind('click', function (e) {
                     var tr = $(this).closest("tr");
                     var data = grid.dataItem(tr); 
                     //that.ShowDetails();
                     that.OpenDetailWin(data.Id, "", "", "", data.DealerId, $('#HidDealerType').val());
                 });
+                 
 
                 $("#RstResultList").find(".Check-Item").unbind("click");
                 $("#RstResultList").find(".Check-Item").on('click', function () {
@@ -269,7 +272,7 @@ InvReconcile = function () {
                 $('#CheckAll').unbind('change');
                 $('#CheckAll').on('change', function (ev) {
                     var checked = ev.target.checked;
-                    $('.Check-Item').each(function (idx, item) {
+                    $('#RstResultList .Check-Item').each(function (idx, item) {
                         var row = $(this).closest("tr");
                         var grid = $("#RstResultList").data("kendoGrid");
                         var data = grid.dataItem(row);
@@ -283,9 +286,9 @@ InvReconcile = function () {
                             $(this).prop("checked", false); //此处设置每行的checkbox不选中，必须用prop方法
                             $(this).closest("tr").removeClass("k-state-selected");  //设置grid 每一行不选中
 
-                        }
-                        that.ShowProductDetailInfo(pickedList);
+                        } 
                     });
+                    that.ShowProductDetailInfo(pickedList);
                 });
             },
             page: function (e) {
@@ -294,21 +297,25 @@ InvReconcile = function () {
         });
     };
 
-    that.Export = function (type) {
+    that.ExportDetail = function (type) {
         var data = that.GetModel();
 
         var urlExport = Common.ExportUrl;
         urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
-        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'InvReconcileSummaryExport');
-        urlExport = Common.UpdateUrlParams(urlExport, 'Dealer', data.Dealer.Key);
-        urlExport = Common.UpdateUrlParams(urlExport, 'QryProductLine', data.QryProductLine.Key);
-        urlExport = Common.UpdateUrlParams(urlExport, 'QryOrderNumber', data.QryOrderNumber);
-        urlExport = Common.UpdateUrlParams(urlExport, 'ShipmentDateStart', data.QryReconcileDate.StartDate);
-        urlExport = Common.UpdateUrlParams(urlExport, 'ShipmentDateEnd', data.QryReconcileDate.EndDate);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'InvReconcileDetailExport');
+        urlExport = Common.UpdateUrlParams(urlExport, 'SubCompanyName', globalSubCompanyName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'BrandName', globalBrandName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DealerId', data.Dealer.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ProductLineId', data.QryProductLine.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'OrderNumber', data.QryOrderNumber);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ReconcileStartDate', data.QryReconcileDate.StartDate);
+        urlExport = Common.UpdateUrlParams(urlExport, 'ReconcileEndDate', data.QryReconcileDate.EndDate);
         urlExport = Common.UpdateUrlParams(urlExport, 'HospitalName', data.QryHospital);
         urlExport = Common.UpdateUrlParams(urlExport, 'CompareInfo', data.CompareInfo.Key);
-        startDownload(urlExport, 'InvReconcileSummaryExport');
+        startDownload(urlExport, 'InvReconcileDetailExport');
     }
+
+   
 
     that.CheckNotExceedOneMonth = function () {
         if (pickedList.length > 1) {
@@ -431,7 +438,7 @@ InvReconcile = function () {
         }
     }
 
-    that.ExportSummary = function () {
+    that.ExportSummary = function (type) {
         var data = that.GetModel();
         var urlExport = Common.ExportUrl;
 
@@ -475,8 +482,8 @@ InvReconcile = function () {
             },
             pageable: {
                 refresh: false,
-                pageSizes: false,
-                pageSize: 10,
+                pageSizes: true,
+                pageSize: 100,
                 input: true,
                 numeric: false
             },
@@ -533,13 +540,14 @@ InvReconcile = function () {
                 },
                 {
                     title: '状态', width: '70px',
-                    field: 'CompareStatus',
+                    field: 'CompareInfos',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '状态' },
                     attributes: { "class": "table-td-cell" }
                 }
             ],
             dataBound: function (e) {
                 var grid = e.sender;
+                dms.common.dynamicSetmouseStretchText({ id: grid.wrapper.attr("Id") });
                 $("#RstProductDetail").find(".Check-Item").unbind("click");
                 $("#RstProductDetail").find(".Check-Item").on('click', function () {
                     var checked = this.checked,
@@ -575,8 +583,8 @@ InvReconcile = function () {
             },
             pageable: {
                 refresh: false,
-                pageSizes: false,
-                pageSize: 10,
+                pageSizes: true,
+                pageSize: 100,
                 input: true,
                 numeric: false
             },
@@ -638,11 +646,11 @@ InvReconcile = function () {
             ],
             dataBound: function (e) {
                 var grid = e.sender;
+                dms.common.dynamicSetmouseStretchText({ id: grid.wrapper.attr("Id") });
                 $('#RstInvDetail').find('i[name="downloadAttach"]').bind('click', function () { 
                     var tr = $(this).closest("tr");
                         grid = $("#RstInvDetail").data("kendoGrid"),
-                        dataItem = grid.dataItem(tr);
-                    console.log(dataItem);
+                        dataItem = grid.dataItem(tr); 
                     that.DownloadAttach(dataItem.AT_Name, dataItem.Url);
                 });
             }
@@ -658,35 +666,26 @@ InvReconcile = function () {
             data.Ids = generateQueryFromArray(ids, true);
         else
             data.Ids = generateQueryFromArray(ids);
-        data.PageSize = 10;
-        data.Page = 1;
+        //data.PageSize = 10;
+        //data.Page = 1;
         data.SubCompanyName = globalSubCompanyName == null ? "瑞奇" : globalSubCompanyName;
         data.BrandName = globalBrandName == null ? "瑞奇" : globalBrandName;
+
         FrameUtil.SubmitAjax({
             business: business,
-            method: 'QueryProductDetail',
+            method: 'QueryProductInvoiceDetail',
             url: Common.AppHandler,
             data: data,
-            callback: function (model) { 
+            callback: function (model) {
                 if (model.IsSuccess == true) {
                     $('#RstProductDetail').data("kendoGrid").setOptions({
-                        dataSource: { data: model.RstProductDetail}
-                    }); 
+                        dataSource: { data: model.RstProductDetail }
+                    });
                     if (model.RstProductDetail.length > 0)
                         $('#divProductDetail').show();
                     else
                         $('#divProductDetail').hide();
-                }
-                FrameWindow.HideLoading();
-            }
-        });
-        FrameUtil.SubmitAjax({
-            business: business,
-            method: 'QueryInvoiceDetail',
-            url: Common.AppHandler,
-            data: data,
-            callback: function (model) {
-                if (model.IsSuccess == true) { 
+
                     $('#RstInvDetail').data("kendoGrid").setOptions({
                         dataSource: { data: model.RstInvoiceDetail }
                     });
@@ -694,10 +693,48 @@ InvReconcile = function () {
                         $('#divInvoiceDetail').show();
                     else
                         $('#divInvoiceDetail').hide();
+
                 }
                 FrameWindow.HideLoading();
             }
-        }); 
+        });
+
+        //FrameUtil.SubmitAjax({
+        //    business: business,
+        //    method: 'QueryProductDetail',
+        //    url: Common.AppHandler,
+        //    data: data,
+        //    callback: function (model) { 
+        //        if (model.IsSuccess == true) {
+        //            $('#RstProductDetail').data("kendoGrid").setOptions({
+        //                dataSource: { data: model.RstProductDetail}
+        //            }); 
+        //            if (model.RstProductDetail.length > 0)
+        //                $('#divProductDetail').show();
+        //            else
+        //                $('#divProductDetail').hide();
+        //        }
+        //        FrameWindow.HideLoading();
+        //    }
+        //});
+        //FrameUtil.SubmitAjax({
+        //    business: business,
+        //    method: 'QueryInvoiceDetail',
+        //    url: Common.AppHandler,
+        //    data: data,
+        //    callback: function (model) {
+        //        if (model.IsSuccess == true) { 
+        //            $('#RstInvDetail').data("kendoGrid").setOptions({
+        //                dataSource: { data: model.RstInvoiceDetail }
+        //            });
+        //            if (model.RstInvoiceDetail.length > 0)
+        //                $('#divInvoiceDetail').show();
+        //            else
+        //                $('#divInvoiceDetail').hide();
+        //        }
+        //        FrameWindow.HideLoading();
+        //    }
+        //}); 
     }
 
     var generateQueryFromArray = function (idsArray, tag = false) {

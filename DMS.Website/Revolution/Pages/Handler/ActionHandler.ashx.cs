@@ -60,7 +60,7 @@ namespace DMS.Website.Revolution.Pages.Handler
                         context.Response.ClearContent();
                         context.Response.ContentType = "text/plain";
                         context.Response.Cache.SetCacheability(HttpCacheability.NoCache); //无缓存
-
+                        
                         byte[] byts = new byte[context.Request.InputStream.Length];
                         context.Request.InputStream.Read(byts, 0, byts.Length);
                         string data = Encoding.GetEncoding("utf-8").GetString(byts);

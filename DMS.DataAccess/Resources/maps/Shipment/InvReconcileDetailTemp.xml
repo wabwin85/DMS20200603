@@ -28,6 +28,7 @@
 			<parameter property="CFN" column="CFN" />
 			<parameter property="CompareUser" column="CompareUser" />
 			 <parameter property="CompareStatus" column="CompareStatus" />
+			<parameter property="CompareInfos" column="CompareInfos" />
 			 <parameter property="RtnVal" column="RtnVal" direction="Output" />
 			 <parameter property="RtnMsg" column="RtnMsg" direction="Output" />
 		</parameterMap>

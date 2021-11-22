@@ -30,8 +30,8 @@
                                     <div class="col-xs-10 col-field">
                                         <input name="files" id="files" type="file" />
                                     </div>
-                                    <div class="col-xs-1 col-label">
-                                        <a onclick="window.open('Extense/Upload/ExcelTemplate/Template_InvGoodsInit.xls')" style="padding-right: 20px; cursor: pointer;">下载模板</a>
+                                    <div class="col-xs-1 col-label"> 
+                                        <a onclick='window.open("~/Upload/ExcelTemplate/Template_InvGoodsInit.xls")' style="padding-right: 20px; cursor: pointer;">下载模板</a>
                                         <%--                                        <div class="col-xs-11 col-buttom" id="PnlButton">
                                             <a id="BtnRemove"></a>
                                         </div>--%>
