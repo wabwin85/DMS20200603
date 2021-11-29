@@ -13,6 +13,8 @@ namespace DMS.Business
 
         DataSet QueryInvReconcile(Hashtable table);
 
+        DataSet QueryTaskInvReconcile();
+
         DataSet QueryInvRecDetailReport(Hashtable ht);
 
         DataSet QueryProductDetail(Hashtable table, int start, int limit, out int totalRowCount);
@@ -25,7 +27,7 @@ namespace DMS.Business
 
         DataSet QueryProductInvoiceDetail(Hashtable table, int start, int limit ,out int totalRowCount);
 
-        int DeleteInvRecDetailTemp();
+        int DeleteInvRecDetailTemp(Guid userid);
 
         bool BatchInsertData(DataTable dt);
 

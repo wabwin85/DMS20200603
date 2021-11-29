@@ -22,6 +22,13 @@ namespace DMS.DataAccess
             return ds;
         }
 
+        public DataSet SelectTaskInvReconcile()
+        {
+            Hashtable ht = new Hashtable();
+            DataSet ds = this.ExecuteQueryForDataSet("QueryTaskInvReconcileInfos", ht);
+            return ds;
+        }
+
         public DataSet SelectProductDetail(Hashtable table, int start, int limit ,out int rowscount)
         {
             DataSet ds = this.ExecuteQueryForDataSet("QueryProductDetail", table, start, limit, out rowscount);

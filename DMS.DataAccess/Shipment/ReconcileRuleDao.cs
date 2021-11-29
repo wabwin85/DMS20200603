@@ -16,6 +16,12 @@ namespace DMS.DataAccess
             return ds;
         }
 
+        public DataSet SelectReconcileRuleBySubCompany(Hashtable table)
+        {
+            DataSet ds = this.ExecuteQueryForDataSet("SelectReconcileRuleBySubCompany", table);
+            return ds;
+        }
+
         public DataSet SelectReconcileRuleAll()
         {
             DataSet ds = this.ExecuteQueryForDataSet("SelectReconcileRuleAll",null);

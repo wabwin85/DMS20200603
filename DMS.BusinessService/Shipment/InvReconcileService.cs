@@ -68,10 +68,18 @@ namespace DMS.BusinessService.Shipment
                     ht.Add("RecileEndDate", model.QryReconcileDate.EndDate);
                 if (!string.IsNullOrEmpty(model.QryHospital))
                     ht.Add("HospitalName", model.QryHospital);
-                if (model.CompareInfo!=null &&!string.IsNullOrEmpty(model.CompareInfo.Key))
-                    if(model.CompareInfo.Key != "全部")
+                if(model.CompareInfo == null)
+                {
+                    ht.Add("CompareInitiate", "初次加载");
+                }
+                if (model.CompareInfo != null && !string.IsNullOrEmpty(model.CompareInfo.Key))
+                {
+                    if (model.CompareInfo.Key != "全部")
+                    {
                         ht.Add("CompareStatus", model.CompareInfo.Key);
-                
+                    }
+                }
+
                 int start = (model.Page - 1) * model.PageSize;
                 ht.Add("start", start);
                 ht.Add("limit", model.PageSize);
@@ -250,16 +258,7 @@ namespace DMS.BusinessService.Shipment
                                     ht.Add("Ids", model.Ids);
                                     business.UpdateInvRecSummary(ht);
                                     model.IsSuccess = true;
-                                }
-                                else if (recStatus.Contains("已对账") && (recStatus.Contains("无法匹配")))
-                                {
-                                    ht.Add("CompareStatus", "部分对账成功");
-                                    ht.Add("CompareUser", _context.User.Id);
-                                    ht.Add("IsSystemCompare", false);
-                                    ht.Add("Ids", model.Ids);
-                                    business.UpdateInvRecSummary(ht);
-                                    model.IsSuccess = true;
-                                }
+                                } 
                                 else if (recStatus.Contains("无法匹配"))
                                 {
                                     ht.Add("CompareStatus", "对账失败");
@@ -471,7 +470,7 @@ namespace DMS.BusinessService.Shipment
                     DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
                     if (dtInvCheck.Rows.Count == 0)
                     {
-                        compareStatus = "无法关联发票型号";
+                        compareInfos = "无法关联发票型号";
                         compareStatus = "型号无法匹配";
                         business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(_context.User.Id), compareStatus,compareInfos, out RtnVal, out RtnMsg);
                         return;
@@ -567,7 +566,7 @@ namespace DMS.BusinessService.Shipment
             {
                 IInvReconcileBLL business = new InvReconcileBLL();
                 //删除临时表中自己的相关数据
-                int cnt = business.DeleteInvRecDetailTemp();
+                int cnt = business.DeleteInvRecDetailTemp(new Guid(_context.User.Id));
                 //查出所有的产品主数据相关的信息
 
                 DataSet ds = business.QueryProductDetail(model.Ids);
@@ -617,7 +616,7 @@ namespace DMS.BusinessService.Shipment
                 
             }
             return tag;
-        }
+        } 
 
 
         public void Export(NameValueCollection Parameters, string DownloadCookie)

@@ -33,6 +33,16 @@ namespace DMS.Business
             return ds;
         }
 
+        public DataSet QueryTaskInvReconcile()
+        {
+            DataSet ds = new DataSet();
+            using (var dao = new InvReconcileDao())
+            {
+                ds = dao.SelectTaskInvReconcile();
+            }
+            return ds;
+        }
+
         public DataSet QueryProductDetail(Hashtable table, int start, int limit, out int totalRowCount)
         {
             DataSet ds = new DataSet();
@@ -83,12 +93,12 @@ namespace DMS.Business
             return ds;
         }
 
-        public int DeleteInvRecDetailTemp()
+        public int DeleteInvRecDetailTemp(Guid userid)
         {
             int cnt = 0;
             using (var dao = new InvReconcileDao())
             {
-                cnt = dao.ExeDelInvRecTemp(new Guid(_context.User.Id));
+                cnt = dao.ExeDelInvRecTemp(userid);
             }
             return cnt;
         }

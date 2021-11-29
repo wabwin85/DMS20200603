@@ -62,7 +62,46 @@
 				<isNotNull prepend="AND" property="RecileEndDate">CompareTime&lt;=#RecileEndDate#</isNotNull>
 				<isNotNull prepend="AND" property="HospitalName">HospitalName like N'%$HospitalName$%'</isNotNull>
 				<isNotNull prepend="AND" property="CompareStatus">CompareStatus=#CompareStatus#</isNotNull>
+				<isEqual property="CompareInitiate" compareValue="初次加载">
+					 AND CompareStatus IN ('对账失败','未对账')
+				</isEqual>
 			</dynamic> 
+		</select>
+		<select  id="QueryTaskInvReconcileInfos" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			SELECT row_number() over ( partition by SubCompanyName, BrandName  ORDER BY isnull(SPH_ShipmentDate,SPH_UpdateDate) desc) AS rownumber ,
+			SubCompanyName, BrandName,Id FROM
+			(
+			SELECT
+			A.SPH_ID as Id,
+			B.RCE_INV_ID,
+			B.CompareTime,
+			(SELECT TOP 1 DMA_ChineseName FROM DealerMaster WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerName,
+			(SELECT TOP 1 DMA_ID FROM DealerMaster WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerId,
+			A.SubCompanyName,
+			A.BrandName,
+			A.SPH_ProductLine_BUM_ID AS ProductLineId,
+			(select ATTRIBUTE_NAME from Lafite_ATTRIBUTE (nolock) where Id = A.SPH_ProductLine_BUM_ID) AS ProductLine,
+			(SELECT TOP 1 HOS_HospitalName FROM Hospital (nolock) WHERE HOS_ID = A.SPH_Hospital_HOS_ID) AS HospitalName
+			,A.SPH_ShipmentNbr AS OrderNumber,A.SPH_ShipmentDate,A.SPH_UpdateDate,
+			(SELECT ISNULL(SUM(CONVERT(DECIMAL(18,2),A.SLT_LotShippedQty)),0) FROM ShipmentLot A (nolock) inner join ShipmentLine B (nolock) ON A.SLT_SPL_ID = B.SPL_ID AND B.SPL_SPH_ID = SPH_ID)AS TotalQty,
+			(SELECT SUM(ISNULL( CONVERT(DECIMAL(18,2), AC.SID_quantity),0)) FROM ShipmentInvoice AA INNER JOIN ShipmentInvoiceHead AB
+			ON AA.SPI_ID = AB.SIH_SPI_ID
+			INNER JOIN ShipmentInvoiceDetail AC
+			ON AB.SIH_ID = AC.SID_SIH_ID
+			WHERE AA.SPI_IsValid = 1 AND AC.SID_deleteFlag = 'false' AND AA.SPI_SPH_ID = SPH_ID) AS InvQty,
+			ISNULL(B.CompareStatus , '未对账') AS CompareStatus,
+			(CASE WHEN ISNULL(B.CompareStatus , '未对账') = '未对账' THEN 1
+			WHEN B.CompareStatus = '对账失败' THEN 2
+			WHEN B.CompareStatus = '部分对账成功' THEN 3
+			ELSE 4 END) AS SortNo,
+			B.FailMsg,
+			ISNULL(IsDelete , 'false') as IsDelete,
+			(case when IsSystemCompare = 'true' then '系统对账' when IsSystemCompare = 'false' then '人工对账' else '未对账' end) as CompareInfo,
+			B.UpdateTime
+			FROM ShipmentHeader (nolock) A LEFT join InvReconcileSummary (nolock) B on A.SPH_ID =B.RCE_SPH_ID
+			WHERE A.SPH_Status = 'Complete'
+			) AS T
+			WHERE ISNULL(SubCompanyName,'')!= '' and ISNULL(BrandName,'')!='' and IsDelete = 'false' and isnull(OrderNumber,'') != ''  AND  CompareStatus = N'未对账'
 		</select>
 		<select id="QueryProductDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
 			SELECT *
@@ -103,6 +142,7 @@
 				<isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
 				<isNotNull prepend="AND" property="CFN_ID">CFN_ID=#CFN_ID#</isNotNull>
 				<isNotNull prepend="AND" property="CFN">CFN=#CFN#</isNotNull>
+				
 			</dynamic>
 		</select>
 		<select id="QueryInvoiceDetail" parameterClass="string" resultClass="System.Collections.Hashtable">

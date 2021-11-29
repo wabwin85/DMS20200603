@@ -125,8 +125,8 @@ ReconcileRule = function () {
         var isProductTypeChecked = model.ProductType == '0' ? false : true, isInvoiceDateChecked = model.InvoiceDate == '0' ? false : true,
             isSalesHospitalChecked = model.SalesHospital == '0' ? false : true; 
         $('#ProductType').prop({ 'checked': isProductTypeChecked, 'disabled': true });
-        $('#InvoiceDate').prop({ 'checked': isInvoiceDateChecked, 'disabled': true  });
-        $('#SalesHospital').prop({ 'checked': isSalesHospitalChecked, 'disabled': true  });
+        $('#InvoiceDate').prop({ 'checked': isInvoiceDateChecked });
+        $('#SalesHospital').prop({ 'checked': isSalesHospitalChecked  });
         $('#hidSubCompanyId').val(model.SubCompanyId);
     };
 

@@ -9,10 +9,12 @@ using DMS.Model;
 
 namespace DMS.Website
 {
+    using DMS.BusinessService.Shipment;
     using DMS.Common;
     using log4net.Config;
     using Microsoft.Practices.Unity;
     using System.IO;
+    using System.Threading; 
 
     public class Global : System.Web.HttpApplication
     {
@@ -62,7 +64,7 @@ namespace DMS.Website
             #endregion
 
             //加载一个model
-            Hospital hos = new Hospital();
+            Hospital hos = new Hospital(); 
         }
 
         protected void Application_End(object sender, EventArgs e)

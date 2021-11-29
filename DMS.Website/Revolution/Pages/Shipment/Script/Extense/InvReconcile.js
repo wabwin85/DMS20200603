@@ -20,6 +20,7 @@ InvReconcile = function () {
         createResultList();
         createProductResultList();
         createInvoiceResultList();
+
         FrameUtil.SubmitAjax({
             business: business,
             method: "Init",
@@ -66,9 +67,10 @@ InvReconcile = function () {
                     text: '查询',
                     icon: 'search',
                     onClick: function () {
+                        createResultList();
                         that.Query();
                         pickedList = [], pickedProductList = [], pickedProductIdsList = [];
-                        that.ShowProductDetailInfo(pickedList);
+                        //that.ShowProductDetailInfo(pickedList);
                     }
                 });
 
@@ -145,8 +147,22 @@ InvReconcile = function () {
         }
     }
 
-    var kendoDataSource = GetKendoDataSource(business, 'Query');
+    var kendoDataSource = GetKendoDataSource(business, 'Query', null, 10000);
     var createResultList = function () {
+        var data = that.GetModel(); 
+        if (typeof (data) != undefined) {
+            if (data.CompareInfo != null) {
+                if (data.CompareInfo.Key == "已对账")
+                    kendoDataSource = GetKendoDataSource(business, 'Query');
+                else
+                    kendoDataSource = GetKendoDataSource(business, 'Query', null, 10000);
+            } else {
+
+                kendoDataSource = GetKendoDataSource(business, 'Query', null, 10000);
+            }
+
+        }
+
         $('#RstResultList').kendoGrid({
             dataSource: kendoDataSource,
             resizable: true,
@@ -414,8 +430,7 @@ InvReconcile = function () {
                                 target: 'top',
                                 alertType: 'info',
                                 message: '对账成功!',
-                                callback: function () {
-                                    var data = FrameUtil.GetModel();
+                                callback: function () { 
                                     getProductInvoiceDetailInfos(ids,true); 
                                     createResultList();
                                 }
