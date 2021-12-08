@@ -165,7 +165,7 @@ ReconcileRule = function () {
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '分子公司' }
                 },
                 {
-                    field:'Rules', title: '对账规则',
+                    field: 'Rules', title: '对账规则', width: '300px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '对账规则' },
                     template: function (gridrow) {
                         var status = gridrow.Rules.split(','), radlist = '';

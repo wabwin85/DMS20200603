@@ -19,7 +19,7 @@
 			CONVERT(varchar(100),UpdateTime,20) AS UpdateTime, UpdatedBy,row_number() OVER (ORDER BY [PRE_SubCompanyId] ASC) AS [row_number]
 			FROM ReconcileRule WHERE 1= 1 AND DeleteFlag = 'false') AS T
 			<dynamic prepend="WHERE">
-				<isNotNull prepend="And" property="SubCompanyId">PRE_SubCompanyId=#SubCompanyId#</isNotNull>
+				<isNotNull prepend="And" property="SubCompanyId">SubCompanyId=#SubCompanyId#</isNotNull>
 				<isNotNull prepend="And" property="SubCompanyName">SubCompanyName=#SubCompanyName#</isNotNull>
 			</dynamic>
 		</select>

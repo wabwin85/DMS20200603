@@ -74,6 +74,7 @@ namespace DMS.BusinessService.Shipment
                 }
                 if (model.CompareInfo != null && !string.IsNullOrEmpty(model.CompareInfo.Key))
                 {
+                    ht.Add("CompareInitiate", string.Empty);
                     if (model.CompareInfo.Key != "全部")
                     {
                         ht.Add("CompareStatus", model.CompareInfo.Key);

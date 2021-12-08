@@ -453,15 +453,18 @@ namespace DMS.BusinessService.Shipment
                                 model.Ids = model.Ids + "," + $"'{sph_id}'";
                             else
                                 model.Ids = $"'{sph_id}'";
-                            rownumber++; tag++;
+                             tag++;
                         }
                         else
                         {
-                            tag = 1;
-                            rownumber = 1;
+                            tag = 1; 
                             models.Add(model);
                             model = new InvReconcileSummaryVO();
                             i--;
+                        }
+                        if(i == dt.Rows.Count -1)
+                        {
+                            models.Add(model);
                         }
                     }
                 }

@@ -27,9 +27,9 @@ namespace DMS.DataService
         private void Authenticate()
         {
             //测试账户
-            //authHeader = new AuthHeader();
-            //authHeader.User = "LP1";
-            //authHeader.Password = "Td6dnGFT";
+            authHeader = new AuthHeader();
+            authHeader.User = "RQHK";
+            authHeader.Password = "2qBy5Kwg";
             //end
             IClientBLL business = new ClientBLL();
             Client client = business.GetClientById(authHeader.User);
