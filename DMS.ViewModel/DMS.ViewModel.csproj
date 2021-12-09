@@ -138,6 +138,7 @@
     <Compile Include="MasterDatas\DealerMasterEditorVO.cs" />
     <Compile Include="MasterDatas\Extense\InvGoodsCfgInitVO.cs" />
     <Compile Include="MasterDatas\Extense\InvGoodsCfgVO.cs" />
+    <Compile Include="MasterDatas\Extense\InvHospitalCfgVO.cs" />
     <Compile Include="MasterDatas\MasterDatasInfoVo.cs" />
     <Compile Include="MasterDatas\MasterDatasListVo.cs" />
     <Compile Include="MasterDatas\OperationManualManageVO.cs" />

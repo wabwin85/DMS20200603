@@ -254,6 +254,7 @@
     <Compile Include="MasterData\HospitalPositionInitDao.cs" />
     <Compile Include="MasterData\InvGoodsCfgDao.cs" />
     <Compile Include="MasterData\InvGoodsCfgImportDao.cs" />
+    <Compile Include="MasterData\InvHospitalDao.cs" />
     <Compile Include="MasterData\MasterDatasDao.cs" />
     <Compile Include="MasterData\PositionHospitalDao.cs" />
     <Compile Include="MasterData\DealerAuthorizationDao.cs" />

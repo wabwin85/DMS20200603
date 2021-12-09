@@ -248,13 +248,9 @@ HospitalList = function () {
                 },
                 {
                     title: "明细", width: 50,
-                    headerAttributes: {
-                        "class": "text-center text-bold"
-                    },
-                    template: "#if ($('\\#Id').val() != '') {#<i class='fa fa-edit' style='font-size: 14px; cursor: pointer;' name='edit'></i>#}#",
-                    attributes: {
-                        "class": "text-center text-bold"
-                    }
+                    headerAttributes: { 'class': 'text-center text-bold' },
+                    template: "<i class='fa fa-trash' style='font-size: 14px; cursor: pointer;' name='delete'></i>",
+                    attributes: { "class": "text-center text-bold" }
                 }
 
             ],

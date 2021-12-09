@@ -645,6 +645,7 @@
     <Content Include="Revolution\Pages\MasterDatas\DealerMaintainListForDD.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfg.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfgImport.aspx" />
+    <Content Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfg.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\MasterDataInfo.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\MasterDatasList.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\OperationManualManage.aspx" />
@@ -653,6 +654,7 @@
     <Content Include="Revolution\Pages\MasterDatas\Script\DealerContractEditor.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvGoodsCfg.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvGoodsCfgImport.js" />
+    <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvHospitalCfg.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\MasterDatasInfo.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\MasterDatasList.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\OperationManualManage.js" />
@@ -6607,6 +6609,13 @@
     </Compile>
     <Compile Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfgImport.aspx.designer.cs">
       <DependentUpon>InvGoodsCfgImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfg.aspx.cs">
+      <DependentUpon>InvHospitalCfg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfg.aspx.designer.cs">
+      <DependentUpon>InvHospitalCfg.aspx</DependentUpon>
     </Compile>
     <Compile Include="Revolution\Pages\MasterDatas\MasterDataInfo.aspx.cs">
       <DependentUpon>MasterDataInfo.aspx</DependentUpon>
