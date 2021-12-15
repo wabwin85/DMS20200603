@@ -14,13 +14,7 @@ namespace DMS.DataAccess.MasterData
         {
             int cnt = (int)this.ExecuteDelete("DeleteInvGoodsCfgImportByUser", obj);
             return cnt;
-        }
-
-        public DataSet QueryInvGoodsCfgInitData(Hashtable table, int start, int limit, out int totalRowCount)
-        {
-            return this.ExecuteQueryForDataSet("QueryHospitalPositionInitData", table, start, limit, out totalRowCount);
-
-        }
+        } 
 
         public DataSet GetInvGoodsCfgInitCheckData(Guid UserId)
         {

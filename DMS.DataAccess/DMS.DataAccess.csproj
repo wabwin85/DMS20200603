@@ -254,6 +254,7 @@
     <Compile Include="MasterData\HospitalPositionInitDao.cs" />
     <Compile Include="MasterData\InvGoodsCfgDao.cs" />
     <Compile Include="MasterData\InvGoodsCfgImportDao.cs" />
+    <Compile Include="MasterData\InvHospitalCfgImportDao.cs" />
     <Compile Include="MasterData\InvHospitalDao.cs" />
     <Compile Include="MasterData\MasterDatasDao.cs" />
     <Compile Include="MasterData\PositionHospitalDao.cs" />
@@ -1033,6 +1034,8 @@
     <EmbeddedResource Include="Resources\maps\Log\LafiteLog.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\MasterData\InvHospitalCfg.xml" />
+    <EmbeddedResource Include="Resources\maps\MasterData\InvHospitalCfgInit.xml" />
     <EmbeddedResource Include="Resources\maps\Shipment\InvReconcileDetailTemp.xml" />
     <EmbeddedResource Include="Resources\maps\Shipment\InvReconcileDetail.xml" />
     <EmbeddedResource Include="Resources\maps\Shipment\InvReconcile.xml" />

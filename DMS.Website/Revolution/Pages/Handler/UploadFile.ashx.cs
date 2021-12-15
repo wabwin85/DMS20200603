@@ -230,6 +230,9 @@ namespace DMS.Website.Revolution.Pages.Handler
                             case "InvGoodsCfgImport":
                                 VerifyInvGoodsCfgImport(dt);
                             break;
+                            case "InvHospitalCfgImport":
+                                VerifyInvHospitalCfgImport(dt);
+                                break;
                             default:
                                 break;
                         }
@@ -1420,7 +1423,41 @@ namespace DMS.Website.Revolution.Pages.Handler
                     HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
                 }
             }
-        } 
+        }
+        
+        protected void VerifyInvHospitalCfgImport(DataTable dt)
+        {
+            InvHospitalImportService business = new InvHospitalImportService();
+            string IsValid = string.Empty;
+            bool isError;
+            bool tag = business.ImportTemp(dt, out isError);
+            if (isError)
+            {
+                var lstresult = new { result = "DataError", msg = "上传数据中有误，请检查错误信息", count = dt.Rows.Count };
+                HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+            }
+            else
+            {
+                if (!tag)
+                {
+                    IsValid = "Duplicate Data";
+                }
+                else
+                {
+                    IsValid = "Success";
+                }
+                if (IsValid == "Success")
+                {
+                    var lstresult = new { result = "Success", msg = "是否要上传数据", count = dt.Rows.Count };
+                    HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                }
+                else
+                {
+                    var lstresult = new { result = "DataDuplicate", msg = "数据有重复，是否需要覆盖" };
+                    HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                }
+            }
+        }
 
         private bool CheckData(string type, DataTable dt)
         {
@@ -1823,6 +1860,13 @@ namespace DMS.Website.Revolution.Pages.Handler
                     break;
                 case "InvGoodsCfgImport":
                     if(!checkCaptions(dt, new string[] { "分子公司", "品牌", "产品线" ,"产品型号","产品中文名称","发票规格型号"}))
+                    {
+                        templateFlag = false;
+                        msg = "模板错误，请从当前页面下载模板导入！";
+                    }
+                    break;
+                case "InvHospitalCfgImport":
+                    if (!checkCaptions(dt, new string[] { "DMS医院名称", "发票医院名称", "医院编号", "SFE医院编号", "省份", "地区" , "区县" }))
                     {
                         templateFlag = false;
                         msg = "模板错误，请从当前页面下载模板导入！";

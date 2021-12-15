@@ -11,14 +11,14 @@ namespace DMS.Business.MasterData
 {
     public class InvHospitalBLL : IInvHospitalBLL
     {
-        public bool Delete(Guid id)
+        public bool Delete(string ids)
         {
             bool result = false;
             using (TransactionScope trans = new TransactionScope())
             {
                 using (InvHospitalDao dao = new InvHospitalDao())
                 {
-                   int num = dao.Delete(id);
+                   int num = dao.Delete(ids);
                 }
                 trans.Complete();
                 result = true;

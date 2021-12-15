@@ -646,6 +646,7 @@
     <Content Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfg.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\Extense\InvGoodsCfgImport.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfg.aspx" />
+    <Content Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfgImport.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\MasterDataInfo.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\MasterDatasList.aspx" />
     <Content Include="Revolution\Pages\MasterDatas\OperationManualManage.aspx" />
@@ -655,6 +656,7 @@
     <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvGoodsCfg.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvGoodsCfgImport.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvHospitalCfg.js" />
+    <Content Include="Revolution\Pages\MasterDatas\Script\Extense\InvHospitalCfgImport.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\MasterDatasInfo.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\MasterDatasList.js" />
     <Content Include="Revolution\Pages\MasterDatas\Script\OperationManualManage.js" />
@@ -6617,6 +6619,13 @@
     <Compile Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfg.aspx.designer.cs">
       <DependentUpon>InvHospitalCfg.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfgImport.aspx.cs">
+      <DependentUpon>InvHospitalCfgImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\MasterDatas\Extense\InvHospitalCfgImport.aspx.designer.cs">
+      <DependentUpon>InvHospitalCfgImport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Revolution\Pages\MasterDatas\MasterDataInfo.aspx.cs">
       <DependentUpon>MasterDataInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8035,6 +8044,7 @@
     <Content Include="Upload\ExcelTemplate\Template_ExportShipmentAttachment.xls" />
     <Content Include="Upload\ExcelTemplate\Template_HospitalBaseAop.xlsx" />
     <Content Include="Upload\ExcelTemplate\Template_InvGoodsInit.xls" />
+    <Content Include="Upload\ExcelTemplate\Template_InvHospitalInit.xls" />
     <None Include="Upload\ExcelTemplate\Template_LPRLD_Delivery.xls" />
     <None Include="Upload\ExcelTemplate\Template_LPRLD_T2ReturnConfirm.xls" />
     <Content Include="Upload\ExcelTemplate\Template_OrderDealerPrice.xlsx" />

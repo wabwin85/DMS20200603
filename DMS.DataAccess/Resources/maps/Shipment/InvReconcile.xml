@@ -227,7 +227,7 @@
 				</isEqual>
 				<isEqual property="HosRule" compareValue="销售医院">
 					<isNotNull prepend="AND" property="HospitalName">
-						  InvoiceTitle = #HospitalName#
+						  (InvoiceTitle = #HospitalName# OR Exists(SELECT 1 FROM InvHospitalCfg WHERE DMSHospitalName = #HospitalName# AND InvHospitalName=InvoiceTitle))
 					</isNotNull>
 				</isEqual>
 			</dynamic>

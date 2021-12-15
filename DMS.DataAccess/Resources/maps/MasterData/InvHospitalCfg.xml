@@ -1,0 +1,56 @@
+﻿<sqlMap namespace="InvHospitalCfgMap" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="InvHospitalCfg" assembly="DMS.Model.dll" type="DMS.Model.InvHospitalCfg" />
+	</alias>
+	<resultMaps>
+		<resultMap id="InvHospitalCfgResult" class="InvHospitalCfg">
+			<result property="Id" column="Id" type="Guid" dbtype="Guid" />
+			<result property="DMSHospitalName" column="DMSHospitalName" type="string" dbtype="nvarchar" />
+			<result property="InvHospitalName" column="InvHospitalName" type="string" dbtype="nvarchar" />
+			<result property="Hos_Code" column="Hos_Code" type="string" dbtype="nvarchar" />
+			<result property="Hos_SFECode" column="Hos_SFECode" type="string" dbtype="nvarchar" />
+			<result property="Province" column="Hos_Province" type="string" dbtype="nvarchar" />
+			<result property="City" column="Hos_City" type="string" dbtype="nvarchar" />
+			<result property="District" column="Hos_District" type="string" dbtype="nvarchar" />
+			<result property="Modifier" column="Modifier" type="string" dbtype="nvarchar" />
+			<result property="Created" column="Created" type="datetime" dbtype="DateTime" />
+			<result property="Updated" column="Updated" type="datetime" dbtype="DateTime" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<select id="SelectByFilterInvHospitalCfg" parameterClass="InvHospitalCfg" resultClass="InvHospitalCfg">
+			SELECT 
+			Id,
+			DMSHospitalName,
+			InvHospitalName,
+			Hos_Code,
+			Hos_SFECode,
+			Hos_Province,
+			Hos_City,
+			Hos_District,
+			Modifier
+			,Created,
+			Updated, Row_Number() over (Order By Id )as [row_number]
+			FROM InvHospitalCfg
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="Province">Hos_Province=#Province#</isNotNull>
+				<isNotNull prepend="AND" property="City">Hos_City=#City#</isNotNull>
+				<isNotNull prepend="AND" property="District">Hos_District=#District#</isNotNull>
+				<isNotNull prepend="AND" property="HospitalName">(DMSHospitalName='$HospitalName$' OR InvHospitalName = '$HospitalName$')</isNotNull>
+			</dynamic>
+		</select>
+		<delete id="DeleteInvHospitalCfgByIds" parameterClass="string">
+			DELETE FROM InvHospitalCfg
+			<dynamic prepend="WHERE"> 
+			       <isParameterPresent>Id IN ($value$)</isParameterPresent>
+			</dynamic>
+		</delete>
+		<delete id="DeleteInvHospitalCfg" parameterClass="string">
+			DELETE FROM InvHospitalCfg
+			<dynamic prepend="WHERE"> 
+			       <isParameterPresent>Id = #value#</isParameterPresent>
+			</dynamic>
+		</delete>
+	</statements>
+</sqlMap>

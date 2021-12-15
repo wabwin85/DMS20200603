@@ -285,9 +285,9 @@
     <Compile Include="MasterData\IInvGoodsCfgBLL.cs" />
     <Compile Include="MasterData\IInvGoodsCfgImportBLL.cs" />
     <Compile Include="MasterData\IInvHospitalBLL.cs" />
-    <Compile Include="MasterData\IInvHospitalCfgBLL.cs" />
+    <Compile Include="MasterData\IInvHospitalCfgImportBLL.cs" />
     <Compile Include="MasterData\InvHospitalBLL.cs" />
-    <Compile Include="MasterData\InvHospitalCfgBLL.cs" />
+    <Compile Include="MasterData\InvHospitalCfgImportBLL.cs" />
     <Compile Include="Shipment\IInvReconcileBLL.cs" />
     <Compile Include="MasterData\InvGoodsCfgBLL.cs" />
     <Compile Include="MasterData\InvGoodsCfgImportBLL.cs" />

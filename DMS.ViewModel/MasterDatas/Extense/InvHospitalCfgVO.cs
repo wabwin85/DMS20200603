@@ -24,14 +24,14 @@ namespace DMS.ViewModel.MasterDatas.Extense
 
         public ArrayList RstResultList = null;
 
-        public string HospitalName { get; set; }
+        public string HospitalName { get; set; } 
 
-         public string SubCompanyName { get; set; }
+        public string Msg { get; set; }
 
-        public string BrandName { get; set; }
+        public string DeleteSeleteIDs { get; set; }
 
         public int Page = 0;
         public int PageSize = 0;
-        public int DataCount = 0;
+        public int DataCount = 0; 
     }
 }

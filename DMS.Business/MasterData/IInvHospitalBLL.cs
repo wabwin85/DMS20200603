@@ -11,7 +11,7 @@ namespace DMS.Business.MasterData
     {
         DataSet QueryInvHospitalCfg(Hashtable table, int start, int limit, out int totalRowCount);
 
-        bool Delete(Guid id);
+        bool Delete(string ids);
 
         DataSet QueryInvHospitalCfgExport(Hashtable table);
     }

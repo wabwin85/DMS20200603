@@ -104,6 +104,8 @@
     <Compile Include="MasterData\HospitalPositionInit.cs" />
     <Compile Include="MasterData\InvGoodsCfgInit.cs" />
     <Compile Include="MasterData\InvGoodsConfig.cs" />
+    <Compile Include="MasterData\InvHospitalCfg.cs" />
+    <Compile Include="MasterData\InvHospitalCfgInit.cs" />
     <Compile Include="MasterData\MasterDatasPO.cs" />
     <Compile Include="MasterData\TerritoryEx.cs" />
     <Compile Include="MasterData\ViewProductLine.cs" />

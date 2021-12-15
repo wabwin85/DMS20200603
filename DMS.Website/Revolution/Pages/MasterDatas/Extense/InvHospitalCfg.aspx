@@ -11,8 +11,8 @@
 <asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
-     <input type="hidden" id="SubCompanyName" class="FrameControl" />
-     <input type="hidden" id="BrandName" class="FrameControl" />
+    <input type="hidden" id="SubCompanyName" class="FrameControl" />
+    <input type="hidden" id="BrandName" class="FrameControl" />
     <div class="content-main" style="padding: 5px;">
         <div class="col-xs-12">
             <div class="row">
@@ -91,6 +91,8 @@
 <asp:Content ID="ContentScript" ContentPlaceHolderID="ScriptContent" runat="server">
     <script type="text/javascript" src="../Script/Extense/InvHospitalCfg.js?v=<%=Guid.NewGuid() %>"></script>
     <script type="text/javascript">
-
-</script>
+        $(function () {
+            InvHospitalCfg.Init();
+        })
+    </script>
 </asp:Content>

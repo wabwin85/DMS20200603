@@ -1,0 +1,70 @@
+﻿<sqlMap namespace="InvHospitalCfgInitMap" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="InvHospitalCfgInit" assembly="DMS.Model.dll" type="DMS.Model.InvHospitalCfgInit" />
+	</alias>
+	<resultMaps>
+		<resultMap id="InvHospitalCfgInitResult" class="InvHospitalCfgInit">
+			<result property="Id" column="Id" type="Guid" dbtype="Guid" />
+			<result property="DMSHospitalName" column="DMSHospitalName" type="string" dbtype="nvarchar" />
+			<result property="InvHospitalName" column="InvHospitalName" type="string" dbtype="nvarchar" />
+			<result property="Hos_Code" column="Hos_Code" type="string" dbtype="nvarchar" />
+			<result property="Hos_SFECode" column="Hos_SFECode" type="string" dbtype="nvarchar" />
+			<result property="Province" column="Hos_Province" type="string" dbtype="nvarchar" />
+			<result property="City" column="Hos_City" type="string" dbtype="nvarchar" />
+			<result property="District" column="Hos_District" type="string" dbtype="nvarchar" />
+			<result property="ImportUser" column="ImportUser" type="guid" dbtype="guid" />
+			<result property="ImportDate" column="ImportDate" type="datetime" dbtype="datetime" />
+			<result property="ErrorMsg" column="ErrorMsg" type="string" dbtype="nvarchar" />
+			<result property="IsError" column="IsError" type="bool" dbtype="bit" />
+		</resultMap>
+	</resultMaps>
+	<parameterMaps>
+		<parameterMap id="InvHospitalCfgInitParameterMap" class="System.Collections.Hashtable" >
+			<parameter property="UserId" column="UserId" />
+			<parameter property="ImportType" column="ImportType" />
+			<parameter property="IsValid" column="IsValid" direction="Output" />
+		</parameterMap>
+	</parameterMaps>
+	<statements>
+		<delete id="DeleteInvHospitalInitCfg" parameterClass="string">
+			DELETE FROM InvHospitalCfgInit
+			WHERE ImportUser = #value#
+		</delete>
+		<select id="QueryInvHospitalCfgImport"  parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+			SELECT ID,DMSHospitalName,
+			InvHospitalName,Hos_Code,Hos_SFECode,
+			Hos_Province,Hos_City,Hos_District,
+			ErrorMsg,IsError,ImportDate,
+			ROW_NUMBER() OVER(ORDER BY ImportDate DESC) AS [row_number]
+			FROM InvHospitalCfgInit
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ImportUser">ImportUser=#UserId#</isNotNull>
+			</dynamic>
+		</select>
+		<select id="QueryInvHospitalCfgImportCheck" parameterClass="string" resultClass="System.Data.DataSet">
+			SELECT A.ID, A.DMSHospitalName, 
+			A.InvHospitalName,A.Hos_Code,A.Hos_SFECode,A.Hos_Province ,
+			A.Hos_City,A.Hos_District,A.ErrorMsg,A.IsError,A.ImportDate, B.Id as InvHospitalCfgId,
+			ROW_NUMBER() OVER(ORDER BY A.ImportDate DESC) AS [row_number] FROM InvHospitalCfgInit A inner join InvHospitalCfg B on  A.Hos_Code=B.Hos_Code AND A.Hos_SFECode = B.Hos_SFECode
+			WHERE A.ImportUser=#UserId#
+		</select>
+		<update id="UpdateExistInvHospitalCfgImportStatus" parameterClass="System.Collections.Hashtable">
+			UPDATE InvHospitalCfgInit SET ErrorMsg = '该行数据已导入，请检查', isError= 1
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>
+				<isNotNull prepend="AND" property="ImportUser">ImportUser=#ImportUser#</isNotNull> 
+				<isNotNull prepend="AND" property="Hos_Code">Hos_Code=#Hos_Code#</isNotNull>
+				<isNotNull prepend="AND" property="Hos_SFECode">Hos_SFECode=#Hos_SFECode#</isNotNull>
+			</dynamic>
+		</update>
+		<delete id="DelInvHospitalCfgInitById" parameterClass="string">
+			Delete from InvHospitalCfgInit where Id = #value#
+		</delete>
+		<delete id="DelInvHospitalCfgInitByUserId" parameterClass="string">
+			Delete from InvHospitalCfgInit where ImportUser = #value#
+		</delete>
+		<procedure id="GC_InitializeInvHospitalInitImport" parameterMap="InvHospitalCfgInitParameterMap">
+			dbo.GC_InitializeInvHospitalInitImport
+		</procedure>
+	</statements>
+</sqlMap>

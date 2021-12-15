@@ -15,9 +15,9 @@ namespace DMS.DataAccess.MasterData
             return ds;
         }
 
-        public int Delete(Guid id)
+        public int Delete(string ids)
         {
-            int cnt = (int)this.ExecuteDelete("DeleteInvHospitalCfg", id);
+            int cnt = (int)this.ExecuteDelete("DeleteInvHospitalCfgByIds", ids);
             return cnt;
         }
 

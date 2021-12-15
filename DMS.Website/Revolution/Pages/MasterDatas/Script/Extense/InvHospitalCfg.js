@@ -2,12 +2,18 @@
 
 InvHospitalCfg = function () {
     var that = {};
-    var business = 'MasterDatas.InvHospitalCfg';
+    var developModel = true;
+    var business = 'MasterDatas.Extense.InvHospitalCfg';
+    var globalBrandId = parent.$('#IptBrandId').val();
+    var globalSubCompanyId = parent.$('#IptSubCompanyId').val();
+    var globalSubCompanyName = parent.$('#IptSubCompanyName').html() == undefined ? "瑞奇" : parent.$('#IptSubCompanyName').html();
+    var globalBrandName = parent.$('#IptBrandName').html() == undefined ? "瑞奇" : parent.$('#IptBrandName').html();
+    $('#SubCompanyName').val(globalSubCompanyName == undefined ? "瑞奇" : globalSubCompanyName);
+    $('#BrandName').val(globalBrandName == undefined ? "瑞奇" : globalBrandName);
     var pickList = [];
 
     that.GetModel = function () {
-        var model = FrameUtil.GetModel();
-
+        var model = FrameUtil.GetModel(); 
         return model;
     };
 
@@ -26,7 +32,7 @@ InvHospitalCfg = function () {
                     dataValue: 'Description',
                     selectType: 'select',
                     value: model.Province,
-                    onChange: function () { }
+                    onChange: that.ProvinceChange
                 });
                 $('#City').FrameDropdownList({
                     dataSource: model.LstCities,
@@ -34,6 +40,7 @@ InvHospitalCfg = function () {
                     dataValue: 'Description',
                     selectType: 'select',
                     value: model.City,
+                    onChange: that.RegionChange
                 });
                 $('#District').FrameDropdownList({
                     dataSource: model.LstDistricts,
@@ -81,6 +88,82 @@ InvHospitalCfg = function () {
         });
     };
 
+
+    that.ProvinceChange = function () {
+
+        var data = that.GetModel();
+        if (data.Province.Key == "") {
+            $('#City').FrameDropdownList({
+                dataSource: [],
+                dataKey: 'TerId',
+                dataValue: 'Description',
+                selectType: 'select',
+                onChange: that.RegionChange
+            });
+        }
+        else {
+            FrameUtil.SubmitAjax({
+                business: business,
+                method: 'ProvinceChange',
+                url: Common.AppHandler,
+                data: data,
+                callback: function (model) {
+                    $('#City').FrameDropdownList({
+                        dataSource: model.LstCities,
+                        dataKey: 'TerId',
+                        dataValue: 'Description',
+                        selectType: 'select',
+                        onChange: that.RegionChange
+                    });
+                    FrameWindow.HideLoading();
+                }
+            });
+        }
+        $('#District').FrameDropdownList({
+            dataSource: [],
+            dataKey: 'TerId',
+            dataValue: 'Description',
+            selectType: 'select'
+        });
+    }
+
+    that.RegionChange = function () {
+        var data = that.GetModel();
+        if (data.City.Key == "") {
+            $('#District').FrameDropdownList({
+                dataSource: [],
+                dataKey: 'TerId',
+                dataValue: 'Description',
+                selectType: 'select'
+            });
+        }
+        else {
+            FrameUtil.SubmitAjax({
+                business: business,
+                method: 'RegionChange',
+                url: Common.AppHandler,
+                data: data,
+                callback: function (model) {
+                    $('#District').FrameDropdownList({
+                        dataSource: model.LstDistricts,
+                        dataKey: 'TerId',
+                        dataValue: 'Description',
+                        selectType: 'select'
+                    });
+                    FrameWindow.HideLoading();
+                }
+            });
+        }
+    };
+
+    that.openInfo = function () {
+        top.createTab({
+            id: 'M_发票医院数据导入',
+            title: '发票医院数据导入',
+            url: developModel == true ? 'Revolution/Pages/MasterDatas/Extense/InvHospitalCfgImport.aspx' : 'Extense/Revolution/Pages/MasterDatas/Extense/InvHospitalCfgImport.aspx'
+        });
+    };
+
     that.Query = function () {
         var grid = $("#RstResultList").data("kendoGrid");
         if (grid) {
@@ -93,8 +176,8 @@ InvHospitalCfg = function () {
         var deleteIds;
         if (id == undefined) {
             if (pickList.length > 0) {
-                var ids = pickList.map(function (i) {
-                    return '\'' + pickList[i] + '\'';
+                var ids = pickList.map(function (id) {
+                    return "'" + id + "'";
                 }).join(',');
                 deleteIds = ids;
             }
@@ -111,7 +194,7 @@ InvHospitalCfg = function () {
             deleteIds = id;
         }
         var data = FrameUtil.GetModel();
-        data.DeleteSeleteID = deleteIds;
+        data.DeleteSeleteIDs = deleteIds;
         FrameWindow.ShowConfirm({
             target: 'top',
             message: '确定要执行删除操作？',
@@ -151,6 +234,22 @@ InvHospitalCfg = function () {
         });
     };
 
+    that.ExportDetail = function () {
+        var data = that.GetModel();
+        var urlExport = Common.ExportUrl;
+
+        urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'InvHospitalCfgExport');
+        urlExport = Common.UpdateUrlParams(urlExport, 'SubCompanyName', globalSubCompanyName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'BrandName', globalBrandName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'province', data.Province.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'city', data.City.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'district', data.District.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'hospitalName', data.HospitalName);
+        startDownload(urlExport, 'InvHospitalCfgExport');
+
+    }
+
     var kendoDataSource = GetKendoDataSource(business, 'Query', null, 20);
     var createResultList = function () {
         $("#RstResultList").kendoGrid({
@@ -163,48 +262,48 @@ InvHospitalCfg = function () {
                 {
                     title: "选择", width: 50, encoded: false,
                     headerTemplate: '<input id="CheckAll" type="checkbox" class="k-checkbox Check-All" /><label class="k-checkbox-label" for="CheckAll"></label>',
-                    template: '<input type="checkbox" id="Check_#=InvHosId#" class="k-checkbox Check-Item" /><label class="k-checkbox-label" for="Check_#=InvHosId#"></label>',
+                    template: '<input type="checkbox" id="Check_#=Id#" class="k-checkbox Check-Item" /><label class="k-checkbox-label" for="Check_#=Id#"></label>',
                     headerAttributes: { "class": "text-center bold", "title": "选择", "style": "vertical-align: middle;" },
                     attributes: { "class": "text-center" }
                 },
                 {
-                    field: "DMSHospitalName", title: "DMS医院名称", width: 180,
+                    field: "DMSHospitalName", title: "DMS医院名称", width: "180px",
                     headerAttributes: { "class": "text-center text-bold", "title": "DMS医院名称" }
                 },
                 {
-                    field: "InvHospitalName", title: "发票医院名称", width: 180,
+                    field: "InvHospitalName", title: "发票医院名称", width: "180px",
                     headerAttributes: { "class": "text-center text-bold", "title": "发票医院名称" }
                 },
                 {
-                    field: "Hos_Code", title: "医院编号", width: 60,
+                    field: "Hos_Code", title: "医院编号", width: "60px",
                     headerAttributes: { "class": "text-center text-bold", "title": "医院编号" }
                 },
                 {
-                    field: "HOS_SFECode", title: "医院编号", width: 60,
+                    field: "Hos_SFECode", title: "SFE医院编号", width: "60px",
                     headerAttributes: { "class": "text-center text-bold", "title": "SFE医院编号" }
                 },
                 {
-                    field: "Hos_Provice", title: "省份", width: 80,
+                    field: "Hos_Province", title: "省份", width: "80px",
                     headerAttributes: { "class": "text-center text-bold", "title": "省份" }
                 },
                 {
-                    field: "HOS_City", title: "地区", width: 80,
+                    field: "Hos_City", title: "地区", width: "80px",
                     headerAttributes: { "class": "text-center text-bold", "title": "地区" }
                 },
                 {
-                    field: "HOS_District", title: "区/县", width: 80,
+                    field: "Hos_District", title: "区/县", width: "80px",
                     headerAttributes: { "class": "text-center text-bold", "title": "区/县" }
                 },
                 {
-                    field: "UpdateTime", title: "更新时间", width: 80,
+                    field: "Updated", title: "更新时间", width: "80px",
                     headerAttributes: { "class": "text-center text-bold", "title": "更新时间" }
                 },
                 {
-                    field: "UpdateBy", title: "操作员", width: 80,
+                    field: "Modifier", title: "操作员", width: "80px",
                     headerAttributes: { "class": "text-center text-bold", "title": "操作员" }
                 },
                 {
-                     title: "删除", width: 80,
+                    title: "删除", width: "80px",
                     headerAttributes: { "class": "text-center text-bold", "title": "删除" },
                     template: "<i class='fa fa-trash' style='font-size: 14px; cursor: pointer;' name='delete'></i>",
                     attributes: { "class": "text-center text-bold" }
@@ -264,7 +363,7 @@ InvHospitalCfg = function () {
                 $("#RstResultList").find("i[name='delete']").bind('click', function (e) {
                     var tr = $(this).closest("tr")
                     var data = grid.dataItem(tr);
-                    that.Delete(data.InvHosId);
+                    that.Delete(data.Id);
                 });
             },
             page: function (e) {
@@ -275,22 +374,22 @@ InvHospitalCfg = function () {
 
     var addItem = function (data) {
         if (!isExists(data)) {
-            pickedList.push(data.InvHosId);
+            pickList.push(data.Id);
         }
     }
 
     var isExists = function (data) {
-        for (var i = 0; i < pickedlist.length; i++) {
-            if (pickList[i] == data.InvHosId)
+        for (var i = 0; i < pickList.length; i++) {
+            if (pickList[i] == data.Id)
                 return true;
         }
         return false;
     };
 
     var removeItem = function (data) {
-        for (var i = 0; i < pickedList.length; i++) {
-            if (pickedList[i] == data.InvHosId) {
-                pickedList.splice(i, 1);
+        for (var i = 0; i < pickList.length; i++) {
+            if (pickList[i] == data.Id) {
+                pickList.splice(i, 1);
                 break;
             }
         }

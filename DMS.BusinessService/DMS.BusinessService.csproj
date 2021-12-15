@@ -150,6 +150,7 @@
     <Compile Include="MasterDatas\DealerMasterEditorService.cs" />
     <Compile Include="MasterDatas\InvGoodsCfgImportService.cs" />
     <Compile Include="MasterDatas\InvGoodsCfgService.cs" />
+    <Compile Include="MasterDatas\InvHospitalImportService.cs" />
     <Compile Include="MasterDatas\InvHospitalService.cs" />
     <Compile Include="MasterDatas\MasterDatasInfoService.cs" />
     <Compile Include="MasterDatas\MasterDatasListService.cs" />
