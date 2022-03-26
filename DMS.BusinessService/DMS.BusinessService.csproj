@@ -248,6 +248,7 @@
     <Compile Include="Report\DealerSalesReport_NewService.cs" />
     <Compile Include="Report\SalesAOPService.cs" />
     <Compile Include="Report\SalesHospitalReportService.cs" />
+    <Compile Include="Shipment\EmbedDataService.cs" />
     <Compile Include="Shipment\InvReconcileService.cs" />
     <Compile Include="Shipment\InvReconcileTaskService.cs" />
     <Compile Include="Shipment\ReconcileRuleService.cs" />

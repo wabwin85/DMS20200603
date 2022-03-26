@@ -14,10 +14,11 @@ namespace DMS.BusinessService.Shipment
 {
     public class InvReconcileTaskService
     {
+        private const string ExcuteUserId = "c763e69b-616f-4246-8480-9df40126057c";
         private void IsExistInvRecDetailData(InvReconcileSummaryVO model)
         { 
             IInvReconcileBLL business = new InvReconcileBLL();
-            DataSet dsTemp = business.QueryInvRecDetailTempByUser(new Guid( "c763e69b-616f-4246-8480-9df40126057c"));
+            DataSet dsTemp = business.QueryInvRecDetailTempByUser(new Guid(ExcuteUserId));
             if (dsTemp.Tables[0].Rows.Count > 0)
             {
                 DataTable dtTemp = dsTemp.Tables[0];
@@ -99,21 +100,21 @@ namespace DMS.BusinessService.Shipment
             if (dsDetail.Tables[0].Rows.Count > 0) // already exist
             {
                 string RtnVal = "", RtnMsg = "";
+                DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
                 if (ht["ProductRule"].ToString() == "产品型号")
                 {
-                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                    
                     if (dtInvCheck.Rows.Count == 0)
                     {
                         compareStatus = "型号无法匹配";
                         compareInfos = "无法关联发票型号";
                         business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
-                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
+                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
                         return;
                     }
                 }
                 if (ht["InvoiceRule"].ToString() == "发票日期")
-                {
-                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                { 
                     if (dtInvCheck.Rows.Count > 0)
                     {
                         bool tag = false;
@@ -130,7 +131,7 @@ namespace DMS.BusinessService.Shipment
                         {
                             compareStatus = compareInfos = "发票日期无法匹配";
                             business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
-                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
+                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
 
                             return;
                         }
@@ -138,27 +139,15 @@ namespace DMS.BusinessService.Shipment
                 }
                 if (ht["HosRule"].ToString() == "销售医院")
                 {
-                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
-                    if (dtInvCheck.Rows.Count > 0)
+                    DataTable dtHosCheck = business.QueryCheckHos(ht).Tables[0];
+                    if (dtHosCheck.Rows.Count == 0)
                     {
-                        bool tag = false;
-                        for (int i = 0; i < dtInvCheck.Rows.Count; i++)
-                        {
-                            string hospitalName = dtInvCheck.Rows[i]["InvoiceTitle"].ToString();
-                            if (hospitalName == ht["HospitalName"].ToString())
-                            {
-                                tag = true;
-                                break;
-                            }
-                        }
-                        if (!tag)
-                        {
-                            compareInfos = compareStatus = "医院无法匹配";
-                            business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
-                     drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
-                            return;
-                        }
+                        compareInfos = compareStatus = "医院无法匹配";
+                        business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
+                 drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
+                        return;
                     }
+                        
                 }
 
                 decimal invoiceTotal;
@@ -178,36 +167,34 @@ namespace DMS.BusinessService.Shipment
                     else if (tempQuantity > invoiceTotal)
                     {
                         decimal quantity = tempQuantity - invoiceTotal;
-                        compareInfos = $"销售出库单数量少{quantity}个";
+                        compareInfos = $"销售出库单数量多{quantity}个";
                     }
                     else
                     {
                         decimal quantity = invoiceTotal - tempQuantity;
-                        compareInfos = $"销售出库单数量多{quantity}";
+                        compareInfos = $"销售出库单数量少{quantity}";
                     }
                     compareStatus = "数量无法匹配";
                 }
                 business.ExeUpdateCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(),
-                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
+                    drTemp["CFN"].ToString(), new Guid(drTemp["ProductLineId"].ToString()), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg, true);
             }
             else
             {
                 string RtnVal = "", RtnMsg = "";
+                DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
                 if (ht["ProductRule"].ToString() == "产品型号")
-                {
-                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                { 
                     if (dtInvCheck.Rows.Count == 0)
                     {
                         compareInfos = "无法关联发票型号";
                         compareStatus = "型号无法匹配";
-                        business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg);
+                        business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg);
                         return;
                     }
                 }
                 if (ht["InvoiceRule"].ToString() == "发票日期")
-                {
-                    //htCheck.Add("InvoiceRule", "产品型号");
-                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
+                { 
                     if (dtInvCheck.Rows.Count > 0)
                     {
                         bool tag = false;
@@ -223,34 +210,20 @@ namespace DMS.BusinessService.Shipment
                         if (!tag)
                         {
                             compareInfos = compareStatus = "发票日期无法匹配";
-                            business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg);
+                            business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg);
                             return;
                         }
                     }
                 }
                 if (ht["HosRule"].ToString() == "销售医院")
                 {
-                    //htCheck.Add("HosRule", "销售医院");
-                    DataTable dtInvCheck = business.QueryCheckInv(ht).Tables[0];
-                    if (dtInvCheck.Rows.Count > 0)
+                    DataTable dtHosCheck = business.QueryCheckHos(ht).Tables[0];
+                    if (dtHosCheck.Rows.Count == 0)
                     {
-                        bool tag = false;
-                        for (int i = 0; i < dtInvCheck.Rows.Count; i++)
-                        {
-                            string hospitalName = dtInvCheck.Rows[i]["InvoiceTitle"].ToString();
-                            if (hospitalName == ht["HospitalName"].ToString())
-                            {
-                                tag = true;
-                                break;
-                            }
-                        }
-                        if (!tag)
-                        {
-                            compareInfos = compareStatus = "医院无法匹配";
-                            business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg);
-                            return;
-                        }
-                    }
+                        compareInfos = compareStatus = "医院无法匹配";
+                        business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg);
+                        return;
+                    } 
                 }
 
                 decimal invoiceTotal;
@@ -272,17 +245,17 @@ namespace DMS.BusinessService.Shipment
                     else if (tempQuantity > invoiceTotal)
                     {
                         decimal quantity = tempQuantity - invoiceTotal;
-                        compareInfos = $"销售出库单数量少{quantity}个";
+                        compareInfos = $"销售出库单数量多{quantity}个";
                     }
                     else
                     {
                         decimal quantity = invoiceTotal - tempQuantity;
-                        compareInfos = $"销售出库单数量多{quantity}";
+                        compareInfos = $"销售出库单数量少{quantity}";
                     }
                     compareStatus = "数量无法匹配";
                 }
 
-                business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid("c763e69b-616f-4246-8480-9df40126057c"), compareStatus, compareInfos, out RtnVal, out RtnMsg);
+                business.ExeSaveCompareStatus(new Guid(drTemp["SPH_ID"].ToString()), drTemp["OrderNumber"].ToString(), drTemp["CFN"].ToString(), new Guid(ExcuteUserId), compareStatus, compareInfos, out RtnVal, out RtnMsg);
 
             }
         }
@@ -294,7 +267,7 @@ namespace DMS.BusinessService.Shipment
             {
                 IInvReconcileBLL business = new InvReconcileBLL();
                 //删除临时表中自己的相关数据
-                int cnt = business.DeleteInvRecDetailTemp(new Guid("c763e69b-616f-4246-8480-9df40126057c"));
+                int cnt = business.DeleteInvRecDetailTemp(new Guid(ExcuteUserId));
                 //查出所有的产品主数据相关的信息
 
                 DataSet ds = business.QueryProductDetail(model.Ids);
@@ -326,7 +299,7 @@ namespace DMS.BusinessService.Shipment
                             drTemp["CFN_ID"] = dr["CFN_ID"];
                             drTemp["CFN"] = dr["CFN"];
                             drTemp["OrderNumber"] = dr["OrderNumber"];
-                            drTemp["CompareUser"] = new Guid("c763e69b-616f-4246-8480-9df40126057c");
+                            drTemp["CompareUser"] = new Guid(ExcuteUserId);
                             drTemp["DMA_ID"] = dr["DealerId"];
                             drTemp["DMA_Name"] = dr["DealerName"];
                             drTemp["HospitalName"] = dr["HospitalName"];
@@ -385,7 +358,7 @@ namespace DMS.BusinessService.Shipment
                                 if (recStatus.Contains("已对账") && !(recStatus.Contains("无法匹配")))
                                 {
                                     ht.Add("CompareStatus", "已对账");
-                                    ht.Add("CompareUser", "c763e69b-616f-4246-8480-9df40126057c");
+                                    ht.Add("CompareUser", ExcuteUserId);
                                     ht.Add("IsSystemCompare", false);
                                     ht.Add("Ids", model.Ids);
                                     business.UpdateInvRecSummary(ht);
@@ -394,7 +367,7 @@ namespace DMS.BusinessService.Shipment
                                 else if (recStatus.Contains("无法匹配"))
                                 {
                                     ht.Add("CompareStatus", "对账失败");
-                                    ht.Add("CompareUser", "c763e69b-616f-4246-8480-9df40126057c");
+                                    ht.Add("CompareUser", ExcuteUserId);
                                     ht.Add("IsSystemCompare", false);
                                     ht.Add("Ids", model.Ids);
                                     business.UpdateInvRecSummary(ht);
@@ -403,7 +376,7 @@ namespace DMS.BusinessService.Shipment
                                 else
                                 {
                                     ht.Add("CompareStatus", "未对账");
-                                    ht.Add("CompareUser", "c763e69b-616f-4246-8480-9df40126057c");
+                                    ht.Add("CompareUser", ExcuteUserId);
                                     ht.Add("IsSystemCompare", false);
                                     ht.Add("Ids", model.Ids);
                                     business.UpdateInvRecSummary(ht);
@@ -472,7 +445,7 @@ namespace DMS.BusinessService.Shipment
                 {
                     foreach (var model in models)
                     {
-                        System.Threading.Thread.Sleep(100);
+                        System.Threading.Thread.Sleep(20);
                         CompareInvReconcile(model);
                     }
                 }

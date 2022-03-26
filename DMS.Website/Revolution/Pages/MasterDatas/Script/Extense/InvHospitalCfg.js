@@ -191,7 +191,7 @@ InvHospitalCfg = function () {
             }
         }
         else {
-            deleteIds = id;
+            deleteIds = "'"+id+"'";
         }
         var data = FrameUtil.GetModel();
         data.DeleteSeleteIDs = deleteIds;
@@ -322,6 +322,7 @@ InvHospitalCfg = function () {
             },
             dataBound: function (e) {
                 var grid = e.sender;
+                dms.common.dynamicSetmouseStretchText({ id: grid.wrapper.attr("Id") });
                 $("#RstResultList").find(".Check-Item").unbind('click');
                 $("#RstResultList").find(".Check-Item").on('click', function () {
                     var checked = this.checked,

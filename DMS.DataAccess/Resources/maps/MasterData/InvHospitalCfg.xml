@@ -30,7 +30,8 @@
 			Hos_District,
 			Modifier
 			,Created,
-			Updated, Row_Number() over (Order By Id )as [row_number]
+			CONVERT(varchar(100),Updated,23) AS Updated,
+			Row_Number() over (Order By Id )as [row_number]
 			FROM InvHospitalCfg
 			<dynamic prepend="WHERE">
 				<isNotNull prepend="AND" property="Id">Id=#Id#</isNotNull>

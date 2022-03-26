@@ -119,6 +119,7 @@
     <Compile Include="Shipment\InvReconcileDetailTemp.cs" />
     <Compile Include="Shipment\InvReconcileSummary.cs" />
     <Compile Include="Shipment\ReconcileRule.cs" />
+    <Compile Include="Shipment\SellOutDetailInfo.cs" />
     <Compile Include="TenderAuthorizationList\TenderAuthorizationListVO.cs" />
     <Compile Include="Transfer\TransferBorrowInit.cs" />
     <Compile Include="ViewModel\ContractElectronic\ContractDetailView.cs" />

@@ -30,6 +30,7 @@
     <UseGlobalApplicationHostFile />
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -168,9 +169,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\WINDOWS\assembly\GAC_MSIL\Microsoft.ReportViewer.WebForms\9.0.0.0__b03f5f7f11d50a3a\Microsoft.ReportViewer.WebForms.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\References\Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:\Users\admin\Desktop\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -196,18 +197,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.Extensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -216,6 +209,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="ThoughtWorks.QRCode, Version=1.0.2774.19990, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\ThoughtWorks.QRCode.dll</HintPath>
@@ -751,8 +745,10 @@
     <Content Include="Revolution\Pages\Report\Script\DealerTransfer.js" />
     <Content Include="Revolution\Pages\Report\Script\SalesAOP.js" />
     <Content Include="Revolution\Pages\Report\Script\SalesHospitalReport.js" />
+    <Content Include="Revolution\Pages\Shipment\Extense\EmbedData.aspx" />
     <Content Include="Revolution\Pages\Shipment\Extense\InvReconcile.aspx" />
     <Content Include="Revolution\Pages\Shipment\Extense\ReconcileRule.aspx" />
+    <Content Include="Revolution\Pages\Shipment\Script\Extense\EmbedData.js" />
     <Content Include="Revolution\Pages\Shipment\Script\Extense\InvReconcile.js" />
     <Content Include="Revolution\Pages\Shipment\Script\Extense\ReconcileRule.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentInit.js" />
@@ -7129,6 +7125,13 @@
     </Compile>
     <Compile Include="Revolution\Pages\Report\SalesHospitalReport.aspx.designer.cs">
       <DependentUpon>SalesHospitalReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\EmbedData.aspx.cs">
+      <DependentUpon>EmbedData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\EmbedData.aspx.designer.cs">
+      <DependentUpon>EmbedData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Revolution\Pages\Shipment\Extense\InvReconcile.aspx.cs">
       <DependentUpon>InvReconcile.aspx</DependentUpon>

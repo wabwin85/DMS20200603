@@ -69,10 +69,7 @@ namespace DMS.BusinessService.MasterDatas
                                 data.ErrorMsg += "发票医院名称为空";
                             data.Hos_Code = dr[2] == DBNull.Value ? null : dr[2].ToString();
                             if (string.IsNullOrEmpty(data.Hos_Code))
-                                data.ErrorMsg += "医院Code为空";
-                            data.Hos_SFECode = dr[3] == DBNull.Value ? null : dr[3].ToString();
-                            if (string.IsNullOrEmpty(data.Hos_SFECode))
-                                data.ErrorMsg += "医院SFE Code为空";
+                                data.ErrorMsg += "医院Code为空"; 
                             data.Province = dr[4] == DBNull.Value ? null : dr[4].ToString();
                             data.City = dr[5] == DBNull.Value ? null : dr[5].ToString();
                             data.District = dr[6] == DBNull.Value ? null : dr[6].ToString();

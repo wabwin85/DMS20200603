@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using DMS.Model;
+using IBatisNet.DataMapper.SessionStore;
 
 namespace DMS.DataAccess
 {
@@ -90,6 +91,7 @@ namespace DMS.DataAccess
 
         public DataSet SelectInvRecDetailTempByUser(Guid user_id)
         {
+            this.SqlMap.SessionStore = new HybridWebThreadSessionStore(this.SqlMap.Id);
             DataSet ds = this.ExecuteQueryForDataSet("SelectInvReconcileTempByUser", user_id);
             return ds;
         }
@@ -103,6 +105,12 @@ namespace DMS.DataAccess
         public DataSet SelectMatchRule(Hashtable ht)
         {
             DataSet ds = this.ExecuteQueryForDataSet("QueryCheckMatchRule", ht);
+            return ds;
+        }
+
+        public DataSet SelectHosMatchRule(Hashtable ht)
+        {
+            DataSet ds = this.ExecuteQueryForDataSet("QueryCheckHosMatchRule", ht);
             return ds;
         }
 

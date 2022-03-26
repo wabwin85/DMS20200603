@@ -86,7 +86,7 @@ namespace DMS.BusinessService.MasterDatas
                 model.IsSuccess = false;
                 model.ExecuteMessage.Add(ex.Message);
             }
-            var data = new { data = model.RstResultList, total = model.DataCount };
+            var data = new { data = model.RstResultList, total = model.DataCount,exception=model.ExecuteMessage };
             var result = new { success = model.IsSuccess, data = data };
             return JsonHelper.Serialize(result); 
         }
@@ -184,7 +184,8 @@ namespace DMS.BusinessService.MasterDatas
 
             if (ds != null)
             {
-                DataTable dt = ds.Tables[0];
+                DataTable dt = 
+                    ds.Tables[0];
                 DataTable dtData = dt.Copy();
 
                 if (null != dtData)
@@ -194,10 +195,10 @@ namespace DMS.BusinessService.MasterDatas
                             {"DMSHospitalName","DMS医院名称"},
                             {"InvHospitalName","发票医院名称"},
                             {"Hos_Code", "医院编号"},
-                            {"HOS_SFECode", "SFE医院编号"},
-                            {"Province", "省份"},
-                            {"City", "地区"},
-                            {"District", "区县"}  
+                            {"Hos_SFECode", "SFE医院编号"},
+                            {"Hos_Province", "省份"},
+                            {"Hos_City", "地区"},
+                            {"Hos_District", "区县"}  
                         };
 
                     CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);

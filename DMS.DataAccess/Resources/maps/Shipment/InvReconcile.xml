@@ -40,8 +40,8 @@
 			ON AB.SIH_ID = AC.SID_SIH_ID
 			WHERE AA.SPI_IsValid = 1 AND AC.SID_deleteFlag = 'false' AND AA.SPI_SPH_ID = SPH_ID) AS InvQty,
 			ISNULL(B.CompareStatus , '未对账') AS CompareStatus,
-			(CASE WHEN ISNULL(B.CompareStatus , '未对账') = '未对账' THEN 1 
-			WHEN B.CompareStatus = '对账失败' THEN 2 
+			(CASE WHEN ISNULL(B.CompareStatus , '未对账') = '未对账' THEN 1
+			WHEN B.CompareStatus = '对账失败' THEN 2
 			WHEN B.CompareStatus = '部分对账成功' THEN 3
 			ELSE 4 END) AS SortNo,
 			B.FailMsg,
@@ -62,10 +62,13 @@
 				<isNotNull prepend="AND" property="RecileEndDate">CompareTime&lt;=#RecileEndDate#</isNotNull>
 				<isNotNull prepend="AND" property="HospitalName">HospitalName like N'%$HospitalName$%'</isNotNull>
 				<isNotNull prepend="AND" property="CompareStatus">CompareStatus=#CompareStatus#</isNotNull>
-				<isEqual property="CompareInitiate" compareValue="初次加载">
-					 AND CompareStatus IN ('对账失败','未对账')
-				</isEqual>
-			</dynamic> 
+				<isNotNull prepend="AND" property="CompareInitiate">
+					<isEqual property="CompareInitiate" compareValue="初次加载">
+						CompareStatus IN ('对账失败','未对账')
+					</isEqual>
+				</isNotNull>
+
+			</dynamic>
 		</select>
 		<select  id="QueryTaskInvReconcileInfos" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
 			SELECT row_number() over ( partition by SubCompanyName, BrandName  ORDER BY isnull(SPH_ShipmentDate,SPH_UpdateDate) desc) AS rownumber ,
@@ -106,7 +109,7 @@
 		<select id="QueryProductDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
 			SELECT *
 			FROM
-			( 
+			(
 			SELECT A.SPH_ID as Id,A.SPH_ShipmentNbr AS OrderNumber,
 			NEWID() AS ProductIndex,
 			(SELECT TOP 1 DMA_ChineseName FROM DealerMaster NOLOCK WHERE DMA_ID = A.SPH_Dealer_DMA_ID) AS DealerName,
@@ -142,15 +145,15 @@
 				<isNotNull prepend="AND" property="ProductLineId">ProductLineId=#ProductLineId#</isNotNull>
 				<isNotNull prepend="AND" property="CFN_ID">CFN_ID=#CFN_ID#</isNotNull>
 				<isNotNull prepend="AND" property="CFN">CFN=#CFN#</isNotNull>
-				
+
 			</dynamic>
 		</select>
 		<select id="QueryInvoiceDetail" parameterClass="string" resultClass="System.Collections.Hashtable">
 			SELECT * FROM
 			(
 			SELECT
-			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo, 
-			CONVERT(varchar(100),B.SPI_InvoiceDate,23) AS InvoiceDate, 
+			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo,
+			CONVERT(varchar(100),B.SPI_InvoiceDate,23) AS InvoiceDate,
 			D.SID_commodityName AS CommodityName,
 			D.SID_specificationModel AS SpecificationModel,
 			D.SID_rowNo AS RowNo, D.SID_quantity AS Quantity,
@@ -168,8 +171,8 @@
 		</select>
 		<select id="QueryProductInvoiceDetail" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
 			SELECT
-			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo, 
-			CONVERT(varchar(100),B.SPI_InvoiceDate,23) AS InvoiceDate,  
+			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo,
+			CONVERT(varchar(100),B.SPI_InvoiceDate,23) AS InvoiceDate,
 			D.SID_commodityName AS CommodityName,
 			D.SID_specificationModel AS SpecificationModel,
 			D.SID_rowNo AS RowNo, D.SID_quantity AS Quantity,
@@ -210,7 +213,7 @@
 			<dynamic prepend="">
 				<isNotNull prepend="AND" property="SPH_ID">Id=#SPH_ID#</isNotNull>
 				<isNotNull prepend="AND" property="OrderNumber">OrderNumber=#OrderNumber#</isNotNull>
-				<isEqual property="ProductRule" compareValue="产品型号"> 
+				<isEqual property="ProductRule" compareValue="产品型号">
 					<isNotNull prepend="AND" property="CFN">
 
 						( SpecificationModel = #CFN#  OR SpecificationModel IN
@@ -220,20 +223,20 @@
 						SELECT TOP 1 ATTRIBUTE_NAME FROM Lafite_ATTRIBUTE where Id = #ProductLineId# AND DELETE_FLAG = '0') AND QryCFN = #CFN#
 						)
 						)
-					</isNotNull> 
+					</isNotNull>
 				</isEqual>
 				<isEqual property="InvoiceRule" compareValue="发票日期">
 					And  ABS(DATEDIFF(day,ShipmentDate,InvoiceDate))=0
 				</isEqual>
 				<isEqual property="HosRule" compareValue="销售医院">
 					<isNotNull prepend="AND" property="HospitalName">
-						  (InvoiceTitle = #HospitalName# OR Exists(SELECT 1 FROM InvHospitalCfg WHERE DMSHospitalName = #HospitalName# AND InvHospitalName=InvoiceTitle))
+						(InvoiceTitle = #HospitalName# OR Exists(SELECT 1 FROM InvHospitalCfg WHERE DMSHospitalName = #HospitalName# AND InvHospitalName=InvoiceTitle))
 					</isNotNull>
 				</isEqual>
 			</dynamic>
 		</select>
 		<select id="QueryCheckMatchRule" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
-			SELECT * FROM
+			SELECT *,Sum(Quantity) over (partition by QuantityFlag order by QuantityFlag) as SumQuantity FROM
 			(
 			SELECT
 			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber, A.SPH_ShipmentDate AS ShipmentDate,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo,
@@ -241,7 +244,43 @@
 			D.SID_commodityName AS CommodityName,
 			D.SID_specificationModel AS SpecificationModel,
 			D.SID_rowNo AS RowNo, ISNULL( convert(decimal(18,2), D.SID_quantity),0)AS Quantity,
-			ABS(DATEDIFF(day,SPH_ShipmentDate,SPI_InvoiceDate)) AS InvoiceDateDiff, 
+			ABS(DATEDIFF(day,SPH_ShipmentDate,SPI_InvoiceDate)) AS InvoiceDateDiff,
+			row_number() over (order by A.SPH_ID) AS row_number,'InvoiceQuantity' as QuantityFlag
+			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B  ON A.SPH_ID = B.SPI_SPH_ID
+			INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID
+			INNER JOIN ShipmentInvoiceDetail D ON C.SIH_ID = D.SID_SIH_ID
+			WHERE B.SPI_IsValid = 1 AND D.SID_deleteFlag = 0 AND A.SPH_Status = 'Complete') AS T1
+			WHERE 1= 1
+			<dynamic prepend="">
+				<isNotNull prepend="AND" property="SPH_ID">Id=#SPH_ID#</isNotNull>
+				<isNotNull prepend="AND" property="OrderNumber">OrderNumber=#OrderNumber#</isNotNull>
+				<isEqual property="ProductRule" compareValue="产品型号">
+					<isNotNull prepend="AND" property="CFN">
+						( SpecificationModel = #CFN#  OR SpecificationModel IN
+						(
+						SELECT InvType FROM InvGoodsConfig WHERE SubCompanyName =  #SubCompanyName#
+						and BrandName = #BrandName# and ProductLine =
+						(
+						SELECT TOP 1 ATTRIBUTE_NAME FROM Lafite_ATTRIBUTE where Id = #ProductLineId# AND DELETE_FLAG = '0'
+						)
+						AND QryCFN = #CFN#
+						)
+						)
+					</isNotNull>
+				</isEqual>
+			</dynamic>
+		</select>
+
+		<select id="QueryCheckHosMatchRule" parameterClass="System.Collections.Hashtable" resultClass="System.Data.DataSet">
+			SELECT * ,Sum(Quantity) over (partition by QuantityFlag order by QuantityFlag) as SumQuantity FROM
+			(
+			SELECT
+			A.SPH_ID AS Id, A.SPH_ShipmentNbr AS OrderNumber, A.SPH_ShipmentDate AS ShipmentDate,B.SPI_InvoiceTitle AS InvoiceTitle, B.SPI_InvoiceNo AS InvoiceNo,
+			B.SPI_InvoiceDate AS InvoiceDate,
+			D.SID_commodityName AS CommodityName,
+			D.SID_specificationModel AS SpecificationModel,
+			D.SID_rowNo AS RowNo, ISNULL( convert(decimal(18,2), D.SID_quantity),0)AS Quantity,
+			ABS(DATEDIFF(day,SPH_ShipmentDate,SPI_InvoiceDate)) AS InvoiceDateDiff,'InvoiceQuantity' as QuantityFlag,
 			row_number() over (order by A.SPH_ID) AS row_number
 			FROM ShipmentHeader A INNER JOIN ShipmentInvoice B  ON A.SPH_ID = B.SPI_SPH_ID
 			INNER JOIN  ShipmentInvoiceHead C ON B.SPI_ID = C.SIH_SPI_ID
@@ -251,20 +290,25 @@
 			<dynamic prepend="">
 				<isNotNull prepend="AND" property="SPH_ID">Id=#SPH_ID#</isNotNull>
 				<isNotNull prepend="AND" property="OrderNumber">OrderNumber=#OrderNumber#</isNotNull>
-				<isEqual property="ProductRule" compareValue="产品型号"> 
-						<isNotNull prepend="AND" property="CFN"> 
-							( SpecificationModel = #CFN#  OR SpecificationModel IN
-								(
-								SELECT InvType FROM InvGoodsConfig WHERE SubCompanyName =  #SubCompanyName#
-								and BrandName = #BrandName# and ProductLine =
-									(
-									SELECT TOP 1 ATTRIBUTE_NAME FROM Lafite_ATTRIBUTE where Id = #ProductLineId# AND DELETE_FLAG = '0'
-									) 
-								AND QryCFN = #CFN#
-								)
-							)
-						</isNotNull> 
-				</isEqual> 
+				<isEqual property="ProductRule" compareValue="产品型号">
+					<isNotNull prepend="AND" property="CFN">
+						( SpecificationModel = #CFN#  OR SpecificationModel IN
+						(
+						SELECT InvType FROM InvGoodsConfig WHERE SubCompanyName =  #SubCompanyName#
+						and BrandName = #BrandName# and ProductLine =
+						(
+						SELECT TOP 1 ATTRIBUTE_NAME FROM Lafite_ATTRIBUTE where Id = #ProductLineId# AND DELETE_FLAG = '0'
+						)
+						AND QryCFN = #CFN#
+						)
+						)
+					</isNotNull>
+				</isEqual>
+				<isEqual property="HosRule" compareValue="销售医院">
+					<isNotNull prepend="AND" property="HospitalName">
+						(InvoiceTitle = #HospitalName# OR Exists(SELECT 1 FROM InvHospitalCfg WHERE DMSHospitalName = #HospitalName# AND InvHospitalName=InvoiceTitle))
+					</isNotNull>
+				</isEqual>
 			</dynamic>
 		</select>
 		<select id="QueryInvRecDetailExport" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">

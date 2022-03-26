@@ -39,6 +39,8 @@ namespace DMS.Business
 
         DataSet QueryCheckInv(Hashtable ht);
 
+        DataSet QueryCheckHos(Hashtable ht);
+
         void ExeSaveCompareStatus( Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg);
 
         void ExeUpdateCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid ProductLineId, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg, bool isSystemCompare);

@@ -367,6 +367,7 @@
     <Compile Include="Shipment\CalendarDateDao.cs" />
     <Compile Include="Shipment\DealerCommonSettingDao.cs" />
     <Compile Include="Shipment\DealerProductPriceHistoryDao.cs" />
+    <Compile Include="Shipment\EmbedDataDao.cs" />
     <Compile Include="Shipment\HospitalShipmentbscBeforeSubmitInitDao.cs" />
     <Compile Include="Shipment\InvReconcileDao.cs" />
     <Compile Include="Shipment\ReconcileRuleDao.cs" />
@@ -1034,6 +1035,7 @@
     <EmbeddedResource Include="Resources\maps\Log\LafiteLog.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\SellOutDetailInfo.xml" />
     <EmbeddedResource Include="Resources\maps\MasterData\InvHospitalCfg.xml" />
     <EmbeddedResource Include="Resources\maps\MasterData\InvHospitalCfgInit.xml" />
     <EmbeddedResource Include="Resources\maps\Shipment\InvReconcileDetailTemp.xml" />

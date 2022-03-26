@@ -27,6 +27,7 @@ namespace DMS.DataAccess
 {
     using Grapecity.DataAccess;
     using Grapecity.DataAccess.IBatisNet;
+    using IBatisNet.DataMapper.SessionStore;
     using System.Data.SqlClient;
 
     /// <summary>
@@ -262,8 +263,66 @@ namespace DMS.DataAccess
             ISqlMapper mapper = this.SqlMap;
 
             bool isSessionLocal = false;
-            ISqlMapSession session = mapper.LocalSession;
+            ISqlMapSession session = mapper.LocalSession; 
 
+            if (session == null)
+            {
+                session = mapper.CreateSqlMapSession();
+                isSessionLocal = true;
+            }
+
+            RequestScope scope = PreparedRequestScope(session, statementName, paramObject);
+
+            DataSet ds = new DataSet();
+            try
+            {
+                using (IDbCommand cmd = session.CreateCommand(CommandType.Text))
+                {
+                    cmd.CommandTimeout = scope.IDbCommand.CommandTimeout;
+                    cmd.Connection = scope.Session.Connection;
+                    if (scope.Session.Transaction != null)
+                        cmd.Transaction = scope.Session.Transaction;
+
+                    SqlParameter[] clonedParameters = new SqlParameter[scope.IDbCommand.Parameters.Count];
+
+                    for (int i = 0, j = scope.IDbCommand.Parameters.Count; i < j; i++)
+                    {
+                        clonedParameters[i] = (SqlParameter)((ICloneable)scope.IDbCommand.Parameters[i]).Clone();
+                    }
+
+                    foreach (SqlParameter p in clonedParameters)
+                    {
+                        cmd.Parameters.Add(p);
+                    }
+
+                    string sqlText = scope.IDbCommand.CommandText;
+                    if (_logger.IsDebugEnabled)
+                        _logger.Debug(sqlText);
+
+                    cmd.CommandText = sqlText;
+
+                    IDbDataAdapter adapter = session.CreateDataAdapter(cmd);
+                    adapter.Fill(ds);
+                }
+            }
+            finally
+            {
+                if (isSessionLocal)
+                {
+                    session.CloseConnection();
+                }
+            }
+            return ds;
+        }
+
+        public DataSet ExecuteQueryForDataSetAsync(string statementName, object paramObject)
+        {
+            ISqlMapper mapper = this.SqlMap;
+
+            bool isSessionLocal = false;
+            //ISqlMapSession session = mapper.LocalSession;
+            ISqlMapSession session = null;
+         
             if (session == null)
             {
                 session = mapper.CreateSqlMapSession();

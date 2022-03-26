@@ -288,6 +288,8 @@
     <Compile Include="MasterData\IInvHospitalCfgImportBLL.cs" />
     <Compile Include="MasterData\InvHospitalBLL.cs" />
     <Compile Include="MasterData\InvHospitalCfgImportBLL.cs" />
+    <Compile Include="Shipment\EmbedDataBLL.cs" />
+    <Compile Include="Shipment\IEmbedDataBLL.cs" />
     <Compile Include="Shipment\IInvReconcileBLL.cs" />
     <Compile Include="MasterData\InvGoodsCfgBLL.cs" />
     <Compile Include="MasterData\InvGoodsCfgImportBLL.cs" />

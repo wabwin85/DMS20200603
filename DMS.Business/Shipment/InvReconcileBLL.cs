@@ -171,6 +171,16 @@ namespace DMS.Business
             return ds;
         }
 
+        public DataSet QueryCheckHos(Hashtable ht)
+        {
+            DataSet ds = new DataSet();
+            using (var dao = new InvReconcileDao())
+            {
+                ds = dao.SelectHosMatchRule(ht);
+            }
+            return ds;
+        }
+
         public void ExeSaveCompareStatus(Guid SPH_ID, string OrderNumber, string CFN, Guid compareUser, string compareStatus,string compareInfos, out string RtnVal, out string RtnMsg)
         {
             RtnVal = string.Empty;
