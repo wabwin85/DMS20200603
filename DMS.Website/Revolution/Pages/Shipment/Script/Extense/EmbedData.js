@@ -2,6 +2,7 @@
 
 EmbedData = function () {
     var that = {};
+    var developModel = true;
     var business = 'Shipment.Extense.EmbedData';
     var globalBrandId = parent.$('#IptBrandId').val();
     var globalSubCompanyId = parent.$('#IptSubCompanyId').val();
@@ -16,7 +17,8 @@ EmbedData = function () {
     };
 
     that.Init = function () {
-        var data = FrameUtil.GetModel(); 
+        var data = FrameUtil.GetModel();
+        
         createResultList();
 
         FrameUtil.SubmitAjax({
@@ -25,6 +27,13 @@ EmbedData = function () {
             url: Common.AppHandler,
             data: data,
             callback: function (model) {
+                $('#SelSubCompany').FrameDropdownList({
+                    dataSource: [{ Key: "全部", Value: "全部" }, { Key: "瑞奇", Value: "瑞奇" }, { Key: "神经介入", Value: "神经介入" }, { Key: "切口事业部", Value: "切口事业部" }],
+                    dataKey: 'Key',
+                    dataValue: 'Value',
+                    selectType: 'select',
+                    value:model.SubCompany
+                });
                 $('#SelAccountYear').FrameDropdownList({
                     dataSource: [
                         { Key: "全部", Value: "全部" },
@@ -37,43 +46,38 @@ EmbedData = function () {
                     selectType: 'select',
                     value: model.SelAccountYear
                 });
-                $('#SelAccountingMonth').FrameDropdownList({
+                $('#SelAccountMonth').FrameDropdownList({
                     dataSource: [{ Key: "全部", Value: "全部" }, { Key: "01", Value: "01" }, { Key: "02", Value: "02" }, { Key: "03", Value: "03" }, { Key: "04", Value: "04" }, { Key: "05", Value: "05" }, { Key: "06", Value: "06" }, { Key: "07", Value: "07" }, { Key: "08", Value: "08" }, { Key: "09", Value: "09" }, { Key: "10", Value: "10" } ,{ Key: "11", Value: "11" }, { Key: "12", Value: "12" }],
                     dataKey: 'Key',
                     dataValue: 'Value',
                     selectType: 'select',
-                    value: model.SelAccountingMonth
+                    value: model.SelAccountMonth
                 });
-                $('#SelSubCompany').FrameDropdownList({
-                    dataSource: [{ Key: "全部", Value: "全部" }, { Key: "瑞奇", Value: "瑞奇" }, { Key: "神经介入", Value: "神经介入" }, { Key: "切口事业部", Value: "切口事业部" }],
-                    dataKey: 'Key',
-                    dataValue: 'Value',
-                    selectType: 'select',
-                });
-                $('#SelBrand').FrameDropdownList({
-                    dataSource: [{ Key: "全部", Value: "全部" }, { Key: "瑞奇", Value: "瑞奇" }, { Key: "神经介入", Value: "神经介入" }, { Key: "切口事业部", Value: "切口事业部" }],
-                    dataKey: 'Key',
-                    dataValue: 'Value',
-                    selectType: 'select',
-                });
+               
 
                 $('#BtnQuery').FrameButton({
                     text: '查询',
                     icon: 'search',
                     onClick: function () {
-                        //createResultList();
-                        //that.Query(); 
-                        //that.ShowProductDetailInfo(pickedList);
+                        createResultList();
+                        that.Query(); 
+                        
                     }
                 });
+                 
 
-                $('#BtnAdd').FrameButton({
-                    text: '新增',
-                    icon: 'plus',
+                $('#BtnImport').FrameButton({
+                    text: '导入',
+                    icon: 'file-code-o',
                     onClick: function () {
-                        //createResultList();
-                        //that.Query();
-                        //that.ShowProductDetailInfo(pickedList);
+                        that.openInfo();
+                    }
+                });
+                $('#BtnExport').FrameButton({
+                    text: '导出',
+                    icon: 'file-excel-o',
+                    onClick: function () {
+                        that.ExportData();
                     }
                 });
                 FrameWindow.HideLoading();
@@ -82,6 +86,26 @@ EmbedData = function () {
         });
     };
     var kendoDataSource = GetKendoDataSource(business, 'Query');
+
+    that.openInfo = function () {
+        top.createTab({
+            id: 'S_植入数据导入',
+            title: '植入数据导入',
+            url: developModel == true ? 'Revolution/Pages/Shipment/Extense/EmbedDataImport.aspx' : 'Extense/Revolution/Pages/Shipment/Extense/EmbedDataImport.aspx'
+        });
+    }
+
+    that.ExportData = function () { 
+        var data = that.GetModel();
+        var urlExport = Common.ExportUrl;
+        urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'EmbedDataExport');
+        urlExport = Common.UpdateUrlParams(urlExport, 'SubCompany', globalSubCompanyName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'Brand', globalBrandName);
+        urlExport = Common.UpdateUrlParams(urlExport, 'AccountingYear', data.SelAccountYear.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'AccountingMonth', data.SelAccountingMonth.Key);
+        startDownload(urlExport, 'EmbedDataExport');
+    }
 
     that.Query = function () {
         var grid = $("#RstResultList").data("kendoGrid");

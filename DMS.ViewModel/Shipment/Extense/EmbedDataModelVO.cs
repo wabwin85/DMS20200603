@@ -12,6 +12,8 @@ namespace DMS.ViewModel.Shipment.Extense
 
         public string SubCompany { get; set; }
 
+        public string SubCompanyName { get; set; }
+
         public string Brand { get; set; }
         public string AccountingYear { get; set; }
         public string AccountingMonth { get; set; }

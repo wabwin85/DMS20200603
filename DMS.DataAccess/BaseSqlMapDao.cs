@@ -599,6 +599,9 @@ namespace DMS.DataAccess
 
                 using (SqlBulkCopy sbc = new SqlBulkCopy((SqlConnection)session.Connection, SqlBulkCopyOptions.Default, (SqlTransaction)session.Transaction))
                 {
+                    //added by aibing
+                    if (session.Connection.State == ConnectionState.Closed)
+                        session.OpenConnection(); 
                     sbc.DestinationTableName = descTableName;
                     sbc.BatchSize = 1000;
                     sbc.BulkCopyTimeout = 60;

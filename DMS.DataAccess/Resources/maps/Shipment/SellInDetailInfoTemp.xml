@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SellInDetailInfoTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="SellInDetailInfoTemp" assembly="DMS.Model.dll" type="DMS.Model.SellInDetailInfoTemp" />
+	</alias>
+	<resultMaps>
+		<resultMap id="SellInDetailInfoTempResult" class="SellInDetailInfoTemp">
+			<result property="Id" column="Id" type="Guid" dbType="Guid"/>
+			<result property="SubCompany" column="SubCompany" type="string" dbType="nvarchar"/>
+			<result property="Brand" column="Brand" type="string" dbType="nvarchar"/>
+			<result property="AccountingYear" column="AccountingYear" type="string" dbType="varchar"/>
+			<result property="AccountingQuarter" column="AccountingQuarter" type="string" dbType="varchar"/>
+			<result property="AccountingMonth" column="AccountingMonth" type="string" dbType="varchar"/>
+			<result property="Channel" column="Channel" type="string" dbType="nvarchar"/>
+			<result property="SalesIdentity" column="SalesIdentity" type="string" dbType="nvarchar"/>
+			<result property="SalesIdentityRow" column="SalesIdentityRow" type="string" dbType="nvarchar"/>
+			<result property="OrderType" column="OrderType" type="string" dbType="nvarchar"/>
+			<result property="ActualDiscount" column="ActualDiscount" type="Decimal" dbType="decimal"/>
+			<result property="CompanyCode" column="CompanyCode" type="string" dbType="varchar"/>
+			<result property="CompanyName" column="CompanyName" type="string" dbType="nvarchar"/>
+			<result property="IsRelated" column="IsRelated" type="string" dbType="nvarchar"/>
+			<result property="RevenueType" column="RevenueType" type="string" dbType="nvarchar"/>
+			<result property="BorderType" column="BorderType" type="string" dbType="nvarchar"/>
+			<result property="ProductLine" column="ProductLine" type="string" dbType="nvarchar"/>
+			<result property="ProductProvince" column="ProductProvince" type="string" dbType="nvarchar"/>
+			<result property="InvoiceDate" column="InvoiceDate" type="DateTime" dbType="datetime"/>
+			<result property="SoldPartyDealerCode" column="SoldPartyDealerCode" type="string" dbType="varchar"/>
+			<result property="SoldPartySAPCode" column="SoldPartySAPCode" type="string" dbType="varchar"/>
+			<result property="SoldPartyName" column="SoldPartyName" type="string" dbType="nvarchar"/>
+			<result property="BillingType" column="BillingType" type="string" dbType="nvarchar"/>
+			<result property="Province" column="Province" type="string" dbType="nvarchar"/>
+			<result property="ExchangeRate" column="ExchangeRate" type="Decimal" dbType="decimal"/>
+			<result property="MaterialCode" column="MaterialCode" type="string" dbType="nvarchar"/>
+			<result property="MaterialName" column="MaterialName" type="string" dbType="nvarchar"/>
+			<result property="UPN" column="UPN" type="string" dbType="varchar"/>
+			<result property="OutInvoiceNum" column="OutInvoiceNum" type="int" dbType="int"/>
+			<result property="InvoiceNetAmount" column="InvoiceNetAmount" type="Decimal" dbType="decimal"/>
+			<result property="InvoiceRate" column="InvoiceRate" type="Decimal" dbType="decimal"/>
+			<result property="RebateNetAmount" column="RebateNetAmount" type="Decimal" dbType="decimal"/>
+			<result property="RebateRate" column="RebateRate" type="Decimal" dbType="decimal"/>
+			<result property="InvoiceAmount" column="InvoiceAmount" type="Decimal" dbType="decimal"/>
+			<result property="LocalCurrencyAmount" column="LocalCurrencyAmount" type="Decimal" dbType="decimal"/>
+			<result property="KLocalCurrencyAmount" column="KLocalCurrencyAmount" type="Decimal" dbType="decimal"/>
+			<result property="DeliveryDate" column="DeliveryDate" type="DateTime" dbType="datetime"/>
+			<result property="OrderCreateDate" column="OrderCreateDate" type="DateTime" dbType="datetime"/>
+			<result property="ProductLineAndSoldParty" column="ProductLineAndSoldParty" type="string" dbType="nvarchar"/>
+			<result property="ActualLegalEntity" column="ActualLegalEntity" type="string" dbType="nvarchar"/>
+			<result property="IsNeedRecovery" column="IsNeedRecovery" type="string" dbType="varchar"/>
+			<result property="RecoveryComment" column="RecoveryComment" type="string" dbType="nvarchar"/>
+			<result property="BusinessCaliber" column="BusinessCaliber" type="Decimal" dbType="decimal"/>
+			<result property="ClosedAccount" column="ClosedAccount" type="Decimal" dbType="decimal"/>
+			<result property="Comment" column="Comment" type="string" dbType="nvarchar"/>
+			<result property="ProductGeneration" column="ProductGeneration" type="string" dbType="nvarchar"/>
+			<result property="StandardPrice" column="StandardPrice" type="Decimal" dbType="decimal"/>
+			<result property="Region" column="Region" type="string" dbType="nvarchar"/>
+			<result property="InsertTime" column="InsertTime" type="DateTime" dbType="datetime"/>
+			<result property="ModifiedTime" column="ModifiedTime" type="DateTime" dbType="datetime"/>
+			<result property="CreatedBy" column="CreatedBy" type="Guid" dbType="Guid"/>
+			<result property="ModifiedBy" column="ModifiedBy" type="Guid" dbType="Guid"/>
+			<result property="ErrorMsg" column="ErrorMsg" type="string" dbType="nvarchar"/>
+			<result property="IsError" column="IsError" type="bool" dbType="bit"/>
+		</resultMap>
+	</resultMaps>
+	<parameterMaps>
+		<parameterMap id="SellInDetailInfoTempParameter" class="System.Collections.Hashtable">
+			<parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+			<parameter property="RtnVal" column="RtnVal" direction="Output" />
+		</parameterMap>
+	</parameterMaps>
+	<statements>
+		<select id="QueryTempSellInDataInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			SELECT row_number() over(ORDER BY InsertTime DESC)AS row_number, * FROM SellInDetailInfoTemp
+		</select>
+		<delete id="DelTempSellInDataInfo">
+			Delete from SellInDetailInfoTemp
+		</delete>
+		<procedure id="Usp_ValidateSellInDataImport" parameterMap="SellInDetailInfoTempParameter" >
+			dbo.Usp_ValidateSellInDataImport
+		</procedure>
+	</statements>
+</sqlMap>

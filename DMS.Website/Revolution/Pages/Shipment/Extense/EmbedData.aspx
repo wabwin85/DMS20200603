@@ -12,6 +12,8 @@
 <asp:Content ID="ContentHead" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
+    <input type="hidden" id="SubCompanyName" class="FrameControl" />
+    <input type="hidden" id="BrandName" class="FrameControl" />
     <div class="content-main" style="padding: 5px;">
         <div class="col-xs-12">
             <div class="row"> 
@@ -22,6 +24,14 @@
                     <div class="box-body">
                         <div class="col-xs-12">
                             <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-4 col-group">
+                                    <div class="col-xs-4 col-label">
+                                        分子公司：
+                                    </div>
+                                    <div class="col-xs-8 col-field">
+                                        <div id="SelSubCompany" class="FrameControl"></div>
+                                    </div>
+                                </div> 
                                 <div class="col-xs-12 col-sm-6 col-md-4 col-group">
                                     <div class="col-xs-4 col-label">
                                         核算年份：
@@ -35,30 +45,16 @@
                                         核算月份：
                                     </div>
                                     <div class="col-xs-8 col-field">
-                                        <div id="SelAccountingMonth" class="FrameControl"></div>
+                                        <div id="SelAccountMonth" class="FrameControl"></div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 col-md-4 col-group">
-                                    <div class="col-xs-4 col-label">
-                                        分子公司：
-                                    </div>
-                                    <div class="col-xs-8 col-field">
-                                        <div id="SelSubCompany" class="FrameControl"></div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-4 col-group">
-                                    <div class="col-xs-4 col-label">
-                                        品牌：
-                                    </div>
-                                    <div class="col-xs-8 col-field">
-                                        <div id="SelBrand" class="FrameControl"></div>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-buttom" id="PnlButton">
-                                    <a id="BtnQuery"></a>
-                                    <a id="BtnAdd"></a>
+                                    <a id="BtnQuery"></a> 
+                                    <a id="BtnImport"></a>
+                                    <a id="BtnExport"></a>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +64,7 @@
             <div class="row">
                  <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class='fa fa-fw fa-list-alt'></i>&nbsp;销售单列表</h3>
+                        <h3 class="box-title"><i class='fa fa-fw fa-list-alt'></i>&nbsp;植入数据列表</h3>
                     </div>
                     <div class="box-body" style="padding: 0px;">
                         <div class="col-xs-12">

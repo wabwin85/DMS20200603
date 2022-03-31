@@ -368,10 +368,13 @@
     <Compile Include="Shipment\DealerCommonSettingDao.cs" />
     <Compile Include="Shipment\DealerProductPriceHistoryDao.cs" />
     <Compile Include="Shipment\EmbedDataDao.cs" />
+    <Compile Include="Shipment\EmbedDataInitDao.cs" />
     <Compile Include="Shipment\HospitalShipmentbscBeforeSubmitInitDao.cs" />
     <Compile Include="Shipment\InvReconcileDao.cs" />
     <Compile Include="Shipment\ReconcileRuleDao.cs" />
     <Compile Include="Shipment\SalesInterfaceDao.cs" />
+    <Compile Include="Shipment\SellInDataDao.cs" />
+    <Compile Include="Shipment\SellInDataInitDao.cs" />
     <Compile Include="Shipment\ShipmentAdjustLotDao.cs" />
     <Compile Include="Shipment\ShipmentConsignmentDao.cs" />
     <Compile Include="Shipment\ShipmentHeaderDao.cs" />
@@ -1035,6 +1038,9 @@
     <EmbeddedResource Include="Resources\maps\Log\LafiteLog.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\maps\Shipment\SellInDetailInfoTemp.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\SellInDetailInfo.xml" />
+    <EmbeddedResource Include="Resources\maps\Shipment\SellOutDetailInfoTemp.xml" />
     <EmbeddedResource Include="Resources\maps\Shipment\SellOutDetailInfo.xml" />
     <EmbeddedResource Include="Resources\maps\MasterData\InvHospitalCfg.xml" />
     <EmbeddedResource Include="Resources\maps\MasterData\InvHospitalCfgInit.xml" />

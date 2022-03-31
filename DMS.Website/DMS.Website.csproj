@@ -745,12 +745,18 @@
     <Content Include="Revolution\Pages\Report\Script\DealerTransfer.js" />
     <Content Include="Revolution\Pages\Report\Script\SalesAOP.js" />
     <Content Include="Revolution\Pages\Report\Script\SalesHospitalReport.js" />
+    <Content Include="Revolution\Pages\Shipment\Extense\EmbedDataImport.aspx" />
     <Content Include="Revolution\Pages\Shipment\Extense\EmbedData.aspx" />
     <Content Include="Revolution\Pages\Shipment\Extense\InvReconcile.aspx" />
     <Content Include="Revolution\Pages\Shipment\Extense\ReconcileRule.aspx" />
+    <Content Include="Revolution\Pages\Shipment\Extense\SellInData.aspx" />
+    <Content Include="Revolution\Pages\Shipment\Extense\SellInDataImport.aspx" />
     <Content Include="Revolution\Pages\Shipment\Script\Extense\EmbedData.js" />
+    <Content Include="Revolution\Pages\Shipment\Script\Extense\EmbedDataImport.js" />
     <Content Include="Revolution\Pages\Shipment\Script\Extense\InvReconcile.js" />
     <Content Include="Revolution\Pages\Shipment\Script\Extense\ReconcileRule.js" />
+    <Content Include="Revolution\Pages\Shipment\Script\Extense\SellInData.js" />
+    <Content Include="Revolution\Pages\Shipment\Script\Extense\SellInDataImport.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentInit.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentInitList.js" />
     <Content Include="Revolution\Pages\Shipment\Script\ShipmentListInfoForBSC.js" />
@@ -7126,6 +7132,13 @@
     <Compile Include="Revolution\Pages\Report\SalesHospitalReport.aspx.designer.cs">
       <DependentUpon>SalesHospitalReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\EmbedDataImport.aspx.cs">
+      <DependentUpon>EmbedDataImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\EmbedDataImport.aspx.designer.cs">
+      <DependentUpon>EmbedDataImport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Revolution\Pages\Shipment\Extense\EmbedData.aspx.cs">
       <DependentUpon>EmbedData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7146,6 +7159,20 @@
     </Compile>
     <Compile Include="Revolution\Pages\Shipment\Extense\ReconcileRule.aspx.designer.cs">
       <DependentUpon>ReconcileRule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\SellInData.aspx.cs">
+      <DependentUpon>SellInData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\SellInData.aspx.designer.cs">
+      <DependentUpon>SellInData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\SellInDataImport.aspx.cs">
+      <DependentUpon>SellInDataImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Revolution\Pages\Shipment\Extense\SellInDataImport.aspx.designer.cs">
+      <DependentUpon>SellInDataImport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Revolution\Pages\Shipment\ShipmentInit.aspx.cs">
       <DependentUpon>ShipmentInit.aspx</DependentUpon>
@@ -8034,6 +8061,7 @@
     <Content Include="Upload\ContractElectronicAttachmentTemplate\Read\AppointmentRenewal\美国先进医疗技术协会《与中国医疗卫生专业人士互动交流的道德规范》-已确认.pdf" />
     <Content Include="Upload\ContractElectronicAttachmentTemplate\Read\AppointmentRenewal\蓝威经销商合规政策.pdf" />
     <Content Include="Upload\ContractElectronicAttachmentTemplate\Read\AppointmentRenewal\附件4-销商合规培训材料-更新.pdf" />
+    <Content Include="Upload\ExcelTemplate\Template_EmbedDataInit.xls" />
     <None Include="Upload\ExcelTemplate\Template_Adjust.xls" />
     <Content Include="Upload\ExcelTemplate\Template_ConsignmentTransferImport.xls" />
     <None Include="Upload\ExcelTemplate\Template_DealerAgreement.xls" />
@@ -8067,6 +8095,7 @@
     <Content Include="Upload\ExcelTemplate\Template_TrainScore.xls" />
     <Content Include="Upload\ExcelTemplate\Template_ShipmentInvoiceImport.xls" />
     <Content Include="Upload\ExcelTemplate\Template_TransferListImport.xls" />
+    <Content Include="Upload\ExcelTemplate\Template_SellInDataInit.xls" />
     <None Include="Upload\ExcelTemplate\Template_TransferImport.xls" />
     <Content Include="Pages\DPForecast\App_LocalResources\DPForecastImport.aspx.resx" />
     <Content Include="Pages\ScoreCard\App_LocalResources\EndoScoreCard.aspx.en-US.resx" />

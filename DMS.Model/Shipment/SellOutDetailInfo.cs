@@ -7,9 +7,7 @@ namespace DMS.Model
 {
     [Serializable]
     public class SellOutDetailInfo:BaseModel
-    {
-      
-
+    { 
         public Guid Id { get; set; }
         public string SubCompany { get; set; }
         public string Brand { get; set; }
@@ -39,7 +37,7 @@ namespace DMS.Model
         public string InvoiceNumber { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public DateTime? InvoiceUploadDate { get; set; }
-        public new string State { get; set; }
+        public string Status { get; set; }
         public bool? IsValidate { get; set; }
         public string Unit { get; set; }
         public decimal? Quantity { get; set; }

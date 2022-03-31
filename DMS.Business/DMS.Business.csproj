@@ -289,7 +289,9 @@
     <Compile Include="MasterData\InvHospitalBLL.cs" />
     <Compile Include="MasterData\InvHospitalCfgImportBLL.cs" />
     <Compile Include="Shipment\EmbedDataBLL.cs" />
+    <Compile Include="Shipment\EmbedDataInitBLL.cs" />
     <Compile Include="Shipment\IEmbedDataBLL.cs" />
+    <Compile Include="Shipment\IEmbedDataInitBLL.cs" />
     <Compile Include="Shipment\IInvReconcileBLL.cs" />
     <Compile Include="MasterData\InvGoodsCfgBLL.cs" />
     <Compile Include="MasterData\InvGoodsCfgImportBLL.cs" />
@@ -392,7 +394,11 @@
     <Compile Include="ScoreCard\EndoScoreCardBLL.cs" />
     <Compile Include="ScoreCard\IEndoScoreCardBLL.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Shipment\ISellInDataBLL.cs" />
+    <Compile Include="Shipment\ISellInDataInitBLL.cs" />
     <Compile Include="Shipment\IShipmentBLL.cs" />
+    <Compile Include="Shipment\SellInDataBLL.cs" />
+    <Compile Include="Shipment\SellInDataInitBLL.cs" />
     <Compile Include="Shipment\ShipmentBLL.cs" />
     <Compile Include="MasterData\Territorys.cs" />
     <Compile Include="Shipment\ShipmentUtil.cs" />

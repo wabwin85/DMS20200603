@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SellOutDetailInfoTempMap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+	<alias>
+		<typeAlias alias="SellOutDetailInfoTemp" assembly="DMS.Model.dll" type="DMS.Model.SellOutDetailInfoTemp" />
+	</alias>
+	<resultMaps>
+		<resultMap id="SellOutDetailInfoTempResult" class="SellOutDetailInfoTemp">
+			<result property="Id" column="Id" type="Guid" dbType="Guid"/>
+			<result property="SubCompany" column="SubCompany" type="string" dbType="nvarchar"/>
+			<result property="Brand" column="Brand" type="string" dbType="nvarchar"/>
+			<result property="AccountingYear" column="AccountingYear" type="string" dbType="varchar"/>
+			<result property="AccountingMonth" column="AccountingMonth" type="string" dbType="varchar"/>
+			<result property="DealerCode" column="DealerCode" type="string" dbType="varchar"/>
+			<result property="DealerName" column="DealerName" type="string" dbType="nvarchar"/>
+			<result property="LegalEntity" column="LegalEntity" type="string" dbType="nvarchar"/>
+			<result property="SalesEntity" column="SalesEntity" type="string" dbType="nvarchar"/>
+			<result property="Hos_Level" column="Hos_Level" type="string" dbType="nvarchar"/>
+			<result property="Hos_Type" column="Hos_Type" type="string" dbType="nvarchar"/>
+			<result property="Hos_Code" column="Hos_Code" type="string" dbType="varchar"/>
+			<result property="Hos_Name" column="Hos_Name" type="string" dbType="nvarchar"/>
+			<result property="NewOpenMonth" column="NewOpenMonth" type="string" dbType="varchar"/>
+			<result property="NewOpenProduct" column="NewOpenProduct" type="string" dbType="nvarchar"/>
+			<result property="Region" column="Region" type="string" dbType="nvarchar"/>
+			<result property="Province" column="Province" type="string" dbType="nvarchar"/>
+			<result property="City" column="City" type="string" dbType="nvarchar"/>
+			<result property="CityLevel" column="CityLevel" type="string" dbType="nvarchar"/>
+			<result property="RegionOwner" column="RegionOwner" type="string" dbType="nvarchar"/>
+			<result property="SalesRepresentative" column="SalesRepresentative" type="string" dbType="nvarchar"/>
+			<result property="PMA_UPN" column="PMA_UPN" type="string" dbType="nvarchar"/>
+			<result property="CFN_Name" column="CFN_Name" type="string" dbType="nvarchar"/>
+			<result property="ProductLine" column="ProductLine" type="string" dbType="nvarchar"/>
+			<result property="ShipmentNbr" column="ShipmentNbr" type="string" dbType="varchar"/>
+			<result property="UsedDate" column="UsedDate" type="DateTime" dbType="datetime"/>
+			<result property="InvoiceNumber" column="InvoiceNumber" type="string" dbType="nvarchar"/>
+			<result property="InvoiceDate" column="InvoiceDate" type="DateTime" dbType="datetime"/>
+			<result property="InvoiceUploadDate" column="InvoiceUploadDate" type="DateTime" dbType="datetime"/>
+			<result property="Status" column="Status" type="string" dbType="nvarchar"/>
+			<result property="IsValidate" column="IsValidate" type="bool" dbType="bit"/>
+			<result property="Unit" column="Unit" type="string" dbType="nvarchar"/>
+			<result property="Quantity" column="Quantity" type="Decimal" dbType="decimal"/>
+			<result property="InvoicePrice" column="InvoicePrice" type="Decimal" dbType="decimal"/>
+			<result property="InvoiceRate" column="InvoiceRate" type="Decimal" dbType="decimal"/>
+			<result property="AssessUnitPrice" column="AssessUnitPrice" type="Decimal" dbType="decimal"/>
+			<result property="AssessPrice" column="AssessPrice" type="Decimal" dbType="decimal"/>
+			<result property="Remark" column="Remark" type="string" dbType="nvarchar"/>
+			<result property="InsertTime" column="InsertTime" type="DateTime" dbType="datetime"/>
+			<result property="ModifiedTime" column="ModifiedTime" type="DateTime" dbType="datetime"/>
+			<result property="CreatedBy" column="CreatedBy" type="Guid" dbType="Guid"/>
+			<result property="ModifiedBy" column="ModifiedBy" type="Guid" dbType="Guid"/>
+			<result property="ErrorMsg" column="ErrorMsg" type="string" dbType="nvarchar"/>
+			<result property="IsError" column="IsError" type="bool" dbType="bit"/>
+		</resultMap>
+	</resultMaps>
+	<parameterMaps>
+		<parameterMap id="SellOutDetailInfoTempParameter" class="System.Collections.Hashtable">
+			<parameter property="RtnMsg" column="RtnMsg" direction="Output" />
+			<parameter property="RtnVal" column="RtnVal" direction="Output" /> 
+		</parameterMap>
+	</parameterMaps>
+	<statements>
+		<select id="QueryTempEmbedDataInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+			SELECT row_number() over(ORDER BY InsertTime DESC)AS row_number, * FROM SellOutDetailInfoTemp
+		</select>
+		<delete id="DelTempEmbedDataInfo">
+			Delete from SellOutDetailInfoTemp
+		</delete>
+		<procedure id="Usp_ValidateEmbedDataImport" parameterMap="SellOutDetailInfoTempParameter" >
+			dbo.Usp_ValidateEmbedDataImport
+		</procedure>
+	</statements>
+</sqlMap>

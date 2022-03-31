@@ -20,6 +20,7 @@ using DMS.Model.Data;
 using System.Web.SessionState;
 using DMS.DataAccess;
 using DMS.BusinessService.MasterDatas;
+using DMS.BusinessService.Shipment;
 
 namespace DMS.Website.Revolution.Pages.Handler
 {
@@ -232,6 +233,13 @@ namespace DMS.Website.Revolution.Pages.Handler
                             break;
                             case "InvHospitalCfgImport":
                                 VerifyInvHospitalCfgImport(dt);
+                                break;
+                            //Sell Out主数据导入
+                            case "EmbedDataImport":
+                                VerifyEmbedDataImport(dt);
+                                break;
+                            case "SellInDataImport":
+                                VerifySellInDataImport(dt);
                                 break;
                             default:
                                 break;
@@ -1459,6 +1467,70 @@ namespace DMS.Website.Revolution.Pages.Handler
             }
         }
 
+        protected void VerifyEmbedDataImport(DataTable dt)
+        {
+            EmbedDataInitService business = new EmbedDataInitService();
+            string IsValid = string.Empty;
+            string rtnmsg = string.Empty;
+            string rtnval = string.Empty; 
+            string isError;
+            bool tag = business.ImportTemp(dt, out isError);
+            if (!tag)
+            {
+                var lstresult = new { result = "DataError", msg = isError, count = dt.Rows.Count };
+                HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+            }
+            else
+            {
+                if (tag)
+                {
+                    string status = business.VerifyTempData(rtnval, rtnmsg);
+                    if(status == "Success")
+                    {
+                        var lstresult = new { result = "Success", msg = "数据上传成功", count = dt.Rows.Count };
+                        HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                    }
+                    else
+                    {
+                        var lstresult = new { result = "Failed", msg = "数据验证失败，请查看验证信息", count = dt.Rows.Count };
+                        HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                    }
+                }
+            }
+        }
+
+        protected void VerifySellInDataImport(DataTable dt)
+        {
+            SellInDataInitService business = new SellInDataInitService();
+            string IsValid = string.Empty;
+            string rtnmsg = string.Empty;
+            string rtnval = string.Empty;
+            string isError;
+            bool tag = business.ImportTemp(dt, out isError);
+            if (tag)
+            {
+                var lstresult = new { result = "DataError", msg = isError, count = dt.Rows.Count };
+                HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+            }
+            else
+            {
+                if (tag)
+                {
+                    string status = business.VerifyTempData(rtnval, rtnmsg);
+                    if (status == "Success")
+                    {
+                        var lstresult = new { result = "Success", msg = "数据上传成功", count = dt.Rows.Count };
+                        HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                    }
+                    else
+                    {
+                        var lstresult = new { result = "Failed", msg = "数据验证失败，请查看验证信息", count = dt.Rows.Count };
+                        HttpContext.Current.Response.Write(JsonConvert.SerializeObject(lstresult));
+                    }
+                }
+            }
+        }
+
         private bool CheckData(string type, DataTable dt)
         {
             return true;
@@ -1867,6 +1939,20 @@ namespace DMS.Website.Revolution.Pages.Handler
                     break;
                 case "InvHospitalCfgImport":
                     if (!checkCaptions(dt, new string[] { "DMS医院名称", "发票医院名称", "医院编号", "SFE医院编号", "省份", "地区" , "区县" }))
+                    {
+                        templateFlag = false;
+                        msg = "模板错误，请从当前页面下载模板导入！";
+                    }
+                    break;
+                case "EmbedDataImport":
+                    if(!checkCaptions(dt, new string[] { "公司","品牌","核算年份","核算月份","DMS经销商编号" ,"经销商名称" , "实控方", "销售方名称（发票卖方）","医院等级","医院类型","DMS医院编号","医院名称（发票买方）",	"新开月份","新开产品","区域","省份","城市" , "城市等级",    "区域总监","销售代表","规格型号", "商品名称","产品线", "出库单号","用量日期","发票号码", "发票日期","发票上传日期",  "状态",  "是否校验", "单位", "数量",  "发票单价（不含税)",	"税率",  "考核单价（未税）",	"考核金额（未税）",	"备注"}))
+                    {
+                        templateFlag = false;
+                        msg = "模板错误，请从当前页面下载模板导入！";
+                    }
+                    break;
+                case "SellInDataImport":
+                    if (!checkCaptions(dt, new string[] { "分子公司", "品牌", "核算年份", "核算季度", "核算月份（记帐期间）", "渠道", "销售凭证", "销售凭证行项目", "订单类型", "实际折扣", "公司代码", "公司名称", "关联方", "收入类型", "国内外", "产品线", "产品线&省份", "出具发票日期", "售达方DMS Code", "售达方", "售达方名称", "开票类型", "省份", "汇率", "物料", "物料名称", "规格型号", "已出发票数量", "开票金额（净价）", "开票税额", "返利金额（净价）", "返利税额", "开票总额", "本币金额", "本币金额(K)", "发货日期", "订单创建日期", "产品线&售达方", "实控方", "是否需要还原", "还原备注", "商务口径收入", "关账收入", "备注", "产品代次", "标准价", "区域" }))
                     {
                         templateFlag = false;
                         msg = "模板错误，请从当前页面下载模板导入！";

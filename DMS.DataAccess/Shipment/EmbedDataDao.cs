@@ -15,5 +15,11 @@ namespace DMS.DataAccess
             DataSet ds = this.ExecuteQueryForDataSet("QueryQueryEmbedDataInfo", table, start, limit, out rowscount);
             return ds;
         }
+
+        public DataSet QueryEmbedDataInfo(Hashtable table)
+        {
+            DataSet ds = this.ExecuteQueryForDataSet("QueryEmbedDataInfoByFilter", table);
+            return ds;
+        }
     }
 }

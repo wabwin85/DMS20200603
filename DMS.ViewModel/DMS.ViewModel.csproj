@@ -235,9 +235,12 @@
     <Compile Include="Report\DealerSalesReport_NewVO.cs" />
     <Compile Include="Report\SalesAOPVO.cs" />
     <Compile Include="Report\SalesHospitalReportVO.cs" />
+    <Compile Include="Shipment\Extense\EmbedDataInitModelVO.cs" />
     <Compile Include="Shipment\Extense\EmbedDataModelVO.cs" />
     <Compile Include="Shipment\Extense\InvReconcileSummaryVO.cs" />
     <Compile Include="Shipment\Extense\ReconcileRuleVO.cs" />
+    <Compile Include="Shipment\Extense\SellInDataInitModelVO.cs" />
+    <Compile Include="Shipment\Extense\SellInDataModelVO.cs" />
     <Compile Include="Shipment\ShipmentInitListVO.cs" />
     <Compile Include="Shipment\ShipmentListVO.cs" />
     <Compile Include="Shipment\ShipmentPrintSettingVO.cs" />

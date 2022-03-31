@@ -17,5 +17,14 @@ namespace DMS.Business
 
             return ds;
         }
+
+        public DataSet QueryEmbedData(Hashtable table)
+        {
+            DataSet ds = new DataSet();
+            EmbedDataDao dao = new EmbedDataDao();
+            ds = dao.QueryEmbedDataInfo(table);
+
+            return ds;
+        }
     }
 }
