@@ -50,5 +50,6 @@ namespace DMS.Model
         public DateTime? ModifiedTime { get; set; }
         public Guid? CreatedBy { get; set; }
         public Guid? ModifiedBy { get; set; }
+        public bool? IsLocked { get; set; }
     }
 }

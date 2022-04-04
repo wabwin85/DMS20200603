@@ -47,6 +47,7 @@
 			<result property="ModifiedTime" column="ModifiedTime" type="DateTime" dbType="datetime"/>
 			<result property="CreatedBy" column="CreatedBy" type="Guid" dbType="Guid"/>
 			<result property="ModifiedBy" column="ModifiedBy" type="Guid" dbType="Guid"/>
+			<result property="IsLocked" column="IsLocked" type="bool" dbType="bit"/>
 		</resultMap>
 	</resultMaps>
 	<statements>
@@ -67,6 +68,6 @@
 				<isNotNull prepend="AND" property="AccountingYear">AccountingYear=#AccountingYear#</isNotNull>
 				<isNotNull prepend="AND" property="AccountingMonth">AccountingMonth=#AccountingMonth#</isNotNull>
 			</dynamic>
-		</select>
+		</select> 
 	</statements>
 </sqlMap>

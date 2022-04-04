@@ -40,6 +40,12 @@ namespace DMS.Business.Shipment
             return ds;
         }
 
+        public DataSet QueryTempSellInDataInfo()
+        {
+            DataSet ds = dao.QueryTempSellInDataInfo();
+            return ds;
+        }
+
         public string VerifyTempData(string rtnMsg, string rtnVal)
         {
             Hashtable ht = new Hashtable();

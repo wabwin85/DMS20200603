@@ -15,7 +15,24 @@ EmbedDataImport = function () {
     that.Init = function () {
         that.GetModel(); 
         createResultList();
+        $('#BtnExport').click(function () {
+            var grid = $("#ImportErrorGrid").data("kendoGrid");
+            var rowcount = grid._data.length;
+            if (rowcount == 0) {
+                FrameWindow.ShowAlert({
+                    target: 'top',
+                    alertType: 'info',
+                    message: "请导入数据，目前导入数据为空",
+                    callback: function () {
 
+                    }
+                });
+            }
+            else {
+                that.ExportData();
+            }
+             
+        });
         $("#files").kendoUpload({
             async: {
                 saveUrl: "../../Handler/UploadFile.ashx?Type=" + IMPORT_TYPE + "&SheetName=" + IMPORT_NAME,
@@ -152,6 +169,13 @@ EmbedDataImport = function () {
         }
     }
 
+    that.ExportData = function () { 
+        var urlExport = Common.ExportUrl;
+        urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'EmbedTempDataExport');
+        startDownload(urlExport, 'EmbedTempDataExport');
+    }
+
     function createResultList() {
         $('#ImportErrorGrid').kendoGrid({
             dataSource: [],
@@ -173,7 +197,7 @@ EmbedDataImport = function () {
             columns: [ 
                 {
                     field: 'ErrorMsg',
-                    title: '状态',
+                    title: '错误信息',
                     width: '120px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '错误信息' },
                     attributes: { "class": "table-td-cell" }
@@ -305,7 +329,7 @@ EmbedDataImport = function () {
                 },
                 {
                     field: 'UsedDate',
-                    title: '用量日期',
+                    title: '出库/用量日期',
                     width: '80px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '用量日期' },
                     attributes: { "class": "table-td-cell" }

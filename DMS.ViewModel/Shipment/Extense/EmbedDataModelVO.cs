@@ -51,6 +51,7 @@ namespace DMS.ViewModel.Shipment.Extense
         public decimal? AssessUnitPrice { get; set; }
         public decimal? AssessPrice { get; set; }
         public string Remark { get; set; }
+        public bool? IsLocked { get; set; }
 
         public DateTime? InsertTime { get; set; }
         public DateTime? ModifiedTime { get; set; }

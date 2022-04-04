@@ -15,5 +15,7 @@ namespace DMS.Business.Shipment
         void BulkCopy(List<SellInDetailInfoTemp> items);
         string VerifyTempData(string rtnMsg, string rtnVal);
         DataSet QueryErrorData(int start, int pageSize, out int outCont);
+
+        DataSet QueryTempSellInDataInfo();
     }
 }

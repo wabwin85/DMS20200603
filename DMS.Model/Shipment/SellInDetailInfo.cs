@@ -53,6 +53,8 @@ namespace DMS.Model
         public decimal? BusinessCaliber { get; set; }
         public decimal? ClosedAccount { get; set; }
 
+        public bool? IsLocked { get; set; }
+
         public string Comment { get; set; }
         public string ProductGeneration { get; set; }
         public decimal? StandardPrice { get; set; }

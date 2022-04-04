@@ -1,4 +1,5 @@
-﻿using DMS.Business.Shipment;
+﻿using DMS.Business.Excel;
+using DMS.Business.Shipment;
 using DMS.Common;
 using DMS.Common.Common;
 using DMS.Model;
@@ -8,13 +9,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Text;
 
 namespace DMS.BusinessService.Shipment
 { 
-    public class EmbedDataInitService : ABaseQueryService
+    public class EmbedDataInitService : ABaseQueryService, IQueryExport
     {
         IEmbedDataInitBLL business = new EmbedDataInitBLL();
         public bool ImportTemp(DataTable dt, out string isError)
@@ -229,6 +231,79 @@ namespace DMS.BusinessService.Shipment
             var data = new { data = model.RstResultList, total = model.DataCount };
             var result = new { success = model.IsSuccess, data = data };
             return JsonConvert.SerializeObject(result);
+        }
+
+        public void Export(NameValueCollection Parameters, string DownloadCookie)
+        {
+            IEmbedDataInitBLL business = new EmbedDataInitBLL();
+            Hashtable ht = new Hashtable(); 
+            DataSet ds = business.QueryTempEmbedDataInfo();
+            DataSet dsExport = new DataSet("植入上传数据");
+            if (ds != null)
+            {
+                DataTable dt = ds.Tables[0];
+                DataTable dtData = dt.Copy();
+
+                if (null != dtData)
+                {
+                    Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            {"ErrorMsg","错误信息" },
+                            {"SubCompany", "分子公司"},
+                            {"Brand", "品牌"},
+                            {"AccountingYear", "核算年份"},
+                            {"AccountingMonth", "核算月份"},
+                            {"DealerCode", "DMS经销商编号"},
+                            {"DealerName", "经销商名称"},
+                            {"LegalEntity","实控方"},
+                             {"SalesEntity","销售方名称（发票卖方）"} ,
+                             {"Hos_Level","医院等级"},
+                             {"Hos_Type","医院类型"},
+                             {"Hos_Code","DMS医院编号"},
+                             {"Hos_Name","医院名称（发票买方）"},
+                             {"NewOpenMonth","新开月份"},
+                             {"NewOpenProduct","新开产品"},
+                             {"Region","区域"},
+                             {"Province","省份"},
+                             {"City","城市"},
+                             {"CityLevel","城市等级"},
+                             {"RegionOwner","区域总监"},
+                             {"SalesRepresentative","销售代表"},
+                             {"PMA_UPN","规格型号"},
+                             {"CFN_Name","商品名称"},
+                             {"ProductLine","产品线"},
+                             {"ShipmentNbr","出库单号"},
+                             {"UsedDate","出库/用量日期"},
+                             {"InvoiceNumber","发票号码"},
+                              {"InvoiceDate","发票日期"},
+                              {"InvoiceUploadDate","发票上传日期"},
+                              {"Status","状态"},
+                             {"IsValidate","是否校验"},
+                             {"Unit","单位"},
+                             {"Quantity","数量"},
+                            {"InvoicePrice","发票单价（不含税)"},
+                            {"InvoiceRate","税率"},
+                            {"AssessUnitPrice","考核单价（未税）"},
+                            {"AssessPrice","考核金额（未税）"},
+                            {"Remark","备注"}
+                        };
+
+                    CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);
+                    dsExport.Tables.Add(dtData);
+                }
+
+                ExportFile(dsExport, DownloadCookie);
+            }
+        }
+
+        protected void ExportFile(DataSet ds, string Cookie)
+        {
+            DataSet[] result = new DataSet[1];
+            result[0] = ds;
+
+            Hashtable ht = new Hashtable();
+            XlsExport xlsExport = new XlsExport("ExportFile");
+            xlsExport.Export(ht, result, Cookie);
         }
     }
 }

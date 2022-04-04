@@ -177,9 +177,9 @@ SellInData = function () {
                 },
                 {
                     field: 'Channel',
-                    title: '渠道',
+                    title: '渠道/经销商层级',
                     width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '渠道' },
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '渠道/经销商层级' },
                     attributes: { "class": "table-td-cell" }
                 },
                 {
@@ -218,8 +218,8 @@ SellInData = function () {
                     attributes: { "class": "table-td-cell" }
                 },
                 {
-                    field: '公司名称',
-                    title: 'CompanyName',
+                    field: 'CompanyName',
+                    title: '公司名称',
                     width: '80px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '公司名称' },
                     attributes: { "class": "table-td-cell" }
@@ -352,6 +352,13 @@ SellInData = function () {
                     attributes: { "class": "table-td-cell" }
                 },
                 {
+                    field: 'RebateAmount',
+                    title: '返利金额',
+                    width: '60px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '返利金额' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
                     field: 'RebateNetAmount',
                     title: '返利金额（净价）',
                     width: '60px',
@@ -363,6 +370,13 @@ SellInData = function () {
                     title: '返利税额',
                     width: '60px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '返利税额' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
+                    field: 'BusiPurNoRebateAmount',
+                    title: '商采金额（不含返利）',
+                    width: '60px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '商采金额（不含返利）' },
                     attributes: { "class": "table-td-cell" }
                 },
                 {
@@ -470,6 +484,21 @@ SellInData = function () {
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '区域' },
                     attributes: { "class": "table-td-cell" }
                 },
+                {
+                    field: 'IsLocked',
+                    title: '状态',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '状态' },
+                    attributes: { "class": "table-td-cell" },
+                    template: function (gridRow) {
+                        console.log(gridRow);
+                        var isLocked = gridRow.IsLocked;
+                        if (isLocked)
+                            return '锁定';
+                        else
+                            return '正常';
+                    }
+                }
             ]
 
         });

@@ -48,5 +48,11 @@ namespace DMS.Business.Shipment
             DataSet ds = dao.QueryEmbedDataInfo(ht, start, pageSize, out outCont);
             return ds;
         }
+
+        public DataSet QueryTempEmbedDataInfo()
+        {
+            DataSet ds = dao.QueryTempEmbedDataInfo();
+            return ds;
+        }
     }
 }

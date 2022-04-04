@@ -26,7 +26,7 @@ namespace DMS.Model
         public string BorderType { get; set; }
         public string ProductLine { get; set; }
         public string ProductProvince { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public DateTime? InvoiceDate { get; set; }
         public string SoldPartyDealerCode { get; set; }
         public string SoldPartySAPCode { get; set; }
         public string SoldPartyName { get; set; }
@@ -36,16 +36,19 @@ namespace DMS.Model
         public string MaterialCode { get; set; }
         public string MaterialName { get; set; }
         public string UPN { get; set; }
-        public int OutInvoiceNum { get; set; }
+        public int? OutInvoiceNum { get; set; }
         public decimal? InvoiceNetAmount { get; set; }
-        public decimal? InvoiceRate { get; set; }
+        public decimal? InvoiceRate { get; set; } 
+        public decimal? RebateAmount { get; set; }
         public decimal? RebateNetAmount { get; set; }
         public decimal? RebateRate { get; set; }
         public decimal? InvoiceAmount { get; set; }
         public decimal? LocalCurrencyAmount { get; set; }
+
+        public decimal? BusiPurNoRebateAmount { get; set; }
         public decimal? KLocalCurrencyAmount { get; set; }
-        public DateTime DeliveryDate { get; set; }
-        public DateTime OrderCreateDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
+        public DateTime? OrderCreateDate { get; set; }
         public string ProductLineAndSoldParty { get; set; }
         public string ActualLegalEntity { get; set; }
         public string IsNeedRecovery { get; set; }

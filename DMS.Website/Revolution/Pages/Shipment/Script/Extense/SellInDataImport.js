@@ -15,7 +15,24 @@ SellInDataImport = function () {
     that.Init = function () {
         that.GetModel();
         createResultList();
+        $('#BtnExport').click(function () {
+            var grid = $("#ImportErrorGrid").data("kendoGrid");
+            var rowcount = grid._data.length;
+            if (rowcount == 0) {
+                FrameWindow.ShowAlert({
+                    target: 'top',
+                    alertType: 'info',
+                    message: "请导入数据，目前导入数据为空",
+                    callback: function () {
 
+                    }
+                });
+            }
+            else {
+                that.ExportData();
+            }
+
+        });
         $("#files").kendoUpload({
             async: {
                 saveUrl: "../../Handler/UploadFile.ashx?Type=" + IMPORT_TYPE + "&SheetName=" + IMPORT_NAME,
@@ -143,7 +160,12 @@ SellInDataImport = function () {
     }
 
     var kendoDataSource = GetKendoDataSource(business, 'Query');
-
+    that.ExportData = function () {
+        var urlExport = Common.ExportUrl;
+        urlExport = Common.UpdateUrlParams(urlExport, 'Business', business);
+        urlExport = Common.UpdateUrlParams(urlExport, 'DownloadCookie', 'SellInTempDataExport');
+        startDownload(urlExport, 'SellInTempDataExport');
+    }
     that.Query = function () {
         var grid = $("#ImportErrorGrid").data("kendoGrid");
         if (grid) {
@@ -173,7 +195,7 @@ SellInDataImport = function () {
             columns: [
                 {
                     field: 'ErrorMsg',
-                    title: '状态',
+                    title: '错误信息',
                     width: '120px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '错误信息' },
                     attributes: { "class": "table-td-cell" }
@@ -215,23 +237,9 @@ SellInDataImport = function () {
                 },
                 {
                     field: 'Channel',
-                    title: '渠道',
+                    title: '渠道/经销商层级',
                     width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '渠道' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: 'SalesIdentity',
-                    title: '销售凭证',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '销售凭证' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: 'SalesIdentityRow',
-                    title: '销售凭证行项目',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '销售凭证行项目' },
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '渠道/经销商层级' },
                     attributes: { "class": "table-td-cell" }
                 },
                 {
@@ -240,7 +248,7 @@ SellInDataImport = function () {
                     width: '60px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '订单类型' },
                     attributes: { "class": "table-td-cell" }
-                },
+                }, 
                 {
                     field: 'ActualDiscount',
                     title: '实际折扣',
@@ -248,41 +256,7 @@ SellInDataImport = function () {
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '实际折扣' },
                     attributes: { "class": "table-td-cell" }
                 },
-                {
-                    field: 'CompanyCode',
-                    title: '公司代码',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '公司代码' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: '公司名称',
-                    title: 'CompanyName',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '公司名称' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: 'IsRelated',
-                    title: '关联方',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '关联方' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: 'RevenueType',
-                    title: '收入类型',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '收入类型' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: 'BorderType',
-                    title: '国内外',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '国内外' },
-                    attributes: { "class": "table-td-cell" }
-                },
+                
                 {
                     field: 'ProductLine',
                     title: '产品线',
@@ -390,6 +364,13 @@ SellInDataImport = function () {
                     attributes: { "class": "table-td-cell" }
                 },
                 {
+                    field: 'RebateAmount',
+                    title: '返利金额',
+                    width: '60px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '返利金额' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
                     field: 'RebateNetAmount',
                     title: '返利金额（净价）',
                     width: '60px',
@@ -401,6 +382,13 @@ SellInDataImport = function () {
                     title: '返利税额',
                     width: '60px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '返利税额' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
+                    field: 'BusiPurNoRebateAmount',
+                    title: '商采金额（不含返利）',
+                    width: '60px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '商采金额（不含返利）' },
                     attributes: { "class": "table-td-cell" }
                 },
                 {
@@ -443,13 +431,6 @@ SellInDataImport = function () {
                     title: '产品线&售达方',
                     width: '80px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '产品线&售达方' },
-                    attributes: { "class": "table-td-cell" }
-                },
-                {
-                    field: 'ActualLegalEntity',
-                    title: '实控方',
-                    width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '实控方' },
                     attributes: { "class": "table-td-cell" }
                 },
                 {
@@ -507,7 +488,62 @@ SellInDataImport = function () {
                     width: '80px',
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '区域' },
                     attributes: { "class": "table-td-cell" }
+                }, 
+                {
+                    field: 'SalesIdentity',
+                    title: '销售凭证',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '销售凭证' },
+                    attributes: { "class": "table-td-cell" }
                 },
+                {
+                    field: 'SalesIdentityRow',
+                    title: '销售凭证行项目',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '销售凭证行项目' },
+                    attributes: { "class": "table-td-cell" }
+                }, 
+                {
+                    field: 'ActualLegalEntity',
+                    title: '实控方',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '实控方' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
+                    field: 'CompanyCode',
+                    title: '公司代码',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '公司代码' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
+                    field: 'CompanyName',
+                    title: '公司名称',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '公司名称' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
+                    field: 'IsRelated',
+                    title: '关联方',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '关联方' },
+                    attributes: { "class": "table-td-cell" }
+                },
+                {
+                    field: 'RevenueType',
+                    title: '收入类型',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '收入类型' },
+                    attributes: { "class": "table-td-cell" }
+                }, {
+                    field: 'BorderType',
+                    title: '国内外',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '国内外' },
+                    attributes: { "class": "table-td-cell" }
+                }
             ]
 
         });

@@ -81,7 +81,7 @@ namespace DMS.BusinessService.Shipment
                              {"CFN_Name","商品名称"},
                              {"ProductLine","产品线"},
                              {"ShipmentNbr","出库单号"},
-                             {"UsedDate","用量日期"},
+                             {"UsedDate","出库/用量日期"},
                              {"InvoiceNumber","发票号码"}, 
                               {"InvoiceDate","发票日期"},
                               {"InvoiceUploadDate","发票上传日期"},
@@ -94,6 +94,7 @@ namespace DMS.BusinessService.Shipment
                             {"AssessUnitPrice","考核单价（未税）"},
                             {"AssessPrice","考核金额（未税）"},
                             {"Remark","备注"},
+                            {"IsLocked","数据状态" }
                         };
 
                     CommonFunction.SetColumnIndexAndRemoveColumn(dtData, dict);

@@ -95,21 +95,26 @@ namespace DMS.DataAccess
                 dr["CFN_Name"] = data.CFN_Name;
                 dr["ProductLine"] = data.ProductLine;
                 dr["ShipmentNbr"] = data.ShipmentNbr;
-                if(data.UsedDate != null)
+                if(data.UsedDate != null && data.UsedDate.HasValue)
                     dr["UsedDate"] = data.UsedDate;
                 dr["InvoiceNumber"] = data.InvoiceNumber;
-                if(null != data.InvoiceDate)
+                if(null != data.InvoiceDate && data.InvoiceDate.HasValue)
                     dr["InvoiceDate"] = data.InvoiceDate;
-                if(null != data.InvoiceUploadDate)
+                if(null != data.InvoiceUploadDate && data.InvoiceUploadDate.HasValue)
                     dr["InvoiceUploadDate"] = data.InvoiceUploadDate;
                 dr["Status"] = data.Status;
                 dr["IsValidate"] = data.IsValidate;
                 dr["Unit"] = data.Unit;
-                dr["Quantity"] = data.Quantity;
-                dr["InvoicePrice"] = data.InvoicePrice;
-                dr["InvoiceRate"] = data.InvoiceRate;
-                dr["AssessUnitPrice"] = data.AssessUnitPrice;
-                dr["AssessPrice"] = data.AssessPrice;
+                if(data.Quantity.HasValue)
+                    dr["Quantity"] = data.Quantity;
+                if(data.InvoicePrice.HasValue)
+                    dr["InvoicePrice"] = data.InvoicePrice;
+                if(data.InvoicePrice.HasValue)
+                    dr["InvoiceRate"] = data.InvoiceRate;
+                if(data.AssessUnitPrice.HasValue)
+                    dr["AssessUnitPrice"] = data.AssessUnitPrice;
+                if(data.AssessPrice.HasValue)
+                    dr["AssessPrice"] = data.AssessPrice;
                 dr["Remark"] = data.Remark;
                 dr["InsertTime"] = data.CreateDate;
                 dr["ModifiedTime"] = data.ModifiedTime;

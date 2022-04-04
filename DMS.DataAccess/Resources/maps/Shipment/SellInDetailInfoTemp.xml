@@ -59,6 +59,8 @@
 			<result property="ModifiedBy" column="ModifiedBy" type="Guid" dbType="Guid"/>
 			<result property="ErrorMsg" column="ErrorMsg" type="string" dbType="nvarchar"/>
 			<result property="IsError" column="IsError" type="bool" dbType="bit"/>
+			<result property="RebateAmount" column="RebateAmount" type="Decimal" dbType="decimal"/>
+			<result property="BusiPurNoRebateAmount" column="BusiPurNoRebateAmount" type="Decimal" dbType="decimal"/>
 		</resultMap>
 	</resultMaps>
 	<parameterMaps>

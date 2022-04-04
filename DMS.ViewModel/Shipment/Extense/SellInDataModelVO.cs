@@ -52,6 +52,10 @@ namespace DMS.ViewModel.Shipment.Extense
         public string IsNeedRecovery { get; set; }
         public string RecoveryComment { get; set; }
         public decimal? BusinessCaliber { get; set; }
+
+        public decimal? RebateAmount { get; set; }
+
+        public decimal? BusiPurNoRebateAmount { get; set; }
         public decimal? ClosedAccount { get; set; }
 
         public string Comment { get; set; }
@@ -63,6 +67,8 @@ namespace DMS.ViewModel.Shipment.Extense
         public DateTime? ModifiedTime { get; set; }
         public Guid? ModifiedBy { get; set; }
         public Guid? CreatedBy { get; set; }
+
+        public bool? IsLocked { get; set; }
 
         public int PageSize { get; set; } = 0;
 

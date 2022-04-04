@@ -33,6 +33,8 @@
                                         <%--                                        <div class="col-xs-11 col-buttom" id="PnlButton">
                                             <a id="BtnRemove"></a>
                                         </div>--%>
+                                        <br />
+                                        <a id="BtnExport" style="padding-right: 20px; cursor: pointer;">下载数据</a>
                                     </div>
                                 </div>
                             </div>

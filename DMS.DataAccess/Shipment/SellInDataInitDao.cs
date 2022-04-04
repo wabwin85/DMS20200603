@@ -56,8 +56,10 @@ namespace DMS.DataAccess.Shipment
             dt.Columns.Add("OutInvoiceNum", typeof(int));
             dt.Columns.Add("InvoiceNetAmount", typeof(decimal));
             dt.Columns.Add("InvoiceRate", typeof(decimal));
+            dt.Columns.Add("RebateAmount", typeof(decimal));
             dt.Columns.Add("RebateNetAmount", typeof(decimal));
             dt.Columns.Add("RebateRate", typeof(decimal));
+            dt.Columns.Add("BusiPurNoRebateAmount", typeof(decimal));
             dt.Columns.Add("InvoiceAmount", typeof(decimal));
             dt.Columns.Add("LocalCurrencyAmount", typeof(decimal));
             dt.Columns.Add("KLocalCurrencyAmount", typeof(decimal));
@@ -101,7 +103,8 @@ namespace DMS.DataAccess.Shipment
                 dr["BorderType"] = data.BorderType;
                 dr["ProductLine"] = data.ProductLine;
                 dr["ProductProvince"] = data.ProductProvince;
-                dr["InvoiceDate"] = data.InvoiceDate;
+                if(data.InvoiceDate != null && data.InvoiceDate.HasValue)
+                    dr["InvoiceDate"] = data.InvoiceDate;
                 dr["SoldPartyDealerCode"] = data.SoldPartyDealerCode;
                 dr["SoldPartySAPCode"] = data.SoldPartySAPCode;
                 dr["SoldPartyName"] = data.SoldPartyName;
@@ -112,24 +115,30 @@ namespace DMS.DataAccess.Shipment
                 dr["MaterialCode"] = data.MaterialCode;
                 dr["MaterialName"] = data.MaterialName;
                 dr["UPN"] = data.UPN;
-                if (!string.IsNullOrEmpty(data.OutInvoiceNum.ToString()))
+                if (data.OutInvoiceNum.HasValue&& !string.IsNullOrEmpty(data.OutInvoiceNum.ToString()))
                     dr["OutInvoiceNum"] = data.OutInvoiceNum;
-                if (!string.IsNullOrEmpty(data.InvoiceNetAmount.ToString()))
+                if (data.InvoiceNetAmount.HasValue&& !string.IsNullOrEmpty(data.InvoiceNetAmount.ToString()))
                     dr["InvoiceNetAmount"] = data.InvoiceNetAmount;
-                if (!string.IsNullOrEmpty(data.InvoiceRate.ToString()))
+                if (data.InvoiceRate.HasValue&& !string.IsNullOrEmpty(data.InvoiceRate.ToString()))
                     dr["InvoiceRate"] = data.InvoiceRate;
-                if (!string.IsNullOrEmpty(data.RebateNetAmount.ToString()))
+                if (data.RebateAmount.HasValue && !string.IsNullOrEmpty(data.RebateAmount.ToString()))
+                    dr["RebateAmount"] = data.RebateAmount;
+                if (data.RebateNetAmount.HasValue&& !string.IsNullOrEmpty(data.RebateNetAmount.ToString()))
                     dr["RebateNetAmount"] = data.RebateNetAmount;
-                if (!string.IsNullOrEmpty(data.RebateRate.ToString()))
+                if (data.RebateRate.HasValue&& !string.IsNullOrEmpty(data.RebateRate.ToString()))
                     dr["RebateRate"] = data.RebateRate;
-                if (!string.IsNullOrEmpty(data.InvoiceAmount.ToString()))
+                if (data.BusiPurNoRebateAmount.HasValue && !string.IsNullOrEmpty(data.BusiPurNoRebateAmount.ToString()))
+                    dr["BusiPurNoRebateAmount"] = data.BusiPurNoRebateAmount; 
+                if (data.InvoiceAmount.HasValue&& !string.IsNullOrEmpty(data.InvoiceAmount.ToString()))
                     dr["InvoiceAmount"] = data.InvoiceAmount;
-                if (!string.IsNullOrEmpty(data.LocalCurrencyAmount.ToString()))
+                if (data.LocalCurrencyAmount.HasValue&& !string.IsNullOrEmpty(data.LocalCurrencyAmount.ToString()))
                     dr["LocalCurrencyAmount"] = data.LocalCurrencyAmount;
-                if (!string.IsNullOrEmpty(data.KLocalCurrencyAmount.ToString()))
+                if (data.KLocalCurrencyAmount.HasValue&& !string.IsNullOrEmpty(data.KLocalCurrencyAmount.ToString()))
                     dr["KLocalCurrencyAmount"] = data.KLocalCurrencyAmount;
-                dr["DeliveryDate"] = data.DeliveryDate;
-                dr["OrderCreateDate"] = data.OrderCreateDate;
+                if(data.DeliveryDate != null && data.DeliveryDate.HasValue)
+                    dr["DeliveryDate"] = data.DeliveryDate;
+                if(data.OrderCreateDate!= null && data.OrderCreateDate.HasValue)
+                    dr["OrderCreateDate"] = data.OrderCreateDate;
                 dr["ProductLineAndSoldParty"] = data.ProductLineAndSoldParty;
                 dr["ActualLegalEntity"] = data.ActualLegalEntity;
                 dr["IsNeedRecovery"] = data.IsNeedRecovery;

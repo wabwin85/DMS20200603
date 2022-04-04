@@ -12,6 +12,8 @@ namespace DMS.Business.Shipment
     {
         bool DeleteTempEmbedData();
         DataSet QueryTempEmbedDataInfo(Hashtable ht, int start, int limit, out int rowscount);
+
+        DataSet QueryTempEmbedDataInfo();
         void BulkCopy(List<SellOutDetailInfoTemp> items);
         string VerifyTempData(string rtnMsg, string rtnVal);
         DataSet QueryErrorData(int start, int pageSize, out int outCont);

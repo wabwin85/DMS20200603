@@ -57,6 +57,9 @@
 			<result property="ModifiedTime" column="ModifiedTime" type="DateTime" dbType="datetime"/>
 			<result property="CreatedBy" column="CreatedBy" type="Guid" dbType="Guid"/>
 			<result property="ModifiedBy" column="ModifiedBy" type="Guid" dbType="Guid"/>
+			<result property="IsLocked" column="IsLocked" type="bool" dbType="bit"/>
+			<result property="RebateAmount" column="RebateAmount" type="Decimal" dbType="decimal"/>
+			<result property="BusiPurNoRebateAmount" column="BusiPurNoRebateAmount" type="Decimal" dbType="decimal"/>
 		</resultMap>
 	</resultMaps>
 	<statements>

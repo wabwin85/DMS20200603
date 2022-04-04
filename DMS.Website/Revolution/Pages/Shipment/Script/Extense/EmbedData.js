@@ -103,7 +103,7 @@ EmbedData = function () {
         urlExport = Common.UpdateUrlParams(urlExport, 'SubCompany', globalSubCompanyName);
         urlExport = Common.UpdateUrlParams(urlExport, 'Brand', globalBrandName);
         urlExport = Common.UpdateUrlParams(urlExport, 'AccountingYear', data.SelAccountYear.Key);
-        urlExport = Common.UpdateUrlParams(urlExport, 'AccountingMonth', data.SelAccountingMonth.Key);
+        urlExport = Common.UpdateUrlParams(urlExport, 'AccountingMonth', data.SelAccountMonth.Key);
         startDownload(urlExport, 'EmbedDataExport');
     }
 
@@ -260,9 +260,9 @@ EmbedData = function () {
                 },
                 {
                     field: 'UsedDate',
-                    title: '用量日期',
+                    title: '出库/用量日期',
                     width: '80px',
-                    headerAttributes: { 'class': 'text-center text-bold', 'title': '用量日期' },
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '出库/用量日期' },
                     attributes: { "class": "table-td-cell" }
                 },
                 {
@@ -322,6 +322,20 @@ EmbedData = function () {
                     headerAttributes: { 'class': 'text-center text-bold', 'title': '备注' },
                     attributes: { "class": "table-td-cell" }
                 },
+                {
+                    field: 'IsLocked',
+                    title: '数据状态',
+                    width: '80px',
+                    headerAttributes: { 'class': 'text-center text-bold', 'title': '数据状态' },
+                    attributes: { "class": "table-td-cell" },
+                    template: function (gridRow) {
+                        var isLocked = gridRow.IsLocked;
+                        if (isLocked)
+                            return '锁定';
+                        else
+                            return '正常';
+                    }
+                }
             ]
 
         });
